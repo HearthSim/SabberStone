@@ -136,6 +136,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// </summary>
 		CONTROLLER,
 		/// <summary>
+		/// The Controller entity of the opponent.
+		/// </summary>
+		OP_CONTROLLER,
+		/// <summary>
 		/// The Target of the current event. (e.g. the defender, the target of a spell, or the just damaged or healed character)
 		/// </summary>
 		EVENT_TARGET,

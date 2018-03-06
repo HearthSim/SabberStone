@@ -48,7 +48,7 @@ namespace SabberStoneBuildCardSet
 			return new string(a);
 		}
 
-		public static void CardSetFile(IEnumerable<Card> values, bool adventure = false)
+		public static void CardSetFile(IEnumerable<Card> values, bool adventure = true)
 		{
 			// set static for adventure implementation ... ugly impl. who cares!!!
 			Adventure = adventure;
@@ -57,7 +57,7 @@ namespace SabberStoneBuildCardSet
 			//   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
 			//{ CardSet.GVG};
 			//CardSet[] cardSets = new[] { CardSet.NAXX, CardSet.KARA, CardSet.BRM, CardSet.LOE, CardSet.ICECROWN  };
-			CardSet[] cardSets = new[] { CardSet.GVG };
+			CardSet[] cardSets = new[] { CardSet.NAXX };
 			//var cardSets = Enum.GetValues(typeof(CardSet));
 			foreach (CardSet cardSet in cardSets)
 			{

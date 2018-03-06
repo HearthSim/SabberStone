@@ -893,6 +893,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_611", new Power {
 				Trigger = new Trigger(TriggerType.ATTACK)
 				{
+				TriggerSource = TriggerSource.OP_MINIONS,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
 						new FlagTask(true, ComplexTask.Secret(

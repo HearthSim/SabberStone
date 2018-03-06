@@ -4,7 +4,6 @@ using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Kettle;
-using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
@@ -28,6 +27,8 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 			Controller = controller;
 			Choices = choices ?? throw new ArgumentNullException(nameof(choices));
 		}
+
+		public override IEntity Source => null;
 
 		public List<int> Choices { get; set; }
 

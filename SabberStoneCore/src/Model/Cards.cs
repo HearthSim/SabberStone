@@ -47,7 +47,7 @@ namespace SabberStoneCore.Model
 			CardSet.BRM,
 			//CardSet.GVG,
 			CardSet.HOF,
-			//CardSet.NAXX,
+			CardSet.NAXX,
 			//CardSet.LOE,
 			//CardSet.TGT
 		};

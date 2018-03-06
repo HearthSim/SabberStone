@@ -13,7 +13,7 @@ namespace SabberStoneCoreConsole
 {
     public static class StabilityTest
     {
-	    private const int TESTCOUNT = 50000;
+	    private const int TESTCOUNT = 500000;
 	    private static Random rnd = new Random();
 
 	    public static void CloneStabilityTest()
@@ -36,8 +36,8 @@ namespace SabberStoneCoreConsole
 				game.StartGame();
 				List<PlayerTask> optionHistory = new List<PlayerTask>();
 				Queue<LogEntry> logs = new Queue<LogEntry>();
-				try
-				{
+				//try
+				//{
 					do
 					{
 						while (game.Logs.Count > 0)
@@ -48,18 +48,18 @@ namespace SabberStoneCoreConsole
 						optionHistory.Add(option);
 						game.Process(option);
 					} while (game.State != State.COMPLETE);
-				} catch (Exception e)
-				{
-					ShowLog(logs, LogLevel.DEBUG);
-					Program.ShowLog(game, LogLevel.DEBUG);
-					Console.WriteLine(e.Message);
-					Console.WriteLine(e.Source);
-					Console.WriteLine(e.TargetSite);
-					Console.WriteLine(e.StackTrace);
-					PlayerTask last = optionHistory[optionHistory.Count - 1];
-					Console.WriteLine($"LastOption: {last.FullPrint()}");
-					break;
-				}
+				//} catch (Exception e)
+				//{
+				//	ShowLog(logs, LogLevel.DEBUG);
+				//	Program.ShowLog(game, LogLevel.DEBUG);
+				//	Console.WriteLine(e.Message);
+				//	Console.WriteLine(e.Source);
+				//	Console.WriteLine(e.TargetSite);
+				//	Console.WriteLine(e.StackTrace);
+				//	PlayerTask last = optionHistory[optionHistory.Count - 1];
+				//	Console.WriteLine($"LastOption: {last.FullPrint()}");
+				//	break;
+				//}
 
 
 			if (i % (TESTCOUNT / 10) == 0)

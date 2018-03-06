@@ -428,6 +428,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new IncludeTask(EntityType.EVENT_SOURCE, addFlag: true),
 						new FuncPlayablesTask(plist =>
 						{
+							if (plist.Count < 2) return null;
 							var source = (ICharacter)plist[0];
 							var target = (ICharacter)plist[1];
 							if (target.Card.Untouchable)

@@ -7,6 +7,8 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.PlayerTasks;
 using Xunit;
+using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace SabberStoneCoreTest.Basic
 {
@@ -19,10 +21,57 @@ namespace SabberStoneCoreTest.Basic
 		// besides those, test things like battlecries that summon minions vs sword of justice,
 		// violet teacher vs wild pyromancer, etc
 
+		private static readonly ITestOutputHelper output = new TestOutputHelper();
+
 		[Fact]
 		public void PhaseTest()
 		{
 
+		}
+
+		[Fact]
+		public static void IllidanKnifeJugglerTwilightDrakeResolveTest()
+		{
+			Game game;
+			do
+			{
+				game = new Game(new GameConfig
+				{
+					FillDecks = true
+				});
+				game.StartGame();
+				game.ProcessCard("Knife Juggler", null, true);
+				game.ProcessCard("Knife Juggler", null, true);
+
+				game.ProcessCard("Illidan Stormrage", null, true);
+
+				game.EndTurn();
+
+				game.ProcessCard("Val'kyr Soulclaimer", null, true);
+				game.ProcessCard("Val'kyr Soulclaimer", null, true);
+				game.ProcessCard("Val'kyr Soulclaimer", null, true);
+				game.ProcessCard("Val'kyr Soulclaimer", null, true);
+				game.ProcessCard("Knife Juggler", null, true);
+				game.ProcessCard("Knife Juggler", null, true);
+			} while (game.CurrentOpponent.BoardZone.Count(p => p.Card.Name == "Knife Juggler") < 2);
+
+
+			game.EndTurn();
+
+			Generic.Draw(game.CurrentPlayer);
+			Generic.Draw(game.CurrentPlayer);
+			Generic.Draw(game.CurrentPlayer);
+
+			bool flag = false;
+			for (int i = 0; i < 12; i++)
+			{
+				Game clone = game.Clone();
+				Minion target = clone.ProcessCard<Minion>("Twilight Drake", null, true);
+				flag = flag || target.IsDead;
+			}
+
+
+			Assert.True(flag);
 		}
 
 		[Fact]
