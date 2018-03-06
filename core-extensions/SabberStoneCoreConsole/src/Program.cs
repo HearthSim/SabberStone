@@ -14,6 +14,7 @@ using SabberStoneCore.Model.Entities;
 using System.Text;
 using System.IO;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Visualizer;
 
 namespace SabberStoneCoreConsole
 {
@@ -28,8 +29,8 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine(Cards.Statistics());
 			//StabilityTest.CloneStabilityTest();
 			//EntityChangeTest();
-			YoggTest();
-
+			//YoggTest();
+			TestAsciiGui();
 			//BasicBuffTest();
 			//CardsTest();
 			//WhileCardTest();
@@ -65,6 +66,49 @@ namespace SabberStoneCoreConsole
 			Console.ReadKey();
 		}
 
+		private static void TestAsciiGui()
+		{
+			var game =
+				new Game(new GameConfig
+				{
+					StartPlayer = 1,
+					Player1HeroClass = CardClass.DRUID,
+					Player1Deck = new List<Card>()
+					{
+						Cards.FromName("Living Roots"),
+						Cards.FromName("Druid of the Saber"),
+						//Cards.FromName("Wrath"),
+						//Cards.FromName("Power of the Wild"),
+					},
+					Player2HeroClass = CardClass.DRUID,
+					Player2Deck = new List<Card>()
+					{
+						Cards.FromName("Stonetusk Boar"),
+						Cards.FromName("Bloodfen Raptor"),
+						//Cards.FromName("Raven Idol"),
+						Cards.FromName("Living Roots"),
+						//Cards.FromName("Druid of the Saber"),
+						Cards.FromName("Wrath"),
+						Cards.FromName("Power of the Wild"),
+					},
+					SkipMulligan = true,
+					Shuffle = false,
+					FillDecks = true
+				});
+			game.StartGame();
+			//game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
+			//game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			//game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
+			//game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			//game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
+			//game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			//game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
+			//game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Console.Write(Visualizer.Visualize(game));
+
+			Console.ReadKey();
+		}
 
 		private static void GatherTagsUsedByEnchantsOrTriggers()
 		{
@@ -458,6 +502,7 @@ namespace SabberStoneCoreConsole
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, game.CurrentPlayer.HandZone[0]));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			List<PlayerTask> options = game.CurrentPlayer.Options();
 			Console.WriteLine($" *** - {game.CurrentPlayer.Name} options on {game.Turn}. - ***");
 			options.ForEach(p => Console.WriteLine(p.FullPrint()));
