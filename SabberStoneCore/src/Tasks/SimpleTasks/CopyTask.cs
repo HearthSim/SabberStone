@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -61,21 +62,34 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						return TaskState.STOP;
 					}
-					Playables.ForEach(p =>
+					IZone zone = Opposite ? Controller.Opponent.ControlledZones[_zoneType] : Controller.ControlledZones[_zoneType];
+					foreach (IPlayable p in Playables)
 					{
-						var zone = p.Controller.ControlledZones[_zoneType];
+						if (zone?.IsFull ?? false)
+							break;
 						for (int i = 0; i < Amount; i++)
 						{
 							if (zone?.IsFull ?? false)
 								break;
 							// TODO
 							result.Add(Opposite ?
-								Entity.FromCard(p.Controller.Opponent, Cards.FromId(p.Card.Id), null, p.Controller.ControlledZones[_zoneType]) :
-								Entity.FromCard(Controller, Cards.FromId(p.Card.Id), null, Controller.ControlledZones[_zoneType]));
+								Entity.FromCard(p.Controller.Opponent, Cards.FromId(p.Card.Id), null, zone) :
+								Entity.FromCard(Controller, Cards.FromId(p.Card.Id), null, zone));
 						}
-						if (zone?.IsFull ?? false)
-							return;
-					});
+					}
+					break;
+				case EntityType.EVENT_SOURCE:
+					IPlayable eSource = Game.CurrentEventData?.EventSource;
+					if (eSource == null)
+					{
+						return TaskState.STOP;
+					}
+					for (int i = 0; i < Amount; i++)
+					{
+						result.Add(Opposite ?
+							Entity.FromCard(eSource.Controller.Opponent, Cards.FromId(eSource.Card.Id)) :
+							Entity.FromCard(Controller, Cards.FromId(eSource.Card.Id)));
+					}
 					break;
 				case EntityType.OP_HERO_POWER:
 					result.Add(Entity.FromCard(Controller, Cards.FromId(Controller.Opponent.Hero.HeroPower.Card.Id)));

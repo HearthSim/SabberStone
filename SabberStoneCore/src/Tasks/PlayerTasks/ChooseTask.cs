@@ -28,6 +28,8 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 			Choices = choices ?? throw new ArgumentNullException(nameof(choices));
 		}
 
+		public override IEntity Source => null;
+
 		public List<int> Choices { get; set; }
 
 		public override TaskState Process()
@@ -44,7 +46,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 					return TaskState.COMPLETE;
 
 				case ChoiceType.GENERAL:
-					Generic.ChoicePick.Invoke(Controller, Choices[0]);
+					if (!Generic.ChoicePick.Invoke(Controller, Choices[0])) return TaskState.STOP;
 					Controller.NumOptionsPlayedThisTurn++;
 					Game.ProcessTasks();
 					Game.DeathProcessingAndAuraUpdate();

@@ -12,19 +12,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
     {
 	    private readonly EntityType _type;
 		private readonly CardType _cardType;
+		private readonly Rarity _rarity;
 		private CardClass _cardClass;
 	    private readonly bool _opClass;
 	    private readonly bool _useRandomCard;
 		private readonly Card _card;
 
 
-
-		public ChangeEntityTask(EntityType type, CardType cardType, CardClass cardClass = CardClass.INVALID, bool opClass = false)
+		public ChangeEntityTask(EntityType type, CardType cardType, CardClass cardClass = CardClass.INVALID, Rarity rarity = Rarity.INVALID, bool opClass = false)
 	    {
 			_type = type;
 			_cardType = cardType;
 			_cardClass = cardClass;
 			_opClass = opClass;
+			_rarity = rarity;
 			_useRandomCard = true;
 	    }
 
@@ -34,7 +35,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    _type = EntityType.SOURCE;
 	    }
 
-	    private ChangeEntityTask(EntityType et, CardType ct, CardClass cc, bool oc, Card c)
+	    private ChangeEntityTask(EntityType et, CardType ct, CardClass cc, Rarity r, bool oc, Card c)
 	    {
 			_type = et;
 			_cardType = ct;
@@ -42,6 +43,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_opClass = oc;
 		    _useRandomCard = ct != CardType.INVALID;
 			_card = c;
+			_rarity = r;
 	    }
 
 	    public override TaskState Process()
@@ -51,7 +53,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		    if (_useRandomCard)
 		    {
-			    IReadOnlyList<Card> randCards = RandomCardTask.GetCardList(Source, _cardType, _cardClass);
+			    IReadOnlyList<Card> randCards = RandomCardTask.GetCardList(Source, _cardType, _cardClass, rarity: _rarity);
 			    foreach (IPlayable p in IncludeTask.GetEntities(_type, Controller, Source, Target, Playables))
 			    {
 				    Card pick = Util.Choose(randCards);
@@ -76,7 +78,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			return new ChangeEntityTask(_type, _cardType, _cardClass, _opClass, _card);
+			return new ChangeEntityTask(_type, _cardType, _cardClass, _rarity, _opClass, _card);
 		}
     }
 }

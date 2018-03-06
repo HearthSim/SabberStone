@@ -42,6 +42,11 @@ namespace SabberStoneCore.Actions
 				c.NumCardsPlayedThisTurn++;
 				c.LastCardPlayed = source.Id;
 
+				// record played cards for effect of cards like Obsidian Shard and Lynessa Sunsorrow
+				// or use graveyard instead with 'played' tag(or bool)?
+				c.CardsPlayedThisTurn.Add(source.Card);
+				c.PlayHistory.Add(new PlayHistoryEntry(source, target, chooseOne));
+
 				//// show entity
 				//if (c.Game.History)
 				//	c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(source));
@@ -79,6 +84,7 @@ namespace SabberStoneCore.Actions
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
 				c.Game.CurrentEventData = null;
+
 
 				return true;
 			};
@@ -119,7 +125,13 @@ namespace SabberStoneCore.Actions
 				int cost = source.Cost;
 				if (cost > 0)
 				{
-					if (c.ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1)
+					if (source is Spell && c.ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1)
+					{
+						c.Hero.TakeDamage(c.Hero, cost);
+						return true;
+					}
+
+					if (source.AuraEffects[GameTag.CARD_COSTS_HEALTH] == 1)
 					{
 						c.Hero.TakeDamage(c.Hero, cost);
 						return true;
@@ -253,6 +265,8 @@ namespace SabberStoneCore.Actions
 
 				game.DeathProcessingAndAuraUpdate();
 
+				minion = (Minion)game.CurrentEventData.EventSource;
+
 				// - After Play Phase --> After play Trigger / Secrets (Mirror Entity)
 				//   (death processing, aura updates)
 				//minion.JustPlayed = false;
@@ -345,9 +359,6 @@ namespace SabberStoneCore.Actions
 				c.NumSpellsPlayedThisGame++;
 				if (spell.IsSecret)
 					c.NumSecretsPlayedThisGame++;
-				if (spell.Cost >= 5)
-					c.NumSpellCostOver5CastedThisGame++;
-
 				return true;
 			};
 

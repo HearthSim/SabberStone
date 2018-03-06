@@ -113,10 +113,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
 			Assert.Equal("Stonetusk Boar", game.CurrentPlayer.BoardZone.Last().Card.Name);
 			Assert.Empty(game.CurrentPlayer.BoardZone.Last().AppliedEnchantments);
-
-
-
-			Assert.True(game.CurrentPlayer.HandZone[4] is Minion);
 		}
 
 		// ------------------------------------------ HERO - HUNTER
@@ -790,10 +786,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "Ignore")]
+		[Fact]
 		public void Fatespinner_ICC_047()
 		{
-			// TODO Fatespinner_ICC_047 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -807,6 +802,46 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fatespinner"));
+
+			Minion type1 = game.ProcessCard((Minion)testCard, null, true, 1);
+
+			game.ProcessCard("River Crocolisk");
+			game.ProcessCard("River Crocolisk");
+			game.ProcessCard("River Crocolisk");
+			game.ProcessCard("River Crocolisk");
+			game.EndTurn();
+			game.ProcessCard("River Crocolisk");
+			game.ProcessCard("River Crocolisk");
+			game.ProcessCard("River Crocolisk");
+
+			type1.Kill();
+
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
+
+			game.EndTurn();
+
+			Minion type2 = game.ProcessCard<Minion>("Fatespinner", null, true, 2);
+
+			Minion t1 = game.ProcessCard<Minion>("River Crocolisk");
+			game.EndTurn();
+			Minion t2 = game.ProcessCard<Minion>("River Crocolisk");
+
+			type2.Kill();
+
+			Assert.Equal(4, t1.AttackDamage);
+			Assert.Equal(5, t1.Health);
+			Assert.Equal(4, t2.AttackDamage);
+			Assert.Equal(5, t2.Health);
+
+			game.EndTurn();
+
+			game.ProcessCard("Fandral Staghelm", null, true);
+			Minion type3 = game.ProcessCard<Minion>("Fatespinner", null, true);
+			Minion t3 = game.ProcessCard<Minion>("Chillwind Yeti", null, true);
+			type3.Kill();
+			Assert.Equal(6, t3.AttackDamage);
+			Assert.Equal(4, t3.Health);
 		}
 
 		// ----------------------------------------- MINION - DRUID

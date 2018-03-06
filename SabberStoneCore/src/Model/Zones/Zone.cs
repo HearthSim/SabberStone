@@ -26,7 +26,6 @@ namespace SabberStoneCore.Model.Zones
 		/// Gets the owner of the zone.
 		/// </summary>
 		/// <value><see cref="SabberStoneCore.Model.Entities.Controller"/></value>
-		protected Controller Controller;
 		protected IList<T> Entities;
 
 		protected Zone() { }
@@ -38,6 +37,7 @@ namespace SabberStoneCore.Model.Zones
 		}
 
 		List<IPlayable> IZone.GetAll => this.Cast<IPlayable>().ToList();
+		public Controller Controller { get; set; }
 		public Zone Type { get; protected set; }
 		/// <summary>
 		/// Gets a value indicating whether this contains entities or not.
@@ -120,10 +120,12 @@ namespace SabberStoneCore.Model.Zones
 				ignore[ignore.Length - 1] = GameTag.ZONE_POSITION;
 			}
 			list.ForEach(p => str.Append(p.Hash(ignore)));
-			//str.Append($"][EN:{Enchants.Count}");
-			//Enchants.ForEach(p => str.Append(p.Hash));
-			//str.Append($"][TR:{Triggers.Count}");
-			//Triggers.ForEach(p => str.Append(p.Hash));
+			if (this is PositioningZone<T> pZone)
+			{
+				str.Append("[As:");
+				pZone.Auras.OrderBy(p => p.Owner.Id).ToList().ForEach(p => str.Append(p));
+				str.Append("]");
+			}
 			str.Append("]");
 			return str.ToString();
 		}
@@ -186,6 +188,8 @@ namespace SabberStoneCore.Model.Zones
 
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
+			if (entity.Controller != Controller)
+				throw new ZoneException("Can't add an opponent's entity to own Zones");
 			MoveTo(entity, zonePosition);
 			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}'.");
 		}
@@ -253,10 +257,14 @@ namespace SabberStoneCore.Model.Zones
 
 		public override int Count => _count;
 
+		public int FreeSpace => MaxSize - _count;
+
 		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
 		{
 			if (zonePosition > _count)
 				throw new ZoneException($"Zoneposition '{zonePosition}' isn't in a valid range.");
+			if (entity.Controller != Controller)
+				throw new ZoneException("Can't add an opponent's entity to own Zones");
 
 			MoveTo((T)entity, zonePosition < 0 ? _count : zonePosition);
 
@@ -266,6 +274,8 @@ namespace SabberStoneCore.Model.Zones
 		public override void MoveTo(T entity, int zonePosition = -1)
 		{
 			if (entity == null)
+				throw new ZoneException();
+			if (IsFull)
 				throw new ZoneException();
 
 			if (zonePosition < 0)

@@ -7,6 +7,7 @@ using SabberStoneCore.Tasks.PlayerTasks;
 
 using Generic = SabberStoneCore.Actions.Generic;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SabberStoneCoreTest.Cloning
 {
@@ -42,11 +43,10 @@ namespace SabberStoneCoreTest.Cloning
 					Game cloneGame = game.Clone();
 					string str1 = game.Hash();
 					string str2 = cloneGame.Hash();
+
 					flag &= str1.Equals(str2);
 					if (!flag)
-					{
 						break;
-					}
 				}
 			}
 

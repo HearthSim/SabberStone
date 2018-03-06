@@ -15,17 +15,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly CardType _cardType;
 		private readonly CardSet _cardSet;
 		private readonly Race _race;
+		private readonly Rarity _rarity;
 		private readonly GameTag[] _gameTagFilter;
 		private readonly bool _opposite;
 		private CardClass _cardClass;
 
-		private RandomCardTask(EntityType type, CardType cardType, CardClass cardClass, CardSet cardSet, Race race, GameTag[] gameTagFilter, bool opposite)
+		private RandomCardTask(EntityType type, CardType cardType, CardClass cardClass, CardSet cardSet, Race race, Rarity rarity, GameTag[] gameTagFilter, bool opposite)
 		{
 			_type = type;
 			_cardType = cardType;
 			_cardClass = cardClass;
 			_cardSet = cardSet;
 			_race = race;
+			_rarity = rarity;
 			_gameTagFilter = gameTagFilter;
 			_opposite = opposite;
 		}
@@ -42,6 +44,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_cardSet = CardSet.INVALID;
 			_cardClass = CardClass.INVALID;
 			_race = Race.INVALID;
+			_rarity = Rarity.INVALID;
 			_gameTagFilter = null;
 			_opposite = opposite;
 		}
@@ -53,13 +56,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// <param name="cardClass">Cardclass filter</param>
 		/// <param name="gameTagFilter">GameTags that must be contained in the card</param>
 		/// <param name="opposite">If the card is for the opponent</param>
-		public RandomCardTask(CardType cardType, CardClass cardClass, Race race = Race.INVALID, GameTag[] gameTagFilter = null, bool opposite = false)
+		public RandomCardTask(CardType cardType, CardClass cardClass, Race race = Race.INVALID, Rarity rarity = Rarity.INVALID, GameTag[] gameTagFilter = null, bool opposite = false)
 		{
 			_type = EntityType.INVALID;
 			_cardType = cardType;
 			_cardClass = cardClass;
 			_cardSet = CardSet.INVALID;
 			_race = race;
+			_rarity = rarity;
 			_gameTagFilter = gameTagFilter;
 			_opposite = opposite;
 		}
@@ -96,7 +100,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 
-			IReadOnlyList<Card> cardsList = GetCardList(Source, _cardType, _cardClass, _cardSet, _race, _gameTagFilter);
+			IReadOnlyList<Card> cardsList = GetCardList(Source, _cardType, _cardClass, _cardSet, _race, _rarity, _gameTagFilter);
 
 
 			IPlayable randomCard = Entity.FromCard(_opposite ? Controller.Opponent : Controller, Util.Choose(cardsList));
@@ -107,7 +111,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		public static IReadOnlyList<Card> GetCardList(IEntity source, CardType cardType = CardType.INVALID, CardClass cardClass = CardClass.INVALID, CardSet cardSet = CardSet.INVALID, Race race = Race.INVALID, GameTag[] gameTagFilter = null)
+		public static IReadOnlyList<Card> GetCardList(IEntity source, CardType cardType = CardType.INVALID, CardClass cardClass = CardClass.INVALID, CardSet cardSet = CardSet.INVALID, Race race = Race.INVALID, Rarity rarity = Rarity.INVALID, GameTag[] gameTagFilter = null)
 		{
 			IEnumerable<Card> cards = source.Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
 
@@ -118,6 +122,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					(cardClass == CardClass.INVALID || p.Class == cardClass) &&
 					(cardSet == CardSet.INVALID || p.Set == cardSet) &&
 					(race == Race.INVALID || p.Race == race) &&
+					(rarity == Rarity.INVALID || p.Rarity == rarity) &&
 					(gameTagFilter == null || Array.TrueForAll(gameTagFilter, gameTag => p.Tags.ContainsKey(gameTag))) &&
 					(p[GameTag.QUEST] == 0)).ToArray();
 
@@ -128,7 +133,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new RandomCardTask(_type, _cardType, _cardClass, _cardSet, _race, _gameTagFilter, _opposite);
+			var clone = new RandomCardTask(_type, _cardType, _cardClass, _cardSet, _race, _rarity, _gameTagFilter, _opposite);
 			clone.Copy(this);
 			return clone;
 		}

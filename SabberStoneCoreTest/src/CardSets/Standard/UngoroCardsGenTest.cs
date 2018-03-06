@@ -1008,14 +1008,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - QUEST_PROGRESS_TOTAL = 6
 		// - 676 = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void OpenTheWaygate_UNG_028()
 		{
-			// TODO OpenTheWaygate_UNG_028 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Fireball")
+				},
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -1023,7 +1026,28 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Open the Waygate"));
+			var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Open the Waygate"));
+
+			game.ProcessCard(testCard);
+			Assert.NotNull(game.CurrentPlayer.SecretZone.Quest);
+
+			game.ProcessCard("Fireball", game.CurrentOpponent.Hero);
+			Assert.Equal(1, game.CurrentPlayer.SecretZone.Quest.QuestProgress);
+			game.ProcessCard(game.CurrentPlayer.HandZone[0], game.CurrentPlayer.Hero);
+			Assert.Equal(1, game.CurrentPlayer.SecretZone.Quest.QuestProgress);
+			game.ProcessCard("Counterfeit Coin");
+			game.ProcessCard("Counterfeit Coin");
+			game.ProcessCard("Counterfeit Coin");
+			game.ProcessCard("Counterfeit Coin");
+			game.ProcessCard("Counterfeit Coin");
+
+			Assert.Equal("Time Warp", game.CurrentPlayer.HandZone.Last().Card.Name);
+			Controller current = game.CurrentPlayer;
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last());
+			game.EndTurn();
+			Assert.Equal(current, game.CurrentPlayer);
+			game.EndTurn();
+			Assert.NotEqual(current, game.CurrentPlayer);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -1191,22 +1215,58 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - 537 = 1
 		// - 542 = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void PrimalfinChampion_UNG_953()
 		{
-			// TODO PrimalfinChampion_UNG_953 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
 				Player2HeroClass = CardClass.PALADIN,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Primalfin Champion"));
+
+			// P1
+			Minion testCard = game.ProcessCard<Minion>("Primalfin Champion");
+			game.ProcessCard("Divine Strength", testCard, true);
+			game.ProcessCard("Divine Strength", testCard, true);
+			Assert.Equal(4, testCard.AppliedEnchantments.Count);
+			game.EndTurn();
+
+			// P2
+			game.ProcessCard("Faceless Manipulator", testCard, true);
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Minion copy = game.CurrentPlayer.BoardZone[0];
+			Assert.Equal(4, copy.AppliedEnchantments.Count);
+			game.EndTurn();
+
+			// P1
+			game.ProcessCard("Faceless Manipulator", copy, true);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+			Minion copy2 = game.CurrentPlayer.BoardZone[1];
+			Assert.Equal(4, copy2.AppliedEnchantments.Count);
+
+			copy2.Kill();
+			Assert.Equal(2, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal("Divine Strength", game.CurrentPlayer.HandZone[0].Card.Name);
+			game.EndTurn();
+
+			// In Hearthstone, when this minion is 'double-mind-controled' and dead,
+			// it gives ONE Mind Control
+			// But why would it gives one MC?
+
+			//// P2
+			//game.ProcessCard("Mind Control", testCard, true);
+			//game.EndTurn();
+
+			//// P1
+			//game.ProcessCard("Mind Control", testCard, true);
+			//testCard.Kill();
+			//Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -1330,22 +1390,57 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - QUEST_PROGRESS_TOTAL = 6
 		// - 676 = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TheLastKaleidosaur_UNG_954()
 		{
-			// TODO TheLastKaleidosaur_UNG_954 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
 				Player2HeroClass = CardClass.PALADIN,
-				FillDecks = true,
+				FillDecks = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Last Kaleidosaur"));
+
+			game.ProcessCard("The Last Kaleidosaur");
+			Assert.NotNull(game.CurrentPlayer.SecretZone.Quest);
+			Spell quest = game.CurrentPlayer.SecretZone.Quest;
+			Minion target = game.ProcessCard<Minion>("Stonetusk Boar");
+			game.ProcessCard("Blessing of Might", target, true);
+			Assert.Equal(1, quest.QuestProgress);
+			game.ProcessCard("Blessing of Might", target, true);
+			Assert.Equal(2, quest.QuestProgress);
+			game.ProcessCard("Consecration", null, true);
+			Assert.Equal(2, quest.QuestProgress);
+			game.EndTurn();
+
+			game.ProcessCard("Blessing of Kings", target);
+			Assert.Equal(2, quest.QuestProgress);
+			game.EndTurn();
+
+			game.ProcessCard("Blessing of Might", target, true);
+			game.ProcessCard("Blessing of Might", target, true);
+			game.ProcessCard("Blessing of Might", target, true);
+			game.ProcessCard("Blessing of Might", target, true);
+
+			Assert.Single(game.CurrentPlayer.HandZone);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Galvadon"));
+
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			game.ChooseNthChoice(1);
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			game.ChooseNthChoice(1);
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			game.ChooseNthChoice(1);
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			game.ChooseNthChoice(1);
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			game.ChooseNthChoice(1);
+			Assert.Null(game.CurrentPlayer.Choice);
 		}
 
 		// ---------------------------------------- SPELL - PALADIN
@@ -1994,9 +2089,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 
 			Assert.Equal(3, seed[GameTag.TAG_SCRIPT_DATA_NUM_1]);
+
+			Game clone2 = game.Clone();
+
 			game.ProcessCard("Sinister Strike");
 			Assert.Equal("UNG_065", game.CurrentPlayer.BoardZone[1].Card.Id);
 			Assert.Equal(6, game.CurrentPlayer.BoardZone[1].AttackDamage);
+
+			clone2.EndTurn();
+
+			Assert.Equal("Sherazin, Seed", clone2.CurrentOpponent.BoardZone[1].Card.Name);
+			Assert.Equal(0, clone2.CurrentOpponent.BoardZone[1][GameTag.TAG_SCRIPT_DATA_NUM_1]);
 		}
 
 		// ------------------------------------------ SPELL - ROGUE
@@ -2063,13 +2166,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// - QUEST = 1
-		// - QUEST_PROGRESS_TOTAL = 4
+		// - QUEST_PROGRESS_TOTAL = 5
 		// - 676 = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TheCavernsBelow_UNG_067()
 		{
-			// TODO TheCavernsBelow_UNG_067 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2081,7 +2183,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Caverns Below"));
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Caverns Below"));
+			game.ProcessCard(testCard);
+
+			game.ProcessCard("Stonetusk Boar", null, true);
+			Spell quest = game.CurrentPlayer.SecretZone.Quest;
+			Assert.Equal(1, quest.QuestProgress);
+			game.ProcessCard("Bloodfen Raptor", null, true);
+			Assert.Equal(1, quest.QuestProgress);
+			game.ProcessCard("Stonetusk Boar", null, true);
+			game.ProcessCard("Stonetusk Boar", null, true);
+			game.ProcessCard("Stonetusk Boar", null, true);
+			game.ProcessCard("Stonetusk Boar", null, true);
+			Assert.NotEqual("Crystal Core", game.CurrentPlayer.HandZone.Last().Card.Name);
+			game.ProcessCard("Stonetusk Boar", null, true);
+			Assert.Equal("Crystal Core", game.CurrentPlayer.HandZone.Last().Card.Name);
+
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last());
+
+			Assert.True(game.Minions.TrueForAll(p => p.AttackDamage == 5 && p.Health == 5));
+			Assert.True(game.CurrentPlayer.HandZone.Where(p => p is Minion).Cast<Minion>().ToList()
+				.TrueForAll(p => p.AttackDamage == 5 && p.Health == 5));
 		}
 
 		// ------------------------------------------ SPELL - ROGUE
@@ -2164,10 +2286,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - DURABILITY = 3
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ObsidianShard_UNG_061()
 		{
-			// TODO ObsidianShard_UNG_061 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2179,7 +2300,21 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Obsidian Shard"));
+			IPlayable testCard =  Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Obsidian Shard"));
+
+			Assert.Equal(4, testCard.Cost);
+
+			game.ProcessCard("Fireball", game.CurrentOpponent.Hero);
+
+			Assert.Equal(3, testCard.Cost);
+
+			game.ProcessCard("Eviscerate", game.CurrentOpponent.Hero);
+
+			Assert.Equal(3, testCard.Cost);
+
+			game.ProcessCard("Fireball", game.CurrentOpponent.Hero);
+
+			Assert.Equal(2, testCard.Cost);
 		}
 
 	}

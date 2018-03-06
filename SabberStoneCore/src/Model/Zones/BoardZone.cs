@@ -133,7 +133,7 @@ namespace SabberStoneCore.Model.Zones
 			base.CopyTo(destination, index);
 		}
 
-		internal void DecreaseUntouchablesCount()
+		internal void DecrementUntouchablesCount()
 		{
 			if (!_hasUntouchables) return;
 			if (--_untouchableCount == 0)

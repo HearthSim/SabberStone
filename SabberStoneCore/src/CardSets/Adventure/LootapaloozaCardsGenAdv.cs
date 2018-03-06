@@ -1270,7 +1270,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
-					SingleTask = new AddEnchantmentTask("LOOTA_BOSS_12e", EntityType.TARGET)
+					SingleTask = new AddEnchantmentTask("LOOTA_BOSS_12e", EntityType.EVENT_SOURCE)
 				}
 			});
 
@@ -1502,7 +1502,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_47p", new Power {
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
-					SingleTask = new DamageTask(2, EntityType.TARGET)
+					SingleTask = new DamageTask(2, EntityType.EVENT_SOURCE)
 				}
 			});
 

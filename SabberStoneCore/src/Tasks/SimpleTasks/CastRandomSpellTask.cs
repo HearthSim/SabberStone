@@ -92,8 +92,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			while (c.Choice != null)
 		    {
-			    if (c.Choice.Choices.Count == 0) ;
-
 				Generic.ChoicePick.Invoke(c, Util.Choose(c.Choice.Choices));
 		    }
 

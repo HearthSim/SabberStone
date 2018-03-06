@@ -18,13 +18,13 @@ namespace SabberStoneCoreTest
 		/// If you play a minion, the minion's position will be the rightmost position on the board.
 		/// </summary>
 		/// <returns>The created entity object from the card.</returns>
-		public static IPlayable ProcessCard(this Game game, string cardName, IPlayable target = null, bool asZeroCost = false)
+		public static IPlayable ProcessCard(this Game game, string cardName, IPlayable target = null, bool asZeroCost = false, int chooseOne = 0)
 	    {
 		    IPlayable entity = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(cardName));
 		    if (asZeroCost)
 			    entity.Cost = 0;
 		    game.DeathProcessingAndAuraUpdate();
-		    game.Process(PlayCardTask.Any(game.CurrentPlayer, entity, target));
+		    game.Process(PlayCardTask.Any(game.CurrentPlayer, entity, target, chooseOne: chooseOne));
 			return entity;
 	    }
 
@@ -32,12 +32,12 @@ namespace SabberStoneCoreTest
 		/// Plays the provided entity as current player of the game.
 		/// If you play a minion, the minion's position will be the rightmost position on the board.
 		/// </summary>
-		public static IPlayable ProcessCard(this Game game, IPlayable entity, IPlayable target = null, bool asZeroCost = false)
+		public static IPlayable ProcessCard(this Game game, IPlayable entity, IPlayable target = null, bool asZeroCost = false, int chooseOne = 0)
 	    {
 		    if (asZeroCost)
 			    entity.Cost = 0;
 			game.DeathProcessingAndAuraUpdate();
-		    game.Process(PlayCardTask.Any(game.CurrentPlayer, entity, target));
+		    game.Process(PlayCardTask.Any(game.CurrentPlayer, entity, target, chooseOne: chooseOne));
 		    return entity;
 		}
 
@@ -46,7 +46,7 @@ namespace SabberStoneCoreTest
 		/// If you play a minion, the minion's position will be the rightmost position on the board.
 		/// </summary>
 		/// <returns>The created entity object from the card.</returns>
-		public static T ProcessCard<T>(this Game game, string cardName, IPlayable target = null, bool asZeroCost = false) where T: IPlayable
+		public static T ProcessCard<T>(this Game game, string cardName, IPlayable target = null, bool asZeroCost = false, int chooseOne = 0) where T: IPlayable
 	    {
 			IPlayable entity = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(cardName));
 		    if (!(entity is T t))
@@ -54,14 +54,23 @@ namespace SabberStoneCoreTest
 		    if (asZeroCost)
 			    entity.Cost = 0;
 			game.DeathProcessingAndAuraUpdate();
-		    game.Process(PlayCardTask.Any(game.CurrentPlayer, t, target));
+		    game.Process(PlayCardTask.Any(game.CurrentPlayer, t, target, chooseOne: chooseOne));
 		    return t;
 		}
+
+	    public static T ProcessCard<T>(this Game game, T entity, IPlayable target = null, bool asZeroCost = false, int chooseOne = 0) where T : IPlayable
+	    {
+		    if (asZeroCost)
+			    entity.Cost = 0;
+		    game.DeathProcessingAndAuraUpdate();
+		    game.Process(PlayCardTask.Any(game.CurrentPlayer, entity, target, chooseOne: chooseOne));
+		    return entity;
+	    }
 
 		/// <summary>
 		/// Ends the current player's turn.
 		/// </summary>
-	    public static void EndTurn(this Game game)
+		public static void EndTurn(this Game game)
 	    {
 		    game.Process(EndTurnTask.Any(game.CurrentPlayer));
 	    }
@@ -87,6 +96,9 @@ namespace SabberStoneCoreTest
 
 	    public static void Kill(this Minion m)
 	    {
+		    if (m.Zone.Type != SabberStoneCore.Enums.Zone.PLAY)
+			    throw new ArgumentException($"{m} is not in the board.");
+
 			m.ToBeDestroyed = true;
 		    m.Game.DeathProcessingAndAuraUpdate();
 	    }

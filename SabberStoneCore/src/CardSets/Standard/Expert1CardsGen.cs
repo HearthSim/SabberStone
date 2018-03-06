@@ -858,7 +858,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
+						new ConditionTask(EntityType.EVENT_SOURCE, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
 						new FlagTask(true, ComplexTask.Secret(
 							new DamageTask(4, EntityType.TARGET, true))))
 				}
@@ -893,6 +893,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_611", new Power {
 				Trigger = new Trigger(TriggerType.ATTACK)
 				{
+				TriggerSource = TriggerSource.OP_MINIONS,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
 						new FlagTask(true, ComplexTask.Secret(
@@ -1230,10 +1231,8 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
-						new FlagTask(true, ComplexTask.Secret(
-							new CopyTask(EntityType.TARGET, 1),
-							new SummonTask(SummonSide.SPELL))))
+						new ConditionTask(EntityType.EVENT_SOURCE, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
+						new FlagTask(true, new SummonCopyTask(EntityType.EVENT_SOURCE)))
 
 
 				}
@@ -1586,7 +1585,10 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_379", new Power {
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
-					SingleTask = ComplexTask.Secret(new AddEnchantmentTask("EX1_379e", EntityType.TARGET))
+					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.EVENT_SOURCE, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
+						new FlagTask(true, ComplexTask.Secret(
+							new AddEnchantmentTask("EX1_379e", EntityType.EVENT_SOURCE))))
 				}
 			});
 
@@ -2587,7 +2589,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_038e", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
+					new CopyTask(EntityType.SOURCE, 1),
 					new SummonTask(SummonSide.DEATHRATTLE))
 			});
 
@@ -2735,7 +2737,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Aura = new Aura(AuraType.HAND, Effects.ReduceCost(0))
 				{
 					Condition = SelfCondition.IsMinion,
-					Predicate = p => p.Card.Cost > 2 ? 2 : (p.Card.Cost == 2 ? 1 : 0)
+					ValueFunc = p => p.Card.Cost > 2 ? 2 : (p.Card.Cost == 2 ? 1 : 0)
 				}
 			});
 
@@ -3527,7 +3529,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = Triggers.EnrageTrigger("CS2_221e")
 			});
 
-			// --------------------------------------- MINION - NEUTRAL
+			// --------------------------------------- MINION - NEUTRALa
 			// [CS2_227] Venture Co. Mercenary - COST:5 [ATK:7/HP:6] 
 			// - Fac: horde, Set: expert1, Rarity: common
 			// --------------------------------------------------------
@@ -4405,7 +4407,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you summon a Murloc, gain +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("EX1_509", new Power {
-				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
+				Trigger = new Trigger(TriggerType.SUMMON)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					Condition = SelfCondition.IsRace(Race.MURLOC),

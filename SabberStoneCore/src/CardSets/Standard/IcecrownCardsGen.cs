@@ -540,10 +540,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_047", new Power {
-				// TODO [ICC_047] Fatespinner && Test: Fatespinner_ICC_047
-				InfoCardId = "ICC_047e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SetGameTagTask(GameTag.DEATHRATTLE, 1, EntityType.SOURCE),
+				DeathrattleTask = ComplexTask.Create(
+					new DamageTask(3, EntityType.ALLMINIONS),
+					new AddEnchantmentTask("ICC_047e", EntityType.ALLMINIONS))
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -737,7 +737,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_047t", new Power {
-				//DeathrattleTask = new DamageTask(3, EntityType.ALLMINIONS)
+				DeathrattleTask = new DamageTask(3, EntityType.ALLMINIONS)
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -750,7 +750,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_047t2", new Power {
-				//DeathrattleTask = new AddEnchantmentTask("ICC_047e", EntityType.ALLMINIONS)
+				DeathrattleTask = new AddEnchantmentTask("ICC_047e", EntityType.ALLMINIONS)
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -823,7 +823,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Deathrattle:</b> Give all minions +2/+2.
 			// --------------------------------------------------------
 			cards.Add("ICC_047a", new Power {
-				PowerTask = new TransformTask("ICC_047t", EntityType.SOURCE)
+				PowerTask = new ChangeEntityTask("ICC_047t")
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -833,7 +833,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Deathrattle:</b> Deal 3 damage to all minions.
 			// --------------------------------------------------------
 			cards.Add("ICC_047b", new Power {
-				PowerTask = new TransformTask("ICC_047t2", EntityType.SOURCE)
+				PowerTask = new ChangeEntityTask("ICC_047t2")
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -931,6 +931,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_204", new Power {
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
+					TriggerSource = TriggerSource.FRIENDLY,
 					Condition = SelfCondition.IsSecret,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsZoneCount(Zone.SECRET, 4, RelaSign.LEQ)),
@@ -1201,7 +1202,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandFull),
 						new FlagTask(false, ComplexTask.Secret(
-							new CopyTask(EntityType.TARGET, 2, true),
+							new CopyTask(EntityType.EVENT_SOURCE, 2, true),
 							new AddStackTo(EntityType.HAND))))
 				}
 			});
@@ -1472,7 +1473,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_244e", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
+					new CopyTask(EntityType.SOURCE, 1),
 					new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK),	//	START_WITH_1_HEALTH ?
 					new SummonTask(SummonSide.DEATHRATTLE))	
 			});
@@ -1930,7 +1931,17 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					RemoveWhenPlayed = true
 				},
-				Trigger = Triggers.ShadowReflectionTrigger
+				Trigger = new MultiTrigger(
+					new Trigger(TriggerType.PLAY_CARD)
+					{
+						SingleTask = SpecificTask.ShadowReflection
+					},
+					new Trigger(TriggerType.TURN_END)
+					{
+						SingleTask = ComplexTask.Create(
+							new RemoveEnchantmentTask(),
+							new MoveToSetaside(EntityType.TARGET))
+					})
 
 				// Trigger 1 : PlayCard => ChangeEntity
 				// Trigger 2 : PlayCard => Self? => Dispose
@@ -2041,6 +2052,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_090", new Power {
 				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.OverloadThisGame)
+				//{
+				//	UpdateTrigger = (TriggerType.PLAY_CARD, TriggerSource.FRIENDLY, SelfCondition.IsCurrentEventNumber(1, RelaSign.GEQ))
+				//}
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -2341,7 +2355,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
-					SingleTask = new DamageTask(1, EntityType.TARGET)
+					SingleTask = new DamageTask(1, EntityType.EVENT_SOURCE)
 				}
 			});
 
@@ -2902,7 +2916,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (0) if your hero was healed this turn.
 			// --------------------------------------------------------
 			cards.Add("ICC_700", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SET, p => p.Controller.AmountHeroHealedThisTurn > 0 ? 0 : p.Cost)
+				Aura = new AdaptiveCostEffect(0, p => p.Controller.AmountHeroHealedThisTurn > 0)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2942,7 +2956,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_702", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.INVALID, new [] { GameTag.DEATHRATTLE }),
+					new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.INVALID, Rarity.INVALID, new [] { GameTag.DEATHRATTLE }),
 					new AddStackTo(EntityType.HAND))
 			});
 
@@ -3390,7 +3404,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_257e", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
+					new CopyTask(EntityType.SOURCE, 1),
 					new SummonTask(SummonSide.DEATHRATTLE))
 			});
 

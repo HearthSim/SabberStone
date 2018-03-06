@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model.Entities;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model
 {
@@ -48,6 +49,10 @@ namespace SabberStoneCore.Model
 
 	    public event TriggerHandler ArmorTrigger;
 
+	    public event TriggerHandler EquipWeaponTrigger;
+
+		public bool HasTargetTrigger => TargetTrigger != null;
+		public bool HasOnSummonTrigger => SummonTrigger != null;
 
 	    internal void OnDealDamageTrigger(IEntity sender)
 	    {
@@ -176,6 +181,186 @@ namespace SabberStoneCore.Model
 	    internal void OnArmorTrigger(IEntity sender)
 	    {
 		    ArmorTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnEquipWeaponTrigger(IEntity sender)
+	    {
+		    EquipWeaponTrigger?.Invoke(sender);
+	    }
+
+
+	    public void AddTrigger(TriggerType type, TriggerHandler method)
+	    {
+			switch (type)
+			{
+				case TriggerType.TURN_END:
+					EndTurnTrigger += method;
+					return;
+				case TriggerType.TURN_START:
+					TurnStartTrigger += method;
+					return;
+				case TriggerType.DEATH:
+					DeathTrigger += method;
+					return;
+				case TriggerType.INSPIRE:
+					InspireTrigger += method;
+					return;
+				case TriggerType.DEAL_DAMAGE:
+					DealDamageTrigger += method;
+					return;
+				case TriggerType.TAKE_DAMAGE:
+					DamageTrigger += method;
+					return;
+				case TriggerType.HEAL:
+					HealTrigger += method;
+					return;
+				case TriggerType.LOSE_DIVINE_SHIELD:
+					LoseDivineShield += method;
+					return;
+				case TriggerType.ATTACK:
+					AttackTrigger += method;
+					return;
+				case TriggerType.SUMMON:
+					SummonTrigger += method;
+					return;
+				case TriggerType.AFTER_SUMMON:
+					AfterSummonTrigger += method;
+					return;
+				case TriggerType.PLAY_CARD:
+					PlayCardTrigger += method;
+					return;
+				case TriggerType.AFTER_PLAY_CARD:
+					AfterPlayMinionTrigger += method;
+					return;
+				case TriggerType.PLAY_MINION:
+					PlayMinionTrigger += method;
+					return;
+				case TriggerType.AFTER_PLAY_MINION:
+					AfterPlayMinionTrigger += method;
+					return;
+				case TriggerType.CAST_SPELL:
+					CastSpellTrigger += method;
+					return;
+				case TriggerType.AFTER_CAST:
+					AfterCastTrigger += method;
+					return;
+				case TriggerType.SECRET_REVEALED:
+					SecretRevealedTrigger += method;
+					return;
+				case TriggerType.ZONE:
+					ZoneTrigger += method;
+					return;
+				case TriggerType.DISCARD:
+					DiscardTrigger += method;
+					return;
+				case TriggerType.GAME_START:
+					GameStartTrigger += method;
+					return;
+				case TriggerType.DRAW:
+					DrawTrigger += method;
+					return;
+				case TriggerType.TARGET:
+					TargetTrigger += method;
+					return;
+				case TriggerType.FROZEN:
+					FreezeTrigger += method;
+					return;
+				case TriggerType.ARMOR:
+					ArmorTrigger += method;
+					return;
+				case TriggerType.EQUIP_WEAPON:
+					EquipWeaponTrigger += method;
+					return;
+				default:
+					throw new System.NotImplementedException();
+			}
+		}
+
+	    public void RemoveTrigger(TriggerType type, TriggerHandler method)
+	    {
+		    switch (type)
+		    {
+			    case TriggerType.TURN_END:
+				    EndTurnTrigger -= method;
+				    return;
+			    case TriggerType.TURN_START:
+				    TurnStartTrigger -= method;
+				    return;
+			    case TriggerType.DEATH:
+				    DeathTrigger -= method;
+				    return;
+			    case TriggerType.INSPIRE:
+				    InspireTrigger -= method;
+				    return;
+			    case TriggerType.DEAL_DAMAGE:
+				    DealDamageTrigger -= method;
+				    return;
+			    case TriggerType.TAKE_DAMAGE:
+				    DamageTrigger -= method;
+				    return;
+			    case TriggerType.HEAL:
+				    HealTrigger -= method;
+				    return;
+				case TriggerType.LOSE_DIVINE_SHIELD:
+				    LoseDivineShield -= method;
+				    return;
+			    case TriggerType.ATTACK:
+				    AttackTrigger -= method;
+				    return;
+			    case TriggerType.SUMMON:
+				    SummonTrigger -= method;
+				    return;
+			    case TriggerType.AFTER_SUMMON:
+				    AfterSummonTrigger -= method;
+				    return;
+			    case TriggerType.PLAY_CARD:
+				    PlayCardTrigger -= method;
+				    return;
+			    case TriggerType.AFTER_PLAY_CARD:
+				    AfterPlayMinionTrigger -= method;
+				    return;
+			    case TriggerType.PLAY_MINION:
+				    PlayMinionTrigger -= method;
+				    return;
+			    case TriggerType.AFTER_PLAY_MINION:
+				    AfterPlayMinionTrigger -= method;
+				    return;
+			    case TriggerType.CAST_SPELL:
+				    CastSpellTrigger -= method;
+				    return;
+			    case TriggerType.AFTER_CAST:
+				    AfterCastTrigger -= method;
+				    return;
+			    case TriggerType.SECRET_REVEALED:
+				    SecretRevealedTrigger -= method;
+				    return;
+			    case TriggerType.ZONE:
+				    ZoneTrigger -= method;
+				    return;
+			    case TriggerType.DISCARD:
+				    DiscardTrigger -= method;
+				    return;
+			    case TriggerType.GAME_START:
+				    GameStartTrigger -= method;
+				    return;
+			    case TriggerType.DRAW:
+				    DrawTrigger -= method;
+				    return;
+			    case TriggerType.TARGET:
+				    TargetTrigger -= method;
+				    return;
+			    case TriggerType.FROZEN:
+				    FreezeTrigger -= method;
+				    return;
+			    case TriggerType.ARMOR:
+				    ArmorTrigger -= method;
+				    return;
+			    case TriggerType.EQUIP_WEAPON:
+				    EquipWeaponTrigger -= method;
+				    return;
+			    default:
+				    throw new System.NotImplementedException();
+		    }
 	    }
     }
 }

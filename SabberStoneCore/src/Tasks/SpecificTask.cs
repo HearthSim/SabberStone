@@ -9,6 +9,7 @@ using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks
 {
@@ -457,10 +458,10 @@ namespace SabberStoneCore.Tasks
 
 		public static ISimpleTask ExplosiveRunes
 			=> ComplexTask.Create(
-				new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
+				new ConditionTask(EntityType.EVENT_SOURCE, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
 				new FlagTask(true, ComplexTask.Secret(
 					new IncludeTask(EntityType.SOURCE),
-					new IncludeTask(EntityType.TARGET, null, true),
+					new IncludeTask(EntityType.EVENT_SOURCE, null, true),
 					new FuncPlayablesTask(list =>
 					{
 						var target = (Minion) list[1];
@@ -518,6 +519,92 @@ namespace SabberStoneCore.Tasks
 					return 0;
 				}));
 
+		public static ISimpleTask DarknessCandle
+			=> ComplexTask.Create(
+				new FuncNumberTask(p =>
+				{
+					Minion[] targets = p.Controller.Opponent.BoardZone.Where(m => m.Card.Id == "LOOT_526d").ToArray();
+					if (targets.Length == 0) return 0;
+					for (int i = 0; i < targets.Length; i++)
+					{
+						ISimpleTask task = DarknessCandleInternal;
+						p.Game.TaskQueue.Execute(task, p.Controller, targets[i], null);
+					}
+					return 0;
+				}),
+				new DrawTask());
+		private static ISimpleTask DarknessCandleInternal
+			=> ComplexTask.Create(
+				new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+				new MathAddTask(1),
+				new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+				new SetGameTagNumberTask(GameTag.SCORE_VALUE_2, EntityType.SOURCE),
+				new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_2, EntityType.SOURCE, 0, 1),
+				new NumberConditionTask(RelaSign.EQ),
+				new FlagTask(true, new FuncNumberTask(q =>
+				{
+					// TODO ChangeEntityBlock
+					q.Card = Cards.FromId("LOOT_526");
+					q.Controller.BoardZone.DecrementUntouchablesCount();
+					return 0;
+				})));
+
+		public static ISimpleTask LynessaSunsorrow
+			=> new FuncNumberTask(p =>
+			{
+				Controller c = p.Controller;
+				List<PlayHistoryEntry> history = c.PlayHistory;
+
+				List<PlayHistoryEntry> spellCards = new List<PlayHistoryEntry>();
+
+				for (int i = 0; i < history.Count; i++)
+				{
+					PlayHistoryEntry current = history[i];
+					if (current.SourceController == current.TargetController &&
+					    current.SourceCard.Type == CardType.SPELL)
+					{
+						spellCards.Add(current);
+					}
+				}
+
+				PlayHistoryEntry[] shuffled = Util.ChooseNElements(spellCards, spellCards.Count);
+				for (int i = 0; i < shuffled.Length; i++)
+				{
+					Generic.CastSpell(c, (Spell)Entity.FromCard(c, shuffled[i].SourceCard), (ICharacter)p, shuffled[i].SubOption);
+					while (c.Choice != null)
+						Generic.ChoicePick(c, Util.Choose(c.Choice.Choices));
+					if (p.Zone?.Type != Zone.PLAY)
+						break;
+				}
+
+				return 0;
+			});
+
+		public static ISimpleTask SwapDecks
+			=> new FuncNumberTask(p =>
+			{
+				Controller c = p.Controller;
+				Controller op = c.Opponent;
+
+				DeckZone temp = c.DeckZone;
+				temp.ForEach(x =>
+				{
+					x.Controller = op;
+					x[GameTag.CONTROLLER] = op.PlayerId;
+				});
+				op.DeckZone.ForEach(x =>
+				{
+					x.Controller = c;
+					x[GameTag.CONTROLLER] = c.PlayerId;
+				});
+				c.DeckZone = op.DeckZone;
+				c.DeckZone.Controller = c;
+				op.DeckZone = temp;
+				temp.Controller = op;
+
+				return 0;
+			});
+
 		public class RenonunceDarkness : SimpleTask
 		{
 			private static readonly Card EnchantmentCard = Cards.FromId("OG_118e");
@@ -570,7 +657,7 @@ namespace SabberStoneCore.Tasks
 				Controller.SetasideZone.Add(Controller.Hero.HeroPower);
 				Controller.Hero.HeroPower = heroPower;
 
-				var cards = Cards.FormatTypeClassCards(Game.FormatType)[randClass].Where(p => p.Class == randClass).ToList();
+				var cards = Cards.FormatTypeClassCards(Game.FormatType)[randClass].Where(p => p.Class == randClass && !p.IsQuest).ToArray();
 
 				// replace cards in hand
 				for (int i = 0; i < Controller.HandZone.Count; i++)

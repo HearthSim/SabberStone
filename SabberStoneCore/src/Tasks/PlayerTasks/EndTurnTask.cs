@@ -16,6 +16,8 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 			Controller = controller;
 		}
 
+		public override IEntity Source => null;
+
 		public override TaskState Process()
 		{
 			Controller.Game.Step = Enums.Step.MAIN_END;

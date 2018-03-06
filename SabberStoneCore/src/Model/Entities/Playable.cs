@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Tasks;
@@ -193,7 +194,7 @@ namespace SabberStoneCore.Model.Entities
 			controller.Game.IdEntityDic.Add(playable.Id, this);
 
 			playable.OngoingEffect?.Clone(this);
-			playable.ActivatedTrigger?.Activate(this);
+			playable.ActivatedTrigger?.Activate(this, cloning: true);
 			playable.AppliedEnchantments?.ForEach(p =>
 			{
 				if (AppliedEnchantments == null)
@@ -244,7 +245,8 @@ namespace SabberStoneCore.Model.Entities
 				    && !Card.Id.Equals("BRM_010")	// OG_044b, using choose one 0 option
 				    && !Card.Id.Equals("AT_042")	// OG_044c, using choose one 0 option
 					&& !Card.Id.Equals("UNG_101")	// UNG_101t3
-					&& !Card.Id.Equals("ICC_051"))	// ICC_051t3
+					&& !Card.Id.Equals("ICC_051")	// ICC_051t3
+					&& !Card.Id.Equals("ICC_047"))	// using choose one 0 option
 				{
 					ChooseOnePlayables[0].ActivateTask(activation, target, chooseOne, this);
 					ChooseOnePlayables[1].ActivateTask(activation, target, chooseOne, this);
@@ -339,8 +341,9 @@ namespace SabberStoneCore.Model.Entities
 				}
 
 				// check if player has enough mana to play card
-				if (!(this is Spell && Controller.ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1)
-				    && Controller.RemainingMana < Cost)
+				bool bool1 = (this is Spell && Controller.ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1);
+				bool bool2 = (AuraEffects[GameTag.CARD_COSTS_HEALTH] == 1);
+				if ((!bool1 && !bool2) && Controller.RemainingMana < Cost)
 				{
 					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
 						!Game.Logging ? "" : $"{this} isn't playable, because not enough mana to pay cost.");
@@ -509,6 +512,35 @@ namespace SabberStoneCore.Model.Entities
 		public Trigger ActivatedTrigger { get; set; }
 
 		public List<int> Memory { get; set; }
+
+		public override string Hash(params GameTag[] ignore)
+		{
+			if (ActivatedTrigger == null && OngoingEffect == null && Memory == null)
+				return base.Hash(ignore);
+
+			var str = new StringBuilder(base.Hash(ignore));
+			if (ActivatedTrigger != null)
+			{
+				str.Append("[TR:");
+				str.Append(ActivatedTrigger);
+				str.Append("]");
+			}
+
+			if (OngoingEffect != null)
+			{
+				str.Append("[OE:");
+				str.Append(OngoingEffect);
+				str.Append("]");
+			}
+			if (Memory != null && Memory.Count > 0)
+			{
+				str.Append("[MEM:");
+				foreach (int datum in Memory)
+					str.Append($"{{{datum}}}");
+				str.Append("]");
+			}
+			return str.ToString();
+		}
 	}
 
 

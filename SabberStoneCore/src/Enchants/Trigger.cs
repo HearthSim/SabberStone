@@ -11,11 +11,11 @@ namespace SabberStoneCore.Enchants
     {
 		public readonly Game Game;
 	    private readonly int _sourceId;
-	    private readonly int _controllerId;
-	    private readonly IPlayable _owner;
+	    protected readonly IPlayable _owner;
 		private readonly TriggerType _triggerType;
 		private readonly SequenceType _sequenceType;
 	    private readonly bool _isSecret;
+	    private bool _removed;
 	    internal bool IsAncillaryTrigger;
 		/// <summary>
 		/// Indicates the Zone at which the effect is triggered.
@@ -68,12 +68,12 @@ namespace SabberStoneCore.Enchants
 					return;
 		    }
 	    }
-	    private Trigger(Trigger prototype, IEntity owner)
+
+	    protected Trigger(Trigger prototype, IEntity owner)
 	    {
 			Game = owner.Game;
 			_sourceId = owner.Id;
 		    _owner = (IPlayable)owner;
-		    _controllerId = owner.Controller?.Id ?? prototype._controllerId;
 		    _triggerType = prototype._triggerType;
 		    _sequenceType = prototype._sequenceType;
 		    TriggerSource = prototype.TriggerSource;
@@ -82,7 +82,7 @@ namespace SabberStoneCore.Enchants
 		    EitherTurn = prototype.EitherTurn;
 			FastExecution = prototype.FastExecution;
 			RemoveAfterTriggered = prototype.RemoveAfterTriggered;
-		    _isSecret = prototype.Game == null ? owner.Card[GameTag.SECRET] == 1 : prototype._isSecret;
+		    _isSecret = prototype.Game == null ? owner.Card.IsSecret : prototype._isSecret;
 		    IsAncillaryTrigger = prototype.IsAncillaryTrigger;
 	    }
 
@@ -91,18 +91,18 @@ namespace SabberStoneCore.Enchants
 		/// <summary>
 		/// Create a new instance of <see cref="Trigger"/> object in source's Game. During activation, the instance's <see cref="Process(IEntity)"/> subscribes to the events in <see cref="Game.GamesEventManager"/>.
 		/// </summary>
-		public void Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY)
+		public virtual Trigger Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY, bool cloning = false)
 		{
 			if (source.ActivatedTrigger != null && !IsAncillaryTrigger)
 				throw new Exceptions.EntityException($"{source} already has an activated trigger.");
 
-			if (activation != TriggerActivation)
+			if (!cloning && activation != TriggerActivation)
 			{
 				if (TriggerActivation != TriggerActivation.HAND_OR_PLAY)
-					return;
+					return null;
 
 				if (activation == TriggerActivation.DECK)
-					return;
+					return null;
 			}
 
 			var instance = new Trigger(this, source);
@@ -233,12 +233,12 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.ARMOR:
 					source.Game.TriggerManager.ArmorTrigger += instance.Process;
 					break;
-
-				case TriggerType.CUSTOMTRIGGER_SHADOW_REFLECTION:
-					source.Game.TriggerManager.PlayCardTrigger += instance.Process;
-					source.Game.TriggerManager.EndTurnTrigger += instance.Process;
+				case TriggerType.EQUIP_WEAPON:
+					source.Game.TriggerManager.EquipWeaponTrigger += instance.Process;
 					break;
 			}
+
+			return instance;
 		}
 
 		private void Process(IEntity source)
@@ -257,7 +257,9 @@ namespace SabberStoneCore.Enchants
 
 	    private void ProcessInternal(IEntity source)
 	    {
-		    Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Trigger",
+		    Validated = false;
+
+			Game.Log(LogLevel.INFO, BlockType.TRIGGER, "Trigger",
 			    !Game.Logging ? "" : $"{_owner}'s {_triggerType} Trigger is triggered by {source}.");
 
 		    if (RemoveAfterTriggered)
@@ -286,8 +288,10 @@ namespace SabberStoneCore.Enchants
 		/// <summary>
 		/// Remove this object from the Game and unsubscribe from the related event.
 		/// </summary>
-	    public void Remove()
-	    {
+	    public virtual void Remove()
+		{
+			if (_removed) return;
+
 			switch (_triggerType)
 		    {
 				case TriggerType.DEAL_DAMAGE:
@@ -410,11 +414,9 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.ARMOR:
 				    Game.TriggerManager.ArmorTrigger -= Process;
 				    break;
-
-				case TriggerType.CUSTOMTRIGGER_SHADOW_REFLECTION:
-				    Game.TriggerManager.PlayCardTrigger -= Process;
-				    Game.TriggerManager.EndTurnTrigger -= Process;
-				    break;
+				case TriggerType.EQUIP_WEAPON:
+					Game.TriggerManager.EquipWeaponTrigger -= Process;
+					break;
 				default:
 				    throw new ArgumentOutOfRangeException();
 		    }
@@ -424,6 +426,8 @@ namespace SabberStoneCore.Enchants
 
 			if (_sequenceType != SequenceType.None)
 				Game.Triggers.Remove(this);
+
+			_removed = true;
 
 		    Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Trigger",
 			    !Game.Logging ? "" : $"{_owner}'s {_triggerType} Trigger is removed.");
@@ -472,10 +476,10 @@ namespace SabberStoneCore.Enchants
 
 		    switch (TriggerSource)
 		    {
-			    case TriggerSource.FRIENDLY:
-				    if (source.Controller.Id != _controllerId) return;
+				case TriggerSource.FRIENDLY:
+				    if (source.Controller != _owner.Controller) return;
 				    break;
-			    case TriggerSource.ENEMY when source.Controller.Id == _controllerId: return;
+			    case TriggerSource.ENEMY when source.Controller == _owner.Controller: return;
 			    case TriggerSource.SELF:
 				    if (source.Id != _sourceId) return;
 				    break;
@@ -483,17 +487,17 @@ namespace SabberStoneCore.Enchants
 				    if (!(source is Minion)) return;
 				    break;
 			    case TriggerSource.MINIONS:
-				    if (!(source is Minion) || source.Controller.Id != _controllerId) return;
+				    if (!(source is Minion) || source.Controller != _owner.Controller) return;
 				    break;
 			    case TriggerSource.MINIONS_EXCEPT_SELF:
-				    if (!(source is Minion) || source.Controller.Id != _controllerId || source.Id == _sourceId ||
+				    if (!(source is Minion) || source.Controller != _owner.Controller || source.Id == _sourceId ||
 				        source.Zone.Type != Zone.PLAY) return;
 					break;
 				case TriggerSource.ALL_MINIONS_EXCEPT_SELF:
 					if (!(source is Minion) || source == _owner) return;
 				    break;
 			    case TriggerSource.HERO:
-				    if (!(source is Hero) || source.Controller.Id != _controllerId) return;
+				    if (!(source is Hero) || source.Controller != _owner.Controller) return;
 				    break;
 			    case TriggerSource.ENCHANTMENT_TARGET:
 				    if (!(_owner is Enchantment e) || e.Target.Id != source.Id) return;
@@ -505,7 +509,10 @@ namespace SabberStoneCore.Enchants
 					if (!(source is HeroPower hp) || hp.Controller != source.Controller) return;
 					break;
 				case TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER:
-					if (!(source is Spell) || source.Controller.Id != _controllerId || Game.CurrentEventData?.EventTarget != _owner) return;
+					if (!(source is Spell) || source.Controller != _owner.Controller || Game.CurrentEventData?.EventTarget != _owner) return;
+					break;
+				case TriggerSource.FRIENDLY_SPELL_CASTED_ON_OWN_MINIONS:
+					if (!(source is Spell) || source.Controller != _owner.Controller || Game.CurrentEventData?.EventTarget?.Controller != _owner.Controller) return;
 					break;
 			}
 
@@ -514,13 +521,14 @@ namespace SabberStoneCore.Enchants
 		    switch (_triggerType)
 		    {
 			    case TriggerType.PLAY_CARD when source.Id == _owner.Id:
+				case TriggerType.SUMMON when source == _owner:
 			    case TriggerType.AFTER_SUMMON when source.Id == _owner.Id:
-			    case TriggerType.TURN_START when !EitherTurn && source.Id != _controllerId:
+			    case TriggerType.TURN_START when !EitherTurn && source != _owner.Controller:
 			    case TriggerType.DEATH when _owner.ToBeDestroyed:
 			    case TriggerType.INSPIRE when Game.CurrentPlayer != _owner.Controller:
 					return;
 			    case TriggerType.TURN_END:
-				    if (!EitherTurn && source.Id != _controllerId) return;
+				    if (!EitherTurn && source != _owner.Controller) return;
 				    //if (!(SingleTask is RemoveEnchantmentTask) && Owner.Controller.ExtraEndTurnEffect)
 					   // extra = true;
 				    break;

@@ -115,7 +115,11 @@ namespace SabberStoneCore.Model.Entities
 			base.Reset();
 			OngoingEffect?.Remove();
 			Game.OneTurnEffects.RemoveAll(p => p.entityId == Id);
-			ToBeDestroyed = false;
+			if (ToBeDestroyed)
+			{
+				Game.DeadMinions.Remove(OrderOfPlay);
+				ToBeDestroyed = false;
+			}
 		}
 
 		/// <summary>
@@ -280,11 +284,13 @@ namespace SabberStoneCore.Model.Entities
 
 			set
 			{
-				if (base.ToBeDestroyed == value)
+				if (value == base.ToBeDestroyed)
 					return;
 				base.ToBeDestroyed = value;
 				if (value)
+				{
 					Game.DeadMinions.Add(OrderOfPlay, this);
+				}
 			} 
 		}
 	}

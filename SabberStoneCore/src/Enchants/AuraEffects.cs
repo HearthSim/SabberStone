@@ -52,6 +52,7 @@ namespace SabberStoneCore.Enchants
 		private int IMMUNE;
 		private int LIFESTEAL;
 		private int CANT_BE_TARGETED_BY_SPELLS;
+		private int CARD_COST_HEALTH;
 
 		private List<CostEffect> _costEffects;
 		private AdaptiveCostEffect _adaptiveCostEffect;
@@ -62,7 +63,23 @@ namespace SabberStoneCore.Enchants
 			if (owner is IPlayable)
 				COST = owner.Card[GameTag.COST];
 		}
-		private AuraEffects() { }
+
+		private AuraEffects(IEntity owner, AuraEffects other)
+		{
+			Owner = owner;
+			Checker = Checker;
+			_costEffects = other._costEffects?.Count > 0 ? new List<CostEffect>(other._costEffects) : null;
+			COST = other.COST;
+			CANT_BE_TARGETED_BY_SPELLS = other.CANT_BE_TARGETED_BY_SPELLS;
+			IMMUNE = other.IMMUNE;
+			ATK = other.ATK;
+			if (!(owner is Minion)) return;
+			HEALTH = other.HEALTH;
+			CHARGE = other.CHARGE;
+			WINDFURY = other.WINDFURY;
+			LIFESTEAL = other.LIFESTEAL;
+			CARD_COST_HEALTH = other.CARD_COST_HEALTH;
+		}
 
 		public IEntity Owner { get; private set; }
 
@@ -99,7 +116,9 @@ namespace SabberStoneCore.Enchants
 						return LIFESTEAL;
 					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
 					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
-						return CANT_BE_TARGETED_BY_SPELLS >= 1 ? 1 : 0; 
+						return CANT_BE_TARGETED_BY_SPELLS >= 1 ? 1 : 0;
+					case GameTag.CARD_COSTS_HEALTH:
+						return CARD_COST_HEALTH;
 					default:
 						return 0;
 				}
@@ -140,6 +159,9 @@ namespace SabberStoneCore.Enchants
 					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
 						CANT_BE_TARGETED_BY_SPELLS = value;
 						return;
+					case GameTag.CARD_COSTS_HEALTH:
+						CARD_COST_HEALTH = value;
+						return;
 					default:
 						return;
 				}
@@ -175,7 +197,7 @@ namespace SabberStoneCore.Enchants
 				return;
 			}
 
-			throw new Exception();
+			throw new Exception($"Can't remove cost aura from {Owner}. Zone: {Owner.Zone.Type}, IsDead?: {Owner[GameTag.TO_BE_DESTROYED] == 1}");
 		}
 
 		/// <summary>
@@ -218,34 +240,30 @@ namespace SabberStoneCore.Enchants
 
 		public AuraEffects Clone(IEntity clone)
 		{
-			return new AuraEffects()
-			{
-				ATK = ATK,
-				HEALTH = HEALTH,
-				COST = COST,
-				CHARGE = CHARGE,
-				WINDFURY = WINDFURY,
-				IMMUNE = IMMUNE,
-				LIFESTEAL = LIFESTEAL,
-				CANT_BE_TARGETED_BY_SPELLS = CANT_BE_TARGETED_BY_SPELLS,
-				Owner = clone,
-				Checker = Checker,
-				_costEffects = _costEffects != null ? new List<CostEffect>(_costEffects) : null
-			};
+			return new AuraEffects(clone, this);
 		}
 
 		public string Hash()
 		{
 			var hash = new StringBuilder();
 			hash.Append("[AE:");
-			hash.Append($"{{ATK,{ATK}}}");
-			hash.Append($"{{HEALTH,{HEALTH}}}");
 			hash.Append($"{{COST,{COST}}}");
-			hash.Append($"{{CHARGE,{CHARGE}}}");
-			hash.Append($"{{WINDFURY,{WINDFURY}}}");
-			hash.Append($"{{LIFESTEAL,{LIFESTEAL}}}");
-			hash.Append($"{{IMMUNE,{IMMUNE}}}");
-			hash.Append($"{{CANT_BE_TARGETED_BY_SPELLS,{CANT_BE_TARGETED_BY_SPELLS}}}");
+			if (ATK > 0)
+				hash.Append($"{{ATK,{ATK}}}");
+			if (HEALTH > 0)
+				hash.Append($"{{HEALTH,{HEALTH}}}");
+			if (CHARGE > 0)
+				hash.Append($"{{CHARGE,{CHARGE}}}");
+			if (WINDFURY > 0)
+				hash.Append($"{{WINDFURY,{WINDFURY}}}");
+			if (LIFESTEAL > 0)
+				hash.Append($"{{LIFESTEAL,{LIFESTEAL}}}");
+			if (IMMUNE > 0)
+				hash.Append($"{{IMMUNE,{IMMUNE}}}");
+			if (CANT_BE_TARGETED_BY_SPELLS > 0)
+				hash.Append($"{{CANT_BE_TARGETED_BY_SPELLS,{CANT_BE_TARGETED_BY_SPELLS}}}");
+			if (CARD_COST_HEALTH > 0)
+				hash.Append($"{{CARD_COST_HEALTH,{CARD_COST_HEALTH}}}");
 			hash.Append("]");
 			return hash.ToString();
 		}
@@ -332,6 +350,21 @@ namespace SabberStoneCore.Enchants
 		public ControllerAuraEffects Clone()
 		{
 			return (ControllerAuraEffects)MemberwiseClone();
+		}
+
+		public string Hash()
+		{
+			var sb = new StringBuilder("[CAE:");
+			sb.Append(_timeOut);
+			sb.Append(_spellPowerDouble);
+			sb.Append(_restoreToDamage);
+			sb.Append(_extraBattecry);
+			sb.Append(_chooseBoth);
+			sb.Append(_spellsCostHealth);
+			sb.Append(_extraEndTurnEffect);
+			sb.Append(_heroPowerDisabled);
+			sb.Append("]");
+			return sb.ToString();
 		}
 	}
 }

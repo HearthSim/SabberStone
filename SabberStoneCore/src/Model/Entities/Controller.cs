@@ -17,6 +17,8 @@ namespace SabberStoneCore.Model.Entities
 	/// </summary>
 	public partial class Controller : Entity
 	{
+		private readonly int _playerId;
+
 		/// <summary>
 		/// Available zones for this player.
 		/// </summary>
@@ -63,7 +65,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public readonly ControllerAuraEffects ControllerAuraEffects;
 
-		public List<int> DiscardedEntities;
+		public readonly List<int> DiscardedEntities;
+
+
+		public readonly List<Card> CardsPlayedThisTurn;
+		public readonly List<PlayHistoryEntry> PlayHistory;
 
 		/// <summary>
 		/// Name of the player.
@@ -115,7 +121,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumTotemSummonedThisGame { get; set; }
 
-		public int NumSpellCostOver5CastedThisGame { get; set; }
+		public bool TemporusFlag { get; set; }
 
 		/// <summary>
 		/// The last choice set proposed to this player.
@@ -168,6 +174,7 @@ namespace SabberStoneCore.Model.Entities
 			})
 		{
 			Name = name;
+			_playerId = playerId;
 
 			DeckZone = new DeckZone(this);
 			BoardZone = new BoardZone(this);
@@ -181,6 +188,9 @@ namespace SabberStoneCore.Model.Entities
 			ControllerAuraEffects = new ControllerAuraEffects();
 
 			DiscardedEntities = new List<int>();
+			CardsPlayedThisTurn = new List<Card>(10);
+			//cardsPlayedThisGame = new List<Card>(30);
+			PlayHistory = new List<PlayHistoryEntry>(30);
 		
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Controller", !Game.Logging? "":$"Created Controller '{name}'");
 		}
@@ -222,10 +232,10 @@ namespace SabberStoneCore.Model.Entities
 
 			ControlledZones = new ControlledZones(this);
 			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();
-			_currentSpellPower = controller._currentSpellPower;
-			NumTotemSummonedThisGame = controller.NumTotemSummonedThisGame;
-			NumSpellCostOver5CastedThisGame = controller.NumSpellCostOver5CastedThisGame;
+
+			PlayHistory = new List<PlayHistoryEntry>(controller.PlayHistory);
 			DiscardedEntities = new List<int>(controller.DiscardedEntities);
+			CardsPlayedThisTurn = new List<Card>(controller.CardsPlayedThisTurn);
 			controller.AppliedEnchantments?.ForEach(p =>
 			{
 				if (AppliedEnchantments == null)
@@ -233,6 +243,12 @@ namespace SabberStoneCore.Model.Entities
 
 				AppliedEnchantments.Add((Enchantment) p.Clone(this));
 			});
+
+			// non-tag attributes
+			_playerId = controller._playerId;
+			_currentSpellPower = controller._currentSpellPower;
+			NumTotemSummonedThisGame = controller.NumTotemSummonedThisGame;
+			TemporusFlag = controller.TemporusFlag;
 		}
 
 		/// <summary>
@@ -288,10 +304,11 @@ namespace SabberStoneCore.Model.Entities
 		public override string Hash(params GameTag[] ignore)
 		{
 			var str = new StringBuilder();
-			str.Append("][C:");
-			str.Append($"{Name}");
+			str.Append("[C:");
+			str.Append(Name);
 			str.Append("]");
 			str.Append(base.Hash(ignore));
+			str.Append(ControllerAuraEffects.Hash());
 			str.Append(Hero.Hash(ignore));
 			str.Append(Hero.HeroPower.Hash(ignore));
 			if (Hero.Weapon != null)
@@ -483,11 +500,7 @@ namespace SabberStoneCore.Model.Entities
 		/// ID of the player, which is a monotone ranking order starting from 1.
 		/// The first player gets PlayerID == 1
 		/// </summary>
-		public int PlayerId
-		{
-			get { return this[GameTag.PLAYER_ID]; }
-			set { this[GameTag.PLAYER_ID] = value; }
-		}
+		public int PlayerId => _playerId;
 
 		/// <summary>
 		/// The EntityID of the selected Hero.
@@ -786,7 +799,7 @@ namespace SabberStoneCore.Model.Entities
 		public bool ExtraBattlecry
 		{
 			get => ControllerAuraEffects[GameTag.EXTRA_BATTLECRY] > 0;
-			set => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] += 1;
+			set => ControllerAuraEffects[GameTag.EXTRA_BATTLECRY] += 1;
 		}
 
 		/// <summary>

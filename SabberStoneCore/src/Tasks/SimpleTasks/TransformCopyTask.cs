@@ -21,6 +21,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 
 			Minion source = (Minion)Source;
+			if (source.Zone?.Type != Zone.PLAY)
+				return TaskState.STOP;
+
 		    var tags = new EntityData.Data
 		    {
 			    {GameTag.CREATOR, Source.Id},
@@ -33,7 +36,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    Trigger trigger = target.ActivatedTrigger;
 		    IAura aura = target.OngoingEffect;
 
-		    // LINKED_ENTITY
+			// LINKED_ENTITY
+			if (source == Game.CurrentEventData.EventSource)
+				Game.CurrentEventData.EventSource = copy;
 		    source.Controller.BoardZone.Replace(source, copy);
 
 			// Copy Enchantments

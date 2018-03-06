@@ -855,7 +855,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Anomalus_OG_120()
 		{
 			// TODO Anomalus_OG_120 test
@@ -871,6 +871,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Anomalus"));
+
+			game.ProcessCard("Boulderfist Ogre");
+			game.ProcessCard("Wisp");
+			game.ProcessCard("Wisp");
+			game.ProcessCard("Wisp");
+			game.ProcessCard("Wisp");
+			game.EndTurn();
+
+			game.ProcessCard("Anomalus");
+			game.EndTurn();
+
+			Game clone = game.Clone();
+
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0],
+				game.CurrentOpponent.BoardZone[0]));
+			Assert.Empty(game.Minions);
+
+			clone.Process(MinionAttackTask.Any(clone.CurrentPlayer, clone.CurrentPlayer.BoardZone[0],
+				clone.CurrentOpponent.BoardZone[0]));
+
+			Assert.Empty(clone.Minions);
 		}
 
 		// ------------------------------------------ MINION - MAGE

@@ -40,7 +40,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		COST_8_MORE_SUMMON,
 		OP_HERO,
 		DIED_THIS_GAME,
-		BRANCHING_PATHS
+		BRANCHING_PATHS,
+		LEGENDARY_MINIONS
 	}
 	public class DiscoverTask : SimpleTask
 	{
@@ -483,6 +484,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						CachedDiscoverySets.TryAdd(discoverType, output);
 						return listArray;
 					}
+					case DiscoverType.LEGENDARY_MINIONS:
+					{
+						choiceAction = ChoiceAction.SUMMON;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Rarity == Rarity.LEGENDARY && p.Type == CardType.MINION));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
+					}
 					default:
 						throw new ArgumentOutOfRangeException(nameof(discoverType), discoverType, null);
 				}
@@ -495,16 +504,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private List<Card>[] GetClassCard(CardClass heroClass, Func<IEnumerable<Card>, IEnumerable<Card>> filter)
 		{
 			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(Game.FormatType);
-			IEnumerable<Card> classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.Tags.ContainsKey(GameTag.QUEST)));
+			IEnumerable<Card> classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.IsQuest));
 			return new[] { classCards.ToList() };
 		}
 
 		private List<Card>[] GetTriClass(CardClass class1, CardClass class2, CardClass class3)
 		{
 			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(Game.FormatType);
-			return new[] { cardSet[class1].Where(p => p.Class == class1 || p.MultiClassGroup != 0).ToList(),
-							cardSet[class2].Where(p => p.Class == class2 || p.MultiClassGroup != 0).ToList(),
-							cardSet[class3].Where(p => p.Class == class3 || p.MultiClassGroup != 0).ToList()};
+			return new[] { cardSet[class1].Where(p => (p.Class == class1 || p.MultiClassGroup != 0) && !p.IsQuest).ToList(),
+							cardSet[class2].Where(p => (p.Class == class2 || p.MultiClassGroup != 0) && !p.IsQuest).ToList(),
+							cardSet[class3].Where(p => (p.Class == class3 || p.MultiClassGroup != 0) && !p.IsQuest).ToList()};
 		}
 
 		private List<Card>[] GetFilter(Func<IEnumerable<Card>, IEnumerable<Card>> filter)
@@ -512,7 +521,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(Game.FormatType);
 			CardClass heroClass = Controller.BaseClass != CardClass.NEUTRAL ? Controller.BaseClass : Util.RandomElement(Cards.HeroClasses);
 			IEnumerable<Card> nonClassCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class != heroClass));
-			IEnumerable<Card> classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.Tags.ContainsKey(GameTag.QUEST)));
+			IEnumerable<Card> classCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.IsQuest));
 			return new[] { nonClassCards.ToList(), classCards.ToList() };
 		}
 

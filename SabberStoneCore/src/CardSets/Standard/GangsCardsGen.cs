@@ -507,6 +507,9 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CFM_760", new Power
 			{
 				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumSecretsPlayedThisGame * 2)
+				//{
+				//	UpdateTrigger = (TriggerType.AFTER_CAST, TriggerSource.FRIENDLY, SelfCondition.IsSecret)
+				//}
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -553,9 +556,9 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.TARGET, SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
+						new ConditionTask(EntityType.EVENT_SOURCE, SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
 						new FlagTask(true, ComplexTask.Secret(
-						new TransformTask("CFM_621_m5", EntityType.TARGET))))
+						new TransformTask("CFM_621_m5", EntityType.EVENT_SOURCE))))
 				}
 			});
 
@@ -1407,10 +1410,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_699", new Power
 			{
-				// TODO [CFM_699] Seadevil Stinger && Test: Seadevil Stinger_CFM_699
-				InfoCardId = "CFM_699e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("CFM_699e", EntityType.CONTROLLER)
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -2868,9 +2868,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_699e", new Power
 			{
-				// TODO [CFM_699e] Seadevil Enchant && Test: Seadevil Enchant_CFM_699e
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.HAND, new Effect(GameTag.CARD_COSTS_HEALTH, EffectOperator.SET, 1))
+				{
+					Condition = SelfCondition.IsRace(Race.MURLOC),
+					RemoveTrigger = (TriggerType.PLAY_MINION, SelfCondition.IsRace(Race.MURLOC))
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

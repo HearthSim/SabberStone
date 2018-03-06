@@ -178,7 +178,7 @@ namespace SabberStoneCore.Actions
 					}
 					if (cardOp != null)
 					{
-						c.Game.PowerHistory.Add(PowerHistoryBuilder.HideEntity(card));
+						c.Game.PowerHistory.Add(PowerHistoryBuilder.HideEntity(cardOp));
 						cardOp[GameTag.REVEALED] = 0;
 					}
 
@@ -210,11 +210,19 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, Card, Minion, bool> TransformBlock
 			=> delegate (Controller c, Card card, Minion oldMinion)
 			{
+				if (oldMinion.Zone?.Type != Zone.PLAY)
+					return false;
+
 				if (!(Entity.FromCard(c, card) is Minion newMinion))
 				{
 					c.Game.Log(LogLevel.WARNING, BlockType.PLAY, "TransformBlock", !c.Game.Logging ? "" : $"missing final tranformation.");
 					return false;
 				}
+
+				//oldMinion[GameTag.LINKED_ENTITY] = newMinion.Id;
+				//newMinion[GameTag.LINKED_ENTITY] = oldMinion.Id;
+				if (c.Game.CurrentEventData?.EventSource == oldMinion)
+					c.Game.CurrentEventData.EventSource = newMinion;
 
 				c.BoardZone.Replace(oldMinion, newMinion);
 				if (!newMinion.HasCharge)
@@ -286,11 +294,12 @@ namespace SabberStoneCore.Actions
 				c.Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "ChangeEntityBlock",
 					!c.Game.Logging ? "" : $"{p} is changed into {newCard}.");
 
-				if (!(p.Zone is HandZone hand))
-					throw new InvalidOperationException($"{p} is not in Hand. ({p.Zone})");
+				//if (!(p.Zone is HandZone hand))
+				//	throw new InvalidOperationException($"{p} is not in Hand. ({p.Zone})");
 
 				p.ActivatedTrigger?.Remove();
 				p.OngoingEffect?.Remove();
+				p.AuraEffects.Checker = true; 
 
 				// TODO: PowerHistoryChangeEntity
 				// send tag variations and the id of the new Card
@@ -318,7 +327,9 @@ namespace SabberStoneCore.Actions
 						default:
 							throw new ArgumentNullException();
 					}
-					hand.ChangeEntity(p, entity);
+
+					if (p.Zone is HandZone hand)
+						hand.ChangeEntity(p, entity);
 					c.Game.IdEntityDic[p.Id] = entity;
 					p = entity;
 				}

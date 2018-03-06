@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
@@ -6,6 +7,8 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.PlayerTasks;
 using Xunit;
+using Xunit.Abstractions;
+using Xunit.Sdk;
 
 namespace SabberStoneCoreTest.Basic
 {
@@ -18,10 +21,57 @@ namespace SabberStoneCoreTest.Basic
 		// besides those, test things like battlecries that summon minions vs sword of justice,
 		// violet teacher vs wild pyromancer, etc
 
+		private static readonly ITestOutputHelper output = new TestOutputHelper();
+
 		[Fact]
 		public void PhaseTest()
 		{
 
+		}
+
+		[Fact]
+		public static void IllidanKnifeJugglerTwilightDrakeResolveTest()
+		{
+			Game game;
+			do
+			{
+				game = new Game(new GameConfig
+				{
+					FillDecks = true
+				});
+				game.StartGame();
+				game.ProcessCard("Knife Juggler", null, true);
+				game.ProcessCard("Knife Juggler", null, true);
+
+				game.ProcessCard("Illidan Stormrage", null, true);
+
+				game.EndTurn();
+
+				game.ProcessCard("Val'kyr Soulclaimer", null, true);
+				game.ProcessCard("Val'kyr Soulclaimer", null, true);
+				game.ProcessCard("Val'kyr Soulclaimer", null, true);
+				game.ProcessCard("Val'kyr Soulclaimer", null, true);
+				game.ProcessCard("Knife Juggler", null, true);
+				game.ProcessCard("Knife Juggler", null, true);
+			} while (game.CurrentOpponent.BoardZone.Count(p => p.Card.Name == "Knife Juggler") < 2);
+
+
+			game.EndTurn();
+
+			Generic.Draw(game.CurrentPlayer);
+			Generic.Draw(game.CurrentPlayer);
+			Generic.Draw(game.CurrentPlayer);
+
+			bool flag = false;
+			for (int i = 0; i < 12; i++)
+			{
+				Game clone = game.Clone();
+				Minion target = clone.ProcessCard<Minion>("Twilight Drake", null, true);
+				flag = flag || target.IsDead;
+			}
+
+
+			Assert.True(flag);
 		}
 
 		[Fact]
@@ -162,10 +212,103 @@ namespace SabberStoneCoreTest.Basic
 			Assert.NotEqual(1, game.CurrentPlayer.Hero.Health);
 		}
 
+		[Fact]
+		public static void SummonResolutionTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PALADIN,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Murloc Tidecaller"),
+					Cards.FromName("Murloc Tidecaller"),
+					Cards.FromName("Murloc Tidecaller"),
+				},
+				Player2HeroClass = CardClass.WARLOCK,
+				FillDecks = false,
+				Shuffle = false
+			});
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.StartGame();
+
+			game.ProcessCard("Call to Arms");
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+			Assert.True(game.CurrentPlayer.BoardZone.ToList().TrueForAll(p => p.AttackDamage == 3));
+		}
+
+		[Fact]
+		public static void SummonResolutionTest2()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PALADIN,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+				},
+				Player2HeroClass = CardClass.WARLOCK,
+				FillDecks = false,
+				Shuffle = false
+			});
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.StartGame();
+
+			game.ProcessCard("Sword of Justice");
+			game.ProcessCard("Steward of Darkshire");
+
+			Minion target1 = game.ProcessCard<Minion>("Stonetusk Boar");
+
+			Assert.Equal(2, target1.AttackDamage);
+			Assert.Equal(2, target1.Health);
+			Assert.True(target1.HasDivineShield);
+
+			game.ProcessCard("Lost in the Jungle");
+
+			Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone[2].AttackDamage);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone[2].Health);
+			Assert.False(game.CurrentPlayer.BoardZone[2].HasDivineShield);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone[3].AttackDamage);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone[3].Health);
+			Assert.False(game.CurrentPlayer.BoardZone[3].HasDivineShield);
+		}
+
+		[Fact]
+		public static void UmbraTaldaramVoidlord()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				FillDecks = false,
+				Shuffle = false
+			});
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.StartGame();
+
+			game.ProcessCard("Spiritsinger Umbra", null, true);
+			game.ProcessCard("Voidlord", null, true);
+			Assert.Equal(5, game.CurrentPlayer.BoardZone.Count);
+			game.CurrentPlayer.BoardZone[4].Kill();
+			game.CurrentPlayer.BoardZone[3].Kill();
+			game.CurrentPlayer.BoardZone[2].Kill();
+			game.ProcessCard("Prince Taldaram", game.CurrentPlayer.BoardZone[1], true);
+			Assert.Equal(6, game.CurrentPlayer.BoardZone.Count);
+		}
+
 		// Umbra + Doppelgangster + Val'anyr test
 
 		// AuraUpdate(others) test
-
-		// Snipe will trigger on the sheep made by Potion of Polymorph if Snipe was played second.
 	}
 }

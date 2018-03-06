@@ -35,6 +35,7 @@ namespace SabberStoneCore.Model.Entities
 			_creatorId = e._creatorId;
 			e.OngoingEffect?.Clone(this);
 			e.ActivatedTrigger?.Activate(this);
+			if (Game.IdEntityDic.ContainsKey(Id)) ;
 			Game.IdEntityDic.Add(Id, this);
 			if (e.IsOneTurnActive)
 				c.Game.OneTurnEffectEnchantments.Add(this);
@@ -189,9 +190,9 @@ namespace SabberStoneCore.Model.Entities
 			{
 				ISimpleTask clone = Power.DeathrattleTask.Clone();
 				clone.Game = Game;
-				clone.Controller = Controller;
-				clone.Source = this;
-				clone.Target = Target;
+				clone.Controller = Target.Controller;
+				clone.Source = Target;
+				clone.Target = this;
 				//clone.Number = this[GameTag.TAG_SCRIPT_DATA_NUM_1];
 				//if (clone.Number > 0)
 				//	;

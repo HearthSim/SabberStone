@@ -162,14 +162,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
+
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lunar Visions"));
 			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
-			Assert.Equal(game.CurrentPlayer.HandZone[5].Cost,
-				game.CurrentPlayer.HandZone[5].Card.Cost > 1 ? game.CurrentPlayer.HandZone[5].Card.Cost - 2 : 0);
-			Assert.Equal(game.CurrentPlayer.HandZone[4].Cost,
-				game.CurrentPlayer.HandZone[4].Card.Cost > 1 ? game.CurrentPlayer.HandZone[4].Card.Cost - 2 : 0);
+			if (game.CurrentPlayer.HandZone[5] is Minion)
+				Assert.Equal(game.CurrentPlayer.HandZone[5].Cost,
+					game.CurrentPlayer.HandZone[5].Card.Cost > 1 ? game.CurrentPlayer.HandZone[5].Card.Cost - 2 : 0);
+			if (game.CurrentPlayer.HandZone[4] is Minion)
+				Assert.Equal(game.CurrentPlayer.HandZone[4].Cost,
+					game.CurrentPlayer.HandZone[4].Card.Cost > 1 ? game.CurrentPlayer.HandZone[4].Card.Cost - 2 : 0);
 		}
 
 		// ----------------------------------------- MINION - DRUID
@@ -2432,11 +2435,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SeadevilStinger_CFM_699()
 		{
 			// TODO take care of cost health animation
-			// TODO Seadevil Stinger_CFM_699 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2446,12 +2448,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				FillDecksPredictably = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
+			game.Player1.BaseMana = 4;
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Seadevil Stinger"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
-			Assert.Equal(0, minion.Cost);
+			game.AuraUpdate();
+			Assert.True(minion.IsPlayableByPlayer);
+			//Assert.Equal(0, minion.Cost);
 			int mana = game.CurrentPlayer.RemainingMana;
 			int health = game.CurrentPlayer.Hero.Health;
 			int cost = minion.Cost;
@@ -2817,7 +2821,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Alley Armorsmith"));
 
-			var testCard = game.ProcessCard<Minion>("Alley Armorsmith");
+			Minion testCard = game.ProcessCard<Minion>("Alley Armorsmith");
 			game.EndTurn();
 
 			IPlayable minion = game.ProcessCard("Stonetusk Boar");
