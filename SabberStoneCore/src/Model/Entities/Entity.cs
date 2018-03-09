@@ -165,7 +165,7 @@ namespace SabberStoneCore.Model.Entities
 			Id = entity.Id;
 			OrderOfPlay = entity.OrderOfPlay;
 			AuraEffects = entity.AuraEffects.Clone(this);
-			//_toBeDestroyed = entity._toBeDestroyed;
+			_toBeDestroyed = entity._toBeDestroyed;
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

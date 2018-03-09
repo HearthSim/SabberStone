@@ -66,6 +66,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					case GameTag.ZONE_POSITION:
 					case GameTag.CREATOR:
 					case GameTag.PREMIUM:
+					case GameTag.EXHAUSTED:
 						continue;
 					default:
 						copy._data.Tags.Add(kvp.Key, kvp.Value);
@@ -75,6 +76,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (aura != null && copy.OngoingEffect == null)
 				aura.Clone(copy);
+
+			if (!target.HasCharge)
+				copy.IsExhausted = true;
 
 		    if (_addToStack)
 			    Playables = new List<IPlayable> {copy};

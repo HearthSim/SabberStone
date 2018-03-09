@@ -95,7 +95,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			Generic.RemoveFromZone.Invoke(summonEntity.Controller, summonEntity);
-
+			sed:
 			int summonPosition = -1;
 			switch (Side)
 			{
@@ -112,6 +112,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						summonPosition = ((Minion)Source).LastBoardPosition;
 					break;
 				case SummonSide.DEATHRATTLE:
+					if (Source.Zone.Type != Zone.GRAVEYARD)
+						goto case SummonSide.RIGHT;
 					summonPosition = ((Minion)Source).LastBoardPosition;
 					break;
 				case SummonSide.NUMBER:

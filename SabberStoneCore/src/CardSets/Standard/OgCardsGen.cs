@@ -958,8 +958,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("OG_080", new Power {
-				PowerTask = ComplexTask.GetRandomEntourageCardToHand,
-				DeathrattleTask = ComplexTask.GetRandomEntourageCardToHand
+				PowerTask = ComplexTask.GetRandomEntourageCardToHand(),
+				DeathrattleTask = ComplexTask.GetRandomEntourageCardToHand()
 			});
 
 			// ----------------------------------------- MINION - ROGUE

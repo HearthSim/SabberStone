@@ -122,7 +122,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.GRAVEYARD),
 					new FilterStackTask(SelfCondition.IsRace(Race.DEMON), SelfCondition.IsDead),
 					//new CopyTask(EntityType.STACK, 1),
-					new SummonCopyTask(EntityType.STACK))
+					new SummonCopyTask(EntityType.STACK, true))
 			});
 
 			// ------------------------------------------- HERO - DRUID
