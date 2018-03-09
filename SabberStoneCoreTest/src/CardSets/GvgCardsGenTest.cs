@@ -684,10 +684,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Restore #4 Health to your hero and gain +2 Attack this turn.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SealOfLight_GVG_057()
 		{
-			// TODO SealOfLight_GVG_057 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -699,7 +698,15 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Seal of Light"));
+
+			game.CurrentPlayer.Hero.Damage = 10;
+			game.ProcessCard("Seal of Light");
+
+			Assert.Equal(6, game.CurrentPlayer.Hero.Damage);
+			Assert.Equal(2, game.CurrentPlayer.Hero.AttackDamage);
+			game.EndTurn();
+			game.EndTurn();
+			Assert.Equal(0, game.CurrentPlayer.Hero.AttackDamage);
 		}
 
 		// ---------------------------------------- SPELL - PALADIN
@@ -816,10 +823,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void BolvarFordragon_GVG_063()
 		{
-			// TODO BolvarFordragon_GVG_063 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -831,7 +837,20 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Bolvar Fordragon"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bolvar Fordragon"));
+
+			game.PlayHeroPower(null, 0, true);
+			game.PlayHeroPower(null, 0, true);
+			game.PlayHeroPower(null, 0, true);
+			game.PlayHeroPower(null, 0, true);
+			game.PlayHeroPower(null, 0, true);
+
+			game.EndTurn();
+
+			Assert.Equal(5, game.CurrentOpponent.BoardZone.Count);
+			game.ProcessCard("Consecration");
+			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
+			Assert.Equal(testCard[GameTag.ATK], testCard.Card[GameTag.ATK] + 5);
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -909,10 +928,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - AFFECTED_BY_SPELL_POWER = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Lightbomb_GVG_008()
 		{
-			// TODO Lightbomb_GVG_008 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -924,7 +942,18 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Lightbomb"));
+
+			Minion target1 = game.ProcessCard<Minion>("River Crocolisk");
+			Minion target2 = game.ProcessCard<Minion>("Bloodfen Raptor");
+			game.EndTurn();
+
+			Minion target3 = game.ProcessCard<Minion>("River Crocolisk");
+			Minion target4 = game.ProcessCard<Minion>("Bloodfen Raptor");
+			game.ProcessCard("Lightbomb");
+			Assert.Equal(1, target1.Health);
+			Assert.True(target2.ToBeDestroyed);
+			Assert.Equal(1, target3.Health);
+			Assert.True(target4.ToBeDestroyed);
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -940,10 +969,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - SPELLPOWER = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void VelensChosen_GVG_010()
 		{
-			// TODO VelensChosen_GVG_010 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -955,7 +983,17 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Velen's Chosen"));
+
+			Minion target = game.ProcessCard<Minion>("Stonetusk Boar");
+			game.ProcessCard("Velen's Chosen", target);
+
+			Assert.Equal(3, target.AttackDamage);
+			Assert.Equal(5, target.Health);
+			Assert.Equal(1, game.CurrentPlayer.CurrentSpellPower);
+
+			target.Kill();
+
+			Assert.Equal(0, game.CurrentPlayer.CurrentSpellPower);
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -967,10 +1005,9 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void LightOfTheNaaru_GVG_012()
 		{
-			// TODO LightOfTheNaaru_GVG_012 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -982,7 +1019,12 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Light of the Naaru"));
+
+			game.CurrentPlayer.Hero.Damage = 4;
+			game.ProcessCard("Light of the Naaru", game.CurrentPlayer.Hero);
+			Assert.Equal(1, game.CurrentPlayer.Hero.Damage);
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Assert.Equal("Lightwarden", game.CurrentPlayer.BoardZone[0].Card.Name);
 		}
 
 		// ---------------------------------------- MINION - PRIEST
@@ -1148,10 +1190,9 @@ namespace SabberStoneCoreTest.CardSets
 		// PlayReq:
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TinkersSharpswordOil_GVG_022()
 		{
-			// TODO TinkersSharpswordOil_GVG_022 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1164,6 +1205,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Tinker's Sharpsword Oil"));
+
+			game.PlayHeroPower();
+
+			game.ProcessCard("Tinker's Sharpsword Oil");
+			Assert.Equal(4, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+
+			Minion target = game.ProcessCard<Minion>("Stonetusk Boar", null, true);
+			game.ProcessCard("Tinker's Sharpsword Oil");
+			Assert.Equal(7, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+			Assert.Equal(4, target.AttackDamage);
 		}
 
 		// ------------------------------------------ SPELL - ROGUE
@@ -1284,10 +1335,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TradePrinceGallywix_GVG_028()
 		{
-			// TODO TradePrinceGallywix_GVG_028 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1299,7 +1349,20 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Trade Prince Gallywix"));
+
+			game.ProcessCard("Trade Prince Gallywix");
+			game.EndTurn();
+
+			game.ProcessCard("Sinister Strike");
+			Assert.Equal("Sinister Strike", game.CurrentOpponent.HandZone[game.CurrentOpponent.HandZone.Count - 1].Card.Name);
+			Assert.Equal(7, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal("Gallywix's Coin", game.CurrentPlayer.HandZone[6].Card.Name);
+
+			game.CurrentPlayer.UsedMana = 10;
+
+			game.ProcessCard(game.CurrentPlayer.HandZone[6]);
+
+			Assert.Equal(1, game.CurrentPlayer.RemainingMana);
 		}
 
 		// ----------------------------------------- MINION - ROGUE

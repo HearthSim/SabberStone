@@ -23,10 +23,10 @@ namespace SabberStoneCore.Tasks
 			return StateTaskList.Chain(list);
 		}
 
-		internal static ISimpleTask GetRandomEntourageCardToHand
+		internal static ISimpleTask GetRandomEntourageCardToHand(bool opponent = false)
 			=> Create(
 				new RandomEntourageTask(),
-				new AddStackTo(EntityType.HAND));
+				new AddStackTo(opponent ? EntityType.OP_HAND : EntityType.HAND));
 
 		internal static ISimpleTask LifeSteal(EntityType entityType)
 			=> new SetGameTagTask(GameTag.LIFESTEAL, 1, entityType);

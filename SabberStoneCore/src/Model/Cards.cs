@@ -45,7 +45,7 @@ namespace SabberStoneCore.Model
 			CardSet.LOOTAPALOOZA,
 			// wild
 			CardSet.BRM,
-			//CardSet.GVG,
+			CardSet.GVG,
 			CardSet.HOF,
 			CardSet.NAXX,
 			//CardSet.LOE,

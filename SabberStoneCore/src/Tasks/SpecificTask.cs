@@ -172,15 +172,20 @@ namespace SabberStoneCore.Tasks
 					if (p is ICharacter c && c.IsAttacking)
 					{
 						int index = Util.Random.Next(opBoardCount + 1);
-						c.Game.ProposedDefender = index == opBoardCount
-							? c.Controller.Opponent.Hero.Id
-							: c.Controller.Opponent.BoardZone.HasUntouchables
-								? c.Controller.Opponent.BoardZone.GetAll(null)[index].Id
-								: c.Controller.Opponent.BoardZone[index].Id;
+						c.Game.CurrentEventData.EventTarget =
+							index == opBoardCount
+								? (IPlayable)c.Controller.Opponent.Hero
+								: c.Controller.Opponent.BoardZone.HasUntouchables
+									? c.Controller.Opponent.BoardZone.GetAll(null)[index]
+									: c.Controller.Opponent.BoardZone[index];
+
+						c.Game.ProposedDefender = c.Game.CurrentEventData.EventTarget.Id;
+						c.Game.OnRandomHappened(true);
 						return null;
 					}
 
 					p.CardTarget = Util.Choose((List<ICharacter>) p.ValidPlayTargets).Id;
+					p.Game.OnRandomHappened(true);
 					return null;
 				}));
 
@@ -482,14 +487,18 @@ namespace SabberStoneCore.Tasks
 		{
 			return ComplexTask.Create(
 				new IncludeTask(EntityType.GRAVEYARD),
-				new FuncPlayablesTask(list => list
-					.Where(p => p is Minion && p.ToBeDestroyed)
-					.Select(p => p.Card.Id)
-					.Distinct()
-					.OrderBy(p => Util.Random)
-					.Take(i)
-					.Select(p => Entity.FromCard(list[0].Controller, Cards.FromId(p)))
-					.ToList()),
+				new FuncPlayablesTask(list =>
+				{
+					list[0].Game.OnRandomHappened(true);
+					return list
+						.Where(p => p is Minion && p.ToBeDestroyed)
+						.Select(p => p.Card.Id)
+						.Distinct()
+						.OrderBy(p => Util.Random)
+						.Take(i)
+						.Select(p => Entity.FromCard(list[0].Controller, Cards.FromId(p)))
+						.ToList();
+				}),
 				new SummonStackTask());
 		}
 
@@ -576,6 +585,8 @@ namespace SabberStoneCore.Tasks
 					if (p.Zone?.Type != Zone.PLAY)
 						break;
 				}
+
+				c.Game.OnRandomHappened(true);
 
 				return 0;
 			});
@@ -694,6 +705,8 @@ namespace SabberStoneCore.Tasks
 
 					CostReduceEffect.Apply(newEntity.AuraEffects);
 				}
+
+				Game.OnRandomHappened(true);
 
 				return TaskState.COMPLETE;
 			}

@@ -39,8 +39,8 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, int, bool> AddTempMana
 			=> delegate (Controller c, int amount)
 			{
-				if (c.BaseMana + c.TemporaryMana + amount > 10)
-					c.TemporaryMana += 10 - c.BaseMana;
+				if (c.RemainingMana + amount > 10)
+					c.TemporaryMana += 10 - c.RemainingMana;
 				else
 					c.TemporaryMana += amount;
 				return true;

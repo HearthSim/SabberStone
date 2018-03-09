@@ -7785,6 +7785,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, frostBolt2, raidLeader));
 
 			Assert.Equal(5, test.AttackDamage);
+
+
+			game.EndTurn();
+			game.ProcessCard("Faceless Manipulator", target);
+			Minion test2 = game.CurrentPlayer.BoardZone.Last();
+			Assert.False(test2.IsExhausted);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

@@ -69,10 +69,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				for (int i = 0; i < space; i++)
 				{
-					IPlayable p = entities[i];
-
 					// clone task here
-					var task = new SummonTask(_side, p.Card)
+					var task = new SummonTask(_side, entities[i].Card)
 					{
 						Game = Controller.Game,
 						Controller = Controller,

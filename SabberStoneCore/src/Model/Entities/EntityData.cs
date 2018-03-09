@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using SabberStoneCore.Enums;
 
@@ -245,26 +246,17 @@ namespace SabberStoneCore.Model.Entities
 				Initialise(capacity);
 			}
 
-			public Data(Data data)
+			public unsafe Data(Data data)
 			{
-				_buckets = new int[data._buckets.Length];
-				//data._buckets.CopyTo(_buckets, 0);
-				//Buffer.BlockCopy(data._buckets, 0, _buckets, 0, data._size << 3);
-				//Array.Copy(data._buckets, _buckets, _buckets.Length);
-				data.Copy(_buckets);
-				_size = data._size;
-				_count = data._count;
-			}
-
-			private unsafe void Copy(int[] dst)
-			{
-				fixed (int* srcPtr = _buckets, dstPtr = dst)
+				int len = data._buckets.Length;
+				_buckets = new int[len];
+				fixed (int* srcPtr = data._buckets, dstPtr = _buckets)
 				{
-					int* srcEndPtr = srcPtr + dst.Length;
+					int* srcEndPtr = srcPtr + len;
 					long* s = (long*)srcPtr;
 					long* d = (long*)dstPtr;
 
-					while (s + 2 <= srcEndPtr)
+					do
 					{
 						*d = *s;
 						d++;
@@ -272,10 +264,13 @@ namespace SabberStoneCore.Model.Entities
 						*d = *s;
 						d++;
 						s++;
-					}
+					} while (s + 2 <= srcEndPtr);
 
 					*d ^= *s;
 				}
+
+				_size = len >> 1;
+				_count = data._count;
 			}
 
 			public void Clear()

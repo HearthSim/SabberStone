@@ -328,16 +328,26 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Generic.SummonBlock.Invoke(game.CurrentPlayer,
+				(Minion) Entity.FromCard(game.CurrentPlayer, Cards.FromName("Doomguard")), -1);
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			game.CurrentPlayer.BoardZone[0].Kill();
+			Assert.Empty(game.CurrentPlayer.BoardZone);
 			Assert.Equal(29, game.CurrentPlayer.Hero.Health);
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Bloodreaver Gul'dan"));
 			Assert.Equal(29, game.CurrentPlayer.Hero.Health);
 			Assert.Equal("ICC_831", game.CurrentPlayer.Hero.Card.Id);
 			Assert.Equal("ICC_831p", game.CurrentPlayer.Hero.HeroPower.Card.Id);
 			Assert.Equal(5, game.CurrentPlayer.Hero.Armor);
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Assert.False(game.CurrentPlayer.BoardZone[0].IsExhausted);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			Assert.Equal(29, game.CurrentOpponent.Hero.Health);
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
 			Assert.Equal(4, game.CurrentPlayer.Hero.Armor);
 			Assert.Equal(29, game.CurrentPlayer.Hero.Health);
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));

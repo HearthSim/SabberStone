@@ -72,6 +72,10 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool IsOneTurnActive => Card[GameTag.TAG_ONE_TURN_EFFECT] == 1;
 
+		public int ScriptTag1 => this[GameTag.TAG_SCRIPT_DATA_NUM_1];
+
+		public int ScriptTag2 => this[GameTag.TAG_SCRIPT_DATA_NUM_2];
+
 		/// <summary>
 		/// Creates and adds a new Enchantment entity to the given Controller's Game.
 		/// </summary>
