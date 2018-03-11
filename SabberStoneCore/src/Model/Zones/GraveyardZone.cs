@@ -15,9 +15,9 @@ namespace SabberStoneCore.Model.Zones
 			Type = Zone.GRAVEYARD;
 		}
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
+		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
-			base.Add(entity, zonePosition, applyPowers);
+			base.Add(entity, zonePosition);
 
 			if (entity.AppliedEnchantments != null)
 				for (int i = entity.AppliedEnchantments.Count - 1; i >= 0; i--)

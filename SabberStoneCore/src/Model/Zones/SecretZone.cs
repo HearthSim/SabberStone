@@ -27,7 +27,7 @@ namespace SabberStoneCore.Model.Zones
 			Type = Zone.SECRET;
 		}
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
+		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
 			if (entity.Card.IsQuest)
 			{

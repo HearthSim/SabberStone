@@ -63,7 +63,7 @@ namespace SabberStoneCore.Model.Zones
 		/// <returns></returns>
 		public T this[int zonePosition] => Entities[zonePosition];
 
-		public abstract void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true);
+		public abstract void Add(IPlayable entity, int zonePosition = -1);
 
 		public abstract IPlayable Remove(IPlayable entity);
 		/// <summary>
@@ -186,7 +186,7 @@ namespace SabberStoneCore.Model.Zones
 			}
 		}
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
+		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
 			if (entity.Controller != Controller)
 				throw new ZoneException("Can't add an opponent's entity to own Zones");
@@ -259,7 +259,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public int FreeSpace => MaxSize - _count;
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
+		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
 			if (zonePosition > _count)
 				throw new ZoneException($"Zoneposition '{zonePosition}' isn't in a valid range.");
@@ -303,17 +303,20 @@ namespace SabberStoneCore.Model.Zones
 
 			int pos;
 			for (pos = _count - 1; pos >= 0; --pos)
-				if (ReferenceEquals(Entities[pos], (T)entity)) break;
+				if (ReferenceEquals(Entities[pos], entity)) break;
 
-			Entities[pos] = default(T);
+			//Entities[pos] = default(T);
 
-			int i;
-			for (i = pos; i < _count - 1; i++)
-				Entities[i] = Entities[i + 1];
+			if (pos < --_count)
+				Array.Copy((Array) Entities, pos + 1, (Array) Entities, pos, _count - pos);
 
-			Entities[i] = default(T);
+			//int i;
+			//for (i = pos; i < _count - 1; i++)
+			//	Entities[i] = Entities[i + 1];
 
-			_count--;
+			//Entities[i] = default(T);
+
+			//_count--;
 
 			entity.Zone = null;
 
@@ -402,9 +405,9 @@ namespace SabberStoneCore.Model.Zones
 				Auras[i].ToBeUpdated = true;
 		}
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
+		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
-			base.Add(entity, zonePosition, applyPowers);
+			base.Add(entity, zonePosition);
 
 			Reposition(zonePosition);
 		}
@@ -414,16 +417,22 @@ namespace SabberStoneCore.Model.Zones
 			if (entity.Zone == null || entity.Zone.Type != Type)
 				throw new ZoneException("Couldn't remove entity from zone.");
 
-			int pos = entity.ZonePosition;
-			Entities[pos] = default(T);
+			//int pos = entity.ZonePosition;
+			int pos = Array.IndexOf((Array)Entities, entity, 0, _count);
+			//Entities[pos] = default(T);
 
-			int i;
-			for (i = pos; i < _count - 1; i++)
-				Entities[i] = Entities[i + 1];
+			//_count--;
 
-			Entities[i] = default(T);
+			if (pos < --_count)
+				Array.Copy((Array)Entities, pos + 1, (Array)Entities, pos, _count - pos);
 
-			_count--;
+			//int i;
+			//for (i = pos; i < _count - 1; i++)
+			//	Entities[i] = Entities[i + 1];
+
+			//Entities[i] = default(T);
+
+
 
 			Reposition(pos);
 			//entity.ZonePosition = 0;

@@ -23,7 +23,7 @@ namespace SabberStoneCore.Model.Zones
 			Type = Zone.DECK;
 		}
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
+		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
 			base.Add(entity, zonePosition);
 
