@@ -51,6 +51,7 @@ namespace SabberStoneCore.Enchants
 		private int WINDFURY;
 		private int IMMUNE;
 		private int LIFESTEAL;
+		private int CANT_ATTACK;
 		private int CANT_BE_TARGETED_BY_SPELLS;
 		private int CARD_COST_HEALTH;
 
@@ -78,6 +79,7 @@ namespace SabberStoneCore.Enchants
 			CHARGE = other.CHARGE;
 			WINDFURY = other.WINDFURY;
 			LIFESTEAL = other.LIFESTEAL;
+			CANT_ATTACK = other.CANT_ATTACK;
 			CARD_COST_HEALTH = other.CARD_COST_HEALTH;
 		}
 
@@ -114,6 +116,8 @@ namespace SabberStoneCore.Enchants
 						return IMMUNE;
 					case GameTag.LIFESTEAL:
 						return LIFESTEAL;
+					case GameTag.CANT_ATTACK:
+						return CANT_ATTACK;
 					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
 					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
 						return CANT_BE_TARGETED_BY_SPELLS >= 1 ? 1 : 0;
@@ -154,6 +158,9 @@ namespace SabberStoneCore.Enchants
 						return;
 					case GameTag.LIFESTEAL:
 						LIFESTEAL = value;
+						return;
+					case GameTag.CANT_ATTACK:
+						CANT_ATTACK = value;
 						return;
 					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
 					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:

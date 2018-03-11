@@ -893,7 +893,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_611", new Power {
 				Trigger = new Trigger(TriggerType.ATTACK)
 				{
-				TriggerSource = TriggerSource.OP_MINIONS,
+					TriggerSource = TriggerSource.OP_MINIONS,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
 						new FlagTask(true, ComplexTask.Secret(
@@ -1232,9 +1232,8 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.EVENT_SOURCE, SelfCondition.IsNotDead, SelfCondition.IsNotUntouchable),
-						new FlagTask(true, new SummonCopyTask(EntityType.EVENT_SOURCE)))
-
-
+						new FlagTask(true, ComplexTask.Secret(
+							new SummonCopyTask(EntityType.EVENT_SOURCE))))
 				}
 			});
 

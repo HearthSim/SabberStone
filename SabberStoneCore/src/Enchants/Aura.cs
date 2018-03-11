@@ -604,9 +604,8 @@ namespace SabberStoneCore.Enchants
 					return;
 				}
 				case EffectOperator.SET:
-					_lastValue += Owner.AuraEffects[_tag];
-					Owner.AuraEffects[_tag] = 0;
-					Owner[_tag] = ValueFunc(Owner);
+					Owner[_tag] = 0;
+					Owner.AuraEffects[_tag] = ValueFunc(Owner);
 					return;
 			}
 		}
@@ -625,7 +624,9 @@ namespace SabberStoneCore.Enchants
 					Owner.AuraEffects[_tag] += _lastValue;
 					return;
 				case EffectOperator.SET:
-					Owner.AuraEffects[_tag] = _lastValue;
+					Owner.AuraEffects[_tag] = 0;
+					if (Owner.Zone is BoardZone board)
+						board.Auras.ForEach(p => p.EntityRemoved(Owner));
 					return;
 			}
 		}

@@ -45,7 +45,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>Disables all special effects on this minion.
 		/// It's not possible to undo a silence!
 		/// </summary>
-		public virtual void Silence()
+		public void Silence()
 		{
 			HasTaunt = false;
 			IsFrozen = false;
@@ -71,6 +71,7 @@ namespace SabberStoneCore.Model.Entities
 
 			OngoingEffect?.Remove();
 			Game.OneTurnEffects.RemoveAll(p => p.entityId == Id);
+			ActivatedTrigger?.Remove();
 			//Controller.BoardZone.Auras.ForEach(aura => aura.EntityRemoved(this));
 
 			if (AppliedEnchantments != null)
@@ -101,9 +102,7 @@ namespace SabberStoneCore.Model.Entities
 				this[GameTag.CONTROLLER_CHANGED_THIS_TURN] = 0;
 			}
 
-			if (_history)
-				if (Card[GameTag.TRIGGER_VISUAL] == 1)
-					this[GameTag.TRIGGER_VISUAL] = 0;
+			if (_history && Card[GameTag.TRIGGER_VISUAL] == 1) this[GameTag.TRIGGER_VISUAL] = 0;
 
 			IsSilenced = true;
 
