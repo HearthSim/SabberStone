@@ -383,8 +383,6 @@ namespace SabberStoneCoreTest.Basic
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, minion2, minion1));
 			Assert.Equal(1, ((Minion)minion1).AttackDamage);
 			Assert.Equal(1, ((Minion)minion1).Health);
-
-
 		}
 
 		[Fact]
@@ -412,7 +410,6 @@ namespace SabberStoneCoreTest.Basic
 			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hunter's Mark"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion));
 			Assert.Equal(1, ((Minion)minion).Health);
-
 		}
 
 		[Fact]
@@ -567,6 +564,23 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(3, ((ICharacter)minion3).Health);
 			Assert.True(((ICharacter)minion4).IsDead);
 
+		}
+
+		[Fact]
+		public void AdaptiveEffectTest()
+		{
+			var game = new Game(new GameConfig());
+			game.StartGame();
+			Minion target = game.ProcessCard<Minion>("Lightspawn", null, true);
+			Assert.Equal(5, target.AttackDamage);
+			game.ProcessCard("Power Word: Shield", target, true);
+			Assert.Equal(7, target.AttackDamage);
+			game.ProcessCard("Abusive Sergeant", target, true);
+			Assert.Equal(7, target.AttackDamage);
+			game.ProcessCard("Raid Leader", null, true);
+			Assert.Equal(7, target.AttackDamage);
+			game.ProcessCard("Silence", target);
+			Assert.Equal(1, target.AttackDamage);
 		}
 
 		[Fact]

@@ -23,11 +23,6 @@ namespace SabberStoneCoreConsole
 
 		static void Main(string[] args)
 		{
-			var card = Cards.FromName("Rexxar");
-			var cards = Cards.All.Where(c => c.Collectible && c.Type == CardType.HERO).ToArray();
-			var cards2 = Cards.AllStandard.Where(c => c.Type == CardType.HERO).ToArray();
-			if (card.Collectible) ;
-
 
 			Console.WriteLine("Start Test!");
 

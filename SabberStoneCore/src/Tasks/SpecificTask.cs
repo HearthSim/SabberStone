@@ -13,7 +13,7 @@ using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks
 {
-	internal class SpecificTask
+	internal static class SpecificTask
 	{
 		public static ISimpleTask LivingMana
 			=> ComplexTask.Create(

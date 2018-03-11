@@ -1401,19 +1401,32 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 676 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_067", new Power {
-				// TODO [UNG_067] The Caverns Below && Test: The Caverns Below_UNG_067
-				// TODO: use name instead
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
-					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.EVENT_SOURCE, new RelaCondition(
-							(source, target) => source[GameTag.QUEST_CONTRIBUTOR] == target.Card.AssetId)),
-						new FlagTask(true, new QuestProgressTask("UNG_067t1")),
-						new FlagTask(false, ComplexTask.Create(
-							new FuncNumberTask(p => p.Game.CurrentEventData.EventSource.Card.AssetId),
-							new SetGameTagNumberTask(GameTag.QUEST_CONTRIBUTOR, EntityType.SOURCE),
-							new SetGameTagTask(GameTag.QUEST_PROGRESS, 1, EntityType.SOURCE))))
+					SingleTask = new FuncNumberTask(p =>
+					{
+						Card justPlayed = p.Game.CurrentEventData.EventSource.Card;
+						List<PlayHistoryEntry> history = p.Controller.PlayHistory;
+						int count = 0;
+						for (int i = history.FindIndex(x => x.SourceCard.AssetId == 41222) + 1; i < history.Count; i++)
+							if (history[i].SourceCard.Name == justPlayed.Name)
+								count++;
+
+						if (count <= p[GameTag.QUEST_PROGRESS]) return 0;
+
+						p[GameTag.QUEST_CONTRIBUTOR] = justPlayed.AssetId;
+						var task = new QuestProgressTask("UNG_067t1")
+						{
+							Game = p.Game,
+							Controller = p.Controller,
+							Source = p,
+							Target = null
+						};
+						p.Game.TaskQueue.Enqueue(task);
+
+						return 0;
+					})
 				}
 			});
 

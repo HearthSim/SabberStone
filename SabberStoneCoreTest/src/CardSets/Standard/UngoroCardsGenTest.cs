@@ -2194,7 +2194,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.ProcessCard("Stonetusk Boar", null, true);
 			game.ProcessCard("Stonetusk Boar", null, true);
 			game.ProcessCard("Stonetusk Boar", null, true);
-			game.ProcessCard("Stonetusk Boar", null, true);
 			Assert.NotEqual("Crystal Core", game.CurrentPlayer.HandZone.Last().Card.Name);
 			game.ProcessCard("Stonetusk Boar", null, true);
 			Assert.Equal("Crystal Core", game.CurrentPlayer.HandZone.Last().Card.Name);

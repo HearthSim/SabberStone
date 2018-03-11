@@ -5209,14 +5209,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Southsea Deckhand"));
+			Minion minion1 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Southsea Deckhand"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
 
-			Assert.False(((Minion)minion1).HasCharge);
+			Assert.False(minion1.HasCharge);
 
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
 
-			Assert.True(((Minion)minion1).HasCharge);
+			Assert.True(minion1.HasCharge);
+
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion1, game.CurrentOpponent.Hero));
+			Assert.Equal(1, minion1.NumAttacksThisTurn);
+
+			game.ProcessCard("Shadowstep", minion1);
+
+			Assert.Equal(Zone.HAND, minion1.Zone.Type);
+
+			game.ProcessCard(minion1);
+
+			Assert.True(minion1.HasCharge);
+			Assert.False(minion1.IsExhausted);
+			Assert.Equal(0, minion1.NumAttacksThisTurn);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

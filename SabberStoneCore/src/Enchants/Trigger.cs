@@ -496,6 +496,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerSource.ALL_MINIONS_EXCEPT_SELF:
 					if (!(source is Minion) || source == _owner) return;
 				    break;
+				case TriggerSource.OP_MINIONS:
+					if (!(source is Minion) || source.Controller == _owner.Controller) return;
+					break;
 			    case TriggerSource.HERO:
 				    if (!(source is Hero) || source.Controller != _owner.Controller) return;
 				    break;
