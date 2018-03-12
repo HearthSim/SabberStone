@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Enums;
+﻿using System.Collections.Generic;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model.Zones
@@ -13,6 +14,7 @@ namespace SabberStoneCore.Model.Zones
 		private GraveyardZone(Controller c, GraveyardZone zone) : base(c, zone)
 		{
 			Type = Zone.GRAVEYARD;
+			//Entities = new List<IPlayable>(zone.Entities);
 		}
 
 		public override void Add(IPlayable entity, int zonePosition = -1)

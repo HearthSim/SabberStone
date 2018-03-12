@@ -2215,6 +2215,7 @@ namespace SabberStoneCore.CardSets.Standard
 							{
 								IPlayable source = p[0];
 								source.Zone.Remove(source);
+								source[GameTag.HEADCRACK_COMBO] = 0;
 								return p;
 							}),
 							new AddStackTo(EntityType.HAND)))),

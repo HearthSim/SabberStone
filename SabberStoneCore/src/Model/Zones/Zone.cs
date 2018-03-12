@@ -71,7 +71,7 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <param name="zonePosition">The zone position.</param>
-		public abstract void MoveTo(T entity, int zonePosition);
+		public abstract void MoveTo(T entity, int zonePosition = -1);
 		/// <summary>
 		/// Swaps the positions of both entities in this zone.
 		/// Both entities must be contained by this zone.
@@ -417,25 +417,15 @@ namespace SabberStoneCore.Model.Zones
 			if (entity.Zone == null || entity.Zone.Type != Type)
 				throw new ZoneException("Couldn't remove entity from zone.");
 
-			//int pos = entity.ZonePosition;
-			int pos = Array.IndexOf((Array)Entities, entity, 0, _count);
-			//Entities[pos] = default(T);
-
-			//_count--;
+			int pos;
+			for (pos = _count - 1; pos >= 0; --pos)
+				if (ReferenceEquals(Entities[pos], entity)) break;
 
 			if (pos < --_count)
 				Array.Copy((Array)Entities, pos + 1, (Array)Entities, pos, _count - pos);
 
-			//int i;
-			//for (i = pos; i < _count - 1; i++)
-			//	Entities[i] = Entities[i + 1];
-
-			//Entities[i] = default(T);
-
-
-
 			Reposition(pos);
-			//entity.ZonePosition = 0;
+
 			entity.Zone = null;
 
 			entity.ActivatedTrigger?.Remove();
