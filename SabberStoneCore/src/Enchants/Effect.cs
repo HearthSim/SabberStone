@@ -58,24 +58,29 @@ namespace SabberStoneCore.Enchants
 					break;
 				case EffectOperator.SET:
 					// experimental implmentation for simulating tricky situations
-					if (Tag == GameTag.ATK)
-						for (int i = entity.Game.OneTurnEffects.Count - 1; i >= 0; i--)
-						{
-							(int id, Effect eff) = entity.Game.OneTurnEffects[i];
-							if (id != entity.Id || eff.Tag != GameTag.ATK) continue;
+					switch (Tag)
+					{
+						case GameTag.ATK:
+							for (int i = entity.Game.OneTurnEffects.Count - 1; i >= 0; i--)
+							{
+								(int id, Effect eff) = entity.Game.OneTurnEffects[i];
+								if (id != entity.Id || eff.Tag != GameTag.ATK) continue;
 
-							entity.Game.OneTurnEffects.Remove((id, eff));
-						}
-					else if (Tag == GameTag.HEALTH)
-					{
-						((ICharacter)entity).Health = Value;
-						break;
-					}
-					else if (Tag == GameTag.WINDFURY)
-					{
-						Minion m = entity as Minion;
-						if (m.NumAttacksThisTurn > 0 && m.IsExhausted)
-							m.IsExhausted = false;
+								entity.Game.OneTurnEffects.RemoveAt(i);
+							}
+							break;
+						case GameTag.HEALTH:
+							((ICharacter)entity).Health = Value;
+							break;
+						case GameTag.CHARGE:
+							if (entity[GameTag.EXHAUSTED] == 1 && entity[GameTag.NUM_ATTACKS_THIS_TURN] == 0)
+								entity[GameTag.EXHAUSTED] = 0;
+							break;
+						case GameTag.WINDFURY:
+							Minion m = entity as Minion;
+							if (m.NumAttacksThisTurn > 0 && m.IsExhausted)
+								m.IsExhausted = false;
+							break;
 					}
 
 					if (oneTurnEffect && entity.NativeTags[Tag] == Value)

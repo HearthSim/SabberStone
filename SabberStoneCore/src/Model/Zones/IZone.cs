@@ -40,10 +40,8 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <param name="zonePosition">The zone position.</param>
-		/// <param name="applyPowers"><c>true</c> if all zone changing powers have to be
-		/// executed, <c>false</c> otherwise.</param>
 		/// <returns>The entity</returns>
-		void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true);
+		void Add(IPlayable entity, int zonePosition = -1);
 
 		/// <summary>
 		/// Removes the specified entity from this zone.

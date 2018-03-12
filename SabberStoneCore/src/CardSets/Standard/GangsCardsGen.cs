@@ -1736,7 +1736,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CFM_060", new Power
 			{
-				PowerTask = new AddEnchantmentTask("CFM_060e", EntityType.SOURCE)
+				Trigger = new Trigger(TriggerType.CAST_SPELL)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = new AddEnchantmentTask("CFM_060e", EntityType.SOURCE)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

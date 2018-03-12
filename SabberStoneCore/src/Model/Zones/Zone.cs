@@ -63,7 +63,7 @@ namespace SabberStoneCore.Model.Zones
 		/// <returns></returns>
 		public T this[int zonePosition] => Entities[zonePosition];
 
-		public abstract void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true);
+		public abstract void Add(IPlayable entity, int zonePosition = -1);
 
 		public abstract IPlayable Remove(IPlayable entity);
 		/// <summary>
@@ -71,7 +71,7 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		/// <param name="entity">The entity.</param>
 		/// <param name="zonePosition">The zone position.</param>
-		public abstract void MoveTo(T entity, int zonePosition);
+		public abstract void MoveTo(T entity, int zonePosition = -1);
 		/// <summary>
 		/// Swaps the positions of both entities in this zone.
 		/// Both entities must be contained by this zone.
@@ -186,7 +186,7 @@ namespace SabberStoneCore.Model.Zones
 			}
 		}
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
+		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
 			if (entity.Controller != Controller)
 				throw new ZoneException("Can't add an opponent's entity to own Zones");
@@ -259,7 +259,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public int FreeSpace => MaxSize - _count;
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
+		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
 			if (zonePosition > _count)
 				throw new ZoneException($"Zoneposition '{zonePosition}' isn't in a valid range.");
@@ -303,17 +303,20 @@ namespace SabberStoneCore.Model.Zones
 
 			int pos;
 			for (pos = _count - 1; pos >= 0; --pos)
-				if (ReferenceEquals(Entities[pos], (T)entity)) break;
+				if (ReferenceEquals(Entities[pos], entity)) break;
 
-			Entities[pos] = default(T);
+			//Entities[pos] = default(T);
 
-			int i;
-			for (i = pos; i < _count - 1; i++)
-				Entities[i] = Entities[i + 1];
+			if (pos < --_count)
+				Array.Copy((Array) Entities, pos + 1, (Array) Entities, pos, _count - pos);
 
-			Entities[i] = default(T);
+			//int i;
+			//for (i = pos; i < _count - 1; i++)
+			//	Entities[i] = Entities[i + 1];
 
-			_count--;
+			//Entities[i] = default(T);
+
+			//_count--;
 
 			entity.Zone = null;
 
@@ -402,9 +405,9 @@ namespace SabberStoneCore.Model.Zones
 				Auras[i].ToBeUpdated = true;
 		}
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
+		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
-			base.Add(entity, zonePosition, applyPowers);
+			base.Add(entity, zonePosition);
 
 			Reposition(zonePosition);
 		}
@@ -414,19 +417,15 @@ namespace SabberStoneCore.Model.Zones
 			if (entity.Zone == null || entity.Zone.Type != Type)
 				throw new ZoneException("Couldn't remove entity from zone.");
 
-			int pos = entity.ZonePosition;
-			Entities[pos] = default(T);
+			int pos;
+			for (pos = _count - 1; pos >= 0; --pos)
+				if (ReferenceEquals(Entities[pos], entity)) break;
 
-			int i;
-			for (i = pos; i < _count - 1; i++)
-				Entities[i] = Entities[i + 1];
-
-			Entities[i] = default(T);
-
-			_count--;
+			if (pos < --_count)
+				Array.Copy((Array)Entities, pos + 1, (Array)Entities, pos, _count - pos);
 
 			Reposition(pos);
-			//entity.ZonePosition = 0;
+
 			entity.Zone = null;
 
 			entity.ActivatedTrigger?.Remove();
