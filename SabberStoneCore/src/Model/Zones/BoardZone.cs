@@ -20,7 +20,7 @@ namespace SabberStoneCore.Model.Zones
 		public int CountExceptUntouchables => _count - _untouchableCount;
 		public bool HasUntouchables => _hasUntouchables;
 
-		public override void Add(IPlayable entity, int zonePosition = -1, bool applyPowers = true)
+		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
 			base.Add(entity, zonePosition);
 

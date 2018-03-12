@@ -1225,7 +1225,8 @@ namespace SabberStoneCore.CardSets.Standard
 					new FuncNumberTask(p =>
 					{
 						Controller c = p.Controller;
-						IPlayable[] entities =c.DeckZone.GetAll(x => x.Card.IsSecret);
+						if (c.SecretZone.IsFull) return 0;
+						IPlayable[] entities = c.DeckZone.GetAll(x => x.Card.IsSecret);
 						List<int> ids = c.SecretZone.Select(x => x.Card.AssetId).ToList();
 						for (int i = 0; i < entities.Length; i++)
 						{
@@ -2534,7 +2535,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_019", new Power {
-				PowerTask = ComplexTask.Create(
+				DeathrattleTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn),
 					new FlagTask(true, new SummonTask("ICC_019t", SummonSide.DEATHRATTLE))),
 			});
@@ -3119,7 +3120,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_854", new Power {
-				PowerTask = ComplexTask.Create(
+				DeathrattleTask = ComplexTask.Create(
 					new RandomEntourageTask(),
 					new AddStackTo(EntityType.HAND))
 			});

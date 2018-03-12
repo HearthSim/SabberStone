@@ -213,6 +213,12 @@ namespace SabberStoneCore.Model.Entities
 				Hero.Weapon = (Weapon)controller.Hero.Weapon.Clone(this);
 			}
 
+			if (controller.Choice != null)
+			{
+				Choice = new Choice(this);
+				Choice.Stamp(controller.Choice);
+			}
+
 			BoardZone = new BoardZone(this);
 			SetasideZone = controller.SetasideZone.Clone(this);
 			DeckZone = controller.DeckZone.Clone(this);
@@ -223,12 +229,6 @@ namespace SabberStoneCore.Model.Entities
 
 			DeckCards = controller.DeckCards;
 			BaseClass = controller.BaseClass;
-
-			if (controller.Choice != null)
-			{
-				Choice = new Choice(this);
-				Choice.Stamp(controller.Choice);
-			}
 
 			ControlledZones = new ControlledZones(this);
 			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();

@@ -1333,7 +1333,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			//	TODO:
 			IPlayable silence = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silence"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion3));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, silence, minion3));
