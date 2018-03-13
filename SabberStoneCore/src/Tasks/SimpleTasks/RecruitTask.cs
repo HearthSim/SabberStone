@@ -95,7 +95,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			Generic.RemoveFromZone.Invoke(summonEntity.Controller, summonEntity);
-			sed:
+
 			int summonPosition = -1;
 			switch (Side)
 			{

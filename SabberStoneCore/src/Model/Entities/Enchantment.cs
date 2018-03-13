@@ -35,7 +35,6 @@ namespace SabberStoneCore.Model.Entities
 			_creatorId = e._creatorId;
 			e.OngoingEffect?.Clone(this);
 			e.ActivatedTrigger?.Activate(this);
-			if (Game.IdEntityDic.ContainsKey(Id)) ;
 			Game.IdEntityDic.Add(Id, this);
 			if (e.IsOneTurnActive)
 				c.Game.OneTurnEffectEnchantments.Add(this);
