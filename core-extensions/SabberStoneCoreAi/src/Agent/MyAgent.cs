@@ -9,6 +9,8 @@ namespace SabberStoneCoreAi.src.Agent
 {
 	class MyAgent : AbstractAgent
 	{
+		private Random Rnd = new Random();
+
 		public override void FinalizeAgent()
 		{
 		}
@@ -19,6 +21,7 @@ namespace SabberStoneCoreAi.src.Agent
 
 		public override PlayerTask GetMove(SabberStoneCoreAi.POGame.POGame poGame)
 		{
+			return poGame.CurrentPlayer.Options()[0];
 		}
 
 		public override void InitializeAgent()

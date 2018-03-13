@@ -2680,15 +2680,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 		}
 
-<<<<<<< refs/remotes/upstream/master
 		public static void AddAll(Dictionary<string, Power> cards)
-=======
-		
-
-#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		public static void AddAll(Dictionary<string, List<Enchantment>> cards)
-#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
->>>>>>> Bug-Fixing competition framework - added debug mode to POGameHandler - switch game object with po_gameobject during player phase - added more copies of "No Way!" to the debug deck
 		{
 			Heroes(cards);
 			HeroPowers(cards);
