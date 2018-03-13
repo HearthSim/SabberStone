@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.InteropServices;
-using System.Text;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCoreAi.Agent;
-using SabberStoneCoreAi.src.Agent;
-using SabberStoneCoreAi.src.Agent.ExampleAgents;
-using SabberStoneCoreAi.src.POGame;
+using SabberStoneCoreAi.POGame;
 
 namespace SabberStoneCoreAi.POGame
 {
@@ -43,7 +38,7 @@ namespace SabberStoneCoreAi.POGame
 			this.debug = debug;
 		}
 
-		public void PlayGame(bool addToGameStats=true)
+		public bool PlayGame(bool addToGameStats=true)
 		{
 			Game game = new Game(gameConfig, setupHeroes);
 			player1.InitializeGame();
@@ -52,11 +47,12 @@ namespace SabberStoneCoreAi.POGame
 			AbstractAgent currentAgent;
 			Stopwatch currentStopwatch;
 			POGame poGame;
+			PlayerTask playertask = null;
 			Stopwatch[] watches = new[] {new Stopwatch(), new Stopwatch()};
 			
 			game.StartGame();
 
-			while (game.State != State.COMPLETE)
+			while (game.State != State.COMPLETE && game.State != State.INVALID)
 			{
 				if (debug)
 					Console.WriteLine("Turn " + game.Turn);
@@ -67,33 +63,34 @@ namespace SabberStoneCoreAi.POGame
 				poGame = new POGame(game);
 
 				currentStopwatch.Start();
-				List<PlayerTask> playertasks = currentAgent.GetMove(poGame);
+				playertask = currentAgent.GetMove(poGame);
 				currentStopwatch.Stop();
 
 				game.CurrentPlayer.Game = game;
 				game.CurrentOpponent.Game = game;
-
-				while (playertasks.Count > 0 && game.CurrentPlayer == currentPlayer)
-				{
-					if (debug)
-						Console.WriteLine(playertasks[0]);
-					game.Process(playertasks[0]);
-					playertasks.RemoveAt(0);
-				}
+				
+				if (debug)
+					Console.WriteLine(playertask);
+				game.Process(playertask);
 			}
+
+			if (game.State == State.INVALID)
+				return false;
 
 			if (addToGameStats)
 				gameStats.addGame(game, watches);
 
 			player1.FinalizeGame();
 			player2.FinalizeGame();
+			return true;
 		}
 
 		public void PlayGames(int nr_of_games, bool addToGameStats=true)
 		{
-			for (int i = 0; i < 0; i++)
+			for (int i = 0; i < nr_of_games; i++)
 			{
-				PlayGame(addToGameStats);
+				if (!PlayGame(addToGameStats))
+					i -= 1;		// invalid game
 			}
 		}
 

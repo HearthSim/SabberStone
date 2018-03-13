@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SabberStoneCoreAi.src.Competition
+namespace SabberStoneCoreAi.Competition
 {
 	class AllAgainstAll
 	{

@@ -17,7 +17,7 @@ namespace SabberStoneCoreAi.src.Agent
 		{
 		}
 
-		public override List<PlayerTask> GetMove(SabberStoneCoreAi.POGame.POGame poGame)
+		public override PlayerTask GetMove(SabberStoneCoreAi.POGame.POGame poGame)
 		{
 		}
 

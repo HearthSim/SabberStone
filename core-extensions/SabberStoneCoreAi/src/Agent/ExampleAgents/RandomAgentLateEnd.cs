@@ -8,7 +8,7 @@ using SabberStoneCore.Enums;
 
 namespace SabberStoneCoreAi.Agent.ExampleAgents
 {
-	class RandomAgent : AbstractAgent
+	class RandomAgentLateEnd : AbstractAgent
 	{
 		private Random Rnd = new Random();
 
@@ -30,7 +30,19 @@ namespace SabberStoneCoreAi.Agent.ExampleAgents
 		public override PlayerTask GetMove(SabberStoneCoreAi.POGame.POGame poGame)
 		{			
 			List<PlayerTask> options = poGame.CurrentPlayer.Options();
-			return options[Rnd.Next(options.Count)];
+			if (options.Count > 1)
+			{
+				// filter all non EndTurn Tasks
+				List<PlayerTask> validTasks = new List<PlayerTask>();
+				foreach (PlayerTask task in options)
+				{
+					if (task.PlayerTaskType != PlayerTaskType.END_TURN)
+						validTasks.Add(task);
+				}
+				return validTasks[Rnd.Next(validTasks.Count)];
+			}
+			return options[0];
+
 		}
 
 

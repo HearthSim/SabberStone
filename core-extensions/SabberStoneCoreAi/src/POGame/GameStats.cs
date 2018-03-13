@@ -6,7 +6,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
 
-namespace SabberStoneCoreAi.src.POGame
+namespace SabberStoneCoreAi.POGame
 {
 	class GameStats
 	{
@@ -38,10 +38,17 @@ namespace SabberStoneCoreAi.src.POGame
 
 		public void printResults()
 		{
-			Console.WriteLine($"{nr_games} games with {turns} turns took {time_per_player[0]+time_per_player[1]} ms => " +
+			if (nr_games > 0)
+			{
+				Console.WriteLine($"{nr_games} games with {turns} turns took {time_per_player[0] + time_per_player[1]} ms => " +
 							  $"Avg. {(time_per_player[0] + time_per_player[1]) / nr_games} per game " +
 							  $"and {(time_per_player[0] + time_per_player[1]) / (nr_games * turns)} per turn!");
-			Console.WriteLine($"playerA {wins[0] * 100 / nr_games}% vs. playerB {wins[1] * 100 / nr_games}%!");
+				Console.WriteLine($"playerA {wins[0] * 100 / nr_games}% vs. playerB {wins[1] * 100 / nr_games}%!");
+			} else
+			{
+				Console.WriteLine("No games played yet. Use Gamehandler.PlayGame() to add games.");
+			}
+			
 		}
 		
 	}

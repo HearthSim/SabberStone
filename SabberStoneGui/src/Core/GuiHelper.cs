@@ -17,10 +17,10 @@ namespace SabberStoneGui.Core
 			return new GameConfig()
 			{
 				StartPlayer = 1,
-				Player1Name = "FitzVonGerald",
+				Player1Name = "Player 1",
 				Player1HeroClass = deck1.HeroClass,
 				Player1Deck = deck1.CardIds.Select(Cards.FromId).ToList(),
-				Player2Name = "RehHausZuckFuchs",
+				Player2Name = "Player 2",
 				Player2HeroClass = deck2.HeroClass,
 				Player2Deck = deck2.CardIds.Select(Cards.FromId).ToList(),
 				FillDecks = false,

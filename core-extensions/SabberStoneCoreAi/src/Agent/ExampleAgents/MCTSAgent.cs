@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Tasks;
 using SabberStoneCoreAi.POGame;
-using SabberStoneCoreAi.src.POGame;
 
 namespace SabberStoneCoreAi.Agent
 {
@@ -19,7 +18,7 @@ namespace SabberStoneCoreAi.Agent
 			throw new NotImplementedException();
 		}
 
-		public override List<PlayerTask> GetMove(POGame.POGame poGame)
+		public override PlayerTask GetMove(POGame.POGame poGame)
 		{
 			throw new NotImplementedException();
 		}
