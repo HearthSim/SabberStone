@@ -32,7 +32,7 @@ namespace SabberStoneCoreAi
 
 			Console.WriteLine("PlayGame");
 			//gameHandler.PlayGame();
-			gameHandler.PlayGames(1000);
+			gameHandler.PlayGames(10);
 			GameStats gameStats = gameHandler.getGameStats();
 
 			gameStats.printResults();
