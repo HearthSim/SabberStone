@@ -23,8 +23,8 @@ namespace SabberStoneCoreAi
 
 			//OneTurn();
 			//FullGame();
-			//RandomGames();
-			TestFullGames();
+			RandomGames();
+			//TestFullGames();
 
 			Console.WriteLine("Test end!");
 			Console.ReadLine();
@@ -32,22 +32,100 @@ namespace SabberStoneCoreAi
 
 		public static void RandomGames()
 		{
-			const int total = 1000;
+			int total = 1000;
 			var watch = Stopwatch.StartNew();
+
+			var gameConfig = new GameConfig()
+			{
+				StartPlayer = -1,
+				Player1Name = "FitzVonGerald",
+				Player1HeroClass = CardClass.PALADIN,
+				Player1Deck = new List<Card>()
+						{
+						Cards.FromName("Blessing of Might"),
+						Cards.FromName("Blessing of Might"),
+						Cards.FromName("Gnomish Inventor"),
+						Cards.FromName("Gnomish Inventor"),
+						Cards.FromName("Goldshire Footman"),
+						Cards.FromName("Goldshire Footman"),
+						Cards.FromName("Hammer of Wrath"),
+						Cards.FromName("Hammer of Wrath"),
+						Cards.FromName("Hand of Protection"),
+						Cards.FromName("Hand of Protection"),
+						Cards.FromName("Holy Light"),
+						Cards.FromName("Holy Light"),
+						Cards.FromName("Ironforge Rifleman"),
+						Cards.FromName("Ironforge Rifleman"),
+						Cards.FromName("Light's Justice"),
+						Cards.FromName("Light's Justice"),
+						Cards.FromName("Lord of the Arena"),
+						Cards.FromName("Lord of the Arena"),
+						Cards.FromName("Nightblade"),
+						Cards.FromName("Nightblade"),
+						Cards.FromName("Raid Leader"),
+						Cards.FromName("Raid Leader"),
+						Cards.FromName("Stonetusk Boar"),
+						Cards.FromName("Stonetusk Boar"),
+						Cards.FromName("Stormpike Commando"),
+						Cards.FromName("Stormpike Commando"),
+						Cards.FromName("Stormwind Champion"),
+						Cards.FromName("Stormwind Champion"),
+						Cards.FromName("Stormwind Knight"),
+						Cards.FromName("Stormwind Knight")
+						},
+				Player2Name = "RehHausZuckFuchs",
+				Player2HeroClass = CardClass.PALADIN,
+				Player2Deck = new List<Card>()
+						{
+						Cards.FromName("Blessing of Might"),
+						Cards.FromName("Blessing of Might"),
+						Cards.FromName("Gnomish Inventor"),
+						Cards.FromName("Gnomish Inventor"),
+						Cards.FromName("Goldshire Footman"),
+						Cards.FromName("Goldshire Footman"),
+						Cards.FromName("Hammer of Wrath"),
+						Cards.FromName("Hammer of Wrath"),
+						Cards.FromName("Hand of Protection"),
+						Cards.FromName("Hand of Protection"),
+						Cards.FromName("Holy Light"),
+						Cards.FromName("Holy Light"),
+						Cards.FromName("Ironforge Rifleman"),
+						Cards.FromName("Ironforge Rifleman"),
+						Cards.FromName("Light's Justice"),
+						Cards.FromName("Light's Justice"),
+						Cards.FromName("Lord of the Arena"),
+						Cards.FromName("Lord of the Arena"),
+						Cards.FromName("Nightblade"),
+						Cards.FromName("Nightblade"),
+						Cards.FromName("Raid Leader"),
+						Cards.FromName("Raid Leader"),
+						Cards.FromName("Stonetusk Boar"),
+						Cards.FromName("Stonetusk Boar"),
+						Cards.FromName("Stormpike Commando"),
+						Cards.FromName("Stormpike Commando"),
+						Cards.FromName("Stormwind Champion"),
+						Cards.FromName("Stormwind Champion"),
+						Cards.FromName("Stormwind Knight"),
+						Cards.FromName("Stormwind Knight")
+						},
+				FillDecks = false,
+				Shuffle = true,
+				SkipMulligan = false,
+				Logging = false,
+				History = false
+			};
 
 			int turns = 0;
 			int[] wins = new[] { 0, 0 };
 			for (int i = 0; i < total; i++)
 			{
-				var game = new Game(new GameConfig
-				{
-					StartPlayer = 1,
-					Player1HeroClass = CardClass.MAGE,
-					Player2HeroClass = CardClass.MAGE,
-					FillDecks = true,
-					Logging = false
-				});
+				var game = new Game(gameConfig);
 				game.StartGame();
+
+				game.Process(ChooseTask.Mulligan(game.Player1, new List<int>{}));
+				game.Process(ChooseTask.Mulligan(game.Player2, new List<int>{}));
+
+				game.MainReady();
 
 				while (game.State != State.COMPLETE)
 				{
@@ -215,8 +293,8 @@ namespace SabberStoneCoreAi
 			int maxGames = 1000;
 			int maxDepth = 10;
 			int maxWidth = 14;
-			int[] player1Stats = new int[] {0,0,0,0,0,0,0,0,0};
-			int[] player2Stats = new int[] {0,0,0,0,0,0,0,0,0};
+			int[] player1Stats = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+			int[] player2Stats = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
 			var gameConfig = new GameConfig()
 			{
@@ -341,7 +419,7 @@ namespace SabberStoneCoreAi
 						}
 					}
 				}
-				
+
 				player1Stats[(int)game.Player1.PlayState]++;
 				player2Stats[(int)game.Player2.PlayState]++;
 
