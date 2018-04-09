@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCoreAi.Score;
 
@@ -21,10 +22,6 @@ namespace SabberStoneCoreAi.Nodes
 		public string Hash;
 
 		private int _gameState = 0;
-		public bool IsWon => _gameState > 0;
-
-		public bool IsLost => _gameState < 0;
-
 		public bool IsRunning => _gameState == 0;
 
 		private int _endTurn = 0;
@@ -60,20 +57,18 @@ namespace SabberStoneCoreAi.Nodes
 		{
 			_game.Process(PlayerTask);
 
-			SabberStoneCore.Model.Entities.Controller controller = _game.ControllerById(_playerId);
+			Controller controller = _game.ControllerById(_playerId);
 
-			_gameState = _game.State == State.RUNNING ? 0
-				: (controller.PlayState == PlayState.WON ? 1 : -1);
+			_gameState = _game.State == State.RUNNING ? 0 : 1;
 
 			_endTurn = _game.CurrentPlayer.Id != _playerId ? 1 : 0;
 
 			Hash = _game.Hash(GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID);
 
-			if (IsEndTurn || !IsRunning)
-			{
-				Scoring.Controller = controller;
-				Score = Scoring.Rate();
-			}
+			// scoring every state
+			Scoring.Controller = controller;
+			Score = Scoring.Rate();
+
 		}
 
 		public void PlayerTasks(ref List<PlayerTask> list)
@@ -109,7 +104,7 @@ namespace SabberStoneCoreAi.Nodes
 					option.Options(ref nextDepthNodes);
 				}
 
-				endTurnNodes.AddRange(nextDepthNodes.Values.Where(p => p.IsEndTurn || p.IsWon));
+				endTurnNodes.AddRange(nextDepthNodes.Values.Where(p => p.IsEndTurn || !p.IsRunning));
 
 				depthNodes = nextDepthNodes
 					.Where(p => !p.Value.IsEndTurn && p.Value.IsRunning)
@@ -117,7 +112,7 @@ namespace SabberStoneCoreAi.Nodes
 					.Take(maxWidth)
 					.ToDictionary(p => p.Key, p => p.Value);
 
-				Console.WriteLine($"Depth: {i + 1} --> {depthNodes.Count}/{nextDepthNodes.Count} options! [SOLUTIONS:{endTurnNodes.Count}]");
+				//Console.WriteLine($"Depth: {i + 1} --> {depthNodes.Count}/{nextDepthNodes.Count} options! [SOLUTIONS:{endTurnNodes.Count}]");
 			}
 			return endTurnNodes;
 		}

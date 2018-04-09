@@ -12,14 +12,13 @@ using System.Windows.Media.Imaging;
 using Newtonsoft.Json;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
-using SabberStoneCore.Visualizer;
 using SabberStoneCoreGui.Score;
 using SabberStoneCoreGui.Nodes;
 using SabberStoneCoreGui.Meta;
-using SabberStoneGui.AsciiVisual;
 using SabberStoneGui.Core;
 using SabberStoneGui.Deck;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Visualizer;
 
 namespace SabberStoneGui
 {

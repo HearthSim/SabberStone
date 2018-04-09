@@ -103,7 +103,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="src\AsciiVisual\Visualizer.cs" />
     <Compile Include="src\Meta\Strategy.cs" />
     <Compile Include="src\Score\AggroScore.cs" />
     <Compile Include="src\Score\Control.cs" />

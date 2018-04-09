@@ -895,7 +895,6 @@
 		LOST = 5,
 		TIED = 6,
 		DISCONNECTED = 7,
-		QUIT = 8,
 		CONCEDED = 8,
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
