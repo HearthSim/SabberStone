@@ -29,7 +29,7 @@ namespace SabberStoneCoreConsole
 
 			Console.WriteLine(Cards.Statistics());
 			//StabilityTest.CloneStabilityTest();
-			StabilityTest.ThreadSafetyTest();
+			//StabilityTest.ThreadSafetyTest();
 			//EntityChangeTest();
 			//YoggTest();
 
