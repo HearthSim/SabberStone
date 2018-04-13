@@ -20,36 +20,42 @@ namespace SabberStoneCore.Model
 		/// Specifies which card sets combine into the STANDARD set.
 		/// </summary>
 		public static CardSet[] StandardSets { get; } = {
+
 			CardSet.CORE,
 			CardSet.EXPERT1,
-			CardSet.OG,
-			CardSet.KARA,
-			CardSet.GANGS,
+
 			CardSet.UNGORO,
 			CardSet.ICECROWN,
-			CardSet.LOOTAPALOOZA
+			CardSet.LOOTAPALOOZA,
+			CardSet.GILNEAS
 		};
 
 		/// <summary>
 		/// Specifies which card sets combine into the WILD set.
 		/// </summary>
 		public static CardSet[] WildSets { get; } = {
+
 			// standard
 			CardSet.CORE,
 			CardSet.EXPERT1,
-			CardSet.OG,
-			CardSet.KARA,
-			CardSet.GANGS,
+
 			CardSet.UNGORO,
 			CardSet.ICECROWN,
 			CardSet.LOOTAPALOOZA,
+			CardSet.GILNEAS,
+
 			// wild
 			CardSet.BRM,
 			CardSet.GVG,
-			CardSet.HOF,
 			CardSet.NAXX,
-			//CardSet.LOE,
-			//CardSet.TGT
+			CardSet.LOE,
+			CardSet.TGT,
+			CardSet.OG,
+			CardSet.KARA,
+			CardSet.GANGS,
+
+			// hall of fame
+			CardSet.HOF
 		};
 
 		/// <summary>
@@ -326,6 +332,8 @@ namespace SabberStoneCore.Model
 					return "Knights of the Frozen Throne";
 				case CardSet.LOOTAPALOOZA:
 					return "Kobolds and Catacombs";
+				case CardSet.GILNEAS:
+					return "The Witchwood";
 				default:
 					throw new ArgumentOutOfRangeException(nameof(cardSet), cardSet, null);
 			}

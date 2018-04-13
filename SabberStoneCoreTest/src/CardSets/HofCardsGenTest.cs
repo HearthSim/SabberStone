@@ -1,4 +1,6 @@
 ﻿using Xunit;
+
+using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
@@ -48,6 +50,82 @@ namespace SabberStoneCoreTest.CardSets
 			Assert.Equal(26, game.CurrentOpponent.Hero.Health);
 		}
 
+		// ------------------------------------------- SPELL - MAGE
+		// [EX1_295] Ice Block - COST:3 
+		// - Fac: neutral, Set: expert1, Rarity: epic
+		// --------------------------------------------------------
+		// Text: <b>Secret:</b> When your hero takes fatal damage, prevent it and become <b>Immune</b> this turn.
+		// --------------------------------------------------------
+		// GameTag:
+		// - SECRET_OR_QUEST = 1
+		// --------------------------------------------------------
+		// RefTag:
+		// - IMMUNE = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void IceBlock_EX1_295()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player1.Hero.Health = 2;
+			game.Player2.BaseMana = 10;
+
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ice Block"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
+			Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
+			//Assert.Equal(1, game.CurrentOpponent.Board.Triggers.Count);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			// play 2 charge minions
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bluegill Warrior"));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+
+			// minion 1 attacks hero that should NOT proc the secret
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion1, game.CurrentOpponent.Hero));
+			Assert.Equal(1, game.CurrentOpponent.Hero.Health);
+			Assert.Equal(1, game.CurrentOpponent.SecretZone.Count);
+
+			// adding one armor for next attack
+			game.Player1.Hero.Armor = 1;
+			Assert.Equal(1, game.CurrentOpponent.Hero.Armor);
+
+			// minion 2 attacks hero that should proc the secret
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion2, game.CurrentOpponent.Hero));
+			Assert.Equal(0, game.CurrentOpponent.Hero.Armor);
+			Assert.Equal(1, game.CurrentOpponent.Hero.Health);
+			Assert.Equal(1, game.CurrentOpponent.SecretZone.Count);
+
+			// adding one armor for next attack
+			game.Player1.Hero.Armor = 1;
+			Assert.Equal(1, game.CurrentOpponent.Hero.Armor);
+
+			// minion 3 attacks hero that should proc the secret
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion3, game.CurrentOpponent.Hero));
+			Assert.Equal(1, game.CurrentOpponent.Hero.Armor);
+			Assert.Equal(0, game.CurrentOpponent.SecretZone.Count);
+			Assert.Equal(1, game.CurrentOpponent.Hero.Health);
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			// minion 2 now kills opponent
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, (Minion)minion3, game.CurrentOpponent.Hero));
+			Assert.True(game.CurrentOpponent.Hero.IsDead);
+		}
 	}
 
 
@@ -173,6 +251,40 @@ namespace SabberStoneCoreTest.CardSets
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
+		// [EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2] 
+		// - Race: murloc, Fac: neutral, Set: expert1, Rarity: rare
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Each player draws 2 cards.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void ColdlightOracle_EX1_050()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.PRIEST,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			int handCount = game.CurrentPlayer.HandZone.Count;
+			int handOpCount = game.CurrentOpponent.HandZone.Count;
+
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Coldlight Oracle"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
+
+			Assert.Equal(handCount + 2, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(handOpCount + 2, game.CurrentOpponent.HandZone.Count);
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4] 
 		// - Race: murloc, Fac: neutral, Set: hof, Rarity: legendary
 		// --------------------------------------------------------
@@ -284,6 +396,37 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Ragnaros the Firelord"));
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [EX1_620] Molten Giant - COST:25 [ATK:8/HP:8] 
+		// - Set: expert1, Rarity: epic
+		// --------------------------------------------------------
+		// Text: Costs (1) less for each damage your hero has taken.
+		// --------------------------------------------------------
+		[Fact]
+		public void MoltenGiant_EX1_620()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Molten Giant"));
+			Assert.Equal(30, game.CurrentPlayer.Hero.Health);
+			Assert.Equal(25, testCard.Cost);
+			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.Hero));
+			Assert.Equal(29, game.CurrentPlayer.Hero.Health);
+			Assert.Equal(24, testCard.Cost);
+
+			Game clone = game.Clone();
+			Assert.Equal(24, clone.CurrentPlayer.HandZone.Last().Cost);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

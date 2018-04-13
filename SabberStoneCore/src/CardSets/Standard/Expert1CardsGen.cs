@@ -1238,29 +1238,6 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// ------------------------------------------- SPELL - MAGE
-			// [EX1_295] Ice Block - COST:3 
-			// - Fac: neutral, Set: expert1, Rarity: epic
-			// --------------------------------------------------------
-			// Text: <b>Secret:</b> When your hero takes fatal damage, prevent it and become <b>Immune</b> this turn.
-			// --------------------------------------------------------
-			// GameTag:
-			// - SECRET = 1
-			// --------------------------------------------------------
-			// RefTag:
-			// - IMMUNE = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_295", new Power {
-				Trigger = new Trigger(TriggerType.PREDAMAGE)
-				{
-					TriggerSource = TriggerSource.HERO,
-					Condition = SelfCondition.IsHeroLethalPreDamaged,
-					FastExecution = true,
-					SingleTask = ComplexTask.Secret(
-						new AddEnchantmentTask("EX1_295o", EntityType.HERO))
-				}
-			});
-
-			// ------------------------------------------- SPELL - MAGE
 			// [EX1_594] Vaporize - COST:3 
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
@@ -1318,19 +1295,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_274e", new Power {
 				Enchant = new OngoingEnchant(Effects.AttackHealth_N(2))
-			});
-
-			// ------------------------------------- ENCHANTMENT - MAGE
-			// [EX1_295o] Ice Block (*) - COST:0 
-			// - Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Your hero is <b>Immune</b> this turn.
-			// --------------------------------------------------------
-			// GameTag:
-			// - TAG_ONE_TURN_EFFECT = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_295o", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_295o"),
 			});
 
 			// ------------------------------------- ENCHANTMENT - MAGE
@@ -3912,21 +3876,6 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2] 
-			// - Race: murloc, Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Each player draws 2 cards.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_050", new Power {
-				PowerTask = ComplexTask.Create(
-					new EnqueueTask(2, new DrawTask()),
-					new EnqueueTask(2, new DrawOpTask()))
-			});
-
-			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_055] Mana Addict - COST:2 [ATK:1/HP:3] 
 			// - Fac: alliance, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
@@ -4702,16 +4651,6 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Condition = SelfCondition.IsMinion
 				}
-			});
-
-			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_620] Molten Giant - COST:25 [ATK:8/HP:8] 
-			// - Set: expert1, Rarity: epic
-			// --------------------------------------------------------
-			// Text: Costs (1) less for each damage your hero has taken.
-			// --------------------------------------------------------
-			cards.Add("EX1_620", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.Hero.Damage)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

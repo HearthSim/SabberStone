@@ -160,7 +160,7 @@ namespace SabberStoneCore.Loader
 							case GameTag.CARDNAME:
 								c.Name = tag.TagValue;
 								break;
-							case GameTag.CARDTEXT_INHAND:
+							case GameTag.CARDTEXT:
 								c.Text = tag.TagValue;
 								break;
 						}
@@ -213,7 +213,7 @@ namespace SabberStoneCore.Loader
 							case GameTag.CARDNAME:
 								c.Name = tag.TagValue;
 								break;
-							case GameTag.CARDTEXT_INHAND:
+							case GameTag.CARDTEXT:
 								c.Text = tag.TagValue;
 								break;
 						}

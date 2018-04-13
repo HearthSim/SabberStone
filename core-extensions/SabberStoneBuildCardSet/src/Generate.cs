@@ -32,6 +32,8 @@ namespace SabberStoneBuildCardSet
 					return "ICCA";
 				case CardSet.LOOTAPALOOZA:
 					return "LOOTA";
+				case CardSet.GILNEAS:
+					return "GILA";
 				default:
 					return String.Empty;
 			}
@@ -57,17 +59,17 @@ namespace SabberStoneBuildCardSet
 			//   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
 			//{ CardSet.GVG};
 			//CardSet[] cardSets = new[] { CardSet.NAXX, CardSet.KARA, CardSet.BRM, CardSet.LOE, CardSet.ICECROWN  };
-			CardSet[] cardSets = new[] { CardSet.NAXX, CardSet.LOE, CardSet.TGT };
-			//var cardSets = Enum.GetValues(typeof(CardSet));
+			//CardSet[] cardSets = new[] { CardSet.TGT };
+			var cardSets = Enum.GetValues(typeof(CardSet));
 			foreach (CardSet cardSet in cardSets)
 			{
 				string className = UpperCaseFirst(cardSet.ToString()) + "CardsGen" + (adventure?"Adv":"");
 				string path = Path + @"\CardSets\";
-				//string classNameTest = UpperCaseFirst(cardSet.ToString()) + "CardsGen"+ (adventure?"Adv":"") +"Test";
-				//string pathTest = Path + @"\CardSetsTest\";
+				string classNameTest = UpperCaseFirst(cardSet.ToString()) + "CardsGen"+ (adventure?"Adv":"") +"Test";
+				string pathTest = Path + @"\CardSetsTest\";
 
 				WriteCardSetFile(cardSet, className, path, values);
-				//WriteCardSetTestFile(cardSet, classNameTest, pathTest, values);
+				WriteCardSetTestFile(cardSet, classNameTest, pathTest, values);
 			}
 			Console.ReadKey();
 		}

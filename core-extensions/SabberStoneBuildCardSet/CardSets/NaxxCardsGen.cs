@@ -31,7 +31,7 @@ namespace SabberStoneCore.CardSets.Undefined
 		private static void DruidNonCollect(IDictionary<string, Power> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [FP1_019t] Treant (*) - COST:1 [ATK:2/HP:2] 
+			// [FP1_019t] Treant (*) - COST:2 [ATK:2/HP:2] 
 			// - Set: naxx, 
 			// --------------------------------------------------------
 			cards.Add("FP1_019t", new Power {
