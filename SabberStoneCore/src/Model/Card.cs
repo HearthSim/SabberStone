@@ -194,6 +194,9 @@ namespace SabberStoneCore.Model
 		public bool RequiresTargetIfAvailableAndMinimumFriendlySecrets
 			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS);
 
+		public bool RequiresTargetIfAvailableAndNo3CostCardInDeck
+			=> PlayRequirements.ContainsKey(PlayReq.REQ_TARGET_IF_AVAILABLE_AND_NO_3_COST_CARD_IN_DECK);
+
 		/// <summary>
 		/// Maximum amount of copies that are allowed in one deck.
 		/// </summary>

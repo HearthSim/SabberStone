@@ -63,7 +63,8 @@ namespace SabberStoneCore.Model.Entities
 			|| Card.RequiresTargetIfAvailableAndDragonInHand // && Controller.DragonInHand 
 			|| Card.RequiresTargetIfAvailableAndElementalPlayedLastTurn // && Controller.NumElementalsPlayedLastTurn > 0
 			|| Card.RequiresTargetIfAvailableAndMinimumFriendlyMinions // && Controller.Board.Count >= 4
-			|| Card.RequiresTargetIfAvailableAndMinimumFriendlySecrets; // && Controller.Secrets.Count > 0;
+			|| Card.RequiresTargetIfAvailableAndMinimumFriendlySecrets // && Controller.Secrets.Count > 0;
+			|| Card.RequiresTargetIfAvailableAndNo3CostCardInDeck;
 
 		/// <summary>Gets all characters which can be targetted when playing this entity.</summary>
 		/// <value>
