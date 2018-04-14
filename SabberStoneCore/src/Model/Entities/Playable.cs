@@ -124,6 +124,11 @@ namespace SabberStoneCore.Model.Entities
 		bool HasLifeSteal { get; set; }
 
 		/// <summary>
+		/// Playable has Echo ability.
+		/// </summary>
+		bool HasEcho { get; }
+
+		/// <summary>
 		/// Gets or sets a value indicating whether the target must be an option from the
 		/// 'Choose One' set.
 		/// </summary>
@@ -594,6 +599,8 @@ namespace SabberStoneCore.Model.Entities
 			get { return this[GameTag.LIFESTEAL] >= 1; }
 			set { this[GameTag.LIFESTEAL] = value ? 1 : 0; }
 		}
+
+		public bool HasEcho => this[GameTag.ECHO] == 1;
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

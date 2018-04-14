@@ -107,6 +107,11 @@ namespace SabberStoneCore.Enchants
 			    effects.Add(Effects.Lifesteal);
 		    }
 
+		    if (text.Contains(@"<b>Rush</b>"))
+		    {
+			    effects.Add(Effects.Rush);
+		    }
+
 			if (text.Contains("this turn"))
 		    {
 				oneTurn = true;
@@ -167,5 +172,9 @@ namespace SabberStoneCore.Enchants
 		internal static Effect Immune => new Effect(GameTag.IMMUNE, EffectOperator.SET, 1);
 
 		internal static Effect Lifesteal => new Effect(GameTag.LIFESTEAL, EffectOperator.SET, 1);
+
+		internal static Effect Rush => new Effect(GameTag.RUSH, EffectOperator.SET, 1);
+
+		internal static Effect Echo => new Effect(GameTag.ECHO, EffectOperator.SET, 1);
 	}
 }

@@ -25,7 +25,19 @@ namespace SabberStoneCore.Model.Zones
 			base.Add(entity, zonePosition);
 
 			if (entity[GameTag.CHARGE] != 1)
-				entity.IsExhausted = true;
+			{
+				if (entity[GameTag.RUSH] == 1)
+				{
+					var m = entity as Minion;
+					m.AttackableByRush = true;
+					Game.RushMinions.Add(m.Id);
+				}
+				else
+					entity.IsExhausted = true;
+			}
+
+			if (entity[GameTag.GHOSTLY] == 1)
+				entity[GameTag.GHOSTLY] = 0;
 
 			entity.OrderOfPlay = Game.NextOop;
 
@@ -38,6 +50,7 @@ namespace SabberStoneCore.Model.Zones
 				++_untouchableCount;
 				_hasUntouchables = true;
 			}
+
 		}
 
 		public override IPlayable Remove(IPlayable entity)

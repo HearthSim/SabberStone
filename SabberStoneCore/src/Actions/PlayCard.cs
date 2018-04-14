@@ -75,6 +75,18 @@ namespace SabberStoneCore.Actions
 						break;
 				}
 
+				if (source.HasEcho)
+				{
+					var echoTags = new EntityData.Data
+					{
+						{GameTag.GHOSTLY, 1}
+					};
+					IPlayable echoPlayable = Entity.FromCard(c, source.Card, echoTags, c.HandZone);
+					echoPlayable[GameTag.DISPLAYED_CREATOR] = source.Id;
+
+					c.Game.GhostlyCards.Add(echoPlayable.Id);
+				}
+
 				c.NumOptionsPlayedThisTurn++;
 
 				if (!c.IsComboActive)

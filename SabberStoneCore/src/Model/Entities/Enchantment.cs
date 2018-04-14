@@ -256,6 +256,7 @@ namespace SabberStoneCore.Model.Entities
 		public int Overload { get; set; }
 		public bool HasDeathrattle { get; set; }
 		public bool HasLifeSteal { get; set; }
+		public bool HasEcho { get; }
 		public IPlayable[] ChooseOnePlayables { get; set; }
 		public AuraEffects AuraEffects { get; set; }
 		public IDictionary<GameTag, int> NativeTags { get; }

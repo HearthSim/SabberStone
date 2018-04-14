@@ -79,6 +79,16 @@ namespace SabberStoneCore.Model
 		public readonly List<Minion> SummonedMinions = new List<Minion>();
 
 		/// <summary>
+		/// List of entity ids of Minions in the state of 'AttackableByRush'.
+		/// </summary>
+		public readonly List<int> RushMinions = new List<int>();
+
+		/// <summary>
+		/// List of entity ids of 'Ghostly' entities created by Echo ability.
+		/// </summary>
+		public readonly List<int> GhostlyCards = new List<int>();
+
+		/// <summary>
 		/// Gets or sets the index value for identifying the N-th clone of a game. (0-indexed)
 		/// </summary>
 		/// <value>The index of the clone.</value>
@@ -290,7 +300,9 @@ namespace SabberStoneCore.Model
 			Triggers = new List<Trigger>(game.Triggers.Count);
 			OneTurnEffects = new List<(int entityId, Effect effect)>(game.OneTurnEffects);
 			OneTurnEffectEnchantments = new List<Enchantment>(game.OneTurnEffectEnchantments.Count);
-
+			RushMinions.AddRange(game.RushMinions);
+			GhostlyCards.AddRange(game.GhostlyCards);
+			
 			GamesEventManager = new GameEventManager(this);
 
 			_gameConfig = game._gameConfig.Clone();
@@ -779,6 +791,12 @@ namespace SabberStoneCore.Model
 
 			CurrentPlayer.CardsPlayedThisTurn.Clear();
 
+			if (RushMinions.Count > 0)
+			{
+				RushMinions.ForEach(i => IdEntityDic[i][GameTag.ATTACKABLE_BY_RUSH] = 0);
+				RushMinions.Clear();
+			}
+
 			// set next step
 			//NextStep = Step.MAIN_NEXT;
 			NextStep = Step.MAIN_CLEANUP;
@@ -793,7 +811,20 @@ namespace SabberStoneCore.Model
 			if (History)
 				PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, CurrentPlayer.Id, "", 5, 0);
 
-			//	Removing one-turn-effects
+			// Removing Ghostly cards
+			if (GhostlyCards.Count > 0)
+			{
+				foreach (int id in GhostlyCards)
+				{
+					IPlayable entity = IdEntityDic[id];
+					if (entity.Zone.Type != Enums.Zone.HAND) continue;
+					entity.Controller.SetasideZone.Add(entity.Zone.Remove(entity));
+				}
+
+				GhostlyCards.Clear();
+			}
+
+			// Removing one-turn-effects
 			foreach ((int id, Effect eff) in OneTurnEffects)
 				eff.Remove(IdEntityDic[id]);
 			OneTurnEffects.Clear();

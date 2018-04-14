@@ -149,6 +149,8 @@ namespace SabberStoneCore.Model.Entities
 			Tags.Remove(GameTag.SILENCED);
 			Tags.Remove(GameTag.NUM_ATTACKS_THIS_TURN);
 			Tags.Remove(GameTag.NUM_TURNS_IN_PLAY);
+			Tags.Remove(GameTag.ATTACKABLE_BY_RUSH);
+			Tags.Remove(GameTag.GHOSTLY);
 		}
 
 		internal class Data : IDictionary<GameTag, int>
@@ -570,7 +572,7 @@ namespace SabberStoneCore.Model.Entities
 			public bool Contains(KeyValuePair<GameTag, int> item)
 			{
 				int index = SearchIndex(item.Key);
-				return index >= 0 && _buckets[index] == item.Value;
+				return index >= 0 && _buckets[index + 1] == item.Value;
 			}
 
 			public void CopyTo(KeyValuePair<GameTag, int>[] array, int arrayIndex)

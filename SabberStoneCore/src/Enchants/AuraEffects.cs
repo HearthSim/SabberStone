@@ -54,6 +54,8 @@ namespace SabberStoneCore.Enchants
 		private int CANT_ATTACK;
 		private int CANT_BE_TARGETED_BY_SPELLS;
 		private int CARD_COST_HEALTH;
+		private int RUSH;
+		private int ECHO;
 
 		private List<CostEffect> _costEffects;
 		private AdaptiveCostEffect _adaptiveCostEffect;
@@ -81,6 +83,8 @@ namespace SabberStoneCore.Enchants
 			LIFESTEAL = other.LIFESTEAL;
 			CANT_ATTACK = other.CANT_ATTACK;
 			CARD_COST_HEALTH = other.CARD_COST_HEALTH;
+			RUSH = other.RUSH;
+			ECHO = other.ECHO;
 		}
 
 		public IEntity Owner { get; private set; }
@@ -123,6 +127,10 @@ namespace SabberStoneCore.Enchants
 						return CANT_BE_TARGETED_BY_SPELLS >= 1 ? 1 : 0;
 					case GameTag.CARD_COSTS_HEALTH:
 						return CARD_COST_HEALTH;
+					case GameTag.RUSH:
+						return RUSH > 0 ? 1 : 0;
+					case GameTag.ECHO:
+						return ECHO > 0 ? 1 : 0;
 					default:
 						return 0;
 				}
@@ -141,6 +149,8 @@ namespace SabberStoneCore.Enchants
 						CHARGE = value;
 						if (value > 0 && Owner[GameTag.EXHAUSTED] == 1 && Owner[GameTag.NUM_ATTACKS_THIS_TURN] < 1)
 							Owner[GameTag.EXHAUSTED] = 0;
+						if (((Minion)Owner).AttackableByRush)
+							Owner[GameTag.ATTACKABLE_BY_RUSH] = 0;
 						return;
 					case GameTag.COST:
 						COST = value;
@@ -168,6 +178,17 @@ namespace SabberStoneCore.Enchants
 						return;
 					case GameTag.CARD_COSTS_HEALTH:
 						CARD_COST_HEALTH = value;
+						return;
+					case GameTag.RUSH:
+						RUSH = value;
+						if (value > 0 && Owner[GameTag.EXHAUSTED] == 1 && Owner[GameTag.NUM_ATTACKS_THIS_TURN] == 0)
+						{
+							Owner[GameTag.EXHAUSTED] = 0;
+							Owner[GameTag.ATTACKABLE_BY_RUSH] = 1;
+						}
+						return;
+					case GameTag.ECHO:
+						ECHO = value;
 						return;
 					default:
 						return;
@@ -271,6 +292,10 @@ namespace SabberStoneCore.Enchants
 				hash.Append($"{{CANT_BE_TARGETED_BY_SPELLS,{CANT_BE_TARGETED_BY_SPELLS}}}");
 			if (CARD_COST_HEALTH > 0)
 				hash.Append($"{{CARD_COST_HEALTH,{CARD_COST_HEALTH}}}");
+			if (RUSH > 0)
+				hash.Append($"{{RUSH,{RUSH}}}");
+			if (ECHO > 0)
+				hash.Append($"{{ECHO,{ECHO}}}");
 			hash.Append("]");
 			return hash.ToString();
 		}
