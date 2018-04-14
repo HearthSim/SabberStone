@@ -59,7 +59,7 @@ namespace SabberStoneCore.Enchants
 	}
 
 	/// <summary>
-	/// Auras can affect entities and changes the applied entities' ATK, COST, etc. 
+	/// Auras can affect entities and change the applied entities' ATK, COST, etc. 
 	/// Aura must be activated first to affect entities. 
 	/// The effect of an aura is applied or removed during <see cref="Game.AuraUpdate"/>.
 	/// </summary>

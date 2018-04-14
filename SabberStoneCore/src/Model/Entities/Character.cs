@@ -297,6 +297,9 @@ namespace SabberStoneCore.Model.Entities
 
 			if (source.Controller.ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] == 1)
 			{
+				if (_lifestealChecker)
+					return;
+
 				_lifestealChecker = true;
 				TakeDamage(source, heal);
 				_lifestealChecker = false;

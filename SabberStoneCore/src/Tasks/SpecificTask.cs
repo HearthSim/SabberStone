@@ -66,6 +66,7 @@ namespace SabberStoneCore.Tasks
 					}
 					Entity.FromCard(p.Controller, notContained[Util.Random.Next(notContained.Count)],
 						null, p.Controller.BoardZone);
+					p.Game.OnRandomHappened(true);
 					return 0;
 				}));
 
@@ -272,7 +273,7 @@ namespace SabberStoneCore.Tasks
 						lock (locker)
 						{
 							var dic = new Dictionary<Rarity, Card[]>(4);
-							var ungCards = Cards.All.Where(c => c.Set == CardSet.UNGORO && !c.IsQuest).ToArray();
+							var ungCards = Cards.All.Where(c => c.Set == CardSet.UNGORO && c.Collectible && !c.IsQuest).ToArray();
 							dic.Add(Rarity.COMMON, ungCards.Where(c => c.Rarity == Rarity.COMMON).ToArray());
 							dic.Add(Rarity.RARE, ungCards.Where(c => c.Rarity == Rarity.RARE).ToArray());
 							dic.Add(Rarity.EPIC, ungCards.Where(c => c.Rarity == Rarity.EPIC).ToArray());
@@ -306,6 +307,8 @@ namespace SabberStoneCore.Tasks
 						entity.NativeTags.Add(GameTag.DISPLAYED_CREATOR, p[0].Id);
 						//pack.Add(entity);
 					}
+
+					controller.Game.OnRandomHappened(true);
 					return null;
 				}));
 		private static ReadOnlyDictionary<Rarity, Card[]> _ungoroPackMemory;

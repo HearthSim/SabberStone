@@ -2083,6 +2083,17 @@ namespace SabberStoneCoreTest.CardSets
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Flamestrike"));
 			Assert.Equal(5, game.CurrentPlayer.Hero.Damage);
+
+			// TODO: Hallazeal - Kalimos interaction
+			//game.CurrentPlayer.NumElementalsPlayedLastTurn++;
+			//game.ProcessCard("Kalimos, Primal Lord", null, true);
+			//Assert.NotNull(game.CurrentPlayer.Choice);
+			//game.ChooseNthChoice(3);
+			//Assert.Equal(5, game.CurrentPlayer.Hero.Damage);
+
+			// check infinite-loop error
+			game.ProcessCard("Embrace the Shadow", null, true);
+			game.ProcessCard("Drain Soul", testCard, true);
 		}
 
 		// ---------------------------------------- MINION - SHAMAN

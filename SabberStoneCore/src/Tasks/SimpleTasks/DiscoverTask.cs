@@ -25,7 +25,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		BEAST,
 		MECHANICAL,
 		ARTIFACT,
-		TRACKING,
 		DRUID_ROGUE_SHAMAN,
 		MAGE_PRIEST_WARLOCK,
 		OVERLOAD,
@@ -114,14 +113,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						// need because class cards are duplicated 4 x times
 						// to have a balance to neutral cards
 						// http://hearthstone.gamepedia.com/Discover
-						if (_discoverType == DiscoverType.TRACKING)
-						{
-							totcardsToDiscover.Remove(discoveredCard);
-						}
-						else
-						{
-							totcardsToDiscover.RemoveAll(p => p == discoveredCard);
-						}
+						totcardsToDiscover.RemoveAll(p => p == discoveredCard);
 					}
 
 					if (count < resultCards.Length)
@@ -348,21 +340,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						CachedDiscoverySets.TryAdd(discoverType, output);
 						return listArray;
 					}
-					case DiscoverType.TRACKING:
-					{
-						choiceAction = ChoiceAction.TRACKING;
-						var cards = new List<Card>();
-						int n = Controller.DeckZone.Count >= 3 ? 3 : Controller.DeckZone.Count;
-						for (int i = 0; i < n; i++)
-						{
-							IPlayable item = Controller.DeckZone.TopCard;
-							Generic.RemoveFromZone(Controller, item);
-							Controller.SetasideZone.Add(item);
-							cards.Add(item.Card);
-						}
-						List<Card>[] listArray = { cards };
-						return listArray;
-					}
 					case DiscoverType.MINION:
 					{
 						choiceAction = ChoiceAction.HAND;
@@ -451,7 +428,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					case DiscoverType.OP_DECK:
 					{
 						choiceAction = ChoiceAction.HAND;
-						List<Card>[] listArray = { Controller.Opponent.DeckZone.Select(p => p.Card).ToList() };
+						//List<Card>[] listArray = { Controller.Opponent.DeckZone.Select(p => p.Card).ToList() };
+						var deckCards = new List<Card>(Controller.Opponent.DeckZone.Count);
+						Controller.Opponent.DeckZone.ForEach(p => deckCards.Add(p.Card));
+						List<Card>[] listArray = {deckCards};
 						return listArray;
 					}
 					case DiscoverType.OP_HERO:
