@@ -358,7 +358,7 @@ namespace SabberStoneCore.Actions
 						});
 					c.SetasideZone.Add(choiceEntity);
 					choicesIds.Add(choiceEntity.Id);
-				};
+				}
 
 				var choice = new Choice(c)
 				{

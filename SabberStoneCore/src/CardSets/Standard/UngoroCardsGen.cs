@@ -280,7 +280,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_111t1", new Power {
-				PowerTask = new ManaCrystalEmptyTask(1)
+				DeathrattleTask = new ManaCrystalEmptyTask(1)
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -1323,7 +1323,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_063", new Power {
 				InfoCardId = "UNG_063e",
-				PowerTask = ComplexTask.Create(
+				ComboTask = ComplexTask.Create(
 					new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
 					new MathSubstractionTask(1),
 					new AddEnchantmentTask("UNG_063e", EntityType.SOURCE, true))
@@ -1890,7 +1890,15 @@ namespace SabberStoneCore.CardSets.Standard
 						Controller c = p[0].Controller;
 						if (c.DiscardedEntities.Count == 0)
 							return new List<IPlayable>(0);
-						return new List<IPlayable> {Entity.FromCard(c, c.Game.IdEntityDic[Util.Choose(c.DiscardedEntities)].Card)};
+						var minions = new List<IPlayable>(c.DiscardedEntities.Count);
+						c.DiscardedEntities.ForEach(q =>
+						{
+							if (c.Game.IdEntityDic[q] is Minion m)
+								minions.Add(m);
+						});
+						return minions.Count > 0
+							? new List<IPlayable>{Entity.FromCard(c, Util.Choose(minions).Card)}
+							: new List<IPlayable>(0);
 					}),
 					new SummonTask())
 			});
@@ -2540,7 +2548,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_083", new Power {
-				PowerTask = new SummonTask("UNG_083t1", SummonSide.DEATHRATTLE)
+				DeathrattleTask = new SummonTask("UNG_083t1", SummonSide.DEATHRATTLE)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2919,7 +2927,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_845", new Power {
-				PowerTask = new AddCardTo("UNG_809t1", EntityType.HAND, 2)
+				DeathrattleTask = new AddCardTo("UNG_809t1", EntityType.HAND, 2)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

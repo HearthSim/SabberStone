@@ -402,6 +402,8 @@ namespace SabberStoneCore.Actions
 
 				game.TaskQueue.StartEvent();
 				weapon.ActivateTask(PowerActivation.POWER, target);
+				if (c.ExtraBattlecry && weapon.Card[GameTag.BATTLECRY] == 1)
+					weapon.ActivateTask(PowerActivation.POWER, target);
 				game.ProcessTasks();
 				game.TaskQueue.EndEvent();
 

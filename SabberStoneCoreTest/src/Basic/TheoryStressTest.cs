@@ -21,8 +21,6 @@ namespace SabberStoneCoreTest.Basic
 		// besides those, test things like battlecries that summon minions vs sword of justice,
 		// violet teacher vs wild pyromancer, etc
 
-		private static readonly ITestOutputHelper output = new TestOutputHelper();
-
 		[Fact]
 		public void PhaseTest()
 		{
@@ -305,6 +303,21 @@ namespace SabberStoneCoreTest.Basic
 			game.CurrentPlayer.BoardZone[2].Kill();
 			game.ProcessCard("Prince Taldaram", game.CurrentPlayer.BoardZone[1], true);
 			Assert.Equal(6, game.CurrentPlayer.BoardZone.Count);
+		}
+
+		[Fact(Skip="should be fixed")]
+		public static void MurmuringKazakus()
+		{
+			var game = new Game(new GameConfig());
+			game.StartGame();
+
+			game.ProcessCard("Murmuring Elemental", null, true);
+			game.ProcessCard("Kazakus", null, true);
+			do
+			{
+				game.ChooseNthChoice(1);
+			} while (game.CurrentPlayer.Choice != null);
+
 		}
 
 		// Umbra + Doppelgangster + Val'anyr test
