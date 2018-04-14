@@ -271,6 +271,14 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool Untouchable => Card.Untouchable;
 
+		public bool HasRush => this[GameTag.RUSH] == 1;
+
+		public bool AttackableByRush
+		{
+			get => _data.Tags.Contains(new KeyValuePair<GameTag, int>(GameTag.ATTACKABLE_BY_RUSH, 1));
+			set => this[GameTag.ATTACKABLE_BY_RUSH] = value ? 1 : 0;
+		} 
+
 		public int LastBoardPosition
 		{
 			get { return GetNativeGameTag(GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD); }

@@ -169,8 +169,10 @@ namespace SabberStoneCore.Model.Entities
 				if (tauntFlag)
 					return allTargetsTaunt;
 
-				if (!CantAttackHeroes)
-					allTargets.Add(Controller.Opponent.Hero);
+				Hero opHero = Controller.Opponent.Hero;
+
+				if (!(this is Minion m && m.AttackableByRush) && !CantAttackHeroes && !opHero.IsImmune && !opHero.HasStealth)
+					allTargets.Add(opHero);
 
 				return allTargets;
 			}

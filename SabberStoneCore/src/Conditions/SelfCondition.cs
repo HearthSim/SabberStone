@@ -67,6 +67,9 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition HasNoSpecficCostCardsInDeck(int cost) => new SelfCondition(me => !me.Controller.DeckZone.Any(x => x.Cost == cost));
 		public static readonly SelfCondition HasNoMinionInDeck = new SelfCondition(me => !me.Controller.DeckZone.Any(p => p is Minion));
 
+		public static readonly SelfCondition HasNoOddCostInDeck = new SelfCondition(me => !me.Controller.DeckZone.Any(p => p.Cost % 2 == 1));
+		public static readonly SelfCondition HasNoEvenCostInDeck = new SelfCondition(me => !me.Controller.DeckZone.Any(p => p.Cost % 2 == 0));
+
 		public static readonly SelfCondition HasMinionInHand = new SelfCondition(me => me.Controller.HandZone.Any(p => p is Minion));
 		public static readonly SelfCondition HasMyHeroAttackedThisTurn = new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn > 0);
 		public static readonly SelfCondition HasMyHeroNotAttackedThisTurn = new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn == 0);
@@ -115,6 +118,8 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition IsProposedDefender(CardType cardType) => IsEventTargetIs(cardType);
 
 		public static readonly SelfCondition HasLessHandCardsThenOp = new SelfCondition(me => me.Controller.HandZone.Count < me.Controller.Opponent.HandZone.Count);
+
+		public static readonly SelfCondition IsAnyDiedThisTurn = new SelfCondition(p => p.Controller.NumFriendlyMinionsThatDiedThisTurn + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn > 0);
 
 		public static readonly SelfCondition DoesOpHasMoresMinions =
 			new SelfCondition(me => me.Controller.BoardZone.CountExceptUntouchables < me.Controller.Opponent.BoardZone.CountExceptUntouchables);

@@ -1,5 +1,6 @@
 ﻿using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
@@ -24,5 +25,18 @@ namespace SabberStoneCore.Enchants
 			    RemoveAfterTriggered = true,
 			    SingleTask = new ChangeUnidentifiedTask()
 		    };
+
+	    // TODO: maybe need some more work here
+		public static Trigger WorgenTransform(string cardId, string enchantmentId)
+	    {
+		    return new Trigger(TriggerType.TURN_END)
+		    {
+			    TriggerActivation = TriggerActivation.HAND,
+			    SingleTask = ComplexTask.Create(
+				    new SwapAttackHealthTask(EntityType.SOURCE, enchantmentId),
+				    new ChangeEntityTask(cardId)),
+			    RemoveAfterTriggered = true
+		    };
+	    }
     }
 }
