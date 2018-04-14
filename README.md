@@ -9,7 +9,7 @@
 
 # Overview
 
-**State of Implementation: 85% (The Witchwood is beeing worked on, Kobolds and Catacombs 100%) of current Standard Cards (Year of the ... Raaaaaaveeeen)!** ***(13.04.2018)***
+**State of Implementation: 88% (The Witchwood is beeing worked on, Kobolds and Catacombs 100%) of current Standard Cards (Year of the ... Raaaaaaveeeen)!** ***(13.04.2018)***
 
 SabberStone is just another Hearthstone simulator and implementation, written in C#. The project was started in Nov'16 while trying to implement aura, buffs & triggers into Brimstone. Focused to prototype my so called onion system I created SabberStone, which is using a layer approach to handle entity changing enchantments. Since then I haven't stopped implementing day by day new cards, new tests and new stuff. I created for fun a visualisation and a scoring based tree search a.i. which can be used to play games ([SabberStoneGui](/extensions/SabberStoneGui)).
 
@@ -71,15 +71,15 @@ Join us on [Discord](https://discord.gg/my9WTwK)!
 * *93% The League of Explorers (45 Cards) (needs to be upgraded to new system)*
 
 **Expensions**
-* *2% The Witchwood (135 Cards)
+* *18% The Witchwood (135 Cards)
 * **100% Kobolds and Catacombs (135 Cards)**
 * **100% Knights of the Frozen Throne (135 Cards)**
 * **100% Journey to Un'Goro (135 cards)**
 * *91% The Grand Tournament (132 Cards) (needs to be upgraded to new system)*
 * **100% Whispers of the Old Gods (134 Cards)**
 * **100% Mean Streets of Gadgetzan (132 Cards)**
-* 8% Goblins vs Gnomes (123 cards)
-* 6% Curse of Naxxramas (30 cards)
+* 79% Goblins vs Gnomes (123 cards)
+* **100% Curse of Naxxramas (30 cards)
 
 *(Standard is beeing prioritized.)*
 
