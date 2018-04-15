@@ -6,8 +6,6 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-	// Work in process
-	// Codes should be cleand up and be merged into Generic.ChangeEntityBlock
     public class ChangeEntityTask : SimpleTask
     {
 	    private readonly EntityType _type;
