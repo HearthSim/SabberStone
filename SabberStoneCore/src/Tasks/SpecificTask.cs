@@ -719,6 +719,30 @@ namespace SabberStoneCore.Tasks
 				return new RenonunceDarkness();
 			}
 		}
+
+		public class GetRandomPastLegendary : SimpleTask
+		{
+			private static readonly CardSet[] WildSets = Cards.WildSets.Except(Cards.StandardSets).ToArray();
+
+			private static readonly Card[] PastLegendaryMinions
+				= Cards.All.Where(p => p.Rarity == Rarity.LEGENDARY &&
+				                       p.Collectible &&
+				                       WildSets.Contains(p.Set) &&
+				                       p.Type == CardType.MINION
+				                       ).ToArray();
+
+			public override TaskState Process()
+			{
+				Card pick = Util.Choose(PastLegendaryMinions);
+				Entity.FromCard(Controller, pick, null, Controller.HandZone);
+				return TaskState.COMPLETE;
+			}
+
+			public override ISimpleTask Clone()
+			{
+				return new GetRandomPastLegendary();
+			}
+		}
 	}
 }
 
