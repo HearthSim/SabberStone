@@ -307,37 +307,7 @@ namespace SabberStoneCore.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("FP1_004", new Power {
-				DeathrattleTask = ComplexTask.Create(
-					new ConditionTask(EntityType.SOURCE, SelfCondition.IsZoneCount(Zone.SECRET, 5)),
-					new FlagTask(false, ComplexTask.Create(
-						new IncludeTask(EntityType.DECK),
-						new FilterStackTask(SelfCondition.IsSecret),
-						new FuncPlayablesTask(stack =>
-						{
-							if (stack.Count == 0)
-								return null;
-
-							Controller c = stack[0].Controller;
-							do
-							{
-								IPlayable pick = Util.Choose(stack);
-								if (c.SecretZone.Any(p => p.Card.AssetId == pick.Card.AssetId))
-								{
-									stack.Remove(pick);
-									continue;
-								}
-
-								c.DeckZone.Remove(pick);
-								pick.Power.Trigger?.Activate(pick);
-								c.SecretZone.Add((Spell)pick);
-								if (c == c.Game.CurrentPlayer)
-									pick.IsExhausted = true;
-								break;
-
-							} while (stack.Count > 0);
-
-							return null;
-						}))))
+				DeathrattleTask = ComplexTask.PutSecretFromDeck
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

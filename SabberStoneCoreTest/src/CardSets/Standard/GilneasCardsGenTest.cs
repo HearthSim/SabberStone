@@ -6,6 +6,7 @@ using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCoreTest.CardSets.Standard
@@ -991,10 +992,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TokiTimeTinker_GIL_549()
 		{
-			// TODO TokiTimeTinker_GIL_549 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1011,8 +1011,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Toki, Time-Tinker"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Toki, Time-Tinker"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Toki, Time-Tinker"));
+
+			IPlayable test = game.CurrentPlayer.HandZone.Last();
+			Assert.Equal(Rarity.LEGENDARY, test.Card.Rarity);
+			Assert.DoesNotContain(test.Card.Set, Cards.StandardSets);
+			Assert.Equal(CardType.MINION, test.Card.Type);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1021,7 +1026,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Whenever you draw a card, gain +1/+1.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CurioCollector_GIL_640()
 		{
 			// TODO CurioCollector_GIL_640 test
@@ -1042,7 +1047,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Curio Collector"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Curio Collector"));
+
+			Minion test = game.ProcessCard<Minion>("Curio Collector");
+
+			game.ProcessCard("Arcane Intellect");
+			Assert.Equal(6, test.AttackDamage);
+			Assert.Equal(6, test.Health);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1054,7 +1064,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void BonfireElemental_GIL_645()
 		{
 			// TODO BonfireElemental_GIL_645 test
@@ -1074,8 +1084,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bonfire Elemental"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Bonfire Elemental"));
+			
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Bonfire Elemental"));
+			Assert.Equal(3, game.CurrentPlayer.HandZone.Count);
+			game.EndTurn();
+			game.EndTurn();
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
+			game.ProcessCard("Bonfire Elemental");
+			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1118,10 +1134,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ArchmageArugal_GIL_691()
 		{
-			// TODO ArchmageArugal_GIL_691 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1129,6 +1144,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Archmage Arugal"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+
+					Cards.FromName("Bloodfen Raptor"),
+					Cards.FromName("Arcane Missiles")
 				},
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
@@ -1138,8 +1159,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Archmage Arugal"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Archmage Arugal"));
+			
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Archmage Arugal"));
+			game.ProcessCard("Arcane Intellect");
+			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(2, game.CurrentPlayer.HandZone.Count(p => p.Card.Name == "Bloodfen Raptor"));
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1216,10 +1240,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Draw 3 cards. Discard any spells drawn.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void BookOfSpecters_GIL_548()
 		{
-			// TODO BookOfSpecters_GIL_548 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1227,17 +1250,26 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Book of Specters"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+
+					Cards.FromName("Bloodfen Raptor"),
+					Cards.FromName("Arcane Missiles"),
+					Cards.FromName("Arcane Missiles")
 				},
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Book of Specters"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Book of Specters"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Book of Specters"));
+
+			Assert.Empty(game.CurrentPlayer.DeckZone);
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal("Bloodfen Raptor", game.CurrentPlayer.HandZone.Last().Card.Name);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -1254,10 +1286,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - FREEZE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SnapFreeze_GIL_801()
 		{
-			// TODO SnapFreeze_GIL_801 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1276,6 +1307,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snap Freeze"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Snap Freeze"));
+
+			IPlayable target = game.ProcessCard("Stonetusk Boar");
+			game.ProcessCard("Snap Freeze", target);
+			Assert.Equal(1, target[GameTag.FROZEN]);
+
+			game.ProcessCard("Snap Freeze", target);
+			Assert.True(target.ToBeDestroyed);
 		}
 
 	}
@@ -1367,10 +1405,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - TAUNT = 1
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CathedralGargoyle_GIL_635()
 		{
-			// TODO CathedralGargoyle_GIL_635 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1381,14 +1418,19 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				},
 				Player2HeroClass = CardClass.PALADIN,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cathedral Gargoyle"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Cathedral Gargoyle"));
+
+			Minion test1 = game.ProcessCard<Minion>("Cathedral Gargoyle");
+			Assert.False(test1.HasDivineShield);
+			Assert.False(test1.HasTaunt);
+
+			Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Malygos"));
+			Minion test2 = game.ProcessCard<Minion>("Cathedral Gargoyle");
+			Assert.True(test2.HasDivineShield);
+			Assert.True(test2.HasTaunt);
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -1437,10 +1479,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void PrinceLiam_GIL_694()
 		{
-			// TODO PrinceLiam_GIL_694 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1448,17 +1489,31 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Prince Liam"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+
+					Cards.FromName("Wisp"),
+					Cards.FromName("Bloodfen Raptor"),
+					Cards.FromName("Dalaran Mage"),
+
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Stonetusk Boar"),
 				},
 				Player2HeroClass = CardClass.PALADIN,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Prince Liam"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Prince Liam"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Prince Liam"));
+
+			Assert.Empty(game.CurrentPlayer.DeckZone.Where(p => p.Card.Name == "Stonetusk Boar"));
+			Assert.Equal(5, game.CurrentPlayer.DeckZone.Count(p => p.Card.Rarity == Rarity.LEGENDARY));
 		}
 
 		// --------------------------------------- MINION - PALADIN

@@ -231,13 +231,14 @@ namespace SabberStoneCore.Actions
 					task.Process();
 				}
 
+				// aftertask here
 				if (c.Choice.AfterChooseTask != null)
 				{
 					ISimpleTask clone = c.Choice.AfterChooseTask.Clone();
 					clone.Game = c.Game;
 					clone.Controller = c;
-					clone.Source = c.Game.IdEntityDic[playable[GameTag.CREATOR]];
-					clone.Target = playable;
+					clone.Source = c.Game.IdEntityDic[playable[GameTag.CREATOR]];	// choice creator as Source
+					clone.Target = playable;	// selected card as Target
 
 					c.Game.TaskQueue.Enqueue(clone);
 				}

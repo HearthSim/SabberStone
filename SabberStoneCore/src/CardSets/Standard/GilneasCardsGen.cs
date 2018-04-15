@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -459,8 +460,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_WITH_RACE = 20
 			// --------------------------------------------------------
 			cards.Add("GIL_828", new Power {
-				// TODO [GIL_828] Dire Frenzy && Test: Dire Frenzy_GIL_828
-				InfoCardId = "GIL_828e",
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("GIL_828e", EntityType.TARGET),
 					new CopyTask(EntityType.TARGET, 3),
@@ -563,9 +562,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_549", new Power {
-				// TODO [GIL_549] Toki, Time-Tinker && Test: Toki, Time-Tinker_GIL_549
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SpecificTask.GetRandomPastLegendary()
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -575,10 +572,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you draw a card, gain +1/+1.
 			// --------------------------------------------------------
 			cards.Add("GIL_640", new Power {
-				// TODO [GIL_640] Curio Collector && Test: Curio Collector_GIL_640
-				InfoCardId = "GIL_640e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.DRAW)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = new AddEnchantmentTask("GIL_640e", EntityType.SOURCE)
+				}
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -591,9 +589,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_645", new Power {
-				// TODO [GIL_645] Bonfire Elemental && Test: Bonfire Elemental_GIL_645
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
+					new FlagTask(true, new DrawTask()))
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -623,9 +621,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_691", new Power {
-				// TODO [GIL_691] Archmage Arugal && Test: Archmage Arugal_GIL_691
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.DRAW)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = SelfCondition.IsMinion,
+					SingleTask = ComplexTask.Create(
+						new CopyTask(EntityType.TARGET, 1),
+						new AddStackTo(EntityType.HAND))
+				}
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -640,9 +643,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_838", new Power {
-				// TODO [GIL_838] Black Cat && Test: Black Cat_GIL_838
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Black Cat_GIL_838
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoEvenCostInDeck),
+					new FlagTask(true, new DrawTask()))
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -655,9 +659,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ImmuneToSpellpower = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_147", new Power {
-				// TODO [GIL_147] Cinderstorm && Test: Cinderstorm_GIL_147
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new EnqueueTask(5, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1), true)
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -667,9 +669,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Draw 3 cards. Discard any spells drawn.
 			// --------------------------------------------------------
 			cards.Add("GIL_548", new Power {
-				// TODO [GIL_548] Book of Specters && Test: Book of Specters_GIL_548
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new DrawTask(true, 3),
+					new FilterStackTask(SelfCondition.IsSpell),
+					new DiscardTask(EntityType.STACK))
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -687,9 +690,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - FREEZE = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_801", new Power {
-				// TODO [GIL_801] Snap Freeze && Test: Snap Freeze_GIL_801
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
+					new FlagTask(false, ComplexTask.Freeze(EntityType.TARGET)),
+					new FlagTask(true, new DestroyTask(EntityType.TARGET)))
 			});
 
 		}
@@ -707,11 +711,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("GIL_545", new Power {
-				// TODO [GIL_545] Ghostly Charger && Test: Ghostly Charger_GIL_545
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("GIL_545", null);
 
 			// --------------------------------------- MINION - PALADIN
 			// [GIL_634] Bellringer Sentry - COST:4 [ATK:3/HP:4] 
@@ -727,9 +727,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_634", new Power {
-				// TODO [GIL_634] Bellringer Sentry && Test: Bellringer Sentry_GIL_634
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.PutSecretFromDeck,
+				DeathrattleTask = ComplexTask.PutSecretFromDeck
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -746,9 +745,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_635", new Power {
-				// TODO [GIL_635] Cathedral Gargoyle && Test: Cathedral Gargoyle_GIL_635
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+					new FlagTask(true, ComplexTask.Create(
+						ComplexTask.Taunt(EntityType.SOURCE),
+						ComplexTask.DivineShield(EntityType.SOURCE))))
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -780,9 +781,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_694", new Power {
-				// TODO [GIL_694] Prince Liam && Test: Prince Liam_GIL_694
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new FuncNumberTask(p =>
+				{
+					IReadOnlyList<Card> legendaries = RandomCardTask.GetCardList(p, CardType.MINION, rarity: Rarity.LEGENDARY);
+					p.Controller.DeckZone.ForEach(q =>
+					{
+						if (q.Cost != 1) return;
+
+						Generic.ChangeEntityBlock.Invoke(p.Controller, q, Util.Choose(legendaries));
+					});
+					return 0;
+				})
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -818,10 +827,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("GIL_145", new Power {
-				// TODO [GIL_145] Sound the Bells! && Test: Sound the Bells!_GIL_145
-				InfoCardId = "GIL_145e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("GIL_145e", EntityType.TARGET)
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -831,10 +837,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Enemy spells cost (5) more next turn.
 			// --------------------------------------------------------
 			cards.Add("GIL_203", new Power {
-				// TODO [GIL_203] Rebuke && Test: Rebuke_GIL_203
-				InfoCardId = "GIL_203e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("GIL_203e", EntityType.OP_CONTROLLER)
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -850,9 +853,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_903", new Power {
-				// TODO [GIL_903] Hidden Wisdom && Test: Hidden Wisdom_GIL_903
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				{
+					Condition = new SelfCondition(p => p.Controller.NumCardsPlayedThisTurn == 3),
+					SingleTask = ComplexTask.Secret(new DrawTask(2))
+				}
 			});
 
 			// --------------------------------------- WEAPON - PALADIN
@@ -865,10 +870,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 4
 			// --------------------------------------------------------
 			cards.Add("GIL_596", new Power {
-				// TODO [GIL_596] Silver Sword && Test: Silver Sword_GIL_596
-				InfoCardId = "GIL_596e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
+				{
+					TriggerSource = TriggerSource.HERO,
+					SingleTask = new AddEnchantmentTask("GIL_596e", EntityType.MINIONS)
+
+				}
 			});
 
 		}
@@ -882,9 +889,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +1/+2.
 			// --------------------------------------------------------
 			cards.Add("GIL_145e", new Power {
-				// TODO [GIL_145e] DING DONG! && Test: DING DONG!_GIL_145e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("GIL_145e")
 			});
 
 		}
@@ -2731,9 +2736,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your spells cost (5) more this turn.
 			// --------------------------------------------------------
 			cards.Add("GIL_203e", new Power {
-				// TODO [GIL_203e] Rebuked && Test: Rebuked_GIL_203e
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.OP_HAND, new Effect(GameTag.COST, EffectOperator.ADD, 5))
+				{
+					Condition = SelfCondition.IsSpell,
+					RemoveTrigger = (TriggerType.TURN_END, SelfCondition.IsOpTurn)
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2929,9 +2936,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("GIL_640e", new Power {
-				// TODO [GIL_640e] Rare Find! && Test: Rare Find!_GIL_640e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new OngoingEnchant(Effects.AttackHealth_N(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
