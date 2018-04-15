@@ -18,10 +18,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// <param name="type">Selector of entity to copy.</param>
 		/// <param name="randomFlag"><c>true</c> if the copies need to be summoned
 		/// in random order, <c>false</c> otherwise.</param>
-		public SummonCopyTask(EntityType type, bool randomFlag = false)
+		public SummonCopyTask(EntityType type, bool randomFlag = false, bool addToStack = false)
 		{
 			Type = type;
 			RandomFlag = randomFlag;
+			_addToStack = addToStack;
 		}
 
 		public SummonCopyTask(EntityType type, SummonSide side) : this(type)
@@ -39,6 +40,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// </summary>
 		public bool RandomFlag { get; set; }
 
+		private readonly bool _addToStack;
 		private readonly SummonSide _side;
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -109,6 +111,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 					if (target.OngoingEffect != null && copy.OngoingEffect == null)
 						target.OngoingEffect.Clone(copy);
+
+					if (_addToStack)
+						Playables.Add(copy);
 				}
 			}
 
@@ -119,7 +124,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public override ISimpleTask Clone()
 		{
-			var clone = new SummonCopyTask(Type, RandomFlag);
+			var clone = new SummonCopyTask(Type, RandomFlag, _addToStack);
 			clone.Copy(this);
 			return clone;
 		}

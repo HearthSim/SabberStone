@@ -906,10 +906,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_142", new Power {
-				// TODO [GIL_142] Chameleos && Test: Chameleos_GIL_142
-				InfoCardId = "GIL_142e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					TriggerActivation = TriggerActivation.HAND,
+					SingleTask = new FuncNumberTask(p =>
+					{
+						Card pick = p.Controller.Opponent.HandZone.Random.Card;
+						Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);
+						Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("GIL_142e"), p, p, 0, 0);
+						return 0;
+					})
+				}
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -919,9 +926,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Can't attack while damaged.
 			// --------------------------------------------------------
 			cards.Add("GIL_156", new Power {
-				// TODO [GIL_156] Quartz Elemental && Test: Quartz Elemental_GIL_156
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new AdaptiveEffect(GameTag.CANT_ATTACK, EffectOperator.SET, p => p[GameTag.DAMAGE] > 0 ? 1 : 0)
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -931,9 +936,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever a friendly minion is healed, summon a 3/3_Whelp.
 			// --------------------------------------------------------
 			cards.Add("GIL_190", new Power {
-				// TODO [GIL_190] Nightscale Matriarch && Test: Nightscale Matriarch_GIL_190
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.HEAL)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = new SummonTask("GIL_190t")
+				}
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -946,9 +953,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_805", new Power {
-				// TODO [GIL_805] Coffin Crasher && Test: Coffin Crasher_GIL_805
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsDeathrattleMinion),
+					new SummonTask())
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -966,9 +974,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("GIL_835", new Power {
-				// TODO [GIL_835] Squashling && Test: Squashling_GIL_835
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new HealTask(2, EntityType.TARGET)
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -981,10 +987,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_837", new Power {
-				// TODO [GIL_837] Glitter Moth && Test: Glitter Moth_GIL_837
-				InfoCardId = "GIL_837e",
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Glitter Moth_GIL_837
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoEvenCostInDeck),
+					new AddEnchantmentTask("GIL_837e", EntityType.MINIONS_NOSOURCE))
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -1000,10 +1006,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_840", new Power {
-				// TODO [GIL_840] Lady in White && Test: Lady in White_GIL_840
-				InfoCardId = "GIL_840e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.SOURCE),
+					new IncludeTask(EntityType.DECK, null, true),
+					new FilterStackTask(SelfCondition.IsMinion),
+					new FuncPlayablesTask(list =>
+					{
+						IPlayable source = list[0];
+						Controller c = source.Controller;
+						Card enchantment = Cards.FromId("GIL_840e");
+						for (int i = 0; i < list.Count; i++)
+							Generic.AddEnchantmentBlock(c, enchantment, source, list[i], list[i].Card[GameTag.HEALTH], 0);
+						return null;
+					}))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1017,9 +1032,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("GIL_134", new Power {
-				// TODO [GIL_134] Holy Water && Test: Holy Water_GIL_134
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new DamageTask(4, EntityType.TARGET, true),
+					new ConditionTask(EntityType.TARGET, SelfCondition.IsDead),
+					new FlagTask(true, ComplexTask.Create(
+						new CopyTask(EntityType.TARGET, 1),
+						new AddStackTo(EntityType.HAND))))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1033,9 +1051,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("GIL_661", new Power {
-				// TODO [GIL_661] Divine Hymn && Test: Divine Hymn_GIL_661
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new HealTask(6, EntityType.FRIENDS)
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1053,9 +1069,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("GIL_813", new Power {
-				// TODO [GIL_813] Vivid Nightmare && Test: Vivid Nightmare_GIL_813
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new SummonCopyTask(EntityType.TARGET, false, true),
+					new GetGameTagTask(GameTag.HEALTH, EntityType.STACK),
+					new MathSubstractionTask(1),
+					new SetGameTagNumberTask(GameTag.DAMAGE, EntityType.STACK))
 			});
 
 		}
@@ -1069,20 +1087,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Has Attack equal to its Health.
 			// --------------------------------------------------------
 			cards.Add("GIL_840e", new Power {
-				// TODO [GIL_840e] Angelic Fortitude && Test: Angelic Fortitude_GIL_840e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.SetAttackScriptTag
 			});
 
 			// ---------------------------------------- MINION - PRIEST
 			// [GIL_190t] Nightscale Whelp (*) - COST:3 [ATK:3/HP:3] 
 			// - Race: dragon, Set: gilneas, 
 			// --------------------------------------------------------
-			cards.Add("GIL_190t", new Power {
-				// TODO [GIL_190t] Nightscale Whelp && Test: Nightscale Whelp_GIL_190t
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("GIL_190t", null);
 
 		}
 
@@ -1098,10 +1110,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ECHO = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_510", new Power {
-				// TODO [GIL_510] Mistwraith && Test: Mistwraith_GIL_510
-				InfoCardId = "GIL_510e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.PLAY_CARD)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = SelfCondition.IsEchoCard,
+					SingleTask = new AddEnchantmentTask("GIL_510e", EntityType.SOURCE)
+				}
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1119,9 +1133,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - COMBO = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_557", new Power {
-				// TODO [GIL_557] Cursed Castaway && Test: Cursed Castaway_GIL_557
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.DrawFromDeck(1, SelfCondition.IsComboCard)
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1156,9 +1168,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ECHO = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_677", new Power {
-				// TODO [GIL_677] Face Collector && Test: Face Collector_GIL_677
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RandomCardTask(CardType.MINION, CardClass.INVALID, rarity: Rarity.LEGENDARY),
+					new AddStackTo(EntityType.HAND))
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1171,10 +1183,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_827", new Power {
-				// TODO [GIL_827] Blink Fox && Test: Blink Fox_GIL_827
-				InfoCardId = "GIL_827e1",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RandomCardTask(EntityType.OP_HERO),
+					new AddStackTo(EntityType.HAND))
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1187,10 +1198,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - COMBO = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_902", new Power {
-				// TODO [GIL_902] Cutthroat Buccaneer && Test: Cutthroat Buccaneer_GIL_902
-				InfoCardId = "GIL_902e",
-				//PowerTask = null,
-				//Trigger = null,
+				ComboTask = new AddEnchantmentTask("GIL_902e", EntityType.WEAPON)
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1208,9 +1216,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("GIL_506", new Power {
-				// TODO [GIL_506] Cheap Shot && Test: Cheap Shot_GIL_506
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(2, EntityType.TARGET, true)
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1224,9 +1230,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("GIL_687", new Power {
-				// TODO [GIL_687] WANTED! && Test: WANTED!_GIL_687
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new DamageTask(3, EntityType.TARGET, true),
+					new ConditionTask(EntityType.TARGET, SelfCondition.IsDead),
+					new FlagTask(true, new AddCardTo("GAME_005", EntityType.HAND)))
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1240,9 +1247,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ECHO = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_696", new Power {
-				// TODO [GIL_696] Pick Pocket && Test: Pick Pocket_GIL_696
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RandomCardTask(EntityType.OP_HERO),
+					new AddStackTo(EntityType.HAND))
 			});
 
 			// ----------------------------------------- WEAPON - ROGUE
@@ -1259,10 +1266,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_672", new Power {
-				// TODO [GIL_672] Spectral Cutlass && Test: Spectral Cutlass_GIL_672
-				InfoCardId = "GIL_672e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.PLAY_CARD)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = new SelfCondition(p => p.Card.Class != p.Controller.Hero.Card.Class),
+					SingleTask = new AddEnchantmentTask("GIL_672e", EntityType.SOURCE)
+				}
 			});
 
 		}
@@ -2700,9 +2709,22 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Transforming into random card from your opponent's hand.
 			// --------------------------------------------------------
 			cards.Add("GIL_142e", new Power {
-				// TODO [GIL_142e] Shifting && Test: Shifting_GIL_142e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.SHIFTING, EffectOperator.SET, 1)
+				{
+					RemoveWhenPlayed = true
+				},
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.TARGET),
+						new FuncPlayablesTask(list =>
+						{
+							IPlayable p = list[0];
+							Card pick = p.Controller.Opponent.HandZone.Random.Card;
+							Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);
+							return null;
+						}))
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2760,9 +2782,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("GIL_510e", new Power {
-				// TODO [GIL_510e] Misty && Test: Misty_GIL_510e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new OngoingEnchant(Effects.AttackHealth_N(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3001,9 +3021,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Durability.
 			// --------------------------------------------------------
 			cards.Add("GIL_672e", new Power {
-				// TODO [GIL_672e] Spooky && Test: Spooky_GIL_672e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.DURABILITY, EffectOperator.ADD, 1)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3045,9 +3063,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Doubled Health.
 			// --------------------------------------------------------
 			cards.Add("GIL_837e", new Power {
-				// TODO [GIL_837e] Moth Dust && Test: Moth Dust_GIL_837e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.HEALTH, EffectOperator.MUL, 2)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

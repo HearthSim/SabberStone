@@ -1702,18 +1702,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Chameleos_GIL_142()
 		{
-			// TODO Chameleos_GIL_142 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Chameleos"),
-				},
 				Player2HeroClass = CardClass.PRIEST,
 				Shuffle = false,
 				FillDecks = true,
@@ -1722,8 +1717,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Chameleos"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Chameleos"));
+
+			IPlayable test = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Chameleos"));
+			Assert.Equal("GIL_142", test.Card.Id);
+
+			for (int i = 0; i < 5; i++)
+			{
+				game.EndTurn();
+				game.EndTurn();
+				Assert.Contains(test.Card.Id, game.CurrentOpponent.HandZone.Select(p => p.Card.Id));
+			}
 		}
 
 		// ---------------------------------------- MINION - PRIEST
@@ -1732,10 +1735,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Can't attack while damaged.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void QuartzElemental_GIL_156()
 		{
-			// TODO QuartzElemental_GIL_156 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1752,8 +1754,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Quartz Elemental"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Quartz Elemental"));
+
+			Minion test = game.ProcessCard<Minion>("Quartz Elemental");
+
+			Assert.False(test.CantAttack);
+			test.Damage++;
+			game.AuraUpdate();
+			Assert.True(test.CantAttack);
+			test.Damage--;
+			game.AuraUpdate();
+			Assert.False(test.CantAttack);
 		}
 
 		// ---------------------------------------- MINION - PRIEST
@@ -1902,7 +1912,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void LadyInWhite_GIL_840()
 		{
 			// TODO LadyInWhite_GIL_840 test
@@ -1923,7 +1933,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lady in White"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Lady in White"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Lady in White"));
+
+			foreach (Minion m in game.CurrentPlayer.DeckZone.Where(p => p is Minion).Cast<Minion>())
+			{
+				Assert.Equal(m.AttackDamage, m.Health);
+			}
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -1936,10 +1951,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_TO_PLAY = 0
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void HolyWater_GIL_134()
 		{
-			// TODO HolyWater_GIL_134 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1958,6 +1972,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Holy Water"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Holy Water"));
+
+			IPlayable target = game.ProcessCard("Stonetusk Boar");
+			game.ProcessCard("Holy Water", target);
+			Assert.Equal("Stonetusk Boar", game.CurrentPlayer.HandZone.Last().Card.Name);
+
+			IPlayable target2 = game.ProcessCard("Ysera", null, true);
+			game.ProcessCard("Holy Water", target2, true);
+			Assert.Equal("Stonetusk Boar", game.CurrentPlayer.HandZone.Last().Card.Name);
 		}
 
 		// ----------------------------------------- SPELL - PRIEST
@@ -2008,10 +2030,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_MINION_TARGET = 0
 		// - REQ_FRIENDLY_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void VividNightmare_GIL_813()
 		{
-			// TODO VividNightmare_GIL_813 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2030,6 +2051,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vivid Nightmare"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Vivid Nightmare"));
+
+			IPlayable target = game.ProcessCard("Ysera", null, true);
+			game.ProcessCard("Vivid Nightmare", target, true);
+
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+			Minion test = game.CurrentPlayer.BoardZone[1];
+			Assert.Equal(1, test.Health);
 		}
 
 	}
@@ -2045,10 +2073,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - ECHO = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Mistwraith_GIL_510()
 		{
-			// TODO Mistwraith_GIL_510 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2067,6 +2094,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mistwraith"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Mistwraith"));
+
+			Minion test = game.ProcessCard<Minion>("Mistwraith");
+			game.ProcessCard("Pick Pocket", null, true);
+			Assert.Equal(4, test.AttackDamage);
+			Assert.Equal(6, test.Health);
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last(), null, true);
+			Assert.Equal(5, test.AttackDamage);
+			Assert.Equal(7, test.Health);
+			game.ProcessCard("Stonetusk Boar");
+			Assert.Equal(5, test.AttackDamage);
+			Assert.Equal(7, test.Health);
 		}
 
 		// ----------------------------------------- MINION - ROGUE
@@ -2156,10 +2194,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - BATTLECRY = 1
 		// - ECHO = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void FaceCollector_GIL_677()
 		{
-			// TODO FaceCollector_GIL_677 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2177,7 +2214,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Face Collector"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Face Collector"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Face Collector"));
+			Assert.Equal(Rarity.LEGENDARY, game.CurrentPlayer.HandZone[3].Card.Rarity);
+			game.ProcessCard(game.CurrentPlayer.HandZone[4]);
+			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(Rarity.LEGENDARY, game.CurrentPlayer.HandZone[4].Card.Rarity);
 		}
 
 		// ----------------------------------------- MINION - ROGUE
@@ -2365,10 +2406,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - DURABILITY = 2
 		// - LIFESTEAL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SpectralCutlass_GIL_672()
 		{
-			// TODO SpectralCutlass_GIL_672 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2386,7 +2426,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spectral Cutlass"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Spectral Cutlass"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Spectral Cutlass"));
+
+			game.ProcessCard("Frostbolt", game.CurrentOpponent.Hero);
+			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
+
+			game.ProcessCard("Eviscerate", game.CurrentOpponent.Hero);
+			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
 		}
 
 	}
