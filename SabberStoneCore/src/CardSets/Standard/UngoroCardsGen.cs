@@ -452,7 +452,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_910", new Power {
 				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.OP_MINIONS),
+					new IncludeTask(EntityType.ALLMINIONS),
 					new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
 					new DamageTask(2, EntityType.TARGET, true),
 					new DamageTask(1, EntityType.STACK, true))
@@ -736,7 +736,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_955", new Power {
 				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.OP_MINIONS),
+					new IncludeTask(EntityType.ALLMINIONS),
 					new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
 					new DamageTask(15, EntityType.TARGET, true),
 					new DamageTask(3, EntityType.STACK, true))

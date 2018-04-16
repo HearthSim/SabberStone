@@ -30,8 +30,9 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine(Cards.Statistics());
 			//StabilityTest.CloneStabilityTest();
 			//StabilityTest.ThreadSafetyTest();
-			EntityChangeTest();
+			//EntityChangeTest();
 			//YoggTest();
+			TessGreymane();
 
 			//BasicBuffTest();
 			//CardsTest();
@@ -961,6 +962,38 @@ namespace SabberStoneCoreConsole
 				game.CurrentPlayer.NumSpellsPlayedThisGame = 30;
 
 				IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(@"Yogg-Saron, Hope's End"));
+				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+
+				ShowLog(game, LogLevel.VERBOSE);
+
+				if (Console.ReadKey().Key != ConsoleKey.Spacebar)
+					break;
+			}
+		}
+
+		public static void TessGreymane()
+		{
+			while (true)
+			{
+				var game = new Game(new GameConfig
+				{
+					StartPlayer = 1,
+					Player1HeroClass = CardClass.ROGUE,
+					FillDecks = true,
+				});
+				game.StartGame();
+				game.Player1.BaseMana = 10;
+				game.Player2.BaseMana = 10;
+
+				Card[] randomCards = Cards.Standard[CardClass.MAGE].Where(p => p.Class != CardClass.NEUTRAL).ToArray().ChooseNElements(20);
+
+				foreach (Card card in randomCards)
+				{
+					Console.WriteLine($"{card.Name} is add to play history");
+					game.CurrentPlayer.PlayHistory.Add(new PlayHistoryEntry(card));
+				}
+
+				IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tess Greymane"));
 				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 
 				ShowLog(game, LogLevel.VERBOSE);

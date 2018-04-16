@@ -769,7 +769,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_537", new Power {
 				PowerTask = ComplexTask.Create(
 					new DamageTask(5, EntityType.TARGET, true),
-					new IncludeTask(EntityType.OP_MINIONS),
+					new IncludeTask(EntityType.ALLMINIONS),
 					new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
 					new DamageTask(2, EntityType.STACK, true))
 			});
@@ -1160,7 +1160,7 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new DamageTask(1, EntityType.TARGET, true),
 					ComplexTask.Freeze(EntityType.TARGET),
-					new IncludeTask(EntityType.OP_MINIONS),
+					new IncludeTask(EntityType.ALLMINIONS),
 					new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
 					new DamageTask(1, EntityType.STACK, true),
 					ComplexTask.Freeze(EntityType.STACK))

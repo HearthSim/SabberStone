@@ -579,8 +579,8 @@ namespace SabberStoneCore.Tasks
 					}
 				}
 
-				PlayHistoryEntry[] shuffled = Util.ChooseNElements(spellCards, spellCards.Count);
-				for (int i = 0; i < shuffled.Length; i++)
+				IList<PlayHistoryEntry> shuffled = spellCards.Shuffle();
+				for (int i = 0; i < shuffled.Count; i++)
 				{
 					Generic.CastSpell(c, (Spell)Entity.FromCard(c, shuffled[i].SourceCard), (ICharacter)p, shuffled[i].SubOption);
 					while (c.Choice != null)
@@ -616,6 +616,63 @@ namespace SabberStoneCore.Tasks
 				op.DeckZone = temp;
 				temp.Controller = op;
 
+				return 0;
+			});
+
+		public static ISimpleTask TessGreymane
+			=> new FuncNumberTask(p =>
+			{
+				IList<Card> playedCards = p.Controller.PlayHistory
+					.Select(e => e.SourceCard)
+					.Where(card => card.Class != CardClass.NEUTRAL && card.Class != p.Controller.Hero.Card.Class)
+					.ToArray()
+					.Shuffle();
+
+				foreach (Card card in playedCards)
+				{
+					Controller c = p.Controller;
+					IPlayable entity = Entity.FromCard(c, card);
+					ICharacter randTarget = null;
+					if (card.RequiresTarget || card.RequiresTargetIfAvailable)
+					{
+						List<ICharacter> targets = (List<ICharacter>)entity.ValidPlayTargets;
+
+						randTarget = targets.Count > 0 ? Util.RandomElement(targets) : null;
+
+						entity.CardTarget = randTarget?.Id ?? -1;
+
+						p.Game.Log(LogLevel.INFO, BlockType.POWER, "Tess Greymane",
+							!p.Game.Logging ? "" : $"{entity}'s target is randomly selected to {randTarget}");
+					}
+
+					int randChooseOne = SimpleTask.Random.Next(1, 3);
+
+					if (card.HasOverload)
+						c.OverloadOwed = card.Overload;
+
+					c.Game.TaskQueue.StartEvent();
+					switch (card.Type)
+					{
+						case CardType.MINION:
+							if (c.BoardZone.IsFull) break;
+							Generic.SummonBlock.Invoke(c, entity as Minion, -1);
+							c.Game.DeathProcessingAndAuraUpdate();
+							break;
+						case CardType.WEAPON:
+							Generic.PlayWeapon.Invoke(c, entity as Weapon, randTarget, randChooseOne);
+							break;
+						case CardType.HERO:
+							Generic.PlayHero.Invoke(c, entity as Hero, randTarget, randChooseOne);
+							break;
+						case CardType.SPELL:
+							Generic.CastSpell.Invoke(c, entity as Spell, randTarget, randChooseOne);
+							c.Game.DeathProcessingAndAuraUpdate();
+							break;
+						default:
+							throw new NotImplementedException();
+					}
+					c.Game.TaskQueue.EndEvent();
+				}
 				return 0;
 			});
 
