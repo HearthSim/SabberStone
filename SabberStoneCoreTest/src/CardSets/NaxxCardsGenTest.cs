@@ -216,25 +216,31 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - POISONOUS = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
-		public void AnubarAmbusher_FP1_026()
-		{
-			// TODO AnubarAmbusher_FP1_026 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.ROGUE,
-				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true,
-				FillDecksPredictably = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Anub'ar Ambusher"));
-		}
-	}
+        [Fact]
+        public void AnubarAmbusher_FP1_026()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.ROGUE,
+                Player2HeroClass = CardClass.ROGUE,
+                FillDecks = true,
+                FillDecksPredictably = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+            //var testCard = game.CurrentPlayer.Draw(Cards.FromName("Anub'ar Ambusher"));
+            game.ProcessCard("Stonetusk Boar");
+            Minion target = game.ProcessCard<Minion>("Anub'ar Ambusher");
+            game.EndTurn();
 
+            game.ProcessCard("Assassinate", target);
+
+            Assert.Equal(5, game.CurrentOpponent.HandZone.Count);
+            Assert.Equal("Stonetusk Boar", game.CurrentOpponent.HandZone[4].Card.Name);
+        }
+    }
 
 	public class ShamanNaxxTest
 	{
@@ -377,23 +383,35 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
-		public void HauntedCreeper_FP1_002()
-		{
-			// TODO HauntedCreeper_FP1_002 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
-				FillDecksPredictably = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Haunted Creeper"));
-		}
+        [Fact]
+        public void HauntedCreeper_FP1_002()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true,
+                FillDecksPredictably = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+
+            Minion target = game.ProcessCard<Minion>("Haunted Creeper");
+            game.EndTurn();
+
+            game.ProcessCard("Frostbolt", target);
+
+            Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
+
+            Assert.Equal("Spectral Spider", game.CurrentOpponent.BoardZone[0].Card.Name);
+            Assert.Equal("Spectral Spider", game.CurrentOpponent.BoardZone[1].Card.Name);
+            Assert.Equal(1, game.CurrentOpponent.BoardZone[0].AttackDamage);
+            Assert.Equal(1, game.CurrentOpponent.BoardZone[0].Health);
+            Assert.Equal(1, game.CurrentOpponent.BoardZone[1].AttackDamage);
+            Assert.Equal(1, game.CurrentOpponent.BoardZone[1].Health);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [FP1_003] Echoing Ooze - COST:2 [ATK:1/HP:2] 
@@ -647,23 +665,33 @@ namespace SabberStoneCoreTest.CardSets
 		// - TAUNT = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
-		public void SludgeBelcher_FP1_012()
-		{
-			// TODO SludgeBelcher_FP1_012 test
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.MAGE,
-				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
-				FillDecksPredictably = true
-			});
-			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = game.CurrentPlayer.Draw(Cards.FromName("Sludge Belcher"));
-		}
+        [Fact]
+        public void SludgeBelcher_FP1_012()
+        {
+            var game = new Game(new GameConfig
+            {
+                StartPlayer = 1,
+                Player1HeroClass = CardClass.MAGE,
+                Player2HeroClass = CardClass.MAGE,
+                FillDecks = true,
+                FillDecksPredictably = true
+            });
+            game.StartGame();
+            game.Player1.BaseMana = 10;
+            game.Player2.BaseMana = 10;
+
+            Minion target = game.ProcessCard<Minion>("Sludge Belcher");
+            game.EndTurn();
+
+            game.ProcessCard("Fireball", target);
+
+            Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
+
+            Assert.Equal("Slime", game.CurrentOpponent.BoardZone[0].Card.Name);
+            Assert.Equal(1, game.CurrentOpponent.BoardZone[0].AttackDamage);
+            Assert.Equal(2, game.CurrentOpponent.BoardZone[0].Health);
+            Assert.Equal(true, game.CurrentOpponent.BoardZone[0].HasTaunt);
+        }
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [FP1_013] Kel'Thuzad - COST:8 [ATK:6/HP:8] 
