@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -96,6 +97,23 @@ namespace SabberStoneCore.Model
 				result[i] = pick;
 			}
 			return result;
+		}
+
+		/// <summary>
+		/// Randomise the order of elements in the given list.
+		/// </summary>
+		public static IList<T> Shuffle<T>(this IList<T> list, Random rnd = null)
+		{
+			if (rnd == null)
+				rnd = Random;
+			for (int i = 0; i < list.Count; i++)
+			{
+				int r = rnd.Next(i, list.Count);
+				T temp = list[i];
+				list[i] = list[r];
+				list[r] = temp;
+			}
+			return list;
 		}
 	}
 

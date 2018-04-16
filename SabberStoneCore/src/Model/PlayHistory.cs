@@ -10,13 +10,18 @@ namespace SabberStoneCore.Model
 		public readonly Card TargetCard;
 		public readonly int SubOption;
 
-		internal PlayHistoryEntry(IPlayable source, IPlayable target = null, int chooseOne = -1)
+		public PlayHistoryEntry(IPlayable source, IPlayable target = null, int chooseOne = -1)
 		{
 			SourceController = source.Controller.PlayerId;
 			TargetController = target?.Controller.PlayerId ?? 0;
 			SourceCard = source.Card;
 			TargetCard = target?.Card;
 			SubOption = chooseOne;
+		}
+
+		public PlayHistoryEntry(Card srcCard)
+		{
+			SourceCard = srcCard;
 		}
 	}
 }

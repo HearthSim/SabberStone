@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
@@ -1150,9 +1151,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_598", new Power {
-				// TODO [GIL_598] Tess Greymane && Test: Tess Greymane_GIL_598
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Tess Greymane_GIL_598
+				// see SabberStoneCoreConsole/Program.cs/TessGreymane()
+				PowerTask = SpecificTask.TessGreymane
 			});
 
 			// ----------------------------------------- MINION - ROGUE

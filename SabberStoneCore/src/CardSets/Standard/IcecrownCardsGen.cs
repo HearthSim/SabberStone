@@ -2115,7 +2115,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_078", new Power {
 				PowerTask = ComplexTask.Create(
 					ComplexTask.Freeze(EntityType.TARGET),
-					new IncludeTask(EntityType.OP_MINIONS),
+					new IncludeTask(EntityType.ALLMINIONS),
 					new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
 					new DamageTask(3, EntityType.STACK, true))
 			});
