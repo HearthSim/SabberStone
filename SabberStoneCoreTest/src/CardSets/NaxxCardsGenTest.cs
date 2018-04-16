@@ -690,7 +690,7 @@ namespace SabberStoneCoreTest.CardSets
             Assert.Equal("Slime", game.CurrentOpponent.BoardZone[0].Card.Name);
             Assert.Equal(1, game.CurrentOpponent.BoardZone[0].AttackDamage);
             Assert.Equal(2, game.CurrentOpponent.BoardZone[0].Health);
-            Assert.Equal(true, game.CurrentOpponent.BoardZone[0].HasTaunt);
+            Assert.True(game.CurrentOpponent.BoardZone[0].HasTaunt);
         }
 
 		// --------------------------------------- MINION - NEUTRAL
