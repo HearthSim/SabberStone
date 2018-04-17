@@ -42,11 +42,6 @@ namespace SabberStoneCore.Actions
 				c.NumCardsPlayedThisTurn++;
 				c.LastCardPlayed = source.Id;
 
-				// record played cards for effect of cards like Obsidian Shard and Lynessa Sunsorrow
-				// or use graveyard instead with 'played' tag(or bool)?
-				c.CardsPlayedThisTurn.Add(source.Card);
-				c.PlayHistory.Add(new PlayHistoryEntry(source, target, chooseOne));
-
 				//// show entity
 				//if (c.Game.History)
 				//	c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(source));
@@ -84,6 +79,8 @@ namespace SabberStoneCore.Actions
 					IPlayable echoPlayable = Entity.FromCard(c, source.Card, echoTags, c.HandZone);
 					echoPlayable[GameTag.DISPLAYED_CREATOR] = source.Id;
 
+					c.Game.AuraUpdate();
+
 					c.Game.GhostlyCards.Add(echoPlayable.Id);
 				}
 
@@ -97,6 +94,10 @@ namespace SabberStoneCore.Actions
 
 				c.Game.CurrentEventData = null;
 
+				// record played cards for effect of cards like Obsidian Shard and Lynessa Sunsorrow
+				// or use graveyard instead with 'played' tag(or bool)?
+				c.CardsPlayedThisTurn.Add(source.Card);
+				c.PlayHistory.Add(new PlayHistoryEntry(source, target, chooseOne));
 
 				return true;
 			};

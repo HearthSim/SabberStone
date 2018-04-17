@@ -82,6 +82,11 @@ namespace SabberStoneCore.Tasks
 				new RandomTask(amount, EntityType.HAND),
 				new DiscardTask(EntityType.STACK));
 
+		public static ISimpleTask AddRandomShamanSpell
+			=> Create(
+				new RandomCardTask(CardType.SPELL, CardClass.SHAMAN),
+				new AddStackTo(EntityType.HAND));
+
 		public static ISimpleTask DrawCardTask()
 			=> Create(
 				new SplitTask(1, EntityType.DECK),

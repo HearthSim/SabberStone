@@ -2872,7 +2872,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_466", new Power {
-				PowerTask = new SummonTask("ICC_466", SummonSide.RIGHT)
+				PowerTask = new SummonCopyTask(EntityType.SOURCE, SummonSide.RIGHT)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

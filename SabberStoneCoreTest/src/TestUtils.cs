@@ -78,9 +78,11 @@ namespace SabberStoneCoreTest
 		/// <summary>
 		/// Plays current player's Hero Power.
 		/// </summary>
-	    public static void PlayHeroPower(this Game game, IPlayable target = null, int chooseOne = 0, bool asZeroCost = false)
+	    public static void PlayHeroPower(this Game game, IPlayable target = null, int chooseOne = 0, bool asZeroCost = false, bool autoRefresh = false)
 	    {
 		    game.Process(HeroPowerTask.Any(game.CurrentPlayer, target, chooseOne, asZeroCost));
+		    if (autoRefresh)
+			    game.CurrentPlayer.Hero.HeroPower.IsExhausted = false;
 	    }
 
 	    /// <summary>
