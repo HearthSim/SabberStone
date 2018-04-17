@@ -3701,10 +3701,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void MossyHorror_GIL_124()
 		{
-			// TODO MossyHorror_GIL_124 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3723,6 +3722,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mossy Horror"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Mossy Horror"));
+
+			game.ProcessCard("Stonetusk Boar");
+			game.ProcessCard("Murloc Raider");
+			game.ProcessCard("Bloodfen Raptor");
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+
+			game.ProcessCard("Mossy Horror", null, true);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal("Bloodfen Raptor", game.CurrentPlayer.BoardZone[0].Card.Name);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3950,10 +3958,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Ravencaller_GIL_212()
 		{
-			// TODO Ravencaller_GIL_212 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3970,8 +3977,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ravencaller"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ravencaller"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ravencaller"));
+
+			Assert.True(game.CurrentPlayer.HandZone.TakeLast(2).ToList().TrueForAll(p => p.Card.Cost == 1));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4362,10 +4371,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void WitchwoodPiper_GIL_584()
 		{
-			// TODO WitchwoodPiper_GIL_584 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4373,6 +4381,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Witchwood Piper"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Snowflipper Penguin"),
 				},
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
@@ -4383,7 +4399,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Witchwood Piper"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Witchwood Piper"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Witchwood Piper"));
+
+			Assert.Equal(0, game.CurrentPlayer.HandZone.Last().Cost);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4574,10 +4592,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - TAUNT = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void WitchwoodGrizzly_GIL_623()
 		{
-			// TODO WitchwoodGrizzly_GIL_623 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4594,8 +4611,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Witchwood Grizzly"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Witchwood Grizzly"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Witchwood Grizzly"));
+
+			Assert.Equal(5, game.CurrentOpponent.HandZone.Count);
+			Assert.Equal(7, game.CurrentPlayer.BoardZone[0].Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

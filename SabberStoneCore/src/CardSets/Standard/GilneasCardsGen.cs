@@ -1898,9 +1898,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the end of your turn, deal 2 damage to all other damaged minions.
 			// --------------------------------------------------------
 			cards.Add("GIL_117", new Power {
-				// TODO [GIL_117] Worgen Abomination && Test: Worgen Abomination_GIL_117
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.ALLMINIONS_NOSOURCE),
+						new FilterStackTask(SelfCondition.IsDamaged),
+						new DamageTask(2, EntityType.STACK))
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1913,9 +1917,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_118", new Power {
-				// TODO [GIL_118] Deranged Doctor && Test: Deranged Doctor_GIL_118
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new HealTask(8, EntityType.HERO)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1928,10 +1930,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_119", new Power {
-				// TODO [GIL_119] Cauldron Elemental && Test: Cauldron Elemental_GIL_119
-				InfoCardId = "GIL_119e",
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.BOARD_EXCEPT_SOURCE, "GIL_119e")
+				{
+					Condition = SelfCondition.IsRace(Race.ELEMENTAL)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1954,11 +1956,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - SPELLPOWER = 2
 			// --------------------------------------------------------
-			cards.Add("GIL_121", new Power {
-				// TODO [GIL_121] Darkmire Moonkin && Test: Darkmire Moonkin_GIL_121
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("GIL_121", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [GIL_124] Mossy Horror - COST:6 [ATK:2/HP:7] 
@@ -1970,9 +1968,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_124", new Power {
-				// TODO [GIL_124] Mossy Horror && Test: Mossy Horror_GIL_124
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.ALLMINIONS_NOSOURCE),
+					new FilterStackTask(SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.LEQ)),
+					new DestroyTask(EntityType.STACK))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -1991,10 +1990,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_WITH_RACE = 11
 			// --------------------------------------------------------
 			cards.Add("GIL_125", new Power {
-				// TODO [GIL_125] Mad Hatter && Test: Mad Hatter_GIL_125
-				InfoCardId = "GIL_125e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RandomTask(3, EntityType.ALLMINIONS_NOSOURCE),
+					new AddEnchantmentTask("GIL_125e", EntityType.STACK))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2008,11 +2006,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("GIL_143", new Power {
-				// TODO [GIL_143] Vicious Scalehide && Test: Vicious Scalehide_GIL_143
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("GIL_143", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [GIL_198] Azalina Soulthief - COST:7 [ATK:3/HP:3] 
@@ -2042,9 +2036,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_201", new Power {
-				// TODO [GIL_201] Pumpkin Peasant && Test: Pumpkin Peasant_GIL_201
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = Triggers.WorgenTransform("GIL_201t", "GIL_200e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2060,9 +2052,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_202", new Power {
-				// TODO [GIL_202] Gilnean Royal Guard && Test: Gilnean Royal Guard_GIL_202
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = Triggers.WorgenTransform("GIL_202t", "GIL_200e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2076,11 +2066,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - ECHO = 1
 			// --------------------------------------------------------
-			cards.Add("GIL_207", new Power {
-				// TODO [GIL_207] Phantom Militia && Test: Phantom Militia_GIL_207
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("GIL_207", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [GIL_212] Ravencaller - COST:3 [ATK:2/HP:1] 
@@ -2094,9 +2080,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_212", new Power {
-				// TODO [GIL_212] Ravencaller && Test: Ravencaller_GIL_212
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RandomMinionTask(GameTag.COST, 1, 2),
+					new AddStackTo(EntityType.HAND))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2110,9 +2096,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_213", new Power {
-				// TODO [GIL_213] Tanglefur Mystic && Test: Tanglefur Mystic_GIL_213
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RandomMinionTask(GameTag.COST, 2),
+					new AddStackTo(EntityType.HAND),
+					new RandomMinionTask(GameTag.COST, 2, opponent: true),
+					new AddStackTo(EntityType.OP_HAND))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2125,10 +2113,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_513", new Power {
-				// TODO [GIL_513] Lost Spirit && Test: Lost Spirit_GIL_513
-				InfoCardId = "GIL_513e",
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new AddEnchantmentTask("GIL_513e", EntityType.MINIONS)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2144,10 +2129,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_526", new Power {
-				// TODO [GIL_526] Wyrmguard && Test: Wyrmguard_GIL_526
-				InfoCardId = "GIL_526e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+					new FlagTask(true, new AddEnchantmentTask("GIL_526e", EntityType.SOURCE)))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2161,11 +2145,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("GIL_527", new Power {
-				// TODO [GIL_527] Felsoul Inquisitor && Test: Felsoul Inquisitor_GIL_527
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("GIL_527", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [GIL_528] Swift Messenger - COST:4 [ATK:2/HP:6] 
@@ -2179,9 +2159,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_528", new Power {
-				// TODO [GIL_528] Swift Messenger && Test: Swift Messenger_GIL_528
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = Triggers.WorgenTransform("GIL_528t", "GIL_200e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2196,9 +2174,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_529", new Power {
-				// TODO [GIL_529] Spellshifter && Test: Spellshifter_GIL_529
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = Triggers.WorgenTransform("GIL_529t", "GIL_200e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2208,10 +2184,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: After your hero attacks, give this minion +1/+1.
 			// --------------------------------------------------------
 			cards.Add("GIL_534", new Power {
-				// TODO [GIL_534] Hench-Clan Thug && Test: Hench-Clan Thug_GIL_534
-				InfoCardId = "GIL_534t",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
+				{
+					TriggerSource = TriggerSource.HERO,
+					SingleTask = new AddEnchantmentTask("GIL_534t", EntityType.SOURCE)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2235,9 +2212,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_561", new Power {
-				// TODO [GIL_561] Blackwald Pixie && Test: Blackwald Pixie_GIL_561
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.HERO_POWER)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2258,9 +2233,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_578", new Power {
-				// TODO [GIL_578] Countess Ashmore && Test: Countess Ashmore_GIL_578
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					ComplexTask.DrawFromDeck(1, SelfCondition.HasRush),
+					ComplexTask.DrawFromDeck(1, SelfCondition.IsLifestealCard),
+					ComplexTask.DrawFromDeck(1, SelfCondition.IsDeathrattleCard))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2273,9 +2249,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_581", new Power {
-				// TODO [GIL_581] Sandbinder && Test: Sandbinder_GIL_581
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.DrawFromDeck(1, SelfCondition.IsRace(Race.ELEMENTAL))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2289,9 +2263,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_584", new Power {
-				// TODO [GIL_584] Witchwood Piper && Test: Witchwood Piper_GIL_584
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.DECK),
+					new FuncPlayablesTask(deck =>
+					{
+						IPlayable[] ordered = deck.Where(p => p is Minion).OrderBy(p => p.Cost).ToArray();
+						int lowest = ordered[0].Cost;
+						return ordered.TakeWhile(p => p.Cost == lowest).ToList();
+					}),
+					new RandomTask(1, EntityType.STACK),
+					new DrawTask())
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2307,10 +2288,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_601", new Power {
-				// TODO [GIL_601] Scaleworm && Test: Scaleworm_GIL_601
-				InfoCardId = "GIL_601e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
+					new AddEnchantmentTask("GIL_601e", EntityType.SOURCE))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2344,9 +2324,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_616", new Power {
-				// TODO [GIL_616] Splitting Festeroot && Test: Splitting Festeroot_GIL_616
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new SummonTask("GIL_616t", 2)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2359,10 +2337,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_620", new Power {
-				// TODO [GIL_620] Dollmaster Dorian && Test: Dollmaster Dorian_GIL_620
-				InfoCardId = "GIL_620e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.DRAW)
+				{
+					Condition = SelfCondition.IsMinion,
+					SingleTask = ComplexTask.Create(
+						new CopyTask(EntityType.TARGET, 1),
+						new AddEnchantmentTask("GIL_620e", EntityType.STACK),
+						new SummonTask())
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2377,9 +2359,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_622", new Power {
-				// TODO [GIL_622] Lifedrinker && Test: Lifedrinker_GIL_622
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new DamageTask(3, EntityType.OP_HERO),
+					new HealTask(3, EntityType.HERO))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2396,10 +2378,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_623", new Power {
-				// TODO [GIL_623] Witchwood Grizzly && Test: Witchwood Grizzly_GIL_623
-				InfoCardId = "GIL_623e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new CountTask(EntityType.OP_HAND),
+					new AddEnchantmentTask("GIL_623e", EntityType.SOURCE, true))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2412,10 +2393,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_624", new Power {
-				// TODO [GIL_624] Night Prowler && Test: Night Prowler_GIL_624
-				InfoCardId = "GIL_624e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsBoardCount(1)),
+					new FlagTask(true, new AddEnchantmentTask("GIL_624e", EntityType.SOURCE)))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2425,9 +2405,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Double the damage and_healing of your Hero_Power.
 			// --------------------------------------------------------
 			cards.Add("GIL_646", new Power {
-				// TODO [GIL_646] Clockwork Automaton && Test: Clockwork Automaton_GIL_646
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.HERO_POWER_DOUBLE, EffectOperator.ADD, 1))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2443,9 +2421,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_648", new Power {
-				// TODO [GIL_648] Chief Inspector && Test: Chief Inspector_GIL_648
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new MoveToGraveYard(EntityType.OP_SECRETS)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2460,9 +2436,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_667", new Power {
-				// TODO [GIL_667] Rotten Applebaum && Test: Rotten Applebaum_GIL_667
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new HealTask(4, EntityType.HERO)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2474,11 +2448,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ECHO = 1
 			// --------------------------------------------------------
-			cards.Add("GIL_680", new Power {
-				// TODO [GIL_680] Walnut Sprite && Test: Walnut Sprite_GIL_680
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("GIL_680", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [GIL_681] Nightmare Amalgam - COST:3 [ATK:3/HP:4] 
@@ -2506,9 +2476,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_682", new Power {
-				// TODO [GIL_682] Muck Hunter && Test: Muck Hunter_GIL_682
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("GIL_682t", 2)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2524,9 +2492,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - POISONOUS = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_683", new Power {
-				// TODO [GIL_683] Marsh Drake && Test: Marsh Drake_GIL_683
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonOpTask("GIL_683t")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2545,9 +2511,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("GIL_692", new Power {
 				// TODO [GIL_692] Genn Greymane && Test: Genn Greymane_GIL_692
-				InfoCardId = "GIL_692e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.GAME_START)
+				{
+					Condition = SelfCondition.HasNoOddCostInDeck,
+					SingleTask = new AddEnchantmentTask("GIL_692e", EntityType.HERO_POWER)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2576,9 +2544,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("GIL_815", new Power {
-				// TODO [GIL_815] Baleful Banker && Test: Baleful Banker_GIL_815
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new CopyTask(EntityType.TARGET, 1),
+					new AddStackTo(EntityType.DECK))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2591,9 +2559,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_816", new Power {
-				// TODO [GIL_816] Swamp Dragon Egg && Test: Swamp Dragon Egg_GIL_816
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.DRAGON),
+					new AddStackTo(EntityType.HAND))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2603,9 +2571,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: After a friendly minion dies, add a random Shaman spell to your hand.
 			// --------------------------------------------------------
 			cards.Add("GIL_819", new Power {
-				// TODO [GIL_819] Witch's Cauldron && Test: Witch's Cauldron_GIL_819
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.DEATH)
+				{
+					TriggerSource = TriggerSource.MINIONS,
+					SingleTask = ComplexTask.AddRandomShamanSpell
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2624,8 +2594,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("GIL_826", new Power {
 				// TODO [GIL_826] Baku the Mooneater && Test: Baku the Mooneater_GIL_826
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.GAME_START)
+				{
+					Condition = SelfCondition.HasNoEvenCostInDeck,
+					SingleTask = SpecificTask.JusticarTrueheart
+				}
 			});
 
 		}
@@ -2809,9 +2782,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("GIL_534t", new Power {
-				// TODO [GIL_534t] Reinforced && Test: Reinforced_GIL_534t
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new OngoingEnchant(Effects.AttackHealth_N(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2915,9 +2886,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Decreased Health.
 			// --------------------------------------------------------
 			cards.Add("GIL_623e", new Power {
-				// TODO [GIL_623e] Grizzled && Test: Grizzled_GIL_623e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.HEALTH, EffectOperator.SUB, 0)
+				{
+					UseScriptTag = true
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3010,9 +2982,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your <b>Hero Power</b> costs (1).
 			// --------------------------------------------------------
 			cards.Add("GIL_692e", new Power {
-				// TODO [GIL_692e] Curse of Ur && Test: Curse of Ur_GIL_692e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(new Effect(GameTag.COST, EffectOperator.SET, 1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3075,9 +3045,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_201t", new Power {
-				// TODO [GIL_201t] Pumpkin Peasant && Test: Pumpkin Peasant_GIL_201t
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = Triggers.WorgenTransform("GIL_201", "GIL_200e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3093,9 +3061,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_202t", new Power {
-				// TODO [GIL_202t] Gilnean Royal Guard && Test: Gilnean Royal Guard_GIL_202t
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = Triggers.WorgenTransform("GIL_202", "GIL_200e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3110,9 +3076,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_528t", new Power {
-				// TODO [GIL_528t] Swift Messenger && Test: Swift Messenger_GIL_528t
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = Triggers.WorgenTransform("GIL_528", "GIL_200e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3127,9 +3091,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_529t", new Power {
-				// TODO [GIL_529t] Spellshifter && Test: Spellshifter_GIL_529t
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = Triggers.WorgenTransform("GIL_529", "GIL_200e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3142,20 +3104,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_616t", new Power {
-				// TODO [GIL_616t] Splitting Sapling && Test: Splitting Sapling_GIL_616t
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new SummonTask("GIL_616t2",  2)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [GIL_616t2] Woodchip (*) - COST:1 [ATK:1/HP:1] 
 			// - Set: gilneas, 
 			// --------------------------------------------------------
-			cards.Add("GIL_616t2", new Power {
-				// TODO [GIL_616t2] Woodchip && Test: Woodchip_GIL_616t2
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("GIL_616t2", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [GIL_682t] Muckling (*) - COST:1 [ATK:2/HP:1] 

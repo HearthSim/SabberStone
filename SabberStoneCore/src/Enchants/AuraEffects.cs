@@ -308,6 +308,7 @@ namespace SabberStoneCore.Enchants
 	{
 		private int _timeOut;
 		private int _spellPowerDouble;
+		private int _heroPowerDouble;
 		private int _restoreToDamage;
 		private int _extraBattecry;
 		private int _chooseBoth;
@@ -324,9 +325,10 @@ namespace SabberStoneCore.Enchants
 					case GameTag.TIMEOUT:
 						return _timeOut;
 					case GameTag.SPELLPOWER_DOUBLE:
-					case GameTag.HERO_POWER_DOUBLE:
 					case GameTag.HEALING_DOUBLE:
 						return _spellPowerDouble;
+					case GameTag.HERO_POWER_DOUBLE:
+						return _heroPowerDouble;
 					case GameTag.RESTORE_TO_DAMAGE:
 						return _restoreToDamage >= 1 ? 1 : 0;
 					case GameTag.CHOOSE_BOTH:
@@ -351,9 +353,11 @@ namespace SabberStoneCore.Enchants
 						_timeOut = value;
 						return;
 					case GameTag.SPELLPOWER_DOUBLE:
-					case GameTag.HERO_POWER_DOUBLE:
 					case GameTag.HEALING_DOUBLE:
 						_spellPowerDouble = value;
+						return;
+					case GameTag.HERO_POWER_DOUBLE:
+						_heroPowerDouble = value;
 						return;
 					case GameTag.RESTORE_TO_DAMAGE:
 						_restoreToDamage = value;
@@ -389,6 +393,7 @@ namespace SabberStoneCore.Enchants
 			var sb = new StringBuilder("[CAE:");
 			sb.Append(_timeOut);
 			sb.Append(_spellPowerDouble);
+			sb.Append(_heroPowerDouble);
 			sb.Append(_restoreToDamage);
 			sb.Append(_extraBattecry);
 			sb.Append(_chooseBoth);
