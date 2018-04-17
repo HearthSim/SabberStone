@@ -641,7 +641,8 @@ namespace SabberStoneCore.Tasks
 
 						entity.CardTarget = randTarget?.Id ?? -1;
 
-						p.Game.Log(LogLevel.INFO, BlockType.POWER, "Tess Greymane",
+						if (randTarget != null)
+							p.Game.Log(LogLevel.INFO, BlockType.POWER, "Tess Greymane",
 							!p.Game.Logging ? "" : $"{entity}'s target is randomly selected to {randTarget}");
 					}
 
@@ -659,7 +660,10 @@ namespace SabberStoneCore.Tasks
 							c.Game.DeathProcessingAndAuraUpdate();
 							break;
 						case CardType.WEAPON:
-							Generic.PlayWeapon.Invoke(c, entity as Weapon, randTarget, randChooseOne);
+							var weapon = entity as Weapon;
+							weapon.Card.Power?.Aura?.Activate(weapon);
+							weapon.Card.Power?.Trigger?.Activate(weapon);
+							c.Hero.AddWeapon(weapon);
 							break;
 						case CardType.HERO:
 							Generic.PlayHero.Invoke(c, entity as Hero, randTarget, randChooseOne);
@@ -673,6 +677,45 @@ namespace SabberStoneCore.Tasks
 					}
 					c.Game.TaskQueue.EndEvent();
 				}
+				return 0;
+			});
+
+		public static ISimpleTask Shudderwock
+			=> new FuncNumberTask(p =>
+			{
+				IList<Card> playedCards = p.Controller.PlayHistory
+					.Select(e => e.SourceCard)
+					.Where(card => card[GameTag.BATTLECRY] == 1)
+					.ToArray()
+					.Shuffle();
+
+				Game game = p.Game;
+
+				foreach (Card card in playedCards)
+				{
+					Controller c = p.Controller;
+					IPlayable entity = Entity.FromCard(c, card); // TODO
+					ICharacter randTarget = null;
+					if (card.RequiresTarget || card.RequiresTargetIfAvailable)
+					{
+						List<ICharacter> targets = (List<ICharacter>) entity.ValidPlayTargets;
+
+						randTarget = targets.Count > 0 ? Util.RandomElement(targets) : null;
+
+						entity.CardTarget = randTarget?.Id ?? -1;
+
+						if (randTarget != null)
+							game.Log(LogLevel.INFO, BlockType.POWER, "Shudderwock",
+							!game.Logging ? "" : $"{entity}'s target is randomly selected to {randTarget}");
+					}
+
+					game.TaskQueue.StartEvent();
+					entity.ActivateTask(PowerActivation.POWER, randTarget, 0, p);
+					game.ProcessTasks();
+					game.TaskQueue.EndEvent();
+					game.DeathProcessingAndAuraUpdate();
+				}
+
 				return 0;
 			});
 

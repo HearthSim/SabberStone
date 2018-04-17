@@ -1408,7 +1408,7 @@ namespace SabberStoneCore.CardSets.Standard
 					{
 						Card justPlayed = p.Game.CurrentEventData.EventSource.Card;
 						List<PlayHistoryEntry> history = p.Controller.PlayHistory;
-						int count = 0;
+						int count = 1;
 						for (int i = history.FindIndex(x => x.SourceCard.AssetId == 41222) + 1; i < history.Count; i++)
 							if (history[i].SourceCard.Name == justPlayed.Name)
 								count++;

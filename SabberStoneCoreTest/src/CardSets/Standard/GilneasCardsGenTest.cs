@@ -2521,10 +2521,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - TAUNT = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TotemCruncher_GIL_583()
 		{
-			// TODO TotemCruncher_GIL_583 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2541,6 +2540,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
+
+			game.PlayHeroPower(autoRefresh: true);
+			game.PlayHeroPower(autoRefresh: true);
+			game.PlayHeroPower(autoRefresh: true);
+			game.PlayHeroPower(autoRefresh: true);
+
+			Minion test = game.ProcessCard<Minion>("Totem Cruncher", null, true);
+			Assert.Equal(10, test.AttackDamage);
+			Assert.Equal(11, test.Health);
+
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Totem Cruncher"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Totem Cruncher"));
 		}
@@ -2809,10 +2818,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_MINION_TARGET = 0
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Ratcatcher_GIL_515()
 		{
-			// TODO Ratcatcher_GIL_515 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2831,6 +2839,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ratcatcher"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ratcatcher"));
+
+			IPlayable target = game.ProcessCard("Chillwind Yeti");
+			Minion test = game.ProcessCard<Minion>("Ratcatcher", target);
+
+			Assert.Equal(6, test.AttackDamage);
+			Assert.Equal(7, test.Health);
+			Assert.True(target.ToBeDestroyed);
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -2919,10 +2934,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - ECHO = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void GlindaCrowskin_GIL_618()
 		{
-			// TODO GlindaCrowskin_GIL_618 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2940,7 +2954,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Glinda Crowskin"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Glinda Crowskin"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Glinda Crowskin"));
+			IPlayable wisp = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
+			game.AuraUpdate();
+			Assert.True(wisp.HasEcho);
+
+			game.ProcessCard(wisp);
+			IPlayable ghost = game.CurrentPlayer.HandZone.Last();
+			Assert.Equal("Wisp", ghost.Card.Name);
+			Assert.Equal(1, ghost[GameTag.GHOSTLY]);
+			Assert.True(ghost.HasEcho);
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -3089,10 +3112,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ECHO = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CurseOfWeakness_GIL_665()
 		{
-			// TODO CurseOfWeakness_GIL_665 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3111,6 +3133,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Curse of Weakness"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Curse of Weakness"));
+
+			Minion t1 = game.ProcessCard<Minion>("Stonetusk Boar");
+			Minion t2 = game.ProcessCard<Minion>("Murloc Raider");
+			Minion t3 = game.ProcessCard<Minion>("Bloodfen Raptor");
+			Minion t4 = game.ProcessCard<Minion>("Ancient Watcher");
+			Minion t5 = game.ProcessCard<Minion>("Magma Rager");
+			game.EndTurn();
+
+			game.ProcessCard("Curse of Weakness");
+			Assert.Equal(0, t1.AttackDamage);
+			Assert.Equal(0, t2.AttackDamage);
+			Assert.Equal(1, t3.AttackDamage);
+			Assert.Equal(2, t4.AttackDamage);
+			Assert.Equal(3, t5.AttackDamage);
+
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last());
+			Assert.Equal(0, t1.AttackDamage);
+			Assert.Equal(0, t2.AttackDamage);
+			Assert.Equal(0, t3.AttackDamage);
+			Assert.Equal(0, t4.AttackDamage);
+			Assert.Equal(1, t5.AttackDamage);
 		}
 
 	}
@@ -3234,10 +3277,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - RUSH = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DariusCrowley_GIL_547()
 		{
-			// TODO DariusCrowley_GIL_547 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3256,6 +3298,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Darius Crowley"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Darius Crowley"));
+
+			IPlayable target = game.ProcessCard("Stonetusk Boar");
+			game.EndTurn();
+
+			Minion test = game.ProcessCard<Minion>("Darius Crowley");
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, test, target));
+
+			Assert.True(target.ToBeDestroyed);
+			Assert.Equal(6, test.AttackDamage);
+			Assert.Equal(5, test.Health);
 		}
 
 		// --------------------------------------- MINION - WARRIOR
@@ -3303,7 +3355,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact(Skip = "ignore")]
 		public void FesterootHulk_GIL_655()
 		{
-			// TODO FesterootHulk_GIL_655 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3320,8 +3371,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Festeroot Hulk"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Festeroot Hulk"));
+
+			Minion test = game.ProcessCard<Minion>("Festeroot Hulk");
+			IPlayable m1 = game.ProcessCard("Stonetusk Boar");
+			IPlayable m2 = game.ProcessCard("Stonetusk Boar");
+
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, m1, game.CurrentOpponent.Hero));
+			Assert.Equal(3, test.AttackDamage);
+			game.Process(MinionAttackTask.Any(game.CurrentPlayer, m2, game.CurrentOpponent.Hero));
+			Assert.Equal(4, test.AttackDamage);
 		}
 
 		// --------------------------------------- MINION - WARRIOR
@@ -3335,10 +3393,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - BATTLECRY = 1
 		// - RUSH = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void MilitiaCommander_GIL_803()
 		{
-			// TODO MilitiaCommander_GIL_803 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3355,8 +3412,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Militia Commander"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Militia Commander"));
+
+			Minion test = game.ProcessCard<Minion>("Militia Commander");
+			Assert.Equal(5, test.AttackDamage);
+			game.EndTurn();
+			Assert.Equal(2, test.AttackDamage);
 		}
 
 		// ---------------------------------------- SPELL - WARRIOR

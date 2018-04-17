@@ -32,7 +32,8 @@ namespace SabberStoneCoreConsole
 			//StabilityTest.ThreadSafetyTest();
 			//EntityChangeTest();
 			//YoggTest();
-			TessGreymane();
+			//TessGreymane();
+			Shudderwock();
 
 			//BasicBuffTest();
 			//CardsTest();
@@ -997,6 +998,41 @@ namespace SabberStoneCoreConsole
 				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 
 				ShowLog(game, LogLevel.VERBOSE);
+
+				if (Console.ReadKey().Key != ConsoleKey.Spacebar)
+					break;
+			}
+		}
+
+		public static void Shudderwock()
+		{
+			while (true)
+			{
+				var game = new Game(new GameConfig
+				{
+					StartPlayer = 1,
+					Player1HeroClass = CardClass.ROGUE,
+					FillDecks = true,
+				});
+				game.StartGame();
+				game.Player1.BaseMana = 10;
+				game.Player2.BaseMana = 10;
+
+				Card[] randomCards = Cards.AllStandard
+					.Where(p => p.Collectible && p[GameTag.BATTLECRY] == 1)
+					.ToArray()
+					.ChooseNElements(10);
+
+				foreach (Card card in randomCards)
+				{
+					Console.WriteLine($"{card.Name} is add to play history");
+					game.CurrentPlayer.PlayHistory.Add(new PlayHistoryEntry(card));
+				}
+
+				IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shudderwock"));
+				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
+
+				ShowLog(game, LogLevel.DEBUG);
 
 				if (Console.ReadKey().Key != ConsoleKey.Spacebar)
 					break;

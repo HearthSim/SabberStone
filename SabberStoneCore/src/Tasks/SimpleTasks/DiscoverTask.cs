@@ -40,7 +40,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		OP_HERO,
 		DIED_THIS_GAME,
 		BRANCHING_PATHS,
-		LEGENDARY_MINIONS
+		LEGENDARY_MINIONS,
+		BATTLECRY,
+		DEMON
 	}
 	public class DiscoverTask : SimpleTask
 	{
@@ -299,6 +301,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						CachedDiscoverySets.TryAdd(discoverType, output);
 						return listArray;
 					}
+					case DiscoverType.DEMON:
+					{
+						choiceAction = ChoiceAction.HAND;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Race == Race.DEMON));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
+					}
 					case DiscoverType.ALL:
 					{
 						choiceAction = ChoiceAction.HAND;
@@ -358,6 +368,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						List<Card>[] listArray = GetFilter(list => list.Where(p => p[GameTag.DEATHRATTLE] == 1));
+						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
+						CachedDiscoverySets.TryAdd(discoverType, output);
+						return listArray;
+					}
+					case DiscoverType.BATTLECRY:
+					{
+						choiceAction = ChoiceAction.HAND;
+						List<Card>[] listArray = GetFilter(list => list.Where(p => p[GameTag.BATTLECRY] == 1 && p.Type == CardType.MINION));
 						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
 						CachedDiscoverySets.TryAdd(discoverType, output);
 						return listArray;
