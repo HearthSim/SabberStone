@@ -399,7 +399,7 @@ namespace SabberStoneCoreTest.CardSets
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
-		// [EX1_620] Molten Giant - COST:25 [ATK:8/HP:8] 
+		// [EX1_620] Molten Giant - COST:20 [ATK:8/HP:8] 
 		// - Set: expert1, Rarity: epic
 		// --------------------------------------------------------
 		// Text: Costs (1) less for each damage your hero has taken.
@@ -420,13 +420,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Molten Giant"));
 			Assert.Equal(30, game.CurrentPlayer.Hero.Health);
-			Assert.Equal(25, testCard.Cost);
+			Assert.Equal(20, testCard.Cost);
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.Hero));
 			Assert.Equal(29, game.CurrentPlayer.Hero.Health);
-			Assert.Equal(24, testCard.Cost);
+			Assert.Equal(19, testCard.Cost);
 
 			Game clone = game.Clone();
-			Assert.Equal(24, clone.CurrentPlayer.HandZone.Last().Cost);
+			Assert.Equal(19, clone.CurrentPlayer.HandZone.Last().Cost);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
