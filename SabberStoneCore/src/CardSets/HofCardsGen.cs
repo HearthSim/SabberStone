@@ -451,6 +451,7 @@ namespace SabberStoneCore.CardSets
 		public static void AddAll(Dictionary<string, Power> cards)
 		{
 			Mage(cards);
+			MageNonCollect(cards);
 			Rogue(cards);
 			RogueNonCollect(cards);
 			Warlock(cards);
