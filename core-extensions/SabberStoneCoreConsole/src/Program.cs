@@ -31,9 +31,9 @@ namespace SabberStoneCoreConsole
 			//StabilityTest.CloneStabilityTest();
 			//StabilityTest.ThreadSafetyTest();
 			//EntityChangeTest();
-			//YoggTest();
+			YoggTest();
 			//TessGreymane();
-			Shudderwock();
+			//Shudderwock();
 
 			//BasicBuffTest();
 			//CardsTest();
