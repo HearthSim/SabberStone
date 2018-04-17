@@ -77,6 +77,7 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition IsDeathrattleCard = new SelfCondition(me => me.Card[GameTag.DEATHRATTLE] == 1);
 		public static readonly SelfCondition IsEchoCard = new SelfCondition(me => me.Card[GameTag.ECHO] == 1);
 		public static readonly SelfCondition IsComboCard = new SelfCondition(me => me.Card[GameTag.COMBO] == 1);
+		public static readonly SelfCondition IsLifestealCard = new SelfCondition(me => me.Card[GameTag.LIFESTEAL] == 1);
 		public static readonly SelfCondition IsDeathrattleMinion = new SelfCondition(me => me is Minion && ((Minion)me).HasDeathrattle);
 		public static readonly SelfCondition IsBattlecryMinion = new SelfCondition(me => me is Minion && ((Minion)me).HasBattleCry);
 		public static readonly SelfCondition HasRush = new SelfCondition(me => me is Minion && ((Minion)me).HasRush);

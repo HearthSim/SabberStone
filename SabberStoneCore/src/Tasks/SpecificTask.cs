@@ -676,6 +676,15 @@ namespace SabberStoneCore.Tasks
 							throw new NotImplementedException();
 					}
 					c.Game.TaskQueue.EndEvent();
+
+					while (c.Choice != null)
+					{
+						c.Game.TaskQueue.StartEvent();
+						Generic.ChoicePick.Invoke(c, Util.Choose(c.Choice.Choices));
+						c.Game.ProcessTasks();
+						c.Game.TaskQueue.EndEvent();
+						c.Game.DeathProcessingAndAuraUpdate();
+					}
 				}
 				return 0;
 			});
@@ -714,6 +723,15 @@ namespace SabberStoneCore.Tasks
 					game.ProcessTasks();
 					game.TaskQueue.EndEvent();
 					game.DeathProcessingAndAuraUpdate();
+
+					while (c.Choice != null)
+					{
+						c.Game.TaskQueue.StartEvent();
+						Generic.ChoicePick.Invoke(c, Util.Choose(c.Choice.Choices));
+						c.Game.ProcessTasks();
+						c.Game.TaskQueue.EndEvent();
+						c.Game.DeathProcessingAndAuraUpdate();
+					}
 				}
 
 				return 0;
