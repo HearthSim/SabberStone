@@ -64,6 +64,7 @@ namespace SabberStoneCore.Enchants
 					_sequenceType = SequenceType.Target;
 					return;
 				case TriggerType.TURN_END:
+				case TriggerType.WORGEN_TRANSFORM:
 					FastExecution = true;
 					return;
 		    }
@@ -138,6 +139,7 @@ namespace SabberStoneCore.Enchants
 					source.Game.TriggerManager.HealTrigger += instance.Process;
 					break;
 				case TriggerType.TURN_END:
+				case TriggerType.WORGEN_TRANSFORM:
 					source.Game.TriggerManager.EndTurnTrigger += instance.Process;
 					break;
 				case TriggerType.TURN_START:
@@ -317,7 +319,8 @@ namespace SabberStoneCore.Enchants
 				    Game.TriggerManager.HealTrigger -= Process;
 				    break;
 				case TriggerType.TURN_END:
-				    Game.TriggerManager.EndTurnTrigger -= Process;
+				case TriggerType.WORGEN_TRANSFORM:
+					Game.TriggerManager.EndTurnTrigger -= Process;
 				    break;
 			    case TriggerType.TURN_START:
 				    Game.TriggerManager.TurnStartTrigger -= Process;
@@ -528,10 +531,11 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.AFTER_SUMMON when source.Id == _owner.Id:
 			    case TriggerType.TURN_START when !EitherTurn && source != _owner.Controller:
 			    case TriggerType.DEATH when _owner.ToBeDestroyed:
-			    case TriggerType.INSPIRE when Game.CurrentPlayer != _owner.Controller:
+			    case TriggerType.INSPIRE when !EitherTurn && Game.CurrentPlayer != _owner.Controller:
 					return;
 			    case TriggerType.TURN_END:
-				    if (!EitherTurn && source != _owner.Controller) return;
+			    case TriggerType.WORGEN_TRANSFORM:
+					if (!EitherTurn && source != _owner.Controller) return;
 				    //if (!(SingleTask is RemoveEnchantmentTask) && Owner.Controller.ExtraEndTurnEffect)
 					   // extra = true;
 				    break;

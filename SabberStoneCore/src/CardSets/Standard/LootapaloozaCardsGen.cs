@@ -3852,7 +3852,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOOT_998k] Golden Kobold (*) - COST:3 [ATK:6/HP:6] 
 			// - Set: lootapalooza, 
-			// --------------------------------------------------------
+			// ---------------------s-----------------------------------
 			// Text: <b>Taunt</b>
 			//       <b>Battlecry:</b> Replace your hand with <b>Legendary</b> minions.
 			// --------------------------------------------------------
