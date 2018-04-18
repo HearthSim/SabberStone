@@ -29,7 +29,7 @@ namespace SabberStoneCore.Enchants
 	    // TODO: maybe need some more work here
 		public static Trigger WorgenTransform(string cardId, string enchantmentId)
 	    {
-		    return new Trigger(TriggerType.TURN_END)
+		    return new Trigger(TriggerType.WORGEN_TRANSFORM)
 		    {
 			    TriggerActivation = TriggerActivation.HAND,
 			    SingleTask = ComplexTask.Create(

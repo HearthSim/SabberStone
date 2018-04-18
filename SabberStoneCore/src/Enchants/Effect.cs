@@ -70,7 +70,15 @@ namespace SabberStoneCore.Enchants
 							}
 							break;
 						case GameTag.HEALTH:
-							((ICharacter)entity).Health = Value;
+							if (entity is Hero h)
+							{
+								if (h.BaseHealth > Value)
+									h[GameTag.DAMAGE] = h.BaseHealth - Value;
+								else
+									h.Health = Value;
+								return;
+							}
+							((Minion)entity).Health = Value;
 							break;
 						case GameTag.CHARGE:
 							if (entity[GameTag.EXHAUSTED] == 1 && entity[GameTag.NUM_ATTACKS_THIS_TURN] == 0)

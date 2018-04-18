@@ -3852,10 +3852,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - LIFESTEAL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void PumpkinPeasant_GIL_201()
 		{
-			// TODO PumpkinPeasant_GIL_201 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3872,8 +3871,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Pumpkin Peasant"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Pumpkin Peasant"));
+
+			// Drakkari Enchanter + Worgen test
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Pumpkin Peasant"));
+			game.ProcessCard("Drakkari Enchanter");
+			game.EndTurn();
+			Assert.Equal("GIL_201t", testCard.Card.Id);
+			Assert.Equal(2, testCard[GameTag.HEALTH]);
+			Assert.Equal(4, testCard[GameTag.ATK]);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
