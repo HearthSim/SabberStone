@@ -60,7 +60,7 @@ namespace SabberStoneCoreAi.POGame
 				currentAgent = game.CurrentPlayer == game.Player1 ? player1 : player2;
 				Controller currentPlayer = game.CurrentPlayer;
 				currentStopwatch = game.CurrentPlayer == game.Player1 ? watches[0] : watches[1];
-				poGame = new POGame(game);
+				poGame = new POGame(game, debug);
 
 				currentStopwatch.Start();
 				playertask = currentAgent.GetMove(poGame);

@@ -14,16 +14,21 @@ namespace SabberStoneCoreAi.POGame
 	partial class POGame
 	{
 		private Game game;
+		private bool debug;
 			
-		public POGame(Game game)
+		public POGame(Game game, bool debug)
 		{
 			this.game = game.Clone();
 			game.Player1.Game = game;
 			game.Player2.Game = game;
 			prepareOpponent();
+			this.debug = debug;
 
-			Console.WriteLine("Game Board");
-			Console.WriteLine(game.FullPrint());
+			if (debug)
+			{
+				Console.WriteLine("Game Board");
+				Console.WriteLine(game.FullPrint());
+			}
 		}
 
 		private void prepareOpponent()
@@ -109,7 +114,7 @@ namespace SabberStoneCoreAi.POGame
 
 		public POGame getCopy()
 		{
-			return new POGame(game);
+			return new POGame(game, this.debug);
 		}
 
 

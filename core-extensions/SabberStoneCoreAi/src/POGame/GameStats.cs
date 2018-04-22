@@ -50,6 +50,30 @@ namespace SabberStoneCoreAi.POGame
 			}
 			
 		}
-		
+
+		public int GamesPlayed
+		{
+			get
+			{
+				return this.nr_games;
+			}
+		}
+
+		public int PlayerA_Wins
+		{
+			get
+			{
+				return this.wins[0];
+			}
+		}
+
+		public int PlayerB_Wins
+		{
+			get
+			{
+				return this.wins[1];
+			}
+		}
+
 	}
 }
