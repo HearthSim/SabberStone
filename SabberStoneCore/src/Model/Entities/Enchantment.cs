@@ -23,6 +23,7 @@ namespace SabberStoneCore.Model.Entities
 			Card = card;
 			_tags = tags;
 			Id = tags[GameTag.ENTITY_ID];
+			Zone = controller.BoardZone;
 		}
 
 		private Enchantment(Controller c, Enchantment e)
@@ -185,6 +186,8 @@ namespace SabberStoneCore.Model.Entities
 		{
 			if (Game.History)
 			{
+				//if (Zone == null)
+				//	Zone = Controller.BoardZone;
 				Game.PowerHistory.Add(PowerHistoryBuilder.HideEntity(this));
 				this[GameTag.ZONE] = (int)Enums.Zone.REMOVEDFROMGAME;
 			}
