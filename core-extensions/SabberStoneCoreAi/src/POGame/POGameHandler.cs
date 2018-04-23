@@ -51,8 +51,6 @@ namespace SabberStoneCoreAi.POGame
 			Stopwatch[] watches = new[] {new Stopwatch(), new Stopwatch()};
 			
 			game.StartGame();
-			Stopwatch MinuteEncounter = new Stopwatch();
-			MinuteEncounter.Start();
 			try
 			{
 				while (game.State != State.COMPLETE && game.State != State.INVALID)
@@ -75,11 +73,6 @@ namespace SabberStoneCoreAi.POGame
 					if (debug)
 						Console.WriteLine(playertask);
 					game.Process(playertask);
-					if (MinuteEncounter.ElapsedMilliseconds > 180 * 1000)
-					{
-						MinuteEncounter.Stop();
-						return false;
-					}
 				}
 			}
 			catch (Exception e)
@@ -91,8 +84,6 @@ namespace SabberStoneCoreAi.POGame
 				game.CurrentPlayer.PlayState = PlayState.CONCEDED;
 				game.CurrentOpponent.PlayState = PlayState.WON;
 			}
-
-			MinuteEncounter.Stop();
 
 			if (game.State == State.INVALID)
 				return false;
