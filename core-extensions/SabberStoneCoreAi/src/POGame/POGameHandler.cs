@@ -51,28 +51,48 @@ namespace SabberStoneCoreAi.POGame
 			Stopwatch[] watches = new[] {new Stopwatch(), new Stopwatch()};
 			
 			game.StartGame();
-
-			while (game.State != State.COMPLETE && game.State != State.INVALID)
+			Stopwatch MinuteEncounter = new Stopwatch();
+			MinuteEncounter.Start();
+			try
 			{
-				if (debug)
-					Console.WriteLine("Turn " + game.Turn);
-				
-				currentAgent = game.CurrentPlayer == game.Player1 ? player1 : player2;
-				Controller currentPlayer = game.CurrentPlayer;
-				currentStopwatch = game.CurrentPlayer == game.Player1 ? watches[0] : watches[1];
-				poGame = new POGame(game, debug);
+				while (game.State != State.COMPLETE && game.State != State.INVALID)
+				{
+					if (debug)
+						Console.WriteLine("Turn " + game.Turn);
 
-				currentStopwatch.Start();
-				playertask = currentAgent.GetMove(poGame);
-				currentStopwatch.Stop();
+					currentAgent = game.CurrentPlayer == game.Player1 ? player1 : player2;
+					Controller currentPlayer = game.CurrentPlayer;
+					currentStopwatch = game.CurrentPlayer == game.Player1 ? watches[0] : watches[1];
+					poGame = new POGame(game, debug);
 
-				game.CurrentPlayer.Game = game;
-				game.CurrentOpponent.Game = game;
-				
-				if (debug)
-					Console.WriteLine(playertask);
-				game.Process(playertask);
+					currentStopwatch.Start();
+					playertask = currentAgent.GetMove(poGame);
+					currentStopwatch.Stop();
+
+					game.CurrentPlayer.Game = game;
+					game.CurrentOpponent.Game = game;
+
+					if (debug)
+						Console.WriteLine(playertask);
+					game.Process(playertask);
+					if (MinuteEncounter.ElapsedMilliseconds > 180 * 1000)
+					{
+						MinuteEncounter.Stop();
+						return false;
+					}
+				}
 			}
+			catch (Exception e)
+			//Current Player loses if he throws an exception
+			{
+				Console.WriteLine(e.Message);
+				Console.WriteLine(e.StackTrace);
+				game.State = State.COMPLETE;
+				game.CurrentPlayer.PlayState = PlayState.CONCEDED;
+				game.CurrentOpponent.PlayState = PlayState.WON;
+			}
+
+			MinuteEncounter.Stop();
 
 			if (game.State == State.INVALID)
 				return false;
