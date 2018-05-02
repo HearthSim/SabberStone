@@ -20,6 +20,7 @@ namespace SabberStoneCore.Model.Entities
 		private readonly int _playerId;
 
 		/// <summary>
+
 		/// Available zones for this player.
 		/// </summary>
 		public ControlledZones ControlledZones;
@@ -79,12 +80,12 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Initial cards that are in the deck of the controller.
 		/// </summary>
-		public List<Card> DeckCards { get; internal set; } = new List<Card>();
+		public List<Card> DeckCards { get;  set; } = new List<Card>();
 
 		/// <summary>
 		/// Base class of the controller.
 		/// </summary>
-		public CardClass BaseClass { get; internal set; }
+		public CardClass BaseClass { get;  internal set; }
 
 
 		/// <summary>
