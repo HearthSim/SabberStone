@@ -112,9 +112,9 @@ namespace SabberStoneCoreAi.POGame
 			game.Process(task);
 		}
 
-		public POGame getCopy()
+		public POGame getCopy(bool debug)
 		{
-			return new POGame(game, this.debug);
+			return new POGame(game, debug);
 		}
 
 
