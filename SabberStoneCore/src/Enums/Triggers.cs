@@ -67,6 +67,8 @@
 		/// <summary> The effect will be triggered when equips a weapon. </summary>
 		EQUIP_WEAPON,
 
+
+
 		WORGEN_TRANSFORM
 	}
 

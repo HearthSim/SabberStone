@@ -42,7 +42,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		BRANCHING_PATHS,
 		LEGENDARY_MINIONS,
 		BATTLECRY,
-		DEMON
+		DEMON,
 	}
 	public class DiscoverTask : SimpleTask
 	{
@@ -335,7 +335,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 					case DiscoverType.ELEMENTAL_INVOCATION:
 					{
-						choiceAction = ChoiceAction.SPELL;
+						choiceAction = ChoiceAction.CAST;
 						List<Card>[] listArray = 
 						{
 							new List<Card>
@@ -406,7 +406,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 					case DiscoverType.SPELL_RANDOM:
 					{
-						choiceAction = ChoiceAction.SPELL;
+						choiceAction = ChoiceAction.SPELL_RANDOM;
 						List<Card>[] listArray = GetFilter(list => list.Where(p => p.Type == CardType.SPELL && !p.HideStat));
 						var output = new Tuple<List<Card>[], ChoiceAction>(listArray, choiceAction);
 						CachedDiscoverySets.TryAdd(discoverType, output);
@@ -468,7 +468,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 					case DiscoverType.BRANCHING_PATHS:
 					{
-						choiceAction = ChoiceAction.SPELL;
+						choiceAction = ChoiceAction.CAST;
 						List<Card>[] listArray =
 						{
 							new List<Card>

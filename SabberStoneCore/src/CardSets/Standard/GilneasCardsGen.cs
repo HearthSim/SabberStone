@@ -544,8 +544,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("GIL_116", new Power {
 				// TODO [GIL_116] Arcane Keysmith && Test: Arcane Keysmith_GIL_116
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = SpecificTask.ArcaneKeysmith
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -668,10 +667,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Draw 3 cards. Discard any spells drawn.
 			// --------------------------------------------------------
 			cards.Add("GIL_548", new Power {
-				PowerTask = ComplexTask.Create(
-					new DrawTask(true, 3),
-					new FilterStackTask(SelfCondition.IsSpell),
-					new DiscardTask(EntityType.STACK))
+				//PowerTask = ComplexTask.Create(
+				//	new DrawTask(true, 3),
+				//	new FilterStackTask(SelfCondition.IsSpell),
+				//	new DiscardTask(EntityType.STACK))
+				PowerTask = new EnqueueTask(3, ComplexTask.Create(
+					new DrawTask(true),
+					new ConditionTask(EntityType.STACK, SelfCondition.IsSpell, SelfCondition.IsInZone(Zone.HAND)),
+					new FlagTask(true, new DiscardTask(EntityType.STACK))))
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -762,9 +765,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_685", new Power {
-				// TODO [GIL_685] Paragon of Light && Test: Paragon of Light_GIL_685
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new AdaptiveEffect(SelfCondition.IsTagValue(GameTag.ATK, 3, RelaSign.GEQ), GameTag.TAUNT, GameTag.LIFESTEAL)
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -806,9 +807,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_817", new Power {
-				// TODO [GIL_817] The Glass Knight && Test: The Glass Knight_GIL_817
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.HEAL)
+				{
+					Condition = SelfCondition.IsEventSourceFriendly,
+					SingleTask = ComplexTask.DivineShield(EntityType.SOURCE)
+				}
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -910,7 +913,8 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerActivation = TriggerActivation.HAND,
 					SingleTask = new FuncNumberTask(p =>
 					{
-						Card pick = p.Controller.Opponent.HandZone.Random.Card;
+						Card pick = p.Controller.Opponent.HandZone.Random?.Card;
+						if (pick == null) return 0;
 						Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);
 						Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("GIL_142e"), p, p, 0, 0);
 						return 0;
@@ -925,7 +929,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Can't attack while damaged.
 			// --------------------------------------------------------
 			cards.Add("GIL_156", new Power {
-				Aura = new AdaptiveEffect(GameTag.CANT_ATTACK, EffectOperator.SET, p => p[GameTag.DAMAGE] > 0 ? 1 : 0)
+				Aura = new AdaptiveEffect(SelfCondition.IsDamaged, GameTag.CANT_ATTACK)
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -955,6 +959,8 @@ namespace SabberStoneCore.CardSets.Standard
 				DeathrattleTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsDeathrattleMinion),
+					new RandomTask(1, EntityType.STACK),
+					new RemoveFromHand(EntityType.STACK),
 					new SummonTask())
 			});
 
@@ -1619,7 +1625,7 @@ namespace SabberStoneCore.CardSets.Standard
 						p.Game.DeathProcessingAndAuraUpdate();
 						return 0;
 					}),
-					new DamageTask(2, EntityType.ALLMINIONS_NOSOURCE, true))
+					new DamageTask(2, EntityType.ALLMINIONS_NOSOURCE))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -1790,7 +1796,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("GIL_655", new Power {
 				// TODO
-				//Trigger = new Trigger(TriggerType.)
+				//Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				//{
 				//	TriggerSource = TriggerSource.MINIONS,
 				//	SingleTask = new AddEnchantmentTask("GIL_655e", EntityType.SOURCE)
@@ -2268,6 +2274,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new FuncPlayablesTask(deck =>
 					{
 						IPlayable[] ordered = deck.Where(p => p is Minion).OrderBy(p => p.Cost).ToArray();
+						if (ordered.Length == 0) return new List<IPlayable>();
 						int lowest = ordered[0].Cost;
 						return ordered.TakeWhile(p => p.Cost == lowest).ToList();
 					}),
@@ -3031,7 +3038,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
 			// --------------------------------------------------------
-			cards.Add("GIL_905e", null);
+			cards.Add("GIL_905e", new Power {
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("GIL_905e")
+				});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [GIL_201t] Pumpkin Peasant (*) - COST:3 [ATK:4/HP:2] 

@@ -195,6 +195,13 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, bool> ShuffleIntoDeck
 			=> delegate (Controller c, IPlayable playable)
 			{
+				if (c.DeckZone.IsFull)
+				{
+					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ShuffleIntoDeck",
+						!c.Game.Logging ? "" : "Can't add a card to full deck.");
+					return false;
+				}
+
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ShuffleIntoDeck", !c.Game.Logging ? "" : $"adding to deck {playable}.");
 
 				// don't activate powers when shuffling cards back into the deck

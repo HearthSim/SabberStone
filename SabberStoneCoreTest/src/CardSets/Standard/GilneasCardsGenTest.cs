@@ -956,10 +956,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - SECRET = 1
 		// - DISCOVER = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ArcaneKeysmith_GIL_116()
 		{
-			// TODO ArcaneKeysmith_GIL_116 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -977,7 +976,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Keysmith"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Arcane Keysmith"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Arcane Keysmith"));
+
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			Assert.True(game.CurrentPlayer.Choice.Choices.Select(p => game.IdEntityDic[p]).ToList()
+				.TrueForAll(p => p.Card.IsSecret && p.Card.Class == CardClass.MAGE));
+
+			IPlayable pick = game.IdEntityDic[game.CurrentPlayer.Choice.Choices[0]];
+			game.ChooseNthChoice(1);
+			Assert.Single(game.CurrentPlayer.SecretZone);
+			Assert.Equal(pick.Card.Name, game.CurrentPlayer.SecretZone[0].Card.Name);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1443,10 +1451,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - TAUNT = 1
 		// - LIFESTEAL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ParagonOfLight_GIL_685()
 		{
-			// TODO ParagonOfLight_GIL_685 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1464,7 +1471,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Paragon of Light"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Paragon of Light"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Paragon of Light"));
+
+			Minion testCard = game.CurrentPlayer.BoardZone[0];
+
+			Assert.False(testCard.HasTaunt);
+			Assert.False(testCard.HasLifeSteal);
+
+			game.ProcessCard("Blessing of Might", testCard);
+
+			Assert.True(testCard.HasTaunt);
+			Assert.True(testCard.HasLifeSteal);
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -1528,10 +1545,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - DIVINE_SHIELD = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TheGlassKnight_GIL_817()
 		{
-			// TODO TheGlassKnight_GIL_817 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1550,6 +1566,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Glass Knight"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "The Glass Knight"));
+
+			Minion test = game.ProcessCard<Minion>("The Glass Knight");
+			test.HasDivineShield = false;
+			game.CurrentPlayer.Hero.Damage = 10;
+			game.ProcessCard("Holy Light", game.CurrentPlayer.Hero);
+			Assert.True(test.HasDivineShield);
+			game.EndTurn();
+
+			test.HasDivineShield = false;
+			game.ProcessCard("Holy Light", game.CurrentOpponent.Hero);
+			Assert.False(test.HasDivineShield);
 		}
 
 		// ---------------------------------------- SPELL - PALADIN

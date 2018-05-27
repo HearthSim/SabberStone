@@ -35,7 +35,6 @@ namespace SabberStoneCore.Actions
 				switch (c.Choice.ChoiceAction)
 				{
 					case ChoiceAction.HAND:
-
 						if (RemoveFromZone(c, playable))
 						{
 							AddHandPhase.Invoke(c, playable);
@@ -52,7 +51,12 @@ namespace SabberStoneCore.Actions
 						//}
 						break;
 
-					case ChoiceAction.SPELL:
+					case ChoiceAction.CAST:
+						RemoveFromZone(c, playable);
+						CastSpell.Invoke(c, playable as Spell, null, 0);
+						break;
+
+					case ChoiceAction.SPELL_RANDOM:
 						if (RemoveFromZone(c, playable))
 						{
 							ICharacter randTarget = null;

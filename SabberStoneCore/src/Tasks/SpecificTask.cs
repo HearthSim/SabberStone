@@ -401,9 +401,7 @@ namespace SabberStoneCore.Tasks
 					IEnumerable<Card> cards = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER] : Cards.Wild[CardClass.HUNTER];
 					IEnumerable<Card> cardsList = cards.Where(card => card.Type == CardType.SPELL && card.Tags.ContainsKey(GameTag.SECRET) && !activeSecrets.Contains(card.Id));
 					var spell = (Spell)Entity.FromCard(controller, Util.Choose(cardsList.ToList()));
-					//spell.ApplyPowers(PowerActivation.SECRET_OR_QUEST, Zone.PLAY);
-					spell.ActivateTask();
-					controller.SecretZone.Add(spell);
+					Generic.CastSpell(controller, spell, null, 0);
 					controller.Game.OnRandomHappened(true);
 					return new List<IPlayable>();
 				})
@@ -700,6 +698,7 @@ namespace SabberStoneCore.Tasks
 
 				Game game = p.Game;
 
+				int count = 0;
 				foreach (Card card in playedCards)
 				{
 					Controller c = p.Controller;
@@ -732,10 +731,51 @@ namespace SabberStoneCore.Tasks
 						c.Game.TaskQueue.EndEvent();
 						c.Game.DeathProcessingAndAuraUpdate();
 					}
+
+					if (++count == 20) break;
 				}
 
 				return 0;
 			});
+
+		public static ISimpleTask ArcaneKeysmith =>
+			new FuncNumberTask(source =>
+			{
+				if (source.Controller.SecretZone.IsFull) return 0;
+
+				CardClass[] secretClasses = {CardClass.HUNTER, CardClass.PALADIN, CardClass.ROGUE};
+				Card[] existing = source.Controller.SecretZone.Select(p => p.Card).ToArray();
+
+				CardClass cls = source.Controller.Hero.Card.Class;
+
+				if (!secretClasses.Contains(cls))
+					cls = CardClass.MAGE;
+
+				if (_cachedSecrets == null || !_cachedSecrets.ContainsKey(cls))
+				{
+					lock (locker)
+					{
+						if (_cachedSecrets == null)
+							_cachedSecrets = new Dictionary<CardClass, Card[]>();
+
+						// This would not work when you would use both format types at the same time in a runtime
+						_cachedSecrets.Add(cls, Cards.FormatTypeClassCards(source.Game.FormatType)[cls]
+							.Where(p => p.IsSecret && !existing.Contains(p))
+							.ToArray());
+					}
+				}
+
+				Card[] candidates = _cachedSecrets[cls];
+
+				Card[] choices = candidates.ChooseNElements(3);
+
+				if (candidates.Length == 0) return 0;
+
+				Generic.CreateChoiceCards(source.Controller, source, null, ChoiceType.GENERAL, ChoiceAction.CAST, choices, null, null);
+				return 0;
+			});
+		private static Dictionary<CardClass, Card[]> _cachedSecrets;
+		
 
 		public class RenonunceDarkness : SimpleTask
 		{

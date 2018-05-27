@@ -1682,8 +1682,8 @@ namespace SabberStoneCore.CardSets
 			// Text: Can only attack if your hero attacked this turn.
 			// --------------------------------------------------------
 			cards.Add("OG_034", new Power {
-				Aura = new AdaptiveEffect(GameTag.CANT_ATTACK, EffectOperator.SET,
-					p => p.Controller.Hero.NumAttacksThisTurn > 0 ? 0 : 1)
+				Aura = new AdaptiveEffect(new SelfCondition(
+					p => p.Controller.Hero.NumAttacksThisTurn == 0), GameTag.CANT_ATTACK)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

@@ -3392,7 +3392,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CHARGE = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_146", new Power {
-				Aura = new AdaptiveEffect(GameTag.CHARGE, EffectOperator.SET, p => p.Controller.Hero.Weapon != null ? 1 : 0)
+				Aura = new AdaptiveEffect(SelfCondition.IsWeaponEquiped, GameTag.CHARGE)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
