@@ -42,7 +42,9 @@ namespace SabberStoneCore.Enchants
 
 		HEROPOWER,
 
-		HAND_AND_BOARD
+		HAND_AND_BOARD,
+
+		MULTIAURA
 	}
 
 	/// <summary>
@@ -560,7 +562,13 @@ namespace SabberStoneCore.Enchants
 		private readonly GameTag _tag;
 		private readonly EffectOperator _operator;
 		private int _lastValue;
+		private readonly GameTag[] _tags;
+		private readonly int[] _lastValues;
+		private readonly bool _isSwitching;
 
+		/// <summary>
+		/// Defines a kind of effects in which the given tag varies with the value from the given function. (e.g. giants)
+		/// </summary>
 		public AdaptiveEffect(GameTag tag, EffectOperator @operator, Func<IPlayable, int> valueFunc) : base(AuraType.ADAPTIVE)
 		{
 			ValueFunc = valueFunc;
@@ -568,8 +576,28 @@ namespace SabberStoneCore.Enchants
 			_operator = @operator;
 		}
 
+		/// <summary>
+		/// Defines a kind of effects in which the given tags are boolean and determined by a specific condition. (e.g. Southsea Deckhand)
+		/// </summary>
+		public AdaptiveEffect(SelfCondition condition, params GameTag[] tags) : base(AuraType.ADAPTIVE)
+		{
+			Condition = condition;
+			_isSwitching = true;
+			_tags = tags;
+			_lastValues = new int[tags.Length];
+		}
+
 		private AdaptiveEffect(AdaptiveEffect prototype, IPlayable owner) : base(prototype, owner)
 		{
+			if (prototype._isSwitching)
+			{
+				_isSwitching = true;
+				_tags = prototype._tags;
+				_lastValues = new int[_tags.Length];
+				Array.Copy(prototype._lastValues, _lastValues, _lastValues.Length);
+				Condition = prototype.Condition;
+				return;
+			}
 			_tag = prototype._tag;
 			_operator = prototype._operator;
 			_lastValue = prototype._lastValue;
@@ -585,6 +613,21 @@ namespace SabberStoneCore.Enchants
 
 		public override void Update()
 		{
+			if (_isSwitching)
+			{
+				for (int i = 0; i < _tags.Length; i++)
+				{
+					int val = Condition.Eval(Owner) ? 1 : 0;
+					if (_lastValues[i] == val) continue;
+
+					//Owner[_tags[i]] = val;
+					new Effect(_tags[i], EffectOperator.SET, val).Apply(Owner);
+					_lastValues[i] = val;
+				}
+				return;
+			}
+
+
 			switch (_operator)
 			{
 				case EffectOperator.ADD:

@@ -28,7 +28,7 @@ namespace SabberStoneCoreConsole
 			Console.WriteLine("Start Test!");
 
 			Console.WriteLine(Cards.Statistics());
-			//StabilityTest.CloneStabilityTest();
+			StabilityTest.CloneStabilityTest();
 			//StabilityTest.ThreadSafetyTest();
 			//EntityChangeTest();
 			YoggTest();

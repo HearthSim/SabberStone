@@ -48,6 +48,7 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition IsWeaponEquiped = new SelfCondition(me => me.Controller.Hero.Weapon != null);
 		public static readonly SelfCondition IsHero = new SelfCondition(me => me is Hero);
 		public static readonly SelfCondition IsHeroPower = new SelfCondition(me => me is HeroPower);
+		public static SelfCondition HasArmorLessThan(int amount) => new SelfCondition(me => me.Controller.Hero.Armor < amount);
 		public static readonly SelfCondition IsAttacking = new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsAttacking);
 		public static readonly SelfCondition IsCthun = new SelfCondition(me => me.Card.Id.Equals("OG_280"));
 		public static readonly SelfCondition IsSilverHandRecruit = new SelfCondition(me => me.Card.Id.Equals("CS2_101t"));
@@ -230,18 +231,17 @@ namespace SabberStoneCore.Conditions
 				relaSign == RelaSign.GEQ ? p.Game.CurrentEventData.EventNumber >= value :
 				p.Game.CurrentEventData.EventNumber <= value);
 		}
-
 		public static SelfCondition IsEventTargetIs(CardType type)
 		{
 			return new SelfCondition(p => p.Game.CurrentEventData?.EventTarget.Card.Type == type);
 		}
-
 		public static SelfCondition IsEventTargetTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
 		{
 			return new SelfCondition(p => relaSign == RelaSign.EQ ? p.Game.CurrentEventData.EventTarget?[tag] == value :
 				relaSign == RelaSign.GEQ ? p.Game.CurrentEventData.EventTarget?[tag] >= value :
 				p.Game.CurrentEventData.EventTarget?[tag] <= value);
 		}
+		public static readonly SelfCondition IsEventSourceFriendly = new SelfCondition(p => p.Game.CurrentEventData.EventSource.Controller == p.Controller);
 
 		public static readonly SelfCondition IsDefenderDead =
 			new SelfCondition(p => p.Game.CurrentEventData?.EventTarget.ToBeDestroyed ?? false);

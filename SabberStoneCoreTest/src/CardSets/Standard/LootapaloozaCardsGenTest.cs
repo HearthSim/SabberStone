@@ -3847,10 +3847,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - DURABILITY = 2
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void BladedGauntlet_LOOT_044()
 		{
-			// TODO BladedGauntlet_LOOT_044 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3868,7 +3867,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bladed Gauntlet"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Bladed Gauntlet"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Bladed Gauntlet"));
+
+			Assert.Equal(0, game.CurrentPlayer.Hero.AttackDamage);
+
+			game.PlayHeroPower();
+
+			Assert.Equal(2, game.CurrentPlayer.Hero.AttackDamage);
+
+			Assert.False(game.CurrentPlayer.Hero.IsValidAttackTarget(game.CurrentOpponent.Hero));
 		}
 
 		// --------------------------------------- WEAPON - WARRIOR

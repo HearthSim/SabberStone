@@ -56,6 +56,7 @@ namespace SabberStoneCore.Enchants
 		private int CARD_COST_HEALTH;
 		private int RUSH;
 		private int ECHO;
+		private int CANTATTACKHEROES;
 
 		private List<CostEffect> _costEffects;
 		private AdaptiveCostEffect _adaptiveCostEffect;
@@ -76,6 +77,7 @@ namespace SabberStoneCore.Enchants
 			CANT_BE_TARGETED_BY_SPELLS = other.CANT_BE_TARGETED_BY_SPELLS;
 			IMMUNE = other.IMMUNE;
 			ATK = other.ATK;
+			CANTATTACKHEROES = other.CANTATTACKHEROES;
 			if (!(owner is Minion)) return;
 			HEALTH = other.HEALTH;
 			CHARGE = other.CHARGE;
@@ -120,8 +122,8 @@ namespace SabberStoneCore.Enchants
 						return IMMUNE;
 					case GameTag.LIFESTEAL:
 						return LIFESTEAL;
-					case GameTag.CANT_ATTACK:
-						return CANT_ATTACK;
+					//case GameTag.CANT_ATTACK:
+					//	return CANT_ATTACK;
 					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
 					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
 						return CANT_BE_TARGETED_BY_SPELLS >= 1 ? 1 : 0;
@@ -131,6 +133,8 @@ namespace SabberStoneCore.Enchants
 						return RUSH > 0 ? 1 : 0;
 					case GameTag.ECHO:
 						return ECHO > 0 ? 1 : 0;
+					case GameTag.CANNOT_ATTACK_HEROES:
+						return CANTATTACKHEROES;
 					default:
 						return 0;
 				}
@@ -169,9 +173,9 @@ namespace SabberStoneCore.Enchants
 					case GameTag.LIFESTEAL:
 						LIFESTEAL = value;
 						return;
-					case GameTag.CANT_ATTACK:
-						CANT_ATTACK = value;
-						return;
+					//case GameTag.CANT_ATTACK:
+					//	CANT_ATTACK = value;
+					//	return;
 					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
 					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
 						CANT_BE_TARGETED_BY_SPELLS = value;
@@ -189,6 +193,9 @@ namespace SabberStoneCore.Enchants
 						return;
 					case GameTag.ECHO:
 						ECHO = value;
+						return;
+					case GameTag.CANNOT_ATTACK_HEROES:
+						CANTATTACKHEROES = value;
 						return;
 					default:
 						return;
@@ -296,6 +303,8 @@ namespace SabberStoneCore.Enchants
 				hash.Append($"{{RUSH,{RUSH}}}");
 			if (ECHO > 0)
 				hash.Append($"{{ECHO,{ECHO}}}");
+			if (CANTATTACKHEROES == 1)
+				hash.Append($"{{CANNOT_ATTACK_HEROES,{CANTATTACKHEROES}");
 			hash.Append("]");
 			return hash.ToString();
 		}

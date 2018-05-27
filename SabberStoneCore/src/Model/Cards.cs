@@ -259,8 +259,8 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static Dictionary<int, List<Card>> CostMinionCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? StandardCostMinionCards : WildCostMinionCards;
 
-		private static readonly Dictionary<int, List<Card>> StandardCostMinionCards = new Dictionary<int, List<Card>>();
-		private static readonly Dictionary<int, List<Card>> WildCostMinionCards = new Dictionary<int, List<Card>>();
+		private static readonly Dictionary<int, List<Card>> StandardCostMinionCards;
+		private static readonly Dictionary<int, List<Card>> WildCostMinionCards;
 
 
 		/// <summary>
