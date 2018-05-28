@@ -25,9 +25,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_050t", new Power {
-				// TODO [AT_050t] Lightning Jolt && Test: Lightning Jolt_AT_050t
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(2, EntityType.TARGET)
 			});
 
 			// ------------------------------------- HERO_POWER - DRUID
@@ -38,10 +36,9 @@ namespace SabberStoneCore.CardSets
 			//       Gain 2 Armor and +2 Attack this turn.
 			// --------------------------------------------------------
 			cards.Add("AT_132_DRUID", new Power {
-				// TODO [AT_132_DRUID] Dire Shapeshift && Test: Dire Shapeshift_AT_132_DRUID
-				InfoCardId = "AT_132_DRUIDe",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ArmorTask(2),
+					new AddEnchantmentTask("AT_132_DRUIDe", EntityType.HERO))
 			});
 
 			// ------------------------------------ HERO_POWER - HUNTER
@@ -57,9 +54,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_OR_ENEMY_HERO = 0
 			// --------------------------------------------------------
 			cards.Add("AT_132_HUNTER", new Power {
-				// TODO [AT_132_HUNTER] Ballista Shot && Test: Ballista Shot_AT_132_HUNTER
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(3, EntityType.OP_HERO, false)
 			});
 
 			// -------------------------------------- HERO_POWER - MAGE
@@ -73,9 +68,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_132_MAGE", new Power {
-				// TODO [AT_132_MAGE] Fireblast Rank 2 && Test: Fireblast Rank 2_AT_132_MAGE
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(2, EntityType.TARGET, false)
 			});
 
 			// ----------------------------------- HERO_POWER - PALADIN
@@ -89,9 +82,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("AT_132_PALADIN", new Power {
-				// TODO [AT_132_PALADIN] The Silver Hand && Test: The Silver Hand_AT_132_PALADIN
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("CS2_101t", 2)
 			});
 
 			// ------------------------------------ HERO_POWER - PRIEST
@@ -105,9 +96,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_132_PRIEST", new Power {
-				// TODO [AT_132_PRIEST] Heal && Test: Heal_AT_132_PRIEST
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new HealTask(4, EntityType.TARGET)
 			});
 
 			// ------------------------------------- HERO_POWER - ROGUE
@@ -118,9 +107,7 @@ namespace SabberStoneCore.CardSets
 			//       Equip a 2/2 Weapon.
 			// --------------------------------------------------------
 			cards.Add("AT_132_ROGUE", new Power {
-				// TODO [AT_132_ROGUE] Poisoned Daggers && Test: Poisoned Daggers_AT_132_ROGUE
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new WeaponTask("AT_132_ROGUEt")
 			});
 
 			// ------------------------------------ HERO_POWER - SHAMAN
@@ -134,9 +121,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("AT_132_SHAMAN", new Power {
-				// TODO [AT_132_SHAMAN] Totemic Slam && Test: Totemic Slam_AT_132_SHAMAN
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DiscoverTask(DiscoverType.BASIC_TOTEM)
 			});
 
 			// ----------------------------------- HERO_POWER - WARLOCK
@@ -147,9 +132,7 @@ namespace SabberStoneCore.CardSets
 			//       Draw a card.
 			// --------------------------------------------------------
 			cards.Add("AT_132_WARLOCK", new Power {
-				// TODO [AT_132_WARLOCK] Soul Tap && Test: Soul Tap_AT_132_WARLOCK
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DrawTask()
 			});
 
 			// ----------------------------------- HERO_POWER - WARRIOR
@@ -160,9 +143,7 @@ namespace SabberStoneCore.CardSets
 			//       Gain 4 Armor.
 			// --------------------------------------------------------
 			cards.Add("AT_132_WARRIOR", new Power {
-				// TODO [AT_132_WARRIOR] Tank Up! && Test: Tank Up!_AT_132_WARRIOR
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new ArmorTask(4)
 			});
 
 		}
@@ -367,9 +348,7 @@ namespace SabberStoneCore.CardSets
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("AT_132_DRUIDe", new Power {
-				// TODO [AT_132_DRUIDe] Dire Claws && Test: Dire Claws_AT_132_DRUIDe
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("AT_132_DRUIDe")
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -1417,11 +1396,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DURABILITY = 2
 			// --------------------------------------------------------
-			cards.Add("AT_132_ROGUEt", new Power {
-				// TODO [AT_132_ROGUEt] Poisoned Dagger && Test: Poisoned Dagger_AT_132_ROGUEt
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("AT_132_ROGUEt", null);
 
 		}
 

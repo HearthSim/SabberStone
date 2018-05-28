@@ -502,6 +502,9 @@ namespace SabberStoneCore.Model
 			// first turn
 			Turn = 1;
 
+			// triggers Start of Game triggers (but does not process tasks here)
+			TriggerManager.OnGameStartTrigger();
+
 			// set next step
 			NextStep = Step.BEGIN_FIRST;
 		}
@@ -616,7 +619,6 @@ namespace SabberStoneCore.Model
 			// and a coin
 			//Generic.DrawCard(FirstPlayer.Opponent, Cards.FromId("GAME_005"));
 
-			TriggerManager.OnGameStartTrigger();
 			ProcessTasks();
 
 			NextStep = Step.MAIN_READY;

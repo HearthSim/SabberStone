@@ -2520,6 +2520,7 @@ namespace SabberStoneCore.CardSets.Standard
 				// TODO [GIL_692] Genn Greymane && Test: Genn Greymane_GIL_692
 				Trigger = new Trigger(TriggerType.GAME_START)
 				{
+					TriggerActivation = TriggerActivation.DECK,
 					Condition = SelfCondition.HasNoOddCostInDeck,
 					SingleTask = new AddEnchantmentTask("GIL_692e", EntityType.HERO_POWER)
 				}
@@ -2603,6 +2604,7 @@ namespace SabberStoneCore.CardSets.Standard
 				// TODO [GIL_826] Baku the Mooneater && Test: Baku the Mooneater_GIL_826
 				Trigger = new Trigger(TriggerType.GAME_START)
 				{
+					TriggerActivation = TriggerActivation.DECK,
 					Condition = SelfCondition.HasNoEvenCostInDeck,
 					SingleTask = SpecificTask.JusticarTrueheart
 				}
