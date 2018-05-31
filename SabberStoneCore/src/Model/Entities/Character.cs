@@ -272,6 +272,9 @@ namespace SabberStoneCore.Model.Entities
 					source.Controller.Hero.ToBeDestroyed = false;
 			}
 
+			if (this is Hero h)
+				h.IsDamagedThisTurn = true;
+
 			return amount;
 		}
 

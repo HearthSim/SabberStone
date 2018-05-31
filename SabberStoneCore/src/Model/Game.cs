@@ -793,6 +793,8 @@ namespace SabberStoneCore.Model
 
 			CurrentPlayer.CardsPlayedThisTurn.Clear();
 
+			CurrentPlayer.Hero.IsDamagedThisTurn = false;
+
 			if (RushMinions.Count > 0)
 			{
 				RushMinions.ForEach(i => IdEntityDic[i][GameTag.ATTACKABLE_BY_RUSH] = 0);
