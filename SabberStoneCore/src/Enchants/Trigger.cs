@@ -245,6 +245,9 @@ namespace SabberStoneCore.Enchants
 
 		private void Process(IEntity source)
 		{
+			if (_removed)
+				return;
+
 			if (_sequenceType == SequenceType.None)
 				Validate(source);
 
