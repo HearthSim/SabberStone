@@ -42,6 +42,7 @@ namespace SabberStoneCore.Model.Entities
 		private Hero(Controller controller, Hero hero) : base(controller, hero)
 		{
 			Auras = new List<Aura>(hero.Auras.Count);
+			IsDamagedThisTurn = hero.IsDamagedThisTurn;
 		}
 
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -145,6 +146,8 @@ namespace SabberStoneCore.Model.Entities
 			get { return this[GameTag.FATIGUE]; }
 			set { this[GameTag.FATIGUE] = value; }
 		}
+
+		public bool IsDamagedThisTurn { get; set; }
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}

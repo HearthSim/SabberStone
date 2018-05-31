@@ -74,6 +74,7 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition HasMinionInHand = new SelfCondition(me => me.Controller.HandZone.Any(p => p is Minion));
 		public static readonly SelfCondition HasMyHeroAttackedThisTurn = new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn > 0);
 		public static readonly SelfCondition HasMyHeroNotAttackedThisTurn = new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn == 0);
+		public static readonly SelfCondition IsMyHeroDamagedThisTurn = new SelfCondition(me => me.Controller.Hero.IsDamagedThisTurn);
 
 		public static readonly SelfCondition IsDeathrattleCard = new SelfCondition(me => me.Card[GameTag.DEATHRATTLE] == 1);
 		public static readonly SelfCondition IsEchoCard = new SelfCondition(me => me.Card[GameTag.ECHO] == 1);

@@ -2805,10 +2805,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Duskbat_GIL_508()
 		{
-			// TODO Duskbat_GIL_508 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2826,7 +2825,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Duskbat"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Duskbat"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Duskbat"));
+			Assert.Single(game.CurrentPlayer.BoardZone);
+
+			game.PlayHeroPower();
+			game.ProcessCard("Duskbat");
+			Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
+
+			game.EndTurn();
+			game.EndTurn();
+			game.ProcessCard("Duskbat");
+			Assert.Equal(5, game.CurrentPlayer.BoardZone.Count);
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -4486,10 +4495,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void VoodooDoll_GIL_614()
 		{
-			// TODO VoodooDoll_GIL_614 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4508,6 +4516,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Voodoo Doll"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Voodoo Doll"));
+
+			Minion target = game.ProcessCard<Minion>("Stonetusk Boar");
+			Minion test = game.ProcessCard<Minion>("Voodoo Doll", target);
+
+			test.Kill();
+
+			Assert.True(target.ToBeDestroyed);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

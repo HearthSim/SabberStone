@@ -543,7 +543,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_116", new Power {
-				// TODO [GIL_116] Arcane Keysmith && Test: Arcane Keysmith_GIL_116
 				PowerTask = SpecificTask.ArcaneKeysmith
 			});
 
@@ -1505,9 +1504,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_508", new Power {
-				// TODO [GIL_508] Duskbat && Test: Duskbat_GIL_508
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsMyHeroDamagedThisTurn),
+					new FlagTask(true, new SummonTask("GIL_508t", 2)))
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -1548,9 +1547,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_565", new Power {
-				// TODO [GIL_565] Deathweb Spider && Test: Deathweb Spider_GIL_565
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsMyHeroDamagedThisTurn),
+					new FlagTask(true, new SetGameTagTask(GameTag.LIFESTEAL, 1, EntityType.SOURCE)))
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -2315,10 +2314,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("GIL_614", new Power {
-				// TODO [GIL_614] Voodoo Doll && Test: Voodoo Doll_GIL_614
-				InfoCardId = "GIL_614e1",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
+					new AddEnchantmentTask("GIL_614e2", EntityType.SOURCE, true),
+					new AddEnchantmentTask("GIL_614e1", EntityType.TARGET))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2861,9 +2860,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Destroyed when Voodoo Doll is destroyed.
 			// --------------------------------------------------------
 			cards.Add("GIL_614e1", new Power {
-				// TODO [GIL_614e1] Voodoo Doll Cursed && Test: Voodoo Doll Cursed_GIL_614e1
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO: must check the real log
+				Enchant = new Enchant(GameTag.VOODOO_LINK, EffectOperator.SET, 1)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2873,9 +2871,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Deathrattle:</b> Destroy {0}.
 			// --------------------------------------------------------
 			cards.Add("GIL_614e2", new Power {
-				// TODO [GIL_614e2] Voodoo Doll Cursing && Test: Voodoo Doll Cursing_GIL_614e2
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.TARGET),
+					new FuncPlayablesTask(p => new List<IPlayable>{p[0].Game.IdEntityDic[p[0][GameTag.TAG_SCRIPT_DATA_NUM_1]]}),
+					new DestroyTask(EntityType.STACK))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
