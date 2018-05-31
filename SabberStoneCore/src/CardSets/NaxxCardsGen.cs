@@ -421,6 +421,7 @@ namespace SabberStoneCore.CardSets
 						{
 							if (graveyard[i] is Minion m && m.ToBeDestroyed)
 							{
+								if (c.BoardZone.IsFull) return 0;
 								Generic.SummonBlock.Invoke(c, (Minion) Entity.FromCard(c, m.Card), -1);
 								j++;
 							}

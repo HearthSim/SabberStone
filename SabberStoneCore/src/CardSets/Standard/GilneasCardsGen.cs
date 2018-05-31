@@ -2688,7 +2688,8 @@ namespace SabberStoneCore.CardSets.Standard
 						new FuncPlayablesTask(list =>
 						{
 							IPlayable p = list[0];
-							Card pick = p.Controller.Opponent.HandZone.Random.Card;
+							Card pick = p.Controller.Opponent.HandZone.Random?.Card;
+							if (pick == null) return null;
 							Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);
 							return null;
 						}))
