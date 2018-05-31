@@ -692,7 +692,7 @@ namespace SabberStoneCore.Tasks
 			{
 				IList<Card> playedCards = p.Controller.PlayHistory
 					.Select(e => e.SourceCard)
-					.Where(card => card[GameTag.BATTLECRY] == 1)
+					.Where(card => card[GameTag.BATTLECRY] == 1 && card.AssetId != 48111)
 					.ToArray()
 					.Shuffle();
 
