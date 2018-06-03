@@ -38,7 +38,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneHsReplay", "core
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SabberStoneBuildCardSet", "core-extensions\SabberStoneBuildCardSet\SabberStoneBuildCardSet.csproj", "{48AE839D-1944-45E9-8E38-016C5E7D399B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HSGrammar", "core-extensions\HSGrammar\HSGrammar.csproj", "{64EE164C-B894-4F1A-A734-5B17ADEA1FDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HSGrammar", "core-extensions\HSGrammar\HSGrammar.csproj", "{64EE164C-B894-4F1A-A734-5B17ADEA1FDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
