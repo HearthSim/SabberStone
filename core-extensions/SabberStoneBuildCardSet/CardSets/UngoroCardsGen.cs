@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -3115,7 +3115,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [UNG_067t1e] Crystallized (*) - COST:0 
 			// - Set: ungoro, 
 			// --------------------------------------------------------
-			// Text: Your minions are 5/5.
+			// Text: Your minions are 4/4.
 			// --------------------------------------------------------
 			// GameTag:
 			// - 758 = 1
@@ -3131,7 +3131,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [UNG_067t1e2] Crystallized (*) - COST:0 
 			// - Set: ungoro, 
 			// --------------------------------------------------------
-			// Text: 5/5.
+			// Text: 4/4.
 			// --------------------------------------------------------
 			// GameTag:
 			// - 758 = 1

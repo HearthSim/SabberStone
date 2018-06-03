@@ -690,7 +690,7 @@ namespace SabberStoneCore.CardSets
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOE_038] Naga Sea Witch - COST:5 [ATK:5/HP:5] 
+			// [LOE_038] Naga Sea Witch - COST:8 [ATK:5/HP:5] 
 			// - Set: loe, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Your cards cost (5).

@@ -912,7 +912,7 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [LOOT_093] Call to Arms - COST:4 
+			// [LOOT_093] Call to Arms - COST:5 
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Recruit</b> 3 minions that
@@ -2101,7 +2101,7 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// --------------------------------------- MINION - WARLOCK
-			// [LOOT_306] Possessed Lackey - COST:5 [ATK:2/HP:2] 
+			// [LOOT_306] Possessed Lackey - COST:6 [ATK:2/HP:2] 
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> <b>Recruit</b> a_Demon.
@@ -2155,7 +2155,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [LOOT_017] Dark Pact - COST:1 
 			// - Fac: alliance, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
-			// Text: Destroy a friendly minion. Restore #8 Health to your hero.
+			// Text: Destroy a friendly minion. Restore #4 Health to your hero.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_FRIENDLY_TARGET = 0
@@ -2168,7 +2168,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("LOOT_017", new Power {
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
-					new HealTask(8, EntityType.HERO))
+					new HealTask(4, EntityType.HERO))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -3349,7 +3349,7 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_539] Spiteful Summoner - COST:6 [ATK:4/HP:4] 
+			// [LOOT_539] Spiteful Summoner - COST:7 [ATK:4/HP:4] 
 			// - Fac: neutral, Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Reveal a spell
