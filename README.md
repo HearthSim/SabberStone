@@ -121,4 +121,4 @@ SabberStone is licensed under the terms of the
 SabberStone is being developed by darkfriend77 (darkfriend@swissonline.ch)
 * SabberStone on [Discord](https://discord.gg/my9WTwK) .. come and talk with us!
 * SabberStone on [Reddit](https://redd.it/5p0ar8)
-* SabberStone is a [HearthSim](http://hearthsim.info) project.
+* SabberStone is a [HearthSim](http://hearthsim.info) project!
