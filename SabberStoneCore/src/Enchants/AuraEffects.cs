@@ -334,7 +334,7 @@ namespace SabberStoneCore.Enchants
 					case GameTag.TIMEOUT:
 						return _timeOut;
 					case GameTag.SPELLPOWER_DOUBLE:
-					case GameTag.HEALING_DOUBLE:
+					case GameTag.SPELL_HEALING_DOUBLE:
 						return _spellPowerDouble;
 					case GameTag.HERO_POWER_DOUBLE:
 						return _heroPowerDouble;
@@ -362,7 +362,7 @@ namespace SabberStoneCore.Enchants
 						_timeOut = value;
 						return;
 					case GameTag.SPELLPOWER_DOUBLE:
-					case GameTag.HEALING_DOUBLE:
+					case GameTag.SPELL_HEALING_DOUBLE:
 						_spellPowerDouble = value;
 						return;
 					case GameTag.HERO_POWER_DOUBLE:

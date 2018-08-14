@@ -294,9 +294,9 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="heal"></param>
 		public void TakeHeal(IPlayable source, int heal)
 		{
-			if ((source is Spell || source is HeroPower) && source.Controller.ControllerAuraEffects[GameTag.HEALING_DOUBLE] > 0)
+			if ((source is Spell || source is HeroPower) && source.Controller.ControllerAuraEffects[GameTag.SPELL_HEALING_DOUBLE] > 0)
 			{
-				heal *= (int) Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.HEALING_DOUBLE]);
+				heal *= (int) Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.SPELL_HEALING_DOUBLE]);
 			}
 
 			if (source.Controller.ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] == 1)

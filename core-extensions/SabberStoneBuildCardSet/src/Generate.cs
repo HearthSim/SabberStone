@@ -34,6 +34,8 @@ namespace SabberStoneBuildCardSet
 					return "LOOTA";
 				case CardSet.GILNEAS:
 					return "GILA";
+				case CardSet.BOOMSDAY:
+					return "BOTA";
 				default:
 					return String.Empty;
 			}
@@ -59,8 +61,8 @@ namespace SabberStoneBuildCardSet
 			//   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
 			//{ CardSet.GVG};
 			//CardSet[] cardSets = new[] { CardSet.NAXX, CardSet.KARA, CardSet.BRM, CardSet.LOE, CardSet.ICECROWN  };
-			//CardSet[] cardSets = new[] { CardSet.TGT };
-			var cardSets = Enum.GetValues(typeof(CardSet));
+			CardSet[] cardSets = new[] { CardSet.BOOMSDAY };
+			//var cardSets = Enum.GetValues(typeof(CardSet));
 			foreach (CardSet cardSet in cardSets)
 			{
 				string className = UpperCaseFirst(cardSet.ToString()) + "CardsGen" + (adventure?"Adv":"");

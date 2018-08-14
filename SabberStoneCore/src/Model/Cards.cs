@@ -27,7 +27,8 @@ namespace SabberStoneCore.Model
 			CardSet.UNGORO,
 			CardSet.ICECROWN,
 			CardSet.LOOTAPALOOZA,
-			CardSet.GILNEAS
+			CardSet.GILNEAS,
+			CardSet.BOOMSDAY
 		};
 
 		/// <summary>
@@ -43,6 +44,7 @@ namespace SabberStoneCore.Model
 			CardSet.ICECROWN,
 			CardSet.LOOTAPALOOZA,
 			CardSet.GILNEAS,
+			CardSet.BOOMSDAY,
 
 			// wild
 			CardSet.BRM,
@@ -336,6 +338,8 @@ namespace SabberStoneCore.Model
 					return "Kobolds and Catacombs";
 				case CardSet.GILNEAS:
 					return "The Witchwood";
+				case CardSet.BOOMSDAY:
+					return "The Boomsday Project";
 				default:
 					throw new ArgumentOutOfRangeException(nameof(cardSet), cardSet, null);
 			}
