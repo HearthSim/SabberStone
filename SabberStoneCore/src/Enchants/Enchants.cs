@@ -42,12 +42,14 @@ namespace SabberStoneCore.Enchants
 		/// <param name="cardId"></param>
 		/// <returns></returns>
 		public static Enchant GetAutoEnchantFromText(string cardId)
-	    {
-			string text = Cards.FromId(cardId).Text;
+		{
+			Card card = Cards.FromId(cardId);
+			string text = card.Text;
 		    var effects = new List<Effect>();
 			bool oneTurn = false;
+			bool mod = false;
 
-		    Match attackHealth = AttackHealth.Match(text);
+			Match attackHealth = AttackHealth.Match(text);
 		    Match attack = Attack.Match(text);
 		    Match health = Health.Match(text);
 		    Match set = SetAttackHealth.Match(text);
@@ -71,8 +73,14 @@ namespace SabberStoneCore.Enchants
 				effects.Add(Effects.SetAttack(Int32.Parse(set.Groups[1].Value)));
 				effects.Add(Effects.SetMaxHealth(Int32.Parse(set.Groups[2].Value)));
 			}
+			// generate magnetic enchants
+			else if (card[GameTag.MODULAR] == 1)
+			{
+				effects.AddRange(Effects.AttackHealth_N(0));
+				mod = true;
+			}
 
-		    if (text.Contains(@"<b>Taunt</b>"))
+			if (text.Contains(@"<b>Taunt</b>"))
 		    {
 			    effects.Add(Effects.Taunt);
 		    }
@@ -117,10 +125,14 @@ namespace SabberStoneCore.Enchants
 				oneTurn = true;
 		    }
 
-			return new Enchant (effects.ToArray())
+			var output = new Enchant(effects.ToArray())
 			{
 				IsOneTurnEffect = oneTurn
-		    };
+			};
+			if (mod)
+				output.UseScriptTag = true;
+
+			return output;
 	    }
 
 

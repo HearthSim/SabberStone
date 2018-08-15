@@ -5,6 +5,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCoreTest.CardSets.Standard
 {
@@ -677,10 +678,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - POISONOUS = 1
 		// - MODULAR = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Venomizer_BOT_035()
 		{
-			// TODO Venomizer_BOT_035 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -697,8 +697,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Venomizer"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Venomizer"));
+
+			Minion target = game.ProcessCard<Minion>("Upgradeable Framebot");
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Venomizer", null, 0));
+
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(3, target.AttackDamage);
+			Assert.Equal(7, target.Health);
+			Assert.True(target.Poisonous);
+
+			// summon right-side of the target
+			game.ProcessCard("Venomizer");
+
+			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(3, target.AttackDamage);
+			Assert.Equal(7, target.Health);
 		}
 
 		// ---------------------------------------- MINION - HUNTER
