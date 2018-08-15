@@ -428,8 +428,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_035", new Power {
 				// TODO [BOT_035] Venomizer && Test: Venomizer_BOT_035
 				InfoCardId = "BOT_035e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new MagneticTask()
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -3030,9 +3029,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_035e", new Power {
-				// TODO [BOT_035e] Venomizer && Test: Venomizer_BOT_035e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_035e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

@@ -60,23 +60,29 @@ namespace SabberStoneCore.Enchants
 			{
 				Effects[0].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).Apply(entity, IsOneTurnEffect);
 
-				if (Effects.Length != 2) return;
+				if (Effects.Length < 2) return;
 
 				if (enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
 					Effects[1].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2]).Apply(entity, IsOneTurnEffect);
 				else
 					Effects[1].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).Apply(entity, IsOneTurnEffect);
+
+				for (int i = 2; i < Effects.Length; i++)
+					Effects[i].Apply(entity, IsOneTurnEffect);
 			}
 			else
 			{
 				Effects[0].ChangeValue(num1).Apply(entity, IsOneTurnEffect);
 
-				if (Effects.Length != 2) return;
+				if (Effects.Length < 2) return;
 
 				if (num2 > 0)
 					Effects[1].ChangeValue(num2).Apply(entity, IsOneTurnEffect);
 				else
 					Effects[1].ChangeValue(num1).Apply(entity, IsOneTurnEffect);
+
+				for (int i = 2; i < Effects.Length; i++)
+					Effects[i].Apply(entity, IsOneTurnEffect);
 			}
 		}
     }
