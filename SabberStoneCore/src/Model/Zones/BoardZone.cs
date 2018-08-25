@@ -159,11 +159,13 @@ namespace SabberStoneCore.Model.Zones
 			zone._untouchableCount = _untouchableCount;
 			zone._count = _count;
 
+			Minion[] entities = (Minion[])Entities;
+			Minion[] src = (Minion[])zone.Entities;
 			for (int i = 0; i < _count; ++i)
 			{
-				Minion copy = (Minion) Entities[i].Clone(zone.Controller);
+				Minion copy = (Minion)entities[i].Clone(zone.Controller);
 				copy.Zone = zone;
-				zone.Entities[i] = copy;
+				src[i] = copy;
 			}
 		}
 	}

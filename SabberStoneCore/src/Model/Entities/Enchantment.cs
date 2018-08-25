@@ -85,7 +85,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <returns>The resulting enchantment entity.</returns>
 		public static Enchantment GetInstance(Controller controller, IPlayable creator, IEntity target, Card card)
 		{
-			var tags = new EntityData.Data(5)
+			var tags = new EntityData.Data(8)
 			{
 				{GameTag.ZONE, (int) Enums.Zone.SETASIDE},
 				{GameTag.CONTROLLER, controller.PlayerId},

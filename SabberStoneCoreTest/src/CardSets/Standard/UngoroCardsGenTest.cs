@@ -2200,9 +2200,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			game.ProcessCard(game.CurrentPlayer.HandZone.Last());
 
-			Assert.True(game.Minions.TrueForAll(p => p.AttackDamage == 5 && p.Health == 5));
+			Assert.True(game.Minions.TrueForAll(p => p.AttackDamage == 4 && p.Health == 4));
 			Assert.True(game.CurrentPlayer.HandZone.Where(p => p is Minion).Cast<Minion>().ToList()
-				.TrueForAll(p => p.AttackDamage == 5 && p.Health == 5));
+				.TrueForAll(p => p.AttackDamage == 4 && p.Health == 4));
 		}
 
 		// ------------------------------------------ SPELL - ROGUE

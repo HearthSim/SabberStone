@@ -67,12 +67,13 @@ namespace SabberStoneCore.Model.Zones
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging ? "" : $"{Controller.Name} shuffles its deck.");
 
+			var entities = (IPlayable[])Entities;
 			for (int i = 0; i < n; i++)
 			{
 				int r = rnd.Next(i, n);
-				IPlayable temp = Entities[i];
-				Entities[i] = Entities[r];
-				Entities[r] = temp;
+				IPlayable temp = entities[i];
+				entities[i] = entities[r];
+				entities[r] = temp;
 			}
 		}
 
