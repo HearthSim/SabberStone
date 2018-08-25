@@ -166,9 +166,10 @@ namespace SabberStoneCore.Model.Entities
 
 			public Data()
 			{
-				_buckets = new int[_initSize << 1];
-				for (int i = 0; i < _buckets.Length; i++)
-					_buckets[i] = -1;
+				var buckets = new int[_initSize << 1];
+				for (int i = 0; i < buckets.Length; i++)
+					buckets[i] = -1;
+				_buckets = buckets;
 			}
 
 			public Data(int capacity)
@@ -207,8 +208,10 @@ namespace SabberStoneCore.Model.Entities
 			{
 				if (_count == 0)
 					return;
-				for (int i = 0; i < _buckets.Length; ++i)
-					_buckets[i] = -1;
+
+				int[] buckets = _buckets;
+				for (int i = 0; i < buckets.Length; ++i)
+					buckets[i] = -1;
 				_count = 0;
 			}
 
@@ -235,6 +238,8 @@ namespace SabberStoneCore.Model.Entities
 
 			public void Add(KeyValuePair<GameTag, int> item)
 			{
+				if (_count == _size)
+					Resize();
 				Insert(item.Key, item.Value);
 			}
 
@@ -271,7 +276,7 @@ namespace SabberStoneCore.Model.Entities
 				while (true)
 				{
 					int pow = 2 << n;
-					if (pow > capacity)
+					if (pow >= capacity)
 					{
 						capacity = pow;
 						break;
@@ -280,34 +285,33 @@ namespace SabberStoneCore.Model.Entities
 					++n;
 				}
 
-				_buckets = new int[capacity << 1];
-				for (int i = 0; i < _buckets.Length; i++)
-					_buckets[i] = -1;
+				var buckets = new int[capacity << 1];
+				for (int i = 0; i < buckets.Length; i++)
+					buckets[i] = -1;
+				_buckets = buckets;
 				_size = capacity;
 			}
 
 			// TODO: check duplicate
 			private void Insert(GameTag t, int value)
 			{
-				if (_count == _size)
-					Resize();
-
 				int k = (int)t;
 				int h = (k & (_size - 1)) << 1;
-				for (int i = h; i < _buckets.Length; i += 2)
+				int[] buckets = _buckets;
+				for (int i = h; i < buckets.Length; i += 2)
 				{
-					if (_buckets[i] > 0) continue;
-					_buckets[i] = k;
-					_buckets[i + 1] = value;
+					if (buckets[i] > 0) continue;
+					buckets[i] = k;
+					buckets[i + 1] = value;
 					++_count;
 					return;
 				}
 
 				for (int i = 0; i < h; i += 2)
 				{
-					if (_buckets[i] > 0) continue;
-					_buckets[i] = k;
-					_buckets[i + 1] = value;
+					if (buckets[i] > 0) continue;
+					buckets[i] = k;
+					buckets[i + 1] = value;
 					++_count;
 					return;
 				}
@@ -320,7 +324,7 @@ namespace SabberStoneCore.Model.Entities
 			{
 				if (Search((int) t, out int i))
 				{
-					_buckets[i] = (int)t;
+					//_buckets[i] = (int)t;
 					_buckets[i + 1] = value;
 					return;
 				}
@@ -341,18 +345,19 @@ namespace SabberStoneCore.Model.Entities
 			{
 				int k = (int)t;
 				int h = (k & (_size - 1)) << 1;
+				int[] buckets = _buckets;
 				for (int i = h; i < _buckets.Length; i += 2)
 				{
-					if (_buckets[i] == k)
+					if (buckets[i] == k)
 						return i;
-					if (_buckets[i] < 0)
+					if (buckets[i] < 0)
 						return -1;
 				}
 				for (int i = 0; i < h; i += 2)
 				{
-					if (_buckets[i] < 0)
+					if (buckets[i] < 0)
 						return -1;
-					if (_buckets[i] == k)
+					if (buckets[i] == k)
 						return i;
 				}
 
@@ -364,40 +369,41 @@ namespace SabberStoneCore.Model.Entities
 			{
 				int h = (k & (_size - 1)) << 1;
 				int i = h;
-				if (_buckets[i] == k)
+				int[] buckets = _buckets;
+				if (buckets[i] == k)
 				{
 					index = i;
 					return true;
 				}
 
-				if (_buckets[i] < 0)
+				if (buckets[i] < 0)
 				{
 					index = i;
 					return false;
 				}
 				i += 2;
-				if (i < _buckets.Length)
+				if (i < buckets.Length)
 				{
-					if (_buckets[i] == k)
+					if (buckets[i] == k)
 					{
 						index = i;
 						return true;
 					}
 
-					if (_buckets[i] < 0)
+					if (buckets[i] < 0)
 					{
 						index = i;
 						return false;
 					}
-					for (i += 2; i < _buckets.Length; i += 2)
+					for (i += 2; i < buckets.Length; i += 2)
 					{
-						if (_buckets[i] < 0)
+						if (buckets[i] < 0)
 						{
 							index = i;
 							return false;
 						}
 
-						if (_buckets[i] == k)
+						if (buckets[i] == k)
 						{
 							index = i;
 							return true;
@@ -405,12 +411,12 @@ namespace SabberStoneCore.Model.Entities
 					}
 				}
 
-				if (_buckets[0] < 0)
+				if (buckets[0] < 0)
 				{
 					index = 0;
 					return false;
 				}
-				if (_buckets[0] == k)
+				if (buckets[0] == k)
 				{
 					index = 0;
 					return true;
@@ -418,13 +424,13 @@ namespace SabberStoneCore.Model.Entities
 
 				for (i = 2; i < h; i += 2)
 				{
-					if (_buckets[i] < 0)
+					if (buckets[i] < 0)
 					{
 						index = i;
 						return false;
 					}
 
-					if (_buckets[i] == k)
+					if (buckets[i] == k)
 					{
 						index = i;
 						return true;
@@ -442,17 +448,18 @@ namespace SabberStoneCore.Model.Entities
 				for (int i = 0; i < newbuckets.Length; ++i)
 					newbuckets[i] = -1;
 
-				for (int i = 0; i < _buckets.Length; i += 2)
+				int[] buckets = _buckets;
+				for (int i = 0; i < buckets.Length; i += 2)
 				{
 					bool flag = false;
 
-					int newIndex = (_buckets[i] % newSize) << 1;
+					int newIndex = (buckets[i] % newSize) << 1;
 
 					for (int j = newIndex; j < newbuckets.Length; j += 2)
 					{
 						if (newbuckets[j] >= 0) continue;
-						newbuckets[j] = _buckets[i];
-						newbuckets[j + 1] = _buckets[i + 1];
+						newbuckets[j] = buckets[i];
+						newbuckets[j + 1] = buckets[i + 1];
 						flag = true;
 						break;
 					}
@@ -463,8 +470,8 @@ namespace SabberStoneCore.Model.Entities
 					for (int j = 0; j < newIndex; j += 2)
 					{
 						if (newbuckets[j] >= 0) continue;
-						newbuckets[j] = _buckets[i];
-						newbuckets[j + 1] = _buckets[i + 1];
+						newbuckets[j] = buckets[i];
+						newbuckets[j + 1] = buckets[i + 1];
 						flag = true;
 						break;
 					}
@@ -513,9 +520,10 @@ namespace SabberStoneCore.Model.Entities
 
 			public IEnumerator<KeyValuePair<GameTag, int>> GetEnumerator()
 			{
-				for (int i = 0; i < _buckets.Length; i += 2)
+				int[] buckets = _buckets;
+				for (int i = 0; i < buckets.Length; i += 2)
 				{
-					if (_buckets[i] > 0)
+					if (buckets[i] > 0)
 						yield return new KeyValuePair<GameTag, int>((GameTag)_buckets[i], _buckets[i + 1]);
 				}
 			}
@@ -540,11 +548,12 @@ namespace SabberStoneCore.Model.Entities
 				if (array.Length - arrayIndex < _count)
 					throw new ArgumentException();
 				int j = arrayIndex;
-				for (int i = 0; i < _buckets.Length; i += 2)
+				int[] buckets = _buckets;
+				for (int i = 0; i < buckets.Length; i += 2)
 				{
-					if (_buckets[i] > 0)
+					if (buckets[i] > 0)
 					{
-						array[j] = new KeyValuePair<GameTag, int>((GameTag)_buckets[i], _buckets[i + 1]);
+						array[j] = new KeyValuePair<GameTag, int>((GameTag)buckets[i], buckets[i + 1]);
 						j++;
 					}
 				}
