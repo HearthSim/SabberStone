@@ -14,6 +14,12 @@ namespace SabberStoneCore.Model.Entities
 	/// </summary>
 	internal class EntityData : IEnumerable<KeyValuePair<GameTag, int>>
 	{
+		internal EntityData(Card card)
+		{
+			Card = card;
+			Tags = new Data();
+		}
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="EntityData"/> class.
 		/// </summary>
@@ -22,8 +28,6 @@ namespace SabberStoneCore.Model.Entities
 		internal EntityData(Card card, IDictionary<GameTag, int> tags)
 		{
 			Card = card;
-			//Tags = tags ?? new Dictionary<GameTag, int>(Enum.GetNames(typeof(GameTag)).Length);
-			///Tags = tags ?? new Dictionary<GameTag, int>(11);
 			Tags = tags ?? new Data();
 		}
 
@@ -34,7 +38,6 @@ namespace SabberStoneCore.Model.Entities
 		internal EntityData(EntityData entityData)
 		{
 			Card = entityData.Card;
-			//Tags = new Dictionary<GameTag, int>(entityData.Tags);
 			Tags = new Data((Data) entityData.Tags);
 		}
 
@@ -155,82 +158,7 @@ namespace SabberStoneCore.Model.Entities
 
 		internal class Data : IDictionary<GameTag, int>
 		{
-			private static readonly int[] Primes =
-			{
-				7,
-				11,
-				17,
-				23,
-				29,
-				37,
-				47,
-				59,
-				71,
-				89,
-				107,
-				131,
-				163,
-				197,
-				239,
-				293,
-				353,
-				431,
-				521,
-				631,
-				761,
-				919,
-				1103,
-				1327,
-				1597,
-				1931,
-				2333,
-				2801,
-				3371,
-				4049,
-				4861,
-				5839,
-				7013,
-				8419,
-				10103,
-				12143,
-				14591,
-				17519,
-				21023,
-				25229,
-				30293,
-				36353,
-				43627,
-				52361,
-				62851,
-				75431,
-				90523,
-				108631,
-				130363,
-				156437,
-				187751,
-				225307,
-				270371,
-				324449,
-				389357,
-				467237,
-				560689,
-				672827,
-				807403,
-				968897,
-				1162687,
-				1395263,
-				1674319,
-				2009191,
-				2411033,
-				2893249,
-				3471899,
-				4166287,
-				4999559,
-				5999471,
-				7199369
-			};
-
-			private const int _initSize = 23;
+			private const int _initSize = 16;
 
 			private int[] _buckets;
 			private int _size = _initSize;
@@ -300,8 +228,9 @@ namespace SabberStoneCore.Model.Entities
 
 			public void Add(GameTag key, int value)
 			{
+				if (_count == _size)
+					Resize();
 				Insert(key, value);
-				//InsertOrOverwrite(key, value);
 			}
 
 			public void Add(KeyValuePair<GameTag, int> item)
@@ -338,7 +267,19 @@ namespace SabberStoneCore.Model.Entities
 
 			private void Initialise(int capacity)
 			{
-				//int prime = GetPrime(capacity);
+				int n = 3;
+				while (true)
+				{
+					int pow = 2 << n;
+					if (pow > capacity)
+					{
+						capacity = pow;
+						break;
+					}
+
+					++n;
+				}
+
 				_buckets = new int[capacity << 1];
 				for (int i = 0; i < _buckets.Length; i++)
 					_buckets[i] = -1;
@@ -348,14 +289,12 @@ namespace SabberStoneCore.Model.Entities
 			// TODO: check duplicate
 			private void Insert(GameTag t, int value)
 			{
-				//if (_count > (_size >> 2) * 3)
-				//	Resize();
 				if (_count == _size)
 					Resize();
 
 				int k = (int)t;
-				int slotIndex = (k % _size) << 1;
-				for (int i = slotIndex; i < _buckets.Length; i += 2)
+				int h = (k & (_size - 1)) << 1;
+				for (int i = h; i < _buckets.Length; i += 2)
 				{
 					if (_buckets[i] > 0) continue;
 					_buckets[i] = k;
@@ -364,7 +303,7 @@ namespace SabberStoneCore.Model.Entities
 					return;
 				}
 
-				for (int i = 0; i < slotIndex; i += 2)
+				for (int i = 0; i < h; i += 2)
 				{
 					if (_buckets[i] > 0) continue;
 					_buckets[i] = k;
@@ -401,15 +340,15 @@ namespace SabberStoneCore.Model.Entities
 			private int SearchIndex(GameTag t)
 			{
 				int k = (int)t;
-				int slotIndex = (k % _size) << 1;
-				for (int i = slotIndex; i < _buckets.Length; i += 2)
+				int h = (k & (_size - 1)) << 1;
+				for (int i = h; i < _buckets.Length; i += 2)
 				{
 					if (_buckets[i] == k)
 						return i;
 					if (_buckets[i] < 0)
 						return -1;
 				}
-				for (int i = 0; i < slotIndex; i += 2)
+				for (int i = 0; i < h; i += 2)
 				{
 					if (_buckets[i] < 0)
 						return -1;
@@ -423,7 +362,7 @@ namespace SabberStoneCore.Model.Entities
 			[MethodImpl(MethodImplOptions.AggressiveInlining)]
 			private bool Search(int k, out int index)
 			{
-				int h = (k % _size) << 1;
+				int h = (k & (_size - 1)) << 1;
 				int i = h;
 				if (_buckets[i] == k)
 				{
@@ -497,7 +436,7 @@ namespace SabberStoneCore.Model.Entities
 
 			private void Resize()
 			{
-				int newSize = GetPrime(_size << 1);
+				int newSize = _size << 1;
 				_size = newSize;
 				int[] newbuckets = new int[newSize << 1];
 				for (int i = 0; i < newbuckets.Length; ++i)
@@ -537,23 +476,40 @@ namespace SabberStoneCore.Model.Entities
 				_buckets = newbuckets;
 			}
 
-			private static int GetPrime(int min)
+			#region IDictionary
+			public ICollection<GameTag> Keys
 			{
-				for (int index = 0; index < Primes.Length; ++index)
+				get
 				{
-					int prime = Primes[index];
-					if (prime >= min)
-						return prime;
-				}
+					var tags = new GameTag[_count];
+					int[] buckets = _buckets;
+					for (int i = 0, j = 0; i < buckets.Length; i += 2)
+					{
+						if (buckets[i] < 0) continue;
+						tags[j] = (GameTag)buckets[i];
+						++j;
+					}
 
-				throw new IndexOutOfRangeException();
+					return tags;
+				}
 			}
 
-			#region IDictionary
+			public ICollection<int> Values
+			{
+				get
+				{
+					var values = new int[_count];
+					int[] buckets = _buckets;
+					for (int i = 0, j = 0; i < buckets.Length; i += 2)
+					{
+						if (buckets[i] < 0) continue;
+						values[j] = buckets[i + 1];
+						++j;
+					}
 
-			//	NotImplemented
-			public ICollection<GameTag> Keys { get; }
-			public ICollection<int> Values { get; }
+					return values;
+				}
+			}
 
 			public IEnumerator<KeyValuePair<GameTag, int>> GetEnumerator()
 			{
