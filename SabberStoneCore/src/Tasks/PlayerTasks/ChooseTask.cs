@@ -4,6 +4,7 @@ using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.PlayerTasks
@@ -34,7 +35,12 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
 		public override TaskState Process()
 		{
-			switch (Controller.Choice.ChoiceType)
+			Choice choice = Controller.Choice;
+
+			if (choice == null)
+				return TaskState.STOP;
+
+			switch (choice.ChoiceType)
 			{
 				case ChoiceType.MULLIGAN:
 					Generic.ChoiceMulligan.Invoke(Controller, Choices);
