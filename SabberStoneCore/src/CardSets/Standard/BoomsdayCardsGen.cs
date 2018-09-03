@@ -918,10 +918,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MODULAR = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_911", new Power {
-				// TODO [BOT_911] Annoy-o-Module && Test: Annoy-o-Module_BOT_911
-				InfoCardId = "BOT_911e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new MagneticTask()
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -2063,9 +2060,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_218", new Power {
-				// TODO [BOT_218] Security Rover && Test: Security Rover_BOT_218
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
+				{
+					SingleTask = new SummonTask("BOT_218t", 1)
+				}
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2219,9 +2217,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_218t", new Power {
-				// TODO [BOT_218t] Guard Bot && Test: Guard Bot_BOT_218t
-				//PowerTask = null,
-				//Trigger = null,
 			});
 
 			// --------------------------------------- WEAPON - WARRIOR
@@ -2271,10 +2266,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MODULAR = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_021", new Power {
-				// TODO [BOT_021] Bronze Gatekeeper && Test: Bronze Gatekeeper_BOT_021
-				InfoCardId = "BOT_021e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new MagneticTask()
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2438,9 +2430,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_270", new Power {
-				// TODO [BOT_270] Giggling Inventor && Test: Giggling Inventor_BOT_270
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("BOT_270t", 2)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2470,10 +2460,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_296", new Power {
-				// TODO [BOT_296] Omega Defender && Test: Omega Defender_BOT_296
-				InfoCardId = "BOT_296e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsManaCrystalFull),
+					new FlagTask(true, new AddEnchantmentTask("BOT_296e", EntityType.SOURCE)))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2645,9 +2634,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_448", new Power {
-				// TODO [BOT_448] Damaged Stegotron && Test: Damaged Stegotron_BOT_448
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(6, EntityType.SOURCE)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2797,10 +2784,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MODULAR = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_548", new Power {
-				// TODO [BOT_548] Zilliax && Test: Zilliax_BOT_548
-				InfoCardId = "BOT_548e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new MagneticTask()
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3162,9 +3146,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +10 Attack.
 			// --------------------------------------------------------
 			cards.Add("BOT_296e", new Power {
-				// TODO [BOT_296e] Omega Surge && Test: Omega Surge_BOT_296e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_296e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
