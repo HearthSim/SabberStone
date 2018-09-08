@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -444,16 +445,18 @@ namespace SabberStoneCore.Enchants
 		/// </summary>
 	    public static void ValidateTriggers(Game game, IEntity source, SequenceType type)
 	    {
-			for (int i = 0; i < game.Triggers.Count; i++)
-				if (game.Triggers[i]._sequenceType == type)
-					game.Triggers[i].Validate(source);
+			List<Trigger> triggers = game.Triggers;
+			for (int i = 0; i < triggers.Count; i++)
+				if (triggers[i]._sequenceType == type)
+					triggers[i].Validate(source);
 	    }
 
 	    public static void ValidateTriggers(Game game, IEntity source, TriggerType type)
 	    {
-		    for (int i = 0; i < game.Triggers.Count; i++)
-			    if (game.Triggers[i]._triggerType == type)
-				    game.Triggers[i].Validate(source);
+		    List<Trigger> triggers = game.Triggers;
+			for (int i = 0; i < triggers.Count; i++)
+			    if (triggers[i]._triggerType == type)
+				    triggers[i].Validate(source);
 		}
 
 	    public static void Invalidate(Game game, SequenceType type)

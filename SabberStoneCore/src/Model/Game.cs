@@ -832,11 +832,15 @@ namespace SabberStoneCore.Model
 			}
 
 			// Removing one-turn-effects
-			foreach ((int id, IEffect eff) in OneTurnEffects)
-				eff.RemoveFrom(IdEntityDic[id]);
-			OneTurnEffects.Clear();
-			for (int i = OneTurnEffectEnchantments.Count - 1; i >= 0; --i)
-				OneTurnEffectEnchantments[i].Remove();
+			if (OneTurnEffects.Count > 0)
+			{
+				foreach ((int id, IEffect eff) in OneTurnEffects)
+					eff.RemoveFrom(IdEntityDic[id]);
+				OneTurnEffects.Clear();
+				List<Enchantment> enchantments = OneTurnEffectEnchantments;
+				for (int i = enchantments.Count - 1; i >= 0; --i)
+					enchantments[i].Remove();
+			}
 
 			// After a player ends their turn (just before the next player's Start of
 			// Turn Phase), un-Freeze all characters they control that are Frozen, 
@@ -1029,8 +1033,9 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void AuraUpdate()
 		{
-			for (int i = Auras.Count - 1; i >= 0; i--)
-				Auras[i].Update();
+			List<IAura> auras = Auras;
+			for (int i = auras.Count - 1; i >= 0; i--)
+				auras[i].Update();
 		}
 
 		/// <summary>
@@ -1038,9 +1043,10 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		internal void ProcessTasks()
 		{
-			while (!TaskQueue.IsEmpty)
+			TaskQueue queue = TaskQueue;
+			while (!queue.IsEmpty)
 			{
-				if (TaskQueue.Process() != TaskState.COMPLETE)
+				if (queue.Process() != TaskState.COMPLETE)
 				{
 					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : "Something really bad happend during proccessing, please analyze!");
 				}
@@ -1060,10 +1066,11 @@ namespace SabberStoneCore.Model
 			// Summon Resolution Step
 			if (TriggerManager.HasOnSummonTrigger)
 			{
+				List<Minion> minions = SummonedMinions;
 				TaskQueue.StartEvent();
-				for (int i = 0; i < SummonedMinions.Count; i++)
+				for (int i = 0; i < minions.Count; i++)
 				{
-					TriggerManager.OnSummonTrigger(SummonedMinions[i]);
+					TriggerManager.OnSummonTrigger(minions[i]);
 				}
 				ProcessTasks();
 				TaskQueue.EndEvent();

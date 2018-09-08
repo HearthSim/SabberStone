@@ -13,14 +13,16 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, ICharacter, ICharacter, bool, bool> AttackBlock
 			=> delegate (Controller c, ICharacter source, ICharacter target, bool skipPrePhase)
 			{
+				Game g = c.Game;
+
 				if (skipPrePhase)
 				{
-					if (c.Game.History)
-						c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.ATTACK, source.Id, "", -1, target.Id));
+					if (g.History)
+						g.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.ATTACK, source.Id, "", -1, target.Id));
 
-					c.Game.ProposedAttacker = source.Id;
-					c.Game.ProposedDefender = target.Id;
-					c.Game.CurrentEventData = new EventMetaData(source, target);
+					g.ProposedAttacker = source.Id;
+					g.ProposedDefender = target.Id;
+					g.CurrentEventData = new EventMetaData(source, target);
 				}
 				else if (!PreAttackPhase.Invoke(c, source, target))
 					return false;
@@ -28,35 +30,35 @@ namespace SabberStoneCore.Actions
 				if (!OnAttackTrigger.Invoke(c, source, target))
 				{
 					// end block
-					if (c.Game.History)
-						c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
-					c.Game.DeathProcessingAndAuraUpdate();
-					c.Game.CurrentEventData = null;
+					if (g.History)
+						g.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+					g.DeathProcessingAndAuraUpdate();
+					g.CurrentEventData = null;
 					return false;
 				}
-				Trigger.ValidateTriggers(c.Game, source, SequenceType.Target);
+				Trigger.ValidateTriggers(g, source, SequenceType.Target);
 				if (!AttackPhase.Invoke(c, source))
 				{
 					// end block
-					if (c.Game.History)
-						c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
-					c.Game.DeathProcessingAndAuraUpdate();
-					c.Game.CurrentEventData = null;
+					if (g.History)
+						g.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+					g.DeathProcessingAndAuraUpdate();
+					g.CurrentEventData = null;
 					return false;
 				}
 				// end block
-				if (c.Game.History)
-					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+				if (g.History)
+					g.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
-				c.Game.TaskQueue.StartEvent();
+				g.TaskQueue.StartEvent();
 				source.OnAfterAttackTrigger();
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				g.ProcessTasks();
+				g.TaskQueue.EndEvent();
 
 
-				c.Game.DeathProcessingAndAuraUpdate();
-				c.Game.CurrentEventData = null;
-				c.Game.NextStep = Step.MAIN_ACTION;
+				g.DeathProcessingAndAuraUpdate();
+				g.CurrentEventData = null;
+				g.NextStep = Step.MAIN_ACTION;
 
 				return true;
 			};
