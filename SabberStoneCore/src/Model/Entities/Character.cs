@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 
@@ -92,8 +93,8 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="controller">Owner of the character; not specifically limited to players.</param>
 		/// <param name="card">The card which this character embodies.</param>
 		/// <param name="tags">Properties of this entity.</param>
-		protected Character(Controller controller, Card card, IDictionary<GameTag, int> tags)
-			: base(controller, card, tags)
+		protected Character(Controller controller, Card card, IDictionary<GameTag, int> tags, int id)
+			: base(controller, card, tags, id)
 		{
 			_atkModifier = card.ATK;
 			_healthModifier = card.Health;
@@ -356,6 +357,15 @@ namespace SabberStoneCore.Model.Entities
 		public void OnAfterAttackTrigger()
 		{
 			AfterAttackTrigger?.Invoke(this);
+		}
+
+		public override string Hash(params GameTag[] ignore)
+		{
+			var sb = new StringBuilder(base.Hash(ignore));
+			sb.Append($"[A:{_atkModifier}, ");
+			sb.Append($"H:{_healthModifier}, ");
+			sb.Append($"D:{_dmgModifier}]");
+			return sb.ToString();
 		}
 	}
 

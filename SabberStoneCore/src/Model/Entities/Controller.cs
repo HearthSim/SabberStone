@@ -156,22 +156,8 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="name">The name of the player.</param>
 		/// <param name="playerId">The player index; The first player will get assigned 1.</param>
 		/// <param name="id">Entity ID of this controller.</param>
-		public Controller(Game game, string name, int playerId, int id)
-			: base(game, Card.CardPlayer,
-			new EntityData.Data(64)
-			{
-				//[GameTag.HERO_ENTITY] = heroId,
-				[GameTag.MAXHANDSIZE] = 10,
-				[GameTag.STARTHANDSIZE] = 4,
-				[GameTag.PLAYER_ID] = playerId,
-				[GameTag.TEAM_ID] = playerId,
-				[GameTag.ZONE] = (int)Enums.Zone.PLAY,
-				[GameTag.CONTROLLER] = playerId,
-				[GameTag.ENTITY_ID] = id,
-				[GameTag.MAXRESOURCES] = 10,
-				[GameTag.CARDTYPE] = (int)CardType.PLAYER
-
-			})
+		public Controller(Game game, string name, int playerId, int id, IDictionary<GameTag, int> tags)
+			: base(game, Card.CardPlayer, tags, id)
 		{
 			Name = name;
 			_playerId = playerId;
@@ -541,7 +527,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			//get { return this[GameTag.RESOURCES]; }
 			//set { this[GameTag.RESOURCES] = value; }
-			get { return GetNativeGameTag(GameTag.RESOURCES); }
+			get { return this[GameTag.RESOURCES]; }
 			set { this[GameTag.RESOURCES] = value; }
 		}
 

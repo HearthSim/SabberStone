@@ -225,11 +225,13 @@ namespace SabberStoneCore.Model
 			_oopIndex = oop;
 		}
 
-		/// <summary>
-		/// Gets the dictionary containing all generated entities for this game.
-		/// </summary>
-		/// <value><see cref="IPlayable"/></value>
-		public Dictionary<int, IPlayable> IdEntityDic { get; private set; }
+		///// <summary>
+		///// Gets the dictionary containing all generated entities for this game.
+		///// </summary>
+		///// <value><see cref="IPlayable"/></value>
+		//public Dictionary<int, IPlayable> IdEntityDic { get; private set; }
+
+		public EntityList IdEntityDic { get; private set; }
 
 		/// <summary>
 		/// Gets the dictionary containing all generated choice sets for this game.
@@ -260,15 +262,52 @@ namespace SabberStoneCore.Model
 				[GameTag.CARDTYPE] = (int)CardType.GAME
 			})
 		{
-			IdEntityDic = new Dictionary<int, IPlayable>(75);
+			//IdEntityDic = new Dictionary<int, IPlayable>(75);
+			IdEntityDic = new EntityList(75);
 			_gameConfig = gameConfig;
 			Game = this;
 			Auras = new List<IAura>();
 			Triggers = new List<Trigger>();
 			GamesEventManager = new GameEventManager(this);
 
-			_players[0] = new Controller(this, gameConfig.Player1Name, 1, 2);
-			_players[1] = new Controller(this, gameConfig.Player2Name, 2, 3);
+			var p1Dict = gameConfig.History
+				? new EntityData.Data(64)
+				{
+					//[GameTag.HERO_ENTITY] = heroId,
+					[GameTag.MAXHANDSIZE] = 10,
+					[GameTag.STARTHANDSIZE] = 4,
+					[GameTag.PLAYER_ID] = 1,
+					[GameTag.TEAM_ID] = 1,
+					[GameTag.ZONE] = (int) SabberStoneCore.Enums.Zone.PLAY,
+					[GameTag.CONTROLLER] = 1,
+					[GameTag.MAXRESOURCES] = 10,
+					[GameTag.CARDTYPE] = (int) CardType.PLAYER
+				}
+				: new EntityData.Data()
+				{
+					{GameTag.MAXRESOURCES, 10},
+					{GameTag.MAXHANDSIZE, 10}
+				};
+			var p2Dict = gameConfig.History
+				? new EntityData.Data(64)
+				{
+					//[GameTag.HERO_ENTITY] = heroId,
+					[GameTag.MAXHANDSIZE] = 10,
+					[GameTag.STARTHANDSIZE] = 4,
+					[GameTag.PLAYER_ID] = 2,
+					[GameTag.TEAM_ID] = 2,
+					[GameTag.ZONE] = (int) SabberStoneCore.Enums.Zone.PLAY,
+					[GameTag.CONTROLLER] = 2,
+					[GameTag.MAXRESOURCES] = 10,
+					[GameTag.CARDTYPE] = (int) CardType.PLAYER
+				}
+				: new EntityData.Data()
+				{
+					{GameTag.MAXRESOURCES, 10},
+					{GameTag.MAXHANDSIZE, 10}
+				};
+			_players[0] = new Controller(this, gameConfig.Player1Name, 1, 2, p1Dict);
+			_players[1] = new Controller(this, gameConfig.Player2Name, 2, 3, p2Dict);
 
 			// add power history create game
 			if (History)
@@ -293,7 +332,8 @@ namespace SabberStoneCore.Model
 		/// <summary> A copy constructor. </summary>
 		private Game(Game game, bool logging = false) : base(null, game)
 		{
-			IdEntityDic = new Dictionary<int, IPlayable>(game.IdEntityDic.Count);
+			//IdEntityDic = new Dictionary<int, IPlayable>(game.IdEntityDic.Count);
+			IdEntityDic = new EntityList(game.IdEntityDic.Count);
 			Game = this;
 
 			Auras = new List<IAura>(game.Auras.Count);
@@ -832,15 +872,13 @@ namespace SabberStoneCore.Model
 			}
 
 			// Removing one-turn-effects
-			if (OneTurnEffects.Count > 0)
-			{
-				foreach ((int id, IEffect eff) in OneTurnEffects)
-					eff.RemoveFrom(IdEntityDic[id]);
-				OneTurnEffects.Clear();
-				List<Enchantment> enchantments = OneTurnEffectEnchantments;
-				for (int i = enchantments.Count - 1; i >= 0; --i)
-					enchantments[i].Remove();
-			}
+			foreach ((int id, IEffect eff) in OneTurnEffects)
+				eff.RemoveFrom(IdEntityDic[id]);
+			OneTurnEffects.Clear();
+			List<Enchantment> enchantments = OneTurnEffectEnchantments;
+			for (int i = enchantments.Count - 1; i >= 0; --i)
+				enchantments[i].Remove();
+			
 
 			// After a player ends their turn (just before the next player's Start of
 			// Turn Phase), un-Freeze all characters they control that are Frozen, 

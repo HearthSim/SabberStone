@@ -320,16 +320,16 @@ namespace SabberStoneCore.Actions
 					switch (newCard.Type)
 					{
 						case CardType.MINION:
-							entity = new Minion(c, newCard, p.NativeTags);
+							entity = new Minion(c, newCard, p.NativeTags, p.Id);
 							break;
 						case CardType.SPELL:
-							entity = new Spell(c, newCard, p.NativeTags);
+							entity = new Spell(c, newCard, p.NativeTags, p.Id);
 							break;
 						case CardType.HERO:
-							entity = new Hero(c, newCard, p.NativeTags);
+							entity = new Hero(c, newCard, p.NativeTags, p.Id);
 							break;
 						case CardType.WEAPON:
-							entity = new Weapon(c, newCard, p.NativeTags);
+							entity = new Weapon(c, newCard, p.NativeTags, p.Id);
 							break;
 						default:
 							throw new ArgumentNullException();

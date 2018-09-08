@@ -35,7 +35,8 @@ namespace SabberStoneCore.Model.Entities
 			_creatorId = e._creatorId;
 			e.OngoingEffect?.Clone(this);
 			e.ActivatedTrigger?.Activate(this);
-			Game.IdEntityDic.Add(Id, this);
+			//Game.IdEntityDic.Add(Id, this);
+			Game.IdEntityDic[Id] = this;
 			if (e.IsOneTurnActive)
 				c.Game.OneTurnEffectEnchantments.Add(this);
 
@@ -103,7 +104,8 @@ namespace SabberStoneCore.Model.Entities
 			else
 				target.AppliedEnchantments.Add(instance);
 
-			controller.Game.IdEntityDic.Add(instance.Id, instance);
+			//controller.Game.IdEntityDic.Add(instance.Id, instance);
+			controller.Game.IdEntityDic[instance.Id] = instance;
 
 			if (controller.Game.History)
 			{

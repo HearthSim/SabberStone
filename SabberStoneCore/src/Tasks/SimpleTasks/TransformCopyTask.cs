@@ -31,7 +31,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		    if (Game.History)
 			    tags.Add(GameTag.PREMIUM, target[GameTag.PREMIUM]);
 
-		    Minion copy = (Minion) Entity.FromCard(Controller, target.Card, tags);
+		    Minion copy = (Minion) Entity.FromCard(Controller, target.Card, tags, null);
 		    copy._atkModifier = target._atkModifier;
 		    copy._healthModifier = target._healthModifier;
 		    copy._dmgModifier = target._dmgModifier;
