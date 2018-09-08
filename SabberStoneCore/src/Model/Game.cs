@@ -456,7 +456,7 @@ namespace SabberStoneCore.Model
 		/// Part of the state machine.
 		/// Runs when STATE = RUNNING.
 		/// </summary>
-		public void StartGame()
+		public void StartGame(bool stopBeforeShuffling = false)
 		{
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : "Starting new game now!");
 
@@ -504,6 +504,9 @@ namespace SabberStoneCore.Model
 
 			// triggers Start of Game triggers (but does not process tasks here)
 			TriggerManager.OnGameStartTrigger();
+
+			if (stopBeforeShuffling)
+				return;
 
 			// set next step
 			NextStep = Step.BEGIN_FIRST;
