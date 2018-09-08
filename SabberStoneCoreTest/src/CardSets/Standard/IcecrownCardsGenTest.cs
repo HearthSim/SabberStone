@@ -3982,12 +3982,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Phantom Freebooter"));
+			Minion testCard = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Phantom Freebooter"));
 			game.ProcessCard("Assassin's Blade");												// 3/4
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));	// 3/3
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
-			Assert.Equal(6, testCard[GameTag.ATK]);
-			Assert.Equal(6, testCard[GameTag.HEALTH]);
+			Assert.Equal(6, testCard.AttackDamage);
+			Assert.Equal(6, testCard.Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

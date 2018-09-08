@@ -149,15 +149,20 @@ namespace SabberStoneCore.Conditions
 
 		public static SelfCondition HasBoardMinion(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ)
 			=> new SelfCondition(me =>
-					relaSign == RelaSign.EQ && me.Controller.BoardZone.Any(p => p[tag] == amount)
-				 || relaSign == RelaSign.GEQ && me.Controller.BoardZone.Any(p => p[tag] >= amount)
-				 || relaSign == RelaSign.LEQ && me.Controller.BoardZone.Any(p => p[tag] <= amount));
+			{
+				return relaSign == RelaSign.EQ && me.Controller.BoardZone.Any(p => GetTagValue(p, tag) == amount)
+				       || relaSign == RelaSign.GEQ && me.Controller.BoardZone.Any(p => GetTagValue(p, tag) >= amount)
+				       || relaSign == RelaSign.LEQ && me.Controller.BoardZone.Any(p => GetTagValue(p, tag) <= amount);
+			});
 
 		public static SelfCondition HasOpBoardMinion(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ)
 			=> new SelfCondition(me =>
-					relaSign == RelaSign.EQ && me.Controller.Opponent.BoardZone.Any(p => p[tag] == amount)
-				 || relaSign == RelaSign.GEQ && me.Controller.Opponent.BoardZone.Any(p => p[tag] >= amount)
-				 || relaSign == RelaSign.LEQ && me.Controller.Opponent.BoardZone.Any(p => p[tag] <= amount));
+			{
+
+				return relaSign == RelaSign.EQ && me.Controller.Opponent.BoardZone.Any(p => GetTagValue(p, tag) == amount)
+				       || relaSign == RelaSign.GEQ && me.Controller.Opponent.BoardZone.Any(p => GetTagValue(p, tag) >= amount)
+				       || relaSign == RelaSign.LEQ && me.Controller.Opponent.BoardZone.Any(p => GetTagValue(p, tag) <= amount);
+			});
 
 		public static SelfCondition HasOp(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ)
 			=> new SelfCondition(me =>
@@ -172,10 +177,16 @@ namespace SabberStoneCore.Conditions
 				    || me.Controller.Opponent.Hero[tag] <= amount));
 
 		public static SelfCondition IsTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
-			=> new SelfCondition(me =>
-					relaSign == RelaSign.EQ && me[tag] == value
-				 || relaSign == RelaSign.GEQ && me[tag] >= value
-				 || relaSign == RelaSign.LEQ && me[tag] <= value);
+		{
+			return new SelfCondition(me =>
+			{
+				int val = GetTagValue(me, tag);
+
+				return relaSign == RelaSign.EQ && val == value
+				       || relaSign == RelaSign.GEQ && val >= value
+				       || relaSign == RelaSign.LEQ && val <= value;
+			});
+		}
 
 		public static SelfCondition IsBaseTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
 			=> new SelfCondition(me =>
@@ -188,10 +199,13 @@ namespace SabberStoneCore.Conditions
 			{
 				if (!me.Controller.SeenCthun)
 					return false;
+
 				IPlayable proxyCthun = me.Game.IdEntityDic[me.Controller.ProxyCthun];
-				return relaSign == RelaSign.EQ && proxyCthun[tag] == value
-					|| relaSign == RelaSign.GEQ && proxyCthun[tag] >= value
-					|| relaSign == RelaSign.LEQ && proxyCthun[tag] <= value;
+				int val = GetTagValue(proxyCthun, tag);
+
+				return relaSign == RelaSign.EQ && val == value
+				       || relaSign == RelaSign.GEQ && val >= value
+				       || relaSign == RelaSign.LEQ && val <= value;
 			});
 
 		public static SelfCondition IsHealth(int value, RelaSign relaSign)
@@ -262,6 +276,22 @@ namespace SabberStoneCore.Conditions
 		public bool Eval(IPlayable owner)
 		{
 			return _function(owner);
+		}
+
+		private static int GetTagValue(IPlayable me, GameTag tag)
+		{
+			if (me is Character c)
+			{
+				if (tag == GameTag.ATK)
+					return c.AttackDamage;
+				else if
+					(tag == GameTag.HEALTH)
+					return c.BaseHealth;
+				else
+					return c[tag];
+			}
+			else
+				return me[tag];
 		}
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

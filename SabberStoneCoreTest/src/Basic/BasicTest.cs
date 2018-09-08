@@ -429,27 +429,29 @@ namespace SabberStoneCoreTest.Basic
 
 			game.StartGame();
 
-			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
-			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
-			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shattered Sun Cleric"));
+			var minion1 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
+			var minion2 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
+			var minion3 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shattered Sun Cleric"));
 
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));	// 6/6
-
 			game.CurrentPlayer.UsedMana = 0;
 
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));	// 7/7
-
 			game.CurrentPlayer.UsedMana = 0;
 
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion3, minion2));
-
 			game.CurrentPlayer.UsedMana = 0;
+			Assert.Equal(7, minion1.AttackDamage);
+			Assert.Equal(7, minion1.Health);
+			Assert.Equal(8, minion2.AttackDamage);
+			Assert.Equal(8, minion2.Health);
+			Assert.Equal(5, minion3.AttackDamage);
+			Assert.Equal(4, minion3.Health);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));	// (7/7), (8/8), (5/4)
 
 			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));	// (7/3), (8/4)
-
 			game.CurrentPlayer.UsedMana = 0;
 
 			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Explosion"));
@@ -778,18 +780,18 @@ namespace SabberStoneCoreTest.Basic
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 
-			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
-			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
+			var minion1 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
+			var minion2 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
 
-			Assert.Equal(6, minion1[GameTag.HEALTH]);
+			Assert.Equal(6, minion1.BaseHealth);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion2));
 
-			Assert.Equal(7, minion1[GameTag.HEALTH]);
+			Assert.Equal(7, minion1.BaseHealth);
 		}
 
 		[Fact]
@@ -895,7 +897,7 @@ namespace SabberStoneCoreTest.Basic
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Mindgames"));
 
 			Assert.Equal(5, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(game.CurrentPlayer.BoardZone[0].Card[GameTag.HEALTH], game.CurrentPlayer.BoardZone[0].Health);
+			Assert.Equal(game.CurrentPlayer.BoardZone[0].Card.Health, game.CurrentPlayer.BoardZone[0].Health);
 		}
 
 		[Fact]

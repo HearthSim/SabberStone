@@ -44,8 +44,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = health;
 				}
 
-				new Effect(GameTag.ATK, EffectOperator.SET, health).Apply(p);
-				new Effect(GameTag.HEALTH, EffectOperator.SET, atk).Apply(p);
+				//new Effect(GameTag.ATK, EffectOperator.SET, health).ApplyTo(p);
+				//new Effect(GameTag.HEALTH, EffectOperator.SET, atk).ApplyTo(p);
+				new AttackEffect(EffectOperator.SET, health).ApplyTo(p);
+				new HealthEffect(EffectOperator.SET, atk).ApplyTo(p);
 			}
 
 			return TaskState.COMPLETE;

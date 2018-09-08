@@ -2910,13 +2910,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			game.ProcessCard("Succubus");
 			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
-			Assert.Equal(4, game.CurrentPlayer.HandZone[0][GameTag.ATK]);
-			Assert.Equal(4, game.CurrentPlayer.HandZone[0][GameTag.HEALTH]);
+			Assert.Equal(4, ((Minion)game.CurrentPlayer.HandZone[0]).AttackDamage);
+			Assert.Equal(4, ((Minion)game.CurrentPlayer.HandZone[0]).Health);
 
 			game.ProcessCard("Succubus");
 			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
-			Assert.Equal(6, game.CurrentPlayer.HandZone[0][GameTag.ATK]);
-			Assert.Equal(6, game.CurrentPlayer.HandZone[0][GameTag.HEALTH]);
+			Assert.Equal(6, ((Minion)game.CurrentPlayer.HandZone[0]).AttackDamage);
+			Assert.Equal(6, ((Minion)game.CurrentPlayer.HandZone[0]).Health);
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK

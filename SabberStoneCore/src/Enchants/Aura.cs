@@ -76,7 +76,7 @@ namespace SabberStoneCore.Enchants
 		protected bool On = true;
 		protected bool _toBeUpdated = true;
 		//private Trigger _removeTrigger;
-		protected Effect[] Effects;
+		protected IEffect[] Effects;
 
 		public readonly Game Game;
 		public readonly AuraType Type;
@@ -89,7 +89,7 @@ namespace SabberStoneCore.Enchants
 		public bool Restless;
 
 
-		public Aura(AuraType type, params Effect[] effects)
+		public Aura(AuraType type, params IEffect[] effects)
 		{
 			Type = type;
 			Effects = effects;
@@ -311,7 +311,7 @@ namespace SabberStoneCore.Enchants
 							if (entity.Zone == Owner.Zone && Math.Abs(pos - entity.ZonePosition) == 1) continue;
 
 							for (int j = 0; j < Effects.Length; j++)
-								Effects[j].Remove(entity.AuraEffects);
+								Effects[j].RemoveFrom(entity.AuraEffects);
 
 							_appliedEntityIds.Remove(entity.Id);
 							_appliedEntities.Remove(entity);
@@ -341,13 +341,13 @@ namespace SabberStoneCore.Enchants
 						break;
 					case AuraType.CONTROLLER:
 						for (int i = 0; i < Effects.Length; i++)
-							Effects[i].Apply(Owner.Controller.ControllerAuraEffects);
+							Effects[i].ApplyTo(Owner.Controller.ControllerAuraEffects);
 						break;
 					case AuraType.CONTROLLERS:
 						for (int i = 0; i < Effects.Length; i++)
 						{
-							Effects[i].Apply(Owner.Controller.ControllerAuraEffects);
-							Effects[i].Apply(Owner.Controller.Opponent.ControllerAuraEffects);
+							Effects[i].ApplyTo(Owner.Controller.ControllerAuraEffects);
+							Effects[i].ApplyTo(Owner.Controller.Opponent.ControllerAuraEffects);
 						}
 						break;
 					case AuraType.HERO:
@@ -370,6 +370,7 @@ namespace SabberStoneCore.Enchants
 
 		private void RemoveInternal()
 		{
+			IEffect[] effects = Effects;
 			// Remove effects from applied entities
 			switch (Type)
 			{
@@ -393,14 +394,14 @@ namespace SabberStoneCore.Enchants
 					Owner.Controller.BoardZone.Auras.Remove(this);
 					break;
 				case AuraType.CONTROLLER:
-					for (int i = 0; i < Effects.Length; i++)
-						Effects[i].Remove(Owner.Controller.ControllerAuraEffects);
+					for (int i = 0; i < effects.Length; i++)
+						effects[i].RemoveFrom(Owner.Controller.ControllerAuraEffects);
 					break;
 				case AuraType.CONTROLLERS:
-					for (int i = 0; i < Effects.Length; i++)
+					for (int i = 0; i < effects.Length; i++)
 					{
-						Effects[i].Remove(Owner.Controller.ControllerAuraEffects);
-						Effects[i].Remove(Owner.Controller.Opponent.ControllerAuraEffects);
+						effects[i].RemoveFrom(Owner.Controller.ControllerAuraEffects);
+						effects[i].RemoveFrom(Owner.Controller.Opponent.ControllerAuraEffects);
 					}
 					break;
 			}
@@ -411,13 +412,13 @@ namespace SabberStoneCore.Enchants
 				{
 					if (ValueFunc != null)
 					{
-						var effect = new Effect(Effects[0].Tag, Effects[0].Operator, ValueFunc(entity));
-						effect.Remove(entity.AuraEffects);
+						IEffect effect = effects[0].ChangeValue(ValueFunc(entity));
+						effect.RemoveFrom(entity.AuraEffects);
 						continue;
 					}
 
-					for (int i = 0; i < Effects.Length; i++)
-						Effects[i].Remove(entity.AuraEffects);
+					for (int i = 0; i < effects.Length; i++)
+						effects[i].RemoveFrom(entity.AuraEffects);
 				}
 			}
 
@@ -495,12 +496,14 @@ namespace SabberStoneCore.Enchants
 			if (entity == null)
 				throw new ArgumentNullException();
 
+			IEffect[] effects = Effects;
+
 			if (_appliedEntityIds.Contains(entity.Id))
 			{
 				if (!Restless || Condition.Eval(entity)) return;
 
-				for (int i = 0; i < Effects.Length; i++)
-					Effects[i].Remove(entity.AuraEffects);
+				for (int i = 0; i < effects.Length; i++)
+					effects[i].RemoveFrom(entity.AuraEffects);
 
 				_appliedEntityIds.Remove(entity.Id);
 				AppliedEntities.Remove(entity);
@@ -512,12 +515,12 @@ namespace SabberStoneCore.Enchants
 
 			if (ValueFunc != null)
 			{
-				var effect = new Effect(Effects[0].Tag, Effects[0].Operator, ValueFunc(entity));
-				effect.Apply(entity.AuraEffects);
+				IEffect effect = effects[0].ChangeValue(ValueFunc(entity));
+				effect.ApplyTo(entity.AuraEffects);
 			}
 			else
-				for (int i = 0; i < Effects.Length; i++)
-					Effects[i].Apply(entity.AuraEffects);
+				for (int i = 0; i < effects.Length; i++)
+					effects[i].ApplyTo(entity.AuraEffects);
 
 			if (EnchantmentCard != null && ((Game.History && _tempList == null) || EnchantmentCard.Power.Trigger != null))
 			{
@@ -615,13 +618,25 @@ namespace SabberStoneCore.Enchants
 		{
 			if (_isSwitching)
 			{
-				for (int i = 0; i < _tags.Length; i++)
+				var tags = _tags;
+				for (int i = 0; i < tags.Length; i++)
 				{
 					int val = Condition.Eval(Owner) ? 1 : 0;
 					if (_lastValues[i] == val) continue;
 
 					//Owner[_tags[i]] = val;
-					new Effect(_tags[i], EffectOperator.SET, val).Apply(Owner);
+					switch (tags[i])
+					{
+						case GameTag.ATK:
+							new AttackEffect(EffectOperator.SET, val).ApplyTo(Owner);
+							break;
+						case GameTag.HEALTH:
+							new HealthEffect(EffectOperator.SET, val).ApplyTo(Owner);
+							break;
+						default:
+							new Effect(_tags[i], EffectOperator.SET, val).ApplyTo(Owner);
+							break;
+					}
 					_lastValues[i] = val;
 				}
 				return;
@@ -647,7 +662,21 @@ namespace SabberStoneCore.Enchants
 					return;
 				}
 				case EffectOperator.SET:
-					Owner[_tag] = 0;
+					if (Owner is Character c)
+					{
+						switch (_tag)
+						{
+							case GameTag.ATK:
+								c._atkModifier = 0;
+								break;
+							case GameTag.HEALTH:
+								c._healthModifier = 0;
+								break;
+						}
+					}
+					else
+						Owner[_tag] = 0;
+
 					Owner.AuraEffects[_tag] = ValueFunc(Owner);
 					return;
 			}
@@ -821,7 +850,7 @@ namespace SabberStoneCore.Enchants
 		private bool _enraged;
 		private IPlayable _target;
 
-		public EnrageEffect(AuraType type, params Effect[] effects) : base(type, effects)
+		public EnrageEffect(AuraType type, params IEffect[] effects) : base(type, effects)
 		{
 		}
 
@@ -868,7 +897,7 @@ namespace SabberStoneCore.Enchants
 				if (!_enraged) return;
 				if (_target != null)
 					for (int i = 0; i < Effects.Length; i++)
-						Effects[i].Remove(_target.AuraEffects);
+						Effects[i].RemoveFrom(_target.AuraEffects);
 			}
 
 			if (!_enraged)
@@ -876,7 +905,7 @@ namespace SabberStoneCore.Enchants
 				if (m.Damage == 0) return;
 				if (_target != null)
 					for (int i = 0; i < Effects.Length; i++)
-						Effects[i].Apply(_target.AuraEffects);
+						Effects[i].ApplyTo(_target.AuraEffects);
 				_enraged = true;
 			}
 			else
@@ -884,7 +913,7 @@ namespace SabberStoneCore.Enchants
 				if (m.Damage != 0) return;
 				if (_target != null)
 					for (int i = 0; i < Effects.Length; i++)
-						Effects[i].Remove(_target.AuraEffects);
+						Effects[i].RemoveFrom(_target.AuraEffects);
 				_enraged = false;
 			}
 		}

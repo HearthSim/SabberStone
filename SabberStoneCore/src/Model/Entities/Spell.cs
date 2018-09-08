@@ -7,7 +7,7 @@ namespace SabberStoneCore.Model.Entities
 	/// Entity which produces a single effect when played.
 	/// </summary>
 	/// <seealso cref="Playable{Spell}" />
-	public partial class Spell : Playable<Spell>
+	public partial class Spell : Playable
 	{
 		/// <summary>Initializes a new instance of the <see cref="Spell"/> class.</summary>
 		/// <param name="controller">The controller.</param>
@@ -89,11 +89,7 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.CANT_PLAY] = value ? 1 : 0; }
 		}
 
-		public bool ReceveivesDoubleSpellDamage
-		{
-			get => Card.ReceivesDoubleSpelldamageBonus;
-			set => Card.ReceivesDoubleSpelldamageBonus = value;
-		}
+		public bool ReceveivesDoubleSpellDamage => Card.ReceivesDoubleSpelldamageBonus;
 
 		public int QuestProgress
 		{

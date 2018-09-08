@@ -19,7 +19,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (!e.IsOneTurnActive && e.Power.Enchant?.Effects != null)
 				foreach (Effect effect in e.Power.Enchant.Effects)
-					effect.Remove(Target);
+					effect.RemoveFrom(Target);
 
 		    e.Remove();
 

@@ -293,9 +293,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Stats changed to 3/3.
 			// --------------------------------------------------------
 			cards.Add("LOE_017e", new Power {
-				Enchant = new Enchant(
-					new Effect(GameTag.ATK, EffectOperator.SET, 3),
-					new Effect(GameTag.HEALTH, EffectOperator.SET, 3))
+				Enchant = new Enchant(Effects.SetAttackHealth(3))
 			});
 
 		}

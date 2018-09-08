@@ -9,7 +9,7 @@ namespace SabberStoneCore.Model.Entities
 	/// controller's hero for a limited use.
 	/// </summary>
 	/// <seealso cref="Playable{Weapon}" />
-	public partial class Weapon : Playable<Weapon>
+	public partial class Weapon : Playable
 	{
 		/// <summary>Initializes a new instance of the <see cref="Weapon"/> class.</summary>
 		/// <param name="controller">The controller.</param>

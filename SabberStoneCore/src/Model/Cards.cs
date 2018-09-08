@@ -82,7 +82,7 @@ namespace SabberStoneCore.Model
 		{
 			// Fetch all cards.
 			var cardLoader = new CardLoader();
-			List<Card> cards = cardLoader.Load();
+			Card[] cards = cardLoader.Load();
 
 			//string json = File.ReadAllText(CardLoader.Path + @"SabberStone\HSProtoSim\Loader\Data\cardData.json");
 			//string json = File.ReadAllText(Environment.CurrentDirectory + @"\cardData.json");

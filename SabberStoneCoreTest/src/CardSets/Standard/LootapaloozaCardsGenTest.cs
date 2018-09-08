@@ -2252,12 +2252,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable target = game.ProcessCard("Bloodfen Raptor");
 			game.ProcessCard("Backstab", target);
 
-			IPlayable newEntity = game.CurrentPlayer.HandZone.Last();
+			var newEntity = game.CurrentPlayer.HandZone.Last() as Minion;
 
+			Assert.NotNull(newEntity);
 			Assert.Equal("Bloodfen Raptor", newEntity.Card.Name);
 			Assert.Equal(1, newEntity.Cost);
-			Assert.Equal(1, newEntity[GameTag.ATK]);
-			Assert.Equal(1, newEntity[GameTag.HEALTH]);
+			Assert.Equal(1, newEntity.AttackDamage);
+			Assert.Equal(1, newEntity.BaseHealth);
 
 		}
 
@@ -3114,18 +3115,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hooked Reaver"));
-			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hooked Reaver"));
+			var testCard = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hooked Reaver"));
+			var testCard2 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hooked Reaver"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
-			Assert.Equal(testCard[GameTag.ATK], testCard.Card.Tags[GameTag.ATK]);
-			Assert.Equal(testCard[GameTag.HEALTH], testCard.Card.Tags[GameTag.HEALTH]);
-			Assert.True(testCard[GameTag.TAUNT] == 0, "Has Taunt with Hero at 30 Health");
+			Assert.Equal(testCard.AttackDamage, testCard.Card.ATK);
+			Assert.Equal(testCard.Health, testCard.Card.Health);
+			Assert.False(testCard.HasTaunt, "Has Taunt with Hero at 30 Health");
 
 			game.CurrentPlayer.Hero.Health = 15;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2));
-			Assert.Equal(testCard2[GameTag.ATK], testCard2.Card.Tags[GameTag.ATK] + 3);
-			Assert.Equal(testCard2[GameTag.HEALTH], testCard2.Card.Tags[GameTag.HEALTH] + 3);
-			Assert.True(testCard2[GameTag.TAUNT] == 1, "Doesn't have Taunt with Hero at 15 Health");
+			Assert.Equal(testCard2.AttackDamage, testCard2.Card.ATK + 3);
+			Assert.Equal(testCard2.Health, testCard2.Card.Health + 3);
+			Assert.True(testCard2.HasTaunt, "Doesn't have Taunt with Hero at 15 Health");
 		}
 
 		// --------------------------------------- MINION - WARLOCK

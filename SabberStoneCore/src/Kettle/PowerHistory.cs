@@ -61,6 +61,12 @@ namespace SabberStoneCore.Kettle
 		{
 			var tags = new Dictionary<GameTag, int>(((Entity)playable)._data.Tags);
 			gameTagsEntities.ForEach(p => tags[p] = playable[p]);
+			if (playable is Character c)
+			{
+				tags[GameTag.ATK] = c.AttackDamage;
+				tags[GameTag.HEALTH] = c.Health;
+				tags[GameTag.DAMAGE] = c.Damage;
+			}
 
 			return new PowerHistoryFullEntity
 			{

@@ -44,10 +44,7 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
-		private int ATK;
-		private int HEALTH;
 		private int COST;
-		private int CHARGE;
 		private int WINDFURY;
 		private int IMMUNE;
 		private int LIFESTEAL;
@@ -57,40 +54,10 @@ namespace SabberStoneCore.Enchants
 		private int RUSH;
 		private int ECHO;
 		private int CANTATTACKHEROES;
-
 		private List<CostEffect> _costEffects;
 		private AdaptiveCostEffect _adaptiveCostEffect;
 
-		public AuraEffects(IEntity owner)
-		{
-			Owner = owner;
-			if (owner is IPlayable)
-				COST = owner.Card[GameTag.COST];
-		}
-
-		private AuraEffects(IEntity owner, AuraEffects other)
-		{
-			Owner = owner;
-			Checker = Checker;
-			_costEffects = other._costEffects?.Count > 0 ? new List<CostEffect>(other._costEffects) : null;
-			COST = other.COST;
-			CANT_BE_TARGETED_BY_SPELLS = other.CANT_BE_TARGETED_BY_SPELLS;
-			IMMUNE = other.IMMUNE;
-			ATK = other.ATK;
-			CANTATTACKHEROES = other.CANTATTACKHEROES;
-			if (!(owner is Minion)) return;
-			HEALTH = other.HEALTH;
-			CHARGE = other.CHARGE;
-			WINDFURY = other.WINDFURY;
-			LIFESTEAL = other.LIFESTEAL;
-			CANT_ATTACK = other.CANT_ATTACK;
-			CARD_COST_HEALTH = other.CARD_COST_HEALTH;
-			RUSH = other.RUSH;
-			ECHO = other.ECHO;
-		}
-
 		public IEntity Owner { get; private set; }
-
 		public AdaptiveCostEffect AdaptiveCostEffect
 		{
 			get => _adaptiveCostEffect;
@@ -100,7 +67,11 @@ namespace SabberStoneCore.Enchants
 				Checker = true;
 			}
 		}
-		public bool Checker { get; set; }
+
+		internal bool Checker { get; set; }
+		internal int AttackDamage { get; set; }
+		internal int Health { get; set; }
+		internal int Charge { get; set; }
 
 		public int this[GameTag t]
 		{
@@ -109,13 +80,13 @@ namespace SabberStoneCore.Enchants
 				switch (t)
 				{
 					case GameTag.ATK:
-						return ATK;
+						return AttackDamage;
 					case GameTag.HEALTH:
-						return HEALTH;
+						return Health;
 					case GameTag.COST:
 						return GetCost() - ((Entity)Owner)._data[GameTag.COST];
 					case GameTag.CHARGE:
-						return CHARGE > 0 ? 1 : 0;
+						return Charge > 0 ? 1 : 0;
 					case GameTag.WINDFURY:
 						return WINDFURY > 0 ? 1 : 0;
 					case GameTag.IMMUNE:
@@ -144,13 +115,13 @@ namespace SabberStoneCore.Enchants
 				switch (t)
 				{
 					case GameTag.ATK:
-						ATK = value;
+						AttackDamage = value;
 						return;
 					case GameTag.HEALTH:
-						HEALTH = value;
+						Health = value;
 						return;
 					case GameTag.CHARGE:
-						CHARGE = value;
+						Charge = value;
 						if (value > 0 && Owner[GameTag.EXHAUSTED] == 1 && Owner[GameTag.NUM_ATTACKS_THIS_TURN] < 1)
 							Owner[GameTag.EXHAUSTED] = 0;
 						if (((Minion)Owner).AttackableByRush)
@@ -201,6 +172,33 @@ namespace SabberStoneCore.Enchants
 						return;
 				}
 			}
+		}
+
+		public AuraEffects(IEntity owner)
+		{
+			Owner = owner;
+			if (owner is IPlayable)
+				COST = owner.Card.Cost;
+		}
+		private AuraEffects(IEntity owner, AuraEffects other)
+		{
+			Owner = owner;
+			Checker = Checker;
+			_costEffects = other._costEffects?.Count > 0 ? new List<CostEffect>(other._costEffects) : null;
+			COST = other.COST;
+			CANT_BE_TARGETED_BY_SPELLS = other.CANT_BE_TARGETED_BY_SPELLS;
+			IMMUNE = other.IMMUNE;
+			AttackDamage = other.AttackDamage;
+			CANTATTACKHEROES = other.CANTATTACKHEROES;
+			if (!(owner is Minion)) return;
+			Health = other.Health;
+			Charge = other.Charge;
+			WINDFURY = other.WINDFURY;
+			LIFESTEAL = other.LIFESTEAL;
+			CANT_ATTACK = other.CANT_ATTACK;
+			CARD_COST_HEALTH = other.CARD_COST_HEALTH;
+			RUSH = other.RUSH;
+			ECHO = other.ECHO;
 		}
 
 		/// <summary>
@@ -283,12 +281,12 @@ namespace SabberStoneCore.Enchants
 			var hash = new StringBuilder();
 			hash.Append("[AE:");
 			hash.Append($"{{COST,{COST}}}");
-			if (ATK > 0)
-				hash.Append($"{{ATK,{ATK}}}");
-			if (HEALTH > 0)
-				hash.Append($"{{HEALTH,{HEALTH}}}");
-			if (CHARGE > 0)
-				hash.Append($"{{CHARGE,{CHARGE}}}");
+			if (AttackDamage > 0)
+				hash.Append($"{{ATK,{AttackDamage}}}");
+			if (Health > 0)
+				hash.Append($"{{HEALTH,{Health}}}");
+			if (Charge > 0)
+				hash.Append($"{{CHARGE,{Charge}}}");
 			if (WINDFURY > 0)
 				hash.Append($"{{WINDFURY,{WINDFURY}}}");
 			if (LIFESTEAL > 0)

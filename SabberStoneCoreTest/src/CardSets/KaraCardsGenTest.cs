@@ -1506,21 +1506,21 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Menagerie Magician"));
-			IPlayable beast = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
-			IPlayable dragon = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Faerie Dragon"));
-			IPlayable murloc = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
+			var beast = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			var dragon = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Faerie Dragon"));
+			var murloc = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Murloc Raider"));
 
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, beast));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, dragon));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, murloc));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 
-			Assert.Equal(3, beast[GameTag.ATK]);
-			Assert.Equal(5, dragon[GameTag.ATK]);
-			Assert.Equal(4, murloc[GameTag.ATK]);
-			Assert.Equal(3, beast[GameTag.HEALTH]);
-			Assert.Equal(4, dragon[GameTag.HEALTH]);
-			Assert.Equal(3, murloc[GameTag.HEALTH]);
+			Assert.Equal(3, beast.AttackDamage);
+			Assert.Equal(5, dragon.AttackDamage);
+			Assert.Equal(4, murloc.AttackDamage);
+			Assert.Equal(3, beast.Health);
+			Assert.Equal(4, dragon.Health);
+			Assert.Equal(3, murloc.Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

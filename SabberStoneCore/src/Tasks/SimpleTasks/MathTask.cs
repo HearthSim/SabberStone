@@ -11,6 +11,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class MathNumberIndexTask : SimpleTask
 	{
+		private readonly int _indexA;
+		private readonly int _indexB;
+		private readonly int _resultIndex;
+		private readonly MathOperation _mathOperation;
+
 		public MathNumberIndexTask(int indexA, int indexB, MathOperation mathOperation, int resultIndex = 0)
 		{
 			_indexA = indexA;
@@ -18,11 +23,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_resultIndex = resultIndex;
 			_mathOperation = mathOperation;
 		}
-
-		private readonly int _indexA;
-		private readonly int _indexB;
-		private readonly int _resultIndex;
-		private readonly MathOperation _mathOperation;
 
 		public override TaskState Process()
 		{

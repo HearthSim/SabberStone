@@ -1958,13 +1958,15 @@ namespace SabberStoneCore.CardSets.Standard
 						new IncludeTask(EntityType.SOURCE),
 						new FuncPlayablesTask(list =>
 						{
-							IPlayable p = list[0];
-							IPlayable newEntity = Entity.FromCard(p.Controller, p.Card);
+							var p = (Minion) list[0];
+							var newEntity = (Minion) Entity.FromCard(p.Controller, p.Card);
 							p[GameTag.TAG_SCRIPT_DATA_ENT_1] = newEntity.Id;
 							newEntity[GameTag.TAG_SCRIPT_DATA_ENT_1] = newEntity.Id;
 							Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("UNG_836e"), newEntity, newEntity, 0, 0);
-							newEntity[GameTag.ATK] = p[GameTag.ATK] + 2;
-							newEntity[GameTag.HEALTH] = p[GameTag.HEALTH] + 2;
+							//newEntity[GameTag.ATK] = p[GameTag.ATK] + 2;
+							//newEntity[GameTag.HEALTH] = p[GameTag.HEALTH] + 2;
+							newEntity.AttackDamage = p.AttackDamage + 2;
+							newEntity.BaseHealth = p.BaseHealth + 2;
 
 							// separated trigger actually
 							newEntity[GameTag.REVEALED] = 1;
@@ -3088,6 +3090,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_067t1e", new Power {
 				Aura = new Aura(AuraType.HAND_AND_BOARD, "UNG_067t1e2")
+				{
+					Condition = SelfCondition.IsMinion
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

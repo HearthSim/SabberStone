@@ -3036,8 +3036,8 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.DECK, null, true),
 					new FuncPlayablesTask(list =>
 					{
-						int atk = list[0][GameTag.ATK];
-						return list.Where(p => p is Minion && p[GameTag.ATK] < atk).ToList();
+						int atk = ((Character)list[0]).AttackDamage;
+						return list.Where(p => p is Minion m && m.AttackDamage < atk).ToList();
 					}),
 					new RandomTask(1, EntityType.STACK),
 					new RemoveFromDeck(EntityType.STACK),

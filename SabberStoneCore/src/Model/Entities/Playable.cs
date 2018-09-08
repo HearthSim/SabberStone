@@ -90,15 +90,15 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		int ZonePosition { get; set; }
 
-		/// <summary>
-		/// Playable has just been played.
-		/// </summary>
-		bool JustPlayed { get; set; }
+		///// <summary>
+		///// Playable has just been played.
+		///// </summary>
+		//bool JustPlayed { get; set; }
 
-		/// <summary>
-		/// Playable has been summoned.
-		/// </summary>
-		bool IsSummoned { get; set; }
+		///// <summary>
+		///// Playable has been summoned.
+		///// </summary>
+		//bool IsSummoned { get; set; }
 
 		/// <summary>
 		/// Playable is exhausted. <c>true</c> indicates that the entity cannot
@@ -176,9 +176,9 @@ namespace SabberStoneCore.Model.Entities
 	/// <typeparam name="T">Instance deriving from <see cref="Entity"/></typeparam>
 	/// <seealso cref="Targeting" />
 	/// <seealso cref="IPlayable" />
-	public abstract partial class Playable<T> : Targeting, IPlayable where T : Entity
+	public abstract partial class Playable : Targeting, IPlayable
 	{
-		/// <summary>Initializes a new instance of the <see cref="Playable{T}"/> class.</summary>
+		/// <summary>Initializes a new instance of the <see cref="Playable"/> class.</summary>
 		/// <param name="controller">The controller.</param>
 		/// <param name="card">The card.</param>
 		/// <param name="tags">The tags.</param>
@@ -194,7 +194,7 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="controller">The target <see cref="T:SabberStoneCore.Model.Entities.Controller" /> instance.</param>
 		/// <param name="playable">The source <see cref="T:SabberStoneCore.Model.Entities.Playable`1" /></param>
-		protected Playable(Controller controller, Playable<T> playable) : base(controller, playable)
+		protected Playable(Controller controller, Playable playable) : base(controller, playable)
 		{
 			controller.Game.IdEntityDic.Add(playable.Id, this);
 
@@ -549,7 +549,7 @@ namespace SabberStoneCore.Model.Entities
 	}
 
 
-	public abstract partial class Playable<T>
+	public abstract partial class Playable
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		public int Cost
@@ -568,17 +568,17 @@ namespace SabberStoneCore.Model.Entities
 			set => this[GameTag.ZONE_POSITION] = value + 1;
 		}
 
-		public bool JustPlayed
-		{
-			get { return this[GameTag.JUST_PLAYED] == 1; }
-			set { this[GameTag.JUST_PLAYED] = value ? 1 : 0; }
-		}
+		//public bool JustPlayed
+		//{
+		//	get { return this[GameTag.JUST_PLAYED] == 1; }
+		//	set { this[GameTag.JUST_PLAYED] = value ? 1 : 0; }
+		//}
 
-		public bool IsSummoned
-		{
-			get { return this[GameTag.SUMMONED] == 1; }
-			set { this[GameTag.SUMMONED] = value ? 1 : 0; }
-		}
+		//public bool IsSummoned
+		//{
+		//	get { return this[GameTag.SUMMONED] == 1; }
+		//	set { this[GameTag.SUMMONED] = value ? 1 : 0; }
+		//}
 
 		public bool IsExhausted
 		{

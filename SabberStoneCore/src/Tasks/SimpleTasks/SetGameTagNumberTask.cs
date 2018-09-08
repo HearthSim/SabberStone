@@ -24,7 +24,26 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
 			{
-				p[Tag] = Number;
+				if (p is Character c)
+				{
+					switch (Tag)
+					{
+						case GameTag.ATK:
+							c.AttackDamage = Number;
+							break;
+						case GameTag.HEALTH:
+							c.BaseHealth = Number;
+							break;
+						case GameTag.DAMAGE:
+							c.Damage = Number;
+							break;
+						default:
+							c[Tag] = Number;
+							break;
+					}
+				}
+				else
+					p[Tag] = Number;
 			};
 
 			return TaskState.COMPLETE;

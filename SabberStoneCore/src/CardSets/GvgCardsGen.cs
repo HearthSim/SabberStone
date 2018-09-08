@@ -798,7 +798,11 @@ namespace SabberStoneCore.CardSets
 					{
 						IPlayable source = list[0];
 						for (int i = 1; i < list.Count; i++)
-							Generic.DamageCharFunc(source, (ICharacter)list[i], list[i][GameTag.ATK], true);
+						{
+							var c = list[i] as Character;
+							Generic.DamageCharFunc(source, c, c.AttackDamage, true);
+						}
+
 						return null;
 					}))
 			});
@@ -2307,7 +2311,7 @@ namespace SabberStoneCore.CardSets
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_011a", new Power {
-				Enchant = new Enchant(GameTag.ATK, EffectOperator.SUB, 2)
+				Enchant = new Enchant(new AttackEffect(EffectOperator.SUB, 2))
 				{
 					IsOneTurnEffect = true
 				}

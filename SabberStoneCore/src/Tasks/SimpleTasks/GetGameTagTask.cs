@@ -26,25 +26,49 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				return TaskState.STOP;
 			}
+
+			int value;
+			if (entities[EntityIndex] is Character c)
+			{
+				switch (Tag)
+				{
+					case GameTag.ATK:
+						value = c.AttackDamage;
+						break;
+					case GameTag.HEALTH:
+						value = c.BaseHealth;
+						break;
+					case GameTag.DAMAGE:
+						value = c.Damage;
+						break;
+					default:
+						value = c[Tag];
+						break;
+				}
+			}
+			else
+				value = entities[EntityIndex][Tag];
+
+
 			if (NumberIndex == 0)
 			{
-				Number = entities[EntityIndex][Tag];
+				Number = value;
 			}
 			else if (entities.Count > EntityIndex)
 			{
 				switch (NumberIndex)
 				{
 					case 1:
-						Number1 = entities[EntityIndex][Tag];
+						Number1 = value;
 						break;
 					case 2:
-						Number2 = entities[EntityIndex][Tag];
+						Number2 = value;
 						break;
 					case 3:
-						Number3 = entities[EntityIndex][Tag];
+						Number3 = value;
 						break;
 					case 4:
-						Number4 = entities[EntityIndex][Tag];
+						Number4 = value;
 						break;
 				}
 			}

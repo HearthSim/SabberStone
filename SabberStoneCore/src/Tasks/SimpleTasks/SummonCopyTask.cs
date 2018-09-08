@@ -96,7 +96,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					if (target.Controller != Controller)
 						tags[GameTag.CONTROLLER] = Controller.PlayerId;
 
-					IPlayable copy = Entity.FromCard(Controller, target.Card, tags, Controller.BoardZone);
+					Minion copy = (Minion) Entity.FromCard(Controller, target.Card, tags, Controller.BoardZone);
+					copy._atkModifier = target._atkModifier;
+					copy._healthModifier = target._healthModifier;
+					copy._dmgModifier = target._dmgModifier;
 
 					target.AppliedEnchantments?.ForEach(e =>
 					{

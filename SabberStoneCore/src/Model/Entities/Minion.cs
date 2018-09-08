@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Model.Entities
@@ -9,7 +11,7 @@ namespace SabberStoneCore.Model.Entities
 	/// certain actions (provided through <see cref="Character{Minion}"/>.
 	/// </summary>
 	/// <seealso cref="Character{Minion}" />
-	public partial class Minion : Character<Minion>
+	public partial class Minion : Character
 	{
 		/// <summary>Initializes a new instance of the <see cref="Minion"/> class.</summary>
 		/// <param name="controller">Owner of the character; not specifically limited to players.</param>
@@ -82,18 +84,19 @@ namespace SabberStoneCore.Model.Entities
 					AppliedEnchantments[i].Remove();
 				}
 
-			AttackDamage = Card[GameTag.ATK];
-			if (Health > Card[GameTag.HEALTH])
+			AttackDamage = Card.ATK;
+			if (Health > Card.Health)
 			{
-				Health = Card[GameTag.HEALTH];
+				Health = Card.Health;
 			}
 			else
 			{
-				int cardBaseHealth = Card[GameTag.HEALTH];
+				int cardBaseHealth = Card.Health;
 				int delta = BaseHealth - cardBaseHealth;
 				if (delta > 0)
 					Damage -= delta;
-				this[GameTag.HEALTH] = Card[GameTag.HEALTH];
+				//this[GameTag.HEALTH] = Card[GameTag.HEALTH];
+				BaseHealth = cardBaseHealth;
 			}
 
 			if (_data.Tags.TryGetValue(GameTag.CONTROLLER_CHANGED_THIS_TURN, out int v) && v > 0)
@@ -112,6 +115,10 @@ namespace SabberStoneCore.Model.Entities
 		public override void Reset()
 		{
 			base.Reset();
+			_atkModifier = Card.ATK;
+			_healthModifier = Card.Health;
+			_dmgModifier = 0;
+
 			OngoingEffect?.Remove();
 			Game.OneTurnEffects.RemoveAll(p => p.entityId == Id);
 			if (ToBeDestroyed)
@@ -128,22 +135,24 @@ namespace SabberStoneCore.Model.Entities
 		public Minion[] GetAdjacentMinions(bool includeUntouchables = false)
 		{
 			int pos = ZonePosition;
+			if (!(Zone is BoardZone zone))
+				throw new MethodAccessException();
 
 			if (includeUntouchables)
 			{
 				if (pos > 0)
 				{
-					if (pos < Controller.BoardZone.Count - 1)
+					if (pos < zone.Count - 1)
 					{
 						var arr = new Minion[2];
-						arr[0] = Controller.BoardZone[pos - 1];
-						arr[1] = Controller.BoardZone[pos + 1];
+						arr[0] = zone[pos - 1];
+						arr[1] = zone[pos + 1];
 						return arr;
 					}
-					return new[] { Controller.BoardZone[pos - 1] };
+					return new[] { zone[pos - 1] };
 				}
-				return pos < Controller.BoardZone.Count - 1 ?
-					new[] { Controller.BoardZone[pos + 1] } :
+				return pos < zone.Count - 1 ?
+					new[] { zone[pos + 1] } :
 					new Minion[0];
 			}
 
@@ -151,23 +160,22 @@ namespace SabberStoneCore.Model.Entities
 			if (pos > 0)
 			{
 				Minion left;
-				Minion right;
-				if (pos < Controller.BoardZone.Count - 1)
+				if (pos < zone.Count - 1)
 				{
-					left = Controller.BoardZone[pos - 1];
-					right = Controller.BoardZone[pos + 1];
+					left = zone[pos - 1];
+					Minion right = zone[pos + 1];
 					return left.Untouchable
 						? (right.Untouchable ? new Minion[0] : new[] {right})
 						: (right.Untouchable ? new[] {left} : new[] {left, right});
 				}
 
-				left = Controller.BoardZone[pos - 1];
+				left = zone[pos - 1];
 				return left.Untouchable ? new Minion[0] : new [] {left};
 			}
 
-			if (pos < Controller.BoardZone.Count - 1)
+			if (pos < zone.Count - 1)
 			{
-				Minion r = Controller.BoardZone[pos + 1];
+				Minion r = zone[pos + 1];
 				return r.Untouchable ? new Minion[0] : new[] {r};
 			}
 

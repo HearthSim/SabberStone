@@ -170,8 +170,10 @@ namespace SabberStoneCore.Actions
 				Hero oldHero = c.Hero;
 				hero[GameTag.ZONE] = (int)Zone.PLAY;
 				//hero[GameTag.LINKED_ENTITY] = c.Hero.Id;
-				hero[GameTag.HEALTH] = oldHero[GameTag.HEALTH];
-				hero[GameTag.DAMAGE] = oldHero[GameTag.DAMAGE];
+				//hero[GameTag.HEALTH] = oldHero[GameTag.HEALTH];
+				hero.BaseHealth = oldHero.BaseHealth;
+				//hero[GameTag.DAMAGE] = oldHero[GameTag.DAMAGE];
+				hero.Damage = oldHero.Damage;
 				hero[GameTag.ARMOR] = oldHero[GameTag.ARMOR] + hero.Card[GameTag.ARMOR];
 				hero[GameTag.EXHAUSTED] = oldHero[GameTag.EXHAUSTED];
 

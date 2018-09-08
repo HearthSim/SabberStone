@@ -2561,7 +2561,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Assert.Equal(2, game.Player1[GameTag.NUM_CARDS_DRAWN_THIS_TURN]);
 			Assert.Equal(2, game.Player1[GameTag.NUM_CARDS_PLAYED_THIS_TURN]);
-			Assert.Equal(3, game.Player1.BoardZone[0][GameTag.HEALTH]);
+			Assert.Equal(3, game.Player1.BoardZone[0].BaseHealth);
 		}
 
 		// ----------------------------------------- SPELL - PRIEST

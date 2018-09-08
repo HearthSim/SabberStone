@@ -15,8 +15,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (Controller.ProxyCthun == 0)
 				return TaskState.STOP;
 
-			IPlayable proxyCthun = Game.IdEntityDic[Controller.ProxyCthun];
-
+			Minion proxyCthun = (Minion) Game.IdEntityDic[Controller.ProxyCthun];
+			Minion target = (Minion) Target;
 
 			if (Game.History)
 			{
@@ -25,7 +25,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				
 				proxyCthun.AppliedEnchantments?.ForEach(e =>
 				{
-					Enchantment instance = Enchantment.GetInstance(Controller, (IPlayable)Target, Target, e.Card);
+					Enchantment instance = Enchantment.GetInstance(Controller, target, target, e.Card);
 					if (e[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
 					{
 						instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
@@ -36,9 +36,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			proxyCthun.OngoingEffect?.Clone((IPlayable)Source);
-			Target[GameTag.ATK] = proxyCthun[GameTag.ATK];
-			Target[GameTag.HEALTH] = proxyCthun[GameTag.HEALTH];
-			Target[GameTag.TAUNT] = proxyCthun[GameTag.TAUNT];
+			//Target[GameTag.ATK] = proxyCthun[GameTag.ATK];
+			//Target[GameTag.HEALTH] = proxyCthun[GameTag.HEALTH];
+			target.AttackDamage = proxyCthun.AttackDamage;
+			target.BaseHealth = proxyCthun.BaseHealth;
+
+			target[GameTag.TAUNT] = proxyCthun[GameTag.TAUNT];
 
 			return TaskState.COMPLETE;
 		}

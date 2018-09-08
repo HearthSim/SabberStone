@@ -114,7 +114,7 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(EntityType.SOURCE),
 				new FuncPlayablesTask(p =>
 				{
-					IPlayable s = p[0];
+					var s = (Minion) p[0];
 					Controller c = s.Controller;
 					Minion left = null;
 					Minion right = null;
@@ -146,15 +146,19 @@ namespace SabberStoneCore.Tasks
 					{
 						Generic.SummonBlock.Invoke(c, left, s.ZonePosition);
 						s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(c, left, left, e.Card));
-						left[GameTag.ATK] = s[GameTag.ATK];
-						left[GameTag.HEALTH] = s[GameTag.HEALTH];
+						//left[GameTag.ATK] = s[GameTag.ATK];
+						//left[GameTag.HEALTH] = s[GameTag.HEALTH];
+						left.AttackDamage = s.AttackDamage;
+						left.BaseHealth = s.BaseHealth;
 
 						if (right != null)
 						{
 							Generic.SummonBlock.Invoke(c, right, s.ZonePosition + 1);
 							s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(c, right, right, e.Card));
-							right[GameTag.ATK] = s[GameTag.ATK];
-							right[GameTag.HEALTH] = s[GameTag.HEALTH];
+							//right[GameTag.ATK] = s[GameTag.ATK];
+							//right[GameTag.HEALTH] = s[GameTag.HEALTH];
+							right.AttackDamage = s.AttackDamage;
+							right.BaseHealth = s.BaseHealth;
 						}
 					}
 					return null;
@@ -846,7 +850,7 @@ namespace SabberStoneCore.Tasks
 						tags.Add(GameTag.CREATOR, Source.Id);
 					IPlayable newEntity = Entity.FromCard(Controller, Util.Choose(cards), tags, Controller.HandZone, -1, i);
 					newEntity.NativeTags.Add(GameTag.DISPLAYED_CREATOR, Source.Id);
-					CostReduceEffect.Apply(newEntity.AuraEffects);
+					CostReduceEffect.ApplyTo(newEntity.AuraEffects);
 				}
 
 				// replace cards in deck
@@ -864,7 +868,7 @@ namespace SabberStoneCore.Tasks
 					Controller.DeckZone.Remove(entity);
 					Controller.SetasideZone.Add(entity);
 
-					CostReduceEffect.Apply(newEntity.AuraEffects);
+					CostReduceEffect.ApplyTo(newEntity.AuraEffects);
 				}
 
 				Game.OnRandomHappened(true);

@@ -609,7 +609,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This minion has 1 Health.
 			// --------------------------------------------------------
 			cards.Add("CS2_084e", new Power {
-				Enchant = new Enchant(GameTag.HEALTH, EffectOperator.SET, 1)
+				Enchant = new Enchant(Effects.SetMaxHealth(1))
 			});
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
@@ -1018,7 +1018,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Attack has been changed to 1.
 			// --------------------------------------------------------
 			cards.Add("EX1_360e", new Power {
-				Enchant = new Enchant(GameTag.ATK, EffectOperator.SET, 1)
+				Enchant = new Enchant(Effects.SetAttack(1))
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -1141,7 +1141,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_236", new Power {
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
-					new MathSubstractionTask(GameTag.DAMAGE, EntityType.TARGET),
+					new GetGameTagTask(GameTag.DAMAGE, EntityType.TARGET, 0, 1),
+					new MathNumberIndexTask(0, 1, MathOperation.SUB),
 					new AddEnchantmentTask("CS2_236e", EntityType.TARGET, true))
 			});
 

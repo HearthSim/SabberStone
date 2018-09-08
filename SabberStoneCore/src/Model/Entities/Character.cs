@@ -77,20 +77,14 @@ namespace SabberStoneCore.Model.Entities
 	/// <summary>
 	/// Base implementation of ICharacter.
 	/// <seealso cref="ICharacter"/>
-	/// <seealso cref="Playable{T}"/>
+	/// <seealso cref="Playable"/>
 	/// </summary>
 	/// <typeparam name="T">Subclass of entity.</typeparam>
-	public abstract partial class Character<T> : Playable<T>, ICharacter where T : Entity
+	public abstract partial class Character : Playable, ICharacter
 	{
 		public event TriggerManager.TriggerHandler PreDamageTrigger;
-
 		public event TriggerManager.TriggerHandler TakeDamageTrigger;
-
 		public event TriggerManager.TriggerHandler AfterAttackTrigger;
-
-		private bool _lifestealChecker;
-		//private int _numDamageTriggerSubscribers;
-		//private TriggerManager.TriggerHandler _damageTrigger;
 
 		/// <summary>
 		/// Build a new character from the provided data.
@@ -99,14 +93,23 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="card">The card which this character embodies.</param>
 		/// <param name="tags">Properties of this entity.</param>
 		protected Character(Controller controller, Card card, IDictionary<GameTag, int> tags)
-			: base(controller, card, tags) { }
+			: base(controller, card, tags)
+		{
+			_atkModifier = card.ATK;
+			_healthModifier = card.Health;
+		}
 
 		/// <summary>
 		/// A copy constructor. This constructor is only used to the inherited copy constructors.
 		/// </summary>
 		/// <param name="controller">The target <see cref="T:SabberStoneCore.Model.Entities.Controller" /> instance.</param>
 		/// <param name="character">The source <see cref="T:SabberStoneCore.Model.Entities.Character`1" />.</param>
-		protected Character(Controller controller, Character<T> character) : base(controller, character) { }
+		protected Character(Controller controller, Character character) : base(controller, character)
+		{
+			_atkModifier = character._atkModifier;
+			_healthModifier = character._healthModifier;
+			_dmgModifier = character._dmgModifier;
+		}
 
 		/// <summary>
 		/// Character is dead or destroyed.
@@ -470,32 +473,146 @@ namespace SabberStoneCore.Model.Entities
 
 	}
 
-	public abstract partial class Character<T>
+	public abstract partial class Character
 	{
+		private bool _lifestealChecker;
+		internal int _atkModifier;
+		internal int _healthModifier;
+		internal int _dmgModifier;
 
 #pragma warning disable CS1591 // Fehledes XML-Kommentar für öffentlich sichtbaren Typ oder Element
 
+		public virtual int AttackDamage
+		{
+			get
+			{
+				int value = _atkModifier;
+
+				int auraValue = AuraEffects.AttackDamage;
+				value += auraValue;
+				return value < 0 ? 0 : value;
+			}
+			set
+			{
+				if (_logging)
+					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging ? "" : $"{this} set data {GameTag.ATK} to {value}");
+				if (!_history) return;
+				if (value + AuraEffects.AttackDamage != AttackDamage)
+					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.ATK, value));
+
+				_atkModifier = value;
+			}
+		}
+
+		public int BaseHealth
+		{
+			get
+			{
+				int value = _healthModifier;
+
+				int auraValue = AuraEffects.Health;
+				if (auraValue >= 0) return value + auraValue;
+				value += auraValue;
+				return value < 0 ? 0 : value;
+			}
+			set
+			{
+				if (_logging)
+					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging ? "" : $"{this} set data {GameTag.HEALTH} to {value}");
+				if (!_history) return;
+				if (value + AuraEffects.AttackDamage != AttackDamage)
+					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.HEALTH, value));
+
+				_healthModifier = value;
+			}
+		}
+
+		public int Damage
+		{
+			//get => NativeTags.TryGetValue(GameTag.DAMAGE, out int value) ? value : 0;
+			get => _dmgModifier;
+			set
+			{
+				if (BaseHealth <= value)
+				{
+					ToBeDestroyed = true;
+				}
+
+				//// don't allow negative values
+				//this[GameTag.DAMAGE] = value < 0 ? 0 : value;
+
+				if (_logging)
+					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging ? "" : $"{this} set data {GameTag.DAMAGE} to {value}");
+				if (_history && value != _dmgModifier)
+					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.DAMAGE, value));
+
+				_dmgModifier = value;
+			}
+		}
+
+		public int Health
+		{
+			get => BaseHealth - _dmgModifier;
+			set
+			{
+				if (value == 0)
+				{
+					ToBeDestroyed = true;
+				}
+
+				//this[GameTag.HEALTH] = value;
+				//this[GameTag.DAMAGE] = 0;
+				_healthModifier = value;
+				_dmgModifier = 0;
+			}
+		}
+
 		public bool CantAttack
 		{
-			get { return this[GameTag.CANT_ATTACK] == 1; }
-			set { this[GameTag.CANT_ATTACK] = value ? 1 : 0; }
+			get
+			{
+				if (!NativeTags.TryGetValue(GameTag.CANT_ATTACK, out int value))
+					return Card.CantAttack;
+				
+				return value > 0;
+			}
+			set => this[GameTag.CANT_ATTACK] = value ? 1 : 0;
 		}
 
 		public bool CantAttackHeroes
 		{
-			get { return this[GameTag.CANNOT_ATTACK_HEROES] == 1; }
-			set { this[GameTag.CANNOT_ATTACK_HEROES] = value ? 1 : 0; }
+			get
+			{
+				NativeTags.TryGetValue(GameTag.CANNOT_ATTACK_HEROES, out int value);
+				value += AuraEffects[GameTag.CANNOT_ATTACK_HEROES];
+				return value > 0;
+			}
+			set => this[GameTag.CANNOT_ATTACK_HEROES] = value ? 1 : 0;
 		}
 
 		public bool CantBeTargetedBySpells
 		{
-			get { return this[GameTag.CANT_BE_TARGETED_BY_SPELLS] == 1; }
-			set { this[GameTag.CANT_BE_TARGETED_BY_SPELLS] = value ? 1 : 0; }
+			get
+			{
+				if (!NativeTags.TryGetValue(GameTag.CANT_BE_TARGETED_BY_SPELLS, out int value))
+					value = Card.CantBeTargetedBySpells ? 1 : 0;
+				value += AuraEffects[GameTag.CANT_BE_TARGETED_BY_SPELLS];
+
+				return value > 0;
+			}
+			set => this[GameTag.CANT_BE_TARGETED_BY_SPELLS] = value ? 1 : 0;
 		}
 
 		public bool CantBeTargetedByHeroPowers
 		{
-			get { return this[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] == 1; }
+			get
+			{
+				if (!NativeTags.TryGetValue(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS, out int value))
+					value = Card.CantBeTargetedByHeroPowers ? 1 : 0;
+				value += AuraEffects[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS];
+
+				return value > 0;
+			}
 			set { this[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] = value ? 1 : 0; }
 		}
 
@@ -515,46 +632,10 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.LAST_AFFECTED_BY] = value; }
 		}
 
-		public virtual int AttackDamage
-		{
-			get { return this[GameTag.ATK]; }
-			set { this[GameTag.ATK] = value; }
-		}
-
 		public bool CantBeTargetedByOpponents
 		{
 			get { return this[GameTag.CANT_BE_TARGETED_BY_OPPONENTS] == 1; }
 			set { this[GameTag.CANT_BE_TARGETED_BY_OPPONENTS] = value ? 1 : 0; }
-		}
-
-		public int Damage
-		{
-			get => NativeTags.TryGetValue(GameTag.DAMAGE, out int value) ? value : 0;
-			set
-			{
-				if (this[GameTag.HEALTH] <= value)
-				{
-					ToBeDestroyed = true;
-				}
-
-				// don't allow negative values
-				this[GameTag.DAMAGE] = value < 0 ? 0 : value;
-			}
-		}
-
-		public int Health
-		{
-			get { return this[GameTag.HEALTH] - this[GameTag.DAMAGE]; }
-			set
-			{
-				if (value == 0)
-				{
-					ToBeDestroyed = true;
-				}
-
-				this[GameTag.HEALTH] = value;
-				this[GameTag.DAMAGE] = 0;
-			}
 		}
 
 		public bool IsAttacking
@@ -616,7 +697,12 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool HasTaunt
 		{
-			get => _data[GameTag.TAUNT] == 1;
+			get
+			{
+				if (!NativeTags.TryGetValue(GameTag.TAUNT, out int value))
+					return Card.Taunt;
+				return value > 0;
+			}
 			set => this[GameTag.TAUNT] = value ? 1 : 0;
 		}
 
@@ -628,7 +714,12 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool HasStealth
 		{
-			get => _data[GameTag.STEALTH] == 1;
+			get
+			{
+				if (!NativeTags.TryGetValue(GameTag.STEALTH, out int value))
+					return Card.Stealth;
+				return value > 0;
+			}
 			set => this[GameTag.STEALTH] = value ? 1 : 0;
 		}
 
@@ -658,12 +749,6 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get { return this[GameTag.SHOULDEXITCOMBAT] == 1; }
 			set { this[GameTag.SHOULDEXITCOMBAT] = value ? 1 : 0; }
-		}
-
-		public int BaseHealth
-		{
-			get { return this[GameTag.HEALTH]; }
-			set { this[GameTag.HEALTH] = value; }
 		}
 #pragma warning restore CS1591 // Fehledes XML-Kommentar für öffentlich sichtbaren Typ oder Element
 

@@ -20,17 +20,17 @@ namespace SabberStoneCore.Enchants
 				IsAncillaryTrigger = true,
 			};
 
-		public readonly Effect[] Effects;
+		public readonly IEffect[] Effects;
 	    public bool UseScriptTag;
 		public bool IsOneTurnEffect;
 		public bool RemoveWhenPlayed;
 
 		public Enchant(GameTag tag, EffectOperator @operator, int value)
 	    {
-		    Effects = new[] {new Effect(tag, @operator, value)};
+		    Effects = new IEffect[] {new Effect(tag, @operator, value)};
 	    }
 
-	    public Enchant(params Effect[] effects)
+	    public Enchant(params IEffect[] effects)
 	    {
 			Effects = effects;
 	    }
@@ -40,7 +40,7 @@ namespace SabberStoneCore.Enchants
 		/// </summary>
 		public Enchant(GameTag tag, EffectOperator @operator)
 		{
-			Effects = new[] {new Effect(tag, @operator, 0)};
+			Effects = new IEffect[] {new Effect(tag, @operator, 0)};
 			UseScriptTag = true;
 		}
 
@@ -53,36 +53,37 @@ namespace SabberStoneCore.Enchants
 		/// <param name="num2">Integer value for GameTag.TAG_SCRIPT_DATA_NUM_2.</param>
 		public virtual void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
 		{
+			var effects = Effects;
 			if (!UseScriptTag)
-				for (int i = 0; i < Effects.Length; i++)
-					Effects[i].Apply(entity, IsOneTurnEffect);
+				for (int i = 0; i < effects.Length; i++)
+					effects[i].ApplyTo(entity, IsOneTurnEffect);
 			else if (enchantment != null)
 			{
-				Effects[0].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).Apply(entity, IsOneTurnEffect);
+				effects[0].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).ApplyTo(entity, IsOneTurnEffect);
 
-				if (Effects.Length < 2) return;
+				if (effects.Length < 2) return;
 
 				if (enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
-					Effects[1].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2]).Apply(entity, IsOneTurnEffect);
+					effects[1].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2]).ApplyTo(entity, IsOneTurnEffect);
 				else
-					Effects[1].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).Apply(entity, IsOneTurnEffect);
+					effects[1].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).ApplyTo(entity, IsOneTurnEffect);
 
-				for (int i = 2; i < Effects.Length; i++)
-					Effects[i].Apply(entity, IsOneTurnEffect);
+				for (int i = 2; i < effects.Length; i++)
+					effects[i].ApplyTo(entity, IsOneTurnEffect);
 			}
 			else
 			{
-				Effects[0].ChangeValue(num1).Apply(entity, IsOneTurnEffect);
+				effects[0].ChangeValue(num1).ApplyTo(entity, IsOneTurnEffect);
 
-				if (Effects.Length < 2) return;
+				if (effects.Length < 2) return;
 
 				if (num2 > 0)
-					Effects[1].ChangeValue(num2).Apply(entity, IsOneTurnEffect);
+					effects[1].ChangeValue(num2).ApplyTo(entity, IsOneTurnEffect);
 				else
-					Effects[1].ChangeValue(num1).Apply(entity, IsOneTurnEffect);
+					effects[1].ChangeValue(num1).ApplyTo(entity, IsOneTurnEffect);
 
-				for (int i = 2; i < Effects.Length; i++)
-					Effects[i].Apply(entity, IsOneTurnEffect);
+				for (int i = 2; i < effects.Length; i++)
+					effects[i].ApplyTo(entity, IsOneTurnEffect);
 			}
 		}
     }
@@ -101,7 +102,7 @@ namespace SabberStoneCore.Enchants
 		private bool _toBeUpdated;
 		private IEntity _target;
 
-		public OngoingEnchant(params Effect[] effects) : base(effects) { }
+		public OngoingEnchant(params IEffect[] effects) : base(effects) { }
 
 		public int Count
 		{

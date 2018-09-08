@@ -1753,10 +1753,10 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Blade of C'Thun"));
-			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
+			var minion = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Injured Blademaster"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-			Assert.Equal(4, minion[GameTag.ATK]);
-			Assert.Equal(3, minion[GameTag.HEALTH] - minion[GameTag.DAMAGE]);
+			Assert.Equal(4, minion.AttackDamage);
+			Assert.Equal(3, minion.Health);
 			game.CurrentPlayer.UsedMana = 0;
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, testCard, minion));
 

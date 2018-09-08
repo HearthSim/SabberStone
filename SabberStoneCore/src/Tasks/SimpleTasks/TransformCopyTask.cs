@@ -32,8 +32,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			    tags.Add(GameTag.PREMIUM, target[GameTag.PREMIUM]);
 
 		    Minion copy = (Minion) Entity.FromCard(Controller, target.Card, tags);
+		    copy._atkModifier = target._atkModifier;
+		    copy._healthModifier = target._healthModifier;
+		    copy._dmgModifier = target._dmgModifier;
 
-		    Trigger trigger = target.ActivatedTrigger;
+			Trigger trigger = target.ActivatedTrigger;
 		    IAura aura = target.OngoingEffect;
 
 			// LINKED_ENTITY

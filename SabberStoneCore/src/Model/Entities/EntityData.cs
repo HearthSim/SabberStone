@@ -97,7 +97,7 @@ namespace SabberStoneCore.Model.Entities
 				Card.Tags.TryGetValue(t, out value);
 				return value;
 			}
-			set { Tags[t] = value; }
+			set => Tags[t] = value;
 		}
 
 		public IEnumerator<KeyValuePair<GameTag, int>> GetEnumerator()
@@ -129,16 +129,16 @@ namespace SabberStoneCore.Model.Entities
 		public void Reset(Dictionary<GameTag, int> tags = null)
 		{
 			//Tags = tags ?? new Dictionary<GameTag, int>(Enum.GetNames(typeof(GameTag)).Length);
-			Tags.Remove(GameTag.DAMAGE);
+			//Tags.Remove(GameTag.DAMAGE);
 			Tags.Remove(GameTag.PREDAMAGE);
 			Tags.Remove(GameTag.ZONE_POSITION);
 			Tags.Remove(GameTag.EXHAUSTED);
-			Tags.Remove(GameTag.JUST_PLAYED);
-			Tags.Remove(GameTag.SUMMONED);
-			Tags.Remove(GameTag.ATTACKING);
-			Tags.Remove(GameTag.DEFENDING);
-			Tags.Remove(GameTag.ATK);
-			Tags.Remove(GameTag.HEALTH);
+			//Tags.Remove(GameTag.JUST_PLAYED);
+			//Tags.Remove(GameTag.SUMMONED);
+			//Tags.Remove(GameTag.ATTACKING);
+			//Tags.Remove(GameTag.DEFENDING);
+			//Tags.Remove(GameTag.ATK);
+			//Tags.Remove(GameTag.HEALTH);
 			Tags.Remove(GameTag.COST);
 			Tags.Remove(GameTag.TAUNT);
 			Tags.Remove(GameTag.FROZEN);

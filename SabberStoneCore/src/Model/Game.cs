@@ -55,7 +55,7 @@ namespace SabberStoneCore.Model
 
 		public readonly List<IAura> Auras;
 
-		public readonly List<(int entityId, Effect effect)> OneTurnEffects;
+		public readonly List<(int entityId, IEffect effect)> OneTurnEffects;
 
 		/// <summary>
 		/// Temporal container to store Enchantment entities of One_Turn_effects.
@@ -286,7 +286,7 @@ namespace SabberStoneCore.Model
 			TaskQueue = new TaskQueue(this);
 			TaskStack = new TaskStack(this);
 
-			OneTurnEffects = new List<(int, Effect)>();
+			OneTurnEffects = new List<(int, IEffect)>();
 			OneTurnEffectEnchantments = new List<Enchantment>();
 		}
 
@@ -298,7 +298,7 @@ namespace SabberStoneCore.Model
 
 			Auras = new List<IAura>(game.Auras.Count);
 			Triggers = new List<Trigger>(game.Triggers.Count);
-			OneTurnEffects = new List<(int entityId, Effect effect)>(game.OneTurnEffects);
+			OneTurnEffects = new List<(int entityId, IEffect effect)>(game.OneTurnEffects);
 			OneTurnEffectEnchantments = new List<Enchantment>(game.OneTurnEffectEnchantments.Count);
 			RushMinions.AddRange(game.RushMinions);
 			GhostlyCards.AddRange(game.GhostlyCards);
@@ -456,7 +456,7 @@ namespace SabberStoneCore.Model
 		/// Part of the state machine.
 		/// Runs when STATE = RUNNING.
 		/// </summary>
-		public void StartGame()
+		public void StartGame(bool stopBeforeShuffling = false)
 		{
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : "Starting new game now!");
 
@@ -504,6 +504,9 @@ namespace SabberStoneCore.Model
 
 			// triggers Start of Game triggers (but does not process tasks here)
 			TriggerManager.OnGameStartTrigger();
+
+			if (stopBeforeShuffling)
+				return;
 
 			// set next step
 			NextStep = Step.BEGIN_FIRST;
@@ -829,8 +832,8 @@ namespace SabberStoneCore.Model
 			}
 
 			// Removing one-turn-effects
-			foreach ((int id, Effect eff) in OneTurnEffects)
-				eff.Remove(IdEntityDic[id]);
+			foreach ((int id, IEffect eff) in OneTurnEffects)
+				eff.RemoveFrom(IdEntityDic[id]);
 			OneTurnEffects.Clear();
 			for (int i = OneTurnEffectEnchantments.Count - 1; i >= 0; --i)
 				OneTurnEffectEnchantments[i].Remove();

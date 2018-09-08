@@ -17,7 +17,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	    public override TaskState Process()
 	    {
 		    foreach (IPlayable p in IncludeTask.GetEntities(_type, Controller, Source, Target, Playables))
-			    _effect.Apply(p.AuraEffects);
+			    _effect.ApplyTo(p.AuraEffects);
 
 		    return TaskState.COMPLETE;
 	    }

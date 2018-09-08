@@ -1608,7 +1608,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This minion's Attack has been doubled.
 			// --------------------------------------------------------
 			cards.Add("EX1_355e", new Power {
-				Enchant = new Enchant(GameTag.ATK, EffectOperator.MUL, 2)
+				//Enchant = new Enchant(GameTag.ATK, EffectOperator.MUL, 2)
+				Enchant = new Enchant(new AttackEffect(EffectOperator.MUL, 2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
@@ -1797,7 +1798,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS1_129", new Power {
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
-					new MathSubstractionTask(GameTag.DAMAGE, EntityType.TARGET),
+					new GetGameTagTask(GameTag.DAMAGE, EntityType.TARGET, 0, 1),
+					new MathNumberIndexTask(0, 1, MathOperation.SUB),
 					new AddEnchantmentTask("CS1_129e", EntityType.TARGET, true))
 			});
 
@@ -1936,7 +1938,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This minion's Attack is equal to its Health.
 			// --------------------------------------------------------
 			cards.Add("CS1_129e", new Power {
-				Enchant = new Enchant(GameTag.ATK, EffectOperator.SET) 
+				Enchant = Enchants.Enchants.SetAttackScriptTag
 			});
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
@@ -3180,7 +3182,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Decreased Attack.
 			// --------------------------------------------------------
 			cards.Add("EX1_411e2", new Power {
-				Enchant = new OngoingEnchant(new Effect(GameTag.ATK, EffectOperator.SUB, 1))
+				//Enchant = new OngoingEnchant(new Effect(GameTag.ATK, EffectOperator.SUB, 1))
+				Enchant = new OngoingEnchant(new AttackEffect(EffectOperator.SUB, 1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
@@ -4408,7 +4411,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_558", new Power {
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.DURABILITY, EntityType.OP_WEAPON),
-					new MathSubstractionTask(GameTag.DAMAGE, EntityType.OP_WEAPON),
+					new GetGameTagTask(GameTag.DAMAGE, EntityType.OP_WEAPON, 0, 1),
+					new MathNumberIndexTask(0, 1, MathOperation.SUB),
 					new DestroyTask(EntityType.OP_WEAPON),
 					new DrawNumberTask())
 			});
@@ -5195,7 +5199,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Health set to 15.
 			// --------------------------------------------------------
 			cards.Add("EX1_561e", new Power {
-				Enchant = new Enchant(GameTag.HEALTH, EffectOperator.SET, 15)
+				Enchant = new Enchant(Effects.SetMaxHealth(15))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5272,7 +5276,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("NEW1_024o", new Power {
 				Enchant = new Enchant(
-					new Effect(GameTag.ATK, EffectOperator.ADD, 1),
+					Effects.Attack_N(1),
 					new Effect(GameTag.DURABILITY, EffectOperator.ADD, 1))
 			});
 

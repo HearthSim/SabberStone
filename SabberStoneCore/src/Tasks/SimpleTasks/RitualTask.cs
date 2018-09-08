@@ -17,6 +17,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Blade
 		}
 
+		private static readonly Card BuffEnchantmentCard = Cards.FromId("OG_281e");
+		private static readonly Card BladeofCThunEnchantmentCard = Cards.FromId("OG_282e");
+		private static readonly Card TauntEnchantmentCard = Cards.FromId("OG_284e");
+
+		private readonly RitualType _type;
+		private readonly int _amount;
+
 		public RitualTask(RitualType type = RitualType.Check)
 		{
 			_type = type;
@@ -33,13 +40,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_type = type;
 			_amount = amount;
 		}
-
-		private readonly RitualType _type;
-		private readonly int _amount;
-
-		private static readonly Card BuffEnchantmentCard = Cards.FromId("OG_281e");
-		private static readonly Card BladeofCThunEnchantmentCard = Cards.FromId("OG_282e");
-		private static readonly Card TauntEnchantmentCard = Cards.FromId("OG_284e");
 
 		public override TaskState Process()
 		{
