@@ -327,6 +327,29 @@ namespace SabberStoneCore.Model
 
 			OneTurnEffects = new List<(int, IEffect)>();
 			OneTurnEffectEnchantments = new List<Enchantment>();
+
+			if (!_gameConfig.Shuffle)
+			{
+				_gameConfig.Player1Deck?.Reverse();
+				_gameConfig.Player2Deck?.Reverse();
+			}
+
+			// setting up the decks ...
+			_gameConfig.Player1Deck?.ForEach(p =>
+			{
+				Player1.DeckCards.Add(p);
+				Entity.FromCard(Player1, p, null, Player1.DeckZone);
+			});
+			_gameConfig.Player2Deck?.ForEach(p =>
+			{
+				Player2.DeckCards.Add(p);
+				Entity.FromCard(Player2, p, null, Player2.DeckZone);
+			});
+			if (_gameConfig.FillDecks)
+			{
+				Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably ? _gameConfig.UnPredictableCardIDs : null);
+				Player2.DeckZone.Fill(_gameConfig.FillDecksPredictably ? _gameConfig.UnPredictableCardIDs : null);
+			}
 		}
 
 		/// <summary> A copy constructor. </summary>
@@ -352,8 +375,8 @@ namespace SabberStoneCore.Model
 
 			Player1 = game.Player1.Clone(this);
 			Player2 = game.Player2.Clone(this);
-
-			CurrentPlayer = game.CurrentPlayer.Id == 2 ? _players[0] : _players[1];
+			if (game._currentPlayer != null)
+				CurrentPlayer = game.CurrentPlayer.Id == 2 ? _players[0] : _players[1];
 
 			Auras.ForEach(p =>
 			{
@@ -500,29 +523,6 @@ namespace SabberStoneCore.Model
 		{
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : "Starting new game now!");
 
-			if (!_gameConfig.Shuffle)
-			{
-				_gameConfig.Player1Deck?.Reverse();
-				_gameConfig.Player2Deck?.Reverse();
-			}
-
-			// setting up the decks ...
-			_gameConfig.Player1Deck?.ForEach(p =>
-			{
-				Player1.DeckCards.Add(p);
-				Entity.FromCard(Player1, p, null, Player1.DeckZone);
-			});
-			_gameConfig.Player2Deck?.ForEach(p =>
-			{
-				Player2.DeckCards.Add(p);
-				Entity.FromCard(Player2, p, null, Player2.DeckZone);
-			});
-			if (_gameConfig.FillDecks)
-			{
-				Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably ? _gameConfig.UnPredictableCardIDs : null);
-				Player2.DeckZone.Fill(_gameConfig.FillDecksPredictably ? _gameConfig.UnPredictableCardIDs : null);
-			}
-
 			// set gamestats
 			State = State.RUNNING;
 			_players.ToList().ForEach(p => p.PlayState = PlayState.PLAYING);
@@ -544,9 +544,6 @@ namespace SabberStoneCore.Model
 
 			// triggers Start of Game triggers (but does not process tasks here)
 			TriggerManager.OnGameStartTrigger();
-
-			if (stopBeforeShuffling)
-				return;
 
 			// set next step
 			NextStep = Step.BEGIN_FIRST;

@@ -49,6 +49,7 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public void Silence()
 		{
+			// remove keywords
 			HasTaunt = false;
 			IsFrozen = false;
 			IsEnraged = false;
@@ -71,6 +72,7 @@ namespace SabberStoneCore.Model.Entities
 				this[GameTag.SPELLPOWER] = 0;
 			}
 
+			// remove enchantments, aura and trigger
 			OngoingEffect?.Remove();
 			Game.OneTurnEffects.RemoveAll(p => p.entityId == Id);
 			ActivatedTrigger?.Remove();
@@ -84,18 +86,17 @@ namespace SabberStoneCore.Model.Entities
 					AppliedEnchantments[i].Remove();
 				}
 
+			// reset ATK and Health
 			AttackDamage = Card.ATK;
-			if (Health > Card.Health)
-			{
-				Health = Card.Health;
-			}
+
+			int cardBaseHealth = Card.Health;
+			if (Health > cardBaseHealth)
+				Health = cardBaseHealth;
 			else
 			{
-				int cardBaseHealth = Card.Health;
 				int delta = BaseHealth - cardBaseHealth;
 				if (delta > 0)
 					Damage -= delta;
-				//this[GameTag.HEALTH] = Card[GameTag.HEALTH];
 				BaseHealth = cardBaseHealth;
 			}
 

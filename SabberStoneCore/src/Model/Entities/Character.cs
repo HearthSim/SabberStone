@@ -489,6 +489,7 @@ namespace SabberStoneCore.Model.Entities
 		internal int _atkModifier;
 		internal int _healthModifier;
 		internal int _dmgModifier;
+		internal int _stealth = -1;
 
 #pragma warning disable CS1591 // Fehledes XML-Kommentar für öffentlich sichtbaren Typ oder Element
 
@@ -726,11 +727,19 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				if (!NativeTags.TryGetValue(GameTag.STEALTH, out int value))
-					return Card.Stealth;
+				if (_stealth >= 0) return _stealth > 0;
+
+				NativeTags.TryGetValue(GameTag.STEALTH, out int value);
+				_stealth = value;
 				return value > 0;
+
 			}
-			set => this[GameTag.STEALTH] = value ? 1 : 0;
+			set
+			{
+				_stealth = value ? 1 : 0;
+				if (_history)
+					this[GameTag.STEALTH] = value ? 1 : 0;
+			}
 		}
 
 		public int NumAttacksThisTurn

@@ -501,4 +501,44 @@ namespace SabberStoneCore.Enchants
 			return new HealthEffect(_operator, newValue);
 		}
 	}
+
+	public struct StealthEffect : IEffect
+	{
+		public void ApplyTo(IEntity entity, bool isOneTurnEffect)
+		{
+			var c = (Character)entity;
+			c.HasStealth = true;
+		}
+
+		public void ApplyTo(AuraEffects auraEffects)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void ApplyTo(ControllerAuraEffects controllerAuraEffects)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void RemoveFrom(IEntity entity)
+		{
+			var c = (Character)entity;
+			c.HasStealth = false;
+		}
+
+		public void RemoveFrom(AuraEffects auraEffects)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void RemoveFrom(ControllerAuraEffects controllerAuraEffects)
+		{
+			throw new NotImplementedException();
+		}
+
+		public IEffect ChangeValue(int newValue)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
