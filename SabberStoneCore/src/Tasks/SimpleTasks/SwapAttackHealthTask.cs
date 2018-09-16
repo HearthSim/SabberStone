@@ -39,7 +39,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				if (Game.History)
 				{
-					Enchantment instance = Enchantment.GetInstance(Controller, (IPlayable) Source, p, _enchantmentCard);
+					Enchantment instance = Enchantment.GetInstance(Controller, (IPlayable) Source, p, in _enchantmentCard);
 					instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = atk;
 					instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = health;
 				}

@@ -7,6 +7,16 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {
+	public abstract class AuraEffectBase
+	{
+		public IEntity Owner { get; }
+		public abstract int this[GameTag t] { get; set; }
+
+		public abstract AuraEffectBase Clone(AuraEffectBase other);
+		public abstract string Hash();
+	}
+
+
 	/// <summary>
 	/// A simple container for saving tag value perturbations from external Auras. Call indexer to get value for a particular Tag.
 	/// </summary>
@@ -174,13 +184,13 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
-		public AuraEffects(IEntity owner)
+		internal AuraEffects(in Entity owner)
 		{
 			Owner = owner;
 			if (owner is IPlayable)
 				COST = owner.Card.Cost;
 		}
-		private AuraEffects(IEntity owner, AuraEffects other)
+		private AuraEffects(in Entity owner, in AuraEffects other)
 		{
 			Owner = owner;
 			Checker = Checker;
@@ -271,9 +281,9 @@ namespace SabberStoneCore.Enchants
 				Owner.Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Owner.Id, GameTag.COST, COST));
 		}
 
-		public AuraEffects Clone(IEntity clone)
+		public AuraEffects Clone(Entity clone)
 		{
-			return new AuraEffects(clone, this);
+			return new AuraEffects(in clone, this);
 		}
 
 		public string Hash()

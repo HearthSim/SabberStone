@@ -38,9 +38,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			    return TaskState.COMPLETE;
 			}
 
+			int n1 = Number, n2 = Number1;
+
 		    foreach (IPlayable p in IncludeTask.GetEntities(_entityType, Controller, Source, Target, Playables))
 		    {
-			    Generic.AddEnchantmentBlock.Invoke(Controller, _enchantmentCard, (IPlayable) Source, p, Number, Number1);
+			    Generic.AddEnchantmentBlock.Invoke(Controller, _enchantmentCard, (IPlayable) Source, p, n1, n2);
 		    }
 
 		    return TaskState.COMPLETE;

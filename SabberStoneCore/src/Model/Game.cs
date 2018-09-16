@@ -283,7 +283,7 @@ namespace SabberStoneCore.Model
 					[GameTag.MAXRESOURCES] = 10,
 					[GameTag.CARDTYPE] = (int) CardType.PLAYER
 				}
-				: new EntityData.Data()
+				: new EntityData.Data(64)
 				{
 					{GameTag.MAXRESOURCES, 10},
 					{GameTag.MAXHANDSIZE, 10}
@@ -301,7 +301,7 @@ namespace SabberStoneCore.Model
 					[GameTag.MAXRESOURCES] = 10,
 					[GameTag.CARDTYPE] = (int) CardType.PLAYER
 				}
-				: new EntityData.Data()
+				: new EntityData.Data(64)
 				{
 					{GameTag.MAXRESOURCES, 10},
 					{GameTag.MAXHANDSIZE, 10}

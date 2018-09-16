@@ -348,6 +348,12 @@ namespace SabberStoneCore.Model.Zones
 			return buffer;
 		}
 
+		public ReadOnlySpan<T> GetSpan()
+		{
+			var span = new ReadOnlySpan<T>((T[]) Entities);
+			return span.Slice(0, _count);
+		}
+
 		internal virtual void CopyTo(Array destination, int index)
 		{
 			Array.Copy((Array)Entities, 0, destination, index, _count);

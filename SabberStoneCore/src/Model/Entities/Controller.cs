@@ -156,8 +156,8 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="name">The name of the player.</param>
 		/// <param name="playerId">The player index; The first player will get assigned 1.</param>
 		/// <param name="id">Entity ID of this controller.</param>
-		public Controller(Game game, string name, int playerId, int id, IDictionary<GameTag, int> tags)
-			: base(game, Card.CardPlayer, tags, id)
+		public Controller(in Game game, in string name, in int playerId, in int id, in IDictionary<GameTag, int> tags)
+			: base(in game, Card.CardPlayer, in tags, in id)
 		{
 			Name = name;
 			_playerId = playerId;

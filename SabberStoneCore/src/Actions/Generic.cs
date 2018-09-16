@@ -252,7 +252,7 @@ namespace SabberStoneCore.Actions
 
 				if (c.Game.History)
 				{
-					Enchantment enchantment = Enchantment.GetInstance(c, creator, target, enchantmentCard);
+					Enchantment enchantment = Enchantment.GetInstance(in c, in creator, in target, in enchantmentCard);
 
 					if (num1 > 0)
 					{
@@ -275,7 +275,7 @@ namespace SabberStoneCore.Actions
 				{
 					if (power.Aura != null || power.Trigger != null || power.DeathrattleTask != null)
 					{
-						Enchantment instance = Enchantment.GetInstance(c, creator, target, enchantmentCard);
+						Enchantment instance = Enchantment.GetInstance(in c, in creator, in target, in enchantmentCard);
 						if (num1 > 0)
 						{
 							instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = num1;

@@ -145,7 +145,7 @@ namespace SabberStoneCore.Tasks
 					if (left != null)
 					{
 						Generic.SummonBlock.Invoke(c, left, s.ZonePosition);
-						s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(c, left, left, e.Card));
+						s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(in c, left, left, e.Card));
 						//left[GameTag.ATK] = s[GameTag.ATK];
 						//left[GameTag.HEALTH] = s[GameTag.HEALTH];
 						left.AttackDamage = s.AttackDamage;
@@ -154,7 +154,7 @@ namespace SabberStoneCore.Tasks
 						if (right != null)
 						{
 							Generic.SummonBlock.Invoke(c, right, s.ZonePosition + 1);
-							s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(c, right, right, e.Card));
+							s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(in c, right, right, e.Card));
 							//right[GameTag.ATK] = s[GameTag.ATK];
 							//right[GameTag.HEALTH] = s[GameTag.HEALTH];
 							right.AttackDamage = s.AttackDamage;

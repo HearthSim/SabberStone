@@ -19,13 +19,16 @@ namespace SabberStoneCore.Model
 		/// <param name="e">The e.</param>
 		/// <returns></returns>
 		public static T RandomElement<T>(IEnumerable<T> e)
-			=> e.ElementAt(Random.Next(0, e.Count()));
+		{
+			T[] arr = e as T[] ?? e.ToArray();
+			return arr[Random.Next(arr.Length)];
+		}
 
 		/// <summary>Chooses a random element from the specified list. <seealso cref="RandomElement{T}(IEnumerable{T})"/></summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="list">The list.</param>
 		/// <returns></returns>
-		public static T Choose<T>(IReadOnlyList<T> list) => RandomElement(list);
+		public static T Choose<T>(IReadOnlyList<T> list) => list[Random.Next(list.Count)];
 
 		/// <summary>Gets the power set, a set of any subset of the provided set.. including the empty set and itself.</summary>
 		/// <typeparam name="T"></typeparam>

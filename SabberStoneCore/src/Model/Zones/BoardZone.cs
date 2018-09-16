@@ -115,11 +115,20 @@ namespace SabberStoneCore.Model.Zones
 				entity.Controller.CurrentSpellPower -= entity[GameTag.SPELLPOWER];
 		}
 
+		/// <summary>
+		/// Gets all board minions except untouchables(dormant).
+		/// </summary>
+		/// <returns></returns>
 		public override Minion[] GetAll()
 		{
 			return HasUntouchables ? GetAll(null) : base.GetAll();
 		}
 
+		/// <summary>
+		/// Gets all board minions satisfying the given predicate except untouchables(dormant).
+		/// </summary>
+		/// <param name="predicate"></param>
+		/// <returns></returns>
 		public override Minion[] GetAll(Func<Minion, bool> predicate)
 		{
 			if (_hasUntouchables)

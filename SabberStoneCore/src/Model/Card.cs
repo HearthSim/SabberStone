@@ -393,7 +393,7 @@ namespace SabberStoneCore.Model
 			return builder.ToString();
 		}
 
-		internal static Card CardGame => new Card()
+		internal static readonly Card CardGame = new Card()
 		{
 			Id = "Game",
 			Name = "Game",
@@ -401,7 +401,7 @@ namespace SabberStoneCore.Model
 			//PlayRequirements = new Dictionary<PlayReq, int>(),
 		};
 
-		internal static Card CardPlayer => new Card()
+		internal static readonly Card CardPlayer = new Card()
 		{
 			Id = "Player",
 			Name = "Player",

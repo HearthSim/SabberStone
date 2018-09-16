@@ -37,4 +37,9 @@
       <LogicalName>SabberStoneCore.Resources.Archive.CARD.xml</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Memory">
+      <HintPath>..\..\..\..\..\.nuget\packages\system.memory\4.4.0-preview2-25405-01\ref\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

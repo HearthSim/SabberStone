@@ -830,6 +830,40 @@ namespace SabberStoneCoreTest.Basic
 		}
 
 		[Fact]
+		public void SilenceTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Shuffle = false,
+				FillDecks = false,
+				History = false,
+				Logging = false,
+			});
+
+			game.StartGame();
+
+			var testTarget = game.ProcessCard<Minion>("Zilliax", asZeroCost: true);
+			game.ProcessCard("Fungalmancer", asZeroCost: true);
+
+			Assert.Equal(testTarget.Card.ATK + 2, testTarget.AttackDamage);
+			Assert.Equal(testTarget.Card.Health + 2, testTarget.Health);
+			Assert.True(testTarget.HasDivineShield);
+			Assert.True(testTarget.HasTaunt);
+			Assert.True(testTarget.HasLifeSteal);
+			Assert.True(testTarget.AttackableByRush);
+
+			game.ProcessCard("Spellbreaker", testTarget, true);
+
+			Assert.Equal(testTarget.Card.ATK, testTarget.AttackDamage);
+			Assert.Equal(testTarget.Card.Health, testTarget.Health);
+			Assert.False(testTarget.HasDivineShield);
+			Assert.False(testTarget.HasTaunt);
+			Assert.False(testTarget.HasLifeSteal);
+			Assert.False(testTarget.AttackableByRush);
+		}
+
+		[Fact]
 		public void SilenceRebuffTest()
 		{
 			var game = new Game(new GameConfig

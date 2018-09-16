@@ -93,8 +93,8 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="controller">Owner of the character; not specifically limited to players.</param>
 		/// <param name="card">The card which this character embodies.</param>
 		/// <param name="tags">Properties of this entity.</param>
-		protected Character(Controller controller, Card card, IDictionary<GameTag, int> tags, int id)
-			: base(controller, card, tags, id)
+		protected Character(in Controller controller, in Card card, in IDictionary<GameTag, int> tags, in int id)
+			: base(in controller, in card, in tags, in id)
 		{
 			_atkModifier = card.ATK;
 			_healthModifier = card.Health;
@@ -105,7 +105,7 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="controller">The target <see cref="T:SabberStoneCore.Model.Entities.Controller" /> instance.</param>
 		/// <param name="character">The source <see cref="T:SabberStoneCore.Model.Entities.Character`1" />.</param>
-		protected Character(Controller controller, Character character) : base(controller, character)
+		protected Character(in Controller controller, in Character character) : base(in controller, in character)
 		{
 			_atkModifier = character._atkModifier;
 			_healthModifier = character._healthModifier;
@@ -507,8 +507,7 @@ namespace SabberStoneCore.Model.Entities
 			{
 				if (_logging)
 					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging ? "" : $"{this} set data {GameTag.ATK} to {value}");
-				if (!_history) return;
-				if (value + AuraEffects.AttackDamage != AttackDamage)
+				if (_history && value + AuraEffects.AttackDamage != AttackDamage)
 					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.ATK, value));
 
 				_atkModifier = value;
@@ -530,8 +529,7 @@ namespace SabberStoneCore.Model.Entities
 			{
 				if (_logging)
 					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging ? "" : $"{this} set data {GameTag.HEALTH} to {value}");
-				if (!_history) return;
-				if (value + AuraEffects.AttackDamage != AttackDamage)
+				if (_history && value + AuraEffects.AttackDamage != AttackDamage)
 					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.HEALTH, value));
 
 				_healthModifier = value;

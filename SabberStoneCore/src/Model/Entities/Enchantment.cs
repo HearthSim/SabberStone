@@ -16,7 +16,7 @@ namespace SabberStoneCore.Model.Entities
 		private int _creatorId;
 		private IPlayable _creator;
 
-		private Enchantment(Controller controller, Card card, IDictionary<GameTag, int> tags)
+		private Enchantment(in Controller controller, in Card card, in IDictionary<GameTag, int> tags)
 		{
 			Game = controller.Game;
 			Controller = controller;
@@ -84,7 +84,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="target">The entity who is subjected to the enchantment.</param>
 		/// <param name="card">The card from which the enchantment must be derived.</param>
 		/// <returns>The resulting enchantment entity.</returns>
-		public static Enchantment GetInstance(Controller controller, IPlayable creator, IEntity target, Card card)
+		public static Enchantment GetInstance(in Controller controller, in IPlayable creator, in IEntity target, in Card card)
 		{
 			var tags = new EntityData.Data(8)
 			{

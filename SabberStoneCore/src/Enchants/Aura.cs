@@ -184,6 +184,7 @@ namespace SabberStoneCore.Enchants
 
 			if (EnchantmentCard == null) return;
 
+			Controller c = owner.Controller;
 			switch (Type)
 			{
 				case AuraType.BOARD_EXCEPT_SOURCE:
@@ -193,7 +194,7 @@ namespace SabberStoneCore.Enchants
 						if (minion == owner) continue;
 						if (Condition == null || Condition.Eval(minion))
 						{
-							Enchantment e = Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
+							Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
 							EnchantmentCard.Power.Trigger?.Activate(e);
 						}
 
@@ -206,7 +207,7 @@ namespace SabberStoneCore.Enchants
 					{
 						if (Condition == null || Condition.Eval(minion))
 						{
-							Enchantment e = Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
+							Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
 							EnchantmentCard.Power.Trigger?.Activate(e);
 						}
 
@@ -219,7 +220,7 @@ namespace SabberStoneCore.Enchants
 					{
 						if (Condition == null || Condition.Eval(minion))
 						{
-							Enchantment e = Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
+							Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
 							EnchantmentCard.Power.Trigger?.Activate(e);
 						}
 
@@ -231,7 +232,7 @@ namespace SabberStoneCore.Enchants
 
 						if (Condition == null || Condition.Eval(minion))
 						{
-							Enchantment e = Enchantment.GetInstance(owner.Controller, owner, minion, EnchantmentCard);
+							Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
 							EnchantmentCard.Power.Trigger?.Activate(e);
 						}
 
@@ -524,7 +525,7 @@ namespace SabberStoneCore.Enchants
 
 			if (EnchantmentCard != null && ((Game.History && _tempList == null) || EnchantmentCard.Power.Trigger != null))
 			{
-				Enchantment instance = Enchantment.GetInstance(entity.Controller, Owner, entity, EnchantmentCard);
+				Enchantment instance = Enchantment.GetInstance(entity.Controller, Owner, entity, in EnchantmentCard);
 				EnchantmentCard.Power.Trigger?.Activate(instance);
 			}
 

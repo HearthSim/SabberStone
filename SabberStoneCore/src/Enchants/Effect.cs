@@ -1,6 +1,8 @@
 ﻿using System;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SabberStoneCore.Enchants
 {
@@ -25,6 +27,7 @@ namespace SabberStoneCore.Enchants
 	/// <summary>
 	/// Represents an effect of <see cref="Aura"/>s or <see cref="Enchantment"/> cards.
 	/// </summary>
+	[ReadOnly(true)]
 	public struct Effect : IEffect, IEquatable<Effect>
 	{
 		public readonly GameTag Tag;
