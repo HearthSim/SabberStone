@@ -1,19 +1,18 @@
-﻿using SabberStoneCore.Actions;
+﻿using System.Collections.Generic;
+using SabberStoneCore.Actions;
+using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using System.Collections.Generic;
-using SabberStoneCore.Conditions;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RecruitTask : SimpleTask
 	{
 		private readonly SelfCondition[] _conditions;
-		public SummonSide Side { get; set; }
-		public bool RemoveFromStack { get; set; }
-		public bool RecruitFromStack { get; set; }
-		public RecruitTask(bool recruitFromStack = false, SummonSide side = SummonSide.DEFAULT, bool removeFromStack = false)
+
+		public RecruitTask(bool recruitFromStack = false, SummonSide side = SummonSide.DEFAULT,
+			bool removeFromStack = false)
 		{
 			Side = side;
 			RemoveFromStack = removeFromStack;
@@ -21,7 +20,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		/// <summary>
-		/// Recruits a random minion satisfying the given conditions.
+		///     Recruits a random minion satisfying the given conditions.
 		/// </summary>
 		/// <param name=""></param>
 		public RecruitTask(params SelfCondition[] conditions)
@@ -29,17 +28,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_conditions = conditions;
 		}
 
-		public override TaskState Process()
+		public SummonSide Side { get; set; }
+		public bool RemoveFromStack { get; set; }
+		public bool RecruitFromStack { get; set; }
+
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
 			Minion summonEntity = null;
-			if (Controller.BoardZone.IsFull)
-			{
-				return TaskState.STOP;
-			}
+			if (controller.BoardZone.IsFull) return TaskState.STOP;
 
 			if (_conditions != null)
 			{
-				IPlayable[] candidates = Controller.DeckZone.GetAll(p =>
+				IPlayable[] candidates = controller.DeckZone.GetAll(p =>
 				{
 					if (!(p is Minion)) return false;
 
@@ -52,100 +53,43 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				if (candidates.Length == 0)
 					return TaskState.STOP;
 
-				summonEntity = (Minion)Util.Choose(candidates);
+				summonEntity = (Minion) Util.Choose(candidates);
 			}
 			else if (RecruitFromStack)
 			{
-				List<Minion> playableMinions = new List<Minion>();
-				foreach (var entity in Playables)
-				{
+				var playableMinions = new List<Minion>();
+				foreach (IPlayable entity in stack.Playables)
 					if (entity.Zone.Type == Zone.DECK && entity is Minion)
-					{
-						playableMinions.Add((Minion)entity);
-					}
-				}
+						playableMinions.Add((Minion) entity);
+
 				if (playableMinions.Count > 0)
 				{
 					summonEntity = Util.Choose(playableMinions);
-					if (RemoveFromStack)
-					{
-						Playables.Remove(summonEntity);
-					}
+					if (RemoveFromStack) stack.Playables.Remove(summonEntity);
 				}
 			}
 			else
 			{
-				List<Minion> playableMinions = new List<Minion>();
-				foreach (var entity in Controller.DeckZone)
-				{
+				var playableMinions = new List<Minion>();
+				foreach (IPlayable entity in controller.DeckZone)
 					if (entity.Zone.Type == Zone.DECK && entity is Minion)
-					{
-						playableMinions.Add((Minion)entity);
-					}
-				}
-				if (playableMinions.Count > 0)
-				{
-					summonEntity = Util.Choose(playableMinions);
-				}
+						playableMinions.Add((Minion) entity);
+
+				if (playableMinions.Count > 0) summonEntity = Util.Choose(playableMinions);
 			}
 
-			if(summonEntity == null)
-			{
-				return TaskState.STOP;
-			}
+			if (summonEntity == null) return TaskState.STOP;
 
 			Generic.RemoveFromZone.Invoke(summonEntity.Controller, summonEntity);
 
-			int summonPosition = -1;
-			switch (Side)
-			{
-				case SummonSide.LEFT:
-					if (Source.Zone.Type == Enums.Zone.PLAY)
-						summonPosition = ((Minion)Source).ZonePosition;
-					else
-						summonPosition = ((Minion)Source).LastBoardPosition;
-					break;
-				case SummonSide.RIGHT:
-					if (Source.Zone.Type == Enums.Zone.PLAY)
-						summonPosition = ((Minion)Source).ZonePosition + 1;
-					else
-						summonPosition = ((Minion)Source).LastBoardPosition;
-					break;
-				case SummonSide.DEATHRATTLE:
-					if (Source.Zone.Type != Zone.GRAVEYARD)
-						goto case SummonSide.RIGHT;
-					summonPosition = ((Minion)Source).LastBoardPosition;
-					break;
-				case SummonSide.NUMBER:
-					summonPosition = Number - 1;
-					break;
-				case SummonSide.SPELL:
-					summonPosition = -1;
-					break;
-				case SummonSide.DEFAULT:
-					summonPosition = -1;
-					break;
-			}
+			int c = 0;
+			int summonPosition = SummonTask.GetPosition(in source, Side, stack?.Number ?? 0, ref c);
 
-			if (summonPosition > Controller.BoardZone.Count)
-			{
-				summonPosition = Controller.BoardZone.Count;
-			}
+			bool success = Generic.SummonBlock.Invoke(controller, summonEntity, summonPosition);
 
-			bool success = Generic.SummonBlock.Invoke(Controller, summonEntity, summonPosition);
-
-			Game.OnRandomHappened(true);
+			game.OnRandomHappened(true);
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			RecruitTask clone = _conditions == null
-				? new RecruitTask(RecruitFromStack, Side, RemoveFromStack)
-				: new RecruitTask(_conditions);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

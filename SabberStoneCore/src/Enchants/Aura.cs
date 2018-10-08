@@ -619,7 +619,7 @@ namespace SabberStoneCore.Enchants
 		{
 			if (_isSwitching)
 			{
-				var tags = _tags;
+				GameTag[] tags = _tags;
 				for (int i = 0; i < tags.Length; i++)
 				{
 					int val = Condition.Eval(Owner) ? 1 : 0;
@@ -802,7 +802,7 @@ namespace SabberStoneCore.Enchants
 		public override void Update()
 		{
 			//if (!_toBeUpdated) return;
-			Owner.AuraEffects.Checker = true;
+			Owner.AuraEffects.ToBeUpdated = true;
 			//if (UpdateTrigger.Type != TriggerType.NONE)
 			//	_toBeUpdated = false;
 		}

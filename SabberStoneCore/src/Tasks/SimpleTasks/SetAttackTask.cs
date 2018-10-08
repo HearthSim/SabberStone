@@ -17,7 +17,7 @@
 
 	//	public override TaskState Process()
 	//	{
-	//		System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+	//		System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 	//		entities.TrueForAll(p =>
 	//		{
 	//			var target = p as Minion;

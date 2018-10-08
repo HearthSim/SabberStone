@@ -13,24 +13,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			//List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			//List<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 			//entities.ForEach(p =>
-			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
 			{
 				IPlayable removedEntity = p.Zone.Remove(p);
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToSetaside", !Game.Logging? "":$"{p.Controller.Name}'s {p} is moved to the setaside zone.");
+				game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToSetaside",
+					!game.Logging ? "" : $"{p.Controller.Name}'s {p} is moved to the setaside zone.");
 				p.Controller.SetasideZone.Add(removedEntity);
-			};
-			return TaskState.COMPLETE;
-		}
+			}
 
-		public override ISimpleTask Clone()
-		{
-			var clone = new MoveToSetaside(Type);
-			clone.Copy(this);
-			return clone;
+			;
+			return TaskState.COMPLETE;
 		}
 	}
 }

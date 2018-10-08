@@ -20,7 +20,7 @@
 
 //		public override TaskState Process()
 //		{
-//			//System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+//			//System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 //			//if (entities.Count != 1)
 //			//{
 //			//	return TaskState.STOP;
@@ -28,7 +28,7 @@
 
 //			//int num = ((Entity)entities[0]).GetNativeGameTag(Tag);
 
-//			var entity = (Entity) IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).GetEnumerator().Current;
+//			var entity = (Entity) IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables).GetEnumerator().Current;
 //			int num = entity.GetNativeGameTag(Tag);
 
 //			if (SelfBuffs)
@@ -40,22 +40,22 @@
 //			switch (_index)
 //			{
 //				case 0:
-//					Number = num;
+//					stack.Number = num;
 //					break;
 //				case 1:
-//					Number1 = num;
+//					stack.Number1 = num;
 //					break;
 //				case 2:
-//					Number2 = num;
+//					stack.Number2 = num;
 //					break;
 //				case 3:
-//					Number3 = num;
+//					stack.Number3 = num;
 //					break;
 //				case 4:
-//					Number4 = num;
+//					stack.Number4 = num;
 //					break;
 //				default:
-//					Number = num;
+//					stack.Number = num;
 //					break;
 //			}
 
@@ -70,3 +70,6 @@
 //		}
 //	}
 //}
+
+
+

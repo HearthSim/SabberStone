@@ -7,7 +7,6 @@ using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-
 	public class CopyTask : SimpleTask
 	{
 		private readonly Zone _zoneType;
@@ -26,44 +25,39 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public bool Opposite { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
 			var result = new List<IPlayable>();
 			switch (Type)
 			{
 				case EntityType.TARGET:
-					var target = Target as IPlayable;
-					if (target == null)
-					{
-						return TaskState.STOP;
-					}
+					var playableTarget = target as IPlayable;
+					if (playableTarget == null) return TaskState.STOP;
+
 					for (int i = 0; i < Amount; i++)
-					{
-						result.Add(Opposite ?
-							Entity.FromCard(target.Controller.Opponent, Cards.FromId(target.Card.Id)) :
-							Entity.FromCard(Controller, Cards.FromId(target.Card.Id)));
-					}
+						result.Add(Opposite
+							? Entity.FromCard(playableTarget.Controller.Opponent, Cards.FromId(playableTarget.Card.Id))
+							: Entity.FromCard(controller, Cards.FromId(playableTarget.Card.Id)));
+
 					break;
 				case EntityType.SOURCE:
-					var source = Source as IPlayable;
-					if (source == null)
-					{
-						return TaskState.STOP;
-					}
+					var playableSource = source as IPlayable;
+					if (playableSource == null) return TaskState.STOP;
+
 					for (int i = 0; i < Amount; i++)
-					{
-						result.Add(Opposite ?
-							Entity.FromCard(source.Controller.Opponent, Cards.FromId(source.Card.Id)) :
-							Entity.FromCard(Controller, Cards.FromId(source.Card.Id)));
-					}
+						result.Add(Opposite
+							? Entity.FromCard(playableSource.Controller.Opponent, Cards.FromId(playableSource.Card.Id))
+							: Entity.FromCard(controller, Cards.FromId(playableSource.Card.Id)));
+
 					break;
 				case EntityType.STACK:
-					if (Playables.Count < 1)
-					{
-						return TaskState.STOP;
-					}
-					IZone zone = Opposite ? Controller.Opponent.ControlledZones[_zoneType] : Controller.ControlledZones[_zoneType];
-					foreach (IPlayable p in Playables)
+					if (stack?.Playables.Count < 1) return TaskState.STOP;
+
+					IZone zone = Opposite
+						? controller.Opponent.ControlledZones[_zoneType]
+						: controller.ControlledZones[_zoneType];
+					foreach (IPlayable p in stack?.Playables)
 					{
 						if (zone?.IsFull ?? false)
 							break;
@@ -72,52 +66,40 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 							if (zone?.IsFull ?? false)
 								break;
 							// TODO
-							result.Add(Opposite ?
-								Entity.FromCard(p.Controller.Opponent, Cards.FromId(p.Card.Id), null, zone) :
-								Entity.FromCard(Controller, Cards.FromId(p.Card.Id), null, zone));
+							result.Add(Opposite
+								? Entity.FromCard(p.Controller.Opponent, Cards.FromId(p.Card.Id), null, zone)
+								: Entity.FromCard(controller, Cards.FromId(p.Card.Id), null, zone));
 						}
 					}
+
 					break;
 				case EntityType.EVENT_SOURCE:
-					IPlayable eSource = Game.CurrentEventData?.EventSource;
-					if (eSource == null)
-					{
-						return TaskState.STOP;
-					}
+					IPlayable eSource = game.CurrentEventData?.EventSource;
+					if (eSource == null) return TaskState.STOP;
+
 					for (int i = 0; i < Amount; i++)
-					{
-						result.Add(Opposite ?
-							Entity.FromCard(eSource.Controller.Opponent, Cards.FromId(eSource.Card.Id)) :
-							Entity.FromCard(Controller, Cards.FromId(eSource.Card.Id)));
-					}
+						result.Add(Opposite
+							? Entity.FromCard(eSource.Controller.Opponent, Cards.FromId(eSource.Card.Id))
+							: Entity.FromCard(controller, Cards.FromId(eSource.Card.Id)));
+
 					break;
 				case EntityType.OP_HERO_POWER:
-					result.Add(Entity.FromCard(Controller, Cards.FromId(Controller.Opponent.Hero.HeroPower.Card.Id)));
+					result.Add(Entity.FromCard(controller, Cards.FromId(controller.Opponent.Hero.HeroPower.Card.Id)));
 					break;
 				case EntityType.WEAPON:
-					var weapon = Controller.Hero.Weapon as Weapon;
-					if (weapon == null)
-					{
-						return TaskState.STOP;
-					}
+					Weapon weapon = controller.Hero.Weapon;
+					if (weapon == null) return TaskState.STOP;
+
 					for (int i = 0; i < Amount; i++)
-					{
-						result.Add(Entity.FromCard(Controller, Cards.FromId(weapon.Card.Id)));
-					}
+						result.Add(Entity.FromCard(controller, Cards.FromId(weapon.Card.Id)));
+
 					break;
 				default:
 					throw new NotImplementedException();
 			}
 
-			Playables = result;
+			stack.Playables = result;
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new CopyTask(Type, Amount, Opposite, _zoneType);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

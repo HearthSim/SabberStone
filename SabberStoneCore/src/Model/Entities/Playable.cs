@@ -73,7 +73,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="target">The target, mostly of type <see cref="ICharacter"/>.</param>
 		//void ApplyPowers(PowerActivation activation, Zone zoneType, IPlayable target = null);
 
-		void ActivateTask(PowerActivation activation, IPlayable target = null, int chooseOne = 0, IPlayable source = null);
+		void ActivateTask(in PowerActivation activation, in IPlayable target = null, in int chooseOne = 0, in IPlayable source = null);
 
 		/// <summary>Stores the next Order Of Play index held by the <see cref="Game"/> instance.
 		///	Order of play is important because it's the order in which effects are resolved.
@@ -161,7 +161,7 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="controller">The target <see cref="Controller"/> instance.</param>
 		/// <returns></returns>
-		IPlayable Clone(Controller controller);
+		IPlayable Clone(in Controller controller);
 
 		IAura OngoingEffect { get; set; }
 
@@ -194,7 +194,7 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="controller">The target <see cref="T:SabberStoneCore.Model.Entities.Controller" /> instance.</param>
 		/// <param name="playable">The source <see cref="T:SabberStoneCore.Model.Entities.Playable`1" /></param>
-		protected Playable(in Controller controller, in Playable playable) : base(in controller, in playable)
+		protected Playable(in Controller controller, in Playable playable) : base(in controller, playable)
 		{
 			controller.Game.IdEntityDic[playable.Id] = this;
 
@@ -248,7 +248,7 @@ namespace SabberStoneCore.Model.Entities
 		//public List<Power> Powers => Card.Powers;
 		public Power Power => Card.Power;
 
-		public void ActivateTask(PowerActivation activation = PowerActivation.POWER, IPlayable target = null, int chooseOne = 0, IPlayable source = null)
+		public void ActivateTask(in PowerActivation activation = PowerActivation.POWER, in IPlayable target = null, in int chooseOne = 0, in IPlayable source = null)
 		{
 			if (ChooseOne)
 			{
@@ -290,13 +290,13 @@ namespace SabberStoneCore.Model.Entities
 			if (task == null) return;
 
 			// clone task here
-			ISimpleTask clone = task.Clone();
-			clone.Game = source?.Game ?? Game;
-			clone.Controller = source?.Controller ?? Controller;
-			clone.Source = source ?? this;
-			clone.Target = target;
+			//ISimpleTask clone = task.Clone();
+			//clone.Game = source?.Game ?? Game;
+			//clone.Controller = source?.Controller ?? Controller;
+			//clone.Source = source ?? this;
+			//clone.Target = target;
 
-			clone.Game.TaskQueue.Enqueue(clone);
+			Game.TaskQueue.Enqueue(in task, Controller, source, target);
 		}
 
 		/// <summary>
@@ -517,7 +517,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
-		public abstract IPlayable Clone(Controller controller);
+		public abstract IPlayable Clone(in Controller controller);
 
 		public IAura OngoingEffect { get; set; }
 

@@ -5,7 +5,6 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
-using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -311,7 +310,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_128", new Power {
-				PowerTask = new AddEnchantmentTask("GIL_128e", EntityType.HAND)
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsMinion),
+					new AddEnchantmentTask("GIL_128e", EntityType.STACK))
 			});
 
 			// ---------------------------------------- MINION - HUNTER

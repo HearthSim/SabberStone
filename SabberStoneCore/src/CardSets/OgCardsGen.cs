@@ -2559,14 +2559,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Stealthed until your next turn.
 			// --------------------------------------------------------
-			cards.Add("OG_080de", new Power {
-				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
-				Trigger = new Trigger(TriggerType.TURN_START)
-				{
-					SingleTask = new RemoveEnchantmentTask(),
-					RemoveAfterTriggered = true,
-				}
-			});
+			cards.Add("OG_080de", Power.OneTurnStealthEnchantmentPower);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [OG_080ee] BriarthorTn (*) - COST:0 

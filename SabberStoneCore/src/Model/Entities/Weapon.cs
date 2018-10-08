@@ -27,11 +27,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="controller">A target <see cref="Controller"/> instance.</param>
 		/// <param name="weapon">A source <see cref="Weapon"/>.</param>
-		private Weapon(Controller controller, Weapon weapon) : base(controller, weapon) { }
+		private Weapon(in Controller controller, in Playable weapon) : base(in controller, in weapon) { }
 
-		public override IPlayable Clone(Controller controller)
+		public override IPlayable Clone(in Controller controller)
 		{
-			return new Weapon(controller, this);
+			return new Weapon(in controller, this);
 		}
 	}
 

@@ -15,36 +15,31 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public GameTag Tag { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
 			List<Card> cardsList;
 			if (Tag == GameTag.COST)
 			{
-				Cards.CostMinionCards(Game.FormatType).TryGetValue(Number, out cardsList);
+				Cards.CostMinionCards(game.FormatType).TryGetValue(stack.Number, out cardsList);
 				if (cardsList == null)
 					return TaskState.STOP;
 			}
 			else
 			{
-				IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
-				cardsList = cards.Where(p => p.Type == CardType.MINION && p[Tag] == Number).ToList();
+				IEnumerable<Card> cards = game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+				int num = stack.Number;
+				cardsList = cards.Where(p => p.Type == CardType.MINION && p[Tag] == num).ToList();
 				if (!cardsList.Any())
 					return TaskState.STOP;
 			}
 
-			IPlayable playable = Entity.FromCard(Controller, Util.Choose(cardsList));
-			Playables = new List<IPlayable> { playable };
+			IPlayable playable = Entity.FromCard(controller, Util.Choose(cardsList));
+			stack.Playables = new List<IPlayable> {playable};
 
-			Game.OnRandomHappened(true);
+			game.OnRandomHappened(true);
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new RandomMinionNumberTask(Tag);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

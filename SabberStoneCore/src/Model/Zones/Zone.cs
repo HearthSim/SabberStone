@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using SabberStoneCore.Enums;
@@ -26,6 +27,7 @@ namespace SabberStoneCore.Model.Zones
 		/// Gets the owner of the zone.
 		/// </summary>
 		/// <value><see cref="SabberStoneCore.Model.Entities.Controller"/></value>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		protected IList<T> Entities;
 
 		protected Zone() { }
@@ -36,6 +38,7 @@ namespace SabberStoneCore.Model.Zones
 			Game = c.Game;
 		}
 
+		[DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
 		List<IPlayable> IZone.GetAll => this.Cast<IPlayable>().ToList();
 		public Controller Controller { get; set; }
 		public Zone Type { get; protected set; }
@@ -54,6 +57,7 @@ namespace SabberStoneCore.Model.Zones
 		/// <summary>
 		/// Gets a random entity in this zone.
 		/// </summary>
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public T Random => Count == 0 ? (default) : Entities[Util.Random.Next(Count)];
 		/// <summary>
 		/// Gets the <see cref="IPlayable"/> with the specified zone position.

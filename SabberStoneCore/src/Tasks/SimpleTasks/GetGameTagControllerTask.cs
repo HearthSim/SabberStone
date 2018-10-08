@@ -1,4 +1,6 @@
 ﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -11,17 +13,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public GameTag Tag { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			Number = Controller[Tag];
+			stack.Number = controller[Tag];
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new GetGameTagControllerTask(Tag);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

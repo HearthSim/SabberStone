@@ -105,17 +105,65 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="controller">The target <see cref="T:SabberStoneCore.Model.Entities.Controller" /> instance.</param>
 		/// <param name="character">The source <see cref="T:SabberStoneCore.Model.Entities.Character`1" />.</param>
-		protected Character(in Controller controller, in Character character) : base(in controller, in character)
+		protected Character(in Controller controller, in Character character) : base(in controller, character)
 		{
 			_atkModifier = character._atkModifier;
 			_healthModifier = character._healthModifier;
 			_dmgModifier = character._dmgModifier;
+			_stealth = character._stealth;
+			_immune = character._immune;
 		}
 
 		/// <summary>
 		/// Character is dead or destroyed.
 		/// </summary>
 		public bool IsDead => Health <= 0 || ToBeDestroyed;
+
+		public override int this[GameTag t]
+		{
+			get
+			{
+				switch (t)
+				{
+					case GameTag.ATK:
+						return AttackDamage;
+					case GameTag.HEALTH:
+						return BaseHealth;
+					case GameTag.DAMAGE:
+						return Damage;
+					case GameTag.STEALTH:
+						return HasStealth ? 1 : 0;
+					case GameTag.IMMUNE:
+						return IsImmune ? 1 : 0;
+					default:
+						return base[t];
+				}
+			}
+			set
+			{
+				switch (t)
+				{
+					case GameTag.ATK:
+						AttackDamage = value;
+						return;
+					case GameTag.HEALTH:
+						BaseHealth = value;
+						return;
+					case GameTag.DAMAGE:
+						Damage = value;
+						return;
+					case GameTag.STEALTH:
+						HasStealth = value > 0;
+						return;
+					case GameTag.IMMUNE:
+						IsImmune = value > 0;
+						return;
+					default:
+						base[t] = value;
+						return;
+				}
+			}
+		}
 
 		/// <summary>
 		/// Character can attack.
@@ -277,7 +325,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			if (this is Hero h)
-				h.IsDamagedThisTurn = true;
+				h.DamageTakenThisTurn += amount;
 
 			return amount;
 		}
@@ -302,6 +350,9 @@ namespace SabberStoneCore.Model.Entities
 			{
 				heal *= (int) Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.SPELL_HEALING_DOUBLE]);
 			}
+
+			if (source.Controller.ControllerAuraEffects[GameTag.ALL_HEALING_DOUBLE] > 0)
+				heal *= (int) Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.ALL_HEALING_DOUBLE]);
 
 			if (source.Controller.ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] == 1)
 			{
@@ -407,19 +458,19 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		bool IsDefending { get; set; }
 
-		/// <summary>
-		/// The entityID of the character which wants to attack, by entering the
-		/// next combat phase.
-		/// The defender is this character.
-		/// </summary>
-		int ProposedAttacker { get; set; }
+		///// <summary>
+		///// The entityID of the character which wants to attack, by entering the
+		///// next combat phase.
+		///// The defender is this character.
+		///// </summary>
+		//int ProposedAttacker { get; set; }
 
-		/// <summary>
-		/// The entityID of the character which has to defend during the next
-		/// ombat phase.
-		/// The attacker is this character.
-		/// </summary>
-		int ProposedDefender { get; set; }
+		///// <summary>
+		///// The entityID of the character which has to defend during the next
+		///// ombat phase.
+		///// The attacker is this character.
+		///// </summary>
+		//int ProposedDefender { get; set; }
 
 		/// <summary>
 		/// Amount of attacks this character has executed during this turn.
@@ -486,10 +537,23 @@ namespace SabberStoneCore.Model.Entities
 	public abstract partial class Character
 	{
 		private bool _lifestealChecker;
+
 		internal int _atkModifier;
 		internal int _healthModifier;
 		internal int _dmgModifier;
-		internal int _stealth = -1;
+		internal bool? _stealth;
+		internal bool? _immune;
+		internal bool? _taunt;
+
+		internal void CopyInternalAttributes(in Character copy)
+		{
+			copy._atkModifier = _atkModifier;
+			copy._healthModifier = _healthModifier;
+			copy._dmgModifier = _dmgModifier;
+			copy._stealth = _stealth;
+			copy._immune = _immune;
+			copy._taunt = _taunt;
+		}
 
 #pragma warning disable CS1591 // Fehledes XML-Kommentar für öffentlich sichtbaren Typ oder Element
 
@@ -659,22 +723,22 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.DEFENDING] = value ? 1 : 0; }
 		}
 
-		public int ProposedAttacker
-		{
-			get { return this[GameTag.PROPOSED_ATTACKER]; }
-			set { this[GameTag.PROPOSED_ATTACKER] = value; }
-		}
-
-		public int ProposedDefender
-		{
-			get { return this[GameTag.PROPOSED_DEFENDER]; }
-			set { this[GameTag.PROPOSED_DEFENDER] = value; }
-		}
-
 		public bool IsImmune
 		{
-			get { return this[GameTag.IMMUNE] == 1; }
-			set { this[GameTag.IMMUNE] = value ? 1 : 0; }
+			get
+			{
+				if (_immune.HasValue && _immune.Value)
+					return true;
+
+				// bool cardTag = Card[GameTag.IMMUNE]; TODO: Some Adv/Brawl cards have IMMUNE tag
+				// _immune = cardTag;
+				return AuraEffects[GameTag.IMMUNE] > 0;
+			}
+			set
+			{
+				_immune = value;
+				base[GameTag.IMMUNE] = value ? 1 : 0;
+			}
 		}
 
 		public bool IsFrozen
@@ -708,11 +772,17 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				if (!NativeTags.TryGetValue(GameTag.TAUNT, out int value))
-					return Card.Taunt;
-				return value > 0;
+				if (_taunt.HasValue) return _taunt.Value;
+
+				bool cardTag = Card.Taunt;
+				_taunt = cardTag;
+				return cardTag;
 			}
-			set => this[GameTag.TAUNT] = value ? 1 : 0;
+			set
+			{
+				_taunt = value;
+				base[GameTag.TAUNT] = value ? 1 : 0;
+			}
 		}
 
 		public virtual bool HasWindfury
@@ -725,18 +795,16 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				if (_stealth >= 0) return _stealth > 0;
+				if (_stealth.HasValue) return _stealth.Value;
 
-				NativeTags.TryGetValue(GameTag.STEALTH, out int value);
-				_stealth = value;
-				return value > 0;
-
+				bool cardTag = Card.Stealth;
+				_stealth = cardTag;
+				return cardTag;
 			}
 			set
 			{
-				_stealth = value ? 1 : 0;
-				if (_history)
-					this[GameTag.STEALTH] = value ? 1 : 0;
+				_stealth = value;
+				base[GameTag.STEALTH] = value ? 1 : 0;
 			}
 		}
 

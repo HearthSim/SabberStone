@@ -21,7 +21,7 @@
 
 //		public override TaskState Process()
 //		{
-//			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+//			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 //			entities.ForEach(p =>
 //			{
 //				var minion = p as Minion;
@@ -34,7 +34,7 @@
 //					//	minion.Powers.Add(Power);
 //					if (Activate)
 //					{
-//						//Power.Activate(Controller, minion);
+//						//Power.Activate(controller, minion);
 //					}
 //				}
 //			});
@@ -49,3 +49,6 @@
 //		}
 //	}
 //}
+
+
+

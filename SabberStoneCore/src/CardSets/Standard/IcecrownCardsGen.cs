@@ -1234,7 +1234,7 @@ namespace SabberStoneCore.CardSets.Standard
 							if (ids.Contains(e.Card.AssetId)) continue;
 
 							c.DeckZone.Remove(e);
-							Generic.CastSpell(c, (Spell) e, null, 0);
+							Generic.CastSpell(c, (Spell) e, null, 0, true);
 							ids.Add(e.Card.AssetId);
 
 							if (c.SecretZone.IsFull) return 0;
@@ -1582,9 +1582,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_214", new Power {
-				DeathrattleTask = ComplexTask.Create(
-					new RandomTask(1, EntityType.OP_MINIONS),
-					new DestroyTask(EntityType.STACK))
+				DeathrattleTask = ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS)
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -1955,14 +1953,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b> until your next turn.
 			// --------------------------------------------------------
-			cards.Add("ICC_827e3", new Power {
-				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
-				Trigger = new Trigger(TriggerType.TURN_START)
-				{
-					SingleTask = new RemoveEnchantmentTask(),
-					RemoveAfterTriggered = true,
-				}
-			});
+			cards.Add("ICC_827e3", Power.OneTurnStealthEnchantmentPower);
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_850e] Shaded (*) - COST:0 
@@ -2742,8 +2733,8 @@ namespace SabberStoneCore.CardSets.Standard
 					{
 						p.ForEach(w =>
 						{
-							p[0].Game.TaskStack.Numbers[0] += w[GameTag.ATK];
-							p[0].Game.TaskStack.Numbers[1] += w[GameTag.DURABILITY];
+							p[0].Game.TaskStack.Number += w[GameTag.ATK];
+							p[0].Game.TaskStack.Number1 += w[GameTag.DURABILITY];
 						});
 						return p;
 					}),
@@ -3013,7 +3004,9 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_810", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
-					new FilterStackTask(SelfCondition.IsTagValue(GameTag.LIFESTEAL, 1, RelaSign.EQ)),
+					new FilterStackTask(
+						SelfCondition.IsTagValue(GameTag.LIFESTEAL, 1),
+						SelfCondition.IsMinion),
 					new RandomTask(1, EntityType.STACK),
 					new AddEnchantmentTask("ICC_810e", EntityType.STACK)),
 			});

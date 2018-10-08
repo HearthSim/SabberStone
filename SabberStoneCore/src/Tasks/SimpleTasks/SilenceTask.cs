@@ -1,18 +1,21 @@
-﻿using SabberStoneCore.Model.Entities;
+﻿using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class SilenceTask : SimpleTask
 	{
-		public EntityType Type { get; set; }
-
 		public SilenceTask(EntityType type)
 		{
 			Type = type;
 		}
-		public override TaskState Process()
+
+		public EntityType Type { get; set; }
+
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			//List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			//List<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 
 			//if (entities.Count > 0)
 			//{
@@ -22,20 +25,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//		minion.Silence();
 			//	});
 			//}
-			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
 			{
 				if (!(p is Minion minion))
 					continue;
 				minion.Silence();
-			};
-			return TaskState.COMPLETE;
-		}
+			}
 
-		public override ISimpleTask Clone()
-		{
-			var clone = new SilenceTask(Type);
-			clone.Copy(this);
-			return clone;
+			;
+			return TaskState.COMPLETE;
 		}
 	}
 }

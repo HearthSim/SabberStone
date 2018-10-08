@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Linq;
-using SabberStoneCore.Config;
-using SabberStoneCore.Model;
-using SabberStoneCore.Model.Entities;
 using SabberStonePowerLog.Model;
-using SabberStonePowerLog.src.Sync;
 using System.Collections.Generic;
 
 namespace SabberStonePowerLog

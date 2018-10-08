@@ -323,7 +323,7 @@ namespace SabberStoneCore.Model
 			}
 
 			TaskQueue = new TaskQueue(this);
-			TaskStack = new TaskStack(this);
+			TaskStack = null;
 
 			OneTurnEffects = new List<(int, IEffect)>();
 			OneTurnEffectEnchantments = new List<Enchantment>();
@@ -384,11 +384,8 @@ namespace SabberStoneCore.Model
 					a.AddToZone();
 			});
 
-			TaskStack = new TaskStack(this);
-			TaskStack.Stamp(game.TaskStack);
-
+			TaskStack = game.TaskStack?.Clone(this);
 			TaskQueue = new TaskQueue(this);
-			//TaskQueue.Stamp(game.TaskQueue);
 
 			SetIndexer(game._idIndex, game._oopIndex);
 		}
@@ -833,7 +830,7 @@ namespace SabberStoneCore.Model
 
 			CurrentPlayer.CardsPlayedThisTurn.Clear();
 
-			CurrentPlayer.Hero.IsDamagedThisTurn = false;
+			CurrentPlayer.Hero.DamageTakenThisTurn = 0;
 
 			if (RushMinions.Count > 0)
 			{

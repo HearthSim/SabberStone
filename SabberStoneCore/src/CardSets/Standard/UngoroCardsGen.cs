@@ -433,7 +433,9 @@ namespace SabberStoneCore.CardSets.Standard
 							var target = (ICharacter)plist[1];
 							if (target.Card.Untouchable)
 								return null;
+							EventMetaData temp = source.Game.CurrentEventData;
 							Generic.AttackBlock.Invoke(source.Controller, source, target, true);
+							source.Game.CurrentEventData = temp;
 							source.Controller.NumOptionsPlayedThisTurn--;
 							return null;
 						}))
@@ -856,8 +858,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 542 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_953", new Power {
-				// TODO Verify with power.log
-				// TODO [UNG_953] Primalfin Champion && Test: Primalfin Champion_UNG_953
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
 					TriggerSource = TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
@@ -1408,7 +1408,7 @@ namespace SabberStoneCore.CardSets.Standard
 					{
 						Card justPlayed = p.Game.CurrentEventData.EventSource.Card;
 						List<PlayHistoryEntry> history = p.Controller.PlayHistory;
-						int count = 1;
+						int count = 0;
 						for (int i = history.FindIndex(x => x.SourceCard.AssetId == 41222) + 1; i < history.Count; i++)
 							if (history[i].SourceCard.Name == justPlayed.Name)
 								count++;
@@ -1416,14 +1416,7 @@ namespace SabberStoneCore.CardSets.Standard
 						if (count <= p[GameTag.QUEST_PROGRESS]) return 0;
 
 						p[GameTag.QUEST_CONTRIBUTOR] = justPlayed.AssetId;
-						var task = new QuestProgressTask("UNG_067t1")
-						{
-							Game = p.Game,
-							Controller = p.Controller,
-							Source = p,
-							Target = null
-						};
-						p.Game.TaskQueue.Enqueue(task);
+						p.Game.TaskQueue.Enqueue(new QuestProgressTask("UNG_067t1"), p.Controller, p, null);
 
 						return 0;
 					})
@@ -1589,7 +1582,7 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [UNG_202] Fire Plume Harbinger - COST:2 [ATK:1/HP:1] 
+			// [UNG_202] Fire Plume Harbinger - COST:2 [ATK:1/HP:1]
 			// - Race: elemental, Set: ungoro, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Reduce the Cost of Elementals in your hand_by (1).
@@ -3218,14 +3211,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Stealthed until your next turn.
 			// --------------------------------------------------------
-			cards.Add("UNG_999t10e", new Power {
-				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
-				Trigger = new Trigger(TriggerType.TURN_START)
-				{
-					SingleTask = new RemoveEnchantmentTask(),
-					RemoveAfterTriggered = true,
-				}
-			});
+			cards.Add("UNG_999t10e", Power.OneTurnStealthEnchantmentPower);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [UNG_999t13e] Poison Spit (*) - COST:0 

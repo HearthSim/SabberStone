@@ -25,7 +25,7 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="controller">The target <see cref="Controller"/> instance.</param>
 		/// <param name="spell">The source <see cref="Spell"/>.</param>
-		private Spell(Controller controlller, Spell spell) : base(controlller, spell) { }
+		private Spell(in Controller controller, in Playable spell) : base(in controller, in spell) { }
 
 		/// <summary>
 		/// Calculates if a target is valid by testing the game state for each hardcoded requirement.
@@ -66,9 +66,9 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
-		public override IPlayable Clone(Controller controller)
+		public override IPlayable Clone(in Controller controller)
 		{
-			return new Spell(controller, this);
+			return new Spell(in controller, this);
 		}
 	}
 

@@ -1,10 +1,11 @@
 ﻿using System.Linq;
-using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-
 	public class RemoveFromDeck : SimpleTask
 	{
 		public RemoveFromDeck(EntityType type)
@@ -14,17 +15,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			Playables = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).Where(p => p.Zone.Type == Zone.DECK && Generic.RemoveFromZone.Invoke(p.Controller, p)).ToList();
+			stack.Playables = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables)
+				.Where(p => p.Zone.Type == Zone.DECK && Generic.RemoveFromZone.Invoke(p.Controller, p)).ToList();
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new RemoveFromDeck(Type);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

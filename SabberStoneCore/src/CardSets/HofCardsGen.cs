@@ -98,14 +98,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Stealthed until your next turn.
 			// --------------------------------------------------------
-			cards.Add("EX1_128e", new Power {
-				Enchant = new Enchant(GameTag.STEALTH, EffectOperator.SET, 1),
-				Trigger = new Trigger(TriggerType.TURN_START)
-				{
-					SingleTask = new RemoveEnchantmentTask(),
-					RemoveAfterTriggered = true,
-				}
-			});
+			cards.Add("EX1_128e", Power.OneTurnStealthEnchantmentPower);
 
 		}
 

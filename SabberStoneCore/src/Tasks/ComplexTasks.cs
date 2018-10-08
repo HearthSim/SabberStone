@@ -103,7 +103,9 @@ namespace SabberStoneCore.Tasks
 
 		public static ISimpleTask DestroyRandomTargets(int targets, EntityType type)
 			=> Create(
-				new RandomTask(targets, type),
+				new IncludeTask(type),
+				new FilterStackTask(SelfCondition.IsNotDead),
+				new RandomTask(targets, EntityType.STACK),
 				new DestroyTask(EntityType.STACK));
 
 		public static ISimpleTask RandomCardCopyToHandFrom(EntityType entityType)

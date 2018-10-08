@@ -14,14 +14,14 @@
 
 	//	public override TaskState Process()
 	//	{
-	//		var source = Source as ICharacter;
+	//		var source = source as ICharacter;
 	//		if (source == null || Amount < 1)
 	//		{
 	//			return TaskState.STOP;
 	//		}
 
-	//		//IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).ForEach(p =>
-	//		foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+	//		//IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables).ForEach(p =>
+	//		foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
 	//		{
 	//			var target = p as ICharacter;
 	//			if (target != null)

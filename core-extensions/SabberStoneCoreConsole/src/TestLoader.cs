@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
-
-namespace SabberStoneCoreConsole
+﻿namespace SabberStoneCoreConsole
 {
 
 	//public class TestLoader

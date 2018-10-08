@@ -4,54 +4,60 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class AddEnchantmentTask : SimpleTask
-    {
-	    private readonly Card _enchantmentCard;
+	public class AddEnchantmentTask : SimpleTask
+	{
+		private readonly Card _enchantmentCard;
 		private readonly EntityType _entityType;
-	    private readonly bool _useScriptTag;
+		private readonly bool _useScriptTag;
 
-	    public AddEnchantmentTask(Card enchantmentCard, EntityType entityType, bool useScriptTag = false)
-	    {
-		    _enchantmentCard = enchantmentCard;
-		    _entityType = entityType;
-		    _useScriptTag = useScriptTag;
+		public AddEnchantmentTask(Card enchantmentCard, EntityType entityType, bool useScriptTag = false)
+		{
+			_enchantmentCard = enchantmentCard;
+			_entityType = entityType;
+			_useScriptTag = useScriptTag;
 		}
 
-	    public AddEnchantmentTask(string enchantmentId, EntityType entityType, bool useScriptTag = false)
-	    {
-		    _enchantmentCard = Cards.FromId(enchantmentId);
-		    _entityType = entityType;
-		    _useScriptTag = useScriptTag;
-	    }
+		public AddEnchantmentTask(string enchantmentId, EntityType entityType, bool useScriptTag = false)
+		{
+			_enchantmentCard = Cards.FromId(enchantmentId);
+			_entityType = entityType;
+			_useScriptTag = useScriptTag;
+		}
 
-		public override TaskState Process()
-	    {
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
+		{
 			//	Controller Auras (OTEs)
-		    if (_entityType == EntityType.CONTROLLER)
+			if (_entityType == EntityType.CONTROLLER)
 			{
-				Generic.AddEnchantmentBlock.Invoke(Controller, _enchantmentCard, (IPlayable) Source, Controller, 0, 0);
+				Generic.AddEnchantmentBlock.Invoke(controller, _enchantmentCard, (IPlayable) source, controller, 0, 0);
 				return TaskState.COMPLETE;
 			}
+
 			if (_entityType == EntityType.OP_CONTROLLER)
-		    {
-			    Generic.AddEnchantmentBlock.Invoke(Controller, _enchantmentCard, (IPlayable)Source, Controller.Opponent, 0, 0);
-			    return TaskState.COMPLETE;
+			{
+				Generic.AddEnchantmentBlock.Invoke(controller, _enchantmentCard, (IPlayable) source,
+					controller.Opponent, 0, 0);
+				return TaskState.COMPLETE;
 			}
 
-			int n1 = Number, n2 = Number1;
+			int n1, n2;
+			if (stack != null)
+			{
+				n1 = stack.Number;
+				n2 = stack.Number1;
+			}
+			else
+			{
+				n1 = 0;
+				n2 = 0;
+			}
 
-		    foreach (IPlayable p in IncludeTask.GetEntities(_entityType, Controller, Source, Target, Playables))
-		    {
-			    Generic.AddEnchantmentBlock.Invoke(Controller, _enchantmentCard, (IPlayable) Source, p, n1, n2);
-		    }
+			foreach (IPlayable p in IncludeTask.GetEntities(_entityType, in controller, source, target,
+				stack?.Playables))
+				Generic.AddEnchantmentBlock.Invoke(controller, _enchantmentCard, (IPlayable) source, p, n1, n2);
 
-		    return TaskState.COMPLETE;
-	    }
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new AddEnchantmentTask(_enchantmentCard, _entityType, _useScriptTag);
-			return clone;
+			return TaskState.COMPLETE;
 		}
 	}
 }

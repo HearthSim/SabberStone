@@ -81,6 +81,7 @@ namespace SabberStoneCore.Enchants
 		    TriggerSource = prototype.TriggerSource;
 			Condition = prototype.Condition;
 		    SingleTask = prototype.SingleTask;
+		    SingleTask.IsTrigger = true;
 		    EitherTurn = prototype.EitherTurn;
 			FastExecution = prototype.FastExecution;
 			RemoveAfterTriggered = prototype.RemoveAfterTriggered;
@@ -278,14 +279,9 @@ namespace SabberStoneCore.Enchants
 										: null);
 		    else
 		    {
-			    ISimpleTask taskInstance = SingleTask.Clone();
-			    taskInstance.Game = Game;
-			    taskInstance.Controller = _owner.Controller;
-			    taskInstance.Source = _owner is Enchantment ec ? ec : _owner;
-				taskInstance.Target = source is IPlayable ? source : _owner is Enchantment ew && ew.Target is IPlayable p ? p : null;
-			    taskInstance.IsTrigger = true;
-
-			    Game.TaskQueue.Enqueue(taskInstance);
+			    Game.TaskQueue.Enqueue(SingleTask, _owner.Controller,
+				    _owner is Enchantment ec ? ec : _owner,
+				    source is IPlayable ? source : _owner is Enchantment ew && ew.Target is IPlayable p ? p : null);
 		    }
 
 		    Validated = false;

@@ -19,37 +19,28 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public EntityType TypeA { get; set; }
 		public EntityType TypeB { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			//System.Collections.Generic.List<IPlayable> typeA = IncludeTask.GetEntities(TypeA, Controller, Source, Target, Playables);
-			//System.Collections.Generic.List<IPlayable> typeB = IncludeTask.GetEntities(TypeB, Controller, Source, Target, Playables);
-			List<IPlayable> typeA = IncludeTask.GetEntities(TypeA, Controller, Source, Target, Playables).ToList();
-			List<IPlayable> typeB = IncludeTask.GetEntities(TypeB, Controller, Source, Target, Playables).ToList();
-			if (typeA.Count != 1 || typeB.Count != 1)
-			{
-				return TaskState.STOP;
-			}
+			//System.Collections.Generic.List<IPlayable> typeA = IncludeTask.GetEntities(TypeA, in controller, source, target, stack?.Playables);
+			//System.Collections.Generic.List<IPlayable> typeB = IncludeTask.GetEntities(TypeB, in controller, source, target, stack?.Playables);
+			List<IPlayable> typeA = IncludeTask.GetEntities(TypeA, in controller, source, target, stack?.Playables)
+				.ToList();
+			List<IPlayable> typeB = IncludeTask.GetEntities(TypeB, in controller, source, target, stack?.Playables)
+				.ToList();
+			if (typeA.Count != 1 || typeB.Count != 1) return TaskState.STOP;
 
 			var attacker = typeA[0] as ICharacter;
 			var newDefender = typeB[0] as ICharacter;
-			if (attacker == null || newDefender == null)
-			{
-				return TaskState.STOP;
-			}
+			if (attacker == null || newDefender == null) return TaskState.STOP;
 
-			if (Game.Logging)
-				Game.Log(LogLevel.INFO, BlockType.ATTACK, "ChangeAttackingTargetTask", !Game.Logging? "":$"{attacker} target {Game.ProposedDefender} changed to {newDefender.Id}.");
+			if (game.Logging)
+				game.Log(LogLevel.INFO, BlockType.ATTACK, "ChangeAttackingTargetTask",
+					!game.Logging ? "" : $"{attacker} target {game.ProposedDefender} changed to {newDefender.Id}.");
 
-			Game.ProposedDefender = newDefender.Id;
-			Game.CurrentEventData.EventTarget = newDefender;
+			game.ProposedDefender = newDefender.Id;
+			game.CurrentEventData.EventTarget = newDefender;
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new ChangeAttackingTargetTask(TypeA, TypeB);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

@@ -1,4 +1,6 @@
-﻿using SabberStoneCore.Tasks;
+﻿using SabberStoneCore.Enums;
+using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
 {
@@ -19,5 +21,16 @@ namespace SabberStoneCore.Enchants
 		public ISimpleTask ComboTask { get; set; }
 
 		public ISimpleTask TopdeckTask { get; set; }
+
+		internal static Power OneTurnStealthEnchantmentPower =>
+			new Power
+			{
+				Enchant = new Enchant(new StealthEffect()),
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = new RemoveEnchantmentTask(),
+					RemoveAfterTriggered = true,
+				}
+			};
 	}
 }

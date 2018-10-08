@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
-using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -165,9 +166,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_419", new Power {
-				// TODO [BOT_419] Dendrologist && Test: Dendrologist_BOT_419
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE,
+						new SelfCondition(p => p.Controller.BoardZone.Any(q => q.Card.Id == "EX1_158t"))),
+					new FlagTask(true, new DiscoverTask(DiscoverType.SPELL)))
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -182,11 +184,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_422", new Power {
-				// TODO [BOT_422] Tending Tauren && Test: Tending Tauren_BOT_422
-				InfoCardId = "BOT_422ae",
-				//PowerTask = null,
-				//Trigger = null,
+			cards.Add("BOT_422", new Power
+			{
+				PowerTask = ComplexTask.Create(
+					new SummonTask("EX1_158t", SummonSide.RIGHT),
+					new SummonTask("EX1_158t", SummonSide.LEFT),
+					new AddEnchantmentTask("BOT_422ae", EntityType.MINIONS_NOSOURCE))
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -196,10 +199,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the end of your turn, reduce the Cost of a random minion in your hand by (7).
 			// --------------------------------------------------------
 			cards.Add("BOT_423", new Power {
-				// TODO [BOT_423] Dreampetal Florist && Test: Dreampetal Florist_BOT_423
-				InfoCardId = "BOT_423e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "BOT_423e")
+				}
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -212,10 +215,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_434", new Power {
-				// TODO [BOT_434] Flobbidinous Floop && Test: Flobbidinous Floop_BOT_434
-				InfoCardId = "BOT_434e",
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO [BOT_434] Flobbidinous Floop
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				{
+					TriggerActivation = TriggerActivation.HAND,
+					TriggerSource = TriggerSource.MINIONS,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.SOURCE),
+						new IncludeTask(EntityType.TARGET, addFlag: true),
+						new FuncPlayablesTask(list =>
+						{
+							var s = list[0];
+							var t = list[1];
+							Generic.ChangeEntityBlock.Invoke(s.Controller, s, t.Card);
+							return null;
+						}),
+						new AddEnchantmentTask("BOT_434e", EntityType.SOURCE),
+						new AddEnchantmentTask("BOT_434e2", EntityType.SOURCE))
+				}
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -232,9 +249,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_507", new Power {
-				// TODO [BOT_507] Gloop Sprayer && Test: Gloop Sprayer_BOT_507
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.MINIONS),
+					new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+					new SummonCopyTask(EntityType.STACK, SummonSide.ALTERNATE))
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -247,9 +265,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_523", new Power {
-				// TODO [BOT_523] Mulchmuncher && Test: Mulchmuncher_BOT_523
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
+					p => p.Controller.GraveyardZone.Count(q => q.Card.Id == "EX1_158t" && q.ToBeDestroyed))
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -263,9 +280,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_054", new Power {
-				// TODO [BOT_054] Biology Project && Test: Biology Project_BOT_054
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new ManaCrystalFullTask(2, true)
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -277,9 +292,10 @@ namespace SabberStoneCore.CardSets.Standard
 			//        from your deck.
 			// --------------------------------------------------------
 			cards.Add("BOT_404", new Power {
-				// TODO [BOT_404] Juicy Psychmelon && Test: Juicy Psychmelon_BOT_404
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					ComplexTask.DrawFromDeck(1, SelfCondition.HasCost(7)),
+					ComplexTask.DrawFromDeck(1, SelfCondition.HasCost(8)),
+					ComplexTask.DrawFromDeck(1, SelfCondition.HasCost(9)))
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -292,9 +308,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_420", new Power {
-				// TODO [BOT_420] Landscaping && Test: Landscaping_BOT_420
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("EX1_158t", 2)
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -324,9 +338,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (7) less.
 			// --------------------------------------------------------
 			cards.Add("BOT_423e", new Power {
-				// TODO [BOT_423e] Floral Arrangement && Test: Floral Arrangement_BOT_423e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.COST, EffectOperator.SUB, 7)
 			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
@@ -336,10 +348,20 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Transforming into recent minions.
 			// --------------------------------------------------------
 			cards.Add("BOT_434e", new Power {
-				// TODO [BOT_434e] Floopy && Test: Floopy_BOT_434e
-				InfoCardId = "BOT_434e2",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				{
+					TriggerSource = TriggerSource.MINIONS,
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.SOURCE),
+						new IncludeTask(EntityType.TARGET, addFlag: true),
+						new FuncPlayablesTask(list =>
+						{
+							IPlayable t = (IPlayable)((Enchantment) list[0]).Target;
+							IPlayable s = list[1];
+							Generic.ChangeEntityBlock.Invoke(s.Controller, t, s.Card);
+							return null;
+						}))
+				}
 			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
@@ -349,9 +371,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: 3/4.
 			// --------------------------------------------------------
 			cards.Add("BOT_434e2", new Power {
-				// TODO [BOT_434e2] Floopy && Test: Floopy_BOT_434e2
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(Effects.SetAttack(3), Effects.SetMaxHealth(4)),
 			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
@@ -376,10 +396,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Give your other minions +1/+1.
 			// --------------------------------------------------------
 			cards.Add("BOT_422a", new Power {
-				// TODO [BOT_422a] Old Growth && Test: Old Growth_BOT_422a
-				InfoCardId = "BOT_422ae",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("BOT_422ae", EntityType.MINIONS_NOSOURCE)
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -389,9 +406,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Summon two 2/2 Treants.
 			// --------------------------------------------------------
 			cards.Add("BOT_422b", new Power {
-				// TODO [BOT_422b] New Growth && Test: New Growth_BOT_422b
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new SummonTask("EX1_158t", SummonSide.RIGHT),
+					new SummonTask("EX1_158t", SummonSide.LEFT))
 			});
 
 		}
@@ -409,9 +426,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_034", new Power {
-				// TODO [BOT_034] Boommaster Flark && Test: Boommaster Flark_BOT_034
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("BOT_031", 4, SummonSide.ALTERNATE)
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -426,8 +441,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MODULAR = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_035", new Power {
-				// TODO [BOT_035] Venomizer && Test: Venomizer_BOT_035
-				InfoCardId = "BOT_035e",
 				PowerTask = new MagneticTask()
 			});
 
@@ -452,10 +465,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_038", new Power {
-				// TODO [BOT_038] Fireworks Tech && Test: Fireworks Tech_BOT_038
-				InfoCardId = "BOT_038e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new AddEnchantmentTask("BOT_038e", EntityType.TARGET),
+					new ConditionTask(EntityType.TARGET, SelfCondition.IsDeathrattleMinion),
+					new FlagTask(true,
+						new ActivateDeathrattleTask(EntityType.TARGET)))
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -471,10 +485,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_039", new Power {
-				// TODO [BOT_039] Necromechanic && Test: Necromechanic_BOT_039
-				InfoCardId = "BOT_039e",
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.CONTROLLER, "BOT_039e")
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -489,10 +500,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MODULAR = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_251", new Power {
-				// TODO [BOT_251] Spider Bomb && Test: Spider Bomb_BOT_251
-				InfoCardId = "BOT_251e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new MagneticTask(),
+				DeathrattleTask = ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS)
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -508,9 +517,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_033", new Power {
-				// TODO [BOT_033] Bomb Toss && Test: Bomb Toss_BOT_033
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new DamageTask(2, EntityType.TARGET, true),
+					new SummonTask("BOT_031"))
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -524,9 +533,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_402", new Power {
-				// TODO [BOT_402] Secret Plan && Test: Secret Plan_BOT_402
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DiscoverTask(DiscoverType.SECRET)
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -611,10 +618,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_251e", new Power {
-				// TODO [BOT_251e] Spider Bomb && Test: Spider Bomb_BOT_251e
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_251e"),
+				DeathrattleTask = cards["BOT_251"].DeathrattleTask
+            });
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [BOT_438e] Chipped (*) - COST:0 
@@ -643,9 +649,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_103", new Power {
-				// TODO [BOT_103] Stargazer Luna && Test: Stargazer Luna_BOT_103
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO: tag=LUNAHIGHLIGHTHINT
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				{
+					Condition = new SelfCondition(p => p.ZonePosition == p.Controller.HandZone.Count),
+					SingleTask = new DrawTask()
+				}
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -660,9 +669,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_256", new Power {
-				// TODO [BOT_256] Astromancer && Test: Astromancer_BOT_256
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new CountTask(EntityType.HAND),
+					new RandomMinionNumberTask(GameTag.COST),
+					new SummonTask())
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -678,10 +688,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_531", new Power {
-				// TODO [BOT_531] Celestial Emissary && Test: Celestial Emissary_BOT_531
-				InfoCardId = "BOT_531e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("BOT_531e", EntityType.CONTROLLER)
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -694,9 +701,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_601", new Power {
-				// TODO [BOT_601] Meteorologist && Test: Meteorologist_BOT_601
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new CountTask(EntityType.HAND),
+					new EnqueueNumberTask(
+						ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 1)))
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -708,11 +716,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - SPELLPOWER = 2
 			// --------------------------------------------------------
-			cards.Add("BOT_604", new Power {
-				// TODO [BOT_604] Cosmic Anomaly && Test: Cosmic Anomaly_BOT_604
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("BOT_604", null);
 
 			// ------------------------------------------- SPELL - MAGE
 			// [BOT_101] Astral Rift - COST:2 
@@ -814,10 +818,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_531e", new Power {
-				// TODO [BOT_531e] Celestial Power && Test: Celestial Power_BOT_531e
-				InfoCardId = "BOT_531e2",
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, 2)),
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				{
+					Condition = SelfCondition.IsSpell,
+					SingleTask = new RemoveEnchantmentTask()
+				}
 			});
 
 			// ------------------------------------- ENCHANTMENT - MAGE
@@ -831,8 +837,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("BOT_531e2", new Power {
 				// TODO [BOT_531e2] Celestial Power && Test: Celestial Power_BOT_531e2
-				//PowerTask = null,
-				//Trigger = null,
+				// Enchantment for indicating activation.
 			});
 
 		}
@@ -852,9 +857,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_236", new Power {
-				// TODO [BOT_236] Crystalsmith Kangor && Test: Crystalsmith Kangor_BOT_236
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.ALL_HEALING_DOUBLE, EffectOperator.ADD, 1))
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -867,9 +870,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_537", new Power {
-				// TODO [BOT_537] Mechano-Egg && Test: Mechano-Egg_BOT_537
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new SummonTask("BOT_537t", 1)
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -882,10 +883,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MODULAR = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_906", new Power {
-				// TODO [BOT_906] Glow-Tron && Test: Glow-Tron_BOT_906
-				InfoCardId = "BOT_906e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new MagneticTask()
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -898,10 +896,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_910", new Power {
-				// TODO [BOT_910] Glowstone Technician && Test: Glowstone Technician_BOT_910
-				InfoCardId = "BOT_910e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsMinion),
+					new AddEnchantmentTask("BOT_910e", EntityType.STACK))
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -929,10 +927,7 @@ namespace SabberStoneCore.CardSets.Standard
 			//       to 1.
 			// --------------------------------------------------------
 			cards.Add("BOT_234", new Power {
-				// TODO [BOT_234] Shrink Ray && Test: Shrink Ray_BOT_234
-				InfoCardId = "BOT_234e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("BOT_234e", EntityType.ALLMINIONS)
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -1067,9 +1062,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_216", new Power {
-				// TODO [BOT_216] Omega Medic && Test: Omega Medic_BOT_216
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsManaCrystalFull),
+					new FlagTask(true, new HealTask(10, EntityType.HERO)))
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -1085,10 +1080,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 542 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_258", new Power {
-				// TODO [BOT_258] Zerek, Master Cloner && Test: Zerek, Master Cloner_BOT_258
-				InfoCardId = "BOT_258e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
+					TriggerSource = TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
+					SingleTask = new AddEnchantmentTask("BOT_258e", EntityType.SOURCE),
+					RemoveAfterTriggered = true
+				}
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -1101,9 +1098,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_509", new Power {
-				// TODO [BOT_509] Dead Ringer && Test: Dead Ringer_BOT_509
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.DrawFromDeck(1, SelfCondition.IsDeathrattleMinion)
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -1120,11 +1115,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 542 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_558", new Power {
-				// TODO [BOT_558] Test Subject && Test: Test Subject_BOT_558
-				InfoCardId = "BOT_558e",
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
+					TriggerSource = TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
+					SingleTask = ComplexTask.Create(
+						new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
+						new AddEnchantmentTask("BOT_558e", EntityType.SOURCE, true))
+				}
+            });
 
 			// ---------------------------------------- MINION - PRIEST
 			// [BOT_566] Reckless Experimenter - COST:5 [ATK:4/HP:6] 
@@ -1141,10 +1139,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_566", new Power {
-				// TODO [BOT_566] Reckless Experimenter && Test: Reckless Experimenter_BOT_566
-				InfoCardId = "BOT_566e",
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.HAND, "BOT_566e2")
+				{
+					Condition = SelfCondition.IsDeathrattleMinion
+				},
+				Trigger = new Trigger(TriggerType.PLAY_MINION)
+				{
+					Condition = SelfCondition.IsDeathrattleMinion,
+					SingleTask = new AddEnchantmentTask("BOT_566e", EntityType.TARGET)
+				}
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1160,10 +1163,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_219", new Power {
-				// TODO [BOT_219] Extra Arms && Test: Extra Arms_BOT_219
-				InfoCardId = "BOT_219e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new AddEnchantmentTask("BOT_219e", EntityType.TARGET),
+					new AddCardTo("BOT_219t", EntityType.HAND))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1176,9 +1178,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_435", new Power {
-				// TODO [BOT_435] Cloning Device && Test: Cloning Device_BOT_435
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DiscoverTask(DiscoverType.OP_DECK_MINION)
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1192,10 +1192,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_517", new Power {
-				// TODO [BOT_517] Topsy Turvy && Test: Topsy Turvy_BOT_517
-				InfoCardId = "BOT_517e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SwapAttackHealthTask(EntityType.TARGET, "BOT_517e")
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1211,10 +1208,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_529", new Power {
-				// TODO [BOT_529] Power Word: Replicate && Test: Power Word: Replicate_BOT_529
-				InfoCardId = "BOT_529e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new SummonCopyTask(EntityType.TARGET, addToStack: true),
+					new AddEnchantmentTask("BOT_529e", EntityType.STACK))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1227,10 +1223,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_567", new Power {
-				// TODO [BOT_567] Zerek's Cloning Gallery && Test: Zerek's Cloning Gallery_BOT_567
-				InfoCardId = "BOT_567e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.DECK),
+					new FilterStackTask(SelfCondition.IsMinion),
+					new SummonCopyTask(EntityType.STACK, true, true),
+					new AddEnchantmentTask("BOT_567e", EntityType.STACK))
 			});
 
 		}
@@ -1264,9 +1261,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Prepared to summon Zerek, Master Cloner
 			// --------------------------------------------------------
 			cards.Add("BOT_258e", new Power {
-				// TODO [BOT_258e] Cloning Vector && Test: Cloning Vector_BOT_258e
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new SummonTask("BOT_258", 1)
 			});
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
@@ -1276,10 +1271,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: 5/5.
 			// --------------------------------------------------------
 			cards.Add("BOT_529e", new Power {
-				// TODO [BOT_529e] Replicated && Test: Replicated_BOT_529e
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_529e")
+            });
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [BOT_558e] Stored Data (*) - COST:0 
@@ -1288,10 +1281,20 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Storing spell.
 			// --------------------------------------------------------
 			cards.Add("BOT_558e", new Power {
-				// TODO [BOT_558e] Stored Data && Test: Stored Data_BOT_558e
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.TARGET),
+					new FuncPlayablesTask(list =>
+					{
+						IPlayable t = list[0];
+						return new List<IPlayable>
+						{
+							Entity.FromCard(t.Controller,
+								t.Game.IdEntityDic[t[GameTag.TAG_SCRIPT_DATA_NUM_1]]
+									.Card)
+						};
+					}),
+					new AddStackTo(EntityType.HAND))
+            });
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [BOT_566e] Reckless Experiment (*) - COST:0 
@@ -1300,10 +1303,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This minion will die a reckless death at the end of the turn.
 			// --------------------------------------------------------
 			cards.Add("BOT_566e", new Power {
-				// TODO [BOT_566e] Reckless Experiment && Test: Reckless Experiment_BOT_566e
-				InfoCardId = "BOT_566e2",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = new DestroyTask(EntityType.TARGET)
+				}
 			});
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
@@ -1313,9 +1316,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (3) less.
 			// --------------------------------------------------------
 			cards.Add("BOT_566e2", new Power {
-				// TODO [BOT_566e2] Reckless Experiment && Test: Reckless Experiment_BOT_566e2
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(Effects.ReduceCost(3))
 			});
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
@@ -1325,10 +1326,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: 1/1.
 			// --------------------------------------------------------
 			cards.Add("BOT_567e", new Power {
-				// TODO [BOT_567e] Cloned && Test: Cloned_BOT_567e
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_567e")
+            });
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [BOT_219t] More Arms! (*) - COST:3 
@@ -1341,10 +1340,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_219t", new Power {
-				// TODO [BOT_219t] More Arms! && Test: More Arms!_BOT_219t
-				InfoCardId = "BOT_219te",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("BOT_219te", EntityType.TARGET)
 			});
 
 		}
@@ -1368,10 +1364,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_243", new Power {
-				// TODO [BOT_243] Myra Rotspring && Test: Myra Rotspring_BOT_243
-				InfoCardId = "BOT_243e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DiscoverTask(DiscoverType.DEATHRATTLE_MINIONS,
+					ComplexTask.Create(
+						new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
+						new AddEnchantmentTask("BOT_243e", EntityType.SOURCE, true)))
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1386,10 +1382,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_283", new Power {
-				// TODO [BOT_283] Pogo-Hopper && Test: Pogo-Hopper_BOT_283
-				InfoCardId = "BOT_283e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new FuncNumberTask(p =>
+					{
+						int count = p.Controller.PlayHistory.Count(h => h.SourceCard.AssetId == 48471) - 1;
+
+                        return count < 0 ? 0 : count * 2;
+					}),
+					new AddEnchantmentTask("BOT_283e", EntityType.SOURCE, true))
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1407,10 +1407,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_288", new Power {
-				// TODO [BOT_288] Lab Recruiter && Test: Lab Recruiter_BOT_288
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				PowerTask = ComplexTask.Create(
+					new CopyTask(EntityType.TARGET, 3),
+					new AddStackTo(EntityType.DECK))
+            });
 
 			// ----------------------------------------- MINION - ROGUE
 			// [BOT_565] Blightnozzle Crawler - COST:4 [ATK:2/HP:4] 
@@ -1426,9 +1426,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_565", new Power {
-				// TODO [BOT_565] Blightnozzle Crawler && Test: Blightnozzle Crawler_BOT_565
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new SummonTask("BOT_565t")
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1446,10 +1444,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_576", new Power {
-				// TODO [BOT_576] Crazed Chemist && Test: Crazed Chemist_BOT_576
-				InfoCardId = "BOT_576e",
-				//PowerTask = null,
-				//Trigger = null,
+				ComboTask = new AddEnchantmentTask("BOT_576e", EntityType.TARGET)
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1462,9 +1457,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_084", new Power {
-				// TODO [BOT_084] Violet Haze && Test: Violet Haze_BOT_084
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new EnqueueTask(2,
+					ComplexTask.Create(
+					new RandomCardTask(CardType.INVALID, CardClass.INVALID, gameTagFilter: new []{GameTag.DEATHRATTLE}),
+					new AddStackTo(EntityType.HAND)))
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1531,9 +1527,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_286", new Power {
-				// TODO [BOT_286] Necrium Blade && Test: Necrium Blade_BOT_286
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.MINIONS),
+					new FilterStackTask(SelfCondition.IsDeathrattleMinion),
+					new RandomTask(1, EntityType.STACK),
+					new ActivateDeathrattleTask(EntityType.STACK))
 			});
 
 		}
@@ -1559,10 +1557,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Copied Deathrattle from {0}.
 			// --------------------------------------------------------
 			cards.Add("BOT_243e", new Power {
-				// TODO [BOT_243e] Necroalchemy && Test: Necroalchemy_BOT_243e
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.SOURCE),
+					new IncludeTask(EntityType.TARGET, null, true),
+					new FuncPlayablesTask(p =>
+					{
+						p[0].Game.IdEntityDic[p[1][GameTag.TAG_SCRIPT_DATA_NUM_1]].ActivateTask(PowerActivation.DEATHRATTLE, null, 0, p[0]);
+						return null;
+					}))
+            });
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [BOT_283e] Kinetic Energy (*) - COST:0 
@@ -1571,9 +1574,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("BOT_283e", new Power {
-				// TODO [BOT_283e] Kinetic Energy && Test: Kinetic Energy_BOT_283e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
@@ -1583,10 +1584,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +4 Attack.
 			// --------------------------------------------------------
 			cards.Add("BOT_576e", new Power {
-				// TODO [BOT_576e] Overcharged && Test: Overcharged_BOT_576e
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_576e")
+
+            });
 
 			// ----------------------------------------- MINION - ROGUE
 			// [BOT_565t] Radioactive Ooze (*) - COST:1 [ATK:1/HP:1] 
@@ -1615,9 +1615,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_291", new Power {
-				// TODO [BOT_291] Storm Chaser && Test: Storm Chaser_BOT_291
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.DrawFromDeck(1, SelfCondition.IsTagValue(GameTag.COST, 5, RelaSign.GEQ))
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1633,9 +1631,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_407", new Power {
-				// TODO [BOT_407] Thunderhead && Test: Thunderhead_BOT_407
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					Condition = SelfCondition.IsOverloadCard,
+					SingleTask = new SummonTask("BOT_102t", 2, SummonSide.ALTERNATE)
+				}
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1649,10 +1650,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_411", new Power {
-				// TODO [BOT_411] Electra Stormsurge && Test: Electra Stormsurge_BOT_411
-				InfoCardId = "BOT_411e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("BOT_411e", EntityType.CONTROLLER)
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1665,9 +1663,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_533", new Power {
-				// TODO [BOT_533] Menacing Nimbus && Test: Menacing Nimbus_BOT_533
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RandomCardTask(CardType.MINION, CardClass.INVALID, Race.ELEMENTAL),
+					new AddStackTo(EntityType.HAND))
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1702,9 +1700,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_WITH_DEATHRATTLE = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_093", new Power {
-				// TODO [BOT_093] Elementary Reaction && Test: Elementary Reaction_BOT_093
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new DrawTask(true),
+					new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
+					new FlagTask(true, new CopyTask(EntityType.STACK, 1, false, Zone.HAND)))
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -1717,9 +1716,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_099", new Power {
-				// TODO [BOT_099] Eureka! && Test: Eureka!_BOT_099
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsMinion),
+					new SummonCopyTask(EntityType.STACK))
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -1732,9 +1732,22 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_245", new Power {
-				// TODO [BOT_245] The Storm Bringer && Test: The Storm Bringer_BOT_245
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.MINIONS),
+					new FuncPlayablesTask(minions =>
+					{
+						if (minions.Count == 0)
+							return null;
+
+						var legendaries = RandomCardTask.GetCardList(minions[0], CardType.MINION,
+							rarity: Rarity.LEGENDARY);
+						foreach (IPlayable p in minions)
+							Generic.TransformBlock.Invoke(p.Controller, Util.Choose(legendaries), (Minion)p);
+
+						minions[0].Game.OnRandomHappened(true);
+
+						return null;
+					}))
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -1748,9 +1761,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - OVERLOAD_OWED = 2
 			// --------------------------------------------------------
 			cards.Add("BOT_246", new Power {
-				// TODO [BOT_246] Beakered Lightning && Test: Beakered Lightning_BOT_246
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(1, EntityType.ALLMINIONS)
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -1770,9 +1781,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_451", new Power {
-				// TODO [BOT_451] Voltaic Burst && Test: Voltaic Burst_BOT_451
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("BOT_102t", 2)
 			});
 
 		}
@@ -1789,10 +1798,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_411e", new Power {
-				// TODO [BOT_411e] Electric && Test: Electric_BOT_411e
-				InfoCardId = "BOT_411e2",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.TARGET),
+						new PlayTask(PlayType.SPELL),
+						new RemoveEnchantmentTask())
+				}
 			});
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
@@ -1805,10 +1817,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_411e2", new Power {
-				// TODO [BOT_411e2] Electricking && Test: Electricking_BOT_411e2
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				Enchant = new Enchant(GameTag.CUSTOM_KEYWORD_EFFECT, EffectOperator.SET, 1)
+				{
+					IsOneTurnEffect = true,
+				},
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				{
+					Condition = SelfCondition.IsSpell,
+					SingleTask = new RemoveEnchantmentTask()
+				}
+            });
 
 		}
 
@@ -1824,10 +1842,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_224", new Power {
-				// TODO [BOT_224] Doubling Imp && Test: Doubling Imp_BOT_224
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				PowerTask = new SummonCopyTask(EntityType.SOURCE, SummonSide.RIGHT)
+            });
 
 			// --------------------------------------- MINION - WARLOCK
 			// [BOT_226] Nethersoul Buster - COST:3 [ATK:1/HP:5] 
@@ -1839,10 +1855,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_226", new Power {
-				// TODO [BOT_226] Nethersoul Buster && Test: Nethersoul Buster_BOT_226
-				InfoCardId = "BOT_226e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new FuncNumberTask(p => p.Controller.Hero.DamageTakenThisTurn),
+					new AddEnchantmentTask("BOT_226e", EntityType.SOURCE, true)) 
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -1857,9 +1872,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 542 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_433", new Power {
-				// TODO [BOT_433] Dr. Morrigan && Test: Dr. Morrigan_BOT_433
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.HasMinionInDeck()),
+					new FlagTask(true, ComplexTask.Create(
+						new IncludeTask(EntityType.DECK),
+						new FilterStackTask(SelfCondition.IsMinion),
+						new RandomTask(1, EntityType.STACK),
+						new RemoveFromDeck(EntityType.STACK),
+						new MoveToDeck(EntityType.SOURCE),
+						new SummonTask())))
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -1872,10 +1893,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_443", new Power {
-				// TODO [BOT_443] Void Analyst && Test: Void Analyst_BOT_443
-				InfoCardId = "BOT_443e",
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
+					new AddEnchantmentTask("BOT_443e", EntityType.STACK))
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -1890,9 +1911,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_536", new Power {
-				// TODO [BOT_536] Omega Agent && Test: Omega Agent_BOT_536
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsManaCrystalFull),
+					new FlagTask(true, new EnqueueTask(2,
+						new SummonCopyTask(EntityType.SOURCE, SummonSide.RIGHT))))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -1906,9 +1928,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_222", new Power {
-				// TODO [BOT_222] Spirit Bomb && Test: Spirit Bomb_BOT_222
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.TARGET),
+					new IncludeTask(EntityType.HERO, addFlag: true),
+					new DamageTask(4, EntityType.STACK, true))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -1980,9 +2003,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Attack increased.
 			// --------------------------------------------------------
 			cards.Add("BOT_226e", new Power {
-				// TODO [BOT_226e] Nethercharged && Test: Nethercharged_BOT_226e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.AddAttackScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
@@ -2028,9 +2049,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever this minion takes damage, gain 2_Armor.
 			// --------------------------------------------------------
 			cards.Add("BOT_059", new Power {
-				// TODO [BOT_059] Eternium Rover && Test: Eternium Rover_BOT_059
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
+				{
+					TriggerSource = TriggerSource.SELF,
+					SingleTask = new ArmorTask(2)
+				}
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2043,9 +2066,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_104", new Power {
-				// TODO [BOT_104] Dyn-o-matic && Test: Dyn-o-matic_BOT_104
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.ALLMINIONS),
+					new FilterStackTask(SelfCondition.IsRace(Race.MECHANICAL)),
+					new EnqueueTask(5, ComplexTask.DamageRandomTargets(1, EntityType.STACK, 1)))
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2079,10 +2103,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MODULAR = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_237", new Power {
-				// TODO [BOT_237] Beryllium Nullifier && Test: Beryllium Nullifier_BOT_237
-				InfoCardId = "BOT_237e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new MagneticTask()
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -2248,10 +2269,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MODULAR = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_020", new Power {
-				// TODO [BOT_020] Skaterbot && Test: Skaterbot_BOT_020
-				InfoCardId = "BOT_020e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new MagneticTask()
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2280,9 +2298,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_031", new Power {
-				// TODO [BOT_031] Goblin Bomb && Test: Goblin Bomb_BOT_031
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new DamageTask(2, EntityType.OP_HERO)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2308,9 +2324,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_066", new Power {
-				// TODO [BOT_066] Mechanical Whelp && Test: Mechanical Whelp_BOT_066
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new SummonTask("BOT_066t")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2329,10 +2343,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_079", new Power {
-				// TODO [BOT_079] Faithful Lumi && Test: Faithful Lumi_BOT_079
-				InfoCardId = "BOT_079e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.MINIONS),
+					new FilterStackTask(SelfCondition.IsRace(Race.MECHANICAL)),
+					new AddEnchantmentTask("BOT_079e", EntityType.STACK))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2345,10 +2359,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_083", new Power {
-				// TODO [BOT_083] Toxicologist && Test: Toxicologist_BOT_083
-				InfoCardId = "BOT_083e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("BOT_083e", EntityType.WEAPON)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2358,9 +2369,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Can only attack if you cast a spell this turn.
 			// --------------------------------------------------------
 			cards.Add("BOT_098", new Power {
-				// TODO [BOT_098] Unpowered Mauler && Test: Unpowered Mauler_BOT_098
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new AdaptiveEffect(SelfCondition.NotPlayedAnySpellThisTurn, GameTag.CANT_ATTACK)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2376,9 +2385,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_102", new Power {
-				// TODO [BOT_102] Spark Drill && Test: Spark Drill_BOT_102
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new AddCardTo("BOT_102t", EntityType.HAND, 2)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2394,10 +2401,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MODULAR = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_107", new Power {
-				// TODO [BOT_107] Missile Launcher && Test: Missile Launcher_BOT_107
-				InfoCardId = "BOT_107e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new MagneticTask(),
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = new DamageTask(1, EntityType.ALL_NOSOURCE)
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2411,9 +2419,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_267", new Power {
-				// TODO [BOT_267] Piloted Reaper && Test: Piloted Reaper_BOT_267
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 2, RelaSign.LEQ)),
+					new RandomTask(1, EntityType.STACK),
+					new RemoveFromHand(EntityType.STACK),
+					new SummonTask())
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2430,7 +2441,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_270", new Power {
-				PowerTask = new SummonTask("BOT_270t", 2)
+				PowerTask = ComplexTask.Create(
+						new SummonTask("BOT_270t", SummonSide.LEFT),
+						new SummonTask("BOT_270t", SummonSide.RIGHT))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2440,10 +2453,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: After your opponent plays a minion, summon a 1/1_copy of it.
 			// --------------------------------------------------------
 			cards.Add("BOT_280", new Power {
-				// TODO [BOT_280] Holomancer && Test: Holomancer_BOT_280
-				InfoCardId = "BOT_280e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
+				{
+					TriggerSource = TriggerSource.ENEMY,
+					SingleTask = ComplexTask.Create(
+						new SummonCopyTask(EntityType.TARGET, false, true, SummonSide.RIGHT),
+						new AddEnchantmentTask("BOT_280e", EntityType.STACK))
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2478,20 +2494,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_308", new Power {
-				// TODO [BOT_308] Spring Rocket && Test: Spring Rocket_BOT_308
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(2, EntityType.TARGET)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [BOT_309] Upgradeable Framebot - COST:2 [ATK:1/HP:5] 
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("BOT_309", new Power {
-				// TODO [BOT_309] Upgradeable Framebot && Test: Upgradeable Framebot_BOT_309
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("BOT_309", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [BOT_312] Replicating Menace - COST:4 [ATK:3/HP:1] 
@@ -2506,11 +2516,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 853 = 48548
 			// --------------------------------------------------------
 			cards.Add("BOT_312", new Power {
-				// TODO [BOT_312] Replicating Menace && Test: Replicating Menace_BOT_312
-				InfoCardId = "BOT_312e",
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				PowerTask = new MagneticTask(),
+				DeathrattleTask = new SummonTask("BOT_312t", 3)
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [BOT_401] Weaponized Piñata - COST:4 [ATK:4/HP:3] 
@@ -2522,9 +2530,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_401", new Power {
-				// TODO [BOT_401] Weaponized Piñata && Test: Weaponized Piñata_BOT_401
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new RandomCardTask(CardType.MINION, CardClass.INVALID, rarity: Rarity.LEGENDARY),
+					new AddStackTo(EntityType.HAND))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2538,10 +2546,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_413", new Power {
-				// TODO [BOT_413] Brainstormer && Test: Brainstormer_BOT_413
-				InfoCardId = "BOT_413e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsSpell),
+					new CountTask(EntityType.STACK),
+					new AddEnchantmentTask("BOT_413e", EntityType.SOURCE, true))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2571,9 +2580,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_424", new Power {
-				// TODO [BOT_424] Mecha'thun && Test: Mecha'thun_BOT_424
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE,
+						SelfCondition.IsZoneCount(Zone.DECK, 0),
+						SelfCondition.IsZoneCount(Zone.HAND, 0),
+						SelfCondition.IsZoneCount(Zone.PLAY, 0)),
+					new FlagTask(true,
+						new DestroyTask(EntityType.OP_HERO, true)))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2586,9 +2599,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_431", new Power {
-				// TODO [BOT_431] Whirliglider && Test: Whirliglider_BOT_431
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("BOT_031", 1, SummonSide.RIGHT)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2601,9 +2612,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_445", new Power {
-				// TODO [BOT_445] Mecharoo && Test: Mecharoo_BOT_445
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = new SummonTask("BOT_445t", 1)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2617,9 +2626,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_447", new Power {
-				// TODO [BOT_447] Crystallizer && Test: Crystallizer_BOT_447
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new DamageTask(5, EntityType.HERO),
+					new ArmorTask(5))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2650,10 +2659,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_511", new Power {
-				// TODO [BOT_511] Seaforium Bomber && Test: Seaforium Bomber_BOT_511
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				PowerTask = new AddCardTo("BOT_511t", EntityType.OP_DECK)
+            });
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [BOT_532] Explodinator - COST:4 [ATK:3/HP:2] 
@@ -2665,9 +2672,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_532", new Power {
-				// TODO [BOT_532] Explodinator && Test: Explodinator_BOT_532
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("BOT_031", 2, SummonSide.ALTERNATE)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2691,9 +2696,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_535", new Power {
-				// TODO [BOT_535] Microtech Controller && Test: Microtech Controller_BOT_535
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("BOT_312t", 2, SummonSide.ALTERNATE)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2710,9 +2713,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_538", new Power {
-				// TODO [BOT_538] Spark Engine && Test: Spark Engine_BOT_538
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddCardTo("BOT_102t", EntityType.HAND)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2728,9 +2729,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_539", new Power {
-				// TODO [BOT_539] Arcane Dynamo && Test: Arcane Dynamo_BOT_539
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DiscoverTask(DiscoverType.SPELL_COSTS_5_OR_MORE)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2748,9 +2747,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_540", new Power {
-				// TODO [BOT_540] E.M.P. Operative && Test: E.M.P. Operative_BOT_540
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DestroyTask(EntityType.TARGET)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2763,9 +2760,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_544", new Power {
-				// TODO [BOT_544] Loose Specimen && Test: Loose Specimen_BOT_544
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new EnqueueTask(6, ComplexTask.DamageRandomTargets(1, EntityType.MINIONS_NOSOURCE, 1))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2797,10 +2792,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_550", new Power {
-				// TODO [BOT_550] Electrowright && Test: Electrowright_BOT_550
-				InfoCardId = "BOT_550e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, new SelfCondition(p => p.Controller.HandZone.Any(i => i is Spell && p.Cost >= 5))),
+					new FlagTask(true, new AddEnchantmentTask("BOT_550e", EntityType.SOURCE)))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2815,9 +2809,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_552", new Power {
-				// TODO [BOT_552] Star Aligner && Test: Star Aligner_BOT_552
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE,
+						new SelfCondition(p =>
+							p.Controller.BoardZone.Count(m => m.Health == 7) == 3)),
+					new FlagTask(true, new DamageTask(7, EntityType.ENEMIES)))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2834,9 +2830,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_555", new Power {
-				// TODO [BOT_555] Harbinger Celestia && Test: Harbinger Celestia_BOT_555
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
+				{
+					TriggerSource = TriggerSource.ENEMY,
+					SingleTask = new TransformCopyTask()
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2865,10 +2863,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - STEALTH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_562", new Power {
-				// TODO [BOT_562] Coppertail Imposter && Test: Coppertail Imposter_BOT_562
-				InfoCardId = "BOT_562e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("BOT_562e", EntityType.SOURCE)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2881,10 +2876,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MODULAR = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_563", new Power {
-				// TODO [BOT_563] Wargear && Test: Wargear_BOT_563
-				InfoCardId = "BOT_563e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new MagneticTask()
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2901,9 +2893,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_573", new Power {
-				// TODO [BOT_573] Subject 9 && Test: Subject 9_BOT_573
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new FuncNumberTask(source =>
+				{
+					Dictionary<int, Spell> secrets = new Dictionary<int, Spell>();
+					var deck = source.Controller.DeckZone.GetSpan();
+					for (int i = 0; i < deck.Length; i++)
+						if (deck[i] is Spell s && s.IsSecret && !secrets.ContainsKey(s.Card.AssetId))
+							secrets.Add(s.Card.AssetId, s);
+					foreach (var item in secrets)
+						Generic.DrawBlock.Invoke(source.Controller, item.Value);
+					return 0;
+				})
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2927,9 +2927,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_606", new Power {
-				// TODO [BOT_606] Kaboom Bot && Test: Kaboom Bot_BOT_606
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.DamageRandomTargets(1, EntityType.OP_MINIONS, 4)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2944,10 +2942,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_907", new Power {
-				// TODO [BOT_907] Galvanizer && Test: Galvanizer_BOT_907
-				InfoCardId = "BOT_907e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsRace(Race.MECHANICAL)),
+					new AddEnchantmentTask("BOT_907e", EntityType.STACK))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2981,9 +2979,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_020e", new Power {
-				// TODO [BOT_020e] Skaterbot && Test: Skaterbot_BOT_020e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_020e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2997,9 +2993,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_021e", new Power {
-				// TODO [BOT_021e] Bronze Gatekeeper && Test: Bronze Gatekeeper_BOT_021e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_021e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3023,9 +3017,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your <b>Deathrattles</b> trigger twice.
 			// --------------------------------------------------------
 			cards.Add("BOT_039e", new Power {
-				// TODO [BOT_039e] Necromechanical && Test: Necromechanical_BOT_039e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.EXTRA_DEATHRATTLES, EffectOperator.ADD, 1)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3045,9 +3037,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("BOT_083e", new Power {
-				// TODO [BOT_083e] Toxic && Test: Toxic_BOT_083e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_083e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3061,9 +3051,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_107e", new Power {
-				// TODO [BOT_107e] Missile Launcher && Test: Missile Launcher_BOT_107e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_107e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3073,9 +3061,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: 1/1.
 			// --------------------------------------------------------
 			cards.Add("BOT_234e", new Power {
-				// TODO [BOT_234e] Shrink Ray && Test: Shrink Ray_BOT_234e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_234e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3091,9 +3077,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_237e", new Power {
-				// TODO [BOT_237e] Beryllium Nullifier && Test: Beryllium Nullifier_BOT_237e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(
+					Effects.Attack_N(0),
+					Effects.Health_N(0),
+					new Effect(GameTag.CANT_BE_TARGETED_BY_SPELLS, EffectOperator.SET, 1),
+					new Effect(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS, EffectOperator.SET, 1))
+				{
+					UseScriptTag = true
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3134,9 +3125,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: 1/1.
 			// --------------------------------------------------------
 			cards.Add("BOT_280e", new Power {
-				// TODO [BOT_280e] Hologram && Test: Hologram_BOT_280e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_280e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3160,9 +3149,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_312e", new Power {
-				// TODO [BOT_312e] Replicating Menace && Test: Replicating Menace_BOT_312e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_312e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3172,9 +3159,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Health.
 			// --------------------------------------------------------
 			cards.Add("BOT_413e", new Power {
-				// TODO [BOT_413e] Brain Power && Test: Brain Power_BOT_413e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.AddHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3206,9 +3191,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Attack and Health have been swapped by Topsy Turvy.
 			// --------------------------------------------------------
 			cards.Add("BOT_517e", new Power {
-				// TODO [BOT_517e] Downside Up && Test: Downside Up_BOT_517e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.SetAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3237,9 +3220,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_548e", new Power {
-				// TODO [BOT_548e] Zilliax && Test: Zilliax_BOT_548e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_548e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3268,11 +3249,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Stealthed</b> until your next turn.
 			// --------------------------------------------------------
-			cards.Add("BOT_562e", new Power {
-				// TODO [BOT_562e] Disguised && Test: Disguised_BOT_562e
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("BOT_562e", Power.OneTurnStealthEnchantmentPower);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [BOT_563e] Wargear (*) - COST:0 
@@ -3285,10 +3262,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_563e", new Power {
-				// TODO [BOT_563e] Wargear && Test: Wargear_BOT_563e
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_563e")
+            });
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [BOT_906e] Glow-Tron (*) - COST:0 
@@ -3301,9 +3276,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_906e", new Power {
-				// TODO [BOT_906e] Glow-Tron && Test: Glow-Tron_BOT_906e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_906e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3313,9 +3286,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1) less.
 			// --------------------------------------------------------
 			cards.Add("BOT_907e", new Power {
-				// TODO [BOT_907e] Galvanized && Test: Galvanized_BOT_907e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(Effects.ReduceCost(1))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3373,10 +3344,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TOPDECK = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_511t", new Power {
-				// TODO [BOT_511t] Bomb && Test: Bomb_BOT_511t
-				//PowerTask = null,
-				//Trigger = null,
-			});
+				PowerTask = ComplexTask.Create(
+					new DamageTask(5, EntityType.HERO),
+					new DrawTask()),
+				TopdeckTask = ComplexTask.Create(
+					new DamageTask(5, EntityType.HERO),
+					new DrawTask())
+            });
 
 		}
 

@@ -36,11 +36,26 @@ namespace SabberStoneCore.Actions
 				// remove from hand zone
 				if (source is Spell)
 					source[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = source.Cost;
+
 				if (!RemoveFromZone.Invoke(c, source))
 					return false;
 
 				c.NumCardsPlayedThisTurn++;
 				c.LastCardPlayed = source.Id;
+
+				// Check Overload
+				if (source.Card.HasOverload)
+				{
+					int amount = source.Overload;
+					c.OverloadOwed += amount;
+					c.OverloadThisGame += amount;
+					c.Game.CurrentEventData.EventNumber = amount;
+				}
+
+				// record played cards for effect of cards like Obsidian Shard and Lynessa Sunsorrow
+				// or use graveyard instead with 'played' tag(or bool)?
+				c.CardsPlayedThisTurn.Add(source.Card);
+				c.PlayHistory.Add(new PlayHistoryEntry(source, target, chooseOne));
 
 				//// show entity
 				//if (c.Game.History)
@@ -52,6 +67,7 @@ namespace SabberStoneCore.Actions
 					source.CardTarget = target.Id;
 					Trigger.ValidateTriggers(c.Game, source, SequenceType.Target);
 				}
+
 
 				Trigger.ValidateTriggers(c.Game, source, SequenceType.PlayCard);
 				switch (source)
@@ -94,10 +110,6 @@ namespace SabberStoneCore.Actions
 
 				c.Game.CurrentEventData = null;
 
-				// record played cards for effect of cards like Obsidian Shard and Lynessa Sunsorrow
-				// or use graveyard instead with 'played' tag(or bool)?
-				c.CardsPlayedThisTurn.Add(source.Card);
-				c.PlayHistory.Add(new PlayHistoryEntry(source, target, chooseOne));
 
 				return true;
 			};
@@ -127,14 +139,6 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, bool> PayPhase
 			=> delegate (Controller c, IPlayable source)
 			{
-				if (source.Card.HasOverload)
-				{
-					int amount = source.Overload;
-					c.OverloadOwed += amount;
-					c.OverloadThisGame += amount;
-					c.Game.CurrentEventData.EventNumber = amount;
-				}
-					
 				int cost = source.Cost;
 				if (cost > 0)
 				{
@@ -357,7 +361,7 @@ namespace SabberStoneCore.Actions
 						}
 					}
 
-					CastSpell.Invoke(c, spell, target, chooseOne);
+					CastSpell.Invoke(c, spell, target, chooseOne, false);
 					game.DeathProcessingAndAuraUpdate();
 				}
 				

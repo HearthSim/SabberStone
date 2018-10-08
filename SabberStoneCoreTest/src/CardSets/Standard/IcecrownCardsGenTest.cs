@@ -1,9 +1,7 @@
-﻿using System;
-using Xunit;
+﻿using Xunit;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
 using SabberStoneCore.Model;
-using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Tasks.PlayerTasks;

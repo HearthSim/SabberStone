@@ -227,7 +227,7 @@ namespace SabberStoneCore.Model.Entities
 			{
 				int value = _data[t];
 
-				value += AuraEffects[t];
+				value += AuraEffects[in t];
 
 				return value > 0 ? value : 0;
 			}
@@ -260,7 +260,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="id">The EntityID to assign to the newly created entity.</param>
 		/// <returns></returns>
 		/// <exception cref="EntityException"></exception>
-		public static IPlayable FromCard(Controller controller, Card card, IDictionary<GameTag, int> tags = null, IZone zone = null, int id = -1, int zonePos = -1)
+		public static IPlayable FromCard(in Controller controller, in Card card, IDictionary<GameTag, int> tags = null, in IZone zone = null, in int id = -1, in int zonePos = -1)
 		{
 			Game game = controller.Game;
 

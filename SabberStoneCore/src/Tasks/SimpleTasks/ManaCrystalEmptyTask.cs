@@ -1,4 +1,6 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -15,22 +17,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public bool Opponent { get; set; }
 		public bool UseNumber { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			if (UseNumber)
-			{
-				Amount = Number;
-			}
+			if (UseNumber) Amount = stack.Number;
 
-			bool success = Generic.ChangeManaCrystal.Invoke(!Opponent ? Controller : Controller.Opponent, Amount, false);
+			bool success =
+				Generic.ChangeManaCrystal.Invoke(!Opponent ? controller : controller.Opponent, Amount, false);
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new ManaCrystalEmptyTask(Amount, Opponent, UseNumber);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

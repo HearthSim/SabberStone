@@ -1,32 +1,22 @@
 ﻿using System;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class ExtraTurnEffectTask : SimpleTask
-    {
-	    //private readonly bool _opposite;
+	public class ExtraTurnEffectTask : SimpleTask
+	{
+		//private readonly bool _opposite;
 
-	    public ExtraTurnEffectTask(/*bool opposite = false*/)
-	    {
-		    //_opposite = opposite;
-	    }
-
-	    public override TaskState Process()
-	    {
-		    Controller c = /*_opposite ? Controller.Opponent :*/ Controller;
-
-		    if (c == Game.CurrentPlayer)
-			    c.NumTurnsLeft++;
-		    else
-			    throw new NotImplementedException();
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
+		{
+			if (controller == game.CurrentPlayer)
+				controller.NumTurnsLeft++;
+			else
+				throw new NotImplementedException();
 
 			return TaskState.COMPLETE;
-	    }
-
-	    public override ISimpleTask Clone()
-	    {
-		    return new ExtraTurnEffectTask(/*_opposite*/);
-	    }
-    }
+		}
+	}
 }

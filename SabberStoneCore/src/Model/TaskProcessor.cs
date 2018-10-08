@@ -4,13 +4,45 @@ using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 
+//using (ISimpleTask, Controller, IEntity, IEntity) = System.ValueTuple<SabberStoneCore.Tasks.ISimpleTask, SabberStoneCore.Model.Entities.Controller, SabberStoneCore.Model.Entities.IEntity, SabberStoneCore.Model.Entities.IEntity>;
+
 namespace SabberStoneCore.Model
 {
 	public class TaskQueue
-	{	
+	{
+		private class Test
+		{
+			public readonly ISimpleTask Task;
+			public readonly Controller Controller;
+			public readonly IEntity Source;
+			public readonly IEntity Target;
+
+			public Test(ISimpleTask task, Controller controller, IEntity source, IEntity target)
+			{
+				Task = task;
+				Controller = controller;
+				Source = source;
+				Target = target;
+			}
+
+			public static implicit operator (ISimpleTask, Controller, IEntity, IEntity)(Test t)
+			{
+				return (t.Task, t.Controller, t.Source, t.Target);
+			}
+
+			public void Deconstruct(out ISimpleTask simpleTask, out Controller controller, out IEntity entity, out IEntity entity1)
+			{
+				simpleTask = Task;
+				controller = Controller;
+				entity = Source;
+				entity1 = Target;
+			}
+		}
+
+
 		private readonly Game _game;
-		private readonly Stack<Queue<ISimpleTask>> _eventStack;
-		private readonly Queue<ISimpleTask> _baseQueue;
+		private readonly Stack<Queue<Test>> _eventStack;
+		private readonly Queue<Test> _baseQueue;
 	
 		//private int _stackHeight;
 		// Flag == true : current event have not ended yet and no tasks queue in this event;
@@ -19,11 +51,11 @@ namespace SabberStoneCore.Model
 		public TaskQueue(Game game)
 		{
 			_game = game;
-			_eventStack = new Stack<Queue<ISimpleTask>>();
-			_baseQueue = new Queue<ISimpleTask>();
+			_eventStack = new Stack<Queue<Test>>();
+			_baseQueue = new Queue<Test>();
 		}
 
-		private Queue<ISimpleTask> CurrentQueue => _eventStack.Count == 0 ? _baseQueue : _eventStack.Peek();
+		private Queue<Test> CurrentQueue => _eventStack.Count == 0 ? _baseQueue : _eventStack.Peek();
 
 		// nothing left in current event
 		public bool IsEmpty => _eventFlag || CurrentQueue.Count == 0;
@@ -65,25 +97,25 @@ namespace SabberStoneCore.Model
 				_eventStack.Pop();
 		}
 
-		public void Enqueue(ISimpleTask task)
+		public void Enqueue(in ISimpleTask task, in Controller controller, in IEntity source, in IEntity target)
 		{
 			if (_eventFlag)	// flag = true means Event starts and no tasks queue yet
 			{
 				if (CurrentQueue.Count != 0) // Check if an ongoing event exists
-					_eventStack.Push(new Queue<ISimpleTask>());
+					_eventStack.Push(new Queue<Test>());
 
 				_eventFlag = false;
 			}
 
-			CurrentQueue.Enqueue(task);
+			CurrentQueue.Enqueue(new Test(task, controller, source, target));
 
 			//_game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "TaskQueue",
 			//	!_game.Logging ? "" : $"{task.GetType().Name} is Enqueued in {_eventStack.Count}th stack");
 		}
 
-		public void EnqueueBase(ISimpleTask task)
+		public void EnqueueBase(in ISimpleTask task, in Controller controller, in IEntity source, in IEntity target)
 		{
-			_baseQueue.Enqueue(task);
+			_baseQueue.Enqueue(new Test(task, controller, source, target));
 
 			_game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "TaskQueue",
 				!_game.Logging ? "" : $"{task.GetType().Name} is Enqueued in 0th stack");
@@ -91,18 +123,18 @@ namespace SabberStoneCore.Model
 
 		public TaskState Process()
 		{
-			ISimpleTask currentTask = CurrentQueue.Dequeue();
-			CurrentTask = currentTask;
+			(ISimpleTask task, Controller controller, IEntity source, IEntity target) = CurrentQueue.Dequeue();
+			CurrentTask = task;
 
 			//if (currentTask is StateTaskList tasks)
 			//	tasks.Stack = new TaskStack(_game);
 
-			_game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", !_game.Logging ? "" : $"LazyTask[{currentTask.Source}]: '{currentTask.GetType().Name}' is processed!" +
-			                                                                                $"'{currentTask.Source.Card.Text?.Replace("\n", " ")}'");
+			_game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", !_game.Logging ? "" : $"LazyTask[{source}]: '{CurrentTask.GetType().Name}' is processed!" +
+			                                                                                $"'{source.Card.Text?.Replace("\n", " ")}'");
 			if (_game.History)
-				_game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(currentTask.IsTrigger ? BlockType.TRIGGER : BlockType.POWER, currentTask.Source.Id, "", -1, currentTask.Target?.Id ?? 0));
+				_game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(task.IsTrigger ? BlockType.TRIGGER : BlockType.POWER, source.Id, "", -1, target?.Id ?? 0));
 
-			TaskState success = currentTask.Process();
+			TaskState success = task.Process(in _game, in controller, in source, in target);
 
 			if (_game.History)
 				_game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
@@ -115,22 +147,17 @@ namespace SabberStoneCore.Model
 			return success;
 		}
 
-		public void Execute(ISimpleTask task, Controller controller, IPlayable source, IPlayable target, int number = 0)
+		public void Execute(in ISimpleTask task, in Controller controller, in IPlayable source, in IPlayable target, int number = 0)
 		{
-			ISimpleTask clone = task.Clone();
-			clone.Game = controller.Game;
-			clone.Controller = controller;
-			clone.Source = source;
-			clone.Target = target;
-			clone.Number = number;
-			_game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", !_game.Logging ? "" : $"PriorityTask[{clone.Source}]: '{clone.GetType().Name}' is processed!" +
-			                                                                                $"'{clone.Source.Card.Text?.Replace("\n", " ")}'");
+
+			_game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TaskQueue", !_game.Logging ? "" : $"PriorityTask[{source}]: '{task.GetType().Name}' is processed!" +
+			                                                                                $"'{source.Card.Text?.Replace("\n", " ")}'");
 
 			// power block
 			if (controller.Game.History)
 				controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.POWER, source.Id, "", -1, target?.Id ?? 0));
 
-			clone.Process();
+			task.Process(in _game, in controller, source, target);
 
 			if (controller.Game.History)
 				controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());

@@ -39,7 +39,7 @@ namespace SabberStoneCore.Splits
 		{
 			// pick-up mid splitting taks which aren't finished
 			if (Game.TaskQueue.CurrentTask != null && Game.TaskQueue.CurrentTask.State != TaskState.COMPLETE)
-				Game.TaskQueue.CurrentTask.Process();
+				Game.TaskQueue.Process();
 
 			Game.DeathProcessingAndAuraUpdate();
 		}

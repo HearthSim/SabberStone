@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCoreAi.Score

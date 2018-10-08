@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using System;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -18,59 +18,58 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			//List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			//List<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 
 			//if (entities.Count == 0)
 			//	return TaskState.STOP;
 
-			IEnumerable<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			IEnumerable<IPlayable> entities =
+				IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 
-			if (Game.Splitting && Game.Splits.Count == 0)
+			if (game.Splitting && game.Splits.Count == 0)
 			{
 				if (Amount == 1)
 				{
 					//entities.ForEach(p =>
-					foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+					foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target,
+						stack?.Playables))
 					{
-						//Game.Dump("SplitTask", $"{sets.IndexOf(p)}: {string.Join(";", p)}");
-						Playables = new List<IPlayable> { p };
+						//game.Dump("SplitTask", $"{sets.IndexOf(p)}: {string.Join(";", p)}");
+						stack.Playables = new List<IPlayable> {p};
 						State = TaskState.COMPLETE;
-						Game clone = Game.Clone();
-						Game.Splits.Add(clone);
-					};
+						Game clone = game.Clone();
+						game.Splits.Add(clone);
+					}
+
+					;
 				}
 				else
 				{
-					var sets = Util.GetPowerSet(entities.ToList()).Where(plist => plist.Count() == Amount).ToList();
-					sets.ForEach(plist =>
+					List<IEnumerable<IPlayable>> sets = Util.GetPowerSet(entities.ToList())
+						.Where(plist => plist.Count() == Amount).ToList();
+					foreach (IEnumerable<IPlayable> plist in sets)
 					{
-						Game.Dump("SplitTask", $"{sets.IndexOf(plist)}: {String.Join(";", plist)}");
-						Playables = plist.ToList();
+						game.Dump("SplitTask", $"{sets.IndexOf(plist)}: {String.Join(";", plist)}");
+						stack.Playables = plist.ToList();
 						State = TaskState.COMPLETE;
-						Game clone = Game.Clone();
-						Game.Splits.Add(clone);
-					});
+						Game clone = game.Clone();
+						game.Splits.Add(clone);
+					}
 				}
-				//Game.TaskQueue.TaskList.Clear();
-				Game.TaskQueue.ClearCurrentEvent();
+
+				//game.TaskQueue.TaskList.Clear();
+				game.TaskQueue.ClearCurrentEvent();
 				return TaskState.STOP;
 			}
 
 
-			Playables = entities is List<IPlayable> list ? list : entities.ToList();
+			stack.Playables = entities is List<IPlayable> list ? list : entities.ToList();
 
 			return TaskState.COMPLETE;
 		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new SplitTask(Amount, Type);
-			clone.Copy(this);
-			return clone;
-		}
-
 	}
 
 	public class RandomTask : SimpleTask
@@ -85,32 +84,27 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			IEnumerable<IPlayable> temp = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			IEnumerable<IPlayable> temp =
+				IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 			List<IPlayable> entities = temp is List<IPlayable> list ? list : temp.ToList();
 
 			if (entities.Count == 0)
 				return TaskState.STOP;
 
-			Playables = new List<IPlayable>();
+			stack.Playables = new List<IPlayable>();
 			for (int i = 0; i < Amount && entities.Count > 0; i++)
 			{
-				IPlayable randPlayable = Util.Choose<IPlayable>(entities);
+				IPlayable randPlayable = Util.Choose(entities);
 				entities.Remove(randPlayable);
-				Playables.Add(randPlayable);
+				stack?.Playables.Add(randPlayable);
 			}
 
-			Game.OnRandomHappened(true);
+			game.OnRandomHappened(true);
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new RandomTask(Amount, Type);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

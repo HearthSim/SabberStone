@@ -1,47 +1,42 @@
-﻿namespace SabberStoneCore.Tasks.SimpleTasks
+﻿using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
+
+namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class FlagTask : SimpleTask
 	{
+		private readonly bool _checkFlag;
+		private readonly ISimpleTask _taskToDo;
+
 		public FlagTask(bool checkFlag, ISimpleTask taskToDo)
 		{
-			CheckFlag = checkFlag;
-			TaskToDo = taskToDo;
+			_checkFlag = checkFlag;
+			_taskToDo = taskToDo;
 		}
 
-		public bool CheckFlag { get; set; }
-		public ISimpleTask TaskToDo { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			if (Flag != CheckFlag)
-			{
-				return TaskState.COMPLETE;
-			}
+			if (stack.Flag != _checkFlag) return TaskState.COMPLETE;
 
-			if (TaskToDo is StateTaskList list)
-				list.Stack = Game.TaskStack;
-			else
-			{
-				TaskToDo.Game = Game;
-				TaskToDo.Controller = Controller;
-				TaskToDo.Source = Source;
-				TaskToDo.Target = Target;
-				TaskToDo.Flag = Flag;
-			}
+			//if (_taskToDo is StateTaskList list)
+			//	list.Stack = game.TaskStack;
+			//else
+			//{
+			//	_taskToDo.Game = Game;
+			//	_taskToDo.Controller = Controller;
+			//	_taskToDo.source = source;
+			//	_taskToDo.Target = target;
+			//	_taskToDo.Flag = Flag;
+			//}
 
-			return TaskToDo.Process();
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new FlagTask(CheckFlag, TaskToDo.Clone());
-			clone.Copy(this);
-			return clone;
+			return _taskToDo.Process(in game, in controller, in source, in target, in stack);
 		}
 
 		public override string ToString()
 		{
-			return $"[FlagTask][{CheckFlag}:{TaskToDo.GetType().Name}]";
+			return $"[FlagTask][{_checkFlag}:{_taskToDo.GetType().Name}]";
 		}
 	}
 }

@@ -1,13 +1,14 @@
-﻿using SabberStoneCore.Actions;
+﻿using System.Linq;
+using SabberStoneCore.Actions;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using System.Linq;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DrawTask : SimpleTask
 	{
-		private readonly bool _toStack;
 		private readonly int _count;
+		private readonly bool _toStack;
 
 		public DrawTask(bool toStack = false, int count = 1)
 		{
@@ -20,42 +21,31 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			//Model.Entities.IPlayable drawedCard = Generic.Draw(Controller);
+			//Model.Entities.IPlayable drawedCard = Generic.Draw(controller);
 			bool nullFlag = false;
 			var cards = new IPlayable[_count];
 			for (int i = 0; i < _count; i++)
 			{
-				IPlayable draw = Generic.Draw(Controller);
+				IPlayable draw = Generic.Draw(controller);
 				if (draw == null)
 					nullFlag = true;
 				cards[i] = draw;
 			}
 
-			if (cards[0] == null)
-			{
-				return TaskState.COMPLETE;
-			}
+			if (cards[0] == null) return TaskState.COMPLETE;
 
 			if (_toStack)
 			{
 				if (nullFlag)
-				{
-					Playables.AddRange(cards.Where(p => p != null));
-				}
+					stack?.Playables.AddRange(cards.Where(p => p != null));
 				else
-					Playables.AddRange(cards);
+					stack?.Playables.AddRange(cards);
 			}
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new DrawTask(_toStack, _count);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

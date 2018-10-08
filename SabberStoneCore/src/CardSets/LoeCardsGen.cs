@@ -2,9 +2,6 @@
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
-using SabberStoneCore.Model.Zones;
-using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
@@ -434,6 +431,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOE_016", new Power {
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
+					TriggerSource = TriggerSource.FRIENDLY,
 					Condition = SelfCondition.IsBattlecryMinion,
 					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 2)
 				}

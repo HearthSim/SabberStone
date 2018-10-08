@@ -24,12 +24,12 @@ namespace SabberStoneCore.Enchants
 		public override Trigger Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY, bool cloning = false)
 		{
 			if (source.ActivatedTrigger != null && !IsAncillaryTrigger)
-				throw new Exceptions.EntityException($"{source} already has an activatd trigger.");
+				throw new Exceptions.EntityException($"{source} already has an activated trigger.");
 
 			Trigger[] triggers = new Trigger[_triggers.Count];
 
 			bool flag = false;
-			for (int i = 0; i < _triggers.Count; i++)
+			for (int i = 0; i < triggers.Length; i++)
 			{
 				triggers[i] = _triggers[i]?.Activate(source, activation, cloning);
 				if (triggers[i] != null)

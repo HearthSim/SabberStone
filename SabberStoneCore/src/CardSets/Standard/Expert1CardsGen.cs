@@ -912,9 +912,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_617", new Power {
-				PowerTask = ComplexTask.Create(
-					new RandomTask(1, EntityType.OP_MINIONS),
-					new DestroyTask(EntityType.STACK)),
+				PowerTask = ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS)
 			});
 
 			// ---------------------------------------- WEAPON - HUNTER
@@ -2292,14 +2290,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Stealthed until your next turn.
 			// --------------------------------------------------------
-			cards.Add("NEW1_014e", new Power {
-				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
-				Trigger = new Trigger(TriggerType.TURN_START)
-				{
-					SingleTask = new RemoveEnchantmentTask(),
-					RemoveAfterTriggered = true,
-				}
-			});
+			cards.Add("NEW1_014e", Power.OneTurnStealthEnchantmentPower);
 
 			// ----------------------------------------- MINION - ROGUE
 			// [EX1_131t] Defias Bandit (*) - COST:1 [ATK:2/HP:1] 
@@ -4919,7 +4910,9 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_041", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.OP_MINIONS),
-					new FilterStackTask(SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.LEQ)),
+					new FilterStackTask(
+						SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.LEQ),
+						SelfCondition.IsNotDead),
 					new RandomTask(1, EntityType.STACK),
 					new DestroyTask(EntityType.STACK))
 			});

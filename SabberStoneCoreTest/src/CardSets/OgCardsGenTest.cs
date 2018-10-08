@@ -8,7 +8,6 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
-using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Zones;
 using Generic = SabberStoneCore.Actions.Generic;
 
@@ -4451,26 +4450,22 @@ namespace SabberStoneCoreTest.CardSets
 					_spellCard = spellCard;
 				}
 
-				public override TaskState Process()
+				public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+					in TaskStack stack = null)
 				{
-					if (!(Source.Zone is BoardZone) || Source[GameTag.SILENCED] == 1)
+					if (!(source.Zone is BoardZone) || source[GameTag.SILENCED] == 1)
 						return TaskState.STOP;
 
-					var spellToCast = (Spell) Entity.FromCard(Source.Controller, _spellCard);
+					var spellToCast = (Spell) Entity.FromCard(source.Controller, _spellCard);
 
-					spellToCast.CardTarget = Source.Id;
+					spellToCast.CardTarget = source.Id;
 
-					Generic.CastSpell.Invoke(Source.Controller, spellToCast, (ICharacter)Source, 0);
-					Game.DeathProcessingAndAuraUpdate();
+					Generic.CastSpell.Invoke(source.Controller, spellToCast, (ICharacter)source, 0, true);
+					game.DeathProcessingAndAuraUpdate();
 
 					NumSpellCasted++;
 
 					return TaskState.COMPLETE;
-				}
-
-				public override ISimpleTask Clone()
-				{
-					return this;
 				}
 			}
 
@@ -4481,33 +4476,20 @@ namespace SabberStoneCoreTest.CardSets
 				_spells = spellCardList.AsReadOnly();
 			}
 
-			public override TaskState Process()
+			public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+				in TaskStack stack = null)
 			{
-				if (Source.Card.Id != "OG_134") return TaskState.STOP;
+				if (source.Card.Id != "OG_134") return TaskState.STOP;
 
 				var task = StateTaskList.Chain(
 					_spells
-						.Select(s => new CastSingleSpell(s)
-						{
-							Game = Game,
-							Controller = Controller,
-							Source = Source
-						})
+						.Select(s => new CastSingleSpell(s))
 						.Cast<ISimpleTask>()
 						.ToArray());
 
-				task.Game = Game;
-				task.Controller = Controller;
-				task.Source = Source;
-
-				Controller.Game.TaskQueue.Enqueue(task);
+				game.TaskQueue.Enqueue(task, in controller, in source, in target);
 
 				return TaskState.COMPLETE;
-			}
-
-			public override ISimpleTask Clone()
-			{
-				return this;
 			}
 		}
 	}

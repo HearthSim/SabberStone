@@ -1,4 +1,6 @@
 ﻿using SabberStoneCore.Actions;
+using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -8,19 +10,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			Amount = amount;
 		}
+
 		public int Amount { get; set; }
-		public override TaskState Process()
+
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			Generic.AddTempMana.Invoke(Controller, Amount);
+			Generic.AddTempMana.Invoke(controller, Amount);
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new TempManaTask(Amount);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

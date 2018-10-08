@@ -68,13 +68,14 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition HasNoSpecficCostCardsInDeck(int cost) => new SelfCondition(me => !me.Controller.DeckZone.Any(x => x.Cost == cost));
 		public static readonly SelfCondition HasNoMinionInDeck = new SelfCondition(me => !me.Controller.DeckZone.Any(p => p is Minion));
 
+		public static SelfCondition HasCost(int cost) => new SelfCondition(me => me.Cost == cost);
 		public static readonly SelfCondition HasNoOddCostInDeck = new SelfCondition(me => !me.Controller.DeckZone.Any(p => p.Cost % 2 == 1));
 		public static readonly SelfCondition HasNoEvenCostInDeck = new SelfCondition(me => !me.Controller.DeckZone.Any(p => p.Cost % 2 == 0));
 
 		public static readonly SelfCondition HasMinionInHand = new SelfCondition(me => me.Controller.HandZone.Any(p => p is Minion));
 		public static readonly SelfCondition HasMyHeroAttackedThisTurn = new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn > 0);
 		public static readonly SelfCondition HasMyHeroNotAttackedThisTurn = new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn == 0);
-		public static readonly SelfCondition IsMyHeroDamagedThisTurn = new SelfCondition(me => me.Controller.Hero.IsDamagedThisTurn);
+		public static readonly SelfCondition IsMyHeroDamagedThisTurn = new SelfCondition(me => me.Controller.Hero.DamageTakenThisTurn > 0);
 
 		public static readonly SelfCondition IsDeathrattleCard = new SelfCondition(me => me.Card[GameTag.DEATHRATTLE] == 1);
 		public static readonly SelfCondition IsEchoCard = new SelfCondition(me => me.Card[GameTag.ECHO] == 1);
@@ -86,14 +87,11 @@ namespace SabberStoneCore.Conditions
 
 		public static readonly SelfCondition IsCthunDead = new SelfCondition(me => me.Controller.GraveyardZone.Any(p => p.Card.Id.Equals("OG_280")));
 
-		//public static SelfCondition IsInZone(params Zone[] zones)
-		//{
-		//	// entities that don't have a real zone like Heroes are checked on the gametag value
-		//	return new SelfCondition(me =>
-		//	(me.Zone != null && Array.IndexOf(zones, me.Zone.Type) > -1) ||
-		//	(me.Zone == null && Array.IndexOf(zones, (Zone)((Entity)me).GetNativeGameTag(GameTag.ZONE)) > -1));
-		//}
+		public static readonly SelfCondition NotPlayedAnySpellThisTurn =
+			new SelfCondition(me => !me.Controller.CardsPlayedThisTurn.Any(p => p.Type == CardType.SPELL));
 
+
+		// entities that don't have a real zone like Heroes are checked on the gametag value
 		public static SelfCondition IsInZone(Zone zone) =>
 			new SelfCondition(me =>
 				me.Zone != null

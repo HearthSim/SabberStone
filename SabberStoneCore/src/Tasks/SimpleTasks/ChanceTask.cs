@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -11,24 +12,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public bool UseFlag { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
 			int random = Util.Random.Next(0, 2);
 
-			if (!UseFlag)
-			{
-				return random == 0 ? TaskState.COMPLETE : TaskState.STOP;
-			}
+			if (!UseFlag) return random == 0 ? TaskState.COMPLETE : TaskState.STOP;
 
-			Flag = random != 0;
+			stack.Flag = random != 0;
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new ChanceTask(UseFlag);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

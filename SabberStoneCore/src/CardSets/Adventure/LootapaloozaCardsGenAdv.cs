@@ -1319,7 +1319,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				// TODO Test: Dampen Magic_LOOTA_BOSS_35p
 				PowerTask = new FuncNumberTask(p =>
 					{
-						Generic.CastSpell.Invoke(p.Controller, (Spell) Entity.FromCard(p.Controller, Cards.FromId("EX1_287")), null, 0);
+						Generic.CastSpell.Invoke(p.Controller, (Spell) Entity.FromCard(p.Controller, Cards.FromId("EX1_287")), null, 0, false);
 						return 0;
 					})
 			});

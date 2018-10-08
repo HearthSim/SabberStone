@@ -7,37 +7,35 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class MoveToDeck : SimpleTask
 	{
+		private readonly EntityType _type;
+
 		public MoveToDeck(EntityType type)
 		{
-			Type = type;
+			_type = type;
 		}
 
-		public EntityType Type { get; set; }
-
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+			foreach (IPlayable p in IncludeTask.GetEntities(in _type, in controller, source, target, stack?.Playables))
 			{
 				if (p.Zone?.Type == Zone.DECK)
 					continue;
 				IPlayable removedEntity = p.Zone.Remove(p);
 				removedEntity.Reset();
-				if (removedEntity.Controller != Controller)
+				if (removedEntity.Controller != controller)
 				{
-					removedEntity.Controller = Controller;
-					removedEntity[GameTag.CONTROLLER] = Controller.PlayerId;
+					removedEntity.Controller = controller;
+					removedEntity[GameTag.CONTROLLER] = controller.PlayerId;
 				}
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToDeck", !Game.Logging? "":$"{Controller.Name} is taking control of {p} and shuffled into his deck.");
-				Generic.ShuffleIntoDeck.Invoke(Controller, p);
-			};
-			return TaskState.COMPLETE;
-		}
 
-		public override ISimpleTask Clone()
-		{
-			var clone = new MoveToDeck(Type);
-			clone.Copy(this);
-			return clone;
+				game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToDeck",
+					!game.Logging ? "" : $"{controller.Name} is taking control of {p} and shuffled into his deck.");
+				Generic.ShuffleIntoDeck.Invoke(controller, p);
+			}
+
+			;
+			return TaskState.COMPLETE;
 		}
 	}
 }

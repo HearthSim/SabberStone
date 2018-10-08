@@ -53,7 +53,7 @@ namespace SabberStoneCore.Actions
 
 					case ChoiceAction.CAST:
 						RemoveFromZone(c, playable);
-						CastSpell.Invoke(c, playable as Spell, null, 0);
+						CastSpell.Invoke(c, playable as Spell, null, 0, true);
 						break;
 
 					case ChoiceAction.SPELL_RANDOM:
@@ -75,7 +75,7 @@ namespace SabberStoneCore.Actions
 								c.OverloadOwed = playable.Overload;
 
 							c.Game.TaskQueue.StartEvent();
-							CastSpell.Invoke(c, (Spell)playable, randTarget, 0);
+							CastSpell.Invoke(c, (Spell)playable, randTarget, 0, true);
 							c.Game.TaskQueue.EndEvent();
 						}
 						break;
@@ -104,13 +104,7 @@ namespace SabberStoneCore.Actions
 							playable.ActivateTask(PowerActivation.POWER, c.Game.IdEntityDic[p])
 						);
 						// Need to move the chosen adaptation to the Graveyard
-						c.Game.TaskQueue.Enqueue(new MoveToGraveYard(EntityType.SOURCE)
-						{
-							Game = c.Game,
-							Controller = c,
-							Source = playable,
-							Target = playable
-						});
+						c.Game.TaskQueue.Enqueue(new MoveToGraveYard(EntityType.SOURCE), in c, playable, playable);
 						c.Game.TaskQueue.EndEvent();
 						if (c.Game.History)
 						{
@@ -141,13 +135,8 @@ namespace SabberStoneCore.Actions
 						if (RemoveFromZone(c, playable))
 						{
 							playable[GameTag.CREATOR] = c.Hero.Id;
-							c.Game.TaskQueue.Enqueue(new ReplaceHeroPower(playable as HeroPower)
-							{
-								Game = c.Game,
-								Controller = c,
-								Source = playable,
-								Target = playable
-							});
+							c.Game.TaskQueue.Enqueue(new ReplaceHeroPower(playable as HeroPower), in c, playable,
+								playable);
 						}
 						break;
 
@@ -164,13 +153,7 @@ namespace SabberStoneCore.Actions
 								.ToList();
 						if (kazakusPotions.Any())
 						{
-							c.Game.TaskQueue.Enqueue(new PotionGenerating(kazakusPotions)
-							{
-								Game = c.Game,
-								Controller = c,
-								Source = playable,
-								Target = playable
-							});
+							c.Game.TaskQueue.Enqueue(new PotionGenerating(kazakusPotions), in c, playable, playable);
 						}
 						break;
 
@@ -225,26 +208,16 @@ namespace SabberStoneCore.Actions
 
 				if (c.Choice.EnchantmentCard != null)
 				{
-					var task = new AddEnchantmentTask(c.Choice.EnchantmentCard, EntityType.TARGET)
-					{
-						Game = c.Game,
-						Controller = c,
-						Source = c.Game.IdEntityDic[c.Choice.SourceId],
-						Target = playable,
-					};
-					task.Process();
+					var task = new AddEnchantmentTask(c.Choice.EnchantmentCard, EntityType.TARGET);
+					task.Process(c.Game, in c, c.Game.IdEntityDic[c.Choice.SourceId], playable);
 				}
 
 				// aftertask here
 				if (c.Choice.AfterChooseTask != null)
 				{
-					ISimpleTask clone = c.Choice.AfterChooseTask.Clone();
-					clone.Game = c.Game;
-					clone.Controller = c;
-					clone.Source = c.Game.IdEntityDic[playable[GameTag.CREATOR]];	// choice creator as Source
-					clone.Target = playable;	// selected card as Target
-
-					c.Game.TaskQueue.Enqueue(clone);
+					// choice creator as Source
+					// selected card as Target
+					c.Game.TaskQueue.Enqueue(c.Choice.AfterChooseTask, in c, c.Game.IdEntityDic[playable[GameTag.CREATOR]], playable);
 				}
 
 				// set displayed creator at least for discover

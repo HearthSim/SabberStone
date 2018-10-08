@@ -1,66 +1,63 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-    public class TransformCopyTask : SimpleTask
-    {
-	    private readonly bool _addToStack;
+	public class TransformCopyTask : SimpleTask
+	{
+		private readonly bool _addToStack;
 
-	    public TransformCopyTask(bool addToStack = false)
-	    {
-		    _addToStack = addToStack;
-	    }
+		public TransformCopyTask(bool addToStack = false)
+		{
+			_addToStack = addToStack;
+		}
 
-	    public override TaskState Process()
-	    {
-			Minion target = (Minion)Target;
-			if (target == null)
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
+		{
+			var minionTarget = (Minion) target;
+			if (minionTarget == null)
 				return TaskState.STOP;
 
-			Minion source = (Minion)Source;
-			if (source.Zone?.Type != Zone.PLAY)
+			var sourceTarget = (Minion) source;
+			if (sourceTarget.Zone?.Type != Zone.PLAY)
 				return TaskState.STOP;
 
-		    var tags = new EntityData.Data
-		    {
-			    {GameTag.CREATOR, Source.Id},
-		    };
-		    if (Game.History)
-			    tags.Add(GameTag.PREMIUM, target[GameTag.PREMIUM]);
+			var tags = new EntityData.Data
+			{
+				{GameTag.CREATOR, sourceTarget.Id}
+			};
+			if (game.History)
+				tags.Add(GameTag.PREMIUM, minionTarget[GameTag.PREMIUM]);
 
-		    Minion copy = (Minion) Entity.FromCard(Controller, target.Card, tags, null);
-		    copy._atkModifier = target._atkModifier;
-		    copy._healthModifier = target._healthModifier;
-		    copy._dmgModifier = target._dmgModifier;
+			var copy = (Minion) Entity.FromCard(in controller, minionTarget.Card, tags, null);
+			minionTarget.CopyInternalAttributes(copy);
 
-			Trigger trigger = target.ActivatedTrigger;
-		    IAura aura = target.OngoingEffect;
+			Trigger trigger = minionTarget.ActivatedTrigger;
+			IAura aura = minionTarget.OngoingEffect;
 
 			// LINKED_ENTITY
-			if (source == Game.CurrentEventData.EventSource)
-				Game.CurrentEventData.EventSource = copy;
-		    source.Controller.BoardZone.Replace(source, copy);
+			if (sourceTarget == game.CurrentEventData.EventSource)
+				game.CurrentEventData.EventSource = copy;
+			sourceTarget.Controller.BoardZone.Replace(sourceTarget, copy);
 
 			// Copy Enchantments
-			if (target.AppliedEnchantments != null)
-		    {
-			    foreach (Enchantment e in target.AppliedEnchantments)
-			    {
-				    Enchantment instance = Enchantment.GetInstance(Controller, copy, copy, e.Card);
-				    if (e[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
+			if (minionTarget.AppliedEnchantments != null)
+				foreach (Enchantment e in minionTarget.AppliedEnchantments)
+				{
+					Enchantment instance = Enchantment.GetInstance(in controller, copy, copy, e.Card);
+					if (e[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
 					{
 						instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
 						if (e[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
 							instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = e[GameTag.TAG_SCRIPT_DATA_NUM_2];
 					}
 				}
-		    }
 
-			foreach (KeyValuePair<GameTag, int> kvp in target._data.Tags)
-			{
+			foreach (KeyValuePair<GameTag, int> kvp in minionTarget._data.Tags)
 				switch (kvp.Key)
 				{
 					case GameTag.ENTITY_ID:
@@ -75,23 +72,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						copy._data.Tags.Add(kvp.Key, kvp.Value);
 						break;
 				}
-			}
 
 			if (aura != null && copy.OngoingEffect == null)
 				aura.Clone(copy);
 
-			if (!target.HasCharge)
+			if (!minionTarget.HasCharge)
 				copy.IsExhausted = true;
 
-		    if (_addToStack)
-			    Playables = new List<IPlayable> {copy};
+			if (_addToStack)
+				stack.Playables = new List<IPlayable> {copy};
 
 			return TaskState.COMPLETE;
-	    }
-
-		public override ISimpleTask Clone()
-		{
-			return new TransformCopyTask(_addToStack);
 		}
-    }
+	}
 }

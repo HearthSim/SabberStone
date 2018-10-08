@@ -156,11 +156,12 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="name">The name of the player.</param>
 		/// <param name="playerId">The player index; The first player will get assigned 1.</param>
 		/// <param name="id">Entity ID of this controller.</param>
-		public Controller(in Game game, in string name, in int playerId, in int id, in IDictionary<GameTag, int> tags)
+		public Controller(Game game, string name, int playerId, int id, IDictionary<GameTag, int> tags)
 			: base(in game, Card.CardPlayer, in tags, in id)
 		{
 			Name = name;
 			_playerId = playerId;
+			Controller = this;
 
 			DeckZone = new DeckZone(this);
 			BoardZone = new BoardZone(this);
@@ -186,9 +187,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="game">The target <see cref="Game"/> instance.</param>
 		/// <param name="controller">The source <see cref="Controller"/></param>
-		private Controller(Game game, Controller controller) : base(game, controller)
+		private Controller(in Game game, in Controller controller) : base(in game, controller)
 		{
 			Name = controller.Name;
+
+			Controller = this;
 
 			Hero = (Hero)controller.Hero.Clone(this);
 
@@ -222,13 +225,20 @@ namespace SabberStoneCore.Model.Entities
 			PlayHistory = new List<PlayHistoryEntry>(controller.PlayHistory);
 			DiscardedEntities = new List<int>(controller.DiscardedEntities);
 			CardsPlayedThisTurn = new List<Card>(controller.CardsPlayedThisTurn);
-			controller.AppliedEnchantments?.ForEach(p =>
-			{
-				if (AppliedEnchantments == null)
-					AppliedEnchantments = new List<Enchantment>(controller.AppliedEnchantments.Count);
 
-				AppliedEnchantments.Add((Enchantment) p.Clone(this));
-			});
+			// Cloning applied enchantments.
+			{
+				List<Enchantment> originalEnchantments = controller.AppliedEnchantments;
+				if (originalEnchantments != null)
+				{
+					var enchantments = new List<Enchantment>(originalEnchantments.Count);
+					foreach (Enchantment p in originalEnchantments)
+					{
+						enchantments.Add((Enchantment)p.Clone(this));
+					}
+					AppliedEnchantments = enchantments;
+				}
+			}
 
 			// non-tag attributes
 			_playerId = controller._playerId;
@@ -243,9 +253,9 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="game">The target Game.</param>
 		/// <returns></returns>
-		public Controller Clone(Game game)
+		public Controller Clone(in Game game)
 		{
-			return new Controller(game, this);
+			return new Controller(in game, this);
 		}
 
 		/// <summary>
@@ -255,7 +265,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="powerCard">The heropower card to derive the hero power entity from.</param>
 		/// <param name="tags">The inherited tags</param>
 		/// <param name="id">The entity id to assign to the generated HERO entity</param>
-		public void AddHeroAndPower(Card heroCard, Card powerCard = null, IDictionary<GameTag, int> tags = null, int id = -1)
+		public void AddHeroAndPower(in Card heroCard, in Card powerCard = null, in IDictionary<GameTag, int> tags = null, in int id = -1)
 		{
 			// remove hero and place it to the setaside zone
 			Weapon weapon = null;
@@ -274,7 +284,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 
-			Hero = FromCard(this, heroCard, tags, null, id) as Hero;
+			Hero = FromCard(this, in heroCard, tags, null, id) as Hero;
 			Hero[GameTag.ZONE] = (int) Enums.Zone.PLAY;
 			HeroId = Hero.Id;
 			Hero.HeroPower = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),

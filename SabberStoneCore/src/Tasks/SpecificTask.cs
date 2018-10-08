@@ -405,7 +405,7 @@ namespace SabberStoneCore.Tasks
 					IEnumerable<Card> cards = controller.Game.FormatType == FormatType.FT_STANDARD ? Cards.Standard[CardClass.HUNTER] : Cards.Wild[CardClass.HUNTER];
 					IEnumerable<Card> cardsList = cards.Where(card => card.Type == CardType.SPELL && card.Tags.ContainsKey(GameTag.SECRET) && !activeSecrets.Contains(card.Id));
 					var spell = (Spell)Entity.FromCard(controller, Util.Choose(cardsList.ToList()));
-					Generic.CastSpell(controller, spell, null, 0);
+					Generic.CastSpell(controller, spell, null, 0, true);
 					controller.Game.OnRandomHappened(true);
 					return new List<IPlayable>();
 				})
@@ -584,7 +584,7 @@ namespace SabberStoneCore.Tasks
 				IList<PlayHistoryEntry> shuffled = spellCards.Shuffle();
 				for (int i = 0; i < shuffled.Count; i++)
 				{
-					Generic.CastSpell(c, (Spell)Entity.FromCard(c, shuffled[i].SourceCard), (ICharacter)p, shuffled[i].SubOption);
+					Generic.CastSpell(c, (Spell)Entity.FromCard(c, shuffled[i].SourceCard), (ICharacter)p, shuffled[i].SubOption, true);
 					while (c.Choice != null)
 						Generic.ChoicePick(c, Util.Choose(c.Choice.Choices));
 					if (p.Zone?.Type != Zone.PLAY)
@@ -671,7 +671,7 @@ namespace SabberStoneCore.Tasks
 							Generic.PlayHero.Invoke(c, entity as Hero, randTarget, randChooseOne);
 							break;
 						case CardType.SPELL:
-							Generic.CastSpell.Invoke(c, entity as Spell, randTarget, randChooseOne);
+							Generic.CastSpell.Invoke(c, entity as Spell, randTarget, randChooseOne, true);
 							c.Game.DeathProcessingAndAuraUpdate();
 							break;
 						default:
@@ -786,7 +786,8 @@ namespace SabberStoneCore.Tasks
 			private static readonly Card EnchantmentCard = Cards.FromId("OG_118e");
 			private static readonly Effect CostReduceEffect = Effects.ReduceCost(1);
 
-			public override TaskState Process()
+			public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+				in TaskStack stack = null)
 			{
 				// get a new class
 				CardClass randClass = 0;
@@ -825,60 +826,56 @@ namespace SabberStoneCore.Tasks
 						break;
 				}
 				HeroPower heroPower =
-					(HeroPower) Entity.FromCard(Controller, heroPowerCard, new EntityData.Data
+					(HeroPower) Entity.FromCard(in controller, heroPowerCard, new EntityData.Data
 					{
-						{GameTag.CREATOR, Source.Id},
+						{GameTag.CREATOR, source.Id},
 						{GameTag.ZONE, (int)Zone.PLAY}
 					});
-				Controller.SetasideZone.Add(Controller.Hero.HeroPower);
-				Controller.Hero.HeroPower = heroPower;
+				controller.SetasideZone.Add(controller.Hero.HeroPower);
+				controller.Hero.HeroPower = heroPower;
 
-				var cards = Cards.FormatTypeClassCards(Game.FormatType)[randClass].Where(p => p.Class == randClass && !p.IsQuest).ToArray();
+				var cards = Cards.FormatTypeClassCards(game.FormatType)[randClass].Where(p => p.Class == randClass && !p.IsQuest).ToArray();
 
 				// replace cards in hand
-				for (int i = 0; i < Controller.HandZone.Count; i++)
+				for (int i = 0; i < controller.HandZone.Count; i++)
 				{
-					IPlayable entity = Controller.HandZone[i];
+					IPlayable entity = controller.HandZone[i];
 					if (entity.Card.Class != CardClass.WARLOCK) continue;
-					Controller.HandZone.Remove(entity);
-					Controller.SetasideZone.Add(entity);
+					controller.HandZone.Remove(entity);
+					controller.SetasideZone.Add(entity);
 					var tags = new EntityData.Data
 					{
 						{GameTag.ZONE_POSITION, i + 1},
 					};
-					if (Game.History)
-						tags.Add(GameTag.CREATOR, Source.Id);
-					IPlayable newEntity = Entity.FromCard(Controller, Util.Choose(cards), tags, Controller.HandZone, -1, i);
-					newEntity.NativeTags.Add(GameTag.DISPLAYED_CREATOR, Source.Id);
+					if (game.History)
+						tags.Add(GameTag.CREATOR, source.Id);
+					IPlayable newEntity = Entity.FromCard(in controller, Util.Choose(cards), tags, controller.HandZone, -1, i);
+					newEntity.NativeTags.Add(GameTag.DISPLAYED_CREATOR, source.Id);
 					CostReduceEffect.ApplyTo(newEntity.AuraEffects);
 				}
+				
 
 				// replace cards in deck
-				for (int i = Controller.DeckZone.Count - 1; i >= 0; i--)
+				for (int i = controller.DeckZone.Count - 1; i >= 0; i--)
 				{
-					IPlayable entity = Controller.DeckZone[i];
+					IPlayable entity = controller.DeckZone[i];
 					if (entity.Card.Class != CardClass.WARLOCK) continue;
 
 					Card randCard = Util.Choose(cards);
-					IPlayable newEntity = Entity.FromCard(Controller, randCard, null, Controller.DeckZone);
-					newEntity.NativeTags.Add(GameTag.DISPLAYED_CREATOR, Source.Id);
+					IPlayable newEntity = Entity.FromCard(in controller, in randCard, null, controller.DeckZone);
+					newEntity.NativeTags.Add(GameTag.DISPLAYED_CREATOR, source.Id);
 
 					//Enchantment.GetInstance(Controller, (IPlayable) Source, newEntity, EnchantmentCard);
 
-					Controller.DeckZone.Remove(entity);
-					Controller.SetasideZone.Add(entity);
+					controller.DeckZone.Remove(entity);
+					controller.SetasideZone.Add(entity);
 
 					CostReduceEffect.ApplyTo(newEntity.AuraEffects);
 				}
 
-				Game.OnRandomHappened(true);
+				game.OnRandomHappened(true);
 
 				return TaskState.COMPLETE;
-			}
-
-			public override ISimpleTask Clone()
-			{
-				return new RenonunceDarkness();
 			}
 		}
 
@@ -893,16 +890,12 @@ namespace SabberStoneCore.Tasks
 				                       p.Type == CardType.MINION
 				                       ).ToArray();
 
-			public override TaskState Process()
+			public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+				in TaskStack stack = null)
 			{
 				Card pick = Util.Choose(PastLegendaryMinions);
-				Entity.FromCard(Controller, pick, null, Controller.HandZone);
+				Entity.FromCard(in controller, in pick, null, controller.HandZone);
 				return TaskState.COMPLETE;
-			}
-
-			public override ISimpleTask Clone()
-			{
-				return new GetRandomPastLegendary();
 			}
 		}
 	}

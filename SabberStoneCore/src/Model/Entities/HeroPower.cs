@@ -24,7 +24,7 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="controller">The target <see cref="T:SabberStoneCore.Model.Entities.Controller" /> instance.</param>
 		/// <param name="heroPower">The source <see cref="T:SabberStoneCore.Model.Entities.HeroPower" />.</param>
-		private HeroPower(Controller controller, HeroPower heroPower) : base(controller, heroPower) { }
+		private HeroPower(in Controller controller, in Playable heroPower) : base(in controller, in heroPower) { }
 
 		/// <summary>Targetings the requirements.</summary>
 		/// <param name="target">The target.</param>
@@ -45,9 +45,9 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool IsPassiveHeroPower => Card.HideStat;
 
-		public override IPlayable Clone(Controller controller)
+		public override IPlayable Clone(in Controller controller)
 		{
-			return new HeroPower(controller, this);
+			return new HeroPower(in controller, this);
 		}
 	}
 }

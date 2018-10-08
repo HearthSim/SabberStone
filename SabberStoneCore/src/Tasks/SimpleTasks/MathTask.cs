@@ -1,20 +1,24 @@
 ﻿using System;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public enum MathOperation
 	{
-		ADD, SUB, MUL, DIV
+		ADD,
+		SUB,
+		MUL,
+		DIV
 	}
 
 	public class MathNumberIndexTask : SimpleTask
 	{
 		private readonly int _indexA;
 		private readonly int _indexB;
-		private readonly int _resultIndex;
 		private readonly MathOperation _mathOperation;
+		private readonly int _resultIndex;
 
 		public MathNumberIndexTask(int indexA, int indexB, MathOperation mathOperation, int resultIndex = 0)
 		{
@@ -24,10 +28,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_mathOperation = mathOperation;
 		}
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			int numberA = GetIndex(_indexA);
-			int numberB = GetIndex(_indexB);
+			int numberA = GetNumber(in _indexA, in stack);
+			int numberB = GetNumber(in _indexB, in stack);
 			int result;
 			switch (_mathOperation)
 			{
@@ -50,19 +55,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			switch (_resultIndex)
 			{
 				case 0:
-					Number = result;
+					stack.Number = result;
 					break;
 				case 1:
-					Number1 = result;
+					stack.Number1 = result;
 					break;
 				case 2:
-					Number2 = result;
+					stack.Number2 = result;
 					break;
 				case 3:
-					Number3 = result;
+					stack.Number3 = result;
 					break;
 				case 4:
-					Number4 = result;
+					stack.Number4 = result;
 					break;
 				default:
 					throw new ArgumentOutOfRangeException($"MathNumberIndexTask unknown {_resultIndex}");
@@ -71,30 +76,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		private int GetIndex(int index)
+		private int GetNumber(in int index, in TaskStack stack)
 		{
 			switch (index)
 			{
 				case 0:
-					return Number;
+					return stack.Number;
 				case 1:
-					return Number1;
+					return stack.Number1;
 				case 2:
-					return Number2;
+					return stack.Number2;
 				case 3:
-					return Number3;
+					return stack.Number3;
 				case 4:
-					return Number4;
+					return stack.Number4;
 				default:
 					throw new ArgumentOutOfRangeException($"MathNumberIndexTask unknown {index}");
 			}
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new MathNumberIndexTask(_indexA, _indexB, _mathOperation, _resultIndex);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 
@@ -109,17 +107,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public int Min { get; set; }
 		public int Max { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			Number = Util.Random.Next(Min, Max + 1);
+			stack.Number = Util.Random.Next(Min, Max + 1);
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new MathRandTask(Min, Max);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 
@@ -132,17 +124,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public int Amount { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			Number *= Amount;
+			stack.Number *= Amount;
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new MathMultiplyTask(Amount);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 
@@ -155,23 +141,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public int Amount { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			Number += Amount;
+			stack.Number += Amount;
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new MathAddTask(Amount);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 
 	public class MathSubstractionTask : SimpleTask
 	{
-
 		private MathSubstractionTask(int amount, GameTag tag, EntityType type)
 		{
 			Amount = amount;
@@ -190,31 +169,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Type = type;
 		}
 
-		public int Amount { get; set; } = 0;
+		public int Amount { get; set; }
 
 		public GameTag Tag { get; set; }
 
 		public EntityType Type { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
 			if (Amount == 0)
-			{
-				Number -= IncludeTask.GetEntities(Type, Controller, Source, Target, Playables)[0][Tag];
-			}
+				stack.Number -= IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables)[0][Tag];
 			else
-			{
-				Number -= Amount;
-			}
+				stack.Number -= Amount;
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new MathSubstractionTask(Amount, Tag, Type);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

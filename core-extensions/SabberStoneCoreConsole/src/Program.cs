@@ -13,8 +13,6 @@ using System.Threading.Tasks;
 using SabberStoneCore.Model.Entities;
 using System.Text;
 using System.IO;
-using SabberStoneCore.Enchants;
-using SabberStoneCore.Visualizer;
 
 namespace SabberStoneCoreConsole
 {
@@ -33,7 +31,7 @@ namespace SabberStoneCoreConsole
 			//EntityChangeTest();
 			//YoggTest();
 			//TessGreymane();
-			//Shudderwock();
+			Shudderwock();
 
 			//BasicBuffTest();
 			//CardsTest();

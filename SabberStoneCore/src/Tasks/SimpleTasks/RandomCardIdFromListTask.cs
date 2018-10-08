@@ -7,11 +7,11 @@
 	//		if (CardIds.Count == 0)
 	//			return TaskState.STOP;
 
-	//		IPlayable randomCard = Entity.FromCard(Controller, Cards.FromId(Util.Choose<string>(CardIds)));
-	//		Playables.Clear();
-	//		Playables.Add(randomCard);
+	//		IPlayable randomCard = Entity.FromCard(controller, Cards.FromId(Util.Choose<string>(CardIds)));
+	//		stack?.Playables.Clear();
+	//		stack?.Playables.Add(randomCard);
 
-	//		Game.OnRandomHappened(true);
+	//		game.OnRandomHappened(true);
 
 	//		return TaskState.COMPLETE;
 	//	}

@@ -306,7 +306,7 @@ namespace SabberStoneCore.Actions
 
 				p.ActivatedTrigger?.Remove();
 				p.OngoingEffect?.Remove();
-				p.AuraEffects.Checker = true; 
+				p.AuraEffects.ToBeUpdated = true; 
 
 				// TODO: PowerHistoryChangeEntity
 				// send tag variations and the id of the new Card

@@ -1,26 +1,30 @@
 ﻿using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using System.Collections.Generic;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RandomCardTask : SimpleTask
 	{
-		private static readonly ConcurrentDictionary<int, Card[]> CachedCardLists = new ConcurrentDictionary<int, Card[]>();
-		private readonly EntityType _type;
-		private readonly CardType _cardType;
+		private static readonly ConcurrentDictionary<int, Card[]> CachedCardLists =
+			new ConcurrentDictionary<int, Card[]>();
+
 		private readonly CardSet _cardSet;
-		private readonly Race _race;
-		private readonly Rarity _rarity;
+		private readonly CardType _cardType;
 		private readonly GameTag[] _gameTagFilter;
 		private readonly bool _opposite;
+		private readonly Race _race;
+		private readonly Rarity _rarity;
+
+		private readonly EntityType _type;
 		private CardClass _cardClass;
 
-		private RandomCardTask(EntityType type, CardType cardType, CardClass cardClass, CardSet cardSet, Race race, Rarity rarity, GameTag[] gameTagFilter, bool opposite)
+		private RandomCardTask(EntityType type, CardType cardType, CardClass cardClass, CardSet cardSet, Race race,
+			Rarity rarity, GameTag[] gameTagFilter, bool opposite)
 		{
 			_type = type;
 			_cardType = cardType;
@@ -33,7 +37,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		/// <summary>
-		/// Choose a random card that fits the criterias.
+		///     Choose a random card that fits the criterias.
 		/// </summary>
 		/// <param name="type">EntityType to choose the random card from.</param>
 		/// <param name="opposite">If the card is for the opponent</param>
@@ -50,13 +54,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		/// <summary>
-		/// Choose a random card that fits the criterias.
+		///     Choose a random card that fits the criterias.
 		/// </summary>
 		/// <param name="cardType">CardType filter</param>
 		/// <param name="cardClass">Cardclass filter</param>
 		/// <param name="gameTagFilter">GameTags that must be contained in the card</param>
 		/// <param name="opposite">If the card is for the opponent</param>
-		public RandomCardTask(CardType cardType, CardClass cardClass, Race race = Race.INVALID, Rarity rarity = Rarity.INVALID, GameTag[] gameTagFilter = null, bool opposite = false)
+		public RandomCardTask(CardType cardType, CardClass cardClass, Race race = Race.INVALID,
+			Rarity rarity = Rarity.INVALID, GameTag[] gameTagFilter = null, bool opposite = false)
 		{
 			_type = EntityType.INVALID;
 			_cardType = cardType;
@@ -69,7 +74,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		/// <summary>
-		/// Choose a random card that fits the criterias.
+		///     Choose a random card that fits the criterias.
 		/// </summary>
 		/// <param name="cardSet">CardSet to choose the random card from.</param>
 		public RandomCardTask(CardSet cardSet)
@@ -82,16 +87,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_opposite = false;
 		}
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-
 			switch (_type)
 			{
 				case EntityType.HERO:
-					_cardClass = Controller.HeroClass;
+					_cardClass = controller.HeroClass;
 					break;
 				case EntityType.OP_HERO:
-					_cardClass = Controller.Opponent.HeroClass;
+					_cardClass = controller.Opponent.HeroClass;
 					break;
 				case EntityType.INVALID:
 					break;
@@ -100,20 +105,26 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 
-			IReadOnlyList<Card> cardsList = GetCardList(Source, _cardType, _cardClass, _cardSet, _race, _rarity, _gameTagFilter);
+			IReadOnlyList<Card> cardsList =
+				GetCardList(source, _cardType, _cardClass, _cardSet, _race, _rarity, _gameTagFilter);
 
 
-			IPlayable randomCard = Entity.FromCard(_opposite ? Controller.Opponent : Controller, Util.Choose(cardsList));
-			Playables = new List<IPlayable> { randomCard };
+			IPlayable randomCard =
+				Entity.FromCard(_opposite ? controller.Opponent : controller, Util.Choose(cardsList));
+			stack.Playables = new List<IPlayable> {randomCard};
 
-			Game.OnRandomHappened(true);
+			game.OnRandomHappened(true);
 
 			return TaskState.COMPLETE;
 		}
 
-		public static IReadOnlyList<Card> GetCardList(IEntity source, CardType cardType = CardType.INVALID, CardClass cardClass = CardClass.INVALID, CardSet cardSet = CardSet.INVALID, Race race = Race.INVALID, Rarity rarity = Rarity.INVALID, GameTag[] gameTagFilter = null)
+		public static IReadOnlyList<Card> GetCardList(IEntity source, CardType cardType = CardType.INVALID,
+			CardClass cardClass = CardClass.INVALID, CardSet cardSet = CardSet.INVALID, Race race = Race.INVALID,
+			Rarity rarity = Rarity.INVALID, GameTag[] gameTagFilter = null)
 		{
-			IEnumerable<Card> cards = source.Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+			IEnumerable<Card> cards = source.Game.FormatType == FormatType.FT_STANDARD
+				? Cards.AllStandard
+				: Cards.AllWild;
 
 			if (!CachedCardLists.TryGetValue(source.Card.AssetId, out Card[] cardsList))
 			{
@@ -123,19 +134,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					(cardSet == CardSet.INVALID || p.Set == cardSet) &&
 					(race == Race.INVALID || p.Race == race) &&
 					(rarity == Rarity.INVALID || p.Rarity == rarity) &&
-					(gameTagFilter == null || Array.TrueForAll(gameTagFilter, gameTag => p.Tags.ContainsKey(gameTag))) &&
-					(p[GameTag.QUEST] == 0)).ToArray();
+					(gameTagFilter == null ||
+					 Array.TrueForAll(gameTagFilter, gameTag => p.Tags.ContainsKey(gameTag))) &&
+					p[GameTag.QUEST] == 0).ToArray();
 
 				CachedCardLists.TryAdd(source.Card.AssetId, cardsList);
 			}
-			return cardsList;
-		}
 
-		public override ISimpleTask Clone()
-		{
-			var clone = new RandomCardTask(_type, _cardType, _cardClass, _cardSet, _race, _rarity, _gameTagFilter, _opposite);
-			clone.Copy(this);
-			return clone;
+			return cardsList;
 		}
 	}
 }

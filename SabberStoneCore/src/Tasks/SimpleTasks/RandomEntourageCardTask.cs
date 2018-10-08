@@ -9,31 +9,29 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private readonly int _count;
 		private readonly bool _opponent;
-		
+
 		public RandomEntourageTask(int count = 1, bool opponent = false)
 		{
 			_count = count;
 			_opponent = opponent;
 		}
-		 
-		public override TaskState Process()
+
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			var source = Source as IPlayable;
-			if (source == null || source.Card.Entourage.Length < 1)
-			{
-				return TaskState.STOP;
-			}
+			var playable = source as IPlayable;
+			if (playable == null || playable.Card.Entourage.Length < 1) return TaskState.STOP;
 
 			if (_count > 1)
 			{
-				if (_count > source.Card.Entourage.Length)
-					throw new System.ArgumentOutOfRangeException();
+				if (_count > playable.Card.Entourage.Length)
+					throw new ArgumentOutOfRangeException();
 
 				var ids = new string[_count];
 				int i = 0;
 				do
 				{
-					string pick = Util.Choose(source.Card.Entourage);
+					string pick = Util.Choose(playable.Card.Entourage);
 					if (Array.IndexOf(ids, pick) > -1)
 						continue;
 					ids[i] = pick;
@@ -42,26 +40,20 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				var list = new List<IPlayable>(_count);
 				for (int j = 0; j < _count; j++)
-					list.Add(Entity.FromCard(_opponent? Controller.Opponent : Controller, Cards.FromId(ids[j])));
+					list.Add(Entity.FromCard(_opponent ? controller.Opponent : controller, Cards.FromId(ids[j])));
 
-				Playables = list;
+				stack.Playables = list;
 			}
 			else
 			{
-				IPlayable randomCard = Entity.FromCard(_opponent ? Controller.Opponent : Controller, Cards.FromId(Util.Choose<string>(source.Card.Entourage)));
-				Playables = new List<IPlayable> { randomCard };
+				IPlayable randomCard = Entity.FromCard(_opponent ? controller.Opponent : controller,
+					Cards.FromId(Util.Choose(playable.Card.Entourage)));
+				stack.Playables = new List<IPlayable> {randomCard};
 			}
 
-			Game.OnRandomHappened(true);
+			game.OnRandomHappened(true);
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new RandomEntourageTask(_count, _opponent);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

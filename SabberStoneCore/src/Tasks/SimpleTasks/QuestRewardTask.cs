@@ -19,36 +19,28 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public Card Card { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			var source = Source as Spell;
-			if (source == null)
-			{
-				return TaskState.STOP;
-			}
+			var spell = source as Spell;
+			if (spell == null) return TaskState.STOP;
 
 			// creating reward card ...
-			IPlayable reward = Entity.FromCard(Controller, Card);
-			reward[GameTag.DISPLAYED_CREATOR] = Source.Id;
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "QuestRewardTask", !Game.Logging? "":$"{Controller} Quest finished, reward {reward}!");
+			IPlayable reward = Entity.FromCard(controller, Card);
+			reward[GameTag.DISPLAYED_CREATOR] = spell.Id;
+			game.Log(LogLevel.INFO, BlockType.PLAY, "QuestRewardTask",
+				!game.Logging ? "" : $"{controller} Quest finished, reward {reward}!");
 
 			// adding reward to hand
-			Generic.AddHandPhase.Invoke(Controller, reward);
-			source[GameTag.REVEALED] = 1;
+			Generic.AddHandPhase.Invoke(controller, reward);
+			spell[GameTag.REVEALED] = 1;
 
 			// moving quest to graveyard
-			Controller.SecretZone.Quest = null;
-			Controller.GraveyardZone.Add(source);
+			controller.SecretZone.Quest = null;
+			controller.GraveyardZone.Add(spell);
 			//Controller.GraveyardZone.Add(source.Zone.Remove(source));
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new QuestRewardTask(Card);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

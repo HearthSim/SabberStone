@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model.Entities;
+﻿using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -11,30 +12,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			var source = Source as IPlayable;
-			if (source == null)
+			var playable = source as IPlayable;
+			if (playable == null) return TaskState.STOP;
+
+			//System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
+			//entities.ForEach(p =>
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, playable, target, stack?.Playables))
 			{
-				return TaskState.STOP;
+				var character = p as ICharacter;
+				character?.TakeFullHeal(playable);
 			}
 
-			//System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
-			//entities.ForEach(p =>
-			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
-			{
-				var target = p as ICharacter;
-				target?.TakeFullHeal(source);
-			};
+			;
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new HealFullTask(Type);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

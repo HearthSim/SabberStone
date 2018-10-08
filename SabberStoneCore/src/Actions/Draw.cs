@@ -50,13 +50,9 @@ namespace SabberStoneCore.Actions
 						c.Game.TaskQueue.EndEvent();
 					}
 
-					ISimpleTask clone = playable.Power?.TopdeckTask?.Clone();
-					if (clone != null)
+					ISimpleTask task = playable.Power?.TopdeckTask;
+					if (task != null)
 					{
-						clone.Game = c.Game;
-						clone.Controller = c;
-						clone.Source = playable;
-
 						if (c.Game.History)
 						{
 							// TODO: triggerkeyword: TOPDECK
@@ -68,7 +64,9 @@ namespace SabberStoneCore.Actions
 
 						c.Game.Log(LogLevel.INFO, BlockType.TRIGGER, "TOPDECK",
 							!c.Game.Logging ? "" : $"{playable}'s TOPDECK effect is activated.");
-						clone.Process();
+
+						task.Process(c.Game, c, playable, null);
+
 						if (c.Game.History)
 							c.Game.PowerHistory.Add(
 								PowerHistoryBuilder.BlockEnd());

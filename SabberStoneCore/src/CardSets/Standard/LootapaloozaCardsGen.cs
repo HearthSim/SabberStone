@@ -1630,9 +1630,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_503", new Power {
 				// TODO Test: Lesser Onyx Spellstone_LOOT_503
-				PowerTask = ComplexTask.Create(
-					new RandomTask(1, EntityType.OP_MINIONS),
-					new DestroyTask(EntityType.STACK)),
+				PowerTask = ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS),
 				Trigger = new Trigger(TriggerType.PLAY_CARD)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
@@ -1717,9 +1715,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_503t", new Power {
-				PowerTask = ComplexTask.Create(
-					new RandomTask(2, EntityType.OP_MINIONS),
-					new DestroyTask(EntityType.STACK)),
+				PowerTask = ComplexTask.DestroyRandomTargets(2, EntityType.OP_MINIONS),
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
@@ -1739,9 +1735,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_503t2", new Power {
-				PowerTask = ComplexTask.Create(
-					new RandomTask(3, EntityType.OP_MINIONS),
-					new DestroyTask(EntityType.STACK))
+				PowerTask = ComplexTask.DestroyRandomTargets(3, EntityType.OP_MINIONS)
 			});
 
 		}

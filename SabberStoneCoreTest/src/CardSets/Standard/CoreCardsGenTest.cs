@@ -1,6 +1,4 @@
 ﻿using Xunit;
-
-using System.Linq;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;

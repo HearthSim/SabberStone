@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model.Entities;
+﻿using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -11,7 +12,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		/// <summary>
-		/// Adding the amount as Armor.
+		///     Adding the amount as Armor.
 		/// </summary>
 		public ArmorTask(int amount)
 		{
@@ -20,7 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		/// <summary>
-		/// Adding the value contained in Number as Armor.
+		///     Adding the value contained in stack.Number as Armor.
 		/// </summary>
 		public ArmorTask()
 		{
@@ -31,22 +32,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public bool UseNumber { get; set; }
 		public int Amount { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			var source = Source as IPlayable;
-			if (source == null)
-			{
-				return TaskState.STOP;
-			}
-			Controller.Hero.GainArmor(source, UseNumber ? Number : Amount);
-			return TaskState.COMPLETE;
-		}
+			var playableSource = source as IPlayable;
+			if (source == null) return TaskState.STOP;
 
-		public override ISimpleTask Clone()
-		{
-			var clone = new ArmorTask(UseNumber, Amount);
-			clone.Copy(this);
-			return clone;
+			controller.Hero.GainArmor(playableSource, UseNumber ? stack.Number : Amount);
+			return TaskState.COMPLETE;
 		}
 	}
 }

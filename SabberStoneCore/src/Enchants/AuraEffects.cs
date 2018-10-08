@@ -22,38 +22,6 @@ namespace SabberStoneCore.Enchants
 	/// </summary>
 	public class AuraEffects
 	{
-		private class CostEffect
-		{
-			private readonly Func<int, int> _func;
-
-			public CostEffect(Effect e)
-			{
-				Effect = e;
-
-				switch (e.Operator)
-				{
-					case EffectOperator.ADD:
-						_func = p => p + e.Value;
-						break;
-					case EffectOperator.SUB:
-						_func = p => p >= e.Value ? p - e.Value : 0;
-						break;
-					case EffectOperator.SET:
-						_func = p => e.Value;
-						break;
-					case EffectOperator.MUL:
-						throw new NotImplementedException();
-				}
-			}
-
-			public readonly Effect Effect;
-
-			public int Apply(int c)
-			{
-				return _func(c);
-			}
-		}
-
 		private int COST;
 		private int WINDFURY;
 		private int IMMUNE;
@@ -64,7 +32,7 @@ namespace SabberStoneCore.Enchants
 		private int RUSH;
 		private int ECHO;
 		private int CANTATTACKHEROES;
-		private List<CostEffect> _costEffects;
+		private List<Effect> _costEffects;
 		private AdaptiveCostEffect _adaptiveCostEffect;
 
 		public IEntity Owner { get; private set; }
@@ -74,16 +42,16 @@ namespace SabberStoneCore.Enchants
 			set
 			{
 				_adaptiveCostEffect = value;
-				Checker = true;
+				ToBeUpdated = true;
 			}
 		}
 
-		internal bool Checker { get; set; }
+		internal bool ToBeUpdated { get; set; }
 		internal int AttackDamage { get; set; }
 		internal int Health { get; set; }
 		internal int Charge { get; set; }
 
-		public int this[GameTag t]
+		public int this[in GameTag t]
 		{
 			get
 			{
@@ -187,14 +155,13 @@ namespace SabberStoneCore.Enchants
 		internal AuraEffects(in Entity owner)
 		{
 			Owner = owner;
-			if (owner is IPlayable)
-				COST = owner.Card.Cost;
+			ToBeUpdated = true;
 		}
 		private AuraEffects(in Entity owner, in AuraEffects other)
 		{
 			Owner = owner;
-			Checker = Checker;
-			_costEffects = other._costEffects?.Count > 0 ? new List<CostEffect>(other._costEffects) : null;
+			ToBeUpdated = ToBeUpdated;
+			_costEffects = other._costEffects?.Count > 0 ? new List<Effect>(other._costEffects) : null;
 			COST = other.COST;
 			CANT_BE_TARGETED_BY_SPELLS = other.CANT_BE_TARGETED_BY_SPELLS;
 			IMMUNE = other.IMMUNE;
@@ -216,12 +183,12 @@ namespace SabberStoneCore.Enchants
 		/// </summary>
 		public void AddCostAura(Effect e)
 		{
-			Checker = true;
+			ToBeUpdated = true;
 
 			if (_costEffects == null)
-				_costEffects = new List<CostEffect>{ new CostEffect(e) };
+				_costEffects = new List<Effect>{e};
 			else
-				_costEffects.Add(new CostEffect(e));
+				_costEffects.Add(e);
 		}
 
 		/// <summary>
@@ -231,14 +198,8 @@ namespace SabberStoneCore.Enchants
 		{
 			if (_costEffects == null)
 				return;
-			Checker = true;
-			for (int i = 0; i < _costEffects.Count; i++)
-			{
-				if (!_costEffects[i].Effect.Equals(e)) continue;
-
-				_costEffects.Remove(_costEffects[i]);
-				return;
-			}
+			ToBeUpdated = true;
+			if (_costEffects.Remove(e)) return;
 
 			throw new Exception($"Can't remove cost aura from {Owner}. Zone: {Owner.Zone.Type}, IsDead?: {Owner[GameTag.TO_BE_DESTROYED] == 1}");
 		}
@@ -249,24 +210,43 @@ namespace SabberStoneCore.Enchants
 		/// <returns></returns>
 		public int GetCost()
 		{
-			if (!Checker) return COST;
+			if (!ToBeUpdated) return COST;
 
 			// Obtain the Card Cost
 			if (!Owner.NativeTags.TryGetValue(GameTag.COST, out int c))
-				Owner.Card.Tags.TryGetValue(GameTag.COST, out c);
+				c = Owner.Card.Cost;
 			// Apply Cost effects
-			for (int i = 0; i < _costEffects?.Count; i++)
-				c = _costEffects[i].Apply(c);
-			COST = c;
-			Checker = false;
+			if (_costEffects != null)
+			foreach (Effect e in _costEffects)
+			{
+				switch (e.Operator)
+				{
+					case EffectOperator.ADD:
+						c += e.Value;
+						break;
+					case EffectOperator.SUB:
+						c -= e.Value;
+						if (c < 0) c = 0;
+						break;
+					case EffectOperator.SET:
+						c = e.Value;
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+			}
+			ToBeUpdated = false;
 
 			// Lastly apply Adaptive Cost effect (Giants + Naga Sea Witch)
 			if (AdaptiveCostEffect != null)
-				COST = AdaptiveCostEffect.Apply(COST);
+			{
+				c = AdaptiveCostEffect.Apply(c);
+			}
 
-			if (COST < 0)
-				COST = 0;
-			return COST;
+			if (c < 0) c = 0;
+
+			COST = c;
+			return c;
 		}
 
 		public void ResetCost()
@@ -332,6 +312,7 @@ namespace SabberStoneCore.Enchants
 		private int _spellsCostHealth;
 		private int _extraEndTurnEffect;
 		private int _heroPowerDisabled;
+		private int _allHealingDouble;
 
 		public int this[GameTag t]
 		{
@@ -358,6 +339,8 @@ namespace SabberStoneCore.Enchants
 						return _extraEndTurnEffect;
 					case GameTag.HERO_POWER_DISABLED:
 						return _heroPowerDisabled >= 1 ? 1 : 0;
+					case GameTag.ALL_HEALING_DOUBLE:
+						return _allHealingDouble;
 					default:
 						return 0;
 				}
@@ -394,6 +377,9 @@ namespace SabberStoneCore.Enchants
 					case GameTag.HERO_POWER_DISABLED:
 						_heroPowerDisabled = value;
 						return;
+					case GameTag.ALL_HEALING_DOUBLE:
+						_allHealingDouble = value;
+						return;
 					default:
 						return;
 				}
@@ -417,6 +403,7 @@ namespace SabberStoneCore.Enchants
 			sb.Append(_spellsCostHealth);
 			sb.Append(_extraEndTurnEffect);
 			sb.Append(_heroPowerDisabled);
+			sb.Append(_allHealingDouble);
 			sb.Append("]");
 			return sb.ToString();
 		}

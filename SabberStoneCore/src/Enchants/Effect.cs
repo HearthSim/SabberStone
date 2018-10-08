@@ -1,8 +1,6 @@
 ﻿using System;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace SabberStoneCore.Enchants
 {
@@ -27,8 +25,7 @@ namespace SabberStoneCore.Enchants
 	/// <summary>
 	/// Represents an effect of <see cref="Aura"/>s or <see cref="Enchantment"/> cards.
 	/// </summary>
-	[ReadOnly(true)]
-	public struct Effect : IEffect, IEquatable<Effect>
+	public readonly struct Effect : IEffect, IEquatable<Effect>
 	{
 		public readonly GameTag Tag;
 		public readonly EffectOperator Operator;
@@ -57,7 +54,7 @@ namespace SabberStoneCore.Enchants
 				entity.Game.OneTurnEffects.Add((entity.Id, this));
 
 			if (Tag == GameTag.COST)
-				entity.AuraEffects.Checker = true;
+				entity.AuraEffects.ToBeUpdated = true;
 
 			switch (Operator)
 			{
@@ -87,6 +84,12 @@ namespace SabberStoneCore.Enchants
 							if (m.NumAttacksThisTurn > 0 && m.IsExhausted)
 								m.IsExhausted = false;
 							break;
+						case GameTag.TAUNT:
+							((Character) entity).HasTaunt = Value > 0;
+							return;
+						case GameTag.IMMUNE:
+							((Character) entity).IsImmune = Value > 0;
+							return;
 					}
 
 					if (oneTurnEffect && entity.NativeTags[Tag] == Value)
@@ -165,6 +168,8 @@ namespace SabberStoneCore.Enchants
 			{
 				case EffectOperator.ADD:
 					entity[Tag] -= Value;
+					if (Tag == GameTag.SPELLPOWER)
+						entity.Controller.CurrentSpellPower -= Value;
 					return;
 				case EffectOperator.SUB:
 					entity[Tag] = entity.NativeTags[Tag] + Value;
@@ -229,11 +234,17 @@ namespace SabberStoneCore.Enchants
 		{
 			return Tag == other.Tag && Operator == other.Operator && Value == other.Value;
 		}
+
 		public override bool Equals(object obj)
 		{
 			if (obj is null) return false;
 			return obj is Effect effect && Equals(effect);
 		}
+
+		public static bool operator ==(Effect e1, Effect e2) => e1.Equals(e2);
+
+		public static bool operator !=(Effect e1, Effect e2) => !(e1.Equals(e2));
+
 		public override int GetHashCode()
 		{
 			unchecked
@@ -250,7 +261,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	public struct AttackEffect : IEffect
+	public readonly struct AttackEffect : IEffect
 	{
 		private readonly EffectOperator _operator;
 		private readonly int _value;
@@ -274,8 +285,6 @@ namespace SabberStoneCore.Enchants
 			}
 
 			ref int target = ref c._atkModifier;
-			if (target < 0)
-				target = c.Card.ATK;
 
 			if (isOneTurnEffect)
 				entity.Game.OneTurnEffects.Add((entity.Id, this));
@@ -381,7 +390,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	public struct HealthEffect : IEffect
+	public readonly struct HealthEffect : IEffect
 	{
 		private readonly EffectOperator _operator;
 		private readonly int _value;
@@ -397,8 +406,6 @@ namespace SabberStoneCore.Enchants
 			if (!(entity is Character c)) throw new ArgumentException($"Can't apply attack enchant to a non-character {entity}");
 
 			ref int target = ref c._healthModifier;
-			if (target < 0)
-				target = c.Card.Health;
 
 			if (isOneTurnEffect)
 				entity.Game.OneTurnEffects.Add((entity.Id, this));
@@ -505,9 +512,9 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
-	public struct StealthEffect : IEffect
+	public readonly struct StealthEffect : IEffect
 	{
-		public void ApplyTo(IEntity entity, bool isOneTurnEffect)
+		public void ApplyTo(IEntity entity, bool isOneTurnEffect = false)
 		{
 			var c = (Character)entity;
 			c.HasStealth = true;

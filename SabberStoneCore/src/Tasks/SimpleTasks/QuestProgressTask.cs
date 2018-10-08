@@ -13,36 +13,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_questRewardId = questRewardId;
 		}
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			var source = Source as Spell;
-			if (source == null)
-			{
+			var spell = source as Spell;
+			if (spell == null)
 				return TaskState.STOP;
-			}
 
-			source.QuestProgress++;
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "QuestProgressTask", !Game.Logging? "":$"{Controller} {source}'s Quest {source.QuestProgress} / {source.QuestTotalProgress} progress!");
+			spell.QuestProgress++;
+			game.Log(LogLevel.INFO, BlockType.PLAY, "QuestProgressTask",
+				!game.Logging
+					? ""
+					: $"{controller} {spell}'s Quest {spell.QuestProgress} / {spell.QuestTotalProgress} progress!");
 
-			if (source.QuestProgress == source.QuestTotalProgress)
-			{
-				var task = new QuestRewardTask(_questRewardId);
-				task.Game = Game;
-				task.Controller = Controller;
-				task.Source = Source;
-				task.Target = null;
-
-				Game.TaskQueue.EnqueueBase(task);
-			}
+			if (spell.QuestProgress == spell.QuestTotalProgress)
+				game.TaskQueue.EnqueueBase(new QuestRewardTask(_questRewardId), in controller, spell, null);
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new QuestProgressTask(_questRewardId);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

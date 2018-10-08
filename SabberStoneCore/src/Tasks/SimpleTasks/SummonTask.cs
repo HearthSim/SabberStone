@@ -5,27 +5,37 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-	public enum SummonSide {
+	public enum SummonSide
+	{
 		// summoning on the last position on the right side
 		DEFAULT,
+
 		// summoning left of the minion
 		LEFT,
+
 		// summoning right of the minion
 		RIGHT,
+
 		// summoning at the last position of the source
 		DEATHRATTLE,
+
 		// summoning at a given position in the stack number
 		NUMBER,
+
 		// summoning by spell, currently like default
-		SPELL
+		SPELL,
+
+		// summoning on the right side and left side alternately.
+		ALTERNATE
 	}
 
 	public class SummonTask : SimpleTask
-	{ 
+	{
 		private readonly bool _addToStack;
 		private readonly int _amount = 1;
 
-		public SummonTask(SummonSide side = SummonSide.DEFAULT, Card card = null, bool removeFromStack = false, bool addToStack = false, int amount = 1)
+		public SummonTask(SummonSide side = SummonSide.DEFAULT, Card card = null, bool removeFromStack = false,
+			bool addToStack = false, int amount = 1)
 		{
 			Card = card;
 			RemoveFromStack = removeFromStack;
@@ -42,10 +52,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_addToStack = addToStack;
 		}
 
-		public SummonTask(string cardId, int amount)
+		public SummonTask(string cardId, int amount, SummonSide side = SummonSide.DEFAULT)
 		{
 			Card = Cards.FromId(cardId);
 			_amount = amount;
+			Side = side;
 		}
 
 		public Card Card { get; set; }
@@ -54,94 +65,104 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public SummonSide Side { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
+			int alternateCount = 0;
+
 			for (int i = 0; i < _amount; ++i)
 			{
-				if (Controller.BoardZone.IsFull)
+				if (controller.BoardZone.IsFull)
 				{
-					if (Card == null && Playables.Count > 0)
+					if (Card == null && stack?.Playables.Count > 0)
 					{
-						var m = Playables[0] as Minion;
+						var m = stack?.Playables[0] as Minion;
 						if (m.Zone == null && m.GetNativeGameTag(GameTag.ZONE) != 0)
-							Playables[0].Controller.GraveyardZone.Add(Playables[0]);
+							stack?.Playables[0].Controller.GraveyardZone.Add(stack?.Playables[0]);
 					}
+
 					return TaskState.STOP;
 				}
 
 				Minion summonEntity = null;
 				if (Card != null)
 				{
-					summonEntity = Entity.FromCard(Controller, Card,
+					summonEntity = Entity.FromCard(controller, Card,
 						new EntityData.Data
 						{
-							{GameTag.ZONE, (int)Zone.PLAY},
-							{GameTag.DISPLAYED_CREATOR, Source.Id}
+							{GameTag.ZONE, (int) Zone.PLAY},
+							{GameTag.DISPLAYED_CREATOR, source.Id}
 						}) as Minion;
 					if (_addToStack)
-						Playables.Add(summonEntity);
+						stack?.Playables.Add(summonEntity);
 				}
-				else if (Playables.Count > 0)
+				else if (stack?.Playables.Count > 0)
 				{
-					summonEntity = Playables[0] as Minion;
-					if (RemoveFromStack)
-					{
-						Playables.Remove(summonEntity);
-					}
+					summonEntity = stack?.Playables[0] as Minion;
+					if (RemoveFromStack) stack?.Playables.Remove(summonEntity);
 				}
 
 				if (summonEntity == null)
 					return TaskState.STOP;
 
-				int summonPosition = -1;
-				switch (Side)
-				{
-					case SummonSide.LEFT:
-						if (Source.Zone.Type == Enums.Zone.PLAY)
-							summonPosition = ((Minion)Source).ZonePosition;
-						else
-							summonPosition = ((Minion)Source).LastBoardPosition;
-						break;
-					case SummonSide.RIGHT:
-						if (Source.Zone.Type == Enums.Zone.PLAY)
-							summonPosition = ((Minion)Source).ZonePosition + 1;
-						else
-							summonPosition = ((Minion)Source).LastBoardPosition;
-						break;
-					case SummonSide.DEATHRATTLE:
-						if (Source is Minion m)
-							summonPosition = m.LastBoardPosition;
-						else if
-							(Source is Enchantment e)
-							summonPosition = ((Minion) e.Target).LastBoardPosition;
-						break;
-					case SummonSide.NUMBER:
-						summonPosition = Number - 1;
-						break;
-					case SummonSide.SPELL:
-						summonPosition = -1;
-						break;
-					case SummonSide.DEFAULT:
-						summonPosition = -1;
-						break;
-				}
+				int summonPosition = GetPosition(in source, Side, stack?.Number ?? 0, ref alternateCount);
 
-				if (summonPosition > Controller.BoardZone.Count)
-				{
-					summonPosition = Controller.BoardZone.Count;
-				}
+				if (summonPosition > controller.BoardZone.Count)
+					summonPosition = controller.BoardZone.Count;
 
-				bool success = Generic.SummonBlock.Invoke(Controller, summonEntity, summonPosition);
+				bool success = Generic.SummonBlock.Invoke(controller, summonEntity, summonPosition);
 			}
-			
+
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
+		public static int GetPosition(in IEntity source, in SummonSide side, in int number, ref int alternateCount)
 		{
-			var clone = new SummonTask(Side, Card, RemoveFromStack, _addToStack, _amount);
-			clone.Copy(this);
-			return clone;
+			int summonPosition = -1;
+
+			switch (side)
+			{
+				case SummonSide.LEFT:
+					if (source.Zone.Type == Zone.PLAY)
+						summonPosition = ((Minion) source).ZonePosition;
+					else
+						summonPosition = ((Minion) source).LastBoardPosition;
+					break;
+				case SummonSide.RIGHT:
+					if (source.Zone.Type == Zone.PLAY)
+						summonPosition = ((Minion) source).ZonePosition + 1;
+					else
+						summonPosition = ((Minion) source).LastBoardPosition;
+					break;
+				case SummonSide.DEATHRATTLE:
+					if (source is Minion m)
+						summonPosition = m.LastBoardPosition;
+					else if
+						(source is Enchantment e)
+						summonPosition = ((Minion) e.Target).LastBoardPosition;
+					break;
+				case SummonSide.NUMBER:
+					summonPosition = number - 1;
+					break;
+				case SummonSide.SPELL:
+					summonPosition = -1;
+					break;
+				case SummonSide.DEFAULT:
+					summonPosition = -1;
+					break;
+				case SummonSide.ALTERNATE:
+					if (alternateCount % 2 == 0)
+						summonPosition = ((Minion) source).ZonePosition - alternateCount / 2;
+					else
+						summonPosition = ((Minion) source).ZonePosition + alternateCount / 2 + 1;
+					alternateCount++;
+					break;
+			}
+
+			if (summonPosition > source.Controller.BoardZone.Count)
+				summonPosition = source.Controller.BoardZone.Count;
+
+			return summonPosition;
 		}
 	}
 }

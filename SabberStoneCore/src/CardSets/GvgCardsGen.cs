@@ -986,9 +986,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("GVG_047", new Power {
-				PowerTask = ComplexTask.Create(
-					new RandomTask(1, EntityType.OP_MINIONS),
-					new DestroyTask(EntityType.STACK)),
+				PowerTask = ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS),
 				ComboTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.OP_MINIONS),
 					new IncludeTask(EntityType.OP_WEAPON, null, true),
@@ -2458,14 +2456,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("PART_004e", new Power {
-				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
-				Trigger = new Trigger(TriggerType.TURN_START)
-				{
-					SingleTask = new RemoveEnchantmentTask(),
-					RemoveAfterTriggered = true,
-				}
-			});
+			cards.Add("PART_004e", Power.OneTurnStealthEnchantmentPower);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [PART_006a] Switched (*) - COST:0 

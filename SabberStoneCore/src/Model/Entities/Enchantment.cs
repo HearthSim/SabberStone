@@ -6,7 +6,6 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Zones;
-using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -25,7 +24,7 @@ namespace SabberStoneCore.Model.Entities
 			Id = tags[GameTag.ENTITY_ID];
 		}
 
-		private Enchantment(Controller c, Enchantment e)
+		private Enchantment(in Controller c, in Enchantment e)
 		{
 			Game = c.Game;
 			Controller = c;
@@ -178,9 +177,9 @@ namespace SabberStoneCore.Model.Entities
 			return instance;
 		}
 
-		public IPlayable Clone(Controller controller)
+		public IPlayable Clone(in Controller controller)
 		{
-			return new Enchantment(controller, this);
+			return new Enchantment(in controller, this);
 		}
 
 		public void Remove()
@@ -193,18 +192,10 @@ namespace SabberStoneCore.Model.Entities
 				this[GameTag.ZONE] = (int)Enums.Zone.REMOVEDFROMGAME;
 			}
 
+			// Activate enchantment deathrattle task.
 			if (Power.DeathrattleTask != null && Target.Zone is GraveyardZone)
 			{
-				ISimpleTask clone = Power.DeathrattleTask.Clone();
-				clone.Game = Game;
-				clone.Controller = Target.Controller;
-				clone.Source = Target;
-				clone.Target = this;
-				//clone.Number = this[GameTag.TAG_SCRIPT_DATA_NUM_1];
-				//if (clone.Number > 0)
-				//	;
-
-				Game.TaskQueue.Enqueue(clone);
+				Game.TaskQueue.Enqueue(Power.DeathrattleTask, Target.Controller, Target, this);
 			}
 
 			OngoingEffect?.Remove();
@@ -287,7 +278,7 @@ namespace SabberStoneCore.Model.Entities
 			throw new NotImplementedException();
 		}
 
-		public void ActivateTask(PowerActivation activation, IPlayable target = null, int chooseOne = 0, IPlayable source = null)
+		public void ActivateTask(in PowerActivation activation, in IPlayable target = null, in int chooseOne = 0, in IPlayable source = null)
 		{
 			throw new NotImplementedException();
 		}
