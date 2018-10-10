@@ -13,40 +13,22 @@ namespace SabberStoneCore.Tasks
 	public class PlayerTask
 	{
 		public TaskState State { get; set; } = TaskState.READY;
-		//public ISimpleTask CurrentTask => this;
-
 		public PlayerTaskType PlayerTaskType { get; set; }
 		public Game Game { get; set; }
-		private int _controllerId;
-		public Controller Controller
-		{
-			get { return Game.ControllerById(_controllerId); }
-			set { _controllerId = value.Id; }
-		}
-		private int _sourceId;
-		public virtual IEntity Source
-		{
-			get { return Game.IdEntityDic[_sourceId]; }
-			set { _sourceId = value.Id; }
-		}
-		private int _targetId;
-		public IEntity Target
-		{
-			get { return _targetId > 0 ? Game.IdEntityDic[_targetId] : null; }
-			set { _targetId = value?.Id ?? -1; }
-		}
 
-		public int ZonePosition { get; set; } = -1;
+		public Controller Controller { get; set; }
+		public IPlayable Source { get; set; }
+		public ICharacter Target { get; set; }
 		public int ChooseOne { get; set; }
 		public bool SkipPrePhase { get; set; }
 
 		//public List<Game> Splits { get; set; } = new List<Game>();
 		//public IEnumerable<IEnumerable<IPlayable>> Sets { get; set; }
 
-		public bool HasSource => _sourceId > 0;
-		public bool HasTarget => _targetId > 0;
+		public bool HasSource => Source != null;
+		public bool HasTarget => Target != null;
 
-		public virtual List<PlayerTask> Build(Game game, Controller controller, IPlayable source, IPlayable target)
+		public virtual List<PlayerTask> Build(in Game game, in Controller controller, in IPlayable source, in ICharacter target)
 		{
 			Game = game;
 			Controller = controller;

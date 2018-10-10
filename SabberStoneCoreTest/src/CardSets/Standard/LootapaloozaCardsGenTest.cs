@@ -3203,7 +3203,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			for (int i = 0; i < demonsInDeck.Count; i++)
 			{
 				game.CurrentPlayer.TemporaryMana = 10;
-				var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Possessed Lackey"));
+				var testCard = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Possessed Lackey"));
 				var darkPact = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
 				int previousBoardAmount = game.CurrentPlayer.BoardZone.Count;
 				game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
@@ -3374,8 +3374,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			int previousHealth = game.CurrentPlayer.Hero.Health;
 			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
 			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dark Pact"));
-			var silverback = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silverback Patriarch"));
-			var silverback2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silverback Patriarch"));
+			var silverback = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silverback Patriarch"));
+			var silverback2 = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Silverback Patriarch"));
 
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, silverback));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard, silverback));
@@ -3994,10 +3994,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			var testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Scorp-o-matic"));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			var elvenArcher = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elven Archer"));
+			var elvenArcher = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elven Archer"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, elvenArcher, game.CurrentPlayer.Opponent.Hero));
 
-			var frostwolfGrunt = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostwolf Grunt"));
+			var frostwolfGrunt = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Frostwolf Grunt"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, frostwolfGrunt, game.CurrentPlayer.Opponent.Hero));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
@@ -4691,7 +4691,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Carnivorous Cube"));
 
-			IPlayable target = game.ProcessCard("Voidlord", null, true);
+			Minion target = game.ProcessCard<Minion>("Voidlord", null, true);
 
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Carnivorous Cube", target));
 

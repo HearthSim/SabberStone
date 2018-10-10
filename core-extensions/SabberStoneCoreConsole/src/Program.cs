@@ -788,7 +788,7 @@ namespace SabberStoneCoreConsole
 			game.Player2.BaseMana = 10;
 			game.StartGame();
 
-			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			var minion = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion));
@@ -883,7 +883,7 @@ namespace SabberStoneCoreConsole
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Grim Patron"));
-			IPlayable grim = game.CurrentPlayer.BoardZone[0] as Minion;
+			Minion grim = game.CurrentPlayer.BoardZone[0];
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
 			IPlayable boar = game.CurrentPlayer.BoardZone[0] as Minion;

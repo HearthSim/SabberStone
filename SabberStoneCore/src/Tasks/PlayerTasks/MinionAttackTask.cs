@@ -5,12 +5,12 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 {
 	public class MinionAttackTask : PlayerTask
 	{
-		public static MinionAttackTask Any(Controller controller, IEntity source, IEntity target, bool skipPrePhase = false)
+		public static MinionAttackTask Any(in Controller controller, in IPlayable source, in ICharacter target, in bool skipPrePhase = false)
 		{
-			return new MinionAttackTask(controller, source, target, skipPrePhase);
+			return new MinionAttackTask(in controller, in source, in target, in skipPrePhase);
 		}
 
-		private MinionAttackTask(Controller controller, IEntity source, IEntity target, bool skipPrePhase)
+		private MinionAttackTask(in Controller controller, in IPlayable source, in ICharacter target, in bool skipPrePhase)
 		{
 			PlayerTaskType = PlayerTaskType.MINION_ATTACK;
 			Game = controller.Game;
@@ -22,7 +22,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
 		public override TaskState Process()
 		{
-			bool success = Generic.AttackBlock.Invoke(Controller, Source as Minion, Target as ICharacter, SkipPrePhase);
+			bool success = Generic.AttackBlock.Invoke(Controller, Source as Minion, Target, SkipPrePhase);
 			return TaskState.COMPLETE;
 		}
 

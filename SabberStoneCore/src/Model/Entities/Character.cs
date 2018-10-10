@@ -656,7 +656,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				NativeTags.TryGetValue(GameTag.CANNOT_ATTACK_HEROES, out int value);
+				_data.TryGetValue(GameTag.CANNOT_ATTACK_HEROES, out int value);
 				value += AuraEffects[GameTag.CANNOT_ATTACK_HEROES];
 				return value > 0;
 			}
@@ -667,7 +667,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				if (!NativeTags.TryGetValue(GameTag.CANT_BE_TARGETED_BY_SPELLS, out int value))
+				if (!_data.TryGetValue(GameTag.CANT_BE_TARGETED_BY_SPELLS, out int value))
 					value = Card.CantBeTargetedBySpells ? 1 : 0;
 				value += AuraEffects[GameTag.CANT_BE_TARGETED_BY_SPELLS];
 
@@ -680,7 +680,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				if (!NativeTags.TryGetValue(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS, out int value))
+				if (!_data.TryGetValue(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS, out int value))
 					value = Card.CantBeTargetedByHeroPowers ? 1 : 0;
 				value += AuraEffects[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS];
 
@@ -693,7 +693,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				NativeTags.TryGetValue(GameTag.ARMOR, out int value);
+				_data.TryGetValue(GameTag.ARMOR, out int value);
 				return value;
 			}
 			set { this[GameTag.ARMOR] = value; }
@@ -701,7 +701,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public int LastAffectedBy
 		{
-			get { return this[GameTag.LAST_AFFECTED_BY]; }
+			get
+			{
+				_data.TryGetValue(GameTag.LAST_AFFECTED_BY, out int value);
+				return value;
+			}
 			set { this[GameTag.LAST_AFFECTED_BY] = value; }
 		}
 
@@ -745,7 +749,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				NativeTags.TryGetValue(GameTag.FROZEN, out int value);
+				_data.TryGetValue(GameTag.FROZEN, out int value);
 				return value == 1;
 			}
 			set
@@ -812,7 +816,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				NativeTags.TryGetValue(GameTag.NUM_ATTACKS_THIS_TURN, out int value);
+				_data.TryGetValue(GameTag.NUM_ATTACKS_THIS_TURN, out int value);
 				return value;
 			}
 			set => this[GameTag.NUM_ATTACKS_THIS_TURN] = value;
@@ -820,14 +824,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public int PreDamage
 		{
-			get { return this[GameTag.PREDAMAGE]; }
-			set { this[GameTag.PREDAMAGE] = value; }
+			get => _data[GameTag.PREDAMAGE];
+			set => this[GameTag.PREDAMAGE] = value;
 		}
 
-		public Race Race
-		{
-			get => Card.Race;
-		}
+		public Race Race => Card.Race;
 
 		public bool ShouldExitCombat
 		{

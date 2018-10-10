@@ -20,7 +20,6 @@ namespace SabberStoneCore.Model.Entities
 				_list = newlist;
 			}
 
-			if (list.Length <= key) ;
 			if (list[key] != null)
 				throw new ArgumentException();
 			list[key] = value;

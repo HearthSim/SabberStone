@@ -30,7 +30,7 @@ namespace SabberStoneKettleSimulator
 
 					SabberStoneCore.Kettle.PowerSubOption mainOption = powerOption.MainOption;
 					IPlayable source = Game.IdEntityDic[mainOption.EntityId];
-					IPlayable target = sendOptionTarget > 0 ? Game.IdEntityDic[sendOptionTarget] : null;
+					ICharacter target = sendOptionTarget > 0 ? (ICharacter) Game.IdEntityDic[sendOptionTarget] : null;
 					List<SabberStoneCore.Kettle.PowerSubOption> subObtions = powerOption.SubOptions;
 
 					if (source.Zone?.Type == Zone.PLAY)

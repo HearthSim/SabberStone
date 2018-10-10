@@ -4,19 +4,17 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 {
 	public class EndTurnTask : PlayerTask
 	{
-		public static EndTurnTask Any(Controller controller)
+		public static EndTurnTask Any(in Controller controller)
 		{
-			return new EndTurnTask(controller);
+			return new EndTurnTask(in controller);
 		}
 
-		private EndTurnTask(Controller controller)
+		private EndTurnTask(in Controller controller)
 		{
 			PlayerTaskType = PlayerTaskType.END_TURN;
 			Game = controller.Game;
 			Controller = controller;
 		}
-
-		public override IEntity Source => null;
 
 		public override TaskState Process()
 		{

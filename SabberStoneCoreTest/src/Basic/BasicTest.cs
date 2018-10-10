@@ -372,7 +372,7 @@ namespace SabberStoneCoreTest.Basic
 			game.Player2.BaseMana = 10;
 			game.StartGame();
 
-			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+			var minion1 = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Inner Rage"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
@@ -401,7 +401,7 @@ namespace SabberStoneCoreTest.Basic
 			game.Player2.BaseMana = 10;
 			game.StartGame();
 
-			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+			var minion = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion));
@@ -482,7 +482,7 @@ namespace SabberStoneCoreTest.Basic
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 
-			IPlayable minion1 = Generic.DrawCard(game.Player1, Cards.FromName("Murloc Raider"));
+			var minion1 = (ICharacter) Generic.DrawCard(game.Player1, Cards.FromName("Murloc Raider"));
 			IPlayable minion2 = Generic.DrawCard(game.Player1, Cards.FromName("Ironbeak Owl"));
 			IPlayable spell1 = Generic.DrawCard(game.Player1, Cards.FromName("Power Word: Shield"));
 
@@ -499,7 +499,7 @@ namespace SabberStoneCoreTest.Basic
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			IPlayable minion3 = Generic.DrawCard(game.Player1, Cards.FromName("Bloodfen Raptor"));
+			var minion3 = (ICharacter) Generic.DrawCard(game.Player1, Cards.FromName("Bloodfen Raptor"));
 			IPlayable minion4 = Generic.DrawCard(game.Player1, Cards.FromName("Ironbeak Owl"));
 			IPlayable spell2 = Generic.DrawCard(game.Player1, Cards.FromName("Power Word: Shield"));
 
@@ -531,8 +531,8 @@ namespace SabberStoneCoreTest.Basic
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			IPlayable minion1 = Generic.DrawCard(game.Player1, Cards.FromName("Murloc Raider"));
-			IPlayable minion2 = Generic.DrawCard(game.Player1, Cards.FromName("Murloc Warleader"));
+			var minion1 = (ICharacter) Generic.DrawCard(game.Player1, Cards.FromName("Murloc Raider"));
+			var minion2 = (ICharacter) Generic.DrawCard(game.Player1, Cards.FromName("Murloc Warleader"));
 			IPlayable minion3 = Generic.DrawCard(game.Player1, Cards.FromName("Stormwind Champion"));
 			IPlayable minion4 = Generic.DrawCard(game.Player1, Cards.FromName("Ironbeak Owl"));
 			IPlayable spell1 = Generic.DrawCard(game.Player1, Cards.FromName("Power Word: Shield"));
@@ -843,7 +843,7 @@ namespace SabberStoneCoreTest.Basic
 
 			game.StartGame();
 
-			var testTarget = game.ProcessCard<Minion>("Zilliax", asZeroCost: true);
+			Minion testTarget = game.ProcessCard<Minion>("Zilliax", asZeroCost: true);
 			game.ProcessCard("Fungalmancer", asZeroCost: true);
 
 			Assert.Equal(testTarget.Card.ATK + 2, testTarget.AttackDamage);

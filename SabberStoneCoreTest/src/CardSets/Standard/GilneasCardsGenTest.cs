@@ -3334,7 +3334,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Darius Crowley"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Darius Crowley"));
 
-			IPlayable target = game.ProcessCard("Stonetusk Boar");
+			Minion target = game.ProcessCard<Minion>("Stonetusk Boar");
 			game.EndTurn();
 
 			Minion test = game.ProcessCard<Minion>("Darius Crowley");

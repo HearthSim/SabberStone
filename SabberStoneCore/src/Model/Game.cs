@@ -266,7 +266,7 @@ namespace SabberStoneCore.Model
 			Triggers = new List<Trigger>();
 			GamesEventManager = new GameEventManager(this);
 
-			var p1Dict = gameConfig.History
+			EntityData p1Dict = gameConfig.History
 				? new EntityData(64)
 				{
 					//[GameTag.HERO_ENTITY] = heroId,
@@ -284,7 +284,7 @@ namespace SabberStoneCore.Model
 					{GameTag.MAXRESOURCES, 10},
 					{GameTag.MAXHANDSIZE, 10}
 				};
-			var p2Dict = gameConfig.History
+			EntityData p2Dict = gameConfig.History
 				? new EntityData(64)
 				{
 					//[GameTag.HERO_ENTITY] = heroId,
@@ -434,7 +434,13 @@ namespace SabberStoneCore.Model
 			PowerHistory.Last.Clear();
 
 			// make sure that we only use task for this game ...
-			gameTask.Game = this;
+			if (gameTask.Game != this)
+			{
+				gameTask.Game = this;
+				gameTask.Controller = ControllerById(gameTask.Controller.Id);
+				gameTask.Source = IdEntityDic[gameTask.Source.Id];
+				gameTask.Target = (ICharacter) IdEntityDic[gameTask.Target.Id];
+			}
 			gameTask.Process();
 
 			// check dead heroes here again (TODO)
