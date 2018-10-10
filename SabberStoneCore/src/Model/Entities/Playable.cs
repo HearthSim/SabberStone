@@ -296,7 +296,12 @@ namespace SabberStoneCore.Model.Entities
 			//clone.Source = source ?? this;
 			//clone.Target = target;
 
-			Game.TaskQueue.Enqueue(in task, Controller, source, target);
+			if (source != null)
+			{
+				source.Game.TaskQueue.Enqueue(in task, source.Controller, source, target);
+			}
+			else
+				Game.TaskQueue.Enqueue(in task, Controller, this, target);
 		}
 
 		/// <summary>

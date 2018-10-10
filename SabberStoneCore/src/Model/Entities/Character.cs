@@ -480,7 +480,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// <see cref="Enums.Race"/>
 		/// </summary>
-		Race Race { get; set; }
+		Race Race { get; }
 
 		/// <summary>
 		/// Character should exit combat.
@@ -644,7 +644,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				if (!NativeTags.TryGetValue(GameTag.CANT_ATTACK, out int value))
+				if (!_data.TryGetValue(GameTag.CANT_ATTACK, out int value))
 					return Card.CantAttack;
 				
 				return value > 0;
@@ -764,7 +764,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool IsSilenced
 		{
-			get { return GetNativeGameTag(GameTag.SILENCED) == 1; }
+			get { return _data.ContainsKey(GameTag.SILENCED); }
 			set { this[GameTag.SILENCED] = value ? 1 : 0; }
 		}
 
@@ -826,8 +826,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public Race Race
 		{
-			get { return (Race)this[GameTag.CARDRACE]; }
-			set { this[GameTag.CARDRACE] = (int)value; }
+			get => Card.Race;
 		}
 
 		public bool ShouldExitCombat

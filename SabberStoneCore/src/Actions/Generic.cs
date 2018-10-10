@@ -29,7 +29,7 @@ namespace SabberStoneCore.Actions
 				}
 				else if (source is HeroPower)
 				{
-					amount += source.Controller.Hero.HeroPowerDamage;
+					//amount += source.Controller.Hero.HeroPowerDamage;	// TODO: TGT
 					if (source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE] > 0)
 						amount *= (int)Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE]);
 				}
@@ -149,12 +149,12 @@ namespace SabberStoneCore.Actions
 					if (card != null)
 					{
 						info.Add(card.Id);
-						card.NativeTags[GameTag.REVEALED] = 1;
+						card[GameTag.REVEALED] = 1;
 					}
 					if (cardOp != null)
 					{
 						info.Add(cardOp.Id);
-						cardOp.NativeTags[GameTag.REVEALED] = 1;
+						cardOp[GameTag.REVEALED] = 1;
 					}
 					if (card != null)
 						c.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(card));
@@ -346,10 +346,10 @@ namespace SabberStoneCore.Actions
 					if (p.ChooseOnePlayables == null)
 						p.ChooseOnePlayables = new IPlayable[2];
 
-					EntityData.Data tags = null;
+					EntityData tags = null;
 					if (c.Game.History)
 					{
-						tags = new EntityData.Data
+						tags = new EntityData
 						{
 							{GameTag.CREATOR, p.Id},
 							{GameTag.PARENT_CARD, p.Id}

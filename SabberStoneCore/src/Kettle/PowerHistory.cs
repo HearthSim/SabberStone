@@ -17,7 +17,7 @@ namespace SabberStoneCore.Kettle
 				Game = new PowerEntity
 				{
 					Id = game.Id,
-					Tags = new Dictionary<GameTag, int>(((Entity)game)._data.Tags)
+					Tags = new Dictionary<GameTag, int>(game._data)
 				},
 				Players = new PowerPlayer[]
 						{
@@ -29,7 +29,7 @@ namespace SabberStoneCore.Kettle
 						PowerEntity = new PowerEntity
 						{
 							Id = players[0].Id,
-							Tags = new Dictionary<GameTag, int>(((Entity)players[0])._data.Tags)
+							Tags = new Dictionary<GameTag, int>(players[0]._data)
 						}
 					},
 					new PowerPlayer
@@ -40,7 +40,7 @@ namespace SabberStoneCore.Kettle
 						PowerEntity = new PowerEntity
 						{
 							Id = players[1].Id,
-							Tags = new Dictionary<GameTag, int>(((Entity)players[1])._data.Tags)
+							Tags = new Dictionary<GameTag, int>(players[1]._data)
 						}
 					},
 						}
@@ -59,7 +59,7 @@ namespace SabberStoneCore.Kettle
 
 		public static PowerHistoryFullEntity FullEntity(IPlayable playable)
 		{
-			var tags = new Dictionary<GameTag, int>(((Entity)playable)._data.Tags);
+			var tags = new Dictionary<GameTag, int>(((Entity)playable)._data);
 			gameTagsEntities.ForEach(p => tags[p] = playable[p]);
 			if (playable is Character c)
 			{
@@ -115,7 +115,7 @@ namespace SabberStoneCore.Kettle
 
 		public static PowerHistoryShowEntity ShowEntity(IPlayable playable)
 		{
-			var tags = new Dictionary<GameTag, int>(((Entity)playable)._data.Tags);
+			var tags = new Dictionary<GameTag, int>(((Entity)playable)._data);
 			gameTagsEntities.ForEach(p => tags[p] = playable[p]);
 			//tags[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = playable[GameTag.COST];
 

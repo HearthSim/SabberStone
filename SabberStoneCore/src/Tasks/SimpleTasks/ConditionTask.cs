@@ -41,7 +41,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in TaskStack stack = null)
 		{
 			IList<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
-			if (!entities.Any())
+			if (entities.Count == 0)
 				return TaskState.STOP;
 
 			var playableSource = (IPlayable) source;

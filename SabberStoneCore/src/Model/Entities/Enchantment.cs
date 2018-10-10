@@ -11,11 +11,11 @@ namespace SabberStoneCore.Model.Entities
 {
 	public partial class Enchantment : IPlayable
 	{
-		private readonly IDictionary<GameTag, int> _tags;
+		private readonly EntityData _tags;
 		private int _creatorId;
 		private IPlayable _creator;
 
-		private Enchantment(in Controller controller, in Card card, in IDictionary<GameTag, int> tags)
+		private Enchantment(in Controller controller, in Card card, in EntityData tags)
 		{
 			Game = controller.Game;
 			Controller = controller;
@@ -42,7 +42,7 @@ namespace SabberStoneCore.Model.Entities
 			//if (c.Game.History)
 			//{
 				Zone = c.BoardZone;
-				_tags = new EntityData.Data((EntityData.Data) e._tags);
+				_tags = new EntityData(e._tags);
 			//}
 
 			if (Power.Enchant?.RemoveWhenPlayed ?? false)
@@ -85,7 +85,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <returns>The resulting enchantment entity.</returns>
 		public static Enchantment GetInstance(in Controller controller, in IPlayable creator, in IEntity target, in Card card)
 		{
-			var tags = new EntityData.Data(8)
+			var tags = new EntityData(8)
 			{
 				{GameTag.ZONE, (int) Enums.Zone.SETASIDE},
 				{GameTag.CONTROLLER, controller.PlayerId},

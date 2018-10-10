@@ -88,7 +88,7 @@ namespace SabberStoneCore.Actions
 
 				if (source.HasEcho)
 				{
-					var echoTags = new EntityData.Data
+					var echoTags = new EntityData
 					{
 						{GameTag.GHOSTLY, 1}
 					};

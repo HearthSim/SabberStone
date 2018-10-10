@@ -14,7 +14,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		{
 			return new PlayCardTask(controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), target, zonePosition, chooseOne, skipPrePhase);
 		}
-		public static PlayCardTask Minion(Controller controller, IEntity source, int chooseOne = 0, bool skipPrePhase = false)
+		public static PlayCardTask Minion(in Controller controller, in IEntity source, in int chooseOne = 0, in bool skipPrePhase = false)
 		{
 			return new PlayCardTask(controller, source, null, -1, chooseOne, skipPrePhase);
 		}

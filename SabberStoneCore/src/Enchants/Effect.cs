@@ -88,7 +88,10 @@ namespace SabberStoneCore.Enchants
 							((Character) entity).HasTaunt = Value > 0;
 							return;
 						case GameTag.IMMUNE:
-							((Character) entity).IsImmune = Value > 0;
+							if (entity is Character c)
+								c.IsImmune = Value > 0;
+							else
+								break;
 							return;
 					}
 

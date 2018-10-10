@@ -35,7 +35,7 @@ namespace SabberStoneCore.Enchants
 		private List<Effect> _costEffects;
 		private AdaptiveCostEffect _adaptiveCostEffect;
 
-		public IEntity Owner { get; private set; }
+		public Entity Owner { get; private set; }
 		public AdaptiveCostEffect AdaptiveCostEffect
 		{
 			get => _adaptiveCostEffect;
@@ -62,7 +62,8 @@ namespace SabberStoneCore.Enchants
 					case GameTag.HEALTH:
 						return Health;
 					case GameTag.COST:
-						return GetCost() - ((Entity)Owner)._data[GameTag.COST];
+						//return GetCost() - ((Entity)Owner)._data[GameTag.COST];
+						return GetCost() - Owner.GetNativeGameTag(GameTag.COST);
 					case GameTag.CHARGE:
 						return Charge > 0 ? 1 : 0;
 					case GameTag.WINDFURY:

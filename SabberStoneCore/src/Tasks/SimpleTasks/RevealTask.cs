@@ -33,12 +33,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				// add joust card winner to stack
 				if (stack != null)
+				{
 					stack.Playables = new List<IPlayable> {playable};
-
-				return _successJoustTask.Process(in game, in controller, in source, in target);
+					return _successJoustTask.Process(in game, in controller, in source, in target, in stack);
+				}
+				else
+				{
+					var tempStack = new TaskStack();
+					tempStack.Playables.Add(playable);
+					return _successJoustTask.Process(in game, in controller, in source, in target, in tempStack);
+				}
 			}
 
-			if (_failedJoustTask != null) return _failedJoustTask.Process(in game, in controller, in source, in target);
+			if (_failedJoustTask != null) return _failedJoustTask.Process(in game, in controller, in source, in target, in stack);
 
 			game.OnRandomHappened(true);
 

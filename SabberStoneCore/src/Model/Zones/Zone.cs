@@ -327,7 +327,7 @@ namespace SabberStoneCore.Model.Zones
 		public virtual T[] GetAll()
 		{
 			T[] array = new T[_count];
-			Array.Copy((Array) Entities, array, _count);
+			Array.Copy((Array) Entities, array, array.Length);
 			return array;
 		}
 
@@ -336,7 +336,7 @@ namespace SabberStoneCore.Model.Zones
 			T[] buffer = new T[_count];
 			int i = 0;
 			T[] entities = (T[])Entities;
-			for (int k = 0; k < _count; ++k)
+			for (int k = 0; k < buffer.Length; ++k)
 			{
 				if (!predicate(entities[k])) continue;
 				buffer[i] = entities[k];

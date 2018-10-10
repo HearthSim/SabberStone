@@ -101,7 +101,7 @@ namespace SabberStoneCore.Model.Entities
 				BaseHealth = cardBaseHealth;
 			}
 
-			if (_data.Tags.TryGetValue(GameTag.CONTROLLER_CHANGED_THIS_TURN, out int v) && v > 0)
+			if (_data.TryGetValue(GameTag.CONTROLLER_CHANGED_THIS_TURN, out int v) && v > 0)
 			{
 				Game.TaskQueue.Execute(new ControlTask(EntityType.SOURCE, true), Controller, this, null);
 				this[GameTag.CONTROLLER_CHANGED_THIS_TURN] = 0;
@@ -285,13 +285,17 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool AttackableByRush
 		{
-			get => _data.Tags.Contains(new KeyValuePair<GameTag, int>(GameTag.ATTACKABLE_BY_RUSH, 1));
+			get => _data.Contains(new KeyValuePair<GameTag, int>(GameTag.ATTACKABLE_BY_RUSH, 1));
 			set => this[GameTag.ATTACKABLE_BY_RUSH] = value ? 1 : 0;
 		} 
 
 		public int LastBoardPosition
 		{
-			get { return GetNativeGameTag(GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD); }
+			get
+			{
+				_data.TryGetValue(GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD, out int value);
+				return value;
+			}
 			set { this[GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD] = value; }
 		}
 

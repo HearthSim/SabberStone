@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -8,10 +9,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private readonly Action<IPlayable, int> _action;
 		private readonly Func<IPlayable, int> _function;
+		private readonly Func<List<IPlayable>, int> _stackFunction;
 
 		/// <summary>
 		///     Process a custom delegate which takes <see cref="ISimpleTask.source" /> entity as a parameter and save the
-		///     returning <see cref="Int32" /> to <see cref="ISimpleTask.stack.Number" />.
+		///     returning <see cref="Int32" /> to <see cref="TaskStack.Number" />.
 		/// </summary>
 		public FuncNumberTask(Func<IPlayable, int> function)
 		{
@@ -19,12 +21,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		/// <summary>
-		///     Process a custom delegate which takes <see cref="ISimpleTask.stack.Number" /> as the first parameter and
-		///     <see cref="ISimpleTask.stack.Number" /> as the second parameter.
+		///     Process a custom delegate which takes <see cref="TaskStack.Number" /> as the first parameter and
+		///     <see cref="TaskStack.Number" /> as the second parameter.
 		/// </summary>
 		public FuncNumberTask(Action<IPlayable, int> function)
 		{
 			_action = function;
+		}
+
+		/// <summary>
+		/// Process a custom delegate which takes the current stack of entities as a parameter and
+		/// save the returning <see cref="Int32"/> to <see cref="TaskStack.Number"/>.
+		/// </summary>
+		/// <param name="function"></param>
+		public FuncNumberTask(Func<List<IPlayable>, int> stackFunction)
+		{
+			_stackFunction = stackFunction;
 		}
 
 		private FuncNumberTask(Func<IPlayable, int> function, Action<IPlayable, int> action)
@@ -44,7 +56,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.COMPLETE;
 			}
 
-			stack.Number = _function(playable);
+			if (_stackFunction != null)
+			{
+				stack.Number = _stackFunction(stack.Playables);
+				return TaskState.COMPLETE;
+			}
+
+			if (stack != null)
+				stack.Number = _function(playable);
+			else
+				_function(playable);
+
 			return TaskState.COMPLETE;
 		}
 	}

@@ -288,7 +288,7 @@ namespace SabberStoneCore.Tasks
 
 					for (int i = 0; i < space; ++i)
 					{
-						var tags = new EntityData.Data
+						var tags = new EntityData
 						{
 							{GameTag.CREATOR, p[0].Id}
 						};
@@ -436,7 +436,7 @@ namespace SabberStoneCore.Tasks
 					if (p.Controller.HandZone.IsFull)
 						return new List<IPlayable>(0);
 					IPlayable entity = Entity.FromCard(p.Controller, Cards.FromId("ICC_827t"),
-						new EntityData.Data
+						new EntityData
 						{
 							{GameTag.CREATOR, p.Id}
 						}, p.Controller.HandZone);
@@ -511,7 +511,7 @@ namespace SabberStoneCore.Tasks
 			=> ComplexTask.Create(
 				new FuncNumberTask(p =>
 				{
-					var tags = new EntityData.Data
+					var tags = new EntityData
 					{
 						{GameTag.ATK, p[GameTag.ATK]},
 						{GameTag.POISONOUS, p[GameTag.POISONOUS]},
@@ -826,7 +826,7 @@ namespace SabberStoneCore.Tasks
 						break;
 				}
 				HeroPower heroPower =
-					(HeroPower) Entity.FromCard(in controller, heroPowerCard, new EntityData.Data
+					(HeroPower) Entity.FromCard(in controller, heroPowerCard, new EntityData
 					{
 						{GameTag.CREATOR, source.Id},
 						{GameTag.ZONE, (int)Zone.PLAY}
@@ -843,7 +843,7 @@ namespace SabberStoneCore.Tasks
 					if (entity.Card.Class != CardClass.WARLOCK) continue;
 					controller.HandZone.Remove(entity);
 					controller.SetasideZone.Add(entity);
-					var tags = new EntityData.Data
+					var tags = new EntityData
 					{
 						{GameTag.ZONE_POSITION, i + 1},
 					};

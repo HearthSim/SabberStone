@@ -81,7 +81,8 @@ namespace SabberStoneCore.Enchants
 		    TriggerSource = prototype.TriggerSource;
 			Condition = prototype.Condition;
 		    SingleTask = prototype.SingleTask;
-		    SingleTask.IsTrigger = true;
+			if (SingleTask != null)
+				SingleTask.IsTrigger = true;
 		    EitherTurn = prototype.EitherTurn;
 			FastExecution = prototype.FastExecution;
 			RemoveAfterTriggered = prototype.RemoveAfterTriggered;

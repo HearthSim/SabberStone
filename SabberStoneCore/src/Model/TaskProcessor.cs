@@ -4,45 +4,45 @@ using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 
-//using (ISimpleTask, Controller, IEntity, IEntity) = System.ValueTuple<SabberStoneCore.Tasks.ISimpleTask, SabberStoneCore.Model.Entities.Controller, SabberStoneCore.Model.Entities.IEntity, SabberStoneCore.Model.Entities.IEntity>;
+using TaskInstance = System.ValueTuple<SabberStoneCore.Tasks.ISimpleTask, SabberStoneCore.Model.Entities.Controller, SabberStoneCore.Model.Entities.IEntity, SabberStoneCore.Model.Entities.IEntity>;
 
 namespace SabberStoneCore.Model
 {
 	public class TaskQueue
 	{
-		private class Test
-		{
-			public readonly ISimpleTask Task;
-			public readonly Controller Controller;
-			public readonly IEntity Source;
-			public readonly IEntity Target;
+		//private class TaskInstance
+		//{
+		//	public readonly ISimpleTask Task;
+		//	public readonly Controller Controller;
+		//	public readonly IEntity Source;
+		//	public readonly IEntity Target;
 
-			public Test(ISimpleTask task, Controller controller, IEntity source, IEntity target)
-			{
-				Task = task;
-				Controller = controller;
-				Source = source;
-				Target = target;
-			}
+		//	public TaskInstance(ISimpleTask task, Controller controller, IEntity source, IEntity target)
+		//	{
+		//		Task = task;
+		//		Controller = controller;
+		//		Source = source;
+		//		Target = target;
+		//	}
 
-			public static implicit operator (ISimpleTask, Controller, IEntity, IEntity)(Test t)
-			{
-				return (t.Task, t.Controller, t.Source, t.Target);
-			}
+		//	public static implicit operator (ISimpleTask, Controller, IEntity, IEntity)(TaskInstance t)
+		//	{
+		//		return (t.Task, t.Controller, t.Source, t.Target);
+		//	}
 
-			public void Deconstruct(out ISimpleTask simpleTask, out Controller controller, out IEntity entity, out IEntity entity1)
-			{
-				simpleTask = Task;
-				controller = Controller;
-				entity = Source;
-				entity1 = Target;
-			}
-		}
+		//	public void Deconstruct(out ISimpleTask simpleTask, out Controller controller, out IEntity entity, out IEntity entity1)
+		//	{
+		//		simpleTask = Task;
+		//		controller = Controller;
+		//		entity = Source;
+		//		entity1 = Target;
+		//	}
+		//}
 
 
 		private readonly Game _game;
-		private readonly Stack<Queue<Test>> _eventStack;
-		private readonly Queue<Test> _baseQueue;
+		private readonly Stack<Queue<TaskInstance>> _eventStack;
+		private readonly Queue<TaskInstance> _baseQueue;
 	
 		//private int _stackHeight;
 		// Flag == true : current event have not ended yet and no tasks queue in this event;
@@ -51,11 +51,11 @@ namespace SabberStoneCore.Model
 		public TaskQueue(Game game)
 		{
 			_game = game;
-			_eventStack = new Stack<Queue<Test>>();
-			_baseQueue = new Queue<Test>();
+			_eventStack = new Stack<Queue<TaskInstance>>();
+			_baseQueue = new Queue<TaskInstance>();
 		}
 
-		private Queue<Test> CurrentQueue => _eventStack.Count == 0 ? _baseQueue : _eventStack.Peek();
+		private Queue<TaskInstance> CurrentQueue => _eventStack.Count == 0 ? _baseQueue : _eventStack.Peek();
 
 		// nothing left in current event
 		public bool IsEmpty => _eventFlag || CurrentQueue.Count == 0;
@@ -102,12 +102,12 @@ namespace SabberStoneCore.Model
 			if (_eventFlag)	// flag = true means Event starts and no tasks queue yet
 			{
 				if (CurrentQueue.Count != 0) // Check if an ongoing event exists
-					_eventStack.Push(new Queue<Test>());
+					_eventStack.Push(new Queue<TaskInstance>());
 
 				_eventFlag = false;
 			}
 
-			CurrentQueue.Enqueue(new Test(task, controller, source, target));
+			CurrentQueue.Enqueue(new TaskInstance(task, controller, source, target));
 
 			//_game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "TaskQueue",
 			//	!_game.Logging ? "" : $"{task.GetType().Name} is Enqueued in {_eventStack.Count}th stack");
@@ -115,7 +115,7 @@ namespace SabberStoneCore.Model
 
 		public void EnqueueBase(in ISimpleTask task, in Controller controller, in IEntity source, in IEntity target)
 		{
-			_baseQueue.Enqueue(new Test(task, controller, source, target));
+			_baseQueue.Enqueue((task, controller, source, target));
 
 			_game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "TaskQueue",
 				!_game.Logging ? "" : $"{task.GetType().Name} is Enqueued in 0th stack");

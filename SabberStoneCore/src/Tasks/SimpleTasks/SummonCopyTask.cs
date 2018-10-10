@@ -83,8 +83,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (entities[0].Zone == null || entities[0].Zone.Type != Zone.PLAY)
 				for (int i = 0; i < space; i++)
 				{
-					var minion = (Minion) Entity.FromCard(in controller, entities[i].Card,
-						new EntityData.Data
+					var minion = (Minion)Entity.FromCard(in controller, entities[i].Card,
+						new EntityData
 						{
 							{GameTag.DISPLAYED_CREATOR, source.Id}
 						});
@@ -93,23 +93,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						SummonTask.GetPosition(in source, _side, stack?.Number ?? 0, ref alternateCount));
 
 					if (_addToStack)
-						stack?.Playables.Add(minion);
+						stack.Playables.Add(minion);
 				}
 			else
 				for (int i = 0; i < entities.Count; i++)
 				{
 					if (controller.BoardZone.IsFull) break;
 
-					var minion = (Minion) entities[i];
+					var minion = (Minion)entities[i];
 
-					var tags = new EntityData.Data((EntityData.Data) minion.NativeTags);
+					var tags = new EntityData((EntityData)minion.NativeTags);
 
 					if (minion.Controller != controller)
 						tags[GameTag.CONTROLLER] = controller.PlayerId;
 
 					int zonePosition = SummonTask.GetPosition(in source, _side, stack?.Number ?? 0, ref alternateCount);
 
-					var copy = (Minion) Entity.FromCard(in controller, minion.Card, tags, controller.BoardZone,
+					var copy = (Minion)Entity.FromCard(in controller, minion.Card, tags, controller.BoardZone,
 						zonePos: in zonePosition);
 					minion.CopyInternalAttributes(copy);
 
@@ -129,7 +129,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						minion.OngoingEffect.Clone(copy);
 
 					if (_addToStack)
-						stack?.Playables.Add(copy);
+						stack.Playables.Add(copy);
 				}
 
 

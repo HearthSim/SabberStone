@@ -26,7 +26,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (sourceTarget.Zone?.Type != Zone.PLAY)
 				return TaskState.STOP;
 
-			var tags = new EntityData.Data
+			var tags = new EntityData
 			{
 				{GameTag.CREATOR, sourceTarget.Id}
 			};
@@ -57,7 +57,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 				}
 
-			foreach (KeyValuePair<GameTag, int> kvp in minionTarget._data.Tags)
+			foreach (KeyValuePair<GameTag, int> kvp in minionTarget._data)
 				switch (kvp.Key)
 				{
 					case GameTag.ENTITY_ID:
@@ -69,7 +69,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					case GameTag.EXHAUSTED:
 						continue;
 					default:
-						copy._data.Tags.Add(kvp.Key, kvp.Value);
+						copy._data.Add(kvp.Key, kvp.Value);
 						break;
 				}
 

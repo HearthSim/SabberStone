@@ -136,7 +136,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public override int this[GameTag t]
 		{
-			get => _data[t] + ControllerAuraEffects[t];
+			get
+			{
+				_data.TryGetValue(t, out int value);
+				return value + ControllerAuraEffects[t];
+			}
 			set
 			{
 				if (_logging)
@@ -145,7 +149,7 @@ namespace SabberStoneCore.Model.Entities
 					if (value + ControllerAuraEffects[t] != this[t])
 						Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, t, value));
 
-				_data.Tags[t] = value;
+				_data[t] = value;
 			}
 		}
 
@@ -288,7 +292,7 @@ namespace SabberStoneCore.Model.Entities
 			Hero[GameTag.ZONE] = (int) Enums.Zone.PLAY;
 			HeroId = Hero.Id;
 			Hero.HeroPower = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
-				new EntityData.Data { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
+				new EntityData { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
 			Hero.Weapon = weapon;
 		}
 
@@ -548,9 +552,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int UsedMana
 		{
-			//get { return this[GameTag.RESOURCES_USED]; }
-			//set { this[GameTag.RESOURCES_USED] = value; }
-			get { return GetNativeGameTag(GameTag.RESOURCES_USED); }
+			get
+			{
+				_data.TryGetValue(GameTag.RESOURCES_USED, out int value);
+				return value;
+			}
 			set { this[GameTag.RESOURCES_USED] = value; }
 		}
 
@@ -559,9 +565,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int TemporaryMana
 		{
-			//get { return this[GameTag.TEMP_RESOURCES]; }
-			//set { this[GameTag.TEMP_RESOURCES] = value; }
-			get { return GetNativeGameTag(GameTag.TEMP_RESOURCES); }
+			get
+			{
+				_data.TryGetValue(GameTag.TEMP_RESOURCES, out int value);
+				return value;
+			}
 			set { this[GameTag.TEMP_RESOURCES] = value; }
 		}
 
@@ -572,9 +580,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool IsComboActive
 		{
-			//get { return this[GameTag.COMBO_ACTIVE] == 1; }
-			//set { this[GameTag.COMBO_ACTIVE] = value ? 1 : 0; }
-			get { return GetNativeGameTag(GameTag.COMBO_ACTIVE) == 1; }
+			get
+			{
+				_data.TryGetValue(GameTag.COMBO_ACTIVE, out int value);
+				return value == 1;
+			}
 			set { this[GameTag.COMBO_ACTIVE] =  value ? 1 : 0; }
 		}
 
@@ -582,7 +592,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumCardsDrawnThisTurn
 		{
-			get { return this[GameTag.NUM_CARDS_DRAWN_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_CARDS_DRAWN_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_CARDS_DRAWN_THIS_TURN] = value; }
 		}
 
@@ -600,43 +614,71 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumCardsPlayedThisTurn
 		{
-			get { return this[GameTag.NUM_CARDS_PLAYED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_CARDS_PLAYED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_CARDS_PLAYED_THIS_TURN] = value; }
 		}
 
 		public int NumMinionsPlayedThisTurn
 		{
-			get { return this[GameTag.NUM_MINIONS_PLAYED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_MINIONS_PLAYED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_MINIONS_PLAYED_THIS_TURN] = value; }
 		}
 
 		public int NumElementalsPlayedThisTurn
 		{
-			get { return this[GameTag.NUM_ELEMENTAL_PLAYED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_ELEMENTAL_PLAYED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_ELEMENTAL_PLAYED_THIS_TURN] = value; }
 		}
 
 		public int NumElementalsPlayedLastTurn
 		{
-			get { return this[GameTag.NUM_ELEMENTAL_PLAYED_LAST_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_ELEMENTAL_PLAYED_LAST_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_ELEMENTAL_PLAYED_LAST_TURN] = value; }
 		}
 
 		public int NumOptionsPlayedThisTurn
 		{
-			get { return this[GameTag.NUM_OPTIONS_PLAYED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_OPTIONS_PLAYED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_OPTIONS_PLAYED_THIS_TURN] = value; }
 		}
 
 		public int NumFriendlyMinionsThatAttackedThisTurn
 		{
-			get { return this[GameTag.NUM_FRIENDLY_MINIONS_THAT_ATTACKED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_FRIENDLY_MINIONS_THAT_ATTACKED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_FRIENDLY_MINIONS_THAT_ATTACKED_THIS_TURN] = value; }
 		}
 
 		public int NumFriendlyMinionsThatDiedThisTurn
 		{
-			get { return this[GameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN] = value; }
 		}
 
@@ -648,49 +690,81 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumMinionsPlayerKilledThisTurn
 		{
-			get { return this[GameTag.NUM_MINIONS_PLAYER_KILLED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_MINIONS_PLAYER_KILLED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_MINIONS_PLAYER_KILLED_THIS_TURN] = value; }
 		}
 
 		public int TotalManaSpentThisGame
 		{
-			get { return this[GameTag.NUM_RESOURCES_SPENT_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_RESOURCES_SPENT_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_RESOURCES_SPENT_THIS_GAME] = value; }
 		}
 
 		public int HeroPowerActivationsThisTurn
 		{
-			get { return this[GameTag.HEROPOWER_ACTIVATIONS_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.HEROPOWER_ACTIVATIONS_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.HEROPOWER_ACTIVATIONS_THIS_TURN] = value; }
 		}
 
 		public int NumTimesHeroPowerUsedThisGame
 		{
-			get { return this[GameTag.NUM_TIMES_HERO_POWER_USED_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_TIMES_HERO_POWER_USED_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_TIMES_HERO_POWER_USED_THIS_GAME] = value; }
 		}
 
 		public int NumSecretsPlayedThisGame
 		{
-			get { return this[GameTag.NUM_SECRETS_PLAYED_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_SECRETS_PLAYED_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_SECRETS_PLAYED_THIS_GAME] = value; }
 		}
 
 		public int NumSpellsPlayedThisGame
 		{
-			get { return this[GameTag.NUM_SPELLS_PLAYED_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_SPELLS_PLAYED_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_SPELLS_PLAYED_THIS_GAME] = value; }
 		}
 
 		public int NumWeaponsPlayedThisGame
 		{
-			get { return this[GameTag.NUM_WEAPONS_PLAYED_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_WEAPONS_PLAYED_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_WEAPONS_PLAYED_THIS_GAME] = value; }
 		}
 
 		public int NumMurlocsPlayedThisGame
 		{
-			get { return this[GameTag.NUM_MURLOCS_PLAYED_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_MURLOCS_PLAYED_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_MURLOCS_PLAYED_THIS_GAME] = value; }
 		}
 
@@ -698,7 +772,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public int AmountHeroHealedThisTurn
 		{
-			get => this[GameTag.AMOUNT_HERO_HEALED_THIS_TURN];
+			get
+			{
+				_data.TryGetValue(GameTag.AMOUNT_HERO_HEALED_THIS_TURN, out int value);
+				return value;
+			}
 			set => this[GameTag.AMOUNT_HERO_HEALED_THIS_TURN] = value;
 		}
 
@@ -713,7 +791,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int NumTurnsLeft
 		{
-			get { return this[GameTag.NUM_TURNS_LEFT]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_TURNS_LEFT, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_TURNS_LEFT] = value; }
 		}
 
@@ -722,7 +804,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int OverloadOwed
 		{
-			get { return this[GameTag.OVERLOAD_OWED]; }
+			get
+			{
+				_data.TryGetValue(GameTag.OVERLOAD_OWED, out int value);
+				return value;
+			}
 			set { this[GameTag.OVERLOAD_OWED] = value; }
 		}
 
@@ -734,9 +820,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int OverloadLocked
 		{
-			//get { return this[GameTag.OVERLOAD_LOCKED]; }
-			//set { this[GameTag.OVERLOAD_LOCKED] = value; }
-			get { return GetNativeGameTag(GameTag.OVERLOAD_LOCKED); }
+			get
+			{
+				_data.TryGetValue(GameTag.OVERLOAD_LOCKED, out int value);
+				return value;
+			}
 			set { this[GameTag.OVERLOAD_LOCKED] = value; }
 		}
 
@@ -745,7 +833,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int OverloadThisGame
 		{
-			get { return this[GameTag.OVERLOAD_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.OVERLOAD_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.OVERLOAD_THIS_GAME] = value; }
 		}
 
@@ -771,7 +863,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool SeenCthun
 		{
-			get { return this[GameTag.SEEN_CTHUN] == 1; }
+			get
+			{
+				_data.TryGetValue(GameTag.SEEN_CTHUN, out int value);
+				return value == 1;
+			}
 			set { this[GameTag.SEEN_CTHUN] = value ? 1 : 0; }
 		}
 
@@ -784,7 +880,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int ProxyCthun
 		{
-			get { return this[GameTag.PROXY_CTHUN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.PROXY_CTHUN, out int value);
+				return value;
+			}
 			set { this[GameTag.PROXY_CTHUN] = value; }
 		}
 

@@ -1173,7 +1173,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
 						new GetGameTagTask(GameTag.ATK, EntityType.TARGET, 0, 2),
 						new AddEnchantmentTask("LOOT_528e", EntityType.TARGET),
-						new FuncNumberTask(p => 0),
+						new FuncNumberTask(function: p => 0),
 						new MathNumberIndexTask(3, 2, MathOperation.ADD),
 						new AddEnchantmentTask("LOOT_528e", EntityType.SOURCE))
 			});
