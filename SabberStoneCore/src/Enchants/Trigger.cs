@@ -9,15 +9,19 @@ using SabberStoneCore.Tasks;
 namespace SabberStoneCore.Enchants
 {
     public class Trigger
-    {
-		public readonly Game Game;
-	    private readonly int _sourceId;
-	    protected readonly IPlayable _owner;
+	{ 
+		private readonly TriggerManager.TriggerHandler _processHandler;
+		private readonly int _sourceId;
 		private readonly TriggerType _triggerType;
 		private readonly SequenceType _sequenceType;
-	    private readonly bool _isSecret;
-	    private bool _removed;
+		private readonly bool _isSecret;
+		private bool _removed;
+
+		protected readonly IPlayable _owner;
+
 	    internal bool IsAncillaryTrigger;
+
+		public readonly Game Game;
 		/// <summary>
 		/// Indicates the Zone at which the effect is triggered.
 		/// </summary>
@@ -88,6 +92,8 @@ namespace SabberStoneCore.Enchants
 			RemoveAfterTriggered = prototype.RemoveAfterTriggered;
 		    _isSecret = prototype.Game == null ? owner.Card.IsSecret : prototype._isSecret;
 		    IsAncillaryTrigger = prototype.IsAncillaryTrigger;
+
+			_processHandler = Process;
 	    }
 
 		public bool Validated { get; set; }
@@ -120,126 +126,126 @@ namespace SabberStoneCore.Enchants
 			switch (_triggerType)
 			{
 				case TriggerType.DEAL_DAMAGE:
-					source.Game.TriggerManager.DealDamageTrigger += instance.Process;
+					source.Game.TriggerManager.DealDamageTrigger += instance._processHandler;
 					break;
 				case TriggerType.TAKE_DAMAGE:
 					if (TriggerSource == TriggerSource.SELF)
 					{
 						if (source is Minion m)
-							m.TakeDamageTrigger += instance.Process;
+							m.TakeDamageTrigger += instance._processHandler;
 						else
 							throw new NotImplementedException();
 						break;
 					}
 					if (TriggerSource == TriggerSource.HERO)
 					{
-						source.Controller.Hero.TakeDamageTrigger += instance.Process;
+						source.Controller.Hero.TakeDamageTrigger += instance._processHandler;
 						break;
 					}
-					source.Game.TriggerManager.DamageTrigger += instance.Process;
+					source.Game.TriggerManager.DamageTrigger += instance._processHandler;
 					break;
 				case TriggerType.HEAL:
-					source.Game.TriggerManager.HealTrigger += instance.Process;
+					source.Game.TriggerManager.HealTrigger += instance._processHandler;
 					break;
 				case TriggerType.TURN_END:
 				case TriggerType.WORGEN_TRANSFORM:
-					source.Game.TriggerManager.EndTurnTrigger += instance.Process;
+					source.Game.TriggerManager.EndTurnTrigger += instance._processHandler;
 					break;
 				case TriggerType.TURN_START:
-					source.Game.TriggerManager.TurnStartTrigger += instance.Process;
+					source.Game.TriggerManager.TurnStartTrigger += instance._processHandler;
 					break;
 				case TriggerType.SUMMON:
-					source.Game.TriggerManager.SummonTrigger += instance.Process;
+					source.Game.TriggerManager.SummonTrigger += instance._processHandler;
 					break;
 				case TriggerType.AFTER_SUMMON:
-					source.Game.TriggerManager.AfterSummonTrigger += instance.Process;
+					source.Game.TriggerManager.AfterSummonTrigger += instance._processHandler;
 					break;
 				case TriggerType.ATTACK:
-					source.Game.TriggerManager.AttackTrigger += instance.Process;
+					source.Game.TriggerManager.AttackTrigger += instance._processHandler;
 					break;
 				case TriggerType.AFTER_ATTACK:
 					switch (TriggerSource)
 					{
 						case TriggerSource.HERO:
-							source.Controller.Hero.AfterAttackTrigger += instance.Process;
+							source.Controller.Hero.AfterAttackTrigger += instance._processHandler;
 							break;
 						case TriggerSource.SELF:
-							((Minion)source).AfterAttackTrigger += instance.Process;
+							((Minion)source).AfterAttackTrigger += instance._processHandler;
 							break;
 						case TriggerSource.ENCHANTMENT_TARGET:
-							((Minion)((Enchantment)source).Target).AfterAttackTrigger += instance.Process;
+							((Minion)((Enchantment)source).Target).AfterAttackTrigger += instance._processHandler;
 							break;
 						default:
 							throw new NotImplementedException();
 					}
 					break;
 				case TriggerType.DEATH:
-					source.Game.TriggerManager.DeathTrigger += instance.Process;
+					source.Game.TriggerManager.DeathTrigger += instance._processHandler;
 					break;
 				case TriggerType.PLAY_CARD:
-					source.Game.TriggerManager.PlayCardTrigger += instance.Process;
+					source.Game.TriggerManager.PlayCardTrigger += instance._processHandler;
 					break;
 				case TriggerType.AFTER_PLAY_CARD:
-					source.Game.TriggerManager.AfterPlayCardTrigger += instance.Process;
+					source.Game.TriggerManager.AfterPlayCardTrigger += instance._processHandler;
 					break;
 				case TriggerType.PLAY_MINION:
-					source.Game.TriggerManager.PlayMinionTrigger += instance.Process;
+					source.Game.TriggerManager.PlayMinionTrigger += instance._processHandler;
 					break;
 				case TriggerType.AFTER_PLAY_MINION:
-					source.Game.TriggerManager.AfterPlayMinionTrigger += instance.Process;
+					source.Game.TriggerManager.AfterPlayMinionTrigger += instance._processHandler;
 					break;
 				case TriggerType.CAST_SPELL:
-					source.Game.TriggerManager.CastSpellTrigger += instance.Process;
+					source.Game.TriggerManager.CastSpellTrigger += instance._processHandler;
 					break;
 				case TriggerType.AFTER_CAST:
-					source.Game.TriggerManager.AfterCastTrigger += instance.Process;
+					source.Game.TriggerManager.AfterCastTrigger += instance._processHandler;
 					break;
 				case TriggerType.PREDAMAGE:
 					switch (TriggerSource)
 					{
 						case TriggerSource.HERO:
-							source.Controller.Hero.PreDamageTrigger += instance.Process;
+							source.Controller.Hero.PreDamageTrigger += instance._processHandler;
 							break;
 						case TriggerSource.SELF:
-							((Minion)source).PreDamageTrigger += instance.Process;
+							((Minion)source).PreDamageTrigger += instance._processHandler;
 							break;
 						case TriggerSource.ENCHANTMENT_TARGET:
-							((Minion) ((Enchantment) source).Target).PreDamageTrigger += instance.Process;
+							((Minion) ((Enchantment) source).Target).PreDamageTrigger += instance._processHandler;
 							break;
 					}
 					break;
 				case TriggerType.SECRET_REVEALED:
-					source.Game.TriggerManager.SecretRevealedTrigger += instance.Process;
+					source.Game.TriggerManager.SecretRevealedTrigger += instance._processHandler;
 					break;
 				case TriggerType.ZONE:
-					source.Game.TriggerManager.ZoneTrigger += instance.Process;
+					source.Game.TriggerManager.ZoneTrigger += instance._processHandler;
 					break;
 				case TriggerType.DISCARD:
-					source.Game.TriggerManager.DiscardTrigger += instance.Process;
+					source.Game.TriggerManager.DiscardTrigger += instance._processHandler;
 					break;
 				case TriggerType.GAME_START:
-					source.Game.TriggerManager.GameStartTrigger += instance.Process;
+					source.Game.TriggerManager.GameStartTrigger += instance._processHandler;
 					break;
 				case TriggerType.DRAW:
-					source.Game.TriggerManager.DrawTrigger += instance.Process;
+					source.Game.TriggerManager.DrawTrigger += instance._processHandler;
 					break;
 				case TriggerType.TARGET:
-					source.Game.TriggerManager.TargetTrigger += instance.Process;
+					source.Game.TriggerManager.TargetTrigger += instance._processHandler;
 					break;
 				case TriggerType.LOSE_DIVINE_SHIELD:
-					source.Game.TriggerManager.LoseDivineShield += instance.Process;
+					source.Game.TriggerManager.LoseDivineShield += instance._processHandler;
 					break;
 				case TriggerType.INSPIRE:
-					source.Game.TriggerManager.InspireTrigger += instance.Process;
+					source.Game.TriggerManager.InspireTrigger += instance._processHandler;
 					break;
 				case TriggerType.FROZEN:
-					source.Game.TriggerManager.FreezeTrigger += instance.Process;
+					source.Game.TriggerManager.FreezeTrigger += instance._processHandler;
 					break;
 				case TriggerType.ARMOR:
-					source.Game.TriggerManager.ArmorTrigger += instance.Process;
+					source.Game.TriggerManager.ArmorTrigger += instance._processHandler;
 					break;
 				case TriggerType.EQUIP_WEAPON:
-					source.Game.TriggerManager.EquipWeaponTrigger += instance.Process;
+					source.Game.TriggerManager.EquipWeaponTrigger += instance._processHandler;
 					break;
 			}
 
@@ -298,128 +304,128 @@ namespace SabberStoneCore.Enchants
 			switch (_triggerType)
 		    {
 				case TriggerType.DEAL_DAMAGE:
-					Game.TriggerManager.DealDamageTrigger -= Process;
+					Game.TriggerManager.DealDamageTrigger -= _processHandler;
 					break;
 				case TriggerType.TAKE_DAMAGE:
 					if (TriggerSource == TriggerSource.SELF)
 					{
 						if (_owner is Minion m)
-							m.TakeDamageTrigger -= Process;
+							m.TakeDamageTrigger -= _processHandler;
 						else
 							throw new NotImplementedException();
 						break;
 					}
 					if (TriggerSource == TriggerSource.HERO)
 					{
-						_owner.Controller.Hero.TakeDamageTrigger -= Process;
+						_owner.Controller.Hero.TakeDamageTrigger -= _processHandler;
 						break;
 					}
-					Game.TriggerManager.DamageTrigger -= Process;
+					Game.TriggerManager.DamageTrigger -= _processHandler;
 					break;
 			    case TriggerType.HEAL:
-				    Game.TriggerManager.HealTrigger -= Process;
+				    Game.TriggerManager.HealTrigger -= _processHandler;
 				    break;
 				case TriggerType.TURN_END:
 				case TriggerType.WORGEN_TRANSFORM:
-					Game.TriggerManager.EndTurnTrigger -= Process;
+					Game.TriggerManager.EndTurnTrigger -= _processHandler;
 				    break;
 			    case TriggerType.TURN_START:
-				    Game.TriggerManager.TurnStartTrigger -= Process;
+				    Game.TriggerManager.TurnStartTrigger -= _processHandler;
 				    break;
 				case TriggerType.SUMMON:
-					Game.TriggerManager.SummonTrigger -= Process;
+					Game.TriggerManager.SummonTrigger -= _processHandler;
 					break;
 				case TriggerType.AFTER_SUMMON:
-				    Game.TriggerManager.AfterSummonTrigger -= Process;
+				    Game.TriggerManager.AfterSummonTrigger -= _processHandler;
 				    break;
 				case TriggerType.ATTACK:
-					Game.TriggerManager.AttackTrigger -= Process;
+					Game.TriggerManager.AttackTrigger -= _processHandler;
 					break;
 				case TriggerType.AFTER_ATTACK:
 					switch (TriggerSource)
 					{
 						case TriggerSource.HERO:
-							_owner.Controller.Hero.AfterAttackTrigger -= Process;
+							_owner.Controller.Hero.AfterAttackTrigger -= _processHandler;
 							break;
 						case TriggerSource.SELF:
-							((Minion)_owner).AfterAttackTrigger -= Process;
+							((Minion)_owner).AfterAttackTrigger -= _processHandler;
 							break;
 						case TriggerSource.ENCHANTMENT_TARGET:
-							((Minion)((Enchantment)_owner).Target).AfterAttackTrigger -= Process;
+							((Minion)((Enchantment)_owner).Target).AfterAttackTrigger -= _processHandler;
 							break;
 						default:
 							throw new NotImplementedException();
 					}
 					break;
 				case TriggerType.DEATH:
-				    Game.TriggerManager.DeathTrigger -= Process;
+				    Game.TriggerManager.DeathTrigger -= _processHandler;
 				    break;
 				case TriggerType.PLAY_CARD:
-					Game.TriggerManager.PlayCardTrigger -= Process;
+					Game.TriggerManager.PlayCardTrigger -= _processHandler;
 					break;
 			    case TriggerType.AFTER_PLAY_CARD:
-					Game.TriggerManager.AfterPlayCardTrigger -= Process;
+					Game.TriggerManager.AfterPlayCardTrigger -= _processHandler;
 					break;
 				case TriggerType.PLAY_MINION:
-				    Game.TriggerManager.PlayMinionTrigger -= Process;
+				    Game.TriggerManager.PlayMinionTrigger -= _processHandler;
 				    break;
 				case TriggerType.AFTER_PLAY_MINION:
-					Game.TriggerManager.AfterPlayMinionTrigger -= Process;
+					Game.TriggerManager.AfterPlayMinionTrigger -= _processHandler;
 					break;
 			    case TriggerType.CAST_SPELL:
-				    Game.TriggerManager.CastSpellTrigger -= Process;
+				    Game.TriggerManager.CastSpellTrigger -= _processHandler;
 				    break;
 			    case TriggerType.AFTER_CAST:
-				    Game.TriggerManager.AfterCastTrigger -= Process;
+				    Game.TriggerManager.AfterCastTrigger -= _processHandler;
 				    break;
 				case TriggerType.PREDAMAGE:
 					switch (TriggerSource)
 					{
 						case TriggerSource.HERO:
-							_owner.Controller.Hero.PreDamageTrigger -= Process;
+							_owner.Controller.Hero.PreDamageTrigger -= _processHandler;
 							break;
 						case TriggerSource.SELF:
-							((Minion)_owner).PreDamageTrigger -= Process;
+							((Minion)_owner).PreDamageTrigger -= _processHandler;
 							break;
 						case TriggerSource.ENCHANTMENT_TARGET:
-							((Minion)((Enchantment)_owner).Target).PreDamageTrigger -= Process;
+							((Minion)((Enchantment)_owner).Target).PreDamageTrigger -= _processHandler;
 							break;
 						default:
 							throw new NotImplementedException();
 					}
 					break;
 				case TriggerType.SECRET_REVEALED:
-					Game.TriggerManager.SecretRevealedTrigger -= Process;
+					Game.TriggerManager.SecretRevealedTrigger -= _processHandler;
 					break;
 				case TriggerType.ZONE:
-					Game.TriggerManager.ZoneTrigger -= Process;
+					Game.TriggerManager.ZoneTrigger -= _processHandler;
 					break;
 				case TriggerType.DISCARD:
-					Game.TriggerManager.DiscardTrigger -= Process;
+					Game.TriggerManager.DiscardTrigger -= _processHandler;
 					break;
 				case TriggerType.GAME_START:
-					Game.TriggerManager.GameStartTrigger -= Process;
+					Game.TriggerManager.GameStartTrigger -= _processHandler;
 					break;
 				case TriggerType.DRAW:
-					Game.TriggerManager.DrawTrigger -= Process;
+					Game.TriggerManager.DrawTrigger -= _processHandler;
 					break;
 				case TriggerType.TARGET:
-					Game.TriggerManager.TargetTrigger -= Process;
+					Game.TriggerManager.TargetTrigger -= _processHandler;
 					break;
 				case TriggerType.LOSE_DIVINE_SHIELD:
-					Game.TriggerManager.LoseDivineShield -= Process;
+					Game.TriggerManager.LoseDivineShield -= _processHandler;
 					break;
 				case TriggerType.INSPIRE:
-					Game.TriggerManager.InspireTrigger -= Process;
+					Game.TriggerManager.InspireTrigger -= _processHandler;
 					break;
 				case TriggerType.FROZEN:
-					Game.TriggerManager.FreezeTrigger -= Process;
+					Game.TriggerManager.FreezeTrigger -= _processHandler;
 					break;
 			    case TriggerType.ARMOR:
-				    Game.TriggerManager.ArmorTrigger -= Process;
+				    Game.TriggerManager.ArmorTrigger -= _processHandler;
 				    break;
 				case TriggerType.EQUIP_WEAPON:
-					Game.TriggerManager.EquipWeaponTrigger -= Process;
+					Game.TriggerManager.EquipWeaponTrigger -= _processHandler;
 					break;
 				default:
 				    throw new ArgumentOutOfRangeException();

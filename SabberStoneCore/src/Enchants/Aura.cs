@@ -67,11 +67,13 @@ namespace SabberStoneCore.Enchants
 	/// </summary>
 	public class Aura : IAura
 	{
+		private readonly TriggerManager.TriggerHandler _removeHandler;
 		private readonly int _ownerId;
 		private IPlayable _owner;
 		//private readonly List<int> _appliedEntityIds;
 		private readonly HashSet<int> _appliedEntityIds;
 		private List<IPlayable> _appliedEntities;
+		//private LinkedList<IPlayable> _appliedEntities;
 		private List<IPlayable> _tempList;
 		protected bool On = true;
 		protected bool _toBeUpdated = true;
@@ -119,6 +121,8 @@ namespace SabberStoneCore.Enchants
 			Game = owner.Game;
 			_owner = owner;
 			_ownerId = owner.Id;
+
+			_removeHandler = TriggeredRemove;
 		}
 
 
@@ -128,16 +132,19 @@ namespace SabberStoneCore.Enchants
 		}
 		public IPlayable Owner => _owner ?? (_owner = Game.IdEntityDic[_ownerId]);
 		public List<IPlayable> AppliedEntities
+		//public LinkedList<IPlayable> AppliedEntities
 		{
 			get
 			{
 				if (_appliedEntities != null)
 					return _appliedEntities;
+
 				_appliedEntities = new List<IPlayable>(_appliedEntityIds.Count);
-				//for (int i = 0; i < _appliedEntityIds.Count; i++)
-				//	_appliedEntities.Add(Game.IdEntityDic[_appliedEntityIds[i]]);
+				//_appliedEntities = new LinkedList<IPlayable>();
+
 				foreach (int id in _appliedEntityIds)
 					_appliedEntities.Add(Game.IdEntityDic[id]);
+
 				return _appliedEntities;
 			}
 		}
@@ -163,19 +170,19 @@ namespace SabberStoneCore.Enchants
 				switch (RemoveTrigger.Type)
 				{
 					case TriggerType.PLAY_MINION:
-						owner.Game.TriggerManager.PlayMinionTrigger += instance.TriggeredRemove;
+						owner.Game.TriggerManager.PlayMinionTrigger += instance._removeHandler;
 						break;
 					case TriggerType.CAST_SPELL:
-						owner.Game.TriggerManager.CastSpellTrigger += instance.TriggeredRemove;
+						owner.Game.TriggerManager.CastSpellTrigger += instance._removeHandler;
 						break;
 					case TriggerType.TURN_END:
-						owner.Game.TriggerManager.EndTurnTrigger += instance.TriggeredRemove;
+						owner.Game.TriggerManager.EndTurnTrigger += instance._removeHandler;
 						break;
 					case TriggerType.PLAY_CARD:
-						owner.Game.TriggerManager.PlayCardTrigger += instance.TriggeredRemove;
+						owner.Game.TriggerManager.PlayCardTrigger += instance._removeHandler;
 						break;
 					case TriggerType.AFTER_PLAY_CARD:
-						owner.Game.TriggerManager.AfterPlayCardTrigger += instance.TriggeredRemove;
+						owner.Game.TriggerManager.AfterPlayCardTrigger += instance._removeHandler;
 						break;
 				}
 			}
@@ -305,11 +312,12 @@ namespace SabberStoneCore.Enchants
 						return;
 					case AuraType.ADJACENT:
 						int pos = Owner.ZonePosition;
+						var board = (BoardZone)Owner.Zone;
 						for (int i = AppliedEntities.Count - 1; i >= 0; i--)
 						{
 							IPlayable entity = AppliedEntities[i];
 
-							if (entity.Zone == Owner.Zone && Math.Abs(pos - entity.ZonePosition) == 1) continue;
+							if (entity.Zone == board && Math.Abs(pos - entity.ZonePosition) == 1) continue;
 
 							for (int j = 0; j < Effects.Length; j++)
 								Effects[j].RemoveFrom(entity.AuraEffects);
@@ -317,10 +325,33 @@ namespace SabberStoneCore.Enchants
 							_appliedEntityIds.Remove(entity.Id);
 							_appliedEntities.Remove(entity);
 						}
+						//LinkedList<IPlayable> list = AppliedEntities;
+						//LinkedListNode<IPlayable> node = list.First;
+						//while (node != null)
+						//{
+						//	LinkedListNode<IPlayable> next = node.Next;
+						//	IPlayable entity = node.Value;
+						//	if (entity.Zone == Owner.Zone && Math.Abs(pos - entity.ZonePosition) == 1)
+						//	{
+						//		node = next;
+						//		continue;
+						//	}
+
+						//	IEffect[] effects = Effects;
+						//	for (int j = 0; j < effects.Length; j++)
+						//		effects[j].RemoveFrom(entity.AuraEffects);
+
+						//	_appliedEntityIds.Remove(entity.Id);
+						//	list.Remove(node);
+
+						//	node = next;
+						//}
+
+
 						if (pos > 0)
-							Apply(Owner.Controller.BoardZone[pos - 1]);
-						if (pos < Owner.Controller.BoardZone.Count - 1 && Owner.Controller.BoardZone.Count > pos)
-							Apply(Owner.Controller.BoardZone[pos + 1]);
+							Apply(board[pos - 1]);
+						if (pos < board.Count - 1)
+							Apply(board[pos + 1]);
 						break;
 					case AuraType.HAND:
 						Owner.Controller.HandZone.ForEach(Apply);
@@ -442,19 +473,19 @@ namespace SabberStoneCore.Enchants
 			switch (RemoveTrigger.Type)
 			{
 				case TriggerType.CAST_SPELL:
-					Game.TriggerManager.CastSpellTrigger -= TriggeredRemove;
+					Game.TriggerManager.CastSpellTrigger -= _removeHandler;
 					return;
 				case TriggerType.TURN_END:
-					Game.TriggerManager.EndTurnTrigger -= TriggeredRemove;
+					Game.TriggerManager.EndTurnTrigger -= _removeHandler;
 					break;
 				case TriggerType.PLAY_MINION:
-					Game.TriggerManager.PlayMinionTrigger -= TriggeredRemove;
+					Game.TriggerManager.PlayMinionTrigger -= _removeHandler;
 					break;
 				case TriggerType.PLAY_CARD:
-					Game.TriggerManager.PlayCardTrigger -= TriggeredRemove;
+					Game.TriggerManager.PlayCardTrigger -= _removeHandler;
 					break;
 				case TriggerType.AFTER_PLAY_CARD:
-					Game.TriggerManager.AfterPlayCardTrigger -= TriggeredRemove;
+					Game.TriggerManager.AfterPlayCardTrigger -= _removeHandler;
 					break;
 			}
 
@@ -477,9 +508,9 @@ namespace SabberStoneCore.Enchants
 
 		public void EntityRemoved(IPlayable m)
 		{
-			if (AppliedEntities.Remove(m))
+			if (_appliedEntityIds.Remove(m.Id))
 			{
-				_appliedEntityIds.Remove(m.Id);
+				AppliedEntities.Remove(m);
 				//for (int i = 0; i < Effects.Length; i++)
 				//	Effects[i].Remove(m.AuraEffects);
 			}
