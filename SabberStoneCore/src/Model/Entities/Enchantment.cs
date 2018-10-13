@@ -42,7 +42,7 @@ namespace SabberStoneCore.Model.Entities
 			//if (c.Game.History)
 			//{
 				Zone = c.BoardZone;
-				_tags = new EntityData(e._tags);
+				_tags = new EntityData(entityData: e._tags);
 			//}
 
 			if (Power.Enchant?.RemoveWhenPlayed ?? false)

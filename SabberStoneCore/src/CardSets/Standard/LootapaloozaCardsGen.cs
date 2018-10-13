@@ -1807,7 +1807,7 @@ namespace SabberStoneCore.CardSets.Standard
 						if (board.Count < 5) return false;
 						string[] ids = board.Select(x => x.Card.Id).OrderBy(x => x).ToArray();
 						if (!ids.Contains("NEW1_009")) return false;
-						int index = System.Array.IndexOf(ids, "CS2_050");
+						int index = Array.IndexOf(ids, "CS2_050");
 						if (index < 0) return false;
 						return ids[index + 2] == "CS2_052";
 					})),

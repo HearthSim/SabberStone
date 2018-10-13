@@ -1595,7 +1595,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +2 Attack from Flametongue Totem.
 			// --------------------------------------------------------
 			cards.Add("EX1_565o", new Power {
-				Enchant = GetAutoEnchantFromText("EX1_244e")
+				Enchant = GetAutoEnchantFromText("EX1_565o")
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -2527,7 +2527,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased stats.
 			// --------------------------------------------------------
 			cards.Add("CS2_226e", new Power {
-				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
+				Enchant = AddAttackHealthScriptTag
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

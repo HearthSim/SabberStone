@@ -2450,7 +2450,7 @@ namespace SabberStoneCore.CardSets
 						new ClearStackTask(),
 						ComplexTask.Create(new FuncNumberTask(p =>
 							{
-								Model.Entities.Controller controller = p.Controller;
+								Controller controller = p.Controller;
 								int diffHands = 3 - controller.Opponent.HandZone.Count;
 								return diffHands > 0 ? diffHands : 0;
 							}),

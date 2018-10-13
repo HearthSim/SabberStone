@@ -102,7 +102,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 					var minion = (Minion)entities[i];
 
-					var tags = new EntityData((EntityData)minion.NativeTags);
+					var tags = new EntityData(entityData: (EntityData)minion.NativeTags);
 
 					if (minion.Controller != controller)
 						tags[GameTag.CONTROLLER] = controller.PlayerId;

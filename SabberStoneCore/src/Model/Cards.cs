@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Loader;
@@ -158,26 +159,26 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// All cards belonging to the Standard set.
 		/// </summary>
-		public static IEnumerable<Card> AllStandard { get; }
+		public static ReadOnlyCollection<Card> AllStandard { get; }
 
 		/// <summary>
 		/// All cards belonging to the Wild set.
 		/// </summary>
-		public static IEnumerable<Card> AllWild { get; }
+		public static ReadOnlyCollection<Card> AllWild { get; }
 
 		/// <summary>
 		/// Retrieves the specified set of cards, sorted by <see cref="CardClass"/>.
 		/// </summary>
 		/// <param name="formatType"></param>
 		/// <returns></returns>
-		public static Dictionary<CardClass, IEnumerable<Card>> FormatTypeClassCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Cards.Standard : Cards.Wild;
+		public static Dictionary<CardClass, IEnumerable<Card>> FormatTypeClassCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Standard : Wild;
 
 		/// <summary>
 		/// Retrieves the specifified set of cards.
 		/// </summary>
 		/// <param name="formatType"></param>
 		/// <returns></returns>
-		public static IEnumerable<Card> FormatTypeCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+		public static IEnumerable<Card> FormatTypeCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? AllStandard : AllWild;
 
 		/// <summary>
 		/// Returns the default hero class card.

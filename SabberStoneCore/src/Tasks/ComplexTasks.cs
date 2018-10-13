@@ -227,7 +227,7 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask PutSecretFromDeck =>
 			Create(
 				new ConditionTask(EntityType.SOURCE, SelfCondition.IsZoneCount(Zone.SECRET, 5)),
-				new FlagTask(false, ComplexTask.Create(
+				new FlagTask(false, Create(
 					new IncludeTask(EntityType.DECK),
 					new FilterStackTask(SelfCondition.IsSecret),
 					new FuncPlayablesTask(stack =>

@@ -46,7 +46,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		{
 			return new PlayCardTask(in controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), in target, -1, in chooseOne, in skipPrePhase);
 		}
-		private PlayCardTask(in Controller controller, in IPlayable source, in ICharacter target = null, in int zonePosition = -1, in int chooseOne = 0, in bool skipPrePhase = false)
+		public PlayCardTask(in Controller controller, in IPlayable source, in ICharacter target = null, in int zonePosition = -1, in int chooseOne = 0, in bool skipPrePhase = false)
 		{
 			PlayerTaskType = PlayerTaskType.PLAY_CARD;
 			Game = controller.Game;

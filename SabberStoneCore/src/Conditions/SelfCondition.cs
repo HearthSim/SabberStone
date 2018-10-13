@@ -69,8 +69,8 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition HasNoMinionInDeck = new SelfCondition(me => !me.Controller.DeckZone.Any(p => p is Minion));
 
 		public static SelfCondition HasCost(int cost) => new SelfCondition(me => me.Cost == cost);
-		public static readonly SelfCondition HasNoOddCostInDeck = new SelfCondition(me => !me.Controller.DeckZone.Any(p => p.Cost % 2 == 1));
-		public static readonly SelfCondition HasNoEvenCostInDeck = new SelfCondition(me => !me.Controller.DeckZone.Any(p => p.Cost % 2 == 0));
+		public static readonly SelfCondition HasNoOddCostInDeck = new SelfCondition(me => me.Controller.DeckZone.NoOddCostCards);
+		public static readonly SelfCondition HasNoEvenCostInDeck = new SelfCondition(me => me.Controller.DeckZone.NoEvenCostCards);
 
 		public static readonly SelfCondition HasMinionInHand = new SelfCondition(me => me.Controller.HandZone.Any(p => p is Minion));
 		public static readonly SelfCondition HasMyHeroAttackedThisTurn = new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn > 0);

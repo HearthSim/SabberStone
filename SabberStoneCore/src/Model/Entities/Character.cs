@@ -107,11 +107,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="character">The source <see cref="T:SabberStoneCore.Model.Entities.Character`1" />.</param>
 		protected Character(in Controller controller, in Character character) : base(in controller, character)
 		{
-			_atkModifier = character._atkModifier;
-			_healthModifier = character._healthModifier;
-			_dmgModifier = character._dmgModifier;
-			_stealth = character._stealth;
-			_immune = character._immune;
+			character.CopyInternalAttributes(this);
 		}
 
 		/// <summary>

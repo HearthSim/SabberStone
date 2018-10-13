@@ -11,6 +11,10 @@ namespace SabberStoneCore.Model.Zones
 	{
 		public const int StartingCards = 30;
 
+		// TODO: Barnabus the Stomper
+        public bool NoEvenCostCards { get; private set; } = true;
+		public bool NoOddCostCards { get; private set; } = true;
+
 		public DeckZone(Controller controller) : base(60)
 		{
 			Game = controller.Game;
@@ -28,6 +32,18 @@ namespace SabberStoneCore.Model.Zones
 			base.Add(entity, zonePosition);
 
 			entity.Power?.Trigger?.Activate(entity, TriggerActivation.DECK);
+
+			if (NoEvenCostCards || NoOddCostCards)
+			{
+				if (entity.Cost % 2 == 0)
+				{
+					NoEvenCostCards = false;
+				}
+				else if (NoOddCostCards)
+				{
+					NoOddCostCards = false;
+				}
+			}
 		}
 
 		public IPlayable TopCard => Entities[_count - 1];

@@ -110,9 +110,13 @@ namespace SabberStoneCore.Model.Zones
 		private static void RemoveAura(IPlayable entity)
 		{
 			entity.OngoingEffect?.Remove();
-
-			if (entity.Controller.CurrentSpellPower > 0 && entity[GameTag.SPELLPOWER] > 0)
-				entity.Controller.CurrentSpellPower -= entity[GameTag.SPELLPOWER];
+			int csp = entity.Controller.CurrentSpellPower;
+			if (csp > 0)
+			{
+				int sp = entity[GameTag.SPELLPOWER];
+				if (sp > 0)
+					entity.Controller.CurrentSpellPower = csp - sp;
+			}
 		}
 
 		/// <summary>

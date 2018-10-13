@@ -140,7 +140,7 @@ namespace SabberStoneCore.Model.Entities
 			Game = game;
 			Card = card;
 			//_data = new EntityData(in tags);
-			_data = tags is EntityData entityData ? entityData : new EntityData(tags);
+			_data = tags is EntityData entityData ? entityData : new EntityData(in tags);
 
 			Id = id < 0 ? game?.NextId ?? 1 : id;
 			AuraEffects = new AuraEffects(this);
@@ -163,7 +163,7 @@ namespace SabberStoneCore.Model.Entities
 		protected Entity(in Game game, in Entity entity)
 		{
 			Game = game;
-			_data = new EntityData(entity._data);
+			_data = new EntityData(entityData: entity._data);
 			Card = entity.Card;
 			Id = entity.Id;
 			OrderOfPlay = entity.OrderOfPlay;

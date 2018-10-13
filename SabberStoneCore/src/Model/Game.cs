@@ -333,12 +333,12 @@ namespace SabberStoneCore.Model
 			_gameConfig.Player1Deck?.ForEach(p =>
 			{
 				Player1.DeckCards.Add(p);
-				Entity.FromCard(Player1, p, null, Player1.DeckZone);
+				FromCard(Player1, p, null, Player1.DeckZone);
 			});
 			_gameConfig.Player2Deck?.ForEach(p =>
 			{
 				Player2.DeckCards.Add(p);
-				Entity.FromCard(Player2, p, null, Player2.DeckZone);
+				FromCard(Player2, p, null, Player2.DeckZone);
 			});
 			if (_gameConfig.FillDecks)
 			{
@@ -438,8 +438,10 @@ namespace SabberStoneCore.Model
 			{
 				gameTask.Game = this;
 				gameTask.Controller = ControllerById(gameTask.Controller.Id);
-				gameTask.Source = IdEntityDic[gameTask.Source.Id];
-				gameTask.Target = (ICharacter) IdEntityDic[gameTask.Target.Id];
+				if (gameTask.HasSource)
+					gameTask.Source = IdEntityDic[gameTask.Source.Id];
+				if (gameTask.HasTarget)
+					gameTask.Target = (ICharacter) IdEntityDic[gameTask.Target.Id];
 			}
 			gameTask.Process();
 
@@ -850,7 +852,7 @@ namespace SabberStoneCore.Model
 		public void MainCleanUp()
 		{
 			if (History)
-				PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, CurrentPlayer.Id, "", 5, 0);
+				PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, CurrentPlayer.Id, "", 5, 0);
 
 			// Removing Ghostly cards
 			if (GhostlyCards.Count > 0)
@@ -954,7 +956,7 @@ namespace SabberStoneCore.Model
 		public void FinalWrapUp()
 		{
 			if (History)
-				PowerHistoryBuilder.BlockStart(Enums.BlockType.TRIGGER, Id, "", -1, 0);
+				PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, Id, "", -1, 0);
 
 			Heroes.ForEach(p =>
 			{

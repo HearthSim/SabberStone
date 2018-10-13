@@ -3559,16 +3559,23 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Player1.BaseMana = 10;
 
-			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			Minion m1 = game.ProcessCard<Minion>("Stonetusk Boar");
+			Minion m2 = game.ProcessCard<Minion>("Bloodfen Raptor");
 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.ProcessCard("Flametongue Totem", zonePosition: 1);
 
-			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			Assert.Equal(3, m1.AttackDamage);
+			Assert.Equal(5, m2.AttackDamage);
 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.ProcessCard("Flametongue Totem");
+			Assert.Equal(3, m1.AttackDamage);
+			Assert.Equal(7, m2.AttackDamage);
 
-			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			game.ProcessCard("Flametongue Totem", zonePosition: 0);
+			Assert.Equal(5, m1.AttackDamage);
+			Assert.Equal(7, m2.AttackDamage);
 		}
 
 		// ---------------------------------------- MINION - SHAMAN
