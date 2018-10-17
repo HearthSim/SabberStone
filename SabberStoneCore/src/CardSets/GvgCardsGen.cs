@@ -751,11 +751,12 @@ namespace SabberStoneCore.CardSets
 			// [GVG_072] Shadowboxer - COST:2 [ATK:2/HP:3] 
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
-			// Text: Whenever a character is healed, deal 1 damage to a random enemy.
+			// Text: Whenever a minion is healed, deal 1 damage to a random enemy.
 			// --------------------------------------------------------
 			cards.Add("GVG_072", new Power {
 				Trigger = new Trigger(TriggerType.HEAL)
 				{
+					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = ComplexTask.Create(
 						new RandomTask(1, EntityType.ENEMIES),
 						new DamageTask(1, EntityType.STACK))

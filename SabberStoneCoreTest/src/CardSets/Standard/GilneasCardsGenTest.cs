@@ -739,7 +739,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void HoundmasterShaw_GIL_650()
 		{
-			// TODO HoundmasterShaw_GIL_650 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -763,6 +762,19 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Assert.True(test1.IsRush);
 			Assert.False(test1.IsExhausted);
+
+			Game clone = game.Clone();
+
+			Minion cube = game.ProcessCard<Minion>("Carnivorous Cube", game.CurrentPlayer.BoardZone[0], true);
+			Minion cloneCube = clone.ProcessCard<Minion>("Carnivorous Cube", clone.CurrentPlayer.BoardZone[0], true);
+
+			Assert.False(cube.IsRush);
+			Assert.False(test1.IsRush);
+			Assert.False(cloneCube.IsRush);
+
+			cube.Kill();
+			cloneCube.Kill();
+			
 		}
 
 		// ---------------------------------------- MINION - HUNTER

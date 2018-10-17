@@ -151,9 +151,10 @@ namespace SabberStoneCore.Enchants
 						}
 						else
 						{
-							if (Owner[GameTag.ATTACKABLE_BY_RUSH] == 1)
+							if (Owner[GameTag.ATTACKABLE_BY_RUSH] == 1 && Owner[GameTag.EXHAUSTED] == 0)
 							{
 								Owner[GameTag.ATTACKABLE_BY_RUSH] = 0;
+								Owner[GameTag.EXHAUSTED] = 1;
 								Owner.Game.RushMinions.Remove(Owner.Id);
 							}
 						}

@@ -151,7 +151,7 @@ namespace SabberStoneCore.Model.Entities
 			if (_history)
 			{
 				if (!tags.ContainsKey(GameTag.ENTITY_ID))
-					tags.Add(GameTag.ENTITY_ID, id);
+					tags.Add(GameTag.ENTITY_ID, Id);
 			}
 		}
 
