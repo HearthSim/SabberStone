@@ -1,13 +1,50 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace SabberStoneCore.Model.Entities
 {
+	[DebuggerDisplay("Count = {_count}")]
 	public class EntityList : IDictionary<int, IPlayable>
 	{
 		private IPlayable[] _list;
 		private int _count;
+
+		public IPlayable this[int id]
+		{
+			get
+			{
+				if (id >= _list.Length)
+					throw new ArgumentOutOfRangeException();
+				IPlayable value = _list[id];
+				if (value == null)
+					throw new KeyNotFoundException();
+
+				return value;
+			}
+			set
+			{
+				IPlayable[] list = _list;
+				if (id >= list.Length)
+				{
+					var newlist = new IPlayable[(int)(list.Length * 1.5)];
+					Array.Copy(list, newlist, list.Length);
+					list = newlist;
+					_list = newlist;
+				}
+
+				if (list[id] == null)
+					_count++;
+
+				list[id] = value;
+			}
+		}
+
+		internal EntityList(int length)
+		{
+			_list = new IPlayable[length];
+		}
 
 		public void Add(int key, IPlayable value)
 		{
@@ -44,42 +81,24 @@ namespace SabberStoneCore.Model.Entities
 			return value != null;
 		}
 
-		public IPlayable this[int id]
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		public ICollection<int> Keys { get; }
+
+		[DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
+		public ICollection<IPlayable> Values
 		{
 			get
 			{
-				if (id >= _list.Length)
-					throw new ArgumentOutOfRangeException();
-				IPlayable value = _list[id];
-				if (value == null)
-					throw new KeyNotFoundException();
-
-				return value;
-			}
-			set
-			{
-				IPlayable[] list = _list;
-				if (id >= _list.Length)
+				var values = new IPlayable[_count];
+				int i = 0;
+				foreach (IPlayable item in _list)
 				{
-					var newlist = new IPlayable[list.Length * 2];
-					Array.Copy(list, newlist, list.Length);
-					list = newlist;
-					_list = newlist;
+					if (item == null) continue;
+
+					values[i++] = item;
 				}
-
-				if (list[id] == null)
-					_count++;
-
-				list[id] = value;
+				return values;
 			}
-		}
-
-		public ICollection<int> Keys { get; }
-		public ICollection<IPlayable> Values { get; }
-
-		internal EntityList(int length)
-		{
-			_list = new IPlayable[length];
 		}
 
 		public IEnumerator<KeyValuePair<int, IPlayable>> GetEnumerator()
@@ -125,7 +144,9 @@ namespace SabberStoneCore.Model.Entities
 			return true;
 		}
 
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public int Count => _count;
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public bool IsReadOnly => false;
 	}
 }

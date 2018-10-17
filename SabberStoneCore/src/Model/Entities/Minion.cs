@@ -54,13 +54,13 @@ namespace SabberStoneCore.Model.Entities
 			IsFrozen = false;
 			IsEnraged = false;
 			HasCharge = false;
-			HasWindfury = false;
+			IsWindfury = false;
 			HasDivineShield = false;
 			HasStealth = false;
-			HasDeathrattle = false;
+			IsDeathrattle = false;
 			HasBattleCry = false;
 			HasInspire = false;
-			HasLifeSteal = false;
+			IsLifeSteal = false;
 			CantBeTargetedByHeroPowers = false;
 			CantBeTargetedBySpells = false;
 			IsImmune = false;
@@ -217,7 +217,15 @@ namespace SabberStoneCore.Model.Entities
 	{
 		public bool HasCharge
 		{
-			get => this[GameTag.CHARGE] >= 1;
+			//get => this[GameTag.CHARGE] >= 1;
+			get
+			{
+				if (AuraEffects.Charge > 0)
+					return true;
+				if (!_data.TryGetValue(GameTag.CHARGE, out int value))
+					return Card.Charge;
+				return value > 0;
+			}
 			set
 			{
 				if (value)
@@ -234,7 +242,13 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool HasDivineShield
 		{
-			get { return this[GameTag.DIVINE_SHIELD] == 1; }
+			//get { return this[GameTag.DIVINE_SHIELD] == 1; }
+			get
+			{
+				if (!_data.TryGetValue(GameTag.DIVINE_SHIELD, out int value))
+					return Card.DivineShield;
+				return value > 0;
+			}
 			set
 			{
 				if (!value)
@@ -249,10 +263,34 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
+		public override bool IsWindfury
+		{
+			//get { return this[GameTag.WINDFURY] >= 1; }
+			get
+			{
+				if (!_data.TryGetValue(GameTag.WINDFURY, out int value))
+					return Card.Windfury;
+				return value > 0;
+			}
+			set { this[GameTag.WINDFURY] = value ? 1 : 0; }
+		}
+
 		public bool HasBattleCry
 		{
 			get { return Card[GameTag.BATTLECRY] != 0; }
 			set { this[GameTag.BATTLECRY] = value ? 1 : 0; }
+		}
+
+		public override bool IsDeathrattle
+		{
+			//get { return this[GameTag.DEATHRATTLE] == 1; }
+			get
+			{
+				if (!_data.TryGetValue(GameTag.DEATHRATTLE, out int value))
+					return Card.Deathrattle;
+				return value > 0;
+			}
+			set => this[GameTag.DEATHRATTLE] = value ? 1 : 0;
 		}
 
 		public bool HasInspire
@@ -275,13 +313,43 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool Poisonous
 		{
-			get { return this[GameTag.POISONOUS] == 1; }
+			//get { return this[GameTag.POISONOUS] == 1; }
+			get
+			{
+				if (!_data.TryGetValue(GameTag.POISONOUS, out int value))
+					return Card.Poisonous;
+				return value > 0;
+			}
 			set { this[GameTag.POISONOUS] = value ? 1 : 0; }
 		}
 
+		public override bool IsLifeSteal
+		{
+			get
+			{
+				if (AuraEffects.Lifesteal > 0)
+					return true;
+				if (!_data.TryGetValue(GameTag.LIFESTEAL, out int value))
+					return Card.LifeSteal;
+				return value > 0;
+			}
+			set => base.IsLifeSteal = value; }
+
 		public bool Untouchable => Card.Untouchable;
 
-		public bool HasRush => this[GameTag.RUSH] == 1;
+		public bool IsRush
+		{
+			get
+			{
+				if (AuraEffects.Rush > 0)
+					return true;
+
+				if (!_data.TryGetValue(GameTag.RUSH, out int value))
+					return Card.Rush;
+
+				return value > 0;
+			}
+		}
 
 		public bool AttackableByRush
 		{

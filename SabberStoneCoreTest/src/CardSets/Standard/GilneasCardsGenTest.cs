@@ -190,10 +190,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.ProcessCard<Minion>("Druid of the Scythe", null, true, 2);
 			Minion b = game.CurrentPlayer.BoardZone[1];
 
-			Assert.True(a.HasRush);
+			Assert.True(a.IsRush);
 			Assert.False(a.HasTaunt);
 
-			Assert.False(b.HasRush);
+			Assert.False(b.IsRush);
 			Assert.True(b.HasTaunt);
 		}
 
@@ -761,7 +761,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Minion test1 = game.ProcessCard<Minion>("Bloodfen Raptor");
 
-			Assert.True(test1.HasRush);
+			Assert.True(test1.IsRush);
 			Assert.False(test1.IsExhausted);
 		}
 
@@ -1475,12 +1475,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Minion testCard = game.CurrentPlayer.BoardZone[0];
 
 			Assert.False(testCard.HasTaunt);
-			Assert.False(testCard.HasLifeSteal);
+			Assert.False(testCard.IsLifeSteal);
 
 			game.ProcessCard("Blessing of Might", testCard);
 
 			Assert.True(testCard.HasTaunt);
-			Assert.True(testCard.HasLifeSteal);
+			Assert.True(testCard.IsLifeSteal);
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -2992,13 +2992,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Glinda Crowskin"));
 			IPlayable wisp = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
 			game.AuraUpdate();
-			Assert.True(wisp.HasEcho);
+			Assert.True(wisp.IsEcho);
 
 			game.ProcessCard(wisp);
 			IPlayable ghost = game.CurrentPlayer.HandZone.Last();
 			Assert.Equal("Wisp", ghost.Card.Name);
 			Assert.Equal(1, ghost[GameTag.GHOSTLY]);
-			Assert.True(ghost.HasEcho);
+			Assert.True(ghost.IsEcho);
 		}
 
 		// --------------------------------------- MINION - WARLOCK

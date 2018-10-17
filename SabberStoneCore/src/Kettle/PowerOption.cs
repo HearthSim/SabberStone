@@ -81,7 +81,7 @@ namespace SabberStoneCore.Kettle
 					var subOptions = playCards.Where(p => p.Source.Id == sourceId && p.ChooseOne == i).ToList();
 					if (subOptions.Any())
 					{
-						int refCardId = ((IPlayable)subOptions.First().Source).ChooseOnePlayables[i - 1].Id;
+						int refCardId = subOptions.First().Source.ChooseOnePlayables[i - 1].Id;
 						var refCardTargets = subOptions.Where(p => p.Target != null).Select(p => p.Target).ToList();
 						mainOption.SubOptions.Add(new PowerSubOption
 						{

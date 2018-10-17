@@ -152,13 +152,13 @@ namespace SabberStoneCoreTest.CardSets
 			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisps of the Old Gods"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1, 1));
 			Assert.Equal(7, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
-			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[0].AttackDamage);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[0].Health);
 			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisps of the Old Gods"));
 			game.CurrentPlayer.UsedMana = 0;
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2, 2));
-			Assert.Equal(3, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
-			Assert.Equal(3, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+			Assert.Equal(3, game.CurrentPlayer.BoardZone[0].AttackDamage);
+			Assert.Equal(3, game.CurrentPlayer.BoardZone[0].Health);
 		}
 
 		// ----------------------------------------- MINION - DRUID
@@ -194,7 +194,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.UsedMana = 0;
 			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wrath"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, game.CurrentPlayer.BoardZone[1]));
-			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[1]).Health);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone[1].Health);
 		}
 
 		// ----------------------------------------- MINION - DRUID

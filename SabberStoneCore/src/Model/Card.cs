@@ -17,23 +17,27 @@ namespace SabberStoneCore.Model
 	/// </summary>
 	public class Card
 	{
-		/// <summary>
-		/// 
-		/// </summary>
-		public int ATK { get; }
-		public int Health { get; }
-		public bool Taunt { get; }
-		public bool Charge { get; }
-		public bool Stealth { get; }
-		public bool CantBeTargetedBySpells { get; }
+		public int ATK { get; private set; }
+		public int Health { get; private set; }
+		public bool Taunt { get; private set; }
+		public bool Charge { get; private set; }
+		public bool Stealth { get; private set; }
+		public bool Poisonous { get; private set; }
+		public bool DivineShield { get; private set; }
+		public bool Windfury { get; private set; }
+		public bool LifeSteal { get; private set; }
+		public bool Echo { get; private set; }
+		public bool Rush { get; private set; }
+		public bool CantBeTargetedBySpells { get; private set; }
 		public bool CantBeTargetedByHeroPowers => CantBeTargetedBySpells;
-		public bool CantAttack { get; }
-		public bool ChooseOne { get; }
-		public bool IsSecret { get; }
-		public bool IsQuest { get; }
-		public bool Untouchable { get; }
-		public bool HideStat { get; }
-		public bool ReceivesDoubleSpelldamageBonus { get; }
+		public bool CantAttack { get; private set; }
+		public bool ChooseOne { get; private set; }
+		public bool IsSecret { get; private set; }
+		public bool IsQuest { get; private set; }
+		public bool Deathrattle { get; }
+		public bool Untouchable { get; private set; }
+		public bool HideStat { get; private set; }
+		public bool ReceivesDoubleSpelldamageBonus { get; private set; }
 
 		private Card()
 		{
@@ -83,6 +87,24 @@ namespace SabberStoneCore.Model
 						case GameTag.STEALTH:
 							Stealth = true;
 							break;
+						case GameTag.POISONOUS:
+							Poisonous = true;
+							break;
+						case GameTag.DIVINE_SHIELD:
+							DivineShield = true;
+							break;
+						case GameTag.WINDFURY:
+							Windfury = true;
+							break;
+						case GameTag.LIFESTEAL:
+							LifeSteal = true;
+							break;
+						case GameTag.ECHO:
+							Echo = true;
+							break;
+						case GameTag.RUSH:
+							Rush = true;
+							break;
 						case GameTag.CANT_BE_TARGETED_BY_SPELLS:
 							CantBeTargetedBySpells = true;
 							break;
@@ -94,6 +116,9 @@ namespace SabberStoneCore.Model
 							break;
 						case GameTag.QUEST:
 							IsQuest = true;
+							break;
+						case GameTag.DEATHRATTLE:
+							Deathrattle = true;
 							break;
 						case GameTag.UNTOUCHABLE:
 							Untouchable = true;
@@ -109,6 +134,9 @@ namespace SabberStoneCore.Model
 							break;
 						case GameTag.CLASS:
 							Class = (CardClass)(int)tag.TagValue;
+							break;
+						case GameTag.CARDTYPE:
+							Type = (CardType)(int)tag.TagValue;
 							break;
 					}
 				}
@@ -200,7 +228,7 @@ namespace SabberStoneCore.Model
 			//			targetPredicate = p => p[GameTag.STEALTH] == 1;
 			//			break;
 			//		case PlayReq.REQ_TARGET_WITH_DEATHRATTLE:
-			//			targetPredicate = p => p.HasDeathrattle;
+			//			targetPredicate = p => p.IsDeathrattle;
 			//			break;
 			//		case PlayReq.REQ_TARGET_FOR_COMBO:
 			//			checkTargeting = p => p.IsComboActive;
@@ -406,7 +434,7 @@ namespace SabberStoneCore.Model
 		/// Deathknigth heros in the deck!
 		/// <see cref="CardType"/>
 		/// </summary>
-		public CardType Type => (CardType)this[GameTag.CARDTYPE];
+		public CardType Type { get; }
 
 		/// <summary>
 		/// <see cref="CardSet"/>
@@ -416,7 +444,7 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Original mana-cost of this card.
 		/// </summary>
-		public int Cost { get; }
+		public int Cost { get; private set; }
 
 		/// <summary>
 		/// True if this card will incur Overload when played.
@@ -583,5 +611,53 @@ namespace SabberStoneCore.Model
 		//public readonly Predicate<ICharacter> _targetPredicate;
 		//public readonly Predicate<Controller> _checkTargeting;
 		//public readonly Predicate<Controller> _checkPlayablility;
+
+		public static Card CreateZombeastCard(in Card firstCard, in Card secondCard, bool modifyTags)
+		{
+			Card zombeast = firstCard.Clone();
+			zombeast.ATK += secondCard.ATK;
+			zombeast.Health += secondCard.Health;
+			zombeast.Cost += secondCard.Cost;
+			zombeast.Taunt = secondCard.Taunt;
+			zombeast.Poisonous = secondCard.Poisonous;
+			zombeast.Stealth = secondCard.Stealth;
+			zombeast.Windfury = secondCard.Windfury;
+			zombeast.Charge = secondCard.Charge;
+			zombeast.LifeSteal = secondCard.LifeSteal;
+			zombeast.CantBeTargetedBySpells = secondCard.CantBeTargetedBySpells;
+			zombeast.Rush = secondCard.Rush;
+			zombeast.Echo = secondCard.Echo;
+			zombeast.Name = "Zombeast";
+			zombeast.Text = secondCard.Text + "\n" + zombeast.Text;
+
+			if (modifyTags)
+			{
+				zombeast.Tags[GameTag.ATK] += secondCard[GameTag.ATK];
+				zombeast.Tags[GameTag.HEALTH] += secondCard[GameTag.HEALTH];
+				zombeast.Tags[GameTag.COST] += secondCard[GameTag.COST];
+				if (secondCard.Tags.ContainsKey(GameTag.TAUNT))
+					zombeast.Tags[GameTag.TAUNT] = 1;
+				if (secondCard.Tags.ContainsKey(GameTag.POISONOUS))
+					zombeast.Tags[GameTag.POISONOUS] = 1;
+				if (secondCard.Tags.ContainsKey(GameTag.STEALTH))
+					zombeast.Tags[GameTag.STEALTH] = 1;
+				if (secondCard.Tags.ContainsKey(GameTag.WINDFURY))
+					zombeast.Tags[GameTag.WINDFURY] = 1;
+				if (secondCard.Tags.ContainsKey(GameTag.CHARGE))
+					zombeast.Tags[GameTag.CHARGE] = 1;
+				if (secondCard.Tags.ContainsKey(GameTag.LIFESTEAL))
+					zombeast.Tags[GameTag.LIFESTEAL] = 1;
+				if (secondCard.Tags.ContainsKey(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS))
+					zombeast.Tags[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] = 1;
+				if (secondCard.Tags.ContainsKey(GameTag.CANT_BE_TARGETED_BY_SPELLS))
+					zombeast.Tags[GameTag.CANT_BE_TARGETED_BY_SPELLS] = 1;
+				if (secondCard.Tags.ContainsKey(GameTag.RUSH))
+					zombeast.Tags[GameTag.RUSH] = 1;
+				if (secondCard.Tags.ContainsKey(GameTag.ECHO))
+					zombeast.Tags[GameTag.ECHO] = 1;
+			}
+
+			return zombeast;
+		}
 	}
 }

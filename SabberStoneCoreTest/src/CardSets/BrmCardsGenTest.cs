@@ -114,10 +114,10 @@ namespace SabberStoneCoreTest.CardSets
 			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Flame"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard2, 2));
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(5, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
-			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
-			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[1]).AttackDamage);
-			Assert.Equal(5, ((Minion)game.CurrentPlayer.BoardZone[1]).Health);
+			Assert.Equal(5, game.CurrentPlayer.BoardZone[0].AttackDamage);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone[0].Health);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone[1].AttackDamage);
+			Assert.Equal(5, game.CurrentPlayer.BoardZone[1].Health);
 		}
 	}
 
@@ -397,7 +397,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(minion.Card.Id, game.CurrentPlayer.BoardZone[0].Card.Id);
-			Assert.Equal(7, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
+			Assert.Equal(7, game.CurrentPlayer.BoardZone[0].Health);
 		}
 
 		// ---------------------------------------- MINION - PRIEST

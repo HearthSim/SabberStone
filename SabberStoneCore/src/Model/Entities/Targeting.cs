@@ -241,7 +241,7 @@ namespace SabberStoneCore.Model.Entities
 						}
 						break;
 					case PlayReq.REQ_TARGET_WITH_DEATHRATTLE:
-						if (minion == null || !minion.HasDeathrattle)
+						if (minion == null || !minion.IsDeathrattle)
 						{
 							return false;
 						}

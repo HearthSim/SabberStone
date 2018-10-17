@@ -2011,7 +2011,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			foreach (IPlayable handCard in game.CurrentPlayer.HandZone)
 			{
-				if (handCard.HasDeathrattle && handCard.Card.Type == CardType.MINION)
+				if (handCard.IsDeathrattle && handCard.Card.Type == CardType.MINION)
 				{
 					int expected = handCard.Card.Cost - 3;
 					expected = expected < 0 ? 0 : expected;

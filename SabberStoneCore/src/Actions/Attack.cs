@@ -224,8 +224,8 @@ namespace SabberStoneCore.Actions
 					c.NumFriendlyMinionsThatAttackedThisTurn++;
 
 				// set exhausted ...
-				if (source.NumAttacksThisTurn > 0 && !source.HasWindfury ||
-					source.NumAttacksThisTurn > 1 && source.HasWindfury)
+				if (source.NumAttacksThisTurn > 0 && !source.IsWindfury ||
+					source.NumAttacksThisTurn > 1 && source.IsWindfury)
 				{
 					game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", !game.Logging? "":$"{source} is now exhausted.");
 					source.IsExhausted = true;

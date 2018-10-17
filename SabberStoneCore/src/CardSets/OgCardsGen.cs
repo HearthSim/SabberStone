@@ -1532,7 +1532,8 @@ namespace SabberStoneCore.CardSets
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_218", new Power {
-				Trigger = Triggers.EnrageTrigger("OG_218e")
+				//Trigger = Triggers.EnrageTrigger("OG_218e")
+				Aura = new EnrageEffect(AuraType.SELF, "OG_218e")
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -1913,7 +1914,8 @@ namespace SabberStoneCore.CardSets
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_150", new Power {
-				Trigger = Triggers.EnrageTrigger("OG_150e")
+				//Trigger = Triggers.EnrageTrigger("OG_150e")
+				Aura = new EnrageEffect(AuraType.SELF, "OG_150e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2670,7 +2672,8 @@ namespace SabberStoneCore.CardSets
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_150e", new Power {
-				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(2))
+				//Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(2))
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("OG_150e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2733,7 +2736,8 @@ namespace SabberStoneCore.CardSets
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_218e", new Power {
-				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(3))
+				//Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(3))
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("OG_218e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

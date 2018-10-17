@@ -281,6 +281,7 @@ namespace SabberStoneCore.Model.Entities
 			return true;
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private void Initialise(int capacity)
 		{
 			int n = 3;
@@ -296,7 +297,7 @@ namespace SabberStoneCore.Model.Entities
 				++n;
 			}
 
-			var buckets = new int[capacity << 1];
+			int[] buckets = new int[capacity << 1];
 			for (int i = 0; i < buckets.Length; i++)
 				buckets[i] = -1;
 			_buckets = buckets;

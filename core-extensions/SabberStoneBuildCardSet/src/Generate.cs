@@ -275,7 +275,7 @@ namespace SabberStoneBuildCardSet
 				string t = null;
 				if (Tag.TypedTags.ContainsKey(key))
 				{
-					t = Enum.GetName(Tag.TypedTags[key], (int)card.Tags[key]);
+					t = Enum.GetName(Tag.TypedTags[key], card.Tags[key]);
 				}
 
 				str.AppendLine($"{tab}\t// - {key} = {(t ?? card.Tags[key].ToString())}");
@@ -303,7 +303,7 @@ namespace SabberStoneBuildCardSet
 				string t = null;
 				if (Tag.TypedTags.ContainsKey(key))
 				{
-					t = Enum.GetName(Tag.TypedTags[key], (int)card.Tags[key]);
+					t = Enum.GetName(Tag.TypedTags[key], card.Tags[key]);
 				}
 				str.AppendLine($"{tab}\t// - {key} = {t ?? card.RefTags[key].ToString()}");
 			}

@@ -477,7 +477,8 @@ namespace SabberStoneCoreTest.CardSets
 					Cards.FromName("Mirror Entity"),
 				},
 				Player2HeroClass = CardClass.MAGE,
-				FillDecks = true,
+				FillDecks = false,
+				Shuffle = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();

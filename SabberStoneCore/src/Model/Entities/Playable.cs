@@ -116,17 +116,17 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Playable has deathrattle.
 		/// </summary>
-		bool HasDeathrattle { get; set; }
+		bool IsDeathrattle { get; set; }
 
 		/// <summary>
 		/// Playable has lifesteal.
 		/// </summary>
-		bool HasLifeSteal { get; set; }
+		bool IsLifeSteal { get; set; }
 
 		/// <summary>
 		/// Playable has Echo ability.
 		/// </summary>
-		bool HasEcho { get; }
+		bool IsEcho { get; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether the target must be an option from the
@@ -600,19 +600,27 @@ namespace SabberStoneCore.Model.Entities
 
 		public int Overload => Card.Overload;
 
-		public bool HasDeathrattle
+		public virtual bool IsDeathrattle
 		{
-			get { return this[GameTag.DEATHRATTLE] == 1; }
-			set { this[GameTag.DEATHRATTLE] = value ? 1 : 0; }
+			get => false;
+			set => throw new NotImplementedException();
 		}
 
-		public virtual bool HasLifeSteal
+		public virtual bool IsLifeSteal
 		{
-			get { return this[GameTag.LIFESTEAL] >= 1; }
+			get => Card.LifeSteal;
 			set { this[GameTag.LIFESTEAL] = value ? 1 : 0; }
 		}
 
-		public bool HasEcho => this[GameTag.ECHO] == 1;
+		public bool IsEcho
+		{
+			get
+			{
+				if (AuraEffects.Echo == 1)
+					return true;
+				return Card.Echo;
+			}
+		}
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

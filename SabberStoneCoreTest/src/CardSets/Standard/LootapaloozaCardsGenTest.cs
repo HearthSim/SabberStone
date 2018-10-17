@@ -1346,7 +1346,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(target.AttackDamage, testCard.AttackDamage);
 			Assert.Equal(target.Health, testCard.Health);
 			Assert.Equal(target.HasDivineShield, testCard.HasDivineShield);
-			Assert.Equal(target.HasDeathrattle, testCard.HasDeathrattle);
+			Assert.Equal(target.IsDeathrattle, testCard.IsDeathrattle);
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -1679,7 +1679,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal("Wisp", wisp.Card.Name);
 			Assert.Equal(5, wisp.AttackDamage);
 			Assert.Equal(3, wisp.Health);
-			Assert.True(wisp.HasDeathrattle);
+			Assert.True(wisp.IsDeathrattle);
 
 			game.EndTurn();
 
@@ -2548,7 +2548,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.ProcessCard("Deadly Poison");
 			game.ProcessCard("Leeching Poison");
 			var weapon = game.CurrentPlayer.Hero.Weapon;
-			Assert.True(weapon.AttackDamage == 5 && weapon.HasLifeSteal);
+			Assert.True(weapon.AttackDamage == 5 && weapon.IsLifeSteal);
 			game.EndTurn();
 
 			IPlayable target = game.ProcessCard("Acidic Swamp Ooze");
@@ -2559,7 +2559,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal("Kingsbane", game.CurrentPlayer.HandZone[0].Card.Name);
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Kingsbane"));
 			weapon = game.CurrentPlayer.Hero.Weapon;
-			Assert.True(weapon.AttackDamage == 5 && weapon.HasLifeSteal);
+			Assert.True(weapon.AttackDamage == 5 && weapon.IsLifeSteal);
 
 			int damage = game.CurrentPlayer.Hero.Damage;
 
@@ -2568,7 +2568,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(damage - 5, game.CurrentPlayer.Hero.Damage);
 			Assert.Single(game.CurrentPlayer.HandZone);
 			Assert.Equal(Zone.HAND, weapon.Zone.Type);
-			Assert.True(weapon.AttackDamage == 5 && weapon.HasLifeSteal);
+			Assert.True(weapon.AttackDamage == 5 && weapon.IsLifeSteal);
 		}
 
 	}

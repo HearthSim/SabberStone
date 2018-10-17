@@ -307,7 +307,7 @@ namespace SabberStoneCore.Model.Entities
 			Game.TaskQueue.EndEvent();
 			Game.CurrentEventData = temp;
 
-			if (source.HasLifeSteal && !_lifestealChecker)
+			if (source.IsLifeSteal && !_lifestealChecker)
 			{
 				if (_history)
 					Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, source.Id, source.Card.Id, -1, 0)); // TriggerKeyword=LIFESTEAL
@@ -506,7 +506,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Character has windfury.
 		/// </summary>
-		bool HasWindfury { get; }
+		bool IsWindfury { get; }
 
 		/// <summary>
 		/// Character has stealth.
@@ -723,17 +723,9 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.DEFENDING] = value ? 1 : 0; }
 		}
 
-		public bool IsImmune
+		public virtual bool IsImmune
 		{
-			get
-			{
-				if (_immune.HasValue && _immune.Value)
-					return true;
-
-				// bool cardTag = Card[GameTag.IMMUNE]; TODO: Some Adv/Brawl cards have IMMUNE tag
-				// _immune = cardTag;
-				return AuraEffects[GameTag.IMMUNE] > 0;
-			}
+			get => _immune.HasValue && _immune.Value;
 			set
 			{
 				_immune = value;
@@ -785,11 +777,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
-		public virtual bool HasWindfury
-		{
-			get { return this[GameTag.WINDFURY] >= 1; }
-			set { this[GameTag.WINDFURY] = value ? 1 : 0; }
-		}
+		public abstract bool IsWindfury { get; set; }
 
 		public bool HasStealth
 		{

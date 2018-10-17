@@ -27,7 +27,7 @@
 //				var minion = p as Minion;
 //				if (minion != null)
 //				{
-//					minion.HasDeathrattle = Power.Activation == PowerActivation.DEATHRATTLE ? true : false;
+//					minion.IsDeathrattle = Power.Activation == PowerActivation.DEATHRATTLE ? true : false;
 //					//if (minion.Powers == null)
 //					//	minion.Powers = new System.Collections.Generic.List<Power> { Power };
 //					//else

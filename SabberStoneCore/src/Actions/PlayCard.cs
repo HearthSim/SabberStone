@@ -86,7 +86,7 @@ namespace SabberStoneCore.Actions
 						break;
 				}
 
-				if (source.HasEcho)
+				if (source.IsEcho)
 				{
 					var echoTags = new EntityData
 					{

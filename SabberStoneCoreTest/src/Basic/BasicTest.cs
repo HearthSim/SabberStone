@@ -489,11 +489,11 @@ namespace SabberStoneCoreTest.Basic
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
 
-			Assert.Equal(3, ((ICharacter)minion1).Health);
+			Assert.Equal(3, minion1.Health);
 
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion2, minion1));
 
-			Assert.Equal(1, ((ICharacter)minion1).Health);
+			Assert.Equal(1, minion1.Health);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
@@ -506,13 +506,13 @@ namespace SabberStoneCoreTest.Basic
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion3));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell2, minion3));
 
-			Assert.Equal(4, ((ICharacter)minion3).Health);
+			Assert.Equal(4, minion3.Health);
 
 			((Minion)minion3).Damage = 3;
 
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion4, minion3));
 
-			Assert.Equal(1, ((ICharacter)minion3).Health);
+			Assert.Equal(1, minion3.Health);
 
 		}
 
@@ -545,14 +545,14 @@ namespace SabberStoneCoreTest.Basic
 			game.Player1.UsedMana = 0;
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
 
-			Assert.Equal(4, ((ICharacter)minion1).Health);
-			Assert.Equal(4, ((ICharacter)minion2).Health);
+			Assert.Equal(4, minion1.Health);
+			Assert.Equal(4, minion2.Health);
 			Assert.Equal(6, ((ICharacter)minion3).Health);
 
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion4, minion2));
 
-			Assert.Equal(4, ((ICharacter)minion1).Health);
-			Assert.Equal(4, ((ICharacter)minion2).Health);
+			Assert.Equal(4, minion1.Health);
+			Assert.Equal(4, minion2.Health);
 			Assert.Equal(6, ((ICharacter)minion3).Health);
 			Assert.Equal(2, ((ICharacter)minion4).Health);
 
@@ -561,8 +561,8 @@ namespace SabberStoneCoreTest.Basic
 			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hellfire"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell2));
 
-			Assert.Equal(1, ((ICharacter)minion1).Health);
-			Assert.Equal(1, ((ICharacter)minion2).Health);
+			Assert.Equal(1, minion1.Health);
+			Assert.Equal(1, minion2.Health);
 			Assert.Equal(3, ((ICharacter)minion3).Health);
 			Assert.True(((ICharacter)minion4).IsDead);
 
@@ -850,7 +850,7 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(testTarget.Card.Health + 2, testTarget.Health);
 			Assert.True(testTarget.HasDivineShield);
 			Assert.True(testTarget.HasTaunt);
-			Assert.True(testTarget.HasLifeSteal);
+			Assert.True(testTarget.IsLifeSteal);
 			Assert.True(testTarget.AttackableByRush);
 
 			game.ProcessCard("Spellbreaker", testTarget, true);
@@ -859,7 +859,7 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(testTarget.Card.Health, testTarget.Health);
 			Assert.False(testTarget.HasDivineShield);
 			Assert.False(testTarget.HasTaunt);
-			Assert.False(testTarget.HasLifeSteal);
+			Assert.False(testTarget.IsLifeSteal);
 			Assert.False(testTarget.AttackableByRush);
 		}
 
@@ -886,13 +886,13 @@ namespace SabberStoneCoreTest.Basic
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Murloc Tinyfin"));
-			Assert.Equal(1, ((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[0].Health);
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Power Word: Shield", game.CurrentPlayer.BoardZone[0]));
-			Assert.Equal(3, ((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			Assert.Equal(3, game.CurrentPlayer.BoardZone[0].Health);
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Silence", game.CurrentPlayer.BoardZone[0]));
-			Assert.Equal(1, ((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[0].Health);
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, "Power Word: Shield", game.CurrentPlayer.BoardZone[0]));
-			Assert.Equal(3, ((Minion) game.CurrentPlayer.BoardZone[0]).Health);
+			Assert.Equal(3, game.CurrentPlayer.BoardZone[0].Health);
 		}
 
 		[Fact]

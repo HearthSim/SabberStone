@@ -22,11 +22,13 @@ namespace SabberStoneCore.Model.Zones
 	{
 		/// <summary>Gets the game which contains the zone.</summary>
 		/// <value><see cref="Model.Game"/></value>
-		protected Game Game;
+		public Game Game { get; protected set; }
 		/// <summary>
 		/// Gets the owner of the zone.
 		/// </summary>
 		/// <value><see cref="SabberStoneCore.Model.Entities.Controller"/></value>
+		public Controller Controller { get; set; }
+
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		protected IList<T> Entities;
 
@@ -40,7 +42,7 @@ namespace SabberStoneCore.Model.Zones
 
 		[DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
 		List<IPlayable> IZone.GetAll => this.Cast<IPlayable>().ToList();
-		public Controller Controller { get; set; }
+
 		public Zone Type { get; protected set; }
 		/// <summary>
 		/// Gets a value indicating whether this contains entities or not.
@@ -174,8 +176,8 @@ namespace SabberStoneCore.Model.Zones
 		protected UnlimitedZone(Controller controller)
 		{
 			Entities = new List<IPlayable>();
-			Game = controller.Game;
 			Controller = controller;
+			Game = controller.Game;
 		}
 
 		protected UnlimitedZone(Controller c, UnlimitedZone zone) : base(c)

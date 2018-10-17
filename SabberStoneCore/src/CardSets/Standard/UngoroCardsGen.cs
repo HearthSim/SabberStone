@@ -48,7 +48,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// [UNG_078] Tortollan Forager - COST:2 [ATK:2/HP:2] 
 			// - Set: ungoro, Rarity: common
 			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Add a random minion with 5 or more Attack to your hand.
+			// Text: <b>Battlecry:</b> Add a random miterrornion with 5 or more Attack to your hand.
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1

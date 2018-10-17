@@ -345,6 +345,12 @@ namespace SabberStoneCore.Model
 				Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably ? _gameConfig.UnPredictableCardIDs : null);
 				Player2.DeckZone.Fill(_gameConfig.FillDecksPredictably ? _gameConfig.UnPredictableCardIDs : null);
 			}
+
+
+
+			AllCharacters = new Character[17];
+			AllCharacters[0] = Player1.Hero;
+			AllCharacters[16] = Player2.Hero;
 		}
 
 		/// <summary> A copy constructor. </summary>
@@ -800,7 +806,7 @@ namespace SabberStoneCore.Model
 		{
 			MainDraw();
 
-			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"[T:{Turn}/R:{(int)Turn / 2}] with CurrentPlayer {CurrentPlayer.Name} " +
+			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"[T:{Turn}/R:{Turn / 2}] with CurrentPlayer {CurrentPlayer.Name} " +
 					 $"[HP:{CurrentPlayer.Hero.Health}/M:{CurrentPlayer.RemainingMana}]");
 
 			DeathProcessingAndAuraUpdate();
@@ -1021,7 +1027,7 @@ namespace SabberStoneCore.Model
 					minion.LastBoardPosition = minion.ZonePosition;
 					minion.Zone.Remove(minion);
 
-					if (minion.HasDeathrattle)
+					if (minion.IsDeathrattle)
 						minion.ActivateTask(PowerActivation.DEATHRATTLE);
 
 					minion.Controller.GraveyardZone.Add(minion);
@@ -1278,7 +1284,7 @@ namespace SabberStoneCore.Model
 			set
 			{
 				this[GameTag.NEXT_STEP] = (int)value;
-				GamesEventManager.NextStepEvent(this, (Step)value);
+				GamesEventManager.NextStepEvent(this, value);
 			}
 		}
 
@@ -1353,5 +1359,10 @@ namespace SabberStoneCore.Model
 				return list;
 			}
 		}
+
+
+
+
+		internal readonly Character[] AllCharacters;
 	}
 }

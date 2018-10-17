@@ -330,7 +330,7 @@ namespace SabberStoneCore.Kettle
 		{
 			var str = new StringBuilder();
 			str.AppendLine(Model.Tag.TypedTags.ContainsKey(Tag)
-				? $"{PowerType} Entity = [{EntityId}] Tag={Tag} Value={Enum.GetName(Model.Tag.TypedTags[Tag], (int)Value)}"
+				? $"{PowerType} Entity = [{EntityId}] Tag={Tag} Value={Enum.GetName(Model.Tag.TypedTags[Tag], Value)}"
 				: $"{PowerType} Entity = [{EntityId}] Tag={Tag} Value={Value}");
 			return str.ToString();
 		}
@@ -380,7 +380,7 @@ namespace SabberStoneCore.Kettle
 			foreach (KeyValuePair<GameTag, int> pair in Tags)
 			{
 				str.AppendLine(Tag.TypedTags.ContainsKey(pair.Key)
-					? $"      [{pair.Key},{Enum.GetName(Tag.TypedTags[pair.Key], (int)pair.Value)}]"
+					? $"      [{pair.Key},{Enum.GetName(Tag.TypedTags[pair.Key], pair.Value)}]"
 					: $"      [{pair.Key},{pair.Value}]");
 			}
 			str.Append("]");

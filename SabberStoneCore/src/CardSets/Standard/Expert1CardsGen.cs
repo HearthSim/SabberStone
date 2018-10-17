@@ -2924,7 +2924,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_414", new Power {
-				Trigger = Triggers.EnrageTrigger("EX1_414e")
+				//Trigger = Triggers.EnrageTrigger("EX1_414e")
+				Aura = new EnrageEffect(AuraType.SELF, "EX1_414e")
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -3184,7 +3185,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +6 Attack
 			// --------------------------------------------------------
 			cards.Add("EX1_414e", new Power {
-				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(6))
+				//Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(6))
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_414e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
@@ -3484,7 +3486,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_221", new Power {
-				Trigger = Triggers.EnrageTrigger("CS2_221e")
+				//Trigger = Triggers.EnrageTrigger("CS2_221e")
+				Aura = new EnrageEffect(AuraType.WEAPON, "CS2_221e")
 			});
 
 			// --------------------------------------- MINION - NEUTRALa
@@ -3636,7 +3639,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_009", new Power {
-				Trigger = Triggers.EnrageTrigger("EX1_009e")
+				//Trigger = Triggers.EnrageTrigger("EX1_009e")
+				Aura = new EnrageEffect(AuraType.SELF, "EX1_009e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -4273,7 +4277,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_390", new Power {
-				Trigger = Triggers.EnrageTrigger("EX1_390e")
+				//Trigger = Triggers.EnrageTrigger("EX1_390e")
+				Aura = new EnrageEffect(AuraType.SELF, "EX1_390e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -4286,7 +4291,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_393", new Power {
-				Trigger = Triggers.EnrageTrigger("EX1_393e")
+				//Trigger = Triggers.EnrageTrigger("EX1_393e")
+				Aura = new EnrageEffect(AuraType.SELF, "EX1_393e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -4324,7 +4330,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - WINDFURY = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_412", new Power {
-				Trigger = Triggers.EnrageTrigger("EX1_412e")
+				//Trigger = Triggers.EnrageTrigger("EX1_412e")
+				Aura = new EnrageEffect(AuraType.SELF, "EX1_412e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -4965,7 +4972,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +2 Attack from Spiteful Smith.
 			// --------------------------------------------------------
 			cards.Add("CS2_221e", new Power {
-				Aura = new EnrageEffect(AuraType.WEAPON, Effects.Attack_N(2))
+				//Aura = new EnrageEffect(AuraType.WEAPON, Effects.Attack_N(2))
+				Enchant = new Enchant(new Effect(GameTag.ATK, EffectOperator.ADD, 2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5013,7 +5021,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_009e", new Power {
-				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(5))
+				//Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(5))
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_009e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5136,7 +5145,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_390e", new Power {
-				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(3))
+				//Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(3))
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_390e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5149,7 +5159,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_393e", new Power {
-				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(3))
+				//Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(3))
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_393e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -5162,7 +5173,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_412e", new Power {
-				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(1), Effects.Windfury),
+				//Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(1), Effects.Windfury),
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_412e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

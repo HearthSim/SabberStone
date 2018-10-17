@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -881,14 +883,16 @@ namespace SabberStoneCore.Enchants
 	{
 		private bool _enraged;
 		private IPlayable _target;
+		private Enchantment _currentInstance;
 
 		public EnrageEffect(AuraType type, params IEffect[] effects) : base(type, effects)
 		{
 		}
 
-		//public EnrageEffect(AuraType type, string enchantmentId) : base(type, enchantmentId)
-		//{
-		//}
+		public EnrageEffect(AuraType type, string enchantmentId) : base(type, enchantmentId)
+		{
+
+		}
 
 		private EnrageEffect(EnrageEffect prototype, IPlayable owner) : base(prototype, owner)
 		{
@@ -907,8 +911,8 @@ namespace SabberStoneCore.Enchants
 
 		public override void Activate(IPlayable owner, bool cloning = false)
 		{
-			if (owner is Enchantment e)
-				owner = (IPlayable)e.Target;
+			//if (owner is Enchantment e)
+			//	owner = (IPlayable)e.Target;
 
 			var instance = new EnrageEffect(this, owner);
 
@@ -921,31 +925,47 @@ namespace SabberStoneCore.Enchants
 			var m = Owner as Minion;
 
 			if (Type == AuraType.WEAPON)
-				_target = m.Controller.Hero.Weapon;
+			{
+				Weapon weapon = m.Controller.Hero.Weapon;
+				if (weapon == null)
+					return;
+
+				_target = weapon;
+			}
 
 			if (!On)
 			{
 				Game.Auras.Remove(this);
 				if (!_enraged) return;
-				if (_target != null)
-					for (int i = 0; i < Effects.Length; i++)
-						Effects[i].RemoveFrom(_target.AuraEffects);
+				foreach (IEffect eff in EnchantmentCard.Power.Enchant.Effects)
+				{
+					eff.RemoveFrom(_target);
+				}
+				_currentInstance?.Remove();
+				//if (_target != null)
+				//	for (int i = 0; i < Effects.Length; i++)
+				//		Effects[i].RemoveFrom(_target.AuraEffects);
 			}
 
 			if (!_enraged)
 			{
 				if (m.Damage == 0) return;
-				if (_target != null)
-					for (int i = 0; i < Effects.Length; i++)
-						Effects[i].ApplyTo(_target.AuraEffects);
+				//if (_target != null)
+				//	for (int i = 0; i < Effects.Length; i++)
+				//		Effects[i].ApplyTo(_target.AuraEffects);
+				Generic.AddEnchantmentBlock.Invoke(m.Controller, EnchantmentCard, m, _target, 0, 0);
+				if (Game.History)
+					_currentInstance = _target.AppliedEnchantments.Last();
 				_enraged = true;
 			}
 			else
 			{
 				if (m.Damage != 0) return;
-				if (_target != null)
-					for (int i = 0; i < Effects.Length; i++)
-						Effects[i].RemoveFrom(_target.AuraEffects);
+				//if (_target != null)
+				//	for (int i = 0; i < Effects.Length; i++)
+				//		Effects[i].RemoveFrom(_target.AuraEffects);
+				if (_currentInstance != null)
+					_target.AppliedEnchantments.Remove(_currentInstance);
 				_enraged = false;
 			}
 		}

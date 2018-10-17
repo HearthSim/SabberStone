@@ -53,9 +53,19 @@ namespace SabberStoneCore.Model.Entities
 
 		public override bool CanAttack => TotalAttackDamage > 0 && base.CanAttack;
 
-		public override bool HasWindfury => Weapon != null && Weapon.HasWindfury;
+		public override bool IsWindfury
+		{
+			get => Weapon != null && Weapon.IsWindfury;
+			set => Weapon.IsWindfury = value;
+		}
 
-		public override bool HasLifeSteal => Weapon?.HasLifeSteal ?? false;
+		public override bool IsLifeSteal => Weapon?.IsLifeSteal ?? false;
+
+		public override bool IsImmune
+		{
+			get => AuraEffects.Immune > 0 || base.IsImmune;
+			set => base.IsImmune = value;
+		}
 
 		public void AddWeapon(Weapon weapon)
 		{
@@ -65,7 +75,7 @@ namespace SabberStoneCore.Model.Entities
 			Weapon[GameTag.ZONE] = (int)Enums.Zone.PLAY;
 			Weapon[GameTag.ZONE_POSITION] = 0;
 			EquippedWeapon = weapon.Id;
-			if (weapon.HasWindfury && IsExhausted && NumAttacksThisTurn == 1)
+			if (weapon.IsWindfury && IsExhausted && NumAttacksThisTurn == 1)
 				IsExhausted = false;
 
 			Game.TriggerManager.OnEquipWeaponTrigger(weapon);
@@ -79,7 +89,7 @@ namespace SabberStoneCore.Model.Entities
 			if (Weapon == null)
 				return;
 
-			if (Weapon.HasDeathrattle)
+			if (Weapon.IsDeathrattle)
 				Weapon.ActivateTask(PowerActivation.DEATHRATTLE);
 
 			Game.TriggerManager.OnDeathTrigger(Weapon);

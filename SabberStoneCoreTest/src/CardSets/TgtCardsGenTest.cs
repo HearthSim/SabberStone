@@ -557,14 +557,14 @@ namespace SabberStoneCoreTest.CardSets
 
 			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Saber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1, 1));
-			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
-			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).Health);
-			Assert.True(((Minion)game.CurrentPlayer.BoardZone[0]).HasCharge);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone[0].AttackDamage);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[0].Health);
+			Assert.True(game.CurrentPlayer.BoardZone[0].HasCharge);
 			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Druid of the Saber"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2, 2));
-			Assert.Equal(3, ((Minion)game.CurrentPlayer.BoardZone[1]).AttackDamage);
-			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[1]).Health);
-			Assert.True(((Minion)game.CurrentPlayer.BoardZone[1]).HasStealth);
+			Assert.Equal(3, game.CurrentPlayer.BoardZone[1].AttackDamage);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone[1].Health);
+			Assert.True(game.CurrentPlayer.BoardZone[1].HasStealth);
 		}
 
 		// ----------------------------------------- MINION - DRUID
@@ -679,7 +679,7 @@ namespace SabberStoneCoreTest.CardSets
 			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, minion, game.CurrentOpponent.Hero));
 			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
-			Assert.True(((Minion)game.CurrentOpponent.BoardZone[0]).HasTaunt);
+			Assert.True(game.CurrentOpponent.BoardZone[0].HasTaunt);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER
@@ -1393,9 +1393,9 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Warhorse Trainer"));
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
-			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[0].AttackDamage);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[0]).AttackDamage);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone[0].AttackDamage);
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -2425,7 +2425,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
 			Assert.Equal(game.CurrentPlayer.BoardZone[1].Card[GameTag.ATK] + 2,
-				((Minion)game.CurrentPlayer.BoardZone[1]).AttackDamage);
+				game.CurrentPlayer.BoardZone[1].AttackDamage);
 		}
 
 		// ---------------------------------------- MINION - SHAMAN
@@ -3246,11 +3246,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dragonhawk Rider"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			Assert.False(((Minion)testCard).HasWindfury);
+			Assert.False(((Minion)testCard).IsWindfury);
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
-			Assert.True(((Minion)testCard).HasWindfury);
+			Assert.True(((Minion)testCard).IsWindfury);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			Assert.False(((Minion)testCard).HasWindfury);
+			Assert.False(((Minion)testCard).IsWindfury);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

@@ -1359,7 +1359,8 @@ namespace SabberStoneCore.CardSets
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_051", new Power {
-				Trigger = Triggers.EnrageTrigger("GVG_051e")
+				//Trigger = Triggers.EnrageTrigger("GVG_051e")
+				Aura = new EnrageEffect(AuraType.SELF, "GVG_051e")
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -1478,7 +1479,8 @@ namespace SabberStoneCore.CardSets
 			// Text: +1 Attack
 			// --------------------------------------------------------
 			cards.Add("GVG_051e", new Power {
-				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(1))
+				//Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(1))
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("GVG_051e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR

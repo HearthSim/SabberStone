@@ -1749,7 +1749,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_155", new Power {
-				Trigger = Triggers.EnrageTrigger("GIL_155e")
+				//Trigger = Triggers.EnrageTrigger("GIL_155e")
+				Aura = new EnrageEffect(AuraType.SELF, "GIL_155e")
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2708,7 +2709,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_155e", new Power {
-				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(3))
+				//Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(3))
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("GIL_155e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

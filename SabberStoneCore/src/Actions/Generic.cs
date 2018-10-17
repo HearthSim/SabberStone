@@ -269,7 +269,7 @@ namespace SabberStoneCore.Actions
 						Enchant.RemoveWhenPlayedTrigger.Activate(enchantment);
 
 					if (power.DeathrattleTask != null)
-						((IPlayable)target).HasDeathrattle = true;
+						((IPlayable)target).IsDeathrattle = true;
 				}
 				else
 				{

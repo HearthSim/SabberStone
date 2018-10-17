@@ -64,9 +64,9 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.DURABILITY] = value; }
 		}
 
-		public bool HasWindfury
+		public bool IsWindfury
 		{
-			get { return this[GameTag.WINDFURY] == 1; }
+			get => Card.Windfury;
 			set { this[GameTag.WINDFURY] = value ? 1 : 0; }
 		}
 
@@ -78,8 +78,30 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool Poisonous
 		{
-			get { return this[GameTag.POISONOUS] == 1; }
+			get
+			{
+				if (!_data.ContainsKey(GameTag.POISONOUS))
+					return Card.Poisonous;
+				return true;
+			}
 			set { this[GameTag.POISONOUS] = value ? 1 : 0; }
+		}
+
+		public override bool IsLifeSteal
+		{
+			get
+			{
+				if (!_data.ContainsKey(GameTag.LIFESTEAL))
+					return Card.LifeSteal;
+				return true;
+			}
+			set => base.IsLifeSteal = value;
+		}
+
+		public override bool IsDeathrattle
+		{
+			get => Card.Deathrattle;
+			set => this[GameTag.DEATHRATTLE] = value ? 1 : 0;
 		}
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

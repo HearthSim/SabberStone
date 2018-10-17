@@ -15,13 +15,13 @@ namespace SabberStoneCore.Model.Entities
 		private int _creatorId;
 		private IPlayable _creator;
 
-		private Enchantment(in Controller controller, in Card card, in EntityData tags)
+		private Enchantment(in Controller controller, in Card card, in EntityData tags, in int id)
 		{
 			Game = controller.Game;
 			Controller = controller;
 			Card = card;
 			_tags = tags;
-			Id = tags[GameTag.ENTITY_ID];
+			Id = id;
 		}
 
 		private Enchantment(in Controller c, in Enchantment e)
@@ -85,14 +85,14 @@ namespace SabberStoneCore.Model.Entities
 		/// <returns>The resulting enchantment entity.</returns>
 		public static Enchantment GetInstance(in Controller controller, in IPlayable creator, in IEntity target, in Card card)
 		{
-			var tags = new EntityData(8)
+			int id = controller.Game.NextId;
+
+			var tags = new EntityData(4)
 			{
-				{GameTag.ZONE, (int) Enums.Zone.SETASIDE},
-				{GameTag.CONTROLLER, controller.PlayerId},
-				{GameTag.ENTITY_ID, controller.Game.NextId}
+				{GameTag.ENTITY_ID, id}
 			};
 
-			var instance = new Enchantment(controller, card, tags)
+			var instance = new Enchantment(in controller, in card, in tags, in id)
 			{
 				Creator = creator,
 				Target = target,
@@ -108,6 +108,9 @@ namespace SabberStoneCore.Model.Entities
 
 			if (controller.Game.History)
 			{
+				tags.Add(GameTag.ZONE, (int)Enums.Zone.SETASIDE);
+				tags.Add(GameTag.CONTROLLER, controller.PlayerId);
+
 				controller.Game.PowerHistory.Add(new PowerHistoryFullEntity
 				{
 					Entity = new PowerHistoryEntity
@@ -169,7 +172,7 @@ namespace SabberStoneCore.Model.Entities
 			//	323 = 1
 
 			if (card.Power.DeathrattleTask != null)
-				((IPlayable)target).HasDeathrattle = true;
+				((IPlayable)target).IsDeathrattle = true;
 
 			controller.Game.Log(LogLevel.VERBOSE, BlockType.ACTION, "Enchantment",
 				!controller.Game.Logging ? "" : $"Enchantment {card} created by {creator} is added to {target}.");
@@ -249,9 +252,9 @@ namespace SabberStoneCore.Model.Entities
 		public bool IsSummoned { get; set; }
 		public bool IsExhausted { get; set; }
 		public int Overload { get; set; }
-		public bool HasDeathrattle { get; set; }
-		public bool HasLifeSteal { get; set; }
-		public bool HasEcho { get; }
+		public bool IsDeathrattle { get; set; }
+		public bool IsLifeSteal { get; set; }
+		public bool IsEcho { get; }
 		public IPlayable[] ChooseOnePlayables { get; set; }
 		public AuraEffects AuraEffects { get; set; }
 		public IDictionary<GameTag, int> NativeTags { get; }

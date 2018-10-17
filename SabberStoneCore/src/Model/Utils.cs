@@ -88,17 +88,37 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public static T[] ChooseNElements<T>(this IReadOnlyList<T> list, int amount) where T : class
 		{
-			T[] result = new T[amount];
-			for (int i = 0; i < amount; i++)
+			Random rnd = Random;
+			//T[] result = new T[amount];
+			//for (int i = 0; i < amount; i++)
+			//{
+			//	T pick;
+			//	do
+			//	{
+			//		pick = list[rnd.Next(list.Count)];
+			//	} while (result.Contains(pick));
+			//	result[i] = pick;
+			//}
+			//return result;
+			int c = list.Count;
+			if (amount > c)
+				amount = c;
+
+			int[] indices = Enumerable.Range(0, c).ToArray();
+
+			T[] results = new T[amount];
+			for (int i = 0, k = 0; i < amount; i++)
 			{
-				T pick;
-				do
-				{
-					pick = list[Random.Next(list.Count)];
-				} while (result.Contains(pick));
-				result[i] = pick;
+				int j = rnd.Next(i, c);
+
+				int temp = indices[i];
+				indices[i] = indices[j];
+				indices[j] = temp;
+
+				results[k++] = list[indices[i]];
 			}
-			return result;
+
+			return results;
 		}
 
 		/// <summary>

@@ -166,33 +166,13 @@ namespace SabberStoneCore.Actions
 						break;
 
 					case ChoiceAction.BUILDABEAST:
-						if (!c.Choice.ChoiceQueue.Any())
+						if (c.Choice.ChoiceQueue.Count == 0)
 						{
 							Card firstCard = c.Game.IdEntityDic[c.Choice.LastChoice].Card.Clone();
 							Card secondCard = playable.Card;
-							firstCard.Tags[GameTag.ATK] += secondCard[GameTag.ATK];
-							firstCard.Tags[GameTag.HEALTH] += secondCard[GameTag.HEALTH];
-							firstCard.Tags[GameTag.COST] += secondCard[GameTag.COST];
-							if (secondCard.Tags.ContainsKey(GameTag.TAUNT))
-								firstCard.Tags[GameTag.TAUNT] = 1;
-							if (secondCard.Tags.ContainsKey(GameTag.POISONOUS))
-								firstCard.Tags[GameTag.POISONOUS] = 1;
-							if (secondCard.Tags.ContainsKey(GameTag.STEALTH))
-								firstCard.Tags[GameTag.STEALTH] = 1;
-							if (secondCard.Tags.ContainsKey(GameTag.WINDFURY))
-								firstCard.Tags[GameTag.WINDFURY] = 1;
-							if (secondCard.Tags.ContainsKey(GameTag.CHARGE))
-								firstCard.Tags[GameTag.CHARGE] = 1;
-							if (secondCard.Tags.ContainsKey(GameTag.LIFESTEAL))
-								firstCard.Tags[GameTag.LIFESTEAL] = 1;
-							if (secondCard.Tags.ContainsKey(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS))
-								firstCard.Tags[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] = 1;
-							if (secondCard.Tags.ContainsKey(GameTag.CANT_BE_TARGETED_BY_SPELLS))
-								firstCard.Tags[GameTag.CANT_BE_TARGETED_BY_SPELLS] = 1;
-							firstCard.Name = "Zombeast";
-							firstCard.Text = secondCard.Text + "\n" + firstCard.Text;
+							Card zombeastCard = Card.CreateZombeastCard(in firstCard, in secondCard, c.Game.History);
 
-							IPlayable zombeast = Entity.FromCard(c, firstCard);
+							IPlayable zombeast = Entity.FromCard(in c, in zombeastCard);
 							zombeast[GameTag.DISPLAYED_CREATOR] = playable[GameTag.DISPLAYED_CREATOR];
 
 							AddHandPhase.Invoke(c, zombeast);

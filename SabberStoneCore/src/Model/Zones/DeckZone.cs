@@ -24,6 +24,8 @@ namespace SabberStoneCore.Model.Zones
 
 		private DeckZone(Controller c, DeckZone zone) : base(c, zone)
 		{
+			NoEvenCostCards = zone.NoEvenCostCards;
+			NoOddCostCards = zone.NoOddCostCards;
 			Type = Zone.DECK;
 		}
 

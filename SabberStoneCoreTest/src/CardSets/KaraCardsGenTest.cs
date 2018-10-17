@@ -465,10 +465,10 @@ namespace SabberStoneCoreTest.CardSets
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Purify"));
 			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-			Assert.True(((Minion)minion).HasDeathrattle);
+			Assert.True(((Minion)minion).IsDeathrattle);
 			Assert.Equal(1, game.CurrentPlayer.NumCardsDrawnThisTurn);
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, (ICharacter) minion));
-			Assert.False(((Minion)minion).HasDeathrattle);
+			Assert.False(((Minion)minion).IsDeathrattle);
 			Assert.Equal(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
 		}
 
@@ -539,7 +539,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(minion.Card.Id, game.CurrentPlayer.BoardZone[2].Card.Id);
-			Assert.Equal(7, ((Minion)game.CurrentPlayer.BoardZone[2]).Health);
+			Assert.Equal(7, game.CurrentPlayer.BoardZone[2].Health);
 		}
 	}
 
@@ -705,9 +705,9 @@ namespace SabberStoneCoreTest.CardSets
 
 			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[0]).Cost);
-			Assert.Equal(2, ((Minion)game.CurrentPlayer.BoardZone[1]).Cost);
-			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[2]).Cost);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[0].Cost);
+			Assert.Equal(2, game.CurrentPlayer.BoardZone[1].Cost);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[2].Cost);
 		}
 
 		// ---------------------------------------- MINION - SHAMAN
@@ -1478,8 +1478,8 @@ namespace SabberStoneCoreTest.CardSets
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Barnes"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[1]).AttackDamage);
-			Assert.Equal(1, ((Minion)game.CurrentPlayer.BoardZone[1]).Health);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[1].AttackDamage);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone[1].Health);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
