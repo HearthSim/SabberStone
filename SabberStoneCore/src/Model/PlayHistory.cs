@@ -1,4 +1,5 @@
 ﻿using SabberStoneCore.Model.Entities;
+using System.Text;
 
 namespace SabberStoneCore.Model
 {
@@ -10,7 +11,7 @@ namespace SabberStoneCore.Model
 		public readonly Card TargetCard;
 		public readonly int SubOption;
 
-		public PlayHistoryEntry(IPlayable source, IPlayable target = null, int chooseOne = -1)
+		public PlayHistoryEntry(in IPlayable source, in ICharacter target = null, in int chooseOne = -1)
 		{
 			SourceController = source.Controller.PlayerId;
 			TargetController = target?.Controller.PlayerId ?? 0;
@@ -19,9 +20,24 @@ namespace SabberStoneCore.Model
 			SubOption = chooseOne;
 		}
 
-		public PlayHistoryEntry(Card srcCard)
+		public PlayHistoryEntry(in Card srcCard)
 		{
 			SourceCard = srcCard;
+		}
+
+		public override string ToString()
+		{
+			StringBuilder sb = new StringBuilder($"[P{SourceController}]");
+			sb.Append($"[{SourceCard}]");
+			if (SubOption > 0)
+				sb.Append($"[SubOption:{SubOption}]");
+			if (TargetController != 0)
+			{
+				sb.Append("=>");
+				sb.Append($"[P{TargetController}]");
+				sb.Append($"[{TargetCard}]");
+			}
+			return sb.ToString();
 		}
 	}
 }

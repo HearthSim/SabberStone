@@ -9,14 +9,14 @@ using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
 
-namespace SabberStoneCoreTest.src.Basic
+namespace SabberStoneCoreTest.Basic
 {
 	/// <summary>
 	/// Tests for changed Mechanics updated since 12.0 patch
 	/// </summary>
 	public class UpdatedMechanics
 	{
-		[Fact]
+		[Fact(Skip = "not yet implemented")]
 		public static void CopyEnchantment1()
 		{
 			var game = new Game(new GameConfig

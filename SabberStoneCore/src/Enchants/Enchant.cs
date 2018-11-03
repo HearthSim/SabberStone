@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -98,9 +99,11 @@ namespace SabberStoneCore.Enchants
 		public Game Game;
 		private int _count = 1;
 		private int _lastCount = 1;
-		private int _targetId;
+		//private int _targetId;
 		private bool _toBeUpdated;
-		private IEntity _target;
+		//private IEntity _target;
+
+		IPlayable IAura.Owner => Target;
 
 		public OngoingEnchant(params IEffect[] effects) : base(effects) { }
 
@@ -113,15 +116,16 @@ namespace SabberStoneCore.Enchants
 				_toBeUpdated = true;
 			}
 		}
-		public IEntity Target
-		{
-			get => _target ?? (_target = Game.IdEntityDic[_targetId]);
-			set
-			{
-				_targetId = value.Id;
-				_target = value;
-			}
-		}
+		//public IEntity Target
+		//{
+		//	get => _target ?? (_target = Game.IdEntityDic[_targetId]);
+		//	set
+		//	{
+		//		_targetId = value.Id;
+		//		_target = value;
+		//	}
+		//}
+		public IPlayable Target { get; set; }
 
 		public override void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
 		{
@@ -146,7 +150,7 @@ namespace SabberStoneCore.Enchants
 
 		public void Remove()
 		{
-			((IPlayable)Target).OngoingEffect = null;
+			Target.OngoingEffect = null;
 			Target.Game.Auras.Remove(this);
 		}
 
@@ -162,10 +166,15 @@ namespace SabberStoneCore.Enchants
 			copy.Game.Auras.Add(copy);
 		}
 
+		void IAura.Activate(IPlayable owner)
+		{
+			throw new NotImplementedException();
+		}
+
 		public override string ToString()
 		{
 			var sb = new StringBuilder("[OE:");
-			sb.Append(_target.Card.Name);
+			sb.Append(Target.Card.Name);
 			sb.Append("]");
 			sb.Append(_toBeUpdated ? "[U]" : "[NU]");
 			return sb.ToString();

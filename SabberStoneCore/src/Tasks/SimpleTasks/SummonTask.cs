@@ -68,6 +68,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 			in TaskStack stack = null)
 		{
+			if (Card == null && stack?.Playables.Count == 0)
+				return TaskState.COMPLETE;
+
 			int alternateCount = 0;
 
 			for (int i = 0; i < _amount; ++i)

@@ -1389,7 +1389,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_565", new Power {
-				Aura = new Aura(AuraType.ADJACENT, "EX1_565o")
+				Aura = new AdjacentAura("EX1_565o")
 			});
 
 			// ---------------------------------------- MINION - SHAMAN

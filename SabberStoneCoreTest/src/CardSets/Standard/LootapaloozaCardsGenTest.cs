@@ -2081,7 +2081,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			do
 			{
 				if (game.CurrentPlayer.DeckZone[i] is Minion m)
-					game.CurrentPlayer.BoardZone.Add(game.CurrentPlayer.DeckZone.Remove(m));
+				{
+					game.CurrentPlayer.DeckZone.Remove(m);
+					game.CurrentPlayer.BoardZone.Add(m);
+				}
+
 				i++;
 			} while (!game.CurrentPlayer.BoardZone.IsFull && i < 26);
 

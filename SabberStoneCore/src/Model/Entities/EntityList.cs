@@ -5,6 +5,10 @@ using System.Diagnostics;
 
 namespace SabberStoneCore.Model.Entities
 {
+	/// <summary>
+	/// A collection of <see cref="IPlayable"/>/<see cref="int"/> id pairs of a <see cref="Game"/> instance.
+	/// Implements <see cref="IDictionary"/>.
+	/// </summary>
 	[DebuggerDisplay("Count = {_count}")]
 	public class EntityList : IDictionary<int, IPlayable>
 	{
@@ -63,6 +67,12 @@ namespace SabberStoneCore.Model.Entities
 			_count++;
 		}
 
+		public ReadOnlySpan<IPlayable> GetSpan()
+		{
+			return new ReadOnlySpan<IPlayable>(_list, 0, Count + 4);
+		}
+
+		#region IDictionary
 		public bool ContainsKey(int key)
 		{
 			return _list[key] != null;
@@ -148,5 +158,6 @@ namespace SabberStoneCore.Model.Entities
 		public int Count => _count;
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
 		public bool IsReadOnly => false;
+		#endregion
 	}
 }

@@ -297,8 +297,9 @@ namespace SabberStoneCore.Model.Entities
 					result = new HeroPower(in controller, in card, in tags, in id);
 					controller.AppliedEnchantments?.ForEach(p =>
 					{
-						if (p.OngoingEffect is Aura a)
-							a.ToBeUpdated = true;
+						if (p.OngoingEffect is Aura a && a.Type == AuraType.HEROPOWER)
+							a.EntityAdded(result);
+
 					});
 					break;
 
@@ -331,7 +332,7 @@ namespace SabberStoneCore.Model.Entities
 			// add entity to the appropriate zone if it was given
 			if (zone is BoardZone)
 				Generic.SummonBlock.Invoke(controller, (Minion)result, zonePos);
-			else if (zone is HandZone hand)
+			else if (zone is HandZone)
 				Generic.AddHandPhase.Invoke(controller, result);
 			else
 				zone?.Add(result, zonePos);

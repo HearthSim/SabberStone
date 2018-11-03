@@ -39,7 +39,7 @@ namespace SabberStoneCore.Model
 		/// <exception cref="ArgumentOutOfRangeException">step - when the provided step is unknown</exception>
 		public void NextStepEvent(Game game, Step step)
 		{
-			_game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Event", !_game.Game.Logging? "":$"NextStepEvent - {step}");
+			game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Event", !game.Logging? "":$"NextStepEvent - {step}");
 			switch (step)
 			{
 				case Step.BEGIN_FIRST:

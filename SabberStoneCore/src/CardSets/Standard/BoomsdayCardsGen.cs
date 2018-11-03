@@ -31,10 +31,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_238", new Power {
-				// TODO [BOT_238] Dr. Boom, Mad Genius && Test: Dr. Boom, Mad Genius_BOT_238
-				InfoCardId = "BOT_238e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new AddEnchantmentTask("BOT_238e", EntityType.CONTROLLER),
+					SpecificTask.GetRandomDrBoomHeroPower)
 			});
 
 			// ---------------------------------------- HERO - WHIZBANG
@@ -62,9 +61,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Entourage: BOT_238p1, BOT_238p2, BOT_238p3, BOT_238p4, BOT_238p6
 			// --------------------------------------------------------
 			cards.Add("BOT_238p", new Power {
-				// TODO [BOT_238p] Big Red Button && Test: Big Red Button_BOT_238p
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = SpecificTask.GetRandomDrBoomHeroPower
+				}
 			});
 
 			// ----------------------------------- HERO_POWER - WARRIOR
@@ -79,9 +79,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_238p1", new Power {
-				// TODO [BOT_238p1] Zap Cannon && Test: Zap Cannon_BOT_238p1
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(3, EntityType.TARGET),
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = SpecificTask.GetRandomDrBoomHeroPower
+				}
 			});
 
 			// ----------------------------------- HERO_POWER - WARRIOR
@@ -93,9 +95,11 @@ namespace SabberStoneCore.CardSets.Standard
 			//       Swaps each turn.
 			// --------------------------------------------------------
 			cards.Add("BOT_238p2", new Power {
-				// TODO [BOT_238p2] Blast Shield && Test: Blast Shield_BOT_238p2
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new ArmorTask(7),
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = SpecificTask.GetRandomDrBoomHeroPower
+				}
 			});
 
 			// ----------------------------------- HERO_POWER - WARRIOR
@@ -106,9 +110,11 @@ namespace SabberStoneCore.CardSets.Standard
 			//       Deal $1 damage to all enemies. Swaps each turn. @spelldmg
 			// --------------------------------------------------------
 			cards.Add("BOT_238p3", new Power {
-				// TODO [BOT_238p3] KABOOM! && Test: KABOOM!_BOT_238p3
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DamageTask(1, EntityType.ENEMIES),
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = SpecificTask.GetRandomDrBoomHeroPower
+				}
 			});
 
 			// ----------------------------------- HERO_POWER - WARRIOR
@@ -127,9 +133,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - GEARS = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_238p4", new Power {
-				// TODO [BOT_238p4] Delivery Drone && Test: Delivery Drone_BOT_238p4
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new DiscoverTask(DiscoverType.MECHANICAL),
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = SpecificTask.GetRandomDrBoomHeroPower
+				}
 			});
 
 			// ----------------------------------- HERO_POWER - WARRIOR
@@ -144,9 +152,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_238p6", new Power {
-				// TODO [BOT_238p6] Micro-Squad && Test: Micro-Squad_BOT_238p6
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new SummonTask("BOT_312t", 3),
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = SpecificTask.GetRandomDrBoomHeroPower
+				}
 			});
 
 		}
@@ -215,7 +225,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_434", new Power {
-				// TODO [BOT_434] Flobbidinous Floop
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
 				{
 					TriggerActivation = TriggerActivation.HAND,
@@ -321,10 +330,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_444", new Power {
-				// TODO [BOT_444] Floop's Glorious Gloop && Test: Floop's Glorious Gloop_BOT_444
-				InfoCardId = "BOT_444e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("BOT_444e", EntityType.CONTROLLER)
+
 			});
 
 		}
@@ -384,9 +391,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_444e", new Power {
-				// TODO [BOT_444e] Gloopy && Test: Gloopy_BOT_444e
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.DEATH)
+				{
+					SingleTask = new TempManaTask(1)
+				}
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -1719,6 +1727,7 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsMinion),
+					new RandomTask(1, EntityType.STACK),
 					new SummonCopyTask(EntityType.STACK))
 			});
 
@@ -3097,10 +3106,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_238e", new Power {
-				// TODO [BOT_238e] Boomtastic && Test: Boomtastic_BOT_238e
-				InfoCardId = "BOT_238e2",
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.BOARD, "BOT_238e2")
+				{
+					Condition = SelfCondition.IsRace(Race.MECHANICAL)
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3113,9 +3122,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_238e2", new Power {
-				// TODO [BOT_238e2] Boomtastic && Test: Boomtastic_BOT_238e2
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.RUSH, EffectOperator.SET, 1)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

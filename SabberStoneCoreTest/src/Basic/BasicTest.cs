@@ -80,9 +80,9 @@ namespace SabberStoneCoreTest.Basic
 			Assert.True(RelaCondition.IsSelf.Eval((ICharacter)entity1, (ICharacter)entity1)); // RelaCondition IsSelf is not correct for same entity
 			Assert.False(RelaCondition.IsSelf.Eval((ICharacter)entity1, (ICharacter)entity2)); // RelaCondition IsSelf is not correct for diffrent entity
 
-			game.Player1.BoardZone.Add(entity1);
-			game.Player1.BoardZone.Add(entity2);
-			game.Player1.BoardZone.Add(entity3);
+			game.Player1.BoardZone.Add((Minion)entity1);
+			game.Player1.BoardZone.Add((Minion)entity2);
+			game.Player1.BoardZone.Add((Minion)entity3);
 
 			Assert.False(RelaCondition.IsSideBySide.Eval((ICharacter)entity1, (ICharacter)entity1)); // RelaCondition IsSideBySide for same entity shouldn't be true
 			Assert.True(RelaCondition.IsSideBySide.Eval((ICharacter)entity1, (ICharacter)entity2)); // RelaCondition IsSideBySide for entitys side by side (1,2) shouldn't be false
@@ -101,9 +101,9 @@ namespace SabberStoneCoreTest.Basic
 			IPlayable entity2 = Entity.FromCard(game.Player1, Cards.FromId("EX1_012"));
 			IPlayable entity3 = Entity.FromCard(game.Player1, Cards.FromId("EX1_014"));
 
-			game.Player1.BoardZone.Add(entity1);
-			game.Player1.BoardZone.Add(entity2);
-			game.Player1.BoardZone.Add(entity3);
+			game.Player1.BoardZone.Add((Minion)entity1);
+			game.Player1.BoardZone.Add((Minion)entity2);
+			game.Player1.BoardZone.Add((Minion)entity3);
 
 			int pos1 = entity1.ZonePosition;
 			int pos2 = entity2.ZonePosition;
@@ -980,6 +980,25 @@ namespace SabberStoneCoreTest.Basic
 
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(2, game.CurrentPlayer.NumOptionsPlayedThisTurn);
+		}
+
+		[Fact]
+		public void FindBug()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PRIEST,
+				Player2HeroClass = CardClass.PRIEST,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+
+			//game.ProcessCard("Grimscale Oracle");
+			//game.ProcessCard("Psychic Scream", asZeroCost: true);
+
+			game.ProcessCard("Rebuke", asZeroCost: true);
 		}
 	}
 }

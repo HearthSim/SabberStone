@@ -1493,6 +1493,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Assert.True(testCard.HasTaunt);
 			Assert.True(testCard.IsLifeSteal);
+
+			var clone = game.Clone();
 		}
 
 		// --------------------------------------- MINION - PALADIN

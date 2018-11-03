@@ -188,11 +188,12 @@ namespace SabberStoneCore.CardSets
 			cards.Add("EX1_062", new Power {
 				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p =>
 				{
-					int i = 0;
-					foreach (Minion m in p.Controller.BoardZone)
-						if (m.Race == Race.MURLOC)
-							i++;
-					return i;
+					int count = 0;
+					var span = p.Controller.BoardZone.GetSpan();
+					for (int i = 0; i < span.Length; i++)
+						if (span[i].Race == Race.MURLOC)
+							count++;
+					return count;
 				})
 			});
 

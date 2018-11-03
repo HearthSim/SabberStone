@@ -7,14 +7,14 @@ namespace SabberStoneCore.Model.Zones
 	{
 		public GraveyardZone(Controller controller) : base(controller)
 		{
-			Type = Zone.GRAVEYARD;
 		}
 
 		private GraveyardZone(Controller c, GraveyardZone zone) : base(c, zone)
 		{
-			Type = Zone.GRAVEYARD;
 			//Entities = new List<IPlayable>(zone.Entities);
 		}
+
+		public override Zone Type => Zone.GRAVEYARD;
 
 		public override void Add(IPlayable entity, int zonePosition = -1)
 		{

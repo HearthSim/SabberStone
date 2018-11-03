@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 
@@ -10,6 +12,245 @@ namespace SabberStoneCore.Model
 	/// </summary>
 	public static class Util
 	{
+		internal class PriorityQueue<TValue>
+		{
+			[DebuggerDisplay("{DebuggerDisplay,nq}")]
+			private class Node
+			{
+				public readonly TValue Value;
+				public readonly int Key;
+				public Node Next { get; set; }
+
+				public Node() { }
+
+				public Node(in TValue value, int key)
+				{
+					Value = value;
+					Key = key;
+				}
+
+				private string DebuggerDisplay => $"({Value}, {Key})";
+			}
+
+			private const int InitSize = 4;
+
+			private readonly Node _head = new Node();
+
+			public int Count { get; set; }
+
+			public void Enqueue(in TValue value, int priority)
+			{
+				Node cursor = _head;
+
+				while (cursor.Next != null)
+				{
+					if (cursor.Next.Key <= priority)
+						cursor = cursor.Next;
+					else
+						break;
+				}
+
+				Node temp = cursor.Next;
+				var newNode = new Node(in value, priority);
+				cursor.Next = newNode;
+				newNode.Next = temp;
+
+				Count++;
+			}
+
+			public TValue Dequeue()
+			{
+				Node node = _head.Next;
+
+				_head.Next = node.Next;
+
+				Count--;
+
+				return node.Value;
+			}
+
+			public IEnumerator<TValue> GetEnumerator()
+			{
+				Node cursor = _head;
+				while (cursor.Next != null)
+				{
+					yield return cursor.Next.Value;
+					cursor = cursor.Next;
+				}
+			}
+		}
+
+		internal class SmallFastCollection
+		{
+			private const int InitSize = 6;
+
+			private int[] _array;
+			private int _index;
+			private int _size;
+
+			public int Count { get; set; }
+
+			public SmallFastCollection()
+			{
+				_array = new int[InitSize];
+				_size = InitSize;
+			}
+
+			public SmallFastCollection(int size)
+			{
+				_array = new int[size];
+				_size = size;
+			}
+
+			public SmallFastCollection(SmallFastCollection other)
+			{
+				int s = other._size;
+				var array = new int[s];
+				Array.Copy(other._array, array, s);
+
+				_size = s;
+				_index = other._index;
+				_array = array;
+				Count = other.Count;
+			}
+
+			public void Add(int item)
+			{
+				int c = Count;
+				int i = _index;
+				int s = _size;
+
+				if (c == s)
+				{
+					Resize();
+					s = _size;
+					i = _index;
+				}
+
+				_array[i] = item;
+				Count = ++c;
+
+				if (c == s)
+					return;
+
+				while (++i < s)
+				{
+					if (_array[i] == 0)
+					{
+						_index = i;
+						return;
+					}
+				}
+				i = 0;
+				do
+				{
+					if (_array[i] == 0)
+					{
+						_index = i;
+						return;
+					}
+
+					i++;
+				} while (true);
+			}
+
+			public bool Remove(int item)
+			{
+				int c = Count;
+				if (c == 0) return false;
+				int i, j = 0;
+				int[] array = _array;
+				for (i = 0; i < array.Length; i++)
+				{
+					if (array[i] == 0) continue;
+
+					if (array[i] == item) break;
+
+					if (++j == c) return false;
+				}
+
+				_array[i] = 0;
+				_index = i;
+				Count = c - 1;
+
+				return true;
+			}
+
+			public bool Contains(int item)
+			{
+				return Search(item) >= 0;
+			}
+
+			public void Clear()
+			{
+				_array = new int[_size];
+				Count = 0;
+				_index = 0;
+			}
+
+			public void ForEach(Action<int> action)
+			{
+				int[] array = _array;
+				for (int i = 0; i < array.Length; i++)
+				{
+					if (array[i] == 0) continue;
+					action(array[i]);
+				}
+			}
+			public void ForEach<T>(T arg, Action<int, T> action)
+			{
+				int[] array = _array;
+				for (int i = 0; i < array.Length; i++)
+				{
+					if (array[i] == 0) continue;
+					action(array[i], arg);
+				}
+			}
+			public void ForEach<T1, T2>(T1 arg1, T2 arg2, Action<int, T1, T2> action)
+			{
+				int[] array = _array;
+				for (int i = 0; i < array.Length; i++)
+				{
+					if (array[i] == 0) continue;
+					action(array[i], arg1, arg2);
+				}
+			}
+
+			private int Search(int item)
+			{
+				int[] array = _array;
+				for (int i = 0; i < array.Length; i++)
+				{
+					if (array[i] == 0) continue;
+
+					if (array[i] == item)
+						return i;
+				}
+				return -1;
+			}
+
+			private int SearchEmptySlot()
+			{
+				int[] array = _array;
+				for (int i = 0; i < array.Length; i++)
+					if (array[i] == 0)
+						return i;
+
+				throw new Exception();
+			}
+
+			private void Resize()
+			{
+				int s = _size;
+				int newSize = s * 2;
+				var newArray = new int[newSize];
+				Array.Copy(_array, newArray, s);
+				_array = newArray;
+				_size = newSize;
+				_index = s;
+			}
+		}
+
 		/// <summary>The source of randomness.</summary>
 		public static Random Random => ThreadLocalRandom.Instance;
 

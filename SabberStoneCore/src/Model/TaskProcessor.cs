@@ -179,9 +179,9 @@ namespace SabberStoneCore.Model
 
 	internal class EventMetaData
 	{
-		public IPlayable EventSource;
-		public IPlayable EventTarget;
-		public int EventNumber;
+		public IPlayable EventSource { get; set; }
+		public IPlayable EventTarget { get; set; }
+		public int EventNumber { get; set; }
 
 		public EventMetaData(IPlayable source, IPlayable target, int number = 0)
 		{

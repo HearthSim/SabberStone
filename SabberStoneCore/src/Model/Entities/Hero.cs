@@ -124,7 +124,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			var str = new StringBuilder();
 			string mStr = Weapon != null ? $"[{Weapon.Card.Name}[{Weapon.AttackDamage}/{Weapon.Durability}]]" : "[NO WEAPON]";
-			str.Append($"[HERO][{this}][ATK{AttackDamage}/AR{Armor}/HP{Health}][{mStr}][SP{Controller.CurrentSpellPower}]");
+			str.Append($"[HERO][{this}][ATK{AttackDamage}/AR{Armor}/HP{Health}][WP{mStr}][SP{Controller.CurrentSpellPower}]");
 			//str.Append($"[ENCH {OldEnchants.Count}]");
 			//str.Append($"[TRIG {Triggers.Count}]");
 			return str.ToString();

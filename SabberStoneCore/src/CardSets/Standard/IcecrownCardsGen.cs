@@ -502,7 +502,7 @@ namespace SabberStoneCore.CardSets.Standard
 					//}),
 					Condition = SelfCondition.IsDefenderDead,
 					SingleTask = ComplexTask.Create(
-						new FuncNumberTask(p => p.Game.ProposedDefender),
+						new FuncNumberTask(p => p.Game.CurrentEventData.EventTarget.Id),
 						new MemoryTask(EntityType.SOURCE),
 						new AddEnchantmentTask("ICC_314t1e", EntityType.SOURCE, true))
 				},

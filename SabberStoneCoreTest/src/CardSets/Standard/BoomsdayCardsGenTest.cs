@@ -671,10 +671,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void FloopsGloriousGloop_BOT_444()
 		{
-			// TODO FloopsGloriousGloop_BOT_444 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -689,10 +688,39 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				FillDecksPredictably = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Floop's Glorious Gloop"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Floop's Glorious Gloop"));
+
+
+			game.ProcessCard("Wisp");
+			game.ProcessCard("Wisp");
+			game.ProcessCard("Wisp");
+			game.ProcessCard("Wisp");
+
+			game.EndTurn();
+
+			game.ProcessCard("Wisp");
+			game.ProcessCard("Wisp");
+			game.ProcessCard("Wisp");
+			game.ProcessCard("Wisp");
+
+			game.EndTurn();
+
+			int start = game.CurrentPlayer.RemainingMana;
+
+			game.ProcessCard("Floop's Glorious Gloop", null, true); // cast as zero cost
+
+			game.Process(MinionAttackTask.Any(game.Player1, game.Player1.BoardZone[0], game.Player2.BoardZone[0]));
+			game.Process(MinionAttackTask.Any(game.Player1, game.Player1.BoardZone[0], game.Player2.BoardZone[0]));
+			game.Process(MinionAttackTask.Any(game.Player1, game.Player1.BoardZone[0], game.Player2.BoardZone[0]));
+			game.Process(MinionAttackTask.Any(game.Player1, game.Player1.BoardZone[0], game.Player2.BoardZone[0]));
+
+			Assert.Equal(start + 8, game.CurrentPlayer.RemainingMana);
+			game.EndTurn();
+			game.ProcessCard("Wisp");
+			game.EndTurn();
+			Assert.Equal(start + 1, game.CurrentPlayer.RemainingMana);
+			game.ProcessCard("Wisp");
+			game.Process(MinionAttackTask.Any(game.Player1, game.Player1.BoardZone[0], game.Player2.BoardZone[0]));
+			Assert.Equal(start + 1, game.CurrentPlayer.RemainingMana);
 		}
 
 	}
@@ -2025,7 +2053,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			game.EndTurn();
 
-		Assert.Single(game.CurrentOpponent.BoardZone);
+			Assert.Single(game.CurrentOpponent.BoardZone);
 		}
 	
 
@@ -4097,6 +4125,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(3, game.CurrentPlayer.Hero.Damage);
 			Assert.Equal(3, game.CurrentOpponent.Hero.Damage);
 			Assert.Equal(0, test.Damage);
+
+			game.EndTurn();
+			game.CurrentPlayer.BoardZone[0].Kill();
+
+			game.EndTurn();
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

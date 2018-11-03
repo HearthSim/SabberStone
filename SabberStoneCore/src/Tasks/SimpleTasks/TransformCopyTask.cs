@@ -67,6 +67,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					case GameTag.CREATOR:
 					case GameTag.PREMIUM:
 					case GameTag.EXHAUSTED:
+					case GameTag.DEATHRATTLE:
 						continue;
 					default:
 						copy._data.Add(kvp.Key, kvp.Value);

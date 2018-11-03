@@ -23,14 +23,15 @@ namespace SabberStoneCoreTest.Cloning
 				CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR
 			};
 			bool flag = true;
-			for (int i = 0; i < 10 && flag; i++)
+			for (int i = 0; i < 2000 && flag; i++)
 			{
 				var game = new Game(new GameConfig
 				{
 					StartPlayer = 1,
 					Player1HeroClass = classes[rnd.Next(classes.Length)],
 					Player2HeroClass = classes[rnd.Next(classes.Length)],
-					FillDecks = true
+					FillDecks = true,
+					Logging = false
 				});
 				game.StartGame();
 
@@ -44,6 +45,7 @@ namespace SabberStoneCoreTest.Cloning
 					string str2 = cloneGame.Hash();
 
 					flag &= str1.Equals(str2);
+
 					if (!flag)
 						break;
 				}
@@ -60,7 +62,9 @@ namespace SabberStoneCoreTest.Cloning
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
 				Player2HeroClass = CardClass.SHAMAN,
-				FillDecks = true
+				FillDecks = true,
+				History = false,
+				Logging = false
 			});
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
@@ -92,7 +96,10 @@ namespace SabberStoneCoreTest.Cloning
 
 			GameTag[] ignored = new GameTag[] {GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID};
 
-			Assert.Equal(game.Hash(ignored), clone.Hash(ignored));
+			string gameHash = game.Hash(ignored);
+			string cloneHash = clone.Hash(ignored);
+
+			Assert.Equal(gameHash, cloneHash);
 		}
 
 		[Fact]

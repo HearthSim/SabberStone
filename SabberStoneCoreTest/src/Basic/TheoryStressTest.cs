@@ -162,29 +162,29 @@ namespace SabberStoneCoreTest.Basic
 			}
 		}
 
-		[Fact]
-		public static void AuraTimingTest2()
-		{
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.PALADIN,
-				Player2HeroClass = CardClass.HUNTER,
-				FillDecks = true,
-				Shuffle = false
-			});
-			game.Player1.BaseMana = 10;
-			game.StartGame();
+		//[Fact]
+		//public static void AuraTimingTest2()
+		//{
+		//	var game = new Game(new GameConfig
+		//	{
+		//		StartPlayer = 1,
+		//		Player1HeroClass = CardClass.PALADIN,
+		//		Player2HeroClass = CardClass.HUNTER,
+		//		FillDecks = true,
+		//		Shuffle = false
+		//	});
+		//	game.Player1.BaseMana = 10;
+		//	game.StartGame();
 
-			Minion minion = game.ProcessCard<Minion>("Stonetusk Boar");
-			Minion auraSource = game.ProcessCard<Minion>("Dire Wolf Alpha", null, true);
-			Minion minion2 = game.ProcessCard<Minion>("Stonetusk Boar");
-			Minion lurker = game.ProcessCard<Minion>("Moat Lurker", auraSource, true);
-			Game clone = game.Clone();
+		//	Minion minion = game.ProcessCard<Minion>("Stonetusk Boar");
+		//	Minion auraSource = game.ProcessCard<Minion>("Dire Wolf Alpha", null, true);
+		//	Minion minion2 = game.ProcessCard<Minion>("Stonetusk Boar");
+		//	Minion lurker = game.ProcessCard<Minion>("Moat Lurker", auraSource, true);
+		//	Game clone = game.Clone();
 
-			game.ProcessCard("Assassinate", lurker);
-			clone.ProcessCard("Assassinate", clone.CurrentPlayer.BoardZone[3]);
-		}
+		//	game.ProcessCard("Assassinate", lurker);
+		//	clone.ProcessCard("Assassinate", clone.CurrentPlayer.BoardZone[3]);
+		//}
 
 		[Fact]
 		public static void JaraxxusRepentance()

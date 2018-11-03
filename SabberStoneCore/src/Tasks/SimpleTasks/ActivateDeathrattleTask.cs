@@ -41,7 +41,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 			}
 
-			return TaskState.STOP;
+			return TaskState.COMPLETE;
 		}
 	}
 }

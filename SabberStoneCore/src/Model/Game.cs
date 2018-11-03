@@ -225,8 +225,6 @@ namespace SabberStoneCore.Model
 		///// Gets the dictionary containing all generated entities for this game.
 		///// </summary>
 		///// <value><see cref="IPlayable"/></value>
-		//public Dictionary<int, IPlayable> IdEntityDic { get; private set; }
-
 		public EntityList IdEntityDic { get; private set; }
 
 		/// <summary>
@@ -379,11 +377,17 @@ namespace SabberStoneCore.Model
 			if (game._currentPlayer != null)
 				CurrentPlayer = game.CurrentPlayer.Id == 2 ? _players[0] : _players[1];
 
-			Auras.ForEach(p =>
+			// Clone auras lastly
+			foreach (IAura aura in game.Auras)
 			{
-				if (p is Aura a)
-					a.AddToZone();
-			});
+				aura.Clone(IdEntityDic[aura.Owner.Id]);
+			}
+
+			//Auras.ForEach(p =>
+			//{
+			//	if (p is Aura a)
+			//		a.AddToZone();
+			//});
 
 			TaskQueue = new TaskQueue(this);
 

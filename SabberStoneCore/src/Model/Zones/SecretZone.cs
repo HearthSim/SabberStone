@@ -18,25 +18,26 @@ namespace SabberStoneCore.Model.Zones
 		{
 			Game = controller.Game;
 			Controller = controller;
-			Type = Zone.SECRET;
 		}
 
 		private SecretZone(Controller c, SecretZone zone) : base(c, zone)
 		{
 			Quest = (Spell) zone.Quest?.Clone(c);
-			Type = Zone.SECRET;
 		}
 
-		public override void Add(IPlayable entity, int zonePosition = -1)
+		public override Zone Type => Zone.SECRET;
+
+
+		public override void Add(Spell entity, int zonePosition = -1)
 		{
 			if (entity.Card.IsQuest)
 			{
 				if (Quest != null)
 					throw new ZoneException($"Another quest is already in play");
 
-				Quest = (Spell)entity;
-				Quest[GameTag.ZONE] = (int)Type;
-				Quest.Zone = this;
+				Quest = entity;
+				entity[GameTag.ZONE] = (int)Type;
+				entity.Zone = this;
 
 				Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Quest {entity} has been added to zone '{Type}'.");
 
@@ -54,7 +55,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public override IEnumerator<Spell> GetEnumerator()
 		{
-			var entities = (Spell[])Entities;
+			var entities = Entities;
 			for (int i = 0; i < _count; i++)
 				yield return entities[i];
 			if (Quest != null)

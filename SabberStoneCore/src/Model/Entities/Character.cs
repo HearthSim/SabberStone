@@ -131,6 +131,8 @@ namespace SabberStoneCore.Model.Entities
 						return HasStealth ? 1 : 0;
 					case GameTag.IMMUNE:
 						return IsImmune ? 1 : 0;
+					case GameTag.TAUNT:
+						return HasTaunt ? 1 : 0;
 					default:
 						return base[t];
 				}
@@ -153,6 +155,9 @@ namespace SabberStoneCore.Model.Entities
 						return;
 					case GameTag.IMMUNE:
 						IsImmune = value > 0;
+						return;
+					case GameTag.TAUNT:
+						HasTaunt = value > 0;
 						return;
 					default:
 						base[t] = value;
@@ -237,6 +242,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <returns></returns>
 		public int TakeDamage(IPlayable source, int damage)
 		{
+			Game game = Game;
 			var hero = this as Hero;
 			var minion = this as Minion;
 
@@ -250,7 +256,7 @@ namespace SabberStoneCore.Model.Entities
 
 			if (minion != null && minion.HasDivineShield)
 			{
-				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} divine shield absorbed incoming damage.");
+				game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !game.Logging? "":$"{this} divine shield absorbed incoming damage.");
 				minion.HasDivineShield = false;
 				return 0;
 			}
@@ -259,21 +265,39 @@ namespace SabberStoneCore.Model.Entities
 
 			int amount = hero == null ? damage : armor < damage ? damage - armor : 0;
 
-			// added pre damage
-			PreDamage = amount;
+			// Damage event is created
+			// Collect all the tasks and sort them by order of play
+			// Death phase and aura update are not emerge here
 
-			// Predamage triggers (Ice Block)
+			// place event related data
+			game.TaskQueue.StartEvent();
+			EventMetaData temp = game.CurrentEventData;
+			game.CurrentEventData = new EventMetaData(source, this, amount);
+
+			// added pre damage
+			if (_history)
+				PreDamage = amount;
+
+			// Predamage triggers (e.g. Ice Block)
 			if (PreDamageTrigger != null)
 			{
 				PreDamageTrigger.Invoke(this);
-				amount = PreDamage;
+				amount = game.CurrentEventData.EventNumber;
 			}
 			if (IsImmune)
 			{
-				Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging ? "" : $"{this} is immune.");
-				PreDamage = 0;
+				game.TaskQueue.EndEvent();
+				game.CurrentEventData = temp;
+
+				game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !game.Logging ? "" : $"{this} is immune.");
+				if (_history)
+					PreDamage = 0;
 				return 0;
 			}
+
+			// reset predamage
+			if (_history)
+				PreDamage = 0;
 
 			// remove armor first from hero ....
 			if (armor > 0)
@@ -282,46 +306,34 @@ namespace SabberStoneCore.Model.Entities
 			// final damage is beeing accumulated
 			Damage += amount;
 
-			Game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !Game.Logging? "":$"{this} took damage for {PreDamage}({damage}). {(fatigue ? "(fatigue)" : "")}");
-
-			// reset predamage
-			PreDamage = 0;
+			game.Log(LogLevel.INFO, BlockType.ACTION, "Character", !game.Logging? "":$"{this} took damage for {amount}({damage}). {(fatigue ? "(fatigue)" : "")}");
 
 			//LastAffectedBy = source.Id;	TODO
 
-
-			// Damage event is created
-			// Collect all the tasks and sort them by order of play
-			// Death phase and aura update are not emerge here
-
-			// place event related data
-			Game.TaskQueue.StartEvent();
-			EventMetaData temp = Game.CurrentEventData;
-			Game.CurrentEventData = new EventMetaData(source, this, amount);
-
 			// on-damage triggers
 			TakeDamageTrigger?.Invoke(this);
-			Game.TriggerManager.OnDamageTrigger(this);
-			Game.TriggerManager.OnDealDamageTrigger(source);
-			Game.ProcessTasks();
-			Game.TaskQueue.EndEvent();
-			Game.CurrentEventData = temp;
+			game.TriggerManager.OnDamageTrigger(this);
+			game.TriggerManager.OnDealDamageTrigger(source);
+			game.ProcessTasks();
+			game.TaskQueue.EndEvent();
+			game.CurrentEventData = temp;
 
+			// Check if the source is lifesteal
 			if (source.IsLifeSteal && !_lifestealChecker)
 			{
 				if (_history)
-					Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, source.Id, source.Card.Id, -1, 0)); // TriggerKeyword=LIFESTEAL
-				Game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "TakeDamage", !_logging ? "" : $"lifesteal source {source} has damaged target for {amount}.");
+					game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, source.Id, source.Card.Id, -1, 0)); // TriggerKeyword=LIFESTEAL
+				game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "TakeDamage", !_logging ? "" : $"lifesteal source {source} has damaged target for {amount}.");
 				source.Controller.Hero.TakeHeal(source, amount);
 				if (_history)
-					Game.PowerHistory.Add(new PowerHistoryBlockEnd());
+					game.PowerHistory.Add(new PowerHistoryBlockEnd());
 
 				if (source.Controller.Hero.ToBeDestroyed && source.Controller.Hero.Health > 0)
 					source.Controller.Hero.ToBeDestroyed = false;
 			}
 
-			if (this is Hero h)
-				h.DamageTakenThisTurn += amount;
+			if (hero != null)
+				hero.DamageTakenThisTurn += amount;
 
 			return amount;
 		}
@@ -445,7 +457,7 @@ namespace SabberStoneCore.Model.Entities
 		int BaseHealth { get; }
 
 		/// <summary>
-		/// This character is currently attacking another characteaftr.
+		/// This character is currently attacking another character.
 		/// </summary>
 		bool IsAttacking { get; set; }
 

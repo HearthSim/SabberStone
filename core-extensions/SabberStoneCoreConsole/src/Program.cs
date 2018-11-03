@@ -27,11 +27,12 @@ namespace SabberStoneCoreConsole
 
 			Console.WriteLine(Cards.Statistics());
 			//StabilityTest.CloneStabilityTest();
-			//StabilityTest.ThreadSafetyTest();
+			//StabilityTest.TestRun();
+			StabilityTest.ThreadSafetyTest();
 			//EntityChangeTest();
 			//YoggTest();
 			//TessGreymane();
-			Shudderwock();
+			//Shudderwock();
 
 			//BasicBuffTest();
 			//CardsTest();

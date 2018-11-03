@@ -198,7 +198,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			controller.Game.IdEntityDic[playable.Id] = this;
 
-			playable.OngoingEffect?.Clone(this);
+			//playable.OngoingEffect?.Clone(this);
 			playable.ActivatedTrigger?.Activate(this, cloning: true);
 
 			// Cloning applied enchantments.

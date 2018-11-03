@@ -37,6 +37,8 @@ namespace SabberStoneCore.Actions
 				if (source is Spell)
 					source[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = source.Cost;
 
+				bool echo = source.IsEcho;
+
 				if (!RemoveFromZone.Invoke(c, source))
 					return false;
 
@@ -55,7 +57,7 @@ namespace SabberStoneCore.Actions
 				// record played cards for effect of cards like Obsidian Shard and Lynessa Sunsorrow
 				// or use graveyard instead with 'played' tag(or bool)?
 				c.CardsPlayedThisTurn.Add(source.Card);
-				c.PlayHistory.Add(new PlayHistoryEntry(source, target, chooseOne));
+				c.PlayHistory.Add(new PlayHistoryEntry(in source, in target, in chooseOne));
 
 				//// show entity
 				//if (c.Game.History)
@@ -86,7 +88,7 @@ namespace SabberStoneCore.Actions
 						break;
 				}
 
-				if (source.IsEcho)
+				if (echo)
 				{
 					var echoTags = new EntityData
 					{

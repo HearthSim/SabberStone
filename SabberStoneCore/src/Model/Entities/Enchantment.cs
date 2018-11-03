@@ -13,7 +13,9 @@ namespace SabberStoneCore.Model.Entities
 	{
 		private readonly EntityData _tags;
 		private int _creatorId;
+		private int _controllerId;
 		private IPlayable _creator;
+		private Controller _controller;
 
 		private Enchantment(in Controller controller, in Card card, in EntityData tags, in int id)
 		{
@@ -27,12 +29,12 @@ namespace SabberStoneCore.Model.Entities
 		private Enchantment(in Controller c, in Enchantment e)
 		{
 			Game = c.Game;
-			Controller = c;
 			Card = e.Card;
 			Id = e.Id;
 			Target = e.Target is IPlayable ? (IEntity) Game.IdEntityDic[e.Target.Id] : c;
+			_controllerId = e._controllerId;
 			_creatorId = e._creatorId;
-			e.OngoingEffect?.Clone(this);
+			//e.OngoingEffect?.Clone(this);
 			e.ActivatedTrigger?.Activate(this);
 			//Game.IdEntityDic.Add(Id, this);
 			Game.IdEntityDic[Id] = this;
@@ -66,6 +68,16 @@ namespace SabberStoneCore.Model.Entities
 			{
 				_creatorId = value.Id;
 				_creator = value;
+			}
+		}
+
+		public Controller Controller
+		{
+			get => _controller ?? (_controller = Game.ControllerById(_controllerId));
+			set
+			{
+				_controllerId = value.Id;
+				_controller = value;
 			}
 		}
 
@@ -233,7 +245,6 @@ namespace SabberStoneCore.Model.Entities
 		public int OrderOfPlay { get; set; }
 		public Game Game { get; set; }
 		public Card Card { get; set; }
-		public Controller Controller { get; set; }
 		public IZone Zone { get; set; }
 		public IAura OngoingEffect { get; set; }
 		public IEnumerable<ICharacter> ValidPlayTargets { get; }

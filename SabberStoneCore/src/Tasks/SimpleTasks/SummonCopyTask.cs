@@ -4,6 +4,7 @@ using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -76,13 +77,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				game.OnRandomHappened(true);
 
 
-			int space = controller.BoardZone.MaxSize - controller.BoardZone.Count;
+			BoardZone board = controller.BoardZone;
+			int space = board.MaxSize - board.Count;
 
 			space = entities.Count > space ? space : entities.Count;
 
 			if (entities[0].Zone == null || entities[0].Zone.Type != Zone.PLAY)
 				for (int i = 0; i < space; i++)
 				{
+					if (board.IsFull)
+						break;
+
 					var minion = (Minion)Entity.FromCard(in controller, entities[i].Card,
 						new EntityData
 						{

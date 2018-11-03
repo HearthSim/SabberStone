@@ -228,15 +228,7 @@ namespace SabberStoneCore.Conditions
 			new SelfCondition(me => !me.Card.RequiresTarget || me.ValidPlayTargets.Any());
 
 		public static readonly SelfCondition IsHeroLethalPreDamaged
-			= new SelfCondition(me =>
-			{
-				var hero = me as Hero;
-				if (hero == null)
-				{
-					return false;
-				}
-				return hero.PreDamage > 0 && hero.PreDamage >= hero.Health;
-			});
+			= new SelfCondition(me => me is Hero hero && hero.Game.CurrentEventData.EventNumber >= hero.Health);
 
 		public static SelfCondition IsCurrentEventNumber(int value, RelaSign relaSign)
 		{

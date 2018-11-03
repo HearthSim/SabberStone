@@ -223,6 +223,9 @@ namespace SabberStoneCore.Tasks
 						}
 					}
 
+					if (_glimmerrootMemory1.Count == 0)
+						return null;
+
 					//var result = new List<Card> { Util.Choose(_glimmerrootMemory1) };
 					//while (result.Count < 3)
 					//{
@@ -779,7 +782,34 @@ namespace SabberStoneCore.Tasks
 				return 0;
 			});
 		private static Dictionary<CardClass, Card[]> _cachedSecrets;
-		
+
+		public static ISimpleTask GetRandomDrBoomHeroPower =>
+			new FuncNumberTask(source =>
+			{
+				string nextId;
+				Controller c = source.Controller;
+
+				if (source is HeroPower currentPower)
+				{
+					do
+					{
+						nextId = Util.Choose(DrBoomHeroPowerIds);
+					} while (nextId == currentPower.Card.Id);
+				}
+				else
+				{
+					nextId = null;
+					currentPower = c.Hero.HeroPower;
+				}
+				c.SetasideZone.Add(currentPower);
+				HeroPower nextPower = (HeroPower)Entity.FromCard(in c, Cards.FromId(nextId));
+				c.Hero.HeroPower = nextPower;
+				nextPower.Power?.Trigger?.Activate(nextPower);
+
+				return 0;
+			});
+		private static IReadOnlyList<string> DrBoomHeroPowerIds = Cards.FromId("BOT_238p").Entourage;
+
 
 		public class RenonunceDarkness : SimpleTask
 		{

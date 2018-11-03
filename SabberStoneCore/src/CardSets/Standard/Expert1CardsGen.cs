@@ -2691,10 +2691,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_315", new Power {
-				Aura = new Aura(AuraType.HAND, Effects.ReduceCost(0))
+				Aura = new Aura(AuraType.HAND, new ConditionalEffect(GameTag.COST, EffectOperator.SUB, p =>
 				{
-					Condition = SelfCondition.IsMinion,
-					ValueFunc = p => p.Card.Cost > 2 ? 2 : (p.Card.Cost == 2 ? 1 : 0)
+					int c = p.Card.Cost;
+					if (c > 2)
+						return 2;
+					if (c == 2)
+						return 1;
+					return 0;
+				}))
+				{
+					Condition = SelfCondition.IsMinion
 				}
 			});
 
@@ -3246,8 +3253,8 @@ namespace SabberStoneCore.CardSets.Standard
 						new FuncPlayablesTask(p =>
 						{
 							var m = p[0] as Minion;
-							if (m.PreDamage >= m.Health)
-								m.PreDamage = m.Health - 1;
+							if (m.Game.CurrentEventData.EventNumber >= m.Health)
+								m.Game.CurrentEventData.EventNumber = m.Health - 1;
 							return p;
 						}))
 				}
@@ -4218,7 +4225,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_162", new Power {
-				Aura = new Aura(AuraType.ADJACENT, "EX1_162o")
+				//Aura = new Aura(AuraType.ADJACENT, "EX1_162o")
+				Aura = new AdjacentAura("EX1_162o")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

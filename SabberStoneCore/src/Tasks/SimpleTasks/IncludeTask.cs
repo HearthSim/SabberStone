@@ -6,8 +6,19 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+
+	/// <summary>
+	/// Indicator enum to specify target range of <see cref="ISimpleTask"/>s.
+	/// </summary>
 	public enum EntityType
 	{
+		INVALID,
+
+		/// <summary>
+		///     All cards on the stack
+		/// </summary>
+		STACK,
+
 		/// <summary>
 		///     The target
 		/// </summary>
@@ -34,14 +45,31 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		OP_HERO_POWER,
 
 		/// <summary>
+		///     The target of the current event. (e.g. the defender, the target of a spell, or the just damaged or healed
+		///     character)
+		/// </summary>
+		EVENT_TARGET,
+
+		/// <summary>
+		///     The source of the current event. (e.g. the attacker, the played card, or the just damaging or healing entity)
+		/// </summary>
+		EVENT_SOURCE,
+
+		/// <summary>
+		///     The top card from the player's deck
+		/// </summary>
+		TOPCARDFROMDECK,
+
+		/// <summary>
+		///     The top card from the opponent's deck
+		/// </summary>
+		OP_TOPDECK,
+
+		/// <summary>
 		///     All cards in the player's hand
 		/// </summary>
 		HAND,
 
-		///// <summary>
-		/////  All cards in the player's hand except the source
-		///// </summary>
-		//HAND_NOSOURCE,
 		/// <summary>
 		///     All cards in the player's deck
 		/// </summary>
@@ -123,19 +151,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		OP_WEAPON,
 
 		/// <summary>
-		///     All cards on the stack
-		/// </summary>
-		STACK,
-
-		/// <summary>
 		///     All minions
 		/// </summary>
 		ALLMINIONS,
-
-		/// <summary>
-		///     Invalid
-		/// </summary>
-		INVALID,
 
 		/// <summary>
 		///     All minions except the source
@@ -153,16 +171,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		HEROES,
 
 		/// <summary>
-		///     The top card from the player's deck
-		/// </summary>
-		TOPCARDFROMDECK,
-
-		/// <summary>
-		///     The top card from the opponent's deck
-		/// </summary>
-		OP_TOPDECK,
-
-		/// <summary>
 		///     The Controller entity of the player
 		/// </summary>
 		CONTROLLER,
@@ -171,21 +179,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		///     The Controller entity of the opponent.
 		/// </summary>
 		OP_CONTROLLER,
-
-		/// <summary>
-		///     The target of the current event. (e.g. the defender, the target of a spell, or the just damaged or healed
-		///     character)
-		/// </summary>
-		EVENT_TARGET,
-
-		/// <summary>
-		///     The source of the current event. (e.g. the attacker, the played card, or the just damaging or healing entity)
-		/// </summary>
-		EVENT_SOURCE
 	}
 
 	public class IncludeTask : SimpleTask
 	{
+		private const int SingleTypesRange = 9;
+
 		private readonly bool _addFlag;
 		private readonly EntityType[] _excludeTypeArray;
 		private readonly EntityType _includeType;
@@ -390,5 +389,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					throw new NotImplementedException();
 			}
 		}
+
+		//public static IPlayable GetEntity(in EntityType type, in TaskStack stack)
+		//{
+		//	switch (type) { }
+		//}
 	}
 }

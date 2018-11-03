@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -9,27 +10,41 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class CopyTask : SimpleTask
 	{
+		private readonly EntityType _entityType;
 		private readonly Zone _zoneType;
 
 		public CopyTask(EntityType type, int amount, bool opposite = false, Zone zoneType = Zone.INVALID)
 		{
-			Type = type;
+			_entityType = type;
 			Amount = amount;
 			Opposite = opposite;
 			_zoneType = zoneType;
 		}
 
-		public EntityType Type { get; set; }
 
 		public int Amount { get; set; }
 
 		public bool Opposite { get; set; }
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
-			in TaskStack stack = null)
+			in TaskStack stack)
 		{
-			var result = new List<IPlayable>();
-			switch (Type)
+
+			var result = new List<IPlayable>(Amount);
+			//IList<IPlayable> entities = IncludeTask.GetEntities(in _entityType, in controller, source, target, stack.Playables);
+			//Controller c = Opposite ? controller.Opponent : controller;
+			//foreach (IPlayable entity in entities)
+			//{
+			//	for (int i = 0; i < Amount; i++)
+			//	{
+			//		IPlayable copiedEntity = Generic.Copy(in c, (IPlayable)source, entity.Zone.Type);
+			//		result.Add(copiedEntity);
+			//	}
+			//}
+			//stack.Playables = 
+
+
+			switch (_entityType)
 			{
 				case EntityType.TARGET:
 					var playableTarget = target as IPlayable;

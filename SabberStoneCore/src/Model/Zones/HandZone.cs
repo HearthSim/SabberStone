@@ -14,14 +14,13 @@ namespace SabberStoneCore.Model.Zones
 			Game = controller.Game;
 			Controller = controller;
 			//MaxSize = Controller.MaxHandSize;
-			Type = Zone.HAND;
 		}
 
 		private HandZone(Controller c, HandZone zone) : base(c, zone)
 		{
-			Type = Zone.HAND;
 		}
 
+		public override Zone Type => Zone.HAND;
 
 		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
@@ -48,8 +47,7 @@ namespace SabberStoneCore.Model.Zones
 		{
 			Entities[oldEntity.ZonePosition] = newEntity;
 			newEntity.Zone = this;
-			for (int i = 0; i < Auras.Count; i++)
-				Auras[i].EntityRemoved(oldEntity);
+			Auras.ForEach(a => a.EntityAdded(newEntity));
 		}
 
 		public HandZone Clone(Controller c)

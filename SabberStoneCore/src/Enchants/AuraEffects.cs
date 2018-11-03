@@ -4,17 +4,18 @@ using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
+// ReSharper disable InconsistentNaming
 
 namespace SabberStoneCore.Enchants
 {
-	public abstract class AuraEffectBase
-	{
-		public IEntity Owner { get; }
-		public abstract int this[GameTag t] { get; set; }
+	//public abstract class AuraEffectBase
+	//{
+	//	public IEntity Owner { get; }
+	//	public abstract int this[GameTag t] { get; set; }
 
-		public abstract AuraEffectBase Clone(AuraEffectBase other);
-		public abstract string Hash();
-	}
+	//	public abstract AuraEffectBase Clone(AuraEffectBase other);
+	//	public abstract string Hash();
+	//}
 
 
 	/// <summary>
@@ -23,7 +24,7 @@ namespace SabberStoneCore.Enchants
 	public class AuraEffects
 	{
 		//private int WINDFURY;
-		private int CANT_ATTACK;
+		//private int CANT_ATTACK;
 		private int CANT_BE_TARGETED_BY_SPELLS;
 		private int CARD_COST_HEALTH;
 		private int CANTATTACKHEROES;
@@ -147,12 +148,16 @@ namespace SabberStoneCore.Enchants
 							{
 								Owner[GameTag.EXHAUSTED] = 0;
 								Owner[GameTag.ATTACKABLE_BY_RUSH] = 1;
+								Owner.Game.RushMinions.Add(Owner.Id);
 							}
 						}
 						else
 						{
 							if (Owner[GameTag.ATTACKABLE_BY_RUSH] == 1 && Owner[GameTag.EXHAUSTED] == 0)
 							{
+								if (Owner._data[GameTag.RUSH] > 0 || Owner.Card.Rush)
+									return;
+
 								Owner[GameTag.ATTACKABLE_BY_RUSH] = 0;
 								Owner[GameTag.EXHAUSTED] = 1;
 								Owner.Game.RushMinions.Remove(Owner.Id);
@@ -191,7 +196,7 @@ namespace SabberStoneCore.Enchants
 			Charge = other.Charge;
 			//WINDFURY = other.WINDFURY;
 			Lifesteal = other.Lifesteal;
-			CANT_ATTACK = other.CANT_ATTACK;
+			//CANT_ATTACK = other.CANT_ATTACK;
 			CARD_COST_HEALTH = other.CARD_COST_HEALTH;
 			Rush = other.Rush;
 			Echo = other.Echo;
@@ -229,31 +234,34 @@ namespace SabberStoneCore.Enchants
 		/// <returns></returns>
 		public int GetCost()
 		{
-			if (!ToBeUpdated) return COST;
+			return !ToBeUpdated ? COST : GetCostInternal();
+		}
 
+		private int GetCostInternal()
+		{
 			// Obtain the Card Cost
 			if (!Owner.NativeTags.TryGetValue(GameTag.COST, out int c))
 				c = Owner.Card.Cost;
 			// Apply Cost effects
 			if (_costEffects != null)
-			foreach (Effect e in _costEffects)
-			{
-				switch (e.Operator)
+				foreach (Effect e in _costEffects)
 				{
-					case EffectOperator.ADD:
-						c += e.Value;
-						break;
-					case EffectOperator.SUB:
-						c -= e.Value;
-						if (c < 0) c = 0;
-						break;
-					case EffectOperator.SET:
-						c = e.Value;
-						break;
-					default:
-						throw new ArgumentOutOfRangeException();
+					switch (e.Operator)
+					{
+						case EffectOperator.ADD:
+							c += e.Value;
+							break;
+						case EffectOperator.SUB:
+							c -= e.Value;
+							if (c < 0) c = 0;
+							break;
+						case EffectOperator.SET:
+							c = e.Value;
+							break;
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
 				}
-			}
 			ToBeUpdated = false;
 
 			// Lastly apply Adaptive Cost effect (Giants + Naga Sea Witch)

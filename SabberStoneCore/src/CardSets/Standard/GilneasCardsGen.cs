@@ -504,11 +504,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// - ECHO = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_828t5", new Power {
-				// TODO [ICC_828t5] Hunting Mastiff && Test: Hunting Mastiff_ICC_828t5
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("ICC_828t5", null);
 
 			// ---------------------------------------- MINION - HUNTER
 			// [ICC_828t6] Vilebrood Skitterer (*) - COST:5 [ATK:1/HP:3] 
@@ -521,11 +517,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - POISONOUS = 1
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_828t6", new Power {
-				// TODO [ICC_828t6] Vilebrood Skitterer && Test: Vilebrood Skitterer_ICC_828t6
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("ICC_828t6", null);
 
 		}
 
@@ -766,7 +758,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_685", new Power {
-				Aura = new AdaptiveEffect(SelfCondition.IsTagValue(GameTag.ATK, 3, RelaSign.GEQ), GameTag.TAUNT, GameTag.LIFESTEAL)
+				//Aura = new AdaptiveEffect(SelfCondition.IsTagValue(GameTag.ATK, 3, RelaSign.GEQ), GameTag.TAUNT, GameTag.LIFESTEAL)
+				Aura = new MultiAura(
+					new AdaptiveEffect(SelfCondition.IsTagValue(GameTag.ATK, 3, RelaSign.GEQ), GameTag.TAUNT),
+					new AdaptiveEffect(SelfCondition.IsTagValue(GameTag.ATK, 3, RelaSign.GEQ), GameTag.LIFESTEAL))
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -785,12 +780,12 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = new FuncNumberTask(p =>
 				{
 					IReadOnlyList<Card> legendaries = RandomCardTask.GetCardList(p, CardType.MINION, rarity: Rarity.LEGENDARY);
-					p.Controller.DeckZone.ForEach(q =>
+					p.Controller.DeckZone.ForEach((q, c, ls) =>
 					{
 						if (q.Cost != 1) return;
 
-						Generic.ChangeEntityBlock.Invoke(p.Controller, q, Util.Choose(legendaries));
-					});
+						Generic.ChangeEntityBlock.Invoke(c, q, Util.Choose(ls));
+					}, p.Controller, legendaries);
 					return 0;
 				})
 			});
@@ -3156,11 +3151,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_828t7", new Power {
-				// TODO [ICC_828t7] Vicious Scalehide && Test: Vicious Scalehide_ICC_828t7
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("ICC_828t7", null);
 
 		}
 

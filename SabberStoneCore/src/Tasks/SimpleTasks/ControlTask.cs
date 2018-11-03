@@ -31,7 +31,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					continue; //return;
 				}
 
-				IPlayable removedEntity = p.Zone.Remove(p);
+				Minion removedEntity = (Minion) p.Zone.Remove(p);
 				game.AuraUpdate();
 				removedEntity.Controller = Opposite ? controller.Opponent : controller;
 				removedEntity[GameTag.CONTROLLER] = removedEntity.Controller.PlayerId;
@@ -39,11 +39,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					!game.Logging ? "" : $"{controller.Name} is taking control of {p}.");
 
 				removedEntity.Controller.BoardZone.Add(removedEntity);
-				if (removedEntity[GameTag.CHARGE] == 1)
+				if (removedEntity.HasCharge)
 					removedEntity.IsExhausted = false;
+				else if (removedEntity.IsRush)
+				{
+					removedEntity.IsExhausted = false;
+					removedEntity.AttackableByRush = true;
+				}
 			}
 
-			;
 
 			return TaskState.COMPLETE;
 		}

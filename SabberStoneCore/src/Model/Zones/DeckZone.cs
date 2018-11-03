@@ -12,22 +12,22 @@ namespace SabberStoneCore.Model.Zones
 		public const int StartingCards = 30;
 
 		// TODO: Barnabus the Stomper
-        public bool NoEvenCostCards { get; private set; } = true;
+		public bool NoEvenCostCards { get; private set; } = true;
 		public bool NoOddCostCards { get; private set; } = true;
 
 		public DeckZone(Controller controller) : base(60)
 		{
 			Game = controller.Game;
 			Controller = controller;
-			Type = Zone.DECK;
 		}
 
 		private DeckZone(Controller c, DeckZone zone) : base(c, zone)
 		{
 			NoEvenCostCards = zone.NoEvenCostCards;
 			NoOddCostCards = zone.NoOddCostCards;
-			Type = Zone.DECK;
 		}
+
+		public override Zone Type => Zone.DECK;
 
 		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
@@ -85,7 +85,7 @@ namespace SabberStoneCore.Model.Zones
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging ? "" : $"{Controller.Name} shuffles its deck.");
 
-			var entities = (IPlayable[])Entities;
+			var entities = Entities;
 			for (int i = 0; i < n; i++)
 			{
 				int r = rnd.Next(i, n);

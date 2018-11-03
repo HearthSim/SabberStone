@@ -12,7 +12,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		}
 		public static PlayCardTask Any(in Controller controller, string cardName, in ICharacter target = null, in int zonePosition = -1, in int chooseOne = 0, in bool skipPrePhase = false)
 		{
-			return new PlayCardTask(in controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), in target, in zonePosition, in chooseOne, in skipPrePhase);
+			return new PlayCardTask(in controller, controller.HandZone.First(p => p.Card.Name == cardName), in target, in zonePosition, in chooseOne, in skipPrePhase);
 		}
 		public static PlayCardTask Minion(in Controller controller, in IPlayable source, in int chooseOne = 0, in bool skipPrePhase = false)
 		{
@@ -20,7 +20,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		}
 		public static PlayCardTask Minion(in Controller controller, string cardName, in int chooseOne = 0, in bool skipPrePhase = false)
 		{
-			return new PlayCardTask(in controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), null, -1, in chooseOne, in skipPrePhase);
+			return new PlayCardTask(in controller, controller.HandZone.First(p => p.Card.Name == cardName), null, -1, in chooseOne, in skipPrePhase);
 		}
 		public static PlayCardTask MinionTarget(in Controller controller, in IPlayable source, in ICharacter target, in int chooseOne = 0, in bool skipPrePhase = false)
 		{
@@ -28,7 +28,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		}
 		public static PlayCardTask MinionTarget(in Controller controller, string cardName, in ICharacter target, in int chooseOne = 0, in bool skipPrePhase = false)
 		{
-			return new PlayCardTask(in controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), in target, -1, in chooseOne, in skipPrePhase);
+			return new PlayCardTask(in controller, controller.HandZone.First(p => p.Card.Name == cardName), in target, -1, in chooseOne, in skipPrePhase);
 		}
 		public static PlayCardTask Spell(in Controller controller, in IPlayable source, in int chooseOne = 0, in bool skipPrePhase = false)
 		{
@@ -36,7 +36,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		}
 		public static PlayCardTask Spell(in Controller controller, string cardName, in int chooseOne = 0, in bool skipPrePhase = false)
 		{
-			return new PlayCardTask(in controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), null, -1, in chooseOne, in skipPrePhase);
+			return new PlayCardTask(in controller, controller.HandZone.First(p => p.Card.Name == cardName), null, -1, in chooseOne, in skipPrePhase);
 		}
 		public static PlayCardTask SpellTarget(in Controller controller, in IPlayable source, in ICharacter target, in int chooseOne = 0, in bool skipPrePhase = false)
 		{
@@ -44,7 +44,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 		}
 		public static PlayCardTask SpellTarget(in Controller controller, string cardName, in ICharacter target, in int chooseOne = 0, in bool skipPrePhase = false)
 		{
-			return new PlayCardTask(in controller, controller.HandZone.Where(p => p.Card.Name == cardName).First(), in target, -1, in chooseOne, in skipPrePhase);
+			return new PlayCardTask(in controller, controller.HandZone.First(p => p.Card.Name == cardName), in target, -1, in chooseOne, in skipPrePhase);
 		}
 		public PlayCardTask(in Controller controller, in IPlayable source, in ICharacter target = null, in int zonePosition = -1, in int chooseOne = 0, in bool skipPrePhase = false)
 		{

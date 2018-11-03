@@ -19,7 +19,9 @@ namespace SabberStoneCoreConsole
 	    public static void CloneStabilityTest()
 	    {
 		    Console.WriteLine("Test started");
-			for (int i = 0; i < TESTCOUNT; i++)
+		    List<PlayerTask> optionHistory = new List<PlayerTask>();
+		    Queue<LogEntry> logs = new Queue<LogEntry>();
+		    for (int i = 0; i < TESTCOUNT; i++)
 			{
 				var config = new GameConfig
 				{
@@ -34,8 +36,6 @@ namespace SabberStoneCoreConsole
 				};
 			    var game = new Game(config);
 				game.StartGame();
-				List<PlayerTask> optionHistory = new List<PlayerTask>();
-				Queue<LogEntry> logs = new Queue<LogEntry>();
 				//try
 				//{
 					do
@@ -64,6 +64,9 @@ namespace SabberStoneCoreConsole
 
 			if (i % (TESTCOUNT / 10) == 0)
 					Console.WriteLine($"{((double)i / TESTCOUNT) * 100}% done");
+
+				optionHistory.Clear();
+				logs.Clear();
 			}
 	    }
 
@@ -138,6 +141,39 @@ namespace SabberStoneCoreConsole
 				Console.WriteLine($"{((double) i / TESTCOUNT) * 100}% done");
 		    }
 	    }
+
+	    public static void TestRun()
+	    {
+		    Console.WriteLine("Test started");
+
+		    for (int i = 0; i < TESTCOUNT; i++)
+		    {
+			    var config = new GameConfig
+			    {
+				    Player1HeroClass = (CardClass)rnd.Next(2, 11),
+				    Player2HeroClass = (CardClass)rnd.Next(2, 11),
+				    FillDecks = true,
+				    FillDecksPredictably = true,
+				    Shuffle = false,
+				    SkipMulligan = true,
+				    History = false,
+				    Logging = false,
+			    };
+			    var game = new Game(config);
+			    game.StartGame();
+			    do
+			    {
+				    Game clone = game.Clone(true);
+				    List<PlayerTask> options = clone.CurrentPlayer.Options();
+				    PlayerTask option = options[rnd.Next(options.Count)];
+				    clone.Process(option);
+					game = clone;
+			    } while (game.State != State.COMPLETE);
+
+			    if (i % (TESTCOUNT / 10) == 0)
+				    Console.WriteLine($"{((double)i / TESTCOUNT) * 100}% done");
+		    }
+		}
 
 	    private static void ShowLog(Queue<LogEntry> logs, LogLevel level)
 	    {

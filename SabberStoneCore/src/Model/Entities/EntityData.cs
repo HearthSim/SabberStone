@@ -152,6 +152,10 @@ namespace SabberStoneCore.Model.Entities
 	//	}
 	//}
 
+	/// <summary>
+	/// Custom Dictionary class for containing <see cref="GameTag"/>/<see cref="int"/> pairs assigned to an <see cref="Entity"/> instance.
+	/// Implements <see cref="IDictionary{TKey, TValue}"/>.
+	/// </summary>
 	internal class EntityData : IDictionary<GameTag, int>
 	{
 		private const int _initSize = 16;
@@ -163,16 +167,24 @@ namespace SabberStoneCore.Model.Entities
 		public EntityData()
 		{
 			var buckets = new int[_initSize << 1];
-			for (int i = 0; i < buckets.Length; i++)
+			for (int i = 0; i < buckets.Length; i += 2)
 				buckets[i] = -1;
 			_buckets = buckets;
+			//_buckets = new int[_initSize << 1];
 		}
 
+		/// <summary>
+		/// Initialise with a given capacity.
+		/// </summary>
 		public EntityData(int capacity)
 		{
 			Initialise(capacity);
 		}
 
+		/// <summary>
+		/// A copy constructor.
+		/// </summary>
+		/// <param name="entityData">Data to be copeid.</param>
 		public unsafe EntityData(in EntityData entityData)
 		{
 			int len = entityData._buckets.Length;
@@ -200,6 +212,10 @@ namespace SabberStoneCore.Model.Entities
 			_count = entityData._count;
 		}
 
+		/// <summary>
+		/// A copy constructor for non-<see cref="EntityData"/> dictionaries.
+		/// </summary>
+		/// <param name="dictionary"></param>
 		public EntityData(in IDictionary<GameTag, int> dictionary)
 		{
 			Initialise(dictionary.Count);
@@ -276,7 +292,7 @@ namespace SabberStoneCore.Model.Entities
 			int index = SearchIndex(key);
 			if (index < 0)
 				return false;
-			_buckets[index] = -1;
+			_buckets[index] = 0;
 			--_count;
 			return true;
 		}
@@ -284,24 +300,16 @@ namespace SabberStoneCore.Model.Entities
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private void Initialise(int capacity)
 		{
-			int n = 3;
-			while (true)
-			{
-				int pow = 2 << n;
-				if (pow >= capacity)
-				{
-					capacity = pow;
-					break;
-				}
+			int pow = 8;
+			while (pow < capacity)
+				pow *= 2;
 
-				++n;
-			}
-
-			int[] buckets = new int[capacity << 1];
-			for (int i = 0; i < buckets.Length; i++)
+			int[] buckets = new int[pow << 1];
+			for (int i = 0; i < buckets.Length; i +=2)
 				buckets[i] = -1;
 			_buckets = buckets;
-			_size = capacity;
+
+			_size = pow;
 		}
 
 		// TODO: check duplicate
@@ -310,10 +318,14 @@ namespace SabberStoneCore.Model.Entities
 			int k = (int)t;
 			int h = (k & (_size - 1)) << 1;
 			int[] buckets = _buckets;
-			//Span<int> buckets = _buckets;
 			for (int i = h; i < buckets.Length; i += 2)
 			{
-				if (buckets[i] > 0) continue;
+				if (buckets[i] > 0)
+				{
+					//if (buckets[i] == k)
+					//	;
+					continue;
+				}
 				buckets[i] = k;
 				buckets[i + 1] = value;
 				++_count;
@@ -322,7 +334,12 @@ namespace SabberStoneCore.Model.Entities
 
 			for (int i = 0; i < h; i += 2)
 			{
-				if (buckets[i] > 0) continue;
+				if (buckets[i] > 0)
+				{
+					//if (buckets[i] == k)
+					//	;
+					continue;
+				}
 				buckets[i] = k;
 				buckets[i + 1] = value;
 				++_count;
@@ -354,6 +371,7 @@ namespace SabberStoneCore.Model.Entities
 			Insert(t, value);
 		}
 
+		[MethodImpl(MethodImplOptions.AggressiveInlining)]
 		private int SearchIndex(GameTag t)
 		{
 			int k = (int)t;
@@ -382,34 +400,33 @@ namespace SabberStoneCore.Model.Entities
 		private bool Search(int k, out int index)
 		{
 			int h = (k & (_size - 1)) << 1;
-			int i = h;
 			int[] buckets = _buckets;
-			//ReadOnlySpan<int> buckets = _buckets;
-			if (buckets[i] == k)
+			
+			if (buckets[h] == k)
 			{
-				index = i;
+				index = h;
 				return true;
 			}
 
-			if (buckets[i] < 0)
+			if (buckets[h] < 0)
 			{
-				index = i;
+				index = h;
 				return false;
 			}
-			i += 2;
+			int i = h + 2;
 			if (i < buckets.Length)
 			{
+				if (buckets[i] < 0)
+				{
+					index = i;
+					return false;
+				}
 				if (buckets[i] == k)
 				{
 					index = i;
 					return true;
 				}
 
-				if (buckets[i] < 0)
-				{
-					index = i;
-					return false;
-				}
 				for (i += 2; i < buckets.Length; i += 2)
 				{
 					if (buckets[i] < 0)
@@ -460,7 +477,7 @@ namespace SabberStoneCore.Model.Entities
 			int newSize = _size << 1;
 			_size = newSize;
 			int[] newbuckets = new int[newSize << 1];
-			for (int i = 0; i < newbuckets.Length; ++i)
+			for (int i = 0; i < newbuckets.Length; i += 2)
 				newbuckets[i] = -1;
 
 			int[] buckets = _buckets;
@@ -468,12 +485,11 @@ namespace SabberStoneCore.Model.Entities
 			for (int i = 0; i < buckets.Length; i += 2)
 			{
 				bool flag = false;
+				int newHash = (buckets[i] & (newSize - 1)) << 1;
 
-				int newIndex = (buckets[i] % newSize) << 1;
-
-				for (int j = newIndex; j < newbuckets.Length; j += 2)
+				for (int j = newHash; j < newbuckets.Length; j += 2)
 				{
-					if (newbuckets[j] >= 0) continue;
+					if (newbuckets[j] > 0) continue;
 					newbuckets[j] = buckets[i];
 					newbuckets[j + 1] = buckets[i + 1];
 					flag = true;
@@ -483,9 +499,9 @@ namespace SabberStoneCore.Model.Entities
 				if (flag)
 					continue;
 
-				for (int j = 0; j < newIndex; j += 2)
+				for (int j = 0; j < newHash; j += 2)
 				{
-					if (newbuckets[j] >= 0) continue;
+					if (newbuckets[j] > 0) continue;
 					newbuckets[j] = buckets[i];
 					newbuckets[j + 1] = buckets[i + 1];
 					flag = true;
@@ -540,7 +556,7 @@ namespace SabberStoneCore.Model.Entities
 			for (int i = 0; i < buckets.Length; i += 2)
 			{
 				if (buckets[i] > 0)
-					yield return new KeyValuePair<GameTag, int>((GameTag)_buckets[i], _buckets[i + 1]);
+					yield return new KeyValuePair<GameTag, int>((GameTag)buckets[i], buckets[i + 1]);
 			}
 		}
 
@@ -584,32 +600,46 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>Resets all tags from the container.</summary>
 		public void Reset(/*Dictionary<GameTag, int> tags = null*/)
 		{
-			//Tags = tags ?? new Dictionary<GameTag, int>(Enum.GetNames(typeof(GameTag)).Length);
-			//Remove(GameTag.DAMAGE);
-			Remove(GameTag.PREDAMAGE);
-			Remove(GameTag.ZONE_POSITION);
-			Remove(GameTag.EXHAUSTED);
-			//Remove(GameTag.JUST_PLAYED);
-			//Remove(GameTag.SUMMONED);
-			//Remove(GameTag.ATTACKING);
-			//Remove(GameTag.DEFENDING);
-			//Remove(GameTag.ATK);
-			//Remove(GameTag.HEALTH);
-			Remove(GameTag.COST);
-			Remove(GameTag.TAUNT);
-			Remove(GameTag.FROZEN);
-			Remove(GameTag.ENRAGED);
-			Remove(GameTag.CHARGE);
-			Remove(GameTag.WINDFURY);
-			Remove(GameTag.DIVINE_SHIELD);
-			Remove(GameTag.STEALTH);
-			Remove(GameTag.DEATHRATTLE);
-			Remove(GameTag.BATTLECRY);
-			Remove(GameTag.SILENCED);
-			Remove(GameTag.NUM_ATTACKS_THIS_TURN);
-			Remove(GameTag.NUM_TURNS_IN_PLAY);
-			Remove(GameTag.ATTACKABLE_BY_RUSH);
-			Remove(GameTag.GHOSTLY);
+			// Remove except entity_id and controller
+			int[] buckets = _buckets;
+			for (int i = 0; i < buckets.Length; i += 2)
+			{
+				if (buckets[i] == (int)GameTag.ENTITY_ID || buckets[i] == (int)GameTag.CONTROLLER)
+					continue;
+
+				buckets[i] = 0;
+			}
+
+			_count = 2;
+
+
+
+			////Tags = tags ?? new Dictionary<GameTag, int>(Enum.GetNames(typeof(GameTag)).Length);
+			////Remove(GameTag.DAMAGE);
+			//Remove(GameTag.PREDAMAGE);
+			//Remove(GameTag.ZONE_POSITION);
+			//Remove(GameTag.EXHAUSTED);
+			////Remove(GameTag.JUST_PLAYED);
+			////Remove(GameTag.SUMMONED);
+			////Remove(GameTag.ATTACKING);
+			////Remove(GameTag.DEFENDING);
+			////Remove(GameTag.ATK);
+			////Remove(GameTag.HEALTH);
+			//Remove(GameTag.COST);
+			//Remove(GameTag.TAUNT);
+			//Remove(GameTag.FROZEN);
+			//Remove(GameTag.ENRAGED);
+			//Remove(GameTag.CHARGE);
+			//Remove(GameTag.WINDFURY);
+			//Remove(GameTag.DIVINE_SHIELD);
+			//Remove(GameTag.STEALTH);
+			//Remove(GameTag.DEATHRATTLE);
+			//Remove(GameTag.BATTLECRY);
+			//Remove(GameTag.SILENCED);
+			//Remove(GameTag.NUM_ATTACKS_THIS_TURN);
+			//Remove(GameTag.NUM_TURNS_IN_PLAY);
+			//Remove(GameTag.ATTACKABLE_BY_RUSH);
+			//Remove(GameTag.GHOSTLY);
 		}
 
 		/// <summary>
