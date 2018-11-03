@@ -29,7 +29,7 @@ namespace SabberStoneCore.Model.Zones
 		{
 			base.Add(entity, zonePosition);
 
-			if (entity.Controller == Controller)
+			if (entity.Controller == Game.CurrentPlayer)
 			{
 				if (!entity.HasCharge)
 				{
@@ -41,9 +41,6 @@ namespace SabberStoneCore.Model.Zones
 					else
 						entity.IsExhausted = true;
 				}
-
-				if (entity[GameTag.GHOSTLY] == 1)
-					entity[GameTag.GHOSTLY] = 0;
 			}
 
 			entity.OrderOfPlay = Game.NextOop;

@@ -87,6 +87,16 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.POISONOUS] = value ? 1 : 0; }
 		}
 
+		public override bool ToBeDestroyed
+		{
+			get => base.ToBeDestroyed;
+			set
+			{
+				Game.ClearWeapons += Controller.Hero.RemoveWeapon;
+				base.ToBeDestroyed = value;
+			}
+		}
+
 		public override bool IsLifeSteal
 		{
 			get

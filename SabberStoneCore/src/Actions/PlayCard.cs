@@ -108,7 +108,11 @@ namespace SabberStoneCore.Actions
 					c.IsComboActive = true;
 
 				if (c.Game.History)
+				{
+					if (source[GameTag.GHOSTLY] == 1)
+						source[GameTag.GHOSTLY] = 0;
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+				}
 
 				c.Game.CurrentEventData = null;
 

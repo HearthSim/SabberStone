@@ -281,7 +281,7 @@ namespace SabberStoneCore.Enchants
 
 			if (FastExecution)
 			    Game.TaskQueue.Execute(SingleTask, _owner.Controller, _owner,
-				    source is IPlayable ? (IPlayable)source
+				    source is IPlayable playable ? playable
 										: _owner is Enchantment ew && ew.Target is IPlayable p ? p
 										: null);
 		    else

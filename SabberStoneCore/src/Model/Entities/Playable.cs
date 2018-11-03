@@ -580,6 +580,10 @@ namespace SabberStoneCore.Model.Entities
 			set => this[GameTag.ZONE_POSITION] = value + 1;
 		}
 
+		public bool Combo => Card.Combo;
+
+		public bool ChooseOne => Card.ChooseOne;
+
 		//public bool JustPlayed
 		//{
 		//	get { return this[GameTag.JUST_PLAYED] == 1; }

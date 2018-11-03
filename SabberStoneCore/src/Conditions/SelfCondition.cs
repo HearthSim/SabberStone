@@ -27,7 +27,7 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition IsCurrentPlayer = new SelfCondition(me => me.Game.CurrentPlayer == me.Controller);
 		public static readonly SelfCondition IsNotCurrentPlayer = new SelfCondition(me => me.Game.CurrentPlayer != me.Controller);
 
-		public static readonly SelfCondition IsComboActive = new SelfCondition(me => me.Controller.Combo);
+		public static readonly SelfCondition IsComboActive = new SelfCondition(me => me.Controller.IsComboActive);
 		public static readonly SelfCondition IsAnyWeaponEquiped = new SelfCondition(me => (me as Hero)?.Weapon != null);
 		public static readonly SelfCondition IsThisWeaponEquiped = new SelfCondition(me => me.Controller.Hero.Weapon == me);
 

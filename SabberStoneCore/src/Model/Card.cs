@@ -32,6 +32,7 @@ namespace SabberStoneCore.Model
 		public bool CantBeTargetedByHeroPowers => CantBeTargetedBySpells;
 		public bool CantAttack { get; private set; }
 		public bool ChooseOne { get; private set; }
+		public bool Combo { get; private set; }
 		public bool IsSecret { get; private set; }
 		public bool IsQuest { get; private set; }
 		public bool Deathrattle { get; }
@@ -77,6 +78,9 @@ namespace SabberStoneCore.Model
 							break;
 						case GameTag.CHOOSE_ONE:
 							ChooseOne = true;
+							break;
+						case GameTag.COMBO:
+							Combo = true;
 							break;
 						case GameTag.TAUNT:
 							Taunt = true;
@@ -416,11 +420,6 @@ namespace SabberStoneCore.Model
 		/// <see cref="Faction"/>
 		/// </summary>
 		public Faction Faction => (Faction)this[GameTag.FACTION];
-
-		/// <summary>
-		/// Indicates if this card has a combo effect or not.
-		/// </summary>
-		public bool HasCombo => this[GameTag.COMBO] == 1;
 
 		/// <summary>
 		/// <see cref="Rarity"/>

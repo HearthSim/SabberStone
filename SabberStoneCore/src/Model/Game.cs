@@ -968,14 +968,13 @@ namespace SabberStoneCore.Model
 			if (History)
 				PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, Id, "", -1, 0);
 
-			Heroes.ForEach(p =>
+			foreach (Controller player in _players)
 			{
-				if (p.Controller.PlayState == PlayState.LOSING || p.Controller.PlayState == PlayState.CONCEDED)
-				{
-					p.Controller.PlayState = PlayState.LOST;
-					p.Controller.Opponent.PlayState = PlayState.WON;
-				}
-			});
+				if (player.PlayState != PlayState.LOSING && player.PlayState != PlayState.CONCEDED) continue;
+
+				player.PlayState = PlayState.LOST;
+				player.Opponent.PlayState = PlayState.WON;
+			}
 
 			if (History)
 				PowerHistoryBuilder.BlockEnd();
@@ -998,10 +997,11 @@ namespace SabberStoneCore.Model
 					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"{p.Name} has {p.PlayState} the Game!");
 				});
 			}
-
 		}
 
 		#endregion
+
+		internal Action ClearWeapons;
 
 		/// <summary>
 		/// Move destroyed entities from <see cref="Zone.PLAY"/> <see cref="Zone{T}"/> into 
@@ -1011,10 +1011,16 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void GraveYard()
 		{
-			if (Player1.Hero.Weapon != null && Player1.Hero.Weapon.ToBeDestroyed)
-				Player1.Hero.RemoveWeapon();
-			if (Player2.Hero.Weapon != null && Player2.Hero.Weapon.ToBeDestroyed)
-				Player2.Hero.RemoveWeapon();
+			//if (Player1.Hero.Weapon != null && Player1.Hero.Weapon.ToBeDestroyed)
+			//	Player1.Hero.RemoveWeapon();
+			//if (Player2.Hero.Weapon != null && Player2.Hero.Weapon.ToBeDestroyed)
+			//	Player2.Hero.RemoveWeapon();
+
+			if (ClearWeapons != null)
+			{
+				ClearWeapons.Invoke();
+				ClearWeapons = null;
+			}
 
 			if (DeadMinions.Count > 0)
 			{

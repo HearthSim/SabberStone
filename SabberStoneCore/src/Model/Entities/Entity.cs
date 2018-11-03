@@ -110,21 +110,6 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>Gets the card from which this entity was derived from.</summary>
 		/// <value>The card object.</value>
 		public Card Card { get; set; }
-		//public Card Card
-		//{
-		//	get => _data.Card;
-		//	set => _data.Card = value;
-		//}
-
-		/// <summary>Get all enchantments hooked onto this entity.</summary>
-		/// <value>
-		/// The enchantments. Enchantments force a temporary effect, for as long as this entity is in play, onto the game.
-		/// </value>
-		//public List<OldEnchant> OldEnchants { get; } = new List<OldEnchant>();
-
-		/// <summary>Gets all triggers hooked onto this entity.</summary>
-		/// <value>The triggers. Triggers execute a certain effect when the requirements are met.</value>
-		//public List<OldTrigger> Triggers { get; } = new List<OldTrigger>();
 
 		/// <summary>Initializes a new instance of the <see cref="Entity"/> class.</summary>
 		/// <param name="game">The game.</param>
@@ -411,10 +396,6 @@ namespace SabberStoneCore.Model.Entities
 		{
 			this[GameTag.TURN_START] = 0;
 		}
-
-		public bool Combo => Card[GameTag.COMBO] == 1;
-
-		public bool ChooseOne => Card.ChooseOne;
 
 		public virtual bool ToBeDestroyed
 		{
