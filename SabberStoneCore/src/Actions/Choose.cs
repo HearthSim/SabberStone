@@ -135,7 +135,7 @@ namespace SabberStoneCore.Actions
 						if (RemoveFromZone(c, playable))
 						{
 							playable[GameTag.CREATOR] = c.Hero.Id;
-							c.Game.TaskQueue.Enqueue(new ReplaceHeroPower(playable as HeroPower), in c, playable,
+							c.Game.TaskQueue.Enqueue(new ReplaceHeroPower(playable.Card), in c, playable,
 								playable);
 						}
 						break;

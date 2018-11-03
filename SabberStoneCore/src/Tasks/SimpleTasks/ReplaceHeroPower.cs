@@ -6,54 +6,42 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ReplaceHeroPower : SimpleTask
 	{
-		private ReplaceHeroPower(HeroPower power, Card cardPower)
-		{
-			Power = power;
-			PowerCard = cardPower;
-		}
+		private readonly Card _heroPowerCard;
 
 		public ReplaceHeroPower()
 		{
-			Power = null;
-			PowerCard = null;
 		}
 
-		public ReplaceHeroPower(HeroPower power)
+		public ReplaceHeroPower(Card heroPowerCard)
 		{
-			Power = power;
-			PowerCard = null;
+			_heroPowerCard = heroPowerCard;
 		}
-
-		public ReplaceHeroPower(Card cardPower)
-		{
-			Power = null;
-			PowerCard = cardPower;
-		}
-
-		public HeroPower Power { get; set; }
-
-		public Card PowerCard { get; set; }
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 			in TaskStack stack = null)
 		{
 			if (controller == null) return TaskState.STOP;
 
-			if (PowerCard == null && Power == null)
+			HeroPower power;
+
+			if (_heroPowerCard == null)
 			{
 				if (stack?.Playables.Count != 1 || !(stack?.Playables[0] is HeroPower)) return TaskState.STOP;
 
-				Power = (HeroPower) stack?.Playables[0];
+				power = (HeroPower) stack?.Playables[0];
+			}
+			else
+			{
+				power = (HeroPower) Entity.FromCard(controller, _heroPowerCard);
 			}
 
-			if (PowerCard != null) Power = Entity.FromCard(controller, PowerCard) as HeroPower;
+			power[GameTag.CREATOR] = controller.Hero.Id;
 
-			Power[GameTag.CREATOR] = controller.Hero.Id;
 			game.Log(LogLevel.INFO, BlockType.PLAY, "ReplaceHeroPower",
-				!game.Logging ? "" : $"{controller.Hero} power replaced by {Power}");
+				!game.Logging ? "" : $"{controller.Hero} power replaced by {power}");
 
-			controller.SetasideZone.MoveTo(controller.Hero.HeroPower, controller.SetasideZone.Count);
-			controller.Hero.HeroPower = Power;
+			controller.SetasideZone.Add(controller.Hero.HeroPower);
+			controller.Hero.HeroPower = power;
 
 			return TaskState.COMPLETE;
 		}
