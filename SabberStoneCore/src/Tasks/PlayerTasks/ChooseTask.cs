@@ -11,17 +11,17 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 {
 	public class ChooseTask : PlayerTask
 	{
-		public static ChooseTask Mulligan(in Controller controller, in List<int> choices)
+		public static ChooseTask Mulligan(Controller controller, List<int> choices)
 		{
-			return new ChooseTask(in controller, in choices);
+			return new ChooseTask(controller, choices);
 		}
 
-		public static ChooseTask Pick(in Controller controller, in int choice)
+		public static ChooseTask Pick(Controller controller, int choice)
 		{
-			return new ChooseTask(in controller, new List<int> { choice });
+			return new ChooseTask(controller, new List<int> { choice });
 		}
 
-		private ChooseTask(in Controller controller, in List<int> choices)
+		private ChooseTask(Controller controller, List<int> choices)
 		{
 			PlayerTaskType = PlayerTaskType.CHOOSE;
 			Game = controller.Game;

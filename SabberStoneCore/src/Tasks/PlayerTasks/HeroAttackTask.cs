@@ -5,11 +5,11 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 {
 	public class HeroAttackTask : PlayerTask
 	{
-		public static HeroAttackTask Any(in Controller controller, in ICharacter target, in bool skipPrePhase = false)
+		public static HeroAttackTask Any(Controller controller, ICharacter target, bool skipPrePhase = false)
 		{
-			return new HeroAttackTask(in controller, in target, in skipPrePhase);
+			return new HeroAttackTask(controller, target, skipPrePhase);
 		}
-		private HeroAttackTask(in Controller controller, in ICharacter target, in bool skipPrePhase)
+		private HeroAttackTask(Controller controller, ICharacter target, bool skipPrePhase)
 		{
 			PlayerTaskType = PlayerTaskType.HERO_ATTACK;
 			Game = controller.Game;

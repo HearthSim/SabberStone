@@ -4,12 +4,12 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 {
 	public class EndTurnTask : PlayerTask
 	{
-		public static EndTurnTask Any(in Controller controller)
+		public static EndTurnTask Any(Controller controller)
 		{
-			return new EndTurnTask(in controller);
+			return new EndTurnTask(controller);
 		}
 
-		private EndTurnTask(in Controller controller)
+		private EndTurnTask(Controller controller)
 		{
 			PlayerTaskType = PlayerTaskType.END_TURN;
 			Game = controller.Game;
