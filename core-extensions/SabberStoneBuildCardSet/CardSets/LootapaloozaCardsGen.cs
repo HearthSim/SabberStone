@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 
 namespace SabberStoneCore.CardSets.Undefined
@@ -61,7 +61,7 @@ namespace SabberStoneCore.CardSets.Undefined
 
 			// ----------------------------------------- MINION - DRUID
 			// [LOOT_329] Ixlid, Fungal Lord - COST:5 [ATK:2/HP:4] 
-			// - Race: elemental, Set: lootapalooza, Rarity: legendary
+			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: After you play a minion, summon a copy of it.
 			// --------------------------------------------------------
@@ -431,6 +431,18 @@ namespace SabberStoneCore.CardSets.Undefined
 
 		private static void HunterNonCollect(IDictionary<string, Power> cards)
 		{
+			// ----------------------------------- ENCHANTMENT - HUNTER
+			// [LOOT_440e] Explosive (*) - COST:0 
+			// - Set: lootapalooza, 
+			// --------------------------------------------------------
+			// Text: ON FIRE!!!!
+			// --------------------------------------------------------
+			cards.Add("LOOT_440e", new Power {
+				// TODO [LOOT_440e] Explosive && Test: Explosive_LOOT_440e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
 			// ---------------------------------------- MINION - HUNTER
 			// [LOOT_077t] Wolf (*) - COST:3 [ATK:3/HP:3] 
 			// - Race: beast, Set: lootapalooza, 
@@ -682,11 +694,14 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [LOOT_106t] Scroll of Wonder (*) - COST:5 
 			// - Set: lootapalooza, 
 			// --------------------------------------------------------
-			// Text: Cast a random spell. Draw a card.
-			//       Cast this when drawn.
+			// Text: <b>Casts When Drawn</b>
+			//       Cast a random spell.
 			// --------------------------------------------------------
 			// GameTag:
 			// - TOPDECK = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - CASTSWHENDRAWN = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_106t", new Power {
 				// TODO [LOOT_106t] Scroll of Wonder && Test: Scroll of Wonder_LOOT_106t
@@ -753,7 +768,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [LOOT_398] Benevolent Djinn - COST:3 [ATK:2/HP:4] 
 			// - Race: elemental, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
-			// Text: At the end of your turn, restore 3 Health to your_hero.
+			// Text: At the end of your turn, restore #3 Health to your_hero.
 			// --------------------------------------------------------
 			cards.Add("LOOT_398", new Power {
 				// TODO [LOOT_398] Benevolent Djinn && Test: Benevolent Djinn_LOOT_398
@@ -1497,6 +1512,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - DURABILITY = 3
 			// - DEATHRATTLE = 1
 			// - KEEP_ENCHANTMENTS = 1
+			// - 1023 = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_542", new Power {
 				// TODO [LOOT_542] Kingsbane && Test: Kingsbane_LOOT_542
@@ -1535,11 +1551,14 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [LOOT_026e] Spider Ambush! (*) - COST:4 
 			// - Set: lootapalooza, 
 			// --------------------------------------------------------
-			// Text: Summon a 4/4 Spider. Draw a card.
-			//       Cast this when drawn.
+			// Text: <b>Casts When Drawn</b>
+			//       Summon a 4/4 Spider.
 			// --------------------------------------------------------
 			// GameTag:
 			// - TOPDECK = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - CASTSWHENDRAWN = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_026e", new Power {
 				// TODO [LOOT_026e] Spider Ambush! && Test: Spider Ambush!_LOOT_026e
@@ -1994,7 +2013,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// Text: Destroy all minions. Discard your hand.
 			// --------------------------------------------------------
 			// GameTag:
-			// - 890 = 10
+			// - DISCARD_CARDS = 10
 			// --------------------------------------------------------
 			cards.Add("LOOT_417", new Power {
 				// TODO [LOOT_417] Cataclysm && Test: Cataclysm_LOOT_417
@@ -2910,7 +2929,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [LOOT_291] Shroom Brewer - COST:4 [ATK:4/HP:4] 
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Restore 4_Health.
+			// Text: <b>Battlecry:</b> Restore #4_Health.
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
@@ -3023,7 +3042,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [LOOT_388] Fungal Enchanter - COST:3 [ATK:3/HP:3] 
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Restore 2 Health to all friendly characters.
+			// Text: <b>Battlecry:</b> Restore #2 Health to all friendly characters.
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
@@ -3759,11 +3778,14 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [LOOT_526t] Darkness Candle (*) - COST:4 
 			// - Set: lootapalooza, 
 			// --------------------------------------------------------
-			// Text: Snuff out a candle. Draw a card.
-			//       Cast this when drawn.
+			// Text: <b>Casts When Drawn</b>
+			//       Snuff out a candle.
 			// --------------------------------------------------------
 			// GameTag:
 			// - TOPDECK = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - CASTSWHENDRAWN = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_526t", new Power {
 				// TODO [LOOT_526t] Darkness Candle && Test: Darkness Candle_LOOT_526t

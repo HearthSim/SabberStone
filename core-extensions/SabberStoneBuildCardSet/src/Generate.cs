@@ -61,7 +61,7 @@ namespace SabberStoneBuildCardSet
 			//   // {CardSet.FP2, CardSet.TGT, CardSet.LOE, CardSet.OG, CardSet.KARA, CardSet.GANGS};
 			//{ CardSet.GVG};
 			//CardSet[] cardSets = new[] { CardSet.NAXX, CardSet.KARA, CardSet.BRM, CardSet.LOE, CardSet.ICECROWN  };
-			CardSet[] cardSets = new[] { CardSet.BOOMSDAY };
+			CardSet[] cardSets = new[] { CardSet.CORE, CardSet.EXPERT1, CardSet.UNGORO, CardSet.LOOTAPALOOZA, CardSet.ICECROWN, CardSet.GILNEAS, CardSet.BOOMSDAY, CardSet.HOF };
 			//var cardSets = Enum.GetValues(typeof(CardSet));
 			foreach (CardSet cardSet in cardSets)
 			{

@@ -220,6 +220,18 @@ namespace SabberStoneCore.CardSets.Undefined
 
 		private static void DruidNonCollect(IDictionary<string, Power> cards)
 		{
+			// ------------------------------------ ENCHANTMENT - DRUID
+			// [GIL_800e2] Badsong (*) - COST:0 
+			// - Set: gilneas, 
+			// --------------------------------------------------------
+			// Text: Costs (0).
+			// --------------------------------------------------------
+			cards.Add("GIL_800e2", new Power {
+				// TODO [GIL_800e2] Badsong && Test: Badsong_GIL_800e2
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
 			// ----------------------------------------- MINION - DRUID
 			// [GIL_188t] Druid of the Scythe (*) - COST:3 [ATK:4/HP:2] 
 			// - Race: beast, Set: gilneas, Rarity: common
@@ -497,6 +509,18 @@ namespace SabberStoneCore.CardSets.Undefined
 
 		private static void HunterNonCollect(IDictionary<string, Power> cards)
 		{
+			// ----------------------------------- ENCHANTMENT - HUNTER
+			// [GIL_650e] Hounded! (*) - COST:0 
+			// - Set: gilneas, 
+			// --------------------------------------------------------
+			// Text: Houndmaster Shaw grants <b>Rush</b>.
+			// --------------------------------------------------------
+			cards.Add("GIL_650e", new Power {
+				// TODO [GIL_650e] Hounded! && Test: Hounded!_GIL_650e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
 			// ---------------------------------------- MINION - HUNTER
 			// [GIL_200t] Duskhaven Hunter (*) - COST:3 [ATK:5/HP:2] 
 			// - Set: gilneas, Rarity: rare
@@ -725,7 +749,7 @@ namespace SabberStoneCore.CardSets.Undefined
 		{
 			// --------------------------------------- MINION - PALADIN
 			// [GIL_545] Ghostly Charger - COST:5 [ATK:3/HP:4] 
-			// - Race: beast, Set: gilneas, Rarity: common
+			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>
 			//       <b>Rush</b>
@@ -978,7 +1002,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Echo</b>
-			//       <b>Battlecry:</b> Restore 2 Health.
+			//       <b>Battlecry:</b> Restore #2 Health.
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
@@ -1194,7 +1218,6 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("GIL_827", new Power {
 				// TODO [GIL_827] Blink Fox && Test: Blink Fox_GIL_827
-				InfoCardId = "GIL_827e1",
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -1283,58 +1306,6 @@ namespace SabberStoneCore.CardSets.Undefined
 			cards.Add("GIL_672", new Power {
 				// TODO [GIL_672] Spectral Cutlass && Test: Spectral Cutlass_GIL_672
 				InfoCardId = "GIL_672e",
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-		}
-
-		private static void RogueNonCollect(IDictionary<string, Power> cards)
-		{
-			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [GIL_827e1] Pounce (*) - COST:0 
-			// - Set: gilneas, 
-			// --------------------------------------------------------
-			// Text: <b>Rush</b>
-			// --------------------------------------------------------
-			cards.Add("GIL_827e1", new Power {
-				// TODO [GIL_827e1] Pounce && Test: Pounce_GIL_827e1
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [GIL_827e2] Bite (*) - COST:0 
-			// - Set: gilneas, 
-			// --------------------------------------------------------
-			// Text: <b>Lifesteal</b>
-			// --------------------------------------------------------
-			cards.Add("GIL_827e2", new Power {
-				// TODO [GIL_827e2] Bite && Test: Bite_GIL_827e2
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [GIL_827e3] Rabid (*) - COST:0 
-			// - Set: gilneas, 
-			// --------------------------------------------------------
-			// Text: <b>Poisonous</b>
-			// --------------------------------------------------------
-			cards.Add("GIL_827e3", new Power {
-				// TODO [GIL_827e3] Rabid && Test: Rabid_GIL_827e3
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [GIL_827e4] Flurry (*) - COST:0 
-			// - Set: gilneas, 
-			// --------------------------------------------------------
-			// Text: <b>Windfury</b>
-			// --------------------------------------------------------
-			cards.Add("GIL_827e4", new Power {
-				// TODO [GIL_827e4] Flurry && Test: Flurry_GIL_827e4
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -1436,6 +1407,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// - 960 = 1
+			// - FAST_BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_820", new Power {
 				// TODO [GIL_820] Shudderwock && Test: Shudderwock_GIL_820
@@ -1595,6 +1567,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("GIL_618", new Power {
 				// TODO [GIL_618] Glinda Crowskin && Test: Glinda Crowskin_GIL_618
+				InfoCardId = "GIL_618e",
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -1692,6 +1665,18 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("GIL_608e", new Power {
 				// TODO [GIL_608e] Infusion && Test: Infusion_GIL_608e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - WARLOCK
+			// [GIL_618e] Glinda's Call (*) - COST:0 
+			// - Set: gilneas, 
+			// --------------------------------------------------------
+			// Text: Has <b>Echo</b>.
+			// --------------------------------------------------------
+			cards.Add("GIL_618e", new Power {
+				// TODO [GIL_618e] Glinda's Call && Test: Glinda's Call_GIL_618e
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -1933,7 +1918,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [GIL_118] Deranged Doctor - COST:8 [ATK:8/HP:8] 
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
-			// Text: <b>Deathrattle:</b> Restore 8 Health to your hero.
+			// Text: <b>Deathrattle:</b> Restore #8 Health to your hero.
 			// --------------------------------------------------------
 			// GameTag:
 			// - DEATHRATTLE = 1
@@ -2314,7 +2299,7 @@ namespace SabberStoneCore.CardSets.Undefined
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [GIL_584] Witchwood Piper - COST:4 [ATK:3/HP:3] 
-			// - Set: gilneas, Rarity: rare
+			// - Race: demon, Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Draw the lowest
 			//       Cost minion from your deck.
@@ -2405,7 +2390,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Deal 3 damage to
 			//       the enemy hero. Restore
-			//       3 Health to your hero.
+			//       #3 Health to your hero.
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
@@ -2440,7 +2425,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [GIL_624] Night Prowler - COST:4 [ATK:3/HP:3] 
 			// - Race: beast, Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> If this is the only minion in the battlefield, gain +3/+3.
+			// Text: <b>Battlecry:</b> If this is the only minion on the battlefield, gain +3/+3.
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
@@ -2487,7 +2472,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
-			//       <b>Deathrattle:</b> Restore 4 Health to your hero.
+			//       <b>Deathrattle:</b> Restore #4 Health to your hero.
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAUNT = 1
@@ -2603,7 +2588,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [GIL_815] Baleful Banker - COST:2 [ATK:2/HP:2] 
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Choose a friendly minion. Shuffle a copy of it into your deck.
+			// Text: <b>Battlecry:</b> Choose a friendly minion. Shuffle a copy into your deck.
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
@@ -3002,18 +2987,6 @@ namespace SabberStoneCore.CardSets.Undefined
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_650e] Hounded! (*) - COST:0 
-			// - Set: gilneas, 
-			// --------------------------------------------------------
-			// Text: Houndmaster Shaw grants <b>Rush</b>.
-			// --------------------------------------------------------
-			cards.Add("GIL_650e", new Power {
-				// TODO [GIL_650e] Hounded! && Test: Hounded!_GIL_650e
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [GIL_653e] Woodcutter (*) - COST:0 
 			// - Set: gilneas, 
 			// --------------------------------------------------------
@@ -3081,18 +3054,6 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("GIL_692e", new Power {
 				// TODO [GIL_692e] Curse of Ur && Test: Curse of Ur_GIL_692e
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_800e2] Badsong (*) - COST:0 
-			// - Set: gilneas, 
-			// --------------------------------------------------------
-			// Text: Costs (0).
-			// --------------------------------------------------------
-			cards.Add("GIL_800e2", new Power {
-				// TODO [GIL_800e2] Badsong && Test: Badsong_GIL_800e2
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -3297,7 +3258,6 @@ namespace SabberStoneCore.CardSets.Undefined
 			Priest(cards);
 			PriestNonCollect(cards);
 			Rogue(cards);
-			RogueNonCollect(cards);
 			Shaman(cards);
 			Warlock(cards);
 			WarlockNonCollect(cards);

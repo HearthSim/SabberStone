@@ -305,7 +305,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5] 
 		// - Set: expert1, Rarity: epic
 		// --------------------------------------------------------
-		// Text: <b>Choose One -</b> Draw a card; or Restore 5 Health.
+		// Text: <b>Choose One -</b> Draw a card; or Restore #5 Health.
 		// --------------------------------------------------------
 		// GameTag:
 		// - CHOOSE_ONE = 1
@@ -1345,7 +1345,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		}
 
 		// ------------------------------------------ MINION - MAGE
-		// [NEW1_012] Mana Wyrm - COST:1 [ATK:1/HP:3] 
+		// [NEW1_012] Mana Wyrm - COST:2 [ATK:1/HP:3] 
 		// - Set: expert1, Rarity: common
 		// --------------------------------------------------------
 		// Text: Whenever you cast a spell, gain +1 Attack.
@@ -1405,6 +1405,73 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Blizzard"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Blizzard"));
+		}
+
+		// ------------------------------------------- SPELL - MAGE
+		// [EX1_179] Icicle - COST:2 
+		// - Set: expert1, Rarity: epic
+		// --------------------------------------------------------
+		// Text: Deal $2 damage to a minion. If it's <b>Frozen</b>, draw a card. @spelldmg
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_TARGET_TO_PLAY = 0
+		// - REQ_MINION_TARGET = 0
+		// --------------------------------------------------------
+		// RefTag:
+		// - FREEZE = 1
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void Icicle_EX1_179()
+		{
+			// TODO Icicle_EX1_179 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Icicle"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Icicle"));
+			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Icicle"));
+		}
+
+		// ------------------------------------------- SPELL - MAGE
+		// [EX1_180] Tome of Intellect - COST:1 
+		// - Set: expert1, Rarity: common
+		// --------------------------------------------------------
+		// Text: Add a random Mage spell to your hand.
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void TomeOfIntellect_EX1_180()
+		{
+			// TODO TomeOfIntellect_EX1_180 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Tome of Intellect"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tome of Intellect"));
+			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Tome of Intellect"));
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -2239,7 +2306,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [EX1_341] Lightwell - COST:2 [ATK:0/HP:5] 
 		// - Fac: neutral, Set: expert1, Rarity: rare
 		// --------------------------------------------------------
-		// Text: At the start of your turn, restore 3 Health to a damaged friendly character.
+		// Text: At the start of your turn, restore #3 Health to a damaged friendly character.
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void Lightwell_EX1_341()
@@ -3131,6 +3198,36 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Preparation"));
 		}
 
+		// ------------------------------------------ SPELL - ROGUE
+		// [EX1_182] Pilfer - COST:1 
+		// - Set: expert1, Rarity: common
+		// --------------------------------------------------------
+		// Text: Add a random card to your hand <i>(from your opponent's class)</i>.
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void Pilfer_EX1_182()
+		{
+			// TODO Pilfer_EX1_182 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.ROGUE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Pilfer"),
+				},
+				Player2HeroClass = CardClass.ROGUE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Pilfer"));
+			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Pilfer"));
+		}
+
 		// ----------------------------------------- WEAPON - ROGUE
 		// [EX1_133] Perdition's Blade - COST:3 [ATK:2/HP:0] 
 		// - Fac: neutral, Set: expert1, Rarity: rare
@@ -3822,7 +3919,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// GameTag:
 		// - CHARGE = 1
 		// - BATTLECRY = 1
-		// - 890 = 2
+		// - DISCARD_CARDS = 2
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void Doomguard_EX1_310()
@@ -3979,6 +4076,36 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lord Jaraxxus"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Lord Jaraxxus"));
+		}
+
+		// ---------------------------------------- SPELL - WARLOCK
+		// [EX1_181] Call of the Void - COST:1 
+		// - Set: expert1, Rarity: common
+		// --------------------------------------------------------
+		// Text: Add a random Demon to your hand.
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void CallOfTheVoid_EX1_181()
+		{
+			// TODO CallOfTheVoid_EX1_181 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.WARLOCK,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Call of the Void"),
+				},
+				Player2HeroClass = CardClass.WARLOCK,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Call of the Void"));
+			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Call of the Void"));
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
@@ -4725,7 +4852,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3] 
 		// - Set: expert1, Rarity: common
 		// --------------------------------------------------------
-		// Text: <b>Battlecry:</b> Restore 3_Health.
+		// Text: <b>Battlecry:</b> Restore #3_Health.
 		// --------------------------------------------------------
 		// GameTag:
 		// - BATTLECRY = 1
@@ -6557,7 +6684,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [EX1_105] Mountain Giant - COST:12 [ATK:8/HP:8] 
-		// - Fac: neutral, Set: expert1, Rarity: epic
+		// - Race: elemental, Fac: neutral, Set: expert1, Rarity: epic
 		// --------------------------------------------------------
 		// Text: Costs (1) less for each other card in your hand.
 		// --------------------------------------------------------
@@ -7374,7 +7501,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [EX1_583] Priestess of Elune - COST:6 [ATK:5/HP:4] 
 		// - Fac: neutral, Set: expert1, Rarity: common
 		// --------------------------------------------------------
-		// Text: <b>Battlecry:</b> Restore 4 Health to your hero.
+		// Text: <b>Battlecry:</b> Restore #4 Health to your hero.
 		// --------------------------------------------------------
 		// GameTag:
 		// - BATTLECRY = 1
@@ -8042,7 +8169,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// GameTag:
 		// - ELITE = 1
 		// - BATTLECRY = 1
-		// - 890 = 10
+		// - DISCARD_CARDS = 10
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void Deathwing_NEW1_030()
