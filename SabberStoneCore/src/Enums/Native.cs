@@ -48,7 +48,8 @@
 		BGT_FSG_BRAWL_PVP = 41,
 		BGT_FSG_BRAWL_1P_VERSUS_AI = 42,
 		BGT_FSG_BRAWL_2P_COOP = 43,
-		BGT_TOURNAMENT = 44
+		//BGT_TOURNAMENT = 44,
+		BGT_RANKED_STANDARD_NEW_PLAYER = 45,
 		//BGT_LAST = 45
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
@@ -82,7 +83,7 @@
 		GOBLINS_VS_GNOMES = 9,
 		THE_GRAND_TOURNAMENT = 10,
 		OLD_GODS = 11,
-		FIRST_PURCHASE = 17,
+		//FIRST_PURCHASE_OLD = 17,
 		SIGNUP_INCENTIVE = 18,
 		MEAN_STREETS = 19,
 		UNGORO = 20,
@@ -91,7 +92,9 @@
 		KOBOLDS_AND_CATACOMBS = 30,
 		WITCHWOOD = 31,
 		THE_BOOMSDAY_PROJECT = 38,
+		RASTAKHANS_RUMBLE = 40,
 		MAMMOTH_BUNDLE = 41,
+		FIRST_PURCHASE = 181
 	}
 	/// <summary>
 	/// UNUSED
@@ -227,7 +230,7 @@
 		PRECON_DECK = 5,
 		TAVERN_BRAWL_DECK = 6,
 		FSG_BRAWL_DECK = 7,
-		FRIENDLY_TOURNAMENT_DECK = 8,
+		//FRIENDLY_TOURNAMENT_DECK = 8,
 		HIDDEN_DECK = 1000
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
@@ -710,7 +713,10 @@
 		SUPPRESS_JOBS_DONE_VO = 1055,
 		ALL_HEALING_DOUBLE = 1058,
 		BLOCK_ALL_INPUT = 1071,
-		PUZZLE_MODE = 1073
+		PUZZLE_MODE = 1073,
+		CARD_DOES_NOTHING = 1075,
+		CASTSWHENDRAWN = 1077,
+		FLOOPY = 1097
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
@@ -735,7 +741,7 @@
 		GT_FSG_BRAWL = 20,
 		GT_FSG_BRAWL_1P_VS_AI = 21,
 		GT_FSG_BRAWL_2P_COOP = 22,
-		GT_TOURNAMENT = 23
+		//GT_TOURNAMENT = 23
 		// GT_LAST = 24
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

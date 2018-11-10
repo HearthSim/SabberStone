@@ -300,6 +300,9 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// Text: <b>Hero Power</b>
 		//       Restore #2 Health.
 		// --------------------------------------------------------
+		// GameTag:
+		// - 1086 = 2741
+		// --------------------------------------------------------
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
 		// --------------------------------------------------------
@@ -332,7 +335,11 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - Fac: neutral, Set: core, Rarity: free
 		// --------------------------------------------------------
 		// Text: <b>Hero Power</b>
-		//       +1 Attack this turn.    +1 Armor.
+		//       +1 Attack this turn.
+		//       +1 Armor.
+		// --------------------------------------------------------
+		// GameTag:
+		// - 1086 = 2737
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void Shapeshift_CS2_017()
@@ -364,6 +371,9 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// --------------------------------------------------------
 		// Text: <b>Hero Power</b>
 		//       Deal $1 damage. @spelldmg
+		// --------------------------------------------------------
+		// GameTag:
+		// - 1086 = 2739
 		// --------------------------------------------------------
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
@@ -401,6 +411,9 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// --------------------------------------------------------
 		// Entourage: CS2_050, CS2_051, CS2_052, NEW1_009
 		// --------------------------------------------------------
+		// GameTag:
+		// - 1086 = 2742
+		// --------------------------------------------------------
 		// PlayReq:
 		// - REQ_NUM_MINION_SLOTS = 1
 		// - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
@@ -436,6 +449,9 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// Text: <b>Hero Power</b>
 		//       Draw a card and take $2_damage. @spelldmg
 		// --------------------------------------------------------
+		// GameTag:
+		// - 1086 = 2744
+		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void LifeTap_CS2_056()
 		{
@@ -467,6 +483,9 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// Text: <b>Hero Power</b>
 		//       Equip a 1/2 Dagger.
 		// --------------------------------------------------------
+		// GameTag:
+		// - 1086 = 2743
+		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void DaggerMastery_CS2_083b()
 		{
@@ -497,6 +516,9 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// --------------------------------------------------------
 		// Text: <b>Hero Power</b>
 		//       Summon a 1/1 Silver Hand Recruit.
+		// --------------------------------------------------------
+		// GameTag:
+		// - 1086 = 2740
 		// --------------------------------------------------------
 		// PlayReq:
 		// - REQ_NUM_MINION_SLOTS = 1
@@ -532,6 +554,9 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// Text: <b>Hero Power</b>
 		//       Gain 2 Armor.
 		// --------------------------------------------------------
+		// GameTag:
+		// - 1086 = 2745
+		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void ArmorUp_CS2_102()
 		{
@@ -563,6 +588,9 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// Text: <b>Hero Power</b>
 		//       Deal $2 damage to the enemy hero.@<b>Hero Power</b>
 		//       Deal $2 damage. @spelldmg
+		// --------------------------------------------------------
+		// GameTag:
+		// - 1086 = 2738
 		// --------------------------------------------------------
 		// PlayReq:
 		// - REQ_STEADY_SHOT = 0
@@ -1605,7 +1633,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6] 
 		// - Fac: neutral, Set: core, Rarity: free
 		// --------------------------------------------------------
-		// Text: <b>Battlecry:</b> Restore 6 Health to your hero.
+		// Text: <b>Battlecry:</b> Restore #6 Health to your hero.
 		// --------------------------------------------------------
 		// GameTag:
 		// - BATTLECRY = 1
@@ -1905,7 +1933,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0] 
 		// - Fac: neutral, Set: core, Rarity: free
 		// --------------------------------------------------------
-		// Text: Whenever your hero attacks, restore 2_Health to it.
+		// Text: Whenever your hero attacks, restore #2_Health to it.
 		// --------------------------------------------------------
 		// GameTag:
 		// - DURABILITY = 2
@@ -3030,7 +3058,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// --------------------------------------------------------
 		// GameTag:
 		// - BATTLECRY = 1
-		// - 890 = 1
+		// - DISCARD_CARDS = 1
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void Succubus_EX1_306()
@@ -3231,7 +3259,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		//       Discard a random card. @spelldmg
 		// --------------------------------------------------------
 		// GameTag:
-		// - 890 = 1
+		// - DISCARD_CARDS = 1
 		// --------------------------------------------------------
 		// PlayReq:
 		// - REQ_TARGET_TO_PLAY = 0
@@ -4660,7 +4688,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5] 
 		// - Fac: neutral, Set: core, Rarity: free
 		// --------------------------------------------------------
-		// Text: <b>Battlecry:</b> Restore 2 Health to all friendly characters.
+		// Text: <b>Battlecry:</b> Restore #2 Health to all friendly characters.
 		// --------------------------------------------------------
 		// GameTag:
 		// - BATTLECRY = 1
@@ -4693,7 +4721,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1] 
 		// - Fac: horde, Set: core, Rarity: free
 		// --------------------------------------------------------
-		// Text: <b>Battlecry:</b> Restore 2_Health.
+		// Text: <b>Battlecry:</b> Restore #2_Health.
 		// --------------------------------------------------------
 		// GameTag:
 		// - BATTLECRY = 1

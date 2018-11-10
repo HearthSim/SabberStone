@@ -1133,7 +1133,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 	{
 		// --------------------------------------- MINION - PALADIN
 		// [GIL_545] Ghostly Charger - COST:5 [ATK:3/HP:4] 
-		// - Race: beast, Set: gilneas, Rarity: common
+		// - Set: gilneas, Rarity: common
 		// --------------------------------------------------------
 		// Text: <b>Divine Shield</b>
 		//       <b>Rush</b>
@@ -1618,7 +1618,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - Set: gilneas, Rarity: common
 		// --------------------------------------------------------
 		// Text: [x]<b>Echo</b>
-		//       <b>Battlecry:</b> Restore 2 Health.
+		//       <b>Battlecry:</b> Restore #2 Health.
 		// --------------------------------------------------------
 		// GameTag:
 		// - BATTLECRY = 1
@@ -2369,6 +2369,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// - 960 = 1
+		// - FAST_BATTLECRY = 1
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void Shudderwock_GIL_820()
@@ -3252,7 +3253,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [GIL_118] Deranged Doctor - COST:8 [ATK:8/HP:8] 
 		// - Set: gilneas, Rarity: common
 		// --------------------------------------------------------
-		// Text: <b>Deathrattle:</b> Restore 8 Health to your hero.
+		// Text: <b>Deathrattle:</b> Restore #8 Health to your hero.
 		// --------------------------------------------------------
 		// GameTag:
 		// - DEATHRATTLE = 1
@@ -4042,7 +4043,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 
 		// --------------------------------------- MINION - NEUTRAL
 		// [GIL_584] Witchwood Piper - COST:4 [ATK:3/HP:3] 
-		// - Set: gilneas, Rarity: rare
+		// - Race: demon, Set: gilneas, Rarity: rare
 		// --------------------------------------------------------
 		// Text: [x]<b>Battlecry:</b> Draw the lowest
 		//       Cost minion from your deck.
@@ -4220,7 +4221,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// --------------------------------------------------------
 		// Text: [x]<b>Battlecry:</b> Deal 3 damage to
 		//       the enemy hero. Restore
-		//       3 Health to your hero.
+		//       #3 Health to your hero.
 		// --------------------------------------------------------
 		// GameTag:
 		// - BATTLECRY = 1
@@ -4290,7 +4291,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [GIL_624] Night Prowler - COST:4 [ATK:3/HP:3] 
 		// - Race: beast, Set: gilneas, Rarity: rare
 		// --------------------------------------------------------
-		// Text: <b>Battlecry:</b> If this is the only minion in the battlefield, gain +3/+3.
+		// Text: <b>Battlecry:</b> If this is the only minion on the battlefield, gain +3/+3.
 		// --------------------------------------------------------
 		// GameTag:
 		// - BATTLECRY = 1
@@ -4390,7 +4391,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - Set: gilneas, Rarity: common
 		// --------------------------------------------------------
 		// Text: <b>Taunt</b>
-		//       <b>Deathrattle:</b> Restore 4 Health to your hero.
+		//       <b>Deathrattle:</b> Restore #4 Health to your hero.
 		// --------------------------------------------------------
 		// GameTag:
 		// - TAUNT = 1
@@ -4631,7 +4632,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [GIL_815] Baleful Banker - COST:2 [ATK:2/HP:2] 
 		// - Set: gilneas, Rarity: epic
 		// --------------------------------------------------------
-		// Text: <b>Battlecry:</b> Choose a friendly minion. Shuffle a copy of it into your deck.
+		// Text: <b>Battlecry:</b> Choose a friendly minion. Shuffle a copy into your deck.
 		// --------------------------------------------------------
 		// GameTag:
 		// - BATTLECRY = 1

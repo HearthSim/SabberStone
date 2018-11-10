@@ -366,7 +366,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [UNG_111] Living Mana - COST:5 
 		// - Set: ungoro, Rarity: epic
 		// --------------------------------------------------------
-		// Text: Transform your Mana Crystals into 2/2 minions. Recover the mana when they die.
+		// Text: Transform your Mana Crystals into 2/2 Treants. Recover the mana when they die.
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void LivingMana_UNG_111()
@@ -406,6 +406,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - QUEST = 1
 		// - QUEST_PROGRESS_TOTAL = 5
 		// - 676 = 1
+		// - 839 = 1
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void JungleGiants_UNG_116()
@@ -758,6 +759,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - QUEST = 1
 		// - QUEST_PROGRESS_TOTAL = 7
 		// - 676 = 1
+		// - 839 = 1
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void TheMarshQueen_UNG_920()
@@ -1006,6 +1008,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - QUEST = 1
 		// - QUEST_PROGRESS_TOTAL = 6
 		// - 676 = 1
+		// - 839 = 1
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void OpenTheWaygate_UNG_028()
@@ -1214,7 +1217,9 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [UNG_953] Primalfin Champion - COST:2 [ATK:1/HP:2] 
 		// - Race: murloc, Set: ungoro, Rarity: epic
 		// --------------------------------------------------------
-		// Text: <b>Deathrattle:</b> Return any spells you cast on this minion to your hand.
+		// Text: [x]<b>Deathrattle:</b> Return any
+		//       spells you cast on this
+		//       minion to your hand.
 		// --------------------------------------------------------
 		// GameTag:
 		// - DEATHRATTLE = 1
@@ -1365,6 +1370,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - QUEST = 1
 		// - QUEST_PROGRESS_TOTAL = 6
 		// - 676 = 1
+		// - 839 = 1
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void TheLastKaleidosaur_UNG_954()
@@ -1832,6 +1838,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - QUEST = 1
 		// - QUEST_PROGRESS_TOTAL = 7
 		// - 676 = 1
+		// - 839 = 1
 		// --------------------------------------------------------
 		// RefTag:
 		// - DEATHRATTLE = 1
@@ -2079,6 +2086,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - QUEST = 1
 		// - QUEST_PROGRESS_TOTAL = 5
 		// - 676 = 1
+		// - 839 = 1
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void TheCavernsBelow_UNG_067()
@@ -2390,7 +2398,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - Race: elemental, Set: ungoro, Rarity: common
 		// --------------------------------------------------------
 		// Text: <b>Taunt</b>
-		//       <b>Battlecry:</b> Restore 3_Health.
+		//       <b>Battlecry:</b> Restore #3_Health.
 		// --------------------------------------------------------
 		// GameTag:
 		// - TAUNT = 1
@@ -2506,6 +2514,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - QUEST = 1
 		// - QUEST_PROGRESS_TOTAL = 10
 		// - 676 = 1
+		// - 839 = 1
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void UniteTheMurlocs_UNG_942()
@@ -2688,7 +2697,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// GameTag:
 		// - TAUNT = 1
 		// - BATTLECRY = 1
-		// - 890 = 2
+		// - DISCARD_CARDS = 2
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void LakkariFelhound_UNG_833()
@@ -2796,6 +2805,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - QUEST = 1
 		// - QUEST_PROGRESS_TOTAL = 6
 		// - 676 = 1
+		// - 839 = 1
 		// --------------------------------------------------------
 		[Fact(Skip = "ignore")]
 		public void LakkariSacrifice_UNG_829()
@@ -3202,6 +3212,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// - QUEST = 1
 		// - QUEST_PROGRESS_TOTAL = 7
 		// - 676 = 1
+		// - 839 = 1
 		// --------------------------------------------------------
 		// RefTag:
 		// - TAUNT = 1
