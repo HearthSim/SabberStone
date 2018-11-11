@@ -229,6 +229,19 @@ namespace SabberStoneCore.Enchants
 		}
 
 		/// <summary>
+		/// Add a new Cost effect that should be applied before any others
+		/// </summary>
+		public void AddPriorCostAura(in Effect e)
+		{
+			ToBeUpdated = true;
+
+			if (_costEffects == null)
+				_costEffects = new List<Effect> {e};
+			else
+				_costEffects.Insert(0, e);
+		}
+
+		/// <summary>
 		/// Gets the estimated Cost of the owner.
 		/// </summary>
 		/// <returns></returns>

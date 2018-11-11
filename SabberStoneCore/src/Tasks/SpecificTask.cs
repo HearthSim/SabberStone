@@ -758,9 +758,9 @@ namespace SabberStoneCore.Tasks
 				if (!secretClasses.Contains(cls))
 					cls = CardClass.MAGE;
 
-				if (_cachedSecrets == null || !_cachedSecrets.ContainsKey(cls))
+				lock (locker)
 				{
-					lock (locker)
+					if (_cachedSecrets == null || !_cachedSecrets.ContainsKey(cls))
 					{
 						if (_cachedSecrets == null)
 							_cachedSecrets = new Dictionary<CardClass, Card[]>();
@@ -770,6 +770,7 @@ namespace SabberStoneCore.Tasks
 							.Where(p => p.IsSecret && !existing.Contains(p))
 							.ToArray());
 					}
+
 				}
 
 				Card[] candidates = _cachedSecrets[cls];

@@ -12,7 +12,7 @@ namespace SabberStoneCore.Model
 	/// </summary>
 	public static class Util
 	{
-		internal class PriorityQueue<TValue>
+		internal class PriorityQueue<TValue> where TValue : struct
 		{
 			[DebuggerDisplay("{DebuggerDisplay,nq}")]
 			private class Node
@@ -31,8 +31,6 @@ namespace SabberStoneCore.Model
 
 				private string DebuggerDisplay => $"({Value}, {Key})";
 			}
-
-			private const int InitSize = 4;
 
 			private readonly Node _head = new Node();
 
@@ -67,6 +65,35 @@ namespace SabberStoneCore.Model
 				Count--;
 
 				return node.Value;
+			}
+
+			public bool Contains(in TValue value)
+			{
+				Node cursor = _head.Next;
+
+				while (cursor != null)
+				{
+					if (cursor.Value.Equals(value))
+						return true;
+
+					cursor = cursor.Next;
+				}
+
+				return false;
+			}
+
+			public bool Contains(in TValue value, IEqualityComparer<TValue> comparer)
+			{
+				Node cursor = _head.Next;
+				while (cursor != null)
+				{
+					if (comparer.Equals(cursor.Value, value))
+						return true;
+
+					cursor = cursor.Next;
+				}
+
+				return false;
 			}
 
 			public IEnumerator<TValue> GetEnumerator()

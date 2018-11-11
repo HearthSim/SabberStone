@@ -2690,20 +2690,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
+			// TODO: re-implement Summoning Portal
 			cards.Add("EX1_315", new Power {
-				Aura = new Aura(AuraType.HAND, new ConditionalEffect(GameTag.COST, EffectOperator.SUB, p =>
-				{
-					int c = p.Card.Cost;
-					if (c > 2)
-						return 2;
-					if (c == 2)
-						return 1;
-					return 0;
-				}))
-				{
-					Condition = SelfCondition.IsMinion
-				}
+				//Aura = new Aura(AuraType.SUMMONING_PORTAL, "EX1_315e")
 			});
+
+			cards.Add("EX1_315e", null);
 
 			// --------------------------------------- MINION - WARLOCK
 			// [EX1_319] Flame Imp - COST:1 [ATK:3/HP:2] 

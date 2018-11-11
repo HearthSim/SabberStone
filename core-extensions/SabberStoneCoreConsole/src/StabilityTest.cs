@@ -74,9 +74,9 @@ namespace SabberStoneCoreConsole
 	    {
 		    Console.WriteLine("Test started");
 		    int i = 0;
-		    while (i < TESTCOUNT)
+			int num = System.Environment.ProcessorCount;
+			while (i < TESTCOUNT * num)
 		    {
-			    int num = System.Environment.ProcessorCount * 2;
 			    var tasks = new Task[num];
 			    var cts = new CancellationTokenSource();
 			    var token = cts.Token;
@@ -84,16 +84,17 @@ namespace SabberStoneCoreConsole
 			    {
 				    tasks[j] = new Task(() =>
 				    {
-					    var config = new GameConfig
-					    {
-						    Player1HeroClass = (CardClass) rnd.Next(2, 11),
-						    Player2HeroClass = (CardClass) rnd.Next(2, 11),
-						    FillDecks = true,
-						    FillDecksPredictably = true,
-						    Shuffle = false,
-						    SkipMulligan = true,
-						    History = false,
-						    Logging = true,
+						var config = new GameConfig
+						{
+							Player1HeroClass = (CardClass)rnd.Next(2, 11),
+							Player2HeroClass = (CardClass)rnd.Next(2, 11),
+							FillDecks = true,
+							FillDecksPredictably = true,
+							Shuffle = false,
+							SkipMulligan = true,
+							History = false,
+							//Logging = true,
+							Logging = false
 					    };
 					    var game = new Game(config);
 					    game.StartGame();
@@ -137,8 +138,8 @@ namespace SabberStoneCoreConsole
 			    Task.WaitAll(tasks);
 
 
-				if (i % (TESTCOUNT / 10) == 0)
-				Console.WriteLine($"{((double) i / TESTCOUNT) * 100}% done");
+				if (i % (TESTCOUNT * num / 10) == 0)
+					Console.WriteLine($"{((double) i / (TESTCOUNT * num)) * 100}% done");
 		    }
 	    }
 

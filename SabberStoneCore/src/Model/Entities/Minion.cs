@@ -215,6 +215,21 @@ namespace SabberStoneCore.Model.Entities
 	public partial class Minion
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
+		public int SpellPower
+		{
+			get
+			{
+				if (!_data.TryGetValue(GameTag.SPELLPOWER, out int value))
+					return Card.SpellPower;
+				return value;
+			}
+			set
+			{
+				Controller.CurrentSpellPower += (value - SpellPower);
+				this[GameTag.SPELLPOWER] = value;
+			}
+		}
+
 		public bool HasCharge
 		{
 			//get => this[GameTag.CHARGE] >= 1;

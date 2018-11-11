@@ -5,10 +5,10 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 {
 	public class ConcedeTask : PlayerTask
 	{
-		//public static ConcedeTask Any(in Controller controller)
-		//{
-		//	return new ConcedeTask(in controller);
-		//}
+		public static ConcedeTask Any(Controller controller)
+		{
+			return new ConcedeTask(controller);
+		}
 		private ConcedeTask(Controller controller)
 		{
 			PlayerTaskType = PlayerTaskType.CONCEDE;

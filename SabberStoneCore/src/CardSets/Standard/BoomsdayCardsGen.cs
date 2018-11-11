@@ -2430,7 +2430,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_267", new Power {
 				DeathrattleTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
-					new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 2, RelaSign.LEQ)),
+					new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 2, RelaSign.LEQ), SelfCondition.IsMinion),
 					new RandomTask(1, EntityType.STACK),
 					new RemoveFromHand(EntityType.STACK),
 					new SummonTask())

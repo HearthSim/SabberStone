@@ -14,67 +14,6 @@ using SabberStoneCore.Model.Zones;
 namespace SabberStoneCore.Enchants
 {
 	/// <summary>
-	/// Aura types. Indicates the range of auras. 
-	/// </summary>
-	public enum AuraType
-	{
-		/// <summary> This type of aura only affects the source of the aura. </summary>
-		SELF,
-		/// <summary> This type of aura affects the minions adjacent to the source of the aura. </summary>
-		ADJACENT,
-		/// <summary> This type of aura affects all friendly minions. </summary>
-		BOARD,
-		/// <summary> This type of aura affects all friendly minions except the source of the aura. </summary>
-		BOARD_EXCEPT_SOURCE,
-		/// <summary> This type of aura affects all entities in the hand of the source's controller. </summary>
-		HAND,
-		/// <summary> This type of aura affects all entities in the hand of the opponent of the source's controller. </summary>
-		OP_HAND,
-		/// <summary> This type of aura affects all entities in the both player's hand. </summary>
-		HANDS,
-		/// <summary> This type of aura only affects the controller of the source of the aura. </summary>
-		CONTROLLER,
-		/// <summary> This type of aura affects the both controllers. </summary>
-		CONTROLLERS,
-		/// <summary> This type of aura affects the weapon of the source's controller. </summary>
-		WEAPON,
-
-		ADAPTIVE,
-
-		HERO,
-
-		HEROPOWER,
-
-		HAND_AND_BOARD,
-
-		MULTIAURA
-	}
-
-	/// <summary>
-	/// Interface for effects of enchantments that should be updated during <see cref="Game.AuraUpdate"/>.
-	/// </summary>
-	public interface IAura
-	{
-		/// <summary> The entity who owns this effect. </summary>
-		IPlayable Owner { get; }
-		/// <summary> Refreshes this effect. </summary>
-		void Update();
-		/// <summary> Removes this effect from the game. </summary>
-		void Remove();
-		/// <summary>
-		/// Activates this effect and add an instance to the game of the given entity.
-		/// </summary>
-		/// <param name="owner">The entity who owns this effect.</param>
-		void Activate(IPlayable owner);
-		/// <summary>
-		/// Performs a deep copy of this object.
-		/// The resulting cloned instance will be added to the given clone entity's game.
-		/// </summary>
-		/// <param name="clone"></param>
-		void Clone(IPlayable clone);
-	}
-
-	/// <summary>
 	/// Auras can affect entities and change the applied entities' ATK, COST, etc. 
 	/// Aura must be activated first to affect entities. 
 	/// The effect of an aura is applied or removed during <see cref="Game.AuraUpdate"/>.
@@ -85,7 +24,7 @@ namespace SabberStoneCore.Enchants
 		{
 			Invalid, RemoveAll, AddAll, Add, Remove, /*CheckAdjacency*/
 		}
-		private readonly struct AuraUpdateInstruction
+		private readonly struct AuraUpdateInstruction : IEquatable<AuraUpdateInstruction>
 		{
 			public readonly IPlayable Src;
 			public readonly Instruction Instruction;
@@ -102,12 +41,27 @@ namespace SabberStoneCore.Enchants
 				Instruction = instruction;
 			}
 
+			public bool Equals(AuraUpdateInstruction other)
+			{
+				return Equals(Src, other.Src) && Instruction == other.Instruction;
+			}
+
 			public override string ToString()
 			{
 				if (Src != null)
 					return $"{Instruction} - {Src}";
 				else
 					return Instruction.ToString();
+			}
+
+			public override bool Equals(object obj) => obj != null && (obj is AuraUpdateInstruction instruction && Equals(instruction));
+
+			public override int GetHashCode()
+			{
+				unchecked
+				{
+					return ((Src != null ? Src.GetHashCode() : 0) * 397) ^ (int) Instruction;
+				}
 			}
 		}
 
@@ -304,6 +258,10 @@ namespace SabberStoneCore.Enchants
 						//instance._tempList.Add(minion);
 					}
 					break;
+				case AuraType.SUMMONING_PORTAL:
+					foreach (IPlayable p in owner.Controller.HandZone.Where(p => p.Card.Type == CardType.MINION))
+						Enchantment.GetInstance(in c, in owner, p, in EnchantmentCard);
+					break;
 			}
 		}
 
@@ -325,85 +283,7 @@ namespace SabberStoneCore.Enchants
 
 				UpdateInternal();
 
-				//switch (Type)
-				//{
-				//	case AuraType.BOARD:
-				//	{
-
-
-				//		ReadOnlySpan<Minion> span = Owner.Controller.BoardZone.GetSpan();
-				//		for (int i = 0; i < span.Length; i++)
-				//		{
-				//			//if (_appliedEntityIds.Contains(span[i].Id))
-				//			if (_appliedEntityIdCollection.Contains(span[i].Id))
-				//				DeApply(span[i]);
-
-				//			Apply(span[i]);
-				//		}
-
-				//		return;
-				//	}
-				//	case AuraType.HAND:
-				//	{
-				//		ReadOnlySpan<IPlayable> span = Owner.Controller.HandZone.GetSpan();
-				//		for (int i = 0; i < span.Length; i++)
-				//		{
-				//			//if (_appliedEntityIds.Contains(span[i].Id))
-				//			if (_appliedEntityIdCollection.Contains(span[i].Id))
-				//				DeApply(span[i]);
-
-				//			Apply(span[i]);
-				//		}
-				//		return;
-				//	}
-				//	case AuraType.HANDS:
-				//	{
-				//		ReadOnlySpan<IPlayable> span = Owner.Controller.HandZone.GetSpan();
-				//		for (int i = 0; i < span.Length; i++)
-				//		{
-				//			//if (_appliedEntityIds.Contains(span[i].Id))
-				//			if (_appliedEntityIdCollection.Contains(span[i].Id))
-				//				DeApply(span[i]);
-
-				//			Apply(span[i]);
-				//		}
-
-				//		span = Owner.Controller.Opponent.HandZone.GetSpan();
-
-				//		for (int i = 0; i < span.Length; i++)
-				//		{
-				//			//if (_appliedEntityIds.Contains(span[i].Id))
-				//			if (_appliedEntityIdCollection.Contains(span[i].Id))
-				//				DeApply(span[i]);
-
-				//			Apply(span[i]);
-				//		}
-				//		return;
-				//	}
-				//	case AuraType.SELF:
-				//	{
-				//		IPlayable entity = Owner;
-				//		DeApply(entity);
-				//		Apply(entity);
-				//		return;
-				//	}
-				//	case AuraType.HERO:
-				//	{
-				//		IPlayable entity = Owner.Controller.Hero;
-				//		DeApply(entity);
-				//		Apply(entity);
-				//		return;
-				//	}
-				//	case AuraType.WEAPON:
-				//	{
-				//		IPlayable entity = Owner.Controller.Hero.Weapon;
-				//		if (entity == null)
-				//			return;
-				//		DeApply(entity);
-				//		Apply(entity);
-				//		return;
-				//	}
-				//}
+				return;
 			}
 
 			var queue = _auraUpdateInstructionsQueue;
@@ -519,7 +399,10 @@ namespace SabberStoneCore.Enchants
 			//	return;
 			//}
 
-			_auraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(playable, Instruction.Add), 2);
+			var instruction = new AuraUpdateInstruction(playable, Instruction.Add);
+
+			if (!_auraUpdateInstructionsQueue.Contains(in instruction))
+				_auraUpdateInstructionsQueue.Enqueue(instruction, 2);
 		}
 
 		/// <summary>
@@ -614,6 +497,8 @@ namespace SabberStoneCore.Enchants
 					break;
 				case AuraType.SELF:
 					Apply(Owner);
+					break;
+				case AuraType.SUMMONING_PORTAL:
 					break;
 			}
 		}

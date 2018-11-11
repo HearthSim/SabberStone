@@ -2514,12 +2514,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - START_OF_GAME = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_692", new Power {
-				// TODO [GIL_692] Genn Greymane && Test: Genn Greymane_GIL_692
 				Trigger = new Trigger(TriggerType.GAME_START)
 				{
 					TriggerActivation = TriggerActivation.DECK,
 					Condition = SelfCondition.HasNoOddCostInDeck,
-					SingleTask = new AddEnchantmentTask("GIL_692e", EntityType.HERO_POWER)
+					SingleTask = new AddEnchantmentTask("GIL_692e", EntityType.HERO_POWER),
+					RemoveAfterTriggered = true
 				}
 			});
 
@@ -2598,12 +2598,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - START_OF_GAME = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_826", new Power {
-				// TODO [GIL_826] Baku the Mooneater && Test: Baku the Mooneater_GIL_826
 				Trigger = new Trigger(TriggerType.GAME_START)
 				{
 					TriggerActivation = TriggerActivation.DECK,
 					Condition = SelfCondition.HasNoEvenCostInDeck,
-					SingleTask = SpecificTask.JusticarTrueheart
+					SingleTask = SpecificTask.JusticarTrueheart,
+					RemoveAfterTriggered = true
 				}
 			});
 

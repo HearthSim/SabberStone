@@ -343,12 +343,6 @@ namespace SabberStoneCore.Model
 				Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably ? _gameConfig.UnPredictableCardIDs : null);
 				Player2.DeckZone.Fill(_gameConfig.FillDecksPredictably ? _gameConfig.UnPredictableCardIDs : null);
 			}
-
-
-
-			AllCharacters = new Character[17];
-			AllCharacters[0] = Player1.Hero;
-			AllCharacters[16] = Player2.Hero;
 		}
 
 		/// <summary> A copy constructor. </summary>
@@ -1369,10 +1363,5 @@ namespace SabberStoneCore.Model
 				return list;
 			}
 		}
-
-
-
-
-		internal readonly Character[] AllCharacters;
 	}
 }

@@ -31,7 +31,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
-			in TaskStack stack = null)
+			in TaskStack stack)
 		{
 			if (_relaConditions != null)
 			{
@@ -41,8 +41,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				if (entities.Count != 1)
 					return TaskState.STOP;
 
-				var filtered = new List<IPlayable>(entities.Count);
-				foreach (IPlayable p in stack?.Playables)
+				var filtered = new List<IPlayable>(stack.Playables.Count);
+				foreach (IPlayable p in stack.Playables)
 				{
 					bool flag = true;
 					for (int i = 0; i < _relaConditions.Length; i++)

@@ -112,8 +112,8 @@ namespace SabberStoneCore.Model.Zones
 			entity.Power?.Trigger?.Activate(entity);
 			entity.Power?.Aura?.Activate(entity);
 
-			if (entity.Card[GameTag.SPELLPOWER] > 0)
-				entity.Controller.CurrentSpellPower += entity.Card.Tags[GameTag.SPELLPOWER];
+			if (entity.Card.SpellPower > 0)
+				entity.Controller.CurrentSpellPower += entity.Card.SpellPower;
 		}
 
 		private static void RemoveAura(Minion entity)
@@ -122,7 +122,7 @@ namespace SabberStoneCore.Model.Zones
 			int csp = entity.Controller.CurrentSpellPower;
 			if (csp > 0)
 			{
-				int sp = entity[GameTag.SPELLPOWER];
+				int sp = entity.SpellPower;
 				if (sp > 0)
 					entity.Controller.CurrentSpellPower = csp - sp;
 			}
