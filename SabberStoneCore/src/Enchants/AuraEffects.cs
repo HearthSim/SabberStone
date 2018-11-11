@@ -107,12 +107,15 @@ namespace SabberStoneCore.Enchants
 						Health = value;
 						return;
 					case GameTag.CHARGE:
-						Charge = value;
-						if (value > 0 && Owner[GameTag.EXHAUSTED] == 1 && Owner[GameTag.NUM_ATTACKS_THIS_TURN] < 1)
-							Owner[GameTag.EXHAUSTED] = 0;
-						if (((Minion)Owner).AttackableByRush)
-							Owner[GameTag.ATTACKABLE_BY_RUSH] = 0;
-						return;
+						{
+							Charge = value;
+							var m = (Minion)Owner;
+							if (value > 0 && m.IsExhausted && m.NumAttacksThisTurn < 1)
+								m.IsExhausted = false;
+							if (m.AttackableByRush)
+								m.AttackableByRush = false;
+							return;
+						}
 					case GameTag.COST:
 						COST = value;
 						return;
@@ -141,29 +144,32 @@ namespace SabberStoneCore.Enchants
 						CARD_COST_HEALTH = value;
 						return;
 					case GameTag.RUSH:
-						Rush = value;
-						if (value > 0)
 						{
-							if (Owner[GameTag.EXHAUSTED] == 1 && Owner[GameTag.NUM_ATTACKS_THIS_TURN] == 0)
+							Rush = value;
+							var m = (Minion)Owner;
+							if (value > 0)
 							{
-								Owner[GameTag.EXHAUSTED] = 0;
-								Owner[GameTag.ATTACKABLE_BY_RUSH] = 1;
-								Owner.Game.RushMinions.Add(Owner.Id);
+								if (m.IsExhausted && m.NumAttacksThisTurn == 0)
+								{
+									m.IsExhausted = false;
+									m.AttackableByRush = true;
+									Owner.Game.RushMinions.Add(Owner.Id);
+								}
 							}
-						}
-						else
-						{
-							if (Owner[GameTag.ATTACKABLE_BY_RUSH] == 1 && Owner[GameTag.EXHAUSTED] == 0)
+							else
 							{
-								if (Owner._data[GameTag.RUSH] > 0 || Owner.Card.Rush)
-									return;
+								if (m.AttackableByRush && !m.IsExhausted)
+								{
+									if (m.IsRush || Owner.Card.Rush)
+										return;
 
-								Owner[GameTag.ATTACKABLE_BY_RUSH] = 0;
-								Owner[GameTag.EXHAUSTED] = 1;
-								Owner.Game.RushMinions.Remove(Owner.Id);
+									m.AttackableByRush = false;
+									m.IsExhausted = true;
+									Owner.Game.RushMinions.Remove(Owner.Id);
+								}
 							}
+							return;
 						}
-						return;
 					case GameTag.ECHO:
 						Echo = value;
 						return;

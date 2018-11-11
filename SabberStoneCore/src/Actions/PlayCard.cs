@@ -185,7 +185,7 @@ namespace SabberStoneCore.Actions
 				//hero[GameTag.DAMAGE] = oldHero[GameTag.DAMAGE];
 				hero.Damage = oldHero.Damage;
 				hero[GameTag.ARMOR] = oldHero[GameTag.ARMOR] + hero.Card[GameTag.ARMOR];
-				hero[GameTag.EXHAUSTED] = oldHero[GameTag.EXHAUSTED];
+				hero.IsExhausted = oldHero.IsExhausted;
 
 				c.SetasideZone.Add(oldHero);
 				//oldHero[GameTag.REVEALED] = 1;

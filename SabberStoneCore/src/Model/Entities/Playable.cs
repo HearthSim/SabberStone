@@ -223,6 +223,8 @@ namespace SabberStoneCore.Model.Entities
 
 			if (playable.Memory?.Count > 0)
 				Memory = new List<int>(playable.Memory);
+
+			_exhausted = playable._exhausted;
 		}
 
 		/// <summary>
@@ -564,6 +566,8 @@ namespace SabberStoneCore.Model.Entities
 	public abstract partial class Playable
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
+		private bool _exhausted;
+
 		public int Cost
 		{
 			get => AuraEffects.GetCost();
@@ -598,8 +602,15 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool IsExhausted
 		{
-			get { return this[GameTag.EXHAUSTED] == 1; }
-			set { this[GameTag.EXHAUSTED] = value ? 1 : 0; }
+			get => _exhausted;
+			set
+			{
+				_exhausted = value;
+				if (_history || _logging)
+				{
+					this[GameTag.EXHAUSTED] = value ? 1 : 0;
+				}
+			}
 		}
 
 		public int Overload => Card.Overload;

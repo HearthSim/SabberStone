@@ -429,7 +429,10 @@ namespace SabberStoneCore.Model.Zones
 		private void Reposition(int zonePosition = 0)
 		{
 			if (zonePosition < 0)
-				zonePosition = _count - 1;
+			{
+				Entities[_count - 1].ZonePosition = _count - 1;
+				return;
+			}
 
 			T[] entities = Entities;
 			for (int i = _count - 1; i >= zonePosition; --i)

@@ -77,16 +77,21 @@ namespace SabberStoneCore.Enchants
 					switch (Tag)
 					{
 						case GameTag.CHARGE:
-							if (entity[GameTag.EXHAUSTED] == 1 && entity[GameTag.NUM_ATTACKS_THIS_TURN] == 0)
-								entity[GameTag.EXHAUSTED] = 0;
-							if (((Minion)entity).AttackableByRush)
-								entity[GameTag.ATTACKABLE_BY_RUSH] = 0;
-							break;
+							{
+								var m = (Minion)entity;
+								if (m.IsExhausted && m.NumAttacksThisTurn == 0)
+									m.IsExhausted = false;
+								if (m.AttackableByRush)
+									m.AttackableByRush = false;
+								break;
+							}
 						case GameTag.WINDFURY:
-							Minion m = entity as Minion;
-							if (m.NumAttacksThisTurn > 0 && m.IsExhausted)
-								m.IsExhausted = false;
-							break;
+							{
+								var m = (Minion)entity;
+								if (m.NumAttacksThisTurn > 0 && m.IsExhausted)
+									m.IsExhausted = false;
+								break;
+							}
 						case GameTag.TAUNT:
 							((Character) entity).HasTaunt = Value > 0;
 							return;
