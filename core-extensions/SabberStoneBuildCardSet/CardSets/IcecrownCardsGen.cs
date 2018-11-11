@@ -277,7 +277,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [ICC_830p] Voidform (*) - COST:2 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			// Text: <b>Hero Power</b>
+			// Text: [x]<b>Hero Power</b>
 			//       Deal $2 damage.
 			//       After you play a card,
 			//       refresh this. @spelldmg
@@ -964,6 +964,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("ICC_243", new Power {
 				// TODO [ICC_243] Corpse Widow && Test: Corpse Widow_ICC_243
+				InfoCardId = "ICC_243e",
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -1155,6 +1156,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("ICC_083", new Power {
 				// TODO [ICC_083] Doomed Apprentice && Test: Doomed Apprentice_ICC_083
+				InfoCardId = "ICC_083e",
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -2985,6 +2987,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("ICC_706", new Power {
 				// TODO [ICC_706] Nerubian Unraveler && Test: Nerubian Unraveler_ICC_706
+				InfoCardId = "ICC_706e",
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -3158,6 +3161,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("ICC_901", new Power {
 				// TODO [ICC_901] Drakkari Enchanter && Test: Drakkari Enchanter_ICC_901
+				InfoCardId = "ICC_901e",
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -3335,6 +3339,18 @@ namespace SabberStoneCore.CardSets.Undefined
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [ICC_083e] Dooooooomed! (*) - COST:0 
+			// - Set: icecrown, 
+			// --------------------------------------------------------
+			// Text: Costs (1) more.
+			// --------------------------------------------------------
+			cards.Add("ICC_083e", new Power {
+				// TODO [ICC_083e] Dooooooomed! && Test: Dooooooomed!_ICC_083e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_092e] Veteran's Favor (*) - COST:0 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
@@ -3402,6 +3418,18 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("ICC_235e", new Power {
 				// TODO [ICC_235e] Shadow Essence && Test: Shadow Essence_ICC_235e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [ICC_243e] Exhumed (*) - COST:0 
+			// - Set: icecrown, 
+			// --------------------------------------------------------
+			// Text: Costs (2) less.
+			// --------------------------------------------------------
+			cards.Add("ICC_243e", new Power {
+				// TODO [ICC_243e] Exhumed && Test: Exhumed_ICC_243e
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -3491,6 +3519,18 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("ICC_705e", new Power {
 				// TODO [ICC_705e] Bonemare's Boon && Test: Bonemare's Boon_ICC_705e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [ICC_706e] Unravelled (*) - COST:0 
+			// - Set: icecrown, 
+			// --------------------------------------------------------
+			// Text: Costs (2) more.
+			// --------------------------------------------------------
+			cards.Add("ICC_706e", new Power {
+				// TODO [ICC_706e] Unravelled && Test: Unravelled_ICC_706e
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -3621,6 +3661,18 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("ICC_852e", new Power {
 				// TODO [ICC_852e] Taldaram's Visage && Test: Taldaram's Visage_ICC_852e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [ICC_901e] Frost Magics (*) - COST:0 
+			// - Set: icecrown, 
+			// --------------------------------------------------------
+			// Text: Your end of turn effects trigger twice.
+			// --------------------------------------------------------
+			cards.Add("ICC_901e", new Power {
+				// TODO [ICC_901e] Frost Magics && Test: Frost Magics_ICC_901e
 				//PowerTask = null,
 				//Trigger = null,
 			});

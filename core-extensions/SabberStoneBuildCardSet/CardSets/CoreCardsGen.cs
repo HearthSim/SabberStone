@@ -142,6 +142,9 @@ namespace SabberStoneCore.CardSets.Undefined
 			// Text: <b>Hero Power</b>
 			//       Restore #2 Health.
 			// --------------------------------------------------------
+			// GameTag:
+			// - 1086 = 2741
+			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
@@ -156,7 +159,11 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
-			//       +1 Attack this turn.    +1 Armor.
+			//       +1 Attack this turn.
+			//       +1 Armor.
+			// --------------------------------------------------------
+			// GameTag:
+			// - 1086 = 2737
 			// --------------------------------------------------------
 			cards.Add("CS2_017", new Power {
 				// TODO [CS2_017] Shapeshift && Test: Shapeshift_CS2_017
@@ -171,6 +178,9 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $1 damage. @spelldmg
+			// --------------------------------------------------------
+			// GameTag:
+			// - 1086 = 2739
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
@@ -190,6 +200,9 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			// Entourage: CS2_050, CS2_051, CS2_052, NEW1_009
 			// --------------------------------------------------------
+			// GameTag:
+			// - 1086 = 2742
+			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
@@ -207,6 +220,9 @@ namespace SabberStoneCore.CardSets.Undefined
 			// Text: <b>Hero Power</b>
 			//       Draw a card and take $2_damage. @spelldmg
 			// --------------------------------------------------------
+			// GameTag:
+			// - 1086 = 2744
+			// --------------------------------------------------------
 			cards.Add("CS2_056", new Power {
 				// TODO [CS2_056] Life Tap && Test: Life Tap_CS2_056
 				//PowerTask = null,
@@ -220,6 +236,9 @@ namespace SabberStoneCore.CardSets.Undefined
 			// Text: <b>Hero Power</b>
 			//       Equip a 1/2 Dagger.
 			// --------------------------------------------------------
+			// GameTag:
+			// - 1086 = 2743
+			// --------------------------------------------------------
 			cards.Add("CS2_083b", new Power {
 				// TODO [CS2_083b] Dagger Mastery && Test: Dagger Mastery_CS2_083b
 				//PowerTask = null,
@@ -232,6 +251,9 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 1/1 Silver Hand Recruit.
+			// --------------------------------------------------------
+			// GameTag:
+			// - 1086 = 2740
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
@@ -249,6 +271,9 @@ namespace SabberStoneCore.CardSets.Undefined
 			// Text: <b>Hero Power</b>
 			//       Gain 2 Armor.
 			// --------------------------------------------------------
+			// GameTag:
+			// - 1086 = 2745
+			// --------------------------------------------------------
 			cards.Add("CS2_102", new Power {
 				// TODO [CS2_102] Armor Up! && Test: Armor Up!_CS2_102
 				//PowerTask = null,
@@ -262,6 +287,9 @@ namespace SabberStoneCore.CardSets.Undefined
 			// Text: <b>Hero Power</b>
 			//       Deal $2 damage to the enemy hero.@<b>Hero Power</b>
 			//       Deal $2 damage. @spelldmg
+			// --------------------------------------------------------
+			// GameTag:
+			// - 1086 = 2738
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_STEADY_SHOT = 0
@@ -1019,7 +1047,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [CS2_088] Guardian of Kings - COST:7 [ATK:5/HP:6] 
 			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Restore 6 Health to your hero.
+			// Text: <b>Battlecry:</b> Restore #6 Health to your hero.
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
@@ -1160,7 +1188,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [CS2_097] Truesilver Champion - COST:4 [ATK:4/HP:0] 
 			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
-			// Text: Whenever your hero attacks, restore 2_Health to it.
+			// Text: Whenever your hero attacks, restore #2_Health to it.
 			// --------------------------------------------------------
 			// GameTag:
 			// - DURABILITY = 2
@@ -1975,7 +2003,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [NEW1_009] Healing Totem (*) - COST:1 [ATK:0/HP:2] 
 			// - Race: totem, Set: core, Rarity: free
 			// --------------------------------------------------------
-			// Text: At the end of your turn, restore 1 Health to all friendly minions.
+			// Text: At the end of your turn, restore #1 Health to all friendly minions.
 			// --------------------------------------------------------
 			cards.Add("NEW1_009", new Power {
 				// TODO [NEW1_009] Healing Totem && Test: Healing Totem_NEW1_009
@@ -1987,8 +2015,8 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [BCON_021] Crackling Doom (*) - COST:0 
 			// - Set: core, Rarity: free
 			// --------------------------------------------------------
-			// Text: Deal 12 damage to all_minions.
-			//       <b>Overload</b>: (10)
+			// Text: Deal $12 damage to all_minions.
+			//       <b>Overload</b>: (10) @spelldmg
 			// --------------------------------------------------------
 			// GameTag:
 			// - OVERLOAD = 10
@@ -2042,7 +2070,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
-			// - 890 = 1
+			// - DISCARD_CARDS = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_306", new Power {
 				// TODO [EX1_306] Succubus && Test: Succubus_EX1_306
@@ -2136,7 +2164,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			//       Discard a random card. @spelldmg
 			// --------------------------------------------------------
 			// GameTag:
-			// - 890 = 1
+			// - DISCARD_CARDS = 1
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
@@ -2388,21 +2416,6 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("EX1_084e", new Power {
 				// TODO [EX1_084e] Charge && Test: Charge_EX1_084e
-				//PowerTask = null,
-				//Trigger = null,
-			});
-
-			// --------------------------------------- WEAPON - WARRIOR
-			// [BCON_026] Blazing Longsword (*) - COST:3 [ATK:2/HP:0] 
-			// - Set: core, Rarity: free
-			// --------------------------------------------------------
-			// Text: Also damages minions next to whomever your hero attacks.
-			// --------------------------------------------------------
-			// GameTag:
-			// - DURABILITY = 3
-			// --------------------------------------------------------
-			cards.Add("BCON_026", new Power {
-				// TODO [BCON_026] Blazing Longsword && Test: Blazing Longsword_BCON_026
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -2865,7 +2878,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [DS1_055] Darkscale Healer - COST:5 [ATK:4/HP:5] 
 			// - Fac: neutral, Set: core, Rarity: free
 			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Restore 2 Health to all friendly characters.
+			// Text: <b>Battlecry:</b> Restore #2 Health to all friendly characters.
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
@@ -2880,7 +2893,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [EX1_011] Voodoo Doctor - COST:1 [ATK:2/HP:1] 
 			// - Fac: horde, Set: core, Rarity: free
 			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Restore 2_Health.
+			// Text: <b>Battlecry:</b> Restore #2_Health.
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
@@ -3186,6 +3199,153 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("GAME_005e", new Power {
 				// TODO [GAME_005e] The Coin && Test: The Coin_GAME_005e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [GAME_011] Tournament Short Turn (*) - COST:0 
+			// - Set: core, 
+			// --------------------------------------------------------
+			// Text: Your turns are shorter.
+			// --------------------------------------------------------
+			cards.Add("GAME_011", new Power {
+				// TODO [GAME_011] Tournament Short Turn && Test: Tournament Short Turn_GAME_011
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [GBL_001e] Cost = 1 (*) - COST:0 
+			// - Set: core, 
+			// --------------------------------------------------------
+			// Text: Costs (1).
+			// --------------------------------------------------------
+			// GameTag:
+			// - ENCHANTMENT_INVISIBLE = 1
+			// --------------------------------------------------------
+			cards.Add("GBL_001e", new Power {
+				// TODO [GBL_001e] Cost = 1 && Test: Cost = 1_GBL_001e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [GBL_002e] Cost - 2 (*) - COST:0 
+			// - Set: core, 
+			// --------------------------------------------------------
+			// Text: Costs (2) less.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ENCHANTMENT_INVISIBLE = 1
+			// --------------------------------------------------------
+			cards.Add("GBL_002e", new Power {
+				// TODO [GBL_002e] Cost - 2 && Test: Cost - 2_GBL_002e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [GBL_003e] Cost - 1 (*) - COST:0 
+			// - Set: core, 
+			// --------------------------------------------------------
+			// Text: Costs (1) less.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ENCHANTMENT_INVISIBLE = 1
+			// --------------------------------------------------------
+			cards.Add("GBL_003e", new Power {
+				// TODO [GBL_003e] Cost - 1 && Test: Cost - 1_GBL_003e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [GBL_004e] Cost - 3 (*) - COST:0 
+			// - Set: core, 
+			// --------------------------------------------------------
+			// Text: Costs (3) less.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ENCHANTMENT_INVISIBLE = 1
+			// --------------------------------------------------------
+			cards.Add("GBL_004e", new Power {
+				// TODO [GBL_004e] Cost - 3 && Test: Cost - 3_GBL_004e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [GBL_005e] Cost + 2 (*) - COST:0 
+			// - Set: core, 
+			// --------------------------------------------------------
+			// Text: Costs (2) more.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ENCHANTMENT_INVISIBLE = 1
+			// --------------------------------------------------------
+			cards.Add("GBL_005e", new Power {
+				// TODO [GBL_005e] Cost + 2 && Test: Cost + 2_GBL_005e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [GBL_006e] Cost = 2 (*) - COST:0 
+			// - Set: core, 
+			// --------------------------------------------------------
+			// Text: Costs (2).
+			// --------------------------------------------------------
+			// GameTag:
+			// - ENCHANTMENT_INVISIBLE = 1
+			// --------------------------------------------------------
+			cards.Add("GBL_006e", new Power {
+				// TODO [GBL_006e] Cost = 2 && Test: Cost = 2_GBL_006e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [GBL_007e] Cost = 10 (*) - COST:0 
+			// - Set: core, 
+			// --------------------------------------------------------
+			// Text: Costs (10).
+			// --------------------------------------------------------
+			// GameTag:
+			// - ENCHANTMENT_INVISIBLE = 1
+			// --------------------------------------------------------
+			cards.Add("GBL_007e", new Power {
+				// TODO [GBL_007e] Cost = 10 && Test: Cost = 10_GBL_007e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [GBL_008e] Cost - 4 (*) - COST:0 
+			// - Set: core, 
+			// --------------------------------------------------------
+			// Text: Costs (4) less.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ENCHANTMENT_INVISIBLE = 1
+			// --------------------------------------------------------
+			cards.Add("GBL_008e", new Power {
+				// TODO [GBL_008e] Cost - 4 && Test: Cost - 4_GBL_008e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [GBL_009e] Cost = 0 (*) - COST:0 
+			// - Set: core, 
+			// --------------------------------------------------------
+			// Text: Costs (0).
+			// --------------------------------------------------------
+			// GameTag:
+			// - ENCHANTMENT_INVISIBLE = 1
+			// --------------------------------------------------------
+			cards.Add("GBL_009e", new Power {
+				// TODO [GBL_009e] Cost = 0 && Test: Cost = 0_GBL_009e
 				//PowerTask = null,
 				//Trigger = null,
 			});

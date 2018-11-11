@@ -32,6 +32,25 @@ namespace SabberStoneCore.CardSets.Undefined
 				//Trigger = null,
 			});
 
+			// ------------------------------------------- SPELL - MAGE
+			// [EX1_295] Ice Block - COST:3 
+			// - Fac: neutral, Set: hof, Rarity: epic
+			// --------------------------------------------------------
+			// Text: <b>Secret:</b> When your hero takes fatal damage, prevent it and become <b>Immune</b> this turn.
+			// --------------------------------------------------------
+			// GameTag:
+			// - SECRET = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - IMMUNE = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_295", new Power {
+				// TODO [EX1_295] Ice Block && Test: Ice Block_EX1_295
+				InfoCardId = "EX1_295o",
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
 		}
 
 		private static void MageNonCollect(IDictionary<string, Power> cards)
@@ -148,6 +167,21 @@ namespace SabberStoneCore.CardSets.Undefined
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
+			// [EX1_050] Coldlight Oracle - COST:3 [ATK:2/HP:2] 
+			// - Race: murloc, Fac: neutral, Set: hof, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Each player draws 2 cards.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_050", new Power {
+				// TODO [EX1_050] Coldlight Oracle && Test: Coldlight Oracle_EX1_050
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_062] Old Murk-Eye - COST:4 [ATK:2/HP:4] 
 			// - Race: murloc, Fac: neutral, Set: hof, Rarity: legendary
 			// --------------------------------------------------------
@@ -210,6 +244,18 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("EX1_298", new Power {
 				// TODO [EX1_298] Ragnaros the Firelord && Test: Ragnaros the Firelord_EX1_298
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [EX1_620] Molten Giant - COST:20 [ATK:8/HP:8] 
+			// - Race: elemental, Set: hof, Rarity: epic
+			// --------------------------------------------------------
+			// Text: Costs (1) less for each damage your hero has taken.
+			// --------------------------------------------------------
+			cards.Add("EX1_620", new Power {
+				// TODO [EX1_620] Molten Giant && Test: Molten Giant_EX1_620
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -304,7 +350,7 @@ namespace SabberStoneCore.CardSets.Undefined
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [Mekka1] Homing Chicken (*) - COST:1 [ATK:0/HP:1] 
-			// - Race: mechanical, Fac: alliance, Set: hof, Rarity: common
+			// - Race: mechanical, Fac: alliance, Set: hof, 
 			// --------------------------------------------------------
 			// Text: At the start of your turn, destroy this minion and draw 3 cards.
 			// --------------------------------------------------------
@@ -316,9 +362,9 @@ namespace SabberStoneCore.CardSets.Undefined
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [Mekka2] Repair Bot (*) - COST:1 [ATK:0/HP:3] 
-			// - Race: mechanical, Fac: alliance, Set: hof, Rarity: common
+			// - Race: mechanical, Fac: alliance, Set: hof, 
 			// --------------------------------------------------------
-			// Text: At the end of your turn, restore 6 Health to a damaged character.
+			// Text: At the end of your turn, restore #6 Health to a damaged character.
 			// --------------------------------------------------------
 			cards.Add("Mekka2", new Power {
 				// TODO [Mekka2] Repair Bot && Test: Repair Bot_Mekka2
@@ -328,7 +374,7 @@ namespace SabberStoneCore.CardSets.Undefined
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [Mekka3] Emboldener 3000 (*) - COST:1 [ATK:0/HP:4] 
-			// - Race: mechanical, Fac: alliance, Set: hof, Rarity: common
+			// - Race: mechanical, Fac: alliance, Set: hof, 
 			// --------------------------------------------------------
 			// Text: At the end of your turn, give a random minion +1/+1.
 			// --------------------------------------------------------
@@ -341,7 +387,7 @@ namespace SabberStoneCore.CardSets.Undefined
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [Mekka4] Poultryizer (*) - COST:1 [ATK:0/HP:3] 
-			// - Race: mechanical, Fac: alliance, Set: hof, Rarity: common
+			// - Race: mechanical, Fac: alliance, Set: hof, 
 			// --------------------------------------------------------
 			// Text: At the start of your turn, transform a random minion into a 1/1 Chicken.
 			// --------------------------------------------------------

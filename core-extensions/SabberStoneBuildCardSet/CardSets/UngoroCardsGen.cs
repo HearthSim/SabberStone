@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -191,7 +191,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [UNG_111] Living Mana - COST:5 
 			// - Set: ungoro, Rarity: epic
 			// --------------------------------------------------------
-			// Text: Transform your Mana Crystals into 2/2 minions. Recover the mana when they die.
+			// Text: Transform your Mana Crystals into 2/2 Treants. Recover the mana when they die.
 			// --------------------------------------------------------
 			cards.Add("UNG_111", new Power {
 				// TODO [UNG_111] Living Mana && Test: Living Mana_UNG_111
@@ -213,6 +213,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - QUEST = 1
 			// - QUEST_PROGRESS_TOTAL = 5
 			// - 676 = 1
+			// - 839 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_116", new Power {
 				// TODO [UNG_116] Jungle Giants && Test: Jungle Giants_UNG_116
@@ -520,6 +521,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - QUEST = 1
 			// - QUEST_PROGRESS_TOTAL = 7
 			// - 676 = 1
+			// - 839 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_920", new Power {
 				// TODO [UNG_920] The Marsh Queen && Test: The Marsh Queen_UNG_920
@@ -712,6 +714,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - QUEST = 1
 			// - QUEST_PROGRESS_TOTAL = 6
 			// - 676 = 1
+			// - 839 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_028", new Power {
 				// TODO [UNG_028] Open the Waygate && Test: Open the Waygate_UNG_028
@@ -874,7 +877,9 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [UNG_953] Primalfin Champion - COST:2 [ATK:1/HP:2] 
 			// - Race: murloc, Set: ungoro, Rarity: epic
 			// --------------------------------------------------------
-			// Text: <b>Deathrattle:</b> Return any spells you cast on this minion to your hand.
+			// Text: [x]<b>Deathrattle:</b> Return any
+			//       spells you cast on this
+			//       minion to your hand.
 			// --------------------------------------------------------
 			// GameTag:
 			// - DEATHRATTLE = 1
@@ -956,6 +961,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - QUEST = 1
 			// - QUEST_PROGRESS_TOTAL = 6
 			// - 676 = 1
+			// - 839 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_954", new Power {
 				// TODO [UNG_954] The Last Kaleidosaur && Test: The Last Kaleidosaur_UNG_954
@@ -1140,6 +1146,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("UNG_034", new Power {
 				// TODO [UNG_034] Radiant Elemental && Test: Radiant Elemental_UNG_034
+				InfoCardId = "UNG_034e",
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -1263,6 +1270,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - QUEST = 1
 			// - QUEST_PROGRESS_TOTAL = 7
 			// - 676 = 1
+			// - 839 = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - DEATHRATTLE = 1
@@ -1432,6 +1440,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - QUEST = 1
 			// - QUEST_PROGRESS_TOTAL = 5
 			// - 676 = 1
+			// - 839 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_067", new Power {
 				// TODO [UNG_067] The Caverns Below && Test: The Caverns Below_UNG_067
@@ -1542,7 +1551,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// [UNG_067t1] Crystal Core (*) - COST:5 
 			// - Set: ungoro, 
 			// --------------------------------------------------------
-			// Text: For the rest of the game, your minions are 5/5.
+			// Text: For the rest of the game, your minions are 4/4.
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
@@ -1648,7 +1657,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - Race: elemental, Set: ungoro, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
-			//       <b>Battlecry:</b> Restore 3_Health.
+			//       <b>Battlecry:</b> Restore #3_Health.
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAUNT = 1
@@ -1710,6 +1719,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - QUEST = 1
 			// - QUEST_PROGRESS_TOTAL = 10
 			// - 676 = 1
+			// - 839 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_942", new Power {
 				// TODO [UNG_942] Unite the Murlocs && Test: Unite the Murlocs_UNG_942
@@ -1914,7 +1924,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// GameTag:
 			// - TAUNT = 1
 			// - BATTLECRY = 1
-			// - 890 = 2
+			// - DISCARD_CARDS = 2
 			// --------------------------------------------------------
 			cards.Add("UNG_833", new Power {
 				// TODO [UNG_833] Lakkari Felhound && Test: Lakkari Felhound_UNG_833
@@ -1969,6 +1979,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - QUEST = 1
 			// - QUEST_PROGRESS_TOTAL = 6
 			// - 676 = 1
+			// - 839 = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_829", new Power {
 				// TODO [UNG_829] Lakkari Sacrifice && Test: Lakkari Sacrifice_UNG_829
@@ -2244,6 +2255,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// - QUEST = 1
 			// - QUEST_PROGRESS_TOTAL = 7
 			// - 676 = 1
+			// - 839 = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - TAUNT = 1
@@ -2593,6 +2605,7 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("UNG_085", new Power {
 				// TODO [UNG_085] Emerald Hive Queen && Test: Emerald Hive Queen_UNG_085
+				InfoCardId = "UNG_085e",
 				//PowerTask = null,
 				//Trigger = null,
 			});
@@ -3112,6 +3125,30 @@ namespace SabberStoneCore.CardSets.Undefined
 		private static void NeutralNonCollect(IDictionary<string, Power> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [OG_044e] Fandral Enchantment (*) - COST:0 
+			// - Set: ungoro, 
+			// --------------------------------------------------------
+			// Text: Your <b>Choose One</b> cards and powers have both effects combined.
+			// --------------------------------------------------------
+			cards.Add("OG_044e", new Power {
+				// TODO [OG_044e] Fandral Enchantment && Test: Fandral Enchantment_OG_044e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [UNG_034e] Radiant Elemental (*) - COST:0 
+			// - Set: ungoro, 
+			// --------------------------------------------------------
+			// Text: Costs (1) less.
+			// --------------------------------------------------------
+			cards.Add("UNG_034e", new Power {
+				// TODO [UNG_034e] Radiant Elemental && Test: Radiant Elemental_UNG_034e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [UNG_067t1e] Crystallized (*) - COST:0 
 			// - Set: ungoro, 
 			// --------------------------------------------------------
@@ -3162,6 +3199,18 @@ namespace SabberStoneCore.CardSets.Undefined
 			// --------------------------------------------------------
 			cards.Add("UNG_073e", new Power {
 				// TODO [UNG_073e] Trained && Test: Trained_UNG_073e
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [UNG_085e] Emerald Hive (*) - COST:0 
+			// - Set: ungoro, 
+			// --------------------------------------------------------
+			// Text: Costs (2) more.
+			// --------------------------------------------------------
+			cards.Add("UNG_085e", new Power {
+				// TODO [UNG_085e] Emerald Hive && Test: Emerald Hive_UNG_085e
 				//PowerTask = null,
 				//Trigger = null,
 			});

@@ -503,7 +503,7 @@ namespace SabberStoneCoreTest.CardSets.Undefined
 		// [ICC_830p] Voidform (*) - COST:2 
 		// - Set: icecrown, 
 		// --------------------------------------------------------
-		// Text: <b>Hero Power</b>
+		// Text: [x]<b>Hero Power</b>
 		//       Deal $2 damage.
 		//       After you play a card,
 		//       refresh this. @spelldmg
