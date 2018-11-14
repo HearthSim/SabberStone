@@ -1,10 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Model.Entities;
 
-namespace SabberStoneCore.Enchants
+namespace SabberStoneCore.Auras
 {
+	/// <summary>
+	/// A container class for multiple auras. Use this when you want to implement a <see cref="Power"/> with multiple auras.
+	/// </summary>
 	public class MultiAura : IAura, IReadOnlyList<Aura>
 	{
 		private readonly IReadOnlyList<Aura> _auras;

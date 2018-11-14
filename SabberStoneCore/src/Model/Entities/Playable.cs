@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SabberStoneCore.Auras;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Tasks;

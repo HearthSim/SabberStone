@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 

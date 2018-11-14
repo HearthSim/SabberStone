@@ -1,7 +1,7 @@
 ﻿using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
-namespace SabberStoneCore.Enchants
+namespace SabberStoneCore.Auras
 {
 	/// <summary>
 	/// Interface for effects of enchantments that should be updated during <see cref="Game.AuraUpdate"/>.

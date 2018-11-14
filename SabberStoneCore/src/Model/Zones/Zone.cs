@@ -8,6 +8,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Auras;
 
 namespace SabberStoneCore.Model.Zones
 {

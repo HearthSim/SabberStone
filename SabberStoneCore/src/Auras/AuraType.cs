@@ -1,4 +1,5 @@
-﻿namespace SabberStoneCore.Enchants
+﻿// ReSharper disable InconsistentNaming
+namespace SabberStoneCore.Auras
 {
 	/// <summary>
 	/// Aura types. Indicates the range of auras. 

@@ -8,6 +8,7 @@ using SabberStoneCore.Exceptions;
 using SabberStoneCore.Kettle;
 using System.Text;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Auras;
 using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Model.Entities

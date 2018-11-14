@@ -1,8 +1,7 @@
 ﻿using System;
-using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
-namespace SabberStoneCore.Enchants
+namespace SabberStoneCore.Auras
 {
 	public class SummoningPortalAura : IAura
 	{

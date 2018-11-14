@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
 
-namespace SabberStoneCore.Enchants
+namespace SabberStoneCore.Auras
 {
 	public class AdjacentAura : IAura
 	{
