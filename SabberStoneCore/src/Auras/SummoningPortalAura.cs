@@ -1,42 +1,91 @@
 ﻿using System;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Auras
 {
-	public class SummoningPortalAura : IAura
+	public class SummoningPortalAura : Aura
 	{
-		public IPlayable Owner { get; }
+		public SummoningPortalAura() : base(AuraType.HAND) { }
 
-		public SummoningPortalAura()
+		public SummoningPortalAura(AuraType type, params IEffect[] effects) : base(type, effects)
 		{
+		}
+
+		public SummoningPortalAura(AuraType type, string enchantmentId) : base(type, enchantmentId)
+		{
+		}
+
+		protected SummoningPortalAura(Aura prototype, IPlayable owner) : base(prototype, owner)
+		{
+		}
+
+		public override void Activate(IPlayable owner, bool cloning = false)
+		{
+			base.Activate(owner, cloning);
+
+			owner.Controller.HandZone.Auras.Add((Aura)owner.OngoingEffect);
 
 		}
 
-		private SummoningPortalAura(IPlayable owner)
+		public override void Clone(IPlayable clone)
 		{
-			Owner = owner;
+			base.Clone(clone);
 		}
 
-		public void Update()
+		//public override void Remove()
+		//{
+		//	base.Remove();
+		//}
+
+		//public override void Update()
+		//{
+		//	if (On)
+		//	{
+		//		while (AuraUpdateInstructionsQueue.Count > 0)
+		//		{
+		//			AuraUpdateInstruction inst = AuraUpdateInstructionsQueue.Dequeue();
+		//			switch (inst.Instruction)
+		//			{
+		//				case Instruction.Add:
+		//					Apply(inst.Src);
+		//					break;
+		//				case Instruction.RemoveAll:
+
+		//			}
+		//		}
+		//	}
+		//	else
+		//	{
+		//		Remove();
+		//	}
+		//}
+
+		private static void Apply(IPlayable playable)
 		{
-			throw new NotImplementedException();
+			int cardValue = playable.Card.Cost;
+			int cost = cardValue > 2 ? cardValue - 2 : 1;
+			if (playable.NativeTags.TryGetValue(Enums.GameTag.COST, out int tagValue))
+			{
+				cost = cost - cardValue + tagValue;
+				if (cost < 0)
+					cost = 0;
+			}
+
+			playable.NativeTags[Enums.GameTag.COST] = cost;
+			playable.AuraEffects.ToBeUpdated = true;
 		}
 
-		public void Remove()
+		private static void RemoveAll(IPlayable playable)
 		{
-			throw new NotImplementedException();
-		}
+			int cardValue = playable.Card.Cost;
+			int cost = cardValue > 2 ? cardValue - 2 : 1;
+			int current = playable.NativeTags[Enums.GameTag.COST];
+			if (current != cost)
+			{
 
-		public void Activate(IPlayable owner)
-		{
-			var instance = new SummoningPortalAura(owner);
-			owner.OngoingEffect = instance;
-			owner.Game.Auras.Add(instance);
-		}
-
-		public void Clone(IPlayable clone)
-		{
-			throw new NotImplementedException();
+			}
 		}
 	}
 }

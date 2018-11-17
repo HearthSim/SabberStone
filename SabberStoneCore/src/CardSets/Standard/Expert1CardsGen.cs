@@ -2694,6 +2694,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// TODO: re-implement Summoning Portal
 			cards.Add("EX1_315", new Power {
 				//Aura = new Aura(AuraType.SUMMONING_PORTAL, "EX1_315e")
+				Aura = new SummoningPortalAura()
 			});
 
 			cards.Add("EX1_315e", null);

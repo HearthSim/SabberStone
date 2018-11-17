@@ -118,7 +118,7 @@ namespace SabberStoneCore.Model.Entities
 		/// This method defaults to targetting in the context of spells/hero powers.
 		/// </summary>
 		/// <returns><see cref="ICharacter"/></returns>
-		protected internal virtual IEnumerable<ICharacter> GetValidPlayTargets()
+		public virtual IEnumerable<ICharacter> GetValidPlayTargets()
 		{
 			// If this is an untargeted card, return an empty list
 			var output = new List<ICharacter>(2);

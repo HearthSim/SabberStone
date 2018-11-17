@@ -19,11 +19,11 @@ namespace SabberStoneCore.Auras
 	/// </summary>
 	public class Aura : IAura
 	{
-		private enum Instruction
+		private protected enum Instruction
 		{
 			Invalid, RemoveAll, AddAll, Add, Remove, /*CheckAdjacency*/
 		}
-		private readonly struct AuraUpdateInstruction : IEquatable<AuraUpdateInstruction>
+		private protected readonly struct AuraUpdateInstruction : IEquatable<AuraUpdateInstruction>
 		{
 			public readonly IPlayable Src;
 			public readonly Instruction Instruction;
@@ -64,9 +64,9 @@ namespace SabberStoneCore.Auras
 			}
 		}
 
-		private readonly Util.PriorityQueue<AuraUpdateInstruction> _auraUpdateInstructionsQueue;
-		//private readonly HashSet<int> _appliedEntityIds;
-		private readonly Util.SmallFastCollection _appliedEntityIdCollection;
+		private protected readonly Util.PriorityQueue<AuraUpdateInstruction> AuraUpdateInstructionsQueue;
+		private protected readonly Util.SmallFastCollection AppliedEntityIdCollection;
+
 		private readonly TriggerManager.TriggerHandler _removeHandler;
 		private readonly int _ownerId;
 
@@ -143,11 +143,11 @@ namespace SabberStoneCore.Auras
 			//	? new HashSet<int>(prototype._appliedEntityIds)
 			//	: new HashSet<int>();
 
-			_appliedEntityIdCollection = prototype._appliedEntityIdCollection != null
-				? new Util.SmallFastCollection(prototype._appliedEntityIdCollection)
+			AppliedEntityIdCollection = prototype.AppliedEntityIdCollection != null
+				? new Util.SmallFastCollection(prototype.AppliedEntityIdCollection)
 				: new Util.SmallFastCollection();
 
-			_auraUpdateInstructionsQueue = new Util.PriorityQueue<AuraUpdateInstruction>();
+			AuraUpdateInstructionsQueue = new Util.PriorityQueue<AuraUpdateInstruction>();
 
 			Game = owner.Game;
 			_owner = owner;
@@ -195,7 +195,7 @@ namespace SabberStoneCore.Auras
 			}
 
 			if (!cloning)
-				instance._auraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(Instruction.AddAll), 1);
+				instance.AuraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(Instruction.AddAll), 1);
 
 			if (cloning || !owner.Game.History) return;
 
@@ -277,7 +277,7 @@ namespace SabberStoneCore.Auras
 					return;
 				}
 
-				_appliedEntityIdCollection.ForEach(Game.IdEntityDic, this,
+				AppliedEntityIdCollection.ForEach(Game.IdEntityDic, this,
 					(i, dict, aura) => aura.DeApply(dict[i]));
 
 				UpdateInternal();
@@ -285,7 +285,7 @@ namespace SabberStoneCore.Auras
 				return;
 			}
 
-			var queue = _auraUpdateInstructionsQueue;
+			var queue = AuraUpdateInstructionsQueue;
 			bool addAllProcessed = false;
 			while (queue.Count != 0)
 			{
@@ -310,13 +310,6 @@ namespace SabberStoneCore.Auras
 						if (On)
 							DeApply(inst.Src);
 						break;
-					//case Instruction.CheckAdjacency:
-					//	if (!adjacencyChecked && !addAllProcessed && On)
-					//	{
-					//		CheckAdjacency();
-					//		adjacencyChecked = true;
-					//	}
-					//	break;
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
@@ -330,7 +323,7 @@ namespace SabberStoneCore.Auras
 		{
 			On = false;
 			//ToBeUpdated = true;
-			_auraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(Instruction.RemoveAll), 0);
+			AuraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(Instruction.RemoveAll), 0);
 			Owner.OngoingEffect = null;
 
 			switch (Type)
@@ -392,16 +385,10 @@ namespace SabberStoneCore.Auras
 			if (!On)
 				return;
 
-			//if (Type == AuraType.ADJACENT)
-			//{
-			//	_auraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(Instruction.CheckAdjacency), 2);
-			//	return;
-			//}
-
 			var instruction = new AuraUpdateInstruction(playable, Instruction.Add);
 
-			if (!_auraUpdateInstructionsQueue.Contains(in instruction))
-				_auraUpdateInstructionsQueue.Enqueue(instruction, 2);
+			if (!AuraUpdateInstructionsQueue.Contains(in instruction))
+				AuraUpdateInstructionsQueue.Enqueue(instruction, 2);
 		}
 
 		/// <summary>
@@ -413,13 +400,8 @@ namespace SabberStoneCore.Auras
 				return;
 			if (playable == Owner)
 				return;
-			//if (Type == AuraType.ADJACENT)
-			//{
-			//	_auraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(Instruction.CheckAdjacency), 2);
-			//	return;
-			//}
 
-			_auraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(playable, Instruction.Remove), 1);
+			AuraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(playable, Instruction.Remove), 1);
 		}
 
 		private void UpdateInternal()
@@ -539,17 +521,12 @@ namespace SabberStoneCore.Auras
 				//			effects[i].RemoveFrom(entity.AuraEffects);
 				//	}
 				//}
-				_appliedEntityIdCollection.ForEach(Game.IdEntityDic, effects,
+				AppliedEntityIdCollection.ForEach(Game.IdEntityDic, effects,
 					(id, idDict, effs) =>
 					{
 						IPlayable entity = idDict[id];
 						for (int i = 0; i < effs.Length; i++)
-						{
-							if (effs[i] is ConditionalEffect ce)
-								ce.RemoveValueFrom(entity.AuraEffects);
-							else
-								effs[i].RemoveFrom(entity.AuraEffects);
-						}
+							effs[i].RemoveFrom(entity.AuraEffects);
 					});
 			}
 
@@ -563,7 +540,7 @@ namespace SabberStoneCore.Auras
 			//				entity.AppliedEnchantments[i].Remove();
 			if (EnchantmentCard != null && (Game.History || EnchantmentCard.Power.Trigger != null))
 			{
-				_appliedEntityIdCollection.ForEach(_ownerId, Game.IdEntityDic,
+				AppliedEntityIdCollection.ForEach(_ownerId, Game.IdEntityDic,
 					(id, ownerId, idDict) =>
 					{
 						IPlayable entity = idDict[id];
@@ -591,7 +568,7 @@ namespace SabberStoneCore.Auras
 		{
 			//if (!_appliedEntityIds.Remove(entity.Id))
 			//	return;
-			if (!_appliedEntityIdCollection.Remove(entity.Id))
+			if (!AppliedEntityIdCollection.Remove(entity.Id))
 				return;
 
 			for (int i = 0; i < Effects.Length; i++)
@@ -662,7 +639,7 @@ namespace SabberStoneCore.Auras
 			//AppliedEntities.Add(entity);
 			//_appliedEntityIds.Add(entity.Id);
 
-			_appliedEntityIdCollection.Add(entity.Id);
+			AppliedEntityIdCollection.Add(entity.Id);
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -707,12 +684,12 @@ namespace SabberStoneCore.Auras
 			sb.Append("[T:");
 			sb.Append(Type);
 			sb.Append("]");
-			if (/*_appliedEntityIds*/_appliedEntityIdCollection != null)
+			if (/*_appliedEntityIds*/AppliedEntityIdCollection != null)
 			{
 				sb.Append("[AEs:");
 				//foreach (int i in _appliedEntityIds)
 				//	sb.Append($"{{{i}}}");
-				_appliedEntityIdCollection.ForEach(i => sb.Append($"{{{Game.IdEntityDic[i]}}}"));
+				AppliedEntityIdCollection.ForEach(i => sb.Append($"{{{Game.IdEntityDic[i]}}}"));
 				sb.Append("]");
 			}
 			sb.Append(On ? "[ON]" : "[OFF]");

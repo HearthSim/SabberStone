@@ -5,6 +5,7 @@ using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Tasks.PlayerTasks;
 using Xunit;
 
@@ -301,6 +302,39 @@ namespace SabberStoneCoreTest.Basic
 			game.CurrentPlayer.BoardZone[2].Kill();
 			game.ProcessCard("Prince Taldaram", game.CurrentPlayer.BoardZone[1], true);
 			Assert.Equal(6, game.CurrentPlayer.BoardZone.Count);
+		}
+
+		[Fact]
+		public static void TransformationInHand()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				FillDecks = true,
+				FillDecksPredictably = true,
+				Shuffle = false,
+			});
+			game.StartGame();
+
+			IPlayable blade = Generic.DrawCard(game.Player1, Cards.FromName("Molten Blade"));
+			IPlayable scroll = Generic.DrawCard(game.Player1, Cards.FromName("Shifting Scroll"));
+			IPlayable zerus = Generic.DrawCard(game.Player1, Cards.FromName("Shifter Zerus"));
+
+			game.EndTurn();
+			game.EndTurn();
+
+			// Next Turn
+			Assert.Equal(blade.Cost, blade.Card.Cost);
+			Assert.Equal(scroll.Cost, scroll.Card.Cost);
+			Assert.Equal(zerus.Cost, zerus.Card.Cost);
+
+			game.EndTurn();
+			game.EndTurn();
+
+			// Next Turn
+			Assert.Equal(blade.Cost, blade.Card.Cost);
+			Assert.Equal(scroll.Cost, scroll.Card.Cost);
+			Assert.Equal(zerus.Cost, zerus.Card.Cost);
 		}
 
 		[Fact(Skip="should be fixed")]

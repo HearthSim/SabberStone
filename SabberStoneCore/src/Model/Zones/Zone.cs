@@ -9,6 +9,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Auras;
+using System.Memory;
 
 namespace SabberStoneCore.Model.Zones
 {
@@ -162,14 +163,14 @@ namespace SabberStoneCore.Model.Zones
 	public abstract class UnlimitedZone : Zone<IPlayable>
 	{
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		protected List<IPlayable> Entities;
+		private readonly List<IPlayable> _entities;
 
-		public override int Count => Entities.Count;
+		public override int Count => _entities.Count;
 		public override bool IsFull => false;
 
 		protected UnlimitedZone(Controller controller)
 		{
-			Entities = new List<IPlayable>();
+			_entities = new List<IPlayable>();
 			Controller = controller;
 			Game = controller.Game;
 		}
@@ -177,22 +178,22 @@ namespace SabberStoneCore.Model.Zones
 		protected UnlimitedZone(Controller c, UnlimitedZone zone) : base(c)
 		{
 			var entities = new List<IPlayable>(zone.Count);
-			IList<IPlayable> src = zone.Entities;
+			IList<IPlayable> src = zone._entities;
 			for (int i = 0; i < src.Count; ++i)
 			{
 				IPlayable copy = src[i].Clone(c);
 				copy.Zone = this;
 				entities.Add(copy);
 			}
-			Entities = entities;
+			_entities = entities;
 		}
 
 		public override IPlayable this[int zonePosition]
 		{
-			get => Entities[zonePosition];
+			get => _entities[zonePosition];
 		}
 
-		public override IPlayable Random => Count == 0 ? default : Entities[Util.Random.Next(Count)];
+		public override IPlayable Random => Count == 0 ? default : _entities[Util.Random.Next(Count)];
 
 		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
@@ -207,21 +208,21 @@ namespace SabberStoneCore.Model.Zones
 			if (entity.Zone == null || entity.Zone.Type != Type)
 				throw new ZoneException("Couldn't remove entity from zone.");
 
-			Entities.Remove(entity);
+			_entities.Remove(entity);
 
 			return entity;
 		}
 
 		public override void MoveTo(IPlayable entity, int zonePosition)
 		{
-			Entities.Add(entity);
+			_entities.Add(entity);
 			entity.Zone = this;
 			entity[GameTag.ZONE] = (int) Type;
 		}
 
 		public override bool Any(Func<IPlayable, bool> predicate)
 		{
-			List<IPlayable> entities = Entities;
+			List<IPlayable> entities = _entities;
 			for (int i = 0; i < entities.Count; i++)
 				if (predicate(entities[i]))
 					return true;
@@ -231,7 +232,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public override IEnumerator<IPlayable> GetEnumerator()
 		{
-			return Entities.GetEnumerator();
+			return _entities.GetEnumerator();
 		}
 	}
 

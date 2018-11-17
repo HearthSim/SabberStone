@@ -46,7 +46,7 @@ namespace SabberStoneCore.Enchants
 		internal bool ToBeUpdated { get; set; }
 
 		// Playable
-		private int COST;
+		internal int Cost;
 		internal int Echo { get; set; }
 
 		// Minion
@@ -118,7 +118,7 @@ namespace SabberStoneCore.Enchants
 							return;
 						}
 					case GameTag.COST:
-						COST = value;
+						Cost = value;
 						return;
 					//case GameTag.WINDFURY:
 					//	WINDFURY = value;
@@ -193,7 +193,7 @@ namespace SabberStoneCore.Enchants
 			Owner = owner;
 			ToBeUpdated = other.ToBeUpdated;
 			_costEffects = other._costEffects?.Count > 0 ? new List<Effect>(other._costEffects) : null;
-			COST = other.COST;
+			Cost = other.Cost;
 			CANT_BE_TARGETED_BY_SPELLS = other.CANT_BE_TARGETED_BY_SPELLS;
 			Immune = other.Immune;
 			AttackDamage = other.AttackDamage;
@@ -254,7 +254,7 @@ namespace SabberStoneCore.Enchants
 		/// <returns></returns>
 		public int GetCost()
 		{
-			return !ToBeUpdated ? COST : GetCostInternal();
+			return !ToBeUpdated ? Cost : GetCostInternal();
 		}
 
 		private int GetCostInternal()
@@ -292,7 +292,7 @@ namespace SabberStoneCore.Enchants
 
 			if (c < 0) c = 0;
 
-			COST = c;
+			Cost = c;
 			return c;
 		}
 
@@ -303,9 +303,9 @@ namespace SabberStoneCore.Enchants
 			_costEffects = null;
 			Owner.NativeTags.Remove(GameTag.COST);
 			AdaptiveCostEffect?.Remove();
-			COST = Owner.Card[GameTag.COST];
+			Cost = Owner.Card[GameTag.COST];
 			if (Owner.Game.History)
-				Owner.Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Owner.Id, GameTag.COST, COST));
+				Owner.Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Owner.Id, GameTag.COST, Cost));
 		}
 
 		public AuraEffects Clone(Entity clone)
@@ -317,7 +317,7 @@ namespace SabberStoneCore.Enchants
 		{
 			var hash = new StringBuilder();
 			hash.Append("[AE:");
-			hash.Append($"{{COST,{COST}}}");
+			hash.Append($"{{COST,{Cost}}}");
 			if (AttackDamage > 0)
 				hash.Append($"{{ATK,{AttackDamage}}}");
 			if (Health > 0)
