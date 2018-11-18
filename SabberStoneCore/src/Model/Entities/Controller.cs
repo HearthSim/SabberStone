@@ -127,7 +127,7 @@ namespace SabberStoneCore.Model.Entities
 		/// The last choice set proposed to this player.
 		/// The actual chosen entity is also stored in the Choice object.
 		/// </summary>
-		public Choice Choice { get; set; } = null;
+		public Choice Choice { get; set; }
 
 		/// <summary>
 		/// The opponent player instance.

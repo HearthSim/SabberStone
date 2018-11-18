@@ -243,7 +243,7 @@ namespace SabberStoneCore.Kettle
 		public BlockType BlockType { get; set; }
 		public int Index { get; set; } = -1;
 		public int Source { get; set; }
-		public int Target { get; set; } = 0;
+		public int Target { get; set; }
 		public string EffectCardId { get; set; } = "";
 
 		public string Print()

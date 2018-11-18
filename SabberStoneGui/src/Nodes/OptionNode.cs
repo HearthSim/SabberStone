@@ -19,23 +19,23 @@ namespace SabberStoneCoreGui.Nodes
 
 		public string Hash;
 
-		private int _gameState = 0;
+		private int _gameState;
 		public bool IsWon => _gameState > 0;
 
 		public bool IsLost => _gameState < 0;
 
 		public bool IsRunning => _gameState == 0;
 
-		private int _endTurn = 0;
+		private int _endTurn;
 		public bool IsEndTurn => _endTurn > 0;
 
 		public bool IsRoot => PlayerTask == null;
 
-		public int Score { get; private set; } = 0;
+		public int Score { get; private set; }
 
 		public IScore Scoring { get; private set; }
 
-		private bool _isOpponentTurn = false;
+		private bool _isOpponentTurn;
 
 		public OptionNode(OptionNode parent, Game game, int playerId, PlayerTask playerTask, IScore scoring)
 		{

@@ -15,7 +15,7 @@ namespace SabberStoneCore.Auras
 	/// <summary>
 	/// Auras can affect entities and change the applied entities' ATK, COST, etc. 
 	/// Aura must be activated first to affect entities. 
-	/// The effect of an aura is applied or removed during <see cref="Game.AuraUpdate"/>.
+	/// The effect of an aura is applied or removed during <see cref="Game.AuraUpdate()"/>.
 	/// </summary>
 	public class Aura : IAura
 	{
@@ -287,13 +287,18 @@ namespace SabberStoneCore.Auras
 
 			var queue = AuraUpdateInstructionsQueue;
 			bool addAllProcessed = false;
+			bool removeAllProcessed = false;
+			var processedInstructions = new Stack<AuraUpdateInstruction>();
 			while (queue.Count != 0)
 			{
 				AuraUpdateInstruction inst = queue.Dequeue();
 				switch (inst.Instruction)
 				{
 					case Instruction.RemoveAll:
+						if (removeAllProcessed)
+							;
 						RemoveInternal();
+						removeAllProcessed = true;
 						break;
 					case Instruction.AddAll:
 						if (On)
@@ -313,6 +318,8 @@ namespace SabberStoneCore.Auras
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
+
+				processedInstructions.Push(inst);
 			}
 		}
 
@@ -525,8 +532,31 @@ namespace SabberStoneCore.Auras
 					(id, idDict, effs) =>
 					{
 						IPlayable entity = idDict[id];
-						for (int i = 0; i < effs.Length; i++)
-							effs[i].RemoveFrom(entity.AuraEffects);
+						try
+						{
+							for (int i = 0; i < effs.Length; i++)
+								effs[i].RemoveFrom(entity.AuraEffects);
+						}
+						catch (Exception e)
+						{
+							//Console.WriteLine(e.Message);
+							//Console.WriteLine(e.TargetSite);
+							//Console.WriteLine(e.StackTrace);
+
+							Console.WriteLine($"{this}");
+							Console.WriteLine("Effects:");
+							for (int i = 0; i < Effects.Length; i++)
+								Console.WriteLine($"\t{Effects[i]}");
+							Console.WriteLine("Owner:");
+							Console.WriteLine($"\t{Owner.Hash()}");
+							Console.WriteLine("Entity:");
+							Console.WriteLine($"\t{entity.Hash()}");
+
+							Console.WriteLine("------------------------------------------------");
+
+							throw e;
+						}
+
 					});
 			}
 

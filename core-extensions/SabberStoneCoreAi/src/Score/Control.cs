@@ -5,7 +5,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCoreAi.Score
 {
-	public class ControlScore : SabberStoneCoreAi.Score.Score
+	public class ControlScore : Score
 	{
 		public override int Rate()
 		{

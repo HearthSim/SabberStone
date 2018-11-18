@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
+// ReSharper disable ObjectCreationAsStatement
 
 namespace SabberStoneCore.Auras
 {
@@ -76,7 +76,10 @@ namespace SabberStoneCore.Auras
 			if (_left != null)
 			{
 				if (!(_left.Zone is BoardZone) || _left.ZonePosition != pos - 1)
+				{
 					DeApply(_left);
+					_left = null;
+				}
 			}
 			else
 			{
@@ -97,7 +100,10 @@ namespace SabberStoneCore.Auras
 			if (_right != null)
 			{
 				if (!(_right.Zone is BoardZone) || _right.ZonePosition != pos + 1)
+				{
 					DeApply(_right);
+					_right = null;
+				}
 			}
 			else
 			{
@@ -143,16 +149,8 @@ namespace SabberStoneCore.Auras
 
 		private void DeApply(Minion m)
 		{
-			try
-			{
-				for (int i = 0; i < _effects.Length; i++)
-					_effects[i].RemoveFrom(m.AuraEffects);
-			}
-			catch(Exception e)
-			{
-				;
-			}
-
+			for (int i = 0; i < _effects.Length; i++)
+				_effects[i].RemoveFrom(m.AuraEffects);
 
 			if (EnchantmentCard != null && (_history || EnchantmentCard.Power.Trigger != null))
 			{

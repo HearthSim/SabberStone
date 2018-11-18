@@ -303,7 +303,7 @@ namespace SabberStoneCore.Enchants
 			_costEffects = null;
 			Owner.NativeTags.Remove(GameTag.COST);
 			AdaptiveCostEffect?.Remove();
-			Cost = Owner.Card[GameTag.COST];
+			Cost = Owner.Card.Cost;
 			if (Owner.Game.History)
 				Owner.Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Owner.Id, GameTag.COST, Cost));
 		}
