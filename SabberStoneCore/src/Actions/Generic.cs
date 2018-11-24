@@ -193,8 +193,8 @@ namespace SabberStoneCore.Actions
 				return success ? card : null;
 			};
 
-		public static Func<Controller, IPlayable, bool> ShuffleIntoDeck
-			=> delegate (Controller c, IPlayable playable)
+		public static Func<Controller, IEntity, IPlayable, bool> ShuffleIntoDeck
+			=> delegate (Controller c, IEntity sender, IPlayable playable)
 			{
 				if (c.DeckZone.IsFull)
 				{
@@ -207,6 +207,17 @@ namespace SabberStoneCore.Actions
 
 				// don't activate powers when shuffling cards back into the deck
 				c.DeckZone.Add(playable, c.DeckZone.Count == 0 ? -1 : Util.Random.Next(c.DeckZone.Count + 1));
+
+				if (sender is IPlayable p && c.Game.TriggerManager.HasShuffleIntoDeckTrigger)
+				{
+					EventMetaData temp = c.Game.CurrentEventData;
+
+					c.Game.CurrentEventData = new EventMetaData(p, playable);
+
+					c.Game.TriggerManager.OnShuffleIntoDeckTrigger(playable);
+
+					c.Game.CurrentEventData = temp;
+				}
 
 				// add hide entity 
 				if (c.Game.History)
@@ -240,8 +251,11 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, Card, IPlayable, IEntity, int, int, bool> AddEnchantmentBlock
-			=> delegate (Controller c, Card enchantmentCard, IPlayable creator, IEntity target, int num1, int num2)
+		/// <summary>
+		/// Controller, Card, Creator, Target, ScriptTag1, ScriptTag2
+		/// </summary>
+		public static Func<Controller, Card, IPlayable, IEntity, int, int, bool, bool> AddEnchantmentBlock
+			=> delegate (Controller c, Card enchantmentCard, IPlayable creator, IEntity target, int num1, int num2, bool useEntityId)
 			{
 				Power power = enchantmentCard.Power;
 
@@ -271,6 +285,9 @@ namespace SabberStoneCore.Actions
 
 					if (power.DeathrattleTask != null)
 						((IPlayable)target).IsDeathrattle = true;
+
+					//if (useEntityId)
+					//	enchantment.
 				}
 				else
 				{

@@ -42,7 +42,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 
 					for (int i = 0; i < entities.Length && !controller.DeckZone.IsFull; i++)
-						Generic.ShuffleIntoDeck.Invoke(controller, entities[i]);
+						Generic.ShuffleIntoDeck.Invoke(controller, source, entities[i]);
 					return TaskState.COMPLETE;
 
 				case EntityType.HAND:
@@ -75,7 +75,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 
 					for (int i = 0; i < entities.Length && !controller.Opponent.DeckZone.IsFull; i++)
-						Generic.ShuffleIntoDeck.Invoke(controller.Opponent, entities[i]);
+						Generic.ShuffleIntoDeck.Invoke(controller.Opponent, source, entities[i]);
 					return TaskState.COMPLETE;
 
 				default:

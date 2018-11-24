@@ -187,10 +187,7 @@ namespace SabberStoneCore.Actions
 				}
 
 				if (c.Choice.EnchantmentCard != null)
-				{
-					var task = new AddEnchantmentTask(c.Choice.EnchantmentCard, EntityType.TARGET);
-					task.Process(c.Game, in c, c.Game.IdEntityDic[c.Choice.SourceId], playable);
-				}
+					AddEnchantmentBlock.Invoke(c, c.Choice.EnchantmentCard, c.Game.IdEntityDic[c.Choice.SourceId], playable, 0, 0, false);
 
 				// aftertask here
 				if (c.Choice.AfterChooseTask != null)
@@ -257,7 +254,7 @@ namespace SabberStoneCore.Actions
 
 							// removing old one
 							RemoveFromZone(c, p);
-							ShuffleIntoDeck.Invoke(c, p);
+							ShuffleIntoDeck.Invoke(c, null, p);
 						});
 
 						if (c.Game.History)

@@ -22,8 +22,11 @@ namespace SabberStoneCoreConsole
 
 		static void Main(string[] args)
 		{
+			//SimpleTest();
 
 			Console.WriteLine("Start Test!");
+
+			AugmentedElekk();
 
 			Console.WriteLine(Cards.Statistics());
 			//StabilityTest.CloneStabilityTest();
@@ -68,6 +71,92 @@ namespace SabberStoneCoreConsole
 
 			Console.WriteLine("Finished! Press key now.");
 			Console.ReadKey();
+		}
+
+		private static void AugmentedElekk()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Augmented Elekk"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Augmented Elekk"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Augmented Elekk"));
+
+			int deckCount = game.CurrentPlayer.DeckZone.Count;
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer,
+				Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fal'dorei Strider"))));
+
+			ShowLog(game, LogLevel.VERBOSE);
+		}
+
+		private static void SimpleTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.DRUID,
+				Player2HeroClass = CardClass.DRUID,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+				},
+				FillDecks = false,
+				History = false,
+			});
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.StartGame();
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer,
+				Entity.FromCard(game.CurrentPlayer, Cards.FromName("Emerald Hive Queen"), zone: game.CurrentPlayer.HandZone)));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer,
+				Entity.FromCard(game.CurrentPlayer, Cards.FromName("Emerald Hive Queen"), zone: game.CurrentPlayer.HandZone)));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			var clone = game.Clone();
+
+			var rnd = new Random();
+
+			var hand = clone.CurrentOpponent.HandZone;
+			var deck = clone.CurrentOpponent.DeckZone;
+			var n = hand.Count;
+			for (var i = n; i > 0;)
+			{
+				var card = hand[--i];
+
+				deck.Add(hand.Remove(card));
+				hand.Add(deck.Remove(deck[rnd.Next(deck.Count)]));
+				
+			}
+			deck.Shuffle();
+
+			clone.AuraUpdate();
+
+			var bomb = (Minion)Generic.DrawCard(clone.CurrentPlayer, Cards.FromName("Spider Bomb"));
+			clone.Process(PlayCardTask.Any(clone.CurrentPlayer, bomb));
+
+			bomb.AttackDamage += 10;
+
+			bomb.HasCharge = true;
+
+			clone.Process(MinionAttackTask.Any(clone.CurrentPlayer, bomb, clone.CurrentOpponent.BoardZone[0]));
 		}
 
 		private static void ShowCardAsAsic()

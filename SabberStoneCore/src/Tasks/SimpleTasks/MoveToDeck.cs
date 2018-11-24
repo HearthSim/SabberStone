@@ -35,7 +35,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				game.Log(LogLevel.INFO, BlockType.PLAY, "MoveToDeck",
 					!game.Logging ? "" : $"{controller.Name} is taking control of {p} and shuffled into his deck.");
-				Generic.ShuffleIntoDeck.Invoke(c, p);
+
+				Generic.ShuffleIntoDeck.Invoke(c, source, p);
 			}
 
 			;

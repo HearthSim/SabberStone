@@ -94,7 +94,7 @@ namespace SabberStoneCore.Auras
 				//if (_target != null)
 				//	for (int i = 0; i < Effects.Length; i++)
 				//		Effects[i].ApplyTo(_target.AuraEffects);
-				Generic.AddEnchantmentBlock.Invoke(m.Controller, EnchantmentCard, m, _target, 0, 0);
+				Generic.AddEnchantmentBlock.Invoke(m.Controller, EnchantmentCard, m, _target, 0, 0, false);
 				if (Game.History)
 					_currentInstance = _target.AppliedEnchantments.Last();
 				_enraged = true;

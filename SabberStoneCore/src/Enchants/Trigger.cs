@@ -247,6 +247,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.EQUIP_WEAPON:
 					source.Game.TriggerManager.EquipWeaponTrigger += instance._processHandler;
 					break;
+				case TriggerType.SHUFFLE_INTO_DECK:
+					source.Game.TriggerManager.ShuffleIntoDeckTrigger += instance._processHandler;
+					break;
 			}
 
 			return instance;
@@ -427,6 +430,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.EQUIP_WEAPON:
 					Game.TriggerManager.EquipWeaponTrigger -= _processHandler;
 					break;
+				case TriggerType.SHUFFLE_INTO_DECK:
+					Game.TriggerManager.ShuffleIntoDeckTrigger -= _processHandler;
+					break;
 				default:
 				    throw new ArgumentOutOfRangeException();
 		    }
@@ -488,6 +494,8 @@ namespace SabberStoneCore.Enchants
 
 		    switch (TriggerSource)
 		    {
+				case TriggerSource.ALL:
+					break;
 				case TriggerSource.FRIENDLY:
 				    if (source.Controller != _owner.Controller) return;
 				    break;
@@ -529,6 +537,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerSource.FRIENDLY_SPELL_CASTED_ON_OWN_MINIONS:
 					if (!(source is Spell) || source.Controller != _owner.Controller || Game.CurrentEventData?.EventTarget?.Controller != _owner.Controller) return;
 					break;
+				case TriggerSource.FRIENDLY_EVENT_SOURCE:
+					if (Game.CurrentEventData?.EventSource.Controller != _owner.Controller) return;
+					break;
 			}
 
 		    //bool extra = false;
@@ -541,8 +552,9 @@ namespace SabberStoneCore.Enchants
 			    case TriggerType.TURN_START when !EitherTurn && source != _owner.Controller:
 			    case TriggerType.DEATH when _owner.ToBeDestroyed:
 			    case TriggerType.INSPIRE when !EitherTurn && Game.CurrentPlayer != _owner.Controller:
+				case TriggerType.SHUFFLE_INTO_DECK when Game.CurrentEventData?.EventSource.Card.AssetId == 49269:
 					return;
-			    case TriggerType.TURN_END:
+				case TriggerType.TURN_END:
 			    case TriggerType.WORGEN_TRANSFORM:
 					if (!EitherTurn && source != _owner.Controller) return;
 				    //if (!(SingleTask is RemoveEnchantmentTask) && Owner.Controller.ExtraEndTurnEffect)

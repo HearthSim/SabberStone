@@ -2431,7 +2431,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
-					SingleTask = new AddEnchantmentTask(Cards.FromId("EX1_399e"), EntityType.SOURCE),
+					SingleTask = new AddEnchantmentTask("EX1_399e", EntityType.SOURCE),
 				}
 			});
 

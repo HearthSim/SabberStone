@@ -285,9 +285,8 @@ namespace SabberStoneCore.Auras
 				return;
 			}
 
-			var queue = AuraUpdateInstructionsQueue;
+			Util.PriorityQueue<AuraUpdateInstruction> queue = AuraUpdateInstructionsQueue;
 			bool addAllProcessed = false;
-			bool removeAllProcessed = false;
 			var processedInstructions = new Stack<AuraUpdateInstruction>();
 			while (queue.Count != 0)
 			{
@@ -295,10 +294,7 @@ namespace SabberStoneCore.Auras
 				switch (inst.Instruction)
 				{
 					case Instruction.RemoveAll:
-						if (removeAllProcessed)
-							;
 						RemoveInternal();
-						removeAllProcessed = true;
 						break;
 					case Instruction.AddAll:
 						if (On)

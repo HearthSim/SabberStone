@@ -16,27 +16,29 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public EntityType Type { get; set; }
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
-			in TaskStack stack = null)
+			in TaskStack stack)
 		{
-			foreach (IPlayable p in stack?.Playables)
+
+
+			foreach (IPlayable p in stack.Playables)
 				p[GameTag.DISPLAYED_CREATOR] = source.Id;
 
 			switch (Type)
 			{
 				case EntityType.DECK:
-					stack?.Playables.ForEach(p => Generic.ShuffleIntoDeck.Invoke(p.Controller, p));
+					foreach (IPlayable p in stack.Playables) Generic.ShuffleIntoDeck.Invoke(p.Controller, source, p);
 					return TaskState.COMPLETE;
 
 				case EntityType.HAND:
-					stack?.Playables.ForEach(p => Generic.AddHandPhase.Invoke(p.Controller, p));
+					foreach (IPlayable p in stack.Playables) Generic.AddHandPhase.Invoke(p.Controller, p);
 					return TaskState.COMPLETE;
 
 				case EntityType.OP_HAND:
-					stack?.Playables.ForEach(p => Generic.AddHandPhase.Invoke(p.Controller, p));
+					foreach (IPlayable p in stack.Playables) Generic.AddHandPhase.Invoke(p.Controller, p);
 					return TaskState.COMPLETE;
 
 				case EntityType.OP_DECK:
-					stack?.Playables.ForEach(p => Generic.ShuffleIntoDeck.Invoke(p.Controller, p));
+					foreach (IPlayable p in stack.Playables) Generic.ShuffleIntoDeck.Invoke(p.Controller, source, p);
 					return TaskState.COMPLETE;
 
 				default:

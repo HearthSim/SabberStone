@@ -913,7 +913,7 @@ namespace SabberStoneCore.CardSets.Standard
 						Card pick = p.Controller.Opponent.HandZone.Random?.Card;
 						if (pick == null) return 0;
 						Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);
-						Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("GIL_142e"), p, p, 0, 0);
+						Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("GIL_142e"), p, p, 0, 0, false);
 						return 0;
 					})
 				}
@@ -1018,7 +1018,7 @@ namespace SabberStoneCore.CardSets.Standard
 						Controller c = source.Controller;
 						Card enchantment = Cards.FromId("GIL_840e");
 						for (int i = 0; i < list.Count; i++)
-							Generic.AddEnchantmentBlock(c, enchantment, source, list[i], list[i].Card.Health, 0);
+							Generic.AddEnchantmentBlock(c, enchantment, source, list[i], list[i].Card.Health, 0, false);
 						return null;
 					}))
 			});

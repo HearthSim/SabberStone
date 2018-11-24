@@ -60,7 +60,15 @@ namespace SabberStoneCore.Model.Entities
 			set => _tags[t] = value;
 		}
 
+		/// <summary>
+		/// The entity that this enchantment is attached to.
+		/// </summary>
 		public IEntity Target { get; private set; }
+
+		/// <summary>
+		/// The 
+		/// </summary>
+		public Card ContainedCard { get; set; }
 
 		public IPlayable Creator
 		{

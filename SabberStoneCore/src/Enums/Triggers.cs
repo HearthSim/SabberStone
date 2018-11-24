@@ -64,9 +64,10 @@
 		FROZEN,
 		/// <summary> The effect will be triggered when a hero gains armor. </summary>
 		ARMOR,
-		/// <summary> The effect will be triggered when equips a weapon. </summary>
+		/// <summary> The effect will be triggered when a hero equips a weapon. </summary>
 		EQUIP_WEAPON,
-
+		/// <summary> The effect will be triggered when a card is shuffled into a deck. </summary>
+		SHUFFLE_INTO_DECK,
 
 
 		WORGEN_TRANSFORM
@@ -89,7 +90,8 @@
 		WEAPON,
 		HERO_POWER,
 		FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
-		FRIENDLY_SPELL_CASTED_ON_OWN_MINIONS
+		FRIENDLY_SPELL_CASTED_ON_OWN_MINIONS,
+		FRIENDLY_EVENT_SOURCE
 	}
 
 	public enum TriggerActivation

@@ -143,9 +143,6 @@ namespace SabberStoneCore.Model
 
 			public void Add(int item)
 			{
-				if (_array.Contains(item))
-					;
-
 				int c = Count;
 				int i = _index;
 				int s = _size;

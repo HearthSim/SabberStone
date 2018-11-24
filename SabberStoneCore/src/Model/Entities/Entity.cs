@@ -168,7 +168,7 @@ namespace SabberStoneCore.Model.Entities
 			str.Append("[O:");
 			str.Append(OrderOfPlay);
 			str.Append("]");
-			if (AppliedEnchantments != null && AppliedEnchantments.Count > 0)
+			if (AppliedEnchantments?.Count > 0)
 			{
 				str.Append("[EN:");
 				AppliedEnchantments.OrderBy(e => e.Card.Id).ToList().ForEach(e => { str.Append($"{{{e}}}"); });

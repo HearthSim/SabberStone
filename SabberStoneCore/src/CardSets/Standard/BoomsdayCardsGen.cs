@@ -2854,10 +2854,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you shuffle a card into a deck, shuffle in_an extra copy.
 			// --------------------------------------------------------
 			cards.Add("BOT_559", new Power {
-				// TODO [BOT_559] Augmented Elekk && Test: Augmented Elekk_BOT_559
 				InfoCardId = "BOT_559e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.SHUFFLE_INTO_DECK)
+				{
+					TriggerSource = TriggerSource.FRIENDLY_EVENT_SOURCE,
+					SingleTask = ComplexTask.Create(
+						new CopyTask(EntityType.TARGET, 1),
+						new AddStackTo(EntityType.DECK))
+				}
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

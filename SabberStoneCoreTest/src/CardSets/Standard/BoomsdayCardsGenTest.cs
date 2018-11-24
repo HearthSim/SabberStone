@@ -5102,10 +5102,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Whenever you shuffle a card into a deck, shuffle in_an extra copy.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void AugmentedElekk_BOT_559()
 		{
-			// TODO AugmentedElekk_BOT_559 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -5123,7 +5122,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Augmented Elekk"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Augmented Elekk"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Augmented Elekk"));
+
+			int deckCount = game.CurrentPlayer.DeckZone.Count;
+
+			game.ProcessCard("Fal'dorei Strider");
+
+			Assert.Equal(deckCount + 6, game.CurrentPlayer.DeckZone.Count);
+
+			game.ProcessCard("Augmented Elekk");
+			game.ProcessCard("Fal'dorei Strider", asZeroCost: true);
+
+			Assert.Equal(deckCount + 6 + 9, game.CurrentPlayer.DeckZone.Count);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

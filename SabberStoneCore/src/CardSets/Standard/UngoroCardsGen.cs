@@ -1956,7 +1956,7 @@ namespace SabberStoneCore.CardSets.Standard
 							var newEntity = (Minion) Entity.FromCard(p.Controller, p.Card);
 							p[GameTag.TAG_SCRIPT_DATA_ENT_1] = newEntity.Id;
 							newEntity[GameTag.TAG_SCRIPT_DATA_ENT_1] = newEntity.Id;
-							Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("UNG_836e"), newEntity, newEntity, 0, 0);
+							Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("UNG_836e"), newEntity, newEntity, 0, 0, false);
 							//newEntity[GameTag.ATK] = p[GameTag.ATK] + 2;
 							//newEntity[GameTag.HEALTH] = p[GameTag.HEALTH] + 2;
 							newEntity.AttackDamage = p.AttackDamage + 2;

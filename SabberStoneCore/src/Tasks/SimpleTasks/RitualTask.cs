@@ -78,7 +78,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						foreach (IPlayable p in entities)
 						{
 							Generic.AddEnchantmentBlock.Invoke(controller, BuffEnchantmentCard, (IPlayable) source, p,
-								0, 0);
+								0, 0, false);
 
 							((OngoingEnchant) p.OngoingEffect).Count += _amount - 1;
 						}
@@ -90,7 +90,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						if (p.OngoingEffect == null)
 						{
 							Generic.AddEnchantmentBlock.Invoke(controller, BuffEnchantmentCard, (IPlayable) source, p,
-								0, 0);
+								0, 0, false);
 							((OngoingEnchant) p.OngoingEffect).Count += _amount - 1;
 						}
 						else
@@ -104,7 +104,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					if (proxyCthun[GameTag.TAUNT] == 1) break;
 					foreach (IPlayable p in entities)
 						Generic.AddEnchantmentBlock.Invoke(controller, TauntEnchantmentCard, (IPlayable) source, p, 0,
-							0);
+							0, false);
 
 					break;
 
@@ -112,7 +112,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					foreach (IPlayable p in entities)
 						Generic.AddEnchantmentBlock.Invoke(controller, BladeofCThunEnchantmentCard, (IPlayable) source,
 							p, stack.Number,
-							stack.Number1);
+							stack.Number1, false);
 
 					break;
 			}

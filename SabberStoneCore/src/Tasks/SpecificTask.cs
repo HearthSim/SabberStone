@@ -462,7 +462,7 @@ namespace SabberStoneCore.Tasks
 					if (newEntity[GameTag.DISPLAYED_CREATOR] == 0)
 						newEntity[GameTag.DISPLAYED_CREATOR] = e.Creator.Id;
 
-					Generic.AddEnchantmentBlock(e.Controller, e.Card, e, newEntity, 0, 0);
+					Generic.AddEnchantmentBlock(e.Controller, e.Card, e, newEntity, 0, 0, false);
 
 					// TODO choose ones
 
@@ -532,7 +532,7 @@ namespace SabberStoneCore.Tasks
 						}
 					});
 
-					Generic.ShuffleIntoDeck(p.Controller, newWeapon);
+					Generic.ShuffleIntoDeck(p.Controller, newWeapon, newWeapon);
 					return 0;
 				}));
 
