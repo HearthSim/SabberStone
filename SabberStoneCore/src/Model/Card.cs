@@ -32,6 +32,7 @@ namespace SabberStoneCore.Model
 		public bool CantBeTargetedBySpells { get; private set; }
 		public bool CantBeTargetedByHeroPowers => CantBeTargetedBySpells;
 		public bool CantAttack { get; private set; }
+		public bool Modular { get; private set; }
 		public bool ChooseOne { get; private set; }
 		public bool Combo { get; private set; }
 		public bool IsSecret { get; private set; }
@@ -118,6 +119,9 @@ namespace SabberStoneCore.Model
 							break;
 						case GameTag.CANT_ATTACK:
 							CantAttack = true;
+							break;
+						case GameTag.MODULAR:
+							Modular = true;
 							break;
 						case GameTag.SECRET:
 							IsSecret = true;
@@ -633,6 +637,9 @@ namespace SabberStoneCore.Model
 			zombeast.Name = "Zombeast";
 			zombeast.Text = secondCard.Text + "\n" + zombeast.Text;
 
+			zombeast.Tags.Add(GameTag.MODULAR_ENTITY_PART_1, firstCard.AssetId);
+			zombeast.Tags.Add(GameTag.MODULAR_ENTITY_PART_2, secondCard.AssetId);
+
 			if (modifyTags)
 			{
 				zombeast.Tags[GameTag.ATK] += secondCard[GameTag.ATK];
@@ -658,6 +665,10 @@ namespace SabberStoneCore.Model
 					zombeast.Tags[GameTag.RUSH] = 1;
 				if (secondCard.Tags.ContainsKey(GameTag.ECHO))
 					zombeast.Tags[GameTag.ECHO] = 1;
+
+				// OVERRIDECARDNAME: 46119
+				// OVERRIDECARDTEXTBUILDER: 14
+				// RARITY: INVALID;
 			}
 
 			return zombeast;
