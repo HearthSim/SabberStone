@@ -48,6 +48,7 @@ namespace SabberStoneCore.Enchants
 			LootapaloozaCardsGen.AddAll(_powerDic);
 			GilneasCardsGen.AddAll(_powerDic);
 			BoomsdayCardsGen.AddAll(_powerDic);
+			TrollCardsGen.AddAll(_powerDic);
 
 			// Rest
 			NaxxCardsGen.AddAll(_powerDic);

@@ -1006,8 +1006,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_16p", new Power {
 				//	TODO: implement EXTRA_DEATHRATTLE Test: Totem of the Dead_LOOTA_BOSS_16p
 				PowerTask = ComplexTask.Create(
-					new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1, true),
-				new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1, false))
+					new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1, true),
+				new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1, false))
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1023,8 +1023,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_17p", new Power {
 				// TODO: Test: Battle Totem_LOOTA_BOSS_17p
 				PowerTask = ComplexTask.Create(
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1, true),
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1, false))
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1, true),
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1, false))
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1368,10 +1368,10 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_38p", new Power {
 				// TODO [LOOTA_BOSS_38p] Totem of Chaos && Test: Totem of Chaos_LOOTA_BOSS_38p
 				PowerTask = ComplexTask.Create(
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1),
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1, true),
-					new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1),
-					new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1))
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1),
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1, true),
+					new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1),
+					new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1))
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL

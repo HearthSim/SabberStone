@@ -831,7 +831,7 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_077", new Power {
-				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.EXTRA_BATTLECRY, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.EXTRA_BATTLECRIES_BASE, EffectOperator.SET, 1))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

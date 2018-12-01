@@ -3710,7 +3710,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_517e", new Power {
 				//Enchant = new Enchant(GameTag.EXTRA_BATTLECRY, EffectOperator.SET, 1)
-				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.EXTRA_BATTLECRY, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.EXTRA_BATTLECRIES_BASE, EffectOperator.SET, 1))
 				{
 					RemoveTrigger = (TriggerType.TURN_END, null),
 				},

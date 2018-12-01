@@ -600,7 +600,7 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("FP1_031", new Power {
-				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.EXTRA_DEATHRATTLES, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, EffectOperator.SET, 1))
 			});
 
 		}

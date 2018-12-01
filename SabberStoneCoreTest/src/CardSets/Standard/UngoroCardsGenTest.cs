@@ -10,8 +10,6 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCoreTest.CardSets.Standard
 {
-
-
 	public class HeroPowersUngoroTest
 	{
 		// ------------------------------------ HERO_POWER - HUNTER

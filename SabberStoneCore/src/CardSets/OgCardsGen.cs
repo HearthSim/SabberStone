@@ -2598,7 +2598,7 @@ namespace SabberStoneCore.CardSets
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("OG_104e", new Power {
-				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.RESTORE_TO_DAMAGE, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.HEALING_DOES_DAMAGE, EffectOperator.SET, 1))
 				{
 					RemoveTrigger = (TriggerType.TURN_END, null)
 				}

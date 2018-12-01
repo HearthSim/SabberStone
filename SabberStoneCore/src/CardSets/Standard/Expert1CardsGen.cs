@@ -1763,7 +1763,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_591", new Power {
-				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.RESTORE_TO_DAMAGE, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.HEALING_DOES_DAMAGE, EffectOperator.SET, 1))
 			});
 
 			// ---------------------------------------- MINION - PRIEST

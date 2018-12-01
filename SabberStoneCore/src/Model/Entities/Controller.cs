@@ -798,8 +798,8 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool ExtraBattlecry
 		{
-			get => ControllerAuraEffects[GameTag.EXTRA_BATTLECRY] > 0;
-			set => ControllerAuraEffects[GameTag.EXTRA_BATTLECRY] += 1;
+			get => ControllerAuraEffects[GameTag.EXTRA_BATTLECRIES_BASE] > 0;
+			set => ControllerAuraEffects[GameTag.EXTRA_BATTLECRIES_BASE] += 1;
 		}
 
 		/// <summary>

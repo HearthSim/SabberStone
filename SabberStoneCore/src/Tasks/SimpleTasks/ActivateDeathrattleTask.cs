@@ -27,7 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				    Game.TaskQueue.Enqueue(clone);
 			    });
-			    if (p.Controller.ControllerAuraEffects[Enums.GameTag.EXTRA_DEATHRATTLES] == 1)
+			    if (p.Controller.ControllerAuraEffects[Enums.GameTag.EXTRA_MINION_DEATHRATTLES_BASE] == 1)
 			    {
 				    p.ActivateTask(Enums.PowerActivation.DEATHRATTLE);
 				    p.AppliedEnchantments?.ForEach(e =>

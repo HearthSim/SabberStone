@@ -299,7 +299,7 @@ namespace SabberStoneCore.Model.Entities
 				heal *= (int) Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.SPELL_HEALING_DOUBLE]);
 			}
 
-			if (source.Controller.ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] == 1)
+			if (source.Controller.ControllerAuraEffects[GameTag.HEALING_DOES_DAMAGE] == 1)
 			{
 				if (_lifestealChecker)
 					return;
