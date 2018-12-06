@@ -1480,15 +1480,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			int zonePosition = m1.ZonePosition;
-			int zone = m1[GameTag.ZONE];
+			Zone zone = m1.Zone.Type;
 
 			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Polymorph"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, (ICharacter) m1));
 
 			Assert.Equal(zonePosition, game.CurrentOpponent.BoardZone[0].ZonePosition);
-			Assert.Equal(zone, game.CurrentOpponent.BoardZone[0][GameTag.ZONE]);
-			Assert.NotEqual(game.CurrentOpponent.BoardZone[0][GameTag.ZONE], m1[GameTag.ZONE]);
-			Assert.Equal((int)Zone.SETASIDE, m1[GameTag.ZONE]);
+			Assert.Equal(zone, game.CurrentOpponent.BoardZone[0].Zone.Type);
+			Assert.NotEqual(game.CurrentOpponent.BoardZone[0].Zone.Type, m1.Zone.Type);
+			Assert.Equal(Zone.SETASIDE, m1.Zone.Type);
 			Assert.Equal("CS2_tk1", game.CurrentOpponent.BoardZone[0].Card.Id);
 		}
 
@@ -3480,15 +3480,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			int zonePosition = m1.ZonePosition;
-			int zone = m1[GameTag.ZONE];
+			Zone zone = m1.Zone.Type;
 
 			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hex"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, (ICharacter) m1));
 
 			Assert.Equal(zonePosition, game.CurrentOpponent.BoardZone[0].ZonePosition);
-			Assert.Equal(zone, game.CurrentOpponent.BoardZone[0][GameTag.ZONE]);
-			Assert.NotEqual(game.CurrentOpponent.BoardZone[0][GameTag.ZONE], m1[GameTag.ZONE]);
-			Assert.Equal((int)Zone.SETASIDE, m1[GameTag.ZONE]);
+			Assert.Equal(zone, game.CurrentOpponent.BoardZone[0].Zone.Type);
+			Assert.NotEqual(game.CurrentOpponent.BoardZone[0].Zone.Type, m1.Zone.Type);
+			Assert.Equal(Zone.SETASIDE, m1.Zone.Type);
 			Assert.Equal("hexfrog", game.CurrentOpponent.BoardZone[0].Card.Id);
 		}
 

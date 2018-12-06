@@ -215,7 +215,8 @@ namespace SabberStoneCore.Model.Zones
 		{
 			_entities.Add(entity);
 			entity.Zone = this;
-			entity[GameTag.ZONE] = (int) Type;
+			if (Game.History)
+				entity[GameTag.ZONE] = (int) Type;
 		}
 
 		public override bool Any(Func<IPlayable, bool> predicate)
@@ -315,7 +316,8 @@ namespace SabberStoneCore.Model.Zones
 			_count++;
 
 			entity.Zone = this;
-			entity[GameTag.ZONE] = (int)Type;
+			if (Game.History)
+				entity[GameTag.ZONE] = (int)Type;
 		}
 
 		public override T Remove(T entity)

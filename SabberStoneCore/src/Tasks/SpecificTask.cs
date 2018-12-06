@@ -874,12 +874,13 @@ namespace SabberStoneCore.Tasks
 					if (entity.Card.Class != CardClass.WARLOCK) continue;
 					controller.HandZone.Remove(entity);
 					controller.SetasideZone.Add(entity);
-					var tags = new EntityData
-					{
-						{GameTag.ZONE_POSITION, i + 1},
-					};
+					var tags = new EntityData();
 					if (game.History)
+					{
+						tags.Add(GameTag.ZONE_POSITION, i + 1);
 						tags.Add(GameTag.CREATOR, source.Id);
+					}
+
 					IPlayable newEntity = Entity.FromCard(in controller, Util.Choose(cards), tags, controller.HandZone, -1, i);
 					newEntity.NativeTags.Add(GameTag.DISPLAYED_CREATOR, source.Id);
 					CostReduceEffect.ApplyTo(newEntity.AuraEffects);

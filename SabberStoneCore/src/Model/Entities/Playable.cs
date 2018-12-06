@@ -226,6 +226,7 @@ namespace SabberStoneCore.Model.Entities
 				Memory = new List<int>(playable.Memory);
 
 			_exhausted = playable._exhausted;
+			_zonePosition = playable._zonePosition;
 		}
 
 		/// <summary>
@@ -568,6 +569,7 @@ namespace SabberStoneCore.Model.Entities
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
 		private bool _exhausted;
+		private int _zonePosition;
 
 		public int Cost
 		{
@@ -577,12 +579,13 @@ namespace SabberStoneCore.Model.Entities
 
 		public int ZonePosition
 		{
-			get
+			get => _zonePosition;
+			set
 			{
-				NativeTags.TryGetValue(GameTag.ZONE_POSITION, out int value);
-				return value - 1;
+				_zonePosition = value;
+				if (_history)
+					this[GameTag.ZONE_POSITION] = value + 1;
 			}
-			set => this[GameTag.ZONE_POSITION] = value + 1;
 		}
 
 		public bool Combo => Card.Combo;
@@ -625,7 +628,7 @@ namespace SabberStoneCore.Model.Entities
 		public virtual bool IsLifeSteal
 		{
 			get => Card.LifeSteal;
-			set { this[GameTag.LIFESTEAL] = value ? 1 : 0; }
+			set => this[GameTag.LIFESTEAL] = value ? 1 : 0;
 		}
 
 		public bool IsEcho
