@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Auras;
