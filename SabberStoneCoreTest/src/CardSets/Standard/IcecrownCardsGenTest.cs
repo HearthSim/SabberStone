@@ -5381,7 +5381,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 					Cards.FromName("Arcane Intellect"),
 					Cards.FromName("Arcane Intellect"),
 					Cards.FromName("Arcane Intellect"),
-					Cards.FromName("Mana Wyrm"),
+					Cards.FromName("Dalaran Mage"),
 					Cards.FromName("Stonetusk Boar"),
 					Cards.FromName("Stonetusk Boar"),
 					Cards.FromName("Stonetusk Boar"),
@@ -5397,7 +5397,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[3]));
 			Assert.Equal(2, ((ICharacter)game.CurrentPlayer.HandZone[3]).AttackDamage);
-			Assert.Equal(4, ((ICharacter)game.CurrentPlayer.HandZone[3]).Health);
+			Assert.Equal(5, ((ICharacter)game.CurrentPlayer.HandZone[3]).Health);
 			Assert.Equal(2, ((ICharacter)game.CurrentPlayer.HandZone[4]).AttackDamage);
 			Assert.Equal(2, ((ICharacter)game.CurrentPlayer.HandZone[4]).Health);
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[4]));
