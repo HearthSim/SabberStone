@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Auras;
@@ -2910,7 +2911,7 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = new FuncNumberTask(source =>
 				{
 					Dictionary<int, Spell> secrets = new Dictionary<int, Spell>();
-					var deck = source.Controller.DeckZone.GetSpan();
+					ReadOnlySpan<IPlayable> deck = source.Controller.DeckZone.GetSpan();
 					for (int i = 0; i < deck.Length; i++)
 						if (deck[i] is Spell s && s.IsSecret && !secrets.ContainsKey(s.Card.AssetId))
 							secrets.Add(s.Card.AssetId, s);

@@ -38,6 +38,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.2-servicing-27114-05" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Memory">
       <HintPath>..\..\..\..\..\.nuget\packages\system.memory\4.5.0-preview1-26216-02\ref\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>

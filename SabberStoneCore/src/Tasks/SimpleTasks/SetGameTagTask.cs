@@ -29,6 +29,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			int a = Amount;
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
 			{
+				if (t == GameTag.EXHAUSTED)
+				{
+					p.IsExhausted = a > 0;
+					continue;
+				}
+
 				if (p is Character c)
 					switch (t)
 					{
@@ -54,8 +60,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 							c[t] = a;
 							break;
 					}
-				else if (t == GameTag.EXHAUSTED)
-					p.IsExhausted = Amount > 0;
 				else
 					p[Tag] = Amount;
 
