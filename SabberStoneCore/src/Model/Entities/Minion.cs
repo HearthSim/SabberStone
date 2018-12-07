@@ -120,6 +120,7 @@ namespace SabberStoneCore.Model.Entities
 			_atkModifier = Card.ATK;
 			_healthModifier = Card.Health;
 			_dmgModifier = 0;
+			_exhausted = false;
 
 			OngoingEffect?.Remove();
 			Game.OneTurnEffects.RemoveAll(p => p.entityId == Id);

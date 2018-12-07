@@ -568,8 +568,8 @@ namespace SabberStoneCore.Model.Entities
 	public abstract partial class Playable
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
-		private bool _exhausted;
-		private int _zonePosition;
+		protected bool _exhausted;
+		protected int _zonePosition;
 
 		public int Cost
 		{

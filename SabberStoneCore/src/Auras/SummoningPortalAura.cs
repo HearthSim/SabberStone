@@ -1,5 +1,6 @@
 ﻿using System;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model;
 
@@ -8,62 +9,71 @@ namespace SabberStoneCore.Auras
 	public class SummoningPortalAura : Aura
 	{
 		public SummoningPortalAura() : base(AuraType.HAND) { }
-
-		public SummoningPortalAura(AuraType type, params IEffect[] effects) : base(type, effects)
+		
+		private SummoningPortalAura(SummoningPortalAura prototype, IPlayable owner) : base(prototype, owner)
 		{
-		}
-
-		public SummoningPortalAura(AuraType type, string enchantmentId) : base(type, enchantmentId)
-		{
-		}
-
-		protected SummoningPortalAura(Aura prototype, IPlayable owner) : base(prototype, owner)
-		{
+			
 		}
 
 		public override void Activate(IPlayable owner, bool cloning = false)
 		{
-			base.Activate(owner, cloning);
-
-			owner.Controller.HandZone.Auras.Add((Aura)owner.OngoingEffect);
-
+			var instance = new SummoningPortalAura(this, owner);
+			owner.OngoingEffect = instance;
+			owner.Controller.HandZone.Auras.Add(instance);
+			owner.Game.Auras.Add(instance);
+			if (!cloning)
+				instance.AuraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(Instruction.AddAll), 1);
 		}
 
-		public override void Clone(IPlayable clone)
+		public override void Update()
 		{
-			base.Clone(clone);
+			bool addAllProcessed = false;
+			while (AuraUpdateInstructionsQueue.Count > 0)
+			{
+				AuraUpdateInstruction inst = AuraUpdateInstructionsQueue.Dequeue();
+				switch (inst.Instruction)
+				{
+					case Instruction.RemoveAll:
+						RemoveAll();
+						return;
+					case Instruction.AddAll:
+						addAllProcessed = true;
+						AddAll();
+						break;
+					case Instruction.Add:
+						if (addAllProcessed) break;
+						Apply(inst.Src);
+						AppliedEntityIdCollection.Add(inst.Src.Id);
+						break;
+					case Instruction.Remove:
+						if (!AppliedEntityIdCollection.Remove(inst.Src.Id))
+							break;
+						DeApply(inst.Src);
+						break;
+				}
+			}
 		}
 
-		//public override void Remove()
-		//{
-		//	base.Remove();
-		//}
+		private void AddAll()
+		{
+			Owner.Controller.HandZone.ForEach(p =>
+			{
+				Apply(p);
+				AppliedEntityIdCollection.Add(p.Id);
+			});
+		}
 
-		//public override void Update()
-		//{
-		//	if (On)
-		//	{
-		//		while (AuraUpdateInstructionsQueue.Count > 0)
-		//		{
-		//			AuraUpdateInstruction inst = AuraUpdateInstructionsQueue.Dequeue();
-		//			switch (inst.Instruction)
-		//			{
-		//				case Instruction.Add:
-		//					Apply(inst.Src);
-		//					break;
-		//				case Instruction.RemoveAll:
-
-		//			}
-		//		}
-		//	}
-		//	else
-		//	{
-		//		Remove();
-		//	}
-		//}
+		private void RemoveAll()
+		{
+			AppliedEntityIdCollection.ForEach(Game.IdEntityDic,
+				(i, dict) => DeApply(dict[i]));
+			Game.Auras.Remove(this);
+		}
 
 		private static void Apply(IPlayable playable)
 		{
+			// The effect of Summoning Portal is always applied before any other effects
+
 			int cardValue = playable.Card.Cost;
 			int cost = cardValue > 2 ? cardValue - 2 : 1;
 			if (playable.NativeTags.TryGetValue(Enums.GameTag.COST, out int tagValue))
@@ -73,19 +83,24 @@ namespace SabberStoneCore.Auras
 					cost = 0;
 			}
 
-			playable.NativeTags[Enums.GameTag.COST] = cost;
+			playable[GameTag.COST] = cost;
 			playable.AuraEffects.ToBeUpdated = true;
+
+			
 		}
 
-		private static void RemoveAll(IPlayable playable)
+		private static void DeApply(IPlayable playable)
 		{
 			int cardValue = playable.Card.Cost;
-			int cost = cardValue > 2 ? cardValue - 2 : 1;
-			int current = playable.NativeTags[Enums.GameTag.COST];
-			if (current != cost)
-			{
+			int delta = cardValue > 2 ? 2 : cardValue > 1 ? 1 : 0;
 
-			}
+			playable[GameTag.COST] += delta;
+			playable.AuraEffects.ToBeUpdated = true;
+		}
+		
+		public override void Clone(IPlayable clone)
+		{
+			Activate(clone);
 		}
 	}
 }

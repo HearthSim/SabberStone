@@ -287,7 +287,6 @@ namespace SabberStoneCore.Auras
 
 			Util.PriorityQueue<AuraUpdateInstruction> queue = AuraUpdateInstructionsQueue;
 			bool addAllProcessed = false;
-			var processedInstructions = new Stack<AuraUpdateInstruction>();
 			while (queue.Count != 0)
 			{
 				AuraUpdateInstruction inst = queue.Dequeue();
@@ -295,27 +294,21 @@ namespace SabberStoneCore.Auras
 				{
 					case Instruction.RemoveAll:
 						RemoveInternal();
-						break;
+						return;
 					case Instruction.AddAll:
-						if (On)
-						{
-							addAllProcessed = true;
-							UpdateInternal();
-						}
+						addAllProcessed = true;
+						UpdateInternal();
 						break;
 					case Instruction.Add:
-						if (On && !addAllProcessed)
+						if (!addAllProcessed)
 							Apply(inst.Src);
 						break;
 					case Instruction.Remove:
-						if (On)
-							DeApply(inst.Src);
+						DeApply(inst.Src);
 						break;
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
-
-				processedInstructions.Push(inst);
 			}
 		}
 
@@ -490,8 +483,8 @@ namespace SabberStoneCore.Auras
 		private void RemoveInternal()
 		{
 			IEffect[] effects = Effects;
-			// Remove effects from applied entities
 
+			// Remove effects from applied entities
 			if (Type == AuraType.CONTROLLER)
 			{
 				for (int i = 0; i < effects.Length; i++)
@@ -507,63 +500,19 @@ namespace SabberStoneCore.Auras
 			}
 			else
 			{
-				//foreach (IPlayable entity in AppliedEntities)
-				//{
-				//	//if (ValueFunc != null)
-				//	//{
-				//	//	IEffect effect = effects[0].ChangeValue(ValueFunc(entity));
-				//	//	effect.RemoveFrom(entity.AuraEffects);
-				//	//	continue;
-				//	//}
-
-				//	for (int i = 0; i < effects.Length; i++)
-				//	{
-				//		if (effects[i] is ConditionalEffect ce)
-				//			ce.RemoveValueFrom(entity.AuraEffects);
-				//		else
-				//			effects[i].RemoveFrom(entity.AuraEffects);
-				//	}
-				//}
 				AppliedEntityIdCollection.ForEach(Game.IdEntityDic, effects,
 					(id, idDict, effs) =>
 					{
 						IPlayable entity = idDict[id];
-						try
-						{
-							for (int i = 0; i < effs.Length; i++)
-								effs[i].RemoveFrom(entity.AuraEffects);
-						}
-						catch (Exception e)
-						{
-							//Console.WriteLine(e.Message);
-							//Console.WriteLine(e.TargetSite);
-							//Console.WriteLine(e.StackTrace);
-
-							Console.WriteLine($"{this}");
-							Console.WriteLine("Effects:");
-							for (int i = 0; i < Effects.Length; i++)
-								Console.WriteLine($"\t{Effects[i]}");
-							Console.WriteLine("Owner:");
-							Console.WriteLine($"\t{Owner.Hash()}");
-							Console.WriteLine("Entity:");
-							Console.WriteLine($"\t{entity.Hash()}");
-
-							Console.WriteLine("------------------------------------------------");
-
-							throw e;
-						}
-
+						for (int i = 0; i < effs.Length; i++)
+							effs[i].RemoveFrom(entity.AuraEffects);
 					});
 			}
 
+			// Remove this Aura from the Game
 			Game.Auras.Remove(this);
 
 			// Remove enchantments from applied entities
-			//if (EnchantmentCard != null && (Game.History || EnchantmentCard.Power.Trigger != null))
-			//	foreach (IPlayable entity in AppliedEntities)
-			//		for (int i = entity.AppliedEnchantments.Count - 1; i >= 0; i--)
-			//			if (entity.AppliedEnchantments[i].Creator.Id == _ownerId)
-			//				entity.AppliedEnchantments[i].Remove();
 			if (EnchantmentCard != null && (Game.History || EnchantmentCard.Power.Trigger != null))
 			{
 				AppliedEntityIdCollection.ForEach(_ownerId, Game.IdEntityDic,
