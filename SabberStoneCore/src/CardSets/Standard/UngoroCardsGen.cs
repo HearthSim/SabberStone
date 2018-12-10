@@ -1891,7 +1891,7 @@ namespace SabberStoneCore.CardSets.Standard
 								minions.Add(m);
 						});
 						return minions.Count > 0
-							? new List<IPlayable>{Entity.FromCard(c, Util.Choose(minions).Card)}
+							? new List<IPlayable>{Entity.FromCard(c, Util.Choose(list: minions).Card)}
 							: new List<IPlayable>(0);
 					}),
 					new SummonTask())
@@ -2288,7 +2288,9 @@ namespace SabberStoneCore.CardSets.Standard
 				},
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
-					SingleTask = new ChangeEntityTask(EntityType.TARGET, CardType.WEAPON)
+					SingleTask = ComplexTask.Create(
+						new ChangeEntityTask(EntityType.TARGET, CardType.WEAPON),
+						new AddEnchantmentTask("UNG_929e", EntityType.TARGET))
 				}
 			});
 

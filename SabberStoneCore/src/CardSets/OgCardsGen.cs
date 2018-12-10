@@ -2041,7 +2041,8 @@ namespace SabberStoneCore.CardSets
 							if (p.Count < 2)
 								return p;
 							Controller c = p[0].Controller;
-							p.ForEach(q => q.Destroy());
+							for (int i = 0; i < p.Count; i++)
+								p[i].Destroy();
 							c.Game.GraveYard();	// forced death phase
 							var ancientOne = (Minion) Entity.FromCard(c, Cards.FromId("OG_173a"));
 							Generic.SummonBlock.Invoke(c, ancientOne, c.BoardZone.Count);
@@ -2646,10 +2647,9 @@ namespace SabberStoneCore.CardSets
 				},
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
-
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsInZone(Zone.HAND)),
-						new FlagTask(true, new ChangeEntityTask(EntityType.TARGET, CardType.MINION)))
+						new ChangeEntityTask(EntityType.TARGET, CardType.MINION),
+						new AddEnchantmentTask("OG_123e", EntityType.TARGET))
 				}
 			});
 

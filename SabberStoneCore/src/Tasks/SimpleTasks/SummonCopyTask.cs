@@ -66,7 +66,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.STOP;
 
 			IList<IPlayable> entities =
-				IncludeTask.GetEntities(_type, controller, source, target, stack?.Playables).ToList();
+				IncludeTask.GetEntities(_type, controller, source, target, stack?.Playables);
 
 			if (entities.Count < 1) return TaskState.STOP;
 
@@ -98,7 +98,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						SummonTask.GetPosition(in source, _side, stack?.Number ?? 0, ref alternateCount));
 
 					if (_addToStack)
-						stack.Playables.Add(minion);
+						stack.AddPlayable(minion);
 				}
 			else
 				for (int i = 0; i < entities.Count; i++)
@@ -134,7 +134,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						minion.OngoingEffect.Clone(copy);
 
 					if (_addToStack)
-						stack.Playables.Add(copy);
+						stack.AddPlayable(copy);
 				}
 
 

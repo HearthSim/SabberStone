@@ -61,9 +61,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_314", new Power {
-				DeathrattleTask = ComplexTask.Create(
-					new RecruitTask(SelfCondition.IsTagValue(GameTag.COST, 4, RelaSign.LEQ)),
-					new RecruitTask(SelfCondition.IsTagValue(GameTag.COST, 4, RelaSign.LEQ)))
+				DeathrattleTask = new RecruitTask(2, SelfCondition.IsTagValue(GameTag.COST, 4, RelaSign.LEQ))
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -167,7 +165,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("LOOT_309", new Power {
 				PowerTask = ComplexTask.Create(
 					new ArmorTask(6),
-					new RecruitTask(SelfCondition.IsTagValue(GameTag.COST, 4, RelaSign.LEQ)))
+					new RecruitTask(1, SelfCondition.IsTagValue(GameTag.COST, 4, RelaSign.LEQ)))
 			});
 
 			// ----------------------------------------- WEAPON - DRUID
@@ -304,8 +302,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_511", new Power {
-				PowerTask = new RecruitTask(SelfCondition.IsRace(Race.BEAST)),
-				DeathrattleTask = new RecruitTask(SelfCondition.IsRace(Race.BEAST))
+				PowerTask = new RecruitTask(1, SelfCondition.IsRace(Race.BEAST)),
+				DeathrattleTask = new RecruitTask(1, SelfCondition.IsRace(Race.BEAST))
 			});
 
 			// ---------------------------------------- MINION - HUNTER
@@ -725,7 +723,9 @@ namespace SabberStoneCore.CardSets.Standard
 				},
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
-					SingleTask = new ChangeEntityTask(EntityType.TARGET, CardType.SPELL, CardClass.MAGE)
+					SingleTask = ComplexTask.Create(
+						new ChangeEntityTask(EntityType.TARGET, CardType.SPELL, CardClass.MAGE),
+						new AddEnchantmentTask("LOOT_104e", EntityType.TARGET))
 				}
 			});
 
@@ -923,8 +923,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_093", new Power {
-				PowerTask = new EnqueueTask(3,
-					new RecruitTask(SelfCondition.IsTagValue(GameTag.COST, 2, RelaSign.LEQ)))
+				PowerTask = new RecruitTask(3, SelfCondition.IsTagValue(GameTag.COST, 2, RelaSign.LEQ))
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -2108,10 +2107,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_306", new Power {
-				DeathrattleTask = ComplexTask.Create(
-					new IncludeTask(EntityType.DECK),
-					new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
-					new RecruitTask(true, SummonSide.DEATHRATTLE))
+				DeathrattleTask = new RecruitTask(1, SelfCondition.IsRace(Race.DEMON))
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -2527,7 +2523,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_370", new Power {
-				PowerTask = new RecruitTask(false, SummonSide.SPELL)
+				PowerTask = new RecruitTask(1)
 			});
 
 			// --------------------------------------- WEAPON - WARRIOR
@@ -2565,7 +2561,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.HERO,
-					SingleTask = new RecruitTask()
+					SingleTask = new RecruitTask(1)
 				}
 			});
 
@@ -3023,7 +3019,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_184", new Power {
-				DeathrattleTask = new RecruitTask(SelfCondition.IsTagValue(GameTag.COST, 8))
+				DeathrattleTask = new RecruitTask(1, SelfCondition.IsTagValue(GameTag.COST, 8))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3149,7 +3145,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RECRUIT = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_375", new Power {
-				PowerTask = new RecruitTask(SelfCondition.IsTagValue(GameTag.COST, 4, RelaSign.LEQ))
+				PowerTask = new RecruitTask(1, SelfCondition.IsTagValue(GameTag.COST, 4, RelaSign.LEQ))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3298,9 +3294,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("LOOT_521", new Power {
 				PowerTask = ComplexTask.Create(
-					new RecruitTask(SelfCondition.IsTagValue(GameTag.ATK, 1)),
-					new RecruitTask(SelfCondition.IsTagValue(GameTag.ATK, 2)),
-					new RecruitTask(SelfCondition.IsTagValue(GameTag.ATK, 3)))
+					new RecruitTask(1, SelfCondition.IsTagValue(GameTag.ATK, 1)),
+					new RecruitTask(1, SelfCondition.IsTagValue(GameTag.ATK, 2)),
+					new RecruitTask(1, SelfCondition.IsTagValue(GameTag.ATK, 3)))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3380,7 +3376,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("LOOT_540", new Power {
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
-					SingleTask = new RecruitTask(SelfCondition.IsRace(Race.DRAGON))
+					SingleTask = new RecruitTask(1, SelfCondition.IsRace(Race.DRAGON))
 				}
 			});
 

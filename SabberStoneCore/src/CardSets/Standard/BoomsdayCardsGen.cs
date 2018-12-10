@@ -236,8 +236,8 @@ namespace SabberStoneCore.CardSets.Standard
 						new IncludeTask(EntityType.TARGET, addFlag: true),
 						new FuncPlayablesTask(list =>
 						{
-							var s = list[0];
-							var t = list[1];
+							IPlayable s = list[0];
+							IPlayable t = list[1];
 							Generic.ChangeEntityBlock.Invoke(s.Controller, s, t.Card);
 							return null;
 						}),
@@ -561,9 +561,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_429", new Power {
-				// TODO [BOT_429] Flark's Boom-Zooka && Test: Flark's Boom-Zooka_BOT_429
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RecruitTask(3, true),
+					new FuncPlayablesTask(list =>
+					{
+						Controller c = list[0].Controller;
+						for (int i = 0; i < list.Count; i++)
+						{
+							var defender = c.Opponent.BoardZone.Random;
+
+							if (defender == null) break;
+
+							Generic.AttackBlock.Invoke(c, (ICharacter)list[i], defender, true);
+							c.NumOptionsPlayedThisTurn--;
+						}
+
+						return null;
+					}))
+
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -581,10 +596,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_437", new Power {
-				// TODO [BOT_437] Goblin Prank && Test: Goblin Prank_BOT_437
-				InfoCardId = "BOT_437e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("BOT_437e", EntityType.TARGET)
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -1750,7 +1762,7 @@ namespace SabberStoneCore.CardSets.Standard
 						if (minions.Count == 0)
 							return null;
 
-						var legendaries = RandomCardTask.GetCardList(minions[0], CardType.MINION,
+						IReadOnlyList<Card> legendaries = RandomCardTask.GetCardList(minions[0], CardType.MINION,
 							rarity: Rarity.LEGENDARY);
 						foreach (IPlayable p in minions)
 							Generic.TransformBlock.Invoke(p.Controller, Util.Choose(legendaries), (Minion)p);
@@ -2079,8 +2091,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_104", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.ALLMINIONS),
-					new FilterStackTask(SelfCondition.IsRace(Race.MECHANICAL)),
-					new EnqueueTask(5, ComplexTask.DamageRandomTargets(1, EntityType.STACK, 1)))
+					new FilterStackTask(SelfCondition.IsNotRace(Race.MECHANICAL)),
+					ComplexTask.Create(ComplexTask.DamageRandomTargets(1, EntityType.STACK, 1), 5))
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2915,7 +2927,7 @@ namespace SabberStoneCore.CardSets.Standard
 					for (int i = 0; i < deck.Length; i++)
 						if (deck[i] is Spell s && s.IsSecret && !secrets.ContainsKey(s.Card.AssetId))
 							secrets.Add(s.Card.AssetId, s);
-					foreach (var item in secrets)
+					foreach (KeyValuePair<int, Spell> item in secrets)
 						Generic.DrawBlock.Invoke(source.Controller, item.Value);
 					return 0;
 				})
@@ -3192,9 +3204,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: +3/+3 and <b>Rush</b>. Dies a slimy death at the end of the turn.
 			// --------------------------------------------------------
 			cards.Add("BOT_437e", new Power {
-				// TODO [BOT_437e] Slimed && Test: Slimed_BOT_437e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_437e"),
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = new DestroyTask(EntityType.TARGET)
+				}
+
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

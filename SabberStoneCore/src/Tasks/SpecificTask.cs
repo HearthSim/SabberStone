@@ -572,22 +572,15 @@ namespace SabberStoneCore.Tasks
 				Controller c = p.Controller;
 				List<PlayHistoryEntry> history = c.PlayHistory;
 
-				List<PlayHistoryEntry> spellCards = new List<PlayHistoryEntry>();
+				List<PlayHistoryEntry> spellCards = history
+					.Where(current => current.SourceController == current.TargetController &&
+					                  current.SourceCard.Type == CardType.SPELL)
+					.ToList();
 
-				for (int i = 0; i < history.Count; i++)
+				spellCards.Shuffle();
+				for (int i = 0; i < spellCards.Count; i++)
 				{
-					PlayHistoryEntry current = history[i];
-					if (current.SourceController == current.TargetController &&
-					    current.SourceCard.Type == CardType.SPELL)
-					{
-						spellCards.Add(current);
-					}
-				}
-
-				IList<PlayHistoryEntry> shuffled = spellCards.Shuffle();
-				for (int i = 0; i < shuffled.Count; i++)
-				{
-					Generic.CastSpell(c, (Spell)Entity.FromCard(c, shuffled[i].SourceCard), (ICharacter)p, shuffled[i].SubOption, true);
+					Generic.CastSpell(c, (Spell)Entity.FromCard(c, spellCards[i].SourceCard), (ICharacter)p, spellCards[i].SubOption, true);
 					while (c.Choice != null)
 						Generic.ChoicePick(c, Util.Choose(c.Choice.Choices));
 					if (p.Zone?.Type != Zone.PLAY)
@@ -799,7 +792,7 @@ namespace SabberStoneCore.Tasks
 				}
 				else
 				{
-					nextId = null;
+					nextId = Util.Choose(DrBoomHeroPowerIds);
 					currentPower = c.Hero.HeroPower;
 				}
 				c.SetasideZone.Add(currentPower);

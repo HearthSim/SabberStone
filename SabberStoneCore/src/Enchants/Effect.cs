@@ -50,6 +50,8 @@ namespace SabberStoneCore.Enchants
 		/// </summary>
 		public void ApplyTo(IEntity entity, bool oneTurnEffect = false)
 		{
+			if (entity == null) ;
+
 			if (!entity.NativeTags.ContainsKey(Tag))
 				entity.NativeTags.Add(Tag, entity.Card[Tag]);
 

@@ -40,12 +40,13 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(entityType),
 				new FuncPlayablesTask(playables =>
 				{
-					playables.ForEach(p =>
+					foreach (IPlayable p in playables)
 					{
 						var m = p as Minion;
 						if (m.NumAttacksThisTurn == 1 && m.IsExhausted)
 							m.IsExhausted = false;
-					});
+					}
+
 					return playables;
 				}));
 
@@ -64,12 +65,12 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(entityType),
 				new FuncPlayablesTask(list =>
 				{
-					list.ForEach(p =>
+					foreach (IPlayable p in list)
 					{
 						Minion m = p as Minion;
 						if (m.NumAttacksThisTurn == 0 && m.IsExhausted)
 							m.IsExhausted = false;
-					});
+					}
 					return null;
 				})
 			);
@@ -238,7 +239,7 @@ namespace SabberStoneCore.Tasks
 						Controller c = stack[0].Controller;
 						do
 						{
-							IPlayable pick = Util.Choose(stack);
+							IPlayable pick = Util.Choose((List<IPlayable>)stack);
 							if (c.SecretZone.Any(p => p.Card.AssetId == pick.Card.AssetId))
 							{
 								stack.Remove(pick);

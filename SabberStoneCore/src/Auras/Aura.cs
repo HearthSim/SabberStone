@@ -94,28 +94,8 @@ namespace SabberStoneCore.Auras
 		/// Condition checks the trigger sender.
 		/// </summary>
 		public (TriggerType Type, SelfCondition Condition) RemoveTrigger;
-		//public Func<IPlayable, int> ValueFunc;
-
-		//public bool ToBeUpdated { private get; set; }
 
 		public IPlayable Owner => _owner ?? (_owner = Game.IdEntityDic[_ownerId]);
-
-		//public List<IPlayable> AppliedEntities
-		//{
-		//	get
-		//	{
-		//		if (_appliedEntities != null)
-		//			return _appliedEntities;
-
-		//		_appliedEntities = new List<IPlayable>(_appliedEntityIds.Count);
-		//		//_appliedEntities = new LinkedList<IPlayable>();
-
-		//		foreach (int id in _appliedEntityIds)
-		//			_appliedEntities.Add(Game.IdEntityDic[id]);
-
-		//		return _appliedEntities;
-		//	}
-		//}
 
 		public Aura(AuraType type, params IEffect[] effects)
 		{
@@ -134,14 +114,10 @@ namespace SabberStoneCore.Auras
 			Type = prototype.Type;
 			Effects = prototype.Effects;
 			Condition = prototype.Condition;
-			//ValueFunc = prototype.ValueFunc;
 			RemoveTrigger = prototype.RemoveTrigger;
 			EnchantmentCard = prototype.EnchantmentCard;
 			Restless = prototype.Restless;
 			On = prototype.On;
-			//_appliedEntityIds = prototype._appliedEntityIds != null
-			//	? new HashSet<int>(prototype._appliedEntityIds)
-			//	: new HashSet<int>();
 
 			AppliedEntityIdCollection = prototype.AppliedEntityIdCollection != null
 				? new Util.SmallFastCollection(prototype.AppliedEntityIdCollection)
@@ -169,8 +145,7 @@ namespace SabberStoneCore.Auras
 			owner.Game.Auras.Add(instance);
 			owner.OngoingEffect = instance;
 
-			//if (!cloning)
-				instance.AddToZone();
+			instance.AddToZone();
 
 			if (RemoveTrigger.Type != TriggerType.NONE)
 			{
@@ -206,7 +181,6 @@ namespace SabberStoneCore.Auras
 			switch (Type)
 			{
 				case AuraType.BOARD_EXCEPT_SOURCE:
-					//instance._tempList = new List<IPlayable>();
 					foreach (Minion minion in (BoardZone)owner.Zone)
 					{
 						if (minion == owner) continue;
@@ -215,12 +189,9 @@ namespace SabberStoneCore.Auras
 							Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
 							EnchantmentCard.Power.Trigger?.Activate(e);
 						}
-
-						//instance._tempList.Add(minion);
 					}
 					break;
 				case AuraType.BOARD:
-					//instance._tempList = new List<IPlayable>();
 					foreach (Minion minion in (BoardZone)owner.Zone)
 					{
 						if (Condition == null || Condition.Eval(minion))
@@ -228,12 +199,9 @@ namespace SabberStoneCore.Auras
 							Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
 							EnchantmentCard.Power.Trigger?.Activate(e);
 						}
-
-						//instance._tempList.Add(minion);
 					}
 					break;
 				case AuraType.HAND_AND_BOARD:
-					//instance._tempList = new List<IPlayable>();
 					foreach (Minion minion in owner.Controller.BoardZone)
 					{
 						if (Condition == null || Condition.Eval(minion))
@@ -241,8 +209,6 @@ namespace SabberStoneCore.Auras
 							Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
 							EnchantmentCard.Power.Trigger?.Activate(e);
 						}
-
-						//instance._tempList.Add(minion);
 					}
 					foreach (IPlayable p in owner.Controller.HandZone)
 					{
@@ -254,7 +220,6 @@ namespace SabberStoneCore.Auras
 							EnchantmentCard.Power.Trigger?.Activate(e);
 						}
 
-						//instance._tempList.Add(minion);
 					}
 					break;
 				case AuraType.SUMMONING_PORTAL:

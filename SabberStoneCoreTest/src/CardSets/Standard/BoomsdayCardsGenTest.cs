@@ -28,10 +28,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - RUSH = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DrBoomMadGenius_BOT_238()
 		{
-			// TODO DrBoomMadGenius_BOT_238 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -48,8 +47,30 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dr. Boom, Mad Genius"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Dr. Boom, Mad Genius"));
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dr. Boom, Mad Genius"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Dr. Boom, Mad Genius"));
+
+			string[] powers = Cards.FromId("BOT_238p").Entourage;
+
+			Controller c = game.CurrentPlayer;
+
+			Minion rushTestMinion = game.ProcessCard<Minion>("Upgradeable Framebot");
+			Assert.True(rushTestMinion.IsRush);
+
+			string currentId = c.Hero.HeroPower.Card.Id;
+			Assert.Contains(currentId, powers);
+
+			for (int i = 0; i < 10; i++)
+			{
+				game.EndTurn();
+				game.EndTurn();
+
+				string next = c.Hero.HeroPower.Card.Id;
+				Assert.NotEqual(next, currentId);
+				Assert.Contains(next, powers);
+				currentId = next;
+			}
 		}
 
 		// ---------------------------------------- HERO - WHIZBANG
@@ -1025,28 +1046,41 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// PlayReq:
 		// - REQ_NUM_MINION_SLOTS = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void FlarksBoomZooka_BOT_429()
 		{
-			// TODO FlarksBoomZooka_BOT_429 test
 			var game = new Game(new GameConfig
 			{
-				StartPlayer = 1,
+				StartPlayer = 2,
 				Player1HeroClass = CardClass.HUNTER,
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Flark's Boom-Zooka"),
+					Cards.FromName("Flark's Boom-Zooka"),
+					Cards.FromName("Flark's Boom-Zooka"),
+					Cards.FromName("Flark's Boom-Zooka"),
+					Cards.FromName("Flark's Boom-Zooka"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
 				},
 				Player2HeroClass = CardClass.HUNTER,
 				Shuffle = false,
-				FillDecks = true,
+				FillDecks = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flark's Boom-Zooka"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Flark's Boom-Zooka"));
+
+			game.ProcessCard("Dalaran Mage");
+			game.EndTurn();
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Flark's Boom-Zooka"));
+
+			Assert.Empty(game.CurrentPlayer.BoardZone);
+			Assert.Empty(game.CurrentPlayer.DeckZone);
+			Assert.Equal(1, game.CurrentOpponent.BoardZone[0].Health);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER
@@ -1063,10 +1097,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - RUSH = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void GoblinPrank_BOT_437()
 		{
-			// TODO GoblinPrank_BOT_437 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1085,6 +1118,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Goblin Prank"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Goblin Prank"));
+
+			Minion target = game.ProcessCard<Minion>("Stonetusk Boar");
+			game.ProcessCard("Goblin Prank", target);
+
+			Assert.Equal(3 + target.Card.ATK, target.AttackDamage);
+			Assert.Equal(3 + target.Card.Health, target.Health);
+			game.EndTurn();
+			Assert.True(target.ToBeDestroyed);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER
@@ -3487,6 +3528,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dyn-o-matic"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Dyn-o-matic"));
+
+			
 		}
 
 		// --------------------------------------- MINION - WARRIOR

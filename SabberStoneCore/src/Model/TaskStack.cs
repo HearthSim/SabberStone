@@ -6,8 +6,7 @@ namespace SabberStoneCore.Model
 {
 	public class TaskStack
 	{
-		public List<IPlayable> Playables { get; set; } = new List<IPlayable>();
-		//public List<string> CardIds { get; set; }
+		public IList<IPlayable> Playables { get; set; }
 		public bool Flag { get; set; }
 		public int Number { get; set; }
 		public int Number1 { get; set; }
@@ -15,23 +14,36 @@ namespace SabberStoneCore.Model
 		public int Number3 { get; set; }
 		public int Number4 { get; set; }
 
-		public TaskStack()
+		public void AddPlayables(IEnumerable<IPlayable> playables)
 		{
-
+			if (Playables is List<IPlayable> list)
+				list.AddRange(playables);
+			else
+			{
+				var toList = Playables.ToList();
+				toList.AddRange(playables);
+				Playables = toList;
+			}
 		}
-
-		public void Reset()
+		
+		public void AddPlayable(IPlayable playable)
 		{
-			Playables = new List<IPlayable>();
-			Flag = false;
-			Number = 0;
-			Number1 = 0;
-			Number2 = 0;
-			Number3 = 0;
-			Number4 = 0;
+			if (Playables is List<IPlayable> list)
+				list.Add(playable);
+			else
+			{
+				List<IPlayable> toList;
+				if (Playables == null)
+					Playables = new List<IPlayable> {playable};
+				else
+				{
+					toList = Playables.ToList();
+					toList.Add(playable);
+					Playables = toList;
+				}
+			}
 		}
-
-
+		
 		public TaskStack Clone(Game game)
 		{
 
@@ -47,7 +59,7 @@ namespace SabberStoneCore.Model
 			};
 
 			if (Playables.Count > 0)
-				clone.Playables.AddRange(Playables.Select(p => game.IdEntityDic[p.Id]));
+				clone.AddPlayables(Playables.Select(p => game.IdEntityDic[p.Id]));
 
 			return clone;
 		}

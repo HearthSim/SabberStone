@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -10,84 +11,66 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class RecruitTask : SimpleTask
 	{
 		private readonly SelfCondition[] _conditions;
-
-		public RecruitTask(bool recruitFromStack = false, SummonSide side = SummonSide.DEFAULT,
-			bool removeFromStack = false)
-		{
-			Side = side;
-			RemoveFromStack = removeFromStack;
-			RecruitFromStack = recruitFromStack;
-		}
+		private readonly int _amount;
+		private readonly bool _addToStack;
 
 		/// <summary>
-		///     Recruits a random minion satisfying the given conditions.
+		/// Recruits a random minion satisfying the given conditions.
 		/// </summary>
-		/// <param name=""></param>
-		public RecruitTask(params SelfCondition[] conditions)
+		public RecruitTask(int amount, params SelfCondition[] conditions)
 		{
+			_amount = amount;
 			_conditions = conditions;
 		}
 
-		public SummonSide Side { get; set; }
-		public bool RemoveFromStack { get; set; }
-		public bool RecruitFromStack { get; set; }
+		public RecruitTask(int amount, bool addToStack = false)
+		{
+			_amount = amount;
+			_addToStack = addToStack;
+		}
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 			in TaskStack stack = null)
 		{
-			Minion summonEntity = null;
-			if (controller.BoardZone.IsFull) return TaskState.STOP;
+			int amount = Math.Min(_amount, controller.BoardZone.FreeSpace);
 
-			if (_conditions != null)
+			if (amount == 0) return TaskState.STOP;
+
+			ReadOnlySpan<IPlayable> deck = controller.DeckZone.GetSpan();
+			SelfCondition[] conditions = _conditions;
+			var indices = new List<int>();
+
+			for (int i = 0; i < deck.Length; i++)
 			{
-				IPlayable[] candidates = controller.DeckZone.GetAll(p =>
-				{
-					if (!(p is Minion)) return false;
+				if (!(deck[i] is Minion)) continue;
 
-					bool flag = true;
-					for (int i = 0; i < _conditions.Length; i++)
-						flag &= _conditions[i].Eval(p);
-					return flag;
-				});
-
-				if (candidates.Length == 0)
-					return TaskState.STOP;
-
-				summonEntity = (Minion) Util.Choose(candidates);
-			}
-			else if (RecruitFromStack)
-			{
-				var playableMinions = new List<Minion>();
-				foreach (IPlayable entity in stack.Playables)
-					if (entity.Zone.Type == Zone.DECK && entity is Minion)
-						playableMinions.Add((Minion) entity);
-
-				if (playableMinions.Count > 0)
-				{
-					summonEntity = Util.Choose(playableMinions);
-					if (RemoveFromStack) stack.Playables.Remove(summonEntity);
-				}
-			}
-			else
-			{
-				var playableMinions = new List<Minion>();
-				foreach (IPlayable entity in controller.DeckZone)
-					if (entity.Zone.Type == Zone.DECK && entity is Minion)
-						playableMinions.Add((Minion) entity);
-
-				if (playableMinions.Count > 0) summonEntity = Util.Choose(playableMinions);
+				bool flag = true;
+				for (int j = 0; j < conditions?.Length; i++)
+					flag &= conditions[j].Eval(deck[i]);
+				if (flag)
+					indices.Add(i);
 			}
 
-			if (summonEntity == null) return TaskState.STOP;
+			if (indices.Count == 0)
+				return TaskState.STOP;
 
-			Generic.RemoveFromZone.Invoke(summonEntity.Controller, summonEntity);
+			int[] results = Util.ChooseNElements<int>(indices, amount);
 
-			int c = 0;
-			int summonPosition = SummonTask.GetPosition(in source, Side, stack?.Number ?? 0, ref c);
+			IPlayable[] entities = new IPlayable[results.Length];
+			for (int i = 0; i < entities.Length; i++)
+				entities[i] = deck[results[i]];
 
-			bool success = Generic.SummonBlock.Invoke(controller, summonEntity, summonPosition);
+			if (indices.Count > amount)
+				game.OnRandomHappened(true);
 
-			game.OnRandomHappened(true);
+			for (int i = 0; i < entities.Length; i++)
+			{
+				Generic.RemoveFromZone.Invoke(controller, entities[i]);
+				Generic.SummonBlock.Invoke(controller, (Minion)entities[i], -1);
+			}
+
+			if (_addToStack)
+				stack.Playables = entities;
 
 			return TaskState.COMPLETE;
 		}

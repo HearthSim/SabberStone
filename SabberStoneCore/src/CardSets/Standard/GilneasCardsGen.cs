@@ -2683,13 +2683,16 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					SingleTask = ComplexTask.Create(
-						new IncludeTask(EntityType.TARGET),
+						new IncludeTask(EntityType.SOURCE),
+						new IncludeTask(EntityType.TARGET, addFlag: true),
 						new FuncPlayablesTask(list =>
 						{
-							IPlayable p = list[0];
+							IPlayable p = list[1];
 							Card pick = p.Controller.Opponent.HandZone.Random?.Card;
 							if (pick == null) return null;
-							Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);
+							IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);
+							Generic.AddEnchantmentBlock(p.Controller, Cards.FromId("GIL_142e"), list[0], result, 0, 0,
+								false);
 							return null;
 						}))
 				}

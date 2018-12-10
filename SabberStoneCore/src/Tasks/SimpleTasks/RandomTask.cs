@@ -26,7 +26,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//if (entities.Count == 0)
 			//	return TaskState.STOP;
 
-			IEnumerable<IPlayable> entities =
+			IList<IPlayable> entities =
 				IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 
 			if (game.Splitting && game.Splits.Count == 0)
@@ -43,8 +43,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						Game clone = game.Clone();
 						game.Splits.Add(clone);
 					}
-
-					;
 				}
 				else
 				{
@@ -66,7 +64,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 
-			stack.Playables = entities is List<IPlayable> list ? list : entities.ToList();
+			//stack.Playables = entities is List<IPlayable> list ? list : entities.ToList();
+			stack.Playables = entities;
 
 			return TaskState.COMPLETE;
 		}
@@ -74,33 +73,44 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class RandomTask : SimpleTask
 	{
+		private readonly int _amount;
+		private readonly EntityType _type;
+
 		public RandomTask(int amount, EntityType type)
 		{
-			Amount = amount;
-			Type = type;
+			_amount = amount;
+			_type = type;
 		}
-
-		public int Amount { get; set; }
-
-		public EntityType Type { get; set; }
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 			in TaskStack stack = null)
 		{
-			IEnumerable<IPlayable> temp =
-				IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
-			List<IPlayable> entities = temp is List<IPlayable> list ? list : temp.ToList();
+			//IEnumerable<IPlayable> temp =
+			//	IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
+			//List<IPlayable> entities = temp is List<IPlayable> list ? list : temp.ToList();
+
+			IList<IPlayable> entities = IncludeTask.GetEntities(in _type, in controller, source, target, stack?.Playables);
 
 			if (entities.Count == 0)
 				return TaskState.STOP;
 
-			stack.Playables = new List<IPlayable>();
-			for (int i = 0; i < Amount && entities.Count > 0; i++)
+			if (entities.Count <= _amount)
 			{
-				IPlayable randPlayable = Util.Choose(entities);
-				entities.Remove(randPlayable);
-				stack?.Playables.Add(randPlayable);
+				stack.Playables = entities;
+				return TaskState.COMPLETE;
 			}
+
+			//stack.Playables = new List<IPlayable>();
+			//for (int i = 0; i < _amount && entities.Count > 0; i++)
+			//{
+			//	IPlayable randPlayable = entities[Util.Random.Next(entities.Count)];
+			//	entities.Remove(randPlayable);
+			//	stack?.Playables.Add(randPlayable);
+			//}
+
+			stack.Playables = _amount == 1 ?
+				new[] {entities[Util.Random.Next(entities.Count)]} :
+				Util.ChooseNElements((IReadOnlyList<IPlayable>)entities, _amount);
 
 			game.OnRandomHappened(true);
 

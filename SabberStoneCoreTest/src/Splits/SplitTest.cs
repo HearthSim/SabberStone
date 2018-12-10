@@ -12,7 +12,7 @@ namespace SabberStoneCoreTest.Splits
 
 	public class SplitTest
 	{
-		[Fact]
+		[Fact(Skip ="Need to be re-implemented")]
 		public void MadBomberBasic1()
 		{
 			var game =
@@ -33,7 +33,7 @@ namespace SabberStoneCoreTest.Splits
 			Assert.Equal(8, game.FinalSplits.Sum(p => p.SameState));
 		}
 
-		[Fact]
+		[Fact(Skip = "Need to be re-implemented")]
 		public void MadBomberBasic2()
 		{
 			var game =
@@ -63,7 +63,7 @@ namespace SabberStoneCoreTest.Splits
 			Assert.Equal(20, game.FinalSplits.Sum(p => p.SameState));
 		}
 
-		[Fact]
+		[Fact(Skip = "Need to be re-implemented")]
 		public void MadBomberBasic3()
 		{
 			var game =
@@ -93,7 +93,7 @@ namespace SabberStoneCoreTest.Splits
 			Assert.Equal(44, game.FinalSplits.Sum(p => p.SameState));
 		}
 
-		[Fact]
+		[Fact(Skip = "Need to be re-implemented")]
 		public void MadBomberBasic4()
 		{
 			var game =
@@ -123,7 +123,7 @@ namespace SabberStoneCoreTest.Splits
 			Assert.Equal(86, game.FinalSplits.Sum(p => p.SameState));
 		}
 
-		[Fact]
+		[Fact(Skip = "Need to be re-implemented")]
 		public void MadBomberBasic5()
 		{
 			var game =

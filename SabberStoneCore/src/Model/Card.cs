@@ -37,7 +37,9 @@ namespace SabberStoneCore.Model
 		/// Returns false if this card cannot be played with respect to the given state of a <see cref="Controller"/>.
 		/// </summary>
 		public readonly AvailabilityPredicate PlayAvailabilityPredicate;
-		
+		/// <summary>
+		/// True if playing this card requires at least one valid target.
+		/// </summary>
 		public readonly bool MustHaveTargetToPlay;
 
 		public int ATK { get; private set; }

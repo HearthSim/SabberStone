@@ -97,7 +97,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 							{GameTag.DISPLAYED_CREATOR, source.Id}
 						}) as Minion;
 					if (_addToStack)
-						stack?.Playables.Add(summonEntity);
+						stack.AddPlayable(summonEntity);
 				}
 				else if (stack?.Playables.Count > 0)
 				{

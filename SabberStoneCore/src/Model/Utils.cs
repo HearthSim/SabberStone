@@ -287,15 +287,18 @@ namespace SabberStoneCore.Model
 		/// <returns></returns>
 		public static T RandomElement<T>(IEnumerable<T> e)
 		{
-			T[] arr = e as T[] ?? e.ToArray();
-			return arr[Random.Next(arr.Length)];
+			IList<T> arr = e as IList<T> ??
+			               e.ToArray();
+			return arr[Random.Next(arr.Count)];
 		}
 
 		/// <summary>Chooses a random element from the specified list. <seealso cref="RandomElement{T}(IEnumerable{T})"/></summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="list">The list.</param>
 		/// <returns></returns>
-		public static T Choose<T>(IReadOnlyList<T> list) => list[Random.Next(list.Count)];
+		public static T Choose<T>(List<T> list) => list[Random.Next(list.Count)];
+		public static T Choose<T>(IReadOnlyList<T> readonlyList) => readonlyList[Random.Next(readonlyList.Count)];
+		public static T Choose<T>(T[] array) => array[Random.Next(array.Length)];
 
 		/// <summary>Gets the power set, a set of any subset of the provided set.. including the empty set and itself.</summary>
 		/// <typeparam name="T"></typeparam>
@@ -354,20 +357,9 @@ namespace SabberStoneCore.Model
 		/// Gets N elements from a list of distinct elements by using the default equality comparer.
 		/// The source list must not have any repeated elements.
 		/// </summary>
-		public static T[] ChooseNElements<T>(this IReadOnlyList<T> list, int amount) where T : class
+		public static T[] ChooseNElements<T>(this IReadOnlyList<T> list, int amount)
 		{
 			Random rnd = Random;
-			//T[] result = new T[amount];
-			//for (int i = 0; i < amount; i++)
-			//{
-			//	T pick;
-			//	do
-			//	{
-			//		pick = list[rnd.Next(list.Count)];
-			//	} while (result.Contains(pick));
-			//	result[i] = pick;
-			//}
-			//return result;
 			int c = list.Count;
 			if (amount > c)
 				amount = c;

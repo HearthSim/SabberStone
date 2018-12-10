@@ -324,7 +324,25 @@ namespace SabberStoneCore.Actions
 
 				p.ActivatedTrigger?.Remove();
 				p.OngoingEffect?.Remove();
-				p.AuraEffects.ToBeUpdated = true; 
+				p.AuraEffects.ToBeUpdated = true;
+
+				// 12.0 Game Mechanics Update: Clear all applied enchantments when shifting
+				if (p.AppliedEnchantments != null)
+					for (int i = p.AppliedEnchantments.Count - 1; i >= 0; i--)
+						p.AppliedEnchantments[i].Remove();
+
+				HandZone hand = p.Zone as HandZone;
+				BoardZone board = p.Zone as BoardZone;
+
+				// Reapply auras
+				if (hand != null)
+					hand.Auras.ForEach(a => a.EntityRemoved(p));
+				else if
+					(board != null)
+					board.Auras.ForEach(a => a.EntityRemoved(p));
+
+				if (p.Zone.Type == Zone.HAND)
+					p.Controller.HandZone.Auras.ForEach(a => a.EntityRemoved(p));
 
 				// TODO: PowerHistoryChangeEntity
 				// send tag variations and the id of the new Card
@@ -353,7 +371,7 @@ namespace SabberStoneCore.Actions
 							throw new ArgumentNullException();
 					}
 
-					if (p.Zone is HandZone hand)
+					if (hand != null)
 						hand.ChangeEntity(p, entity);
 					c.Game.IdEntityDic[p.Id] = entity;
 					p = entity;
@@ -381,6 +399,13 @@ namespace SabberStoneCore.Actions
 				p.Power?.Trigger?.Activate(p, TriggerActivation.HAND);
 				if (p.Power?.Aura is AdaptiveCostEffect e)
 					e.Activate(p);
+
+				// Reapply auras
+				if (hand != null)
+					hand.Auras.ForEach(a => a.EntityAdded(p));
+				else if
+					(board != null)
+					board.Auras.ForEach(a => a.EntityAdded(p));
 
 				// Not sure C'Thun from Shifter Zerus will have Proxy's buffs
 

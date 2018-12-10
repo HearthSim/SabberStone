@@ -1089,11 +1089,10 @@ namespace SabberStoneCore.CardSets.Adventure
 					new FuncPlayablesTask(p =>
 					{
 						if (!p.Any())
-							return new List<IPlayable>();
+							return new IPlayable[0];
 						IPlayable max = p.OrderByDescending(x => ((Minion)x).AttackDamage)
 							.FirstOrDefault();
-						p.RemoveRange(1, p.Count - 1);
-						return p;
+						return new[] {max};
 					}),
 					new DestroyTask(EntityType.STACK))
 			});

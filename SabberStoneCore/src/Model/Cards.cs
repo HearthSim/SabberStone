@@ -250,6 +250,8 @@ namespace SabberStoneCore.Model
 					return FromId("ICC_834h");
 				case 47631:
 					return FromId("GIL_504h");
+				case 48145:
+					return FromId("BOT_238p");
 				default:
 					throw new NotImplementedException();
 			}

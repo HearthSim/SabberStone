@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Model;
@@ -210,30 +210,30 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					exceptListEntities.AddRange(
 						GetEntities(excludeType, in controller, source, target, stack.Playables));
 
+				IEnumerable<IPlayable> result = boardGetAll.Except(exceptListEntities);
+
 				if (_addFlag)
-					stack.Playables.AddRange(boardGetAll.Except(exceptListEntities));
+					stack.AddPlayables(result);
 				else
 					stack.Playables = boardGetAll.Except(exceptListEntities).ToList();
 			}
 			else if
 				(_addFlag)
-			{
-				stack.Playables.AddRange(boardGetAll);
-			}
+				stack.AddPlayables(boardGetAll);
 			else
-			{
-				stack.Playables = boardGetAll.ToList();
-			}
+				stack.Playables = boardGetAll;
 
 			return TaskState.COMPLETE;
 		}
 
 		public static IList<IPlayable> GetEntities(in EntityType type, in Controller c, IEntity source,
-			IEntity target, in List<IPlayable> stack)
+			IEntity target, in IList<IPlayable> stack)
 		{
 			switch (type)
 			{
 				case EntityType.STACK:
+					if (stack == null)
+						;
 					return stack;
 				case EntityType.HAND:
 					return c.HandZone.GetAll();
@@ -335,6 +335,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 					var arr = new IPlayable[c.BoardZone.CountExceptUntouchables +
 					                        c.Opponent.BoardZone.CountExceptUntouchables + 1];
+					                        
+					if (source is Enchantment e)
+					{
+						source = e.Target;
+					}
+					
 					if (source.Zone == c.BoardZone)
 					{
 						c.BoardZone.GetAll(p => p != source).CopyTo(arr, 0);

@@ -31,8 +31,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
-			in TaskStack stack)
+			in TaskStack stack = null)
 		{
+			if (stack?.Playables == null)
+			{
+				;
+			}
+
 			if (_relaConditions != null)
 			{
 				IList<IPlayable> entities =
@@ -40,7 +45,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				if (entities.Count != 1)
 					return TaskState.STOP;
-
+				
 				var filtered = new List<IPlayable>(stack.Playables.Count);
 				foreach (IPlayable p in stack.Playables)
 				{
@@ -70,6 +75,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				stack.Playables = filtered;
 			}
+
+			if (stack.Playables == null)
+				;
 
 			return TaskState.COMPLETE;
 		}

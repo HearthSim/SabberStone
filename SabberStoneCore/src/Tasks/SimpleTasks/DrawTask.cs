@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -26,23 +27,30 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			//Model.Entities.IPlayable drawedCard = Generic.Draw(controller);
 			bool nullFlag = false;
-			var cards = new IPlayable[_count];
+			List<IPlayable> cards = _toStack ? new List<IPlayable>(_count) : null;
 			for (int i = 0; i < _count; i++)
 			{
 				IPlayable draw = Generic.Draw(controller);
 				if (draw == null)
-					nullFlag = true;
-				cards[i] = draw;
+				{
+					//nullFlag = true;
+					break;
+				}
+
+				cards?.Add(draw);
 			}
 
-			if (cards[0] == null) return TaskState.COMPLETE;
+			if (cards != null)
+			{ 
+				//if (nullFlag)
+					//stack?.Playables.AddRange(cards.Where(p => p != null));
+				//else
+					//stack?.Playables.AddRange(cards);
 
-			if (_toStack)
-			{
-				if (nullFlag)
-					stack?.Playables.AddRange(cards.Where(p => p != null));
-				else
-					stack?.Playables.AddRange(cards);
+				if (cards.Count == 0)
+					return TaskState.STOP;
+
+				stack.Playables = cards;
 			}
 
 			return TaskState.COMPLETE;

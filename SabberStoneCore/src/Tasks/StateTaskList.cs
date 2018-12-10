@@ -28,12 +28,7 @@ namespace SabberStoneCore.Tasks
 
 		public TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target, in TaskStack stack = null)
 		{
-			TaskStack currentStack;
-
-			if (stack == null)
-				currentStack = new TaskStack();
-			else
-				currentStack = stack;
+			TaskStack currentStack = stack ?? new TaskStack();
 
 			State = TaskState.RUNNING;
 			//TaskStack temp = Game.TaskStack;

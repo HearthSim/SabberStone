@@ -282,6 +282,11 @@ namespace SabberStoneCore.Enchants
 		    if (RemoveAfterTriggered)
 			    Remove();
 
+
+			// Enqueue tasks
+			// Source: The owner of this trigger
+			// Target: The source of this trigger or
+			//			if the owner is Enchantment, the target of the enchantment.
 			if (FastExecution)
 			    Game.TaskQueue.Execute(SingleTask, _owner.Controller, _owner,
 				    source is IPlayable playable ? playable
@@ -290,8 +295,12 @@ namespace SabberStoneCore.Enchants
 		    else
 		    {
 			    Game.TaskQueue.Enqueue(SingleTask, _owner.Controller,
-				    _owner is Enchantment ec ? ec : _owner,
-				    source is IPlayable ? source : _owner is Enchantment ew && ew.Target is IPlayable p ? p : null);
+				    /*_owner is Enchantment ec ? ec : */_owner,
+				    source is IPlayable ?
+					    source :
+					    _owner is Enchantment ew && ew.Target is IPlayable p ?
+						    p :
+						    null);
 		    }
 
 		    Validated = false;

@@ -26,13 +26,15 @@ namespace SabberStoneCoreConsole
 
 			Console.WriteLine("Start Test!");
 
-			AugmentedElekk();
+			//ChameleosAdaptiveCostEffectTest();
+
+			//AugmentedElekk();
 
 			Console.WriteLine(Cards.Statistics());
 			//StabilityTest.CloneStabilityTest();
 			//StabilityTest.TestRun();
-			for (int i = 0; i < 10000; i++)
-				StabilityTest.ThreadSafetyTest();
+			//for (int i = 0; i < 10000; i++)
+			//	StabilityTest.ThreadSafetyTest();
 			//EntityChangeTest();
 			//YoggTest();
 			//TessGreymane();
@@ -224,6 +226,43 @@ namespace SabberStoneCoreConsole
 			{
 				Console.WriteLine("Something goes wrong!");
 			}
+		}
+
+		static void ChameleosAdaptiveCostEffectTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromId("GIL_142"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+				},
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Mountain Giant"),
+					Cards.FromName("Mountain Giant"),
+					Cards.FromName("Mountain Giant"),
+					Cards.FromName("Mountain Giant"),
+				},
+				FillDecks = true,
+				Shuffle = false
+			});
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.StartGame();
+
+			var chameleosId = game.Player1.HandZone[0].Id;
+
+			do
+			{
+				game.Process(EndTurnTask.Any(game.Player1));
+				game.Process(EndTurnTask.Any(game.Player2));
+			} while (game.IdEntityDic[chameleosId].Card.Name == "Mountain Giant");
+
+			var clone = game.Clone();
 		}
 
 		static void CloneAdapt()

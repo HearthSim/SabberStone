@@ -9,7 +9,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private readonly Action<IPlayable, int> _action;
 		private readonly Func<IPlayable, int> _function;
-		private readonly Func<List<IPlayable>, int> _stackFunction;
+		private readonly Func<IList<IPlayable>, int> _stackFunction;
 
 		/// <summary>
 		///     Process a custom delegate which takes <see cref="ISimpleTask.source" /> entity as a parameter and save the
@@ -34,7 +34,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// save the returning <see cref="Int32"/> to <see cref="TaskStack.Number"/>.
 		/// </summary>
 		/// <param name="function"></param>
-		public FuncNumberTask(Func<List<IPlayable>, int> stackFunction)
+		public FuncNumberTask(Func<IList<IPlayable>, int> stackFunction)
 		{
 			_stackFunction = stackFunction;
 		}

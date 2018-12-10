@@ -74,7 +74,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="target">The target, mostly of type <see cref="ICharacter"/>.</param>
 		//void ApplyPowers(PowerActivation activation, Zone zoneType, IPlayable target = null);
 
-		void ActivateTask(in PowerActivation activation, in IPlayable target = null, in int chooseOne = 0, in IPlayable source = null);
+		void ActivateTask(in PowerActivation activation, in IEntity target = null, in int chooseOne = 0, in IPlayable source = null);
 
 		/// <summary>Stores the next Order Of Play index held by the <see cref="Game"/> instance.
 		///	Order of play is important because it's the order in which effects are resolved.
@@ -252,7 +252,7 @@ namespace SabberStoneCore.Model.Entities
 		//public List<Power> Powers => Card.Powers;
 		public Power Power => Card.Power;
 
-		public void ActivateTask(in PowerActivation activation = PowerActivation.POWER, in IPlayable target = null, in int chooseOne = 0, in IPlayable source = null)
+		public void ActivateTask(in PowerActivation activation = PowerActivation.POWER, in IEntity target = null, in int chooseOne = 0, in IPlayable source = null)
 		{
 			if (ChooseOne)
 			{
