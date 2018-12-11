@@ -804,6 +804,48 @@ namespace SabberStoneCore.Tasks
 			});
 		private static IReadOnlyList<string> DrBoomHeroPowerIds = Cards.FromId("BOT_238p").Entourage;
 
+		public static readonly ISimpleTask PrismaticLens =
+			new FuncNumberTask(p =>
+			{
+				Controller c = p.Controller;
+				ReadOnlySpan<IPlayable> deck = c.DeckZone.GetSpan();
+				List<int> minions = new List<int>();
+				List<int> spells = new List<int>();
+				for (int i = 0; i < deck.Length; i++)
+				{
+					if (deck[i] is Minion)
+						minions.Add(i);
+					else if
+						(deck[i] is Spell)
+						spells.Add(i);
+				}
+
+				Random rnd = Util.Random;
+				IPlayable minionToDraw = minions.Count == 0 ? null : deck[minions[rnd.Next(minions.Count)]];
+				IPlayable spellToDraw = spells.Count == 0 ? null : deck[spells[rnd.Next(spells.Count)]];
+
+				if (minionToDraw == null)
+				{
+					Generic.Draw(c, spellToDraw);
+					return 0;
+				}
+				if (spellToDraw == null)
+				{
+					Generic.Draw(c, minionToDraw);
+					return 0;
+				}
+
+				Generic.Draw(c, minionToDraw);
+				Generic.Draw(c, spellToDraw);
+
+				int temp = minionToDraw.Cost;
+				minionToDraw.Cost = spellToDraw.Cost;
+				spellToDraw.Cost = temp;
+
+				// TODO Enchantment BOT_436e
+
+				return 0;
+			});
 
 		public class RenonunceDarkness : SimpleTask
 		{

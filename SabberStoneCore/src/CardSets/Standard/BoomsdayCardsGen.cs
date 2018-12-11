@@ -609,10 +609,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_438", new Power {
-				// TODO [BOT_438] Cybertech Chip && Test: Cybertech Chip_BOT_438
-				InfoCardId = "BOT_438e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("BOT_438e", EntityType.MINIONS)
 			});
 
 		}
@@ -651,9 +648,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Deathrattle:</b> Add a random Mech to your_hand.
 			// --------------------------------------------------------
 			cards.Add("BOT_438e", new Power {
-				// TODO [BOT_438e] Chipped && Test: Chipped_BOT_438e
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = ComplexTask.Create(
+					new RandomCardTask(CardType.MINION, CardClass.INVALID, Race.MECHANICAL),
+					new AddStackTo(EntityType.HAND))
 			});
 
 		}
@@ -747,9 +744,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Add 2 random minions to your hand.
 			// --------------------------------------------------------
 			cards.Add("BOT_101", new Power {
-				// TODO [BOT_101] Astral Rift && Test: Astral Rift_BOT_101
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Repeat(ComplexTask.Create(
+					new RandomCardTask(CardType.MINION, CardClass.INVALID),
+					new AddStackTo(EntityType.HAND)), 2)
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -764,9 +761,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_254", new Power {
-				// TODO [BOT_254] Unexpected Results && Test: Unexpected Results_BOT_254
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new GetGameTagControllerTask(GameTag.CURRENT_SPELLPOWER),
+					new MathAddTask(2),
+					new EnqueueNumberTask(
+						ComplexTask.Create(
+							new RandomMinionTask(GameTag.COST, 2),
+							new SummonTask())))
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -780,10 +781,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_257", new Power {
-				// TODO [BOT_257] Luna's Pocket Galaxy && Test: Luna's Pocket Galaxy_BOT_257
-				InfoCardId = "BOT_257e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.DECK),
+					new FilterStackTask(SelfCondition.IsMinion),
+					new AddEnchantmentTask("BOT_257e", EntityType.STACK))
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -809,9 +810,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Each player draws 2_cards.
 			// --------------------------------------------------------
 			cards.Add("BOT_600", new Power {
-				// TODO [BOT_600] Research Project && Test: Research Project_BOT_600
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new EnqueueTask(2, new DrawTask()),
+					new EnqueueTask(2, new DrawOpTask()))
 			});
 
 		}
@@ -825,9 +826,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1).
 			// --------------------------------------------------------
 			cards.Add("BOT_257e", new Power {
-				// TODO [BOT_257e] Starstruck && Test: Starstruck_BOT_257e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 1)
 			});
 
 			// ------------------------------------- ENCHANTMENT - MAGE
@@ -982,9 +981,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_908", new Power {
-				// TODO [BOT_908] Autodefense Matrix && Test: Autodefense Matrix_BOT_908
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.ATTACK)
+				{
+					Condition = SelfCondition.IsEventTargetIs(CardType.MINION),
+					SingleTask = ComplexTask.Secret(
+						ComplexTask.DivineShield(EntityType.EVENT_TARGET))
+				}
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -995,9 +997,7 @@ namespace SabberStoneCore.CardSets.Standard
 			//       minions from your deck.
 			// --------------------------------------------------------
 			cards.Add("BOT_909", new Power {
-				// TODO [BOT_909] Crystology && Test: Crystology_BOT_909
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.DrawFromDeck(2, SelfCondition.IsTagValue(GameTag.ATK, 1))
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -1059,9 +1059,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_911e", new Power {
-				// TODO [BOT_911e] Annoy-o-Module && Test: Annoy-o-Module_BOT_911e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_911e")
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -1495,10 +1493,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_087", new Power {
-				// TODO [BOT_087] Academic Espionage && Test: Academic Espionage_BOT_087
-				InfoCardId = "BOT_087e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Repeat(
+					ComplexTask.Create(
+						new RandomCardTask(EntityType.OP_HERO),
+						new AddEnchantmentTask("BOT_087e", EntityType.STACK),
+						new AddStackTo(EntityType.DECK)), 10)
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1512,9 +1511,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_242", new Power {
-				// TODO [BOT_242] Myra's Unstable Element && Test: Myra's Unstable Element_BOT_242
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Myra's Unstable Element_BOT_242
+				PowerTask = new FuncNumberTask(p =>
+				{
+					Controller c = p.Controller;
+					while (c.DeckZone.IsEmpty)
+						Generic.Draw(c);
+					return 0;
+				})
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1533,9 +1537,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_508", new Power {
-				// TODO [BOT_508] Necrium Vial && Test: Necrium Vial_BOT_508
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Necrium Vial_BOT_508
+				PowerTask = new EnqueueTask(2, new ActivateDeathrattleTask(EntityType.TARGET))
 			});
 
 			// ----------------------------------------- WEAPON - ROGUE
@@ -1567,9 +1570,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1).
 			// --------------------------------------------------------
 			cards.Add("BOT_087e", new Power {
-				// TODO [BOT_087e] Academic Espionage && Test: Academic Espionage_BOT_087e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 1)
 			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
@@ -1707,8 +1708,10 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_543", new Power {
 				// TODO [BOT_543] Omega Mind && Test: Omega Mind_BOT_543
 				InfoCardId = "BOT_543e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE, SelfCondition.IsManaCrystalFull),
+					new FlagTask(true,
+						new AddEnchantmentTask("BOT_543e", EntityType.CONTROLLER)))
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -2092,7 +2095,7 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.ALLMINIONS),
 					new FilterStackTask(SelfCondition.IsNotRace(Race.MECHANICAL)),
-					ComplexTask.Create(ComplexTask.DamageRandomTargets(1, EntityType.STACK, 1), 5))
+					ComplexTask.Repeat(ComplexTask.DamageRandomTargets(1, EntityType.STACK, 1), 5))
 			});
 
 			// --------------------------------------- MINION - WARRIOR

@@ -45,7 +45,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				if (!(deck[i] is Minion)) continue;
 
 				bool flag = true;
-				for (int j = 0; j < conditions?.Length; i++)
+				for (int j = 0; j < conditions?.Length; j++)
 					flag &= conditions[j].Eval(deck[i]);
 				if (flag)
 					indices.Add(i);

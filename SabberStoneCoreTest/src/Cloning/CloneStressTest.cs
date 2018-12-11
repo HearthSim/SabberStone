@@ -23,7 +23,7 @@ namespace SabberStoneCoreTest.Cloning
 				CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR
 			};
 			bool flag = true;
-			for (int i = 0; i < 2000 && flag; i++)
+			for (int i = 0; i < 100; i++)
 			{
 				var game = new Game(new GameConfig
 				{

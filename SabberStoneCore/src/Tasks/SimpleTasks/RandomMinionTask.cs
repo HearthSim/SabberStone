@@ -15,19 +15,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private readonly bool _opponent;
 
-		private RandomMinionTask(GameTag tag, int value, EntityType type, int amount, RelaSign relaSign,
-			bool classAndMultiOnlyFlag, bool maxInDeckFlag, bool opponent)
-		{
-			Tag = tag;
-			Value = value;
-			Amount = amount;
-			Type = type;
-			RelaSign = relaSign;
-			ClassAndMultiOnlyFlag = classAndMultiOnlyFlag;
-			MaxInDeckFlag = maxInDeckFlag;
-			_opponent = opponent;
-		}
-
 		public RandomMinionTask(GameTag tag, EntityType type, int amount = 1, bool opponent = false)
 		{
 			Tag = tag;

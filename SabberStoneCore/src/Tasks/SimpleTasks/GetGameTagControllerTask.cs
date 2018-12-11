@@ -16,7 +16,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 			in TaskStack stack = null)
 		{
-			stack.Number = controller[Tag];
+			stack.Number = Tag == GameTag.CURRENT_SPELLPOWER ? controller.CurrentSpellPower : controller[Tag];
 			return TaskState.COMPLETE;
 		}
 	}

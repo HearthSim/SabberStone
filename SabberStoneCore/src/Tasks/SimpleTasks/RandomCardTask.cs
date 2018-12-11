@@ -111,7 +111,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			IPlayable randomCard =
 				Entity.FromCard(_opposite ? controller.Opponent : controller, Util.Choose(cardsList));
-			stack.Playables = new List<IPlayable> {randomCard};
+			stack.Playables = new []{randomCard};
 
 			game.OnRandomHappened(true);
 

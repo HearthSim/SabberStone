@@ -10,7 +10,7 @@ namespace SabberStoneCore.Tasks
 {
 	internal partial class ComplexTask
 	{
-		public static ISimpleTask Create(ISimpleTask task, int times)
+		public static ISimpleTask Repeat(ISimpleTask task, int times)
 		{
 			ISimpleTask[] list = new ISimpleTask[times];
 			for (int i = 0; i < times; i++)
