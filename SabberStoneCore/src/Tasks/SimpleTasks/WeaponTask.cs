@@ -7,16 +7,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class WeaponTask : SimpleTask
 	{
 		private readonly Card _card;
+		private readonly bool _op;
 
-		public WeaponTask(string cardId = null)
+		public WeaponTask(string cardId = null, bool opponent = false)
 		{
 			if (cardId != null)
 				_card = Cards.FromId(cardId);
-		}
 
-		private WeaponTask(Card card)
-		{
-			_card = card;
+			_op = opponent;
 		}
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
@@ -24,14 +22,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			if (_card == null && stack?.Playables.Count != 1) return TaskState.STOP;
 
-			if (controller.Hero.Weapon != null) controller.Hero.Weapon.ToBeDestroyed = true;
+			Controller c = _op ? controller.Opponent : controller;
 
+			if (c.Hero.Weapon != null)
+				c.Hero.Weapon.ToBeDestroyed = true;
 
 			Weapon weapon = _card != null
-				? Entity.FromCard(controller, _card) as Weapon
+				? Entity.FromCard(c, _card) as Weapon
 				: stack?.Playables[0] as Weapon;
 
-			Generic.PlayWeapon.Invoke(controller, weapon, null, 0);
+			Generic.PlayWeapon.Invoke(c, weapon, null, 0);
 
 			return TaskState.COMPLETE;
 		}

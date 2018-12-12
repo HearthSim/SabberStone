@@ -3387,10 +3387,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// Text: Give the
 		//       left-most minion in your hand +2/+2.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SoulInfusion_BOT_263()
 		{
-			// TODO SoulInfusion_BOT_263 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3398,6 +3397,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Soul Infusion"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Ectomancy"),
+					Cards.FromName("Wisp"),
 				},
 				Player2HeroClass = CardClass.WARLOCK,
 				Shuffle = false,
@@ -3408,7 +3410,19 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Soul Infusion"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Soul Infusion"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Soul Infusion"));
+
+			HandZone hand = game.CurrentPlayer.HandZone;
+
+			Assert.Equal(3, hand.Last().AsCharacter().AttackDamage);
+			Assert.Equal(3, hand.Last().AsCharacter().Health);
+
+			game.ProcessCard(hand.Last());
+
+			game.ProcessCard("Soul Infusion");
+
+			Assert.Equal(1, hand[0].AsCharacter().AttackDamage);
+			Assert.Equal(1, hand[0].AsCharacter().Health);
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
@@ -3454,10 +3468,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TheSoularium_BOT_568()
 		{
-			// TODO TheSoularium_BOT_568 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3465,6 +3478,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("The Soularium"),
+					Cards.FromName("The Soularium"),
+					Cards.FromName("The Soularium"),
+					Cards.FromName("The Soularium"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
 				},
 				Player2HeroClass = CardClass.WARLOCK,
 				Shuffle = false,
@@ -3475,7 +3494,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Soularium"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "The Soularium"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "The Soularium"));
+			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
+			game.EndTurn();
+			Assert.Equal(3, game.CurrentOpponent.HandZone.Count);
+			Assert.Equal(3, game.CurrentOpponent.DiscardedEntities.Count);
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
@@ -3655,10 +3678,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// Text: Each player equips a 2/3 Weapon and
 		//       gains 6 Armor.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void WeaponsProject_BOT_042()
 		{
-			// TODO WeaponsProject_BOT_042 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3676,7 +3698,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Weapons Project"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Weapons Project"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Weapons Project"));
+
+			Assert.Equal(6, game.Player1.Hero.Armor);
+			Assert.Equal(6, game.Player2.Hero.Armor);
+			Assert.NotNull(game.Player1.Hero.Weapon);
+			Assert.NotNull(game.Player2.Hero.Weapon);
 		}
 
 		// ---------------------------------------- SPELL - WARRIOR
@@ -3732,7 +3759,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - RUSH = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void TheBoomship_BOT_069()
 		{
 			// TODO TheBoomship_BOT_069 test
@@ -3743,6 +3770,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("The Boomship"),
+					Cards.FromName("Bloodfen Raptor"),
+					Cards.FromName("Dalaran Mage"),
+					Cards.FromName("Boulderfist Ogre")
 				},
 				Player2HeroClass = CardClass.WARRIOR,
 				Shuffle = false,
@@ -3753,7 +3783,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Boomship"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "The Boomship"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "The Boomship"));
+
+			Assert.Empty(game.CurrentPlayer.HandZone);
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+			Assert.True(game.CurrentPlayer.BoardZone.ToList().TrueForAll(m => m.IsRush));
 		}
 
 		// ---------------------------------------- SPELL - WARRIOR

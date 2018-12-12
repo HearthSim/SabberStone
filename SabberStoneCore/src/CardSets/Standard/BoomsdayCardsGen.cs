@@ -1969,9 +1969,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("BOT_263", new Power {
 				// TODO [BOT_263] Soul Infusion && Test: Soul Infusion_BOT_263
-				InfoCardId = "BOT_263e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.SOURCE),
+					new FuncPlayablesTask(sourceArray =>
+					{
+						IPlayable leftmost = sourceArray[0].Controller.HandZone.Last();
+						return leftmost is Minion ? new[] {leftmost} : new IPlayable[0];
+					}),
+					new AddEnchantmentTask("BOT_263e", EntityType.STACK))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -2002,8 +2007,9 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_568", new Power {
 				// TODO [BOT_568] The Soularium && Test: The Soularium_BOT_568
 				InfoCardId = "BOT_568e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new DrawTask(true, 3),
+					new AddEnchantmentTask("BOT_568e", EntityType.STACK))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -2059,9 +2065,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Discards at the end of your turn.
 			// --------------------------------------------------------
 			cards.Add("BOT_568e", new Power {
-				// TODO [BOT_568e] Fleeting Soul && Test: Fleeting Soul_BOT_568e
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = new Trigger(TriggerType.TURN_END)
+				{
+					SingleTask = new DiscardTask(EntityType.TARGET)
+				}
 			});
 
 		}
@@ -2140,9 +2147,11 @@ namespace SabberStoneCore.CardSets.Standard
 			//       gains 6 Armor.
 			// --------------------------------------------------------
 			cards.Add("BOT_042", new Power {
-				// TODO [BOT_042] Weapons Project && Test: Weapons Project_BOT_042
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new WeaponTask("BOT_042t"),
+					new ArmorTask(6),
+					new WeaponTask("BOT_042t", true),
+					new ArmorTask(6, true))
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -2160,10 +2169,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_067", new Power {
-				// TODO [BOT_067] Rocket Boots && Test: Rocket Boots_BOT_067
-				InfoCardId = "BOT_067e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new AddEnchantmentTask("BOT_067e", EntityType.TARGET),
+					new DrawTask())
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -2182,10 +2190,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_069", new Power {
-				// TODO [BOT_069] The Boomship && Test: The Boomship_BOT_069
-				InfoCardId = "BOT_069e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsMinion),
+					new RandomTask(3, EntityType.STACK),
+					new SummonStackTask(removeFromZone: true),
+					new AddEnchantmentTask("BOT_069e", EntityType.STACK))
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -2237,9 +2247,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Rush</b>.
 			// --------------------------------------------------------
 			cards.Add("BOT_067e", new Power {
-				// TODO [BOT_067e] Rocket Boots && Test: Rocket Boots_BOT_067e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_067e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
@@ -2249,9 +2257,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Rush</b>.
 			// --------------------------------------------------------
 			cards.Add("BOT_069e", new Power {
-				// TODO [BOT_069e] Rocketeer && Test: Rocketeer_BOT_069e
-				//PowerTask = null,
-				//Trigger = null,
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_069e")
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -2273,11 +2279,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DURABILITY = 3
 			// --------------------------------------------------------
-			cards.Add("BOT_042t", new Power {
-				// TODO [BOT_042t] Gearblade && Test: Gearblade_BOT_042t
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("BOT_042t", null);
 
 		}
 

@@ -5,40 +5,42 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ArmorTask : SimpleTask
 	{
-		private ArmorTask(bool useNumber, int amount)
-		{
-			UseNumber = useNumber;
-			Amount = amount;
-		}
+		private readonly bool _useNumber;
+		private readonly int _amount;
+		private readonly bool _op;
 
 		/// <summary>
 		///     Adding the amount as Armor.
 		/// </summary>
-		public ArmorTask(int amount)
+		/// <param name="opponent">True if should add armour to the opponent of the source.</param>
+		public ArmorTask(int amount, bool opponent = false)
 		{
-			UseNumber = false;
-			Amount = amount;
+			_amount = amount;
+			_op = opponent;
 		}
 
 		/// <summary>
 		///     Adding the value contained in stack.Number as Armor.
 		/// </summary>
-		public ArmorTask()
+		public ArmorTask(bool opponent = false)
 		{
-			UseNumber = true;
-			Amount = 0;
+			_useNumber = true;
+			_amount = 0;
+			_op = opponent;
 		}
 
-		public bool UseNumber { get; set; }
-		public int Amount { get; set; }
+
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 			in TaskStack stack = null)
 		{
-			var playableSource = source as IPlayable;
 			if (source == null) return TaskState.STOP;
 
-			controller.Hero.GainArmor(playableSource, UseNumber ? stack.Number : Amount);
+			if (_op)
+				controller.Opponent.Hero.GainArmor((IPlayable)source, _useNumber ? stack.Number : _amount);
+			else
+				controller.Hero.GainArmor((IPlayable)source, _useNumber ? stack.Number : _amount);
+
 			return TaskState.COMPLETE;
 		}
 	}

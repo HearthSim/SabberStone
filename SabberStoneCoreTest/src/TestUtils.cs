@@ -116,5 +116,14 @@ namespace SabberStoneCoreTest
 			m.ToBeDestroyed = true;
 		    m.Game.DeathProcessingAndAuraUpdate();
 	    }
+
+	    public static ICharacter AsCharacter(this IPlayable p)
+	    {
+		    var c = p as ICharacter;
+		    if (c == null)
+			    throw new InvalidCastException($"{p} is not a Character");
+
+			return c;
+	    }
     }
 }
