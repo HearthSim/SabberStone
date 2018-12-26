@@ -362,7 +362,7 @@ namespace SabberStoneCore.Model.Entities
 			if (source.Controller.ControllerAuraEffects[GameTag.ALL_HEALING_DOUBLE] > 0)
 				heal *= (int) Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.ALL_HEALING_DOUBLE]);
 
-			if (source.Controller.ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] == 1)
+			if (source.Controller.RestoreToDamage)
 			{
 				if (_lifestealChecker)
 					return;
@@ -549,6 +549,7 @@ namespace SabberStoneCore.Model.Entities
 		internal int _atkModifier;
 		internal int _healthModifier;
 		internal int _dmgModifier;
+		internal int _numAttackThisturn;
 		internal bool? _stealth;
 		internal bool? _immune;
 		internal bool? _taunt;
@@ -558,6 +559,7 @@ namespace SabberStoneCore.Model.Entities
 			copy._atkModifier = _atkModifier;
 			copy._healthModifier = _healthModifier;
 			copy._dmgModifier = _dmgModifier;
+			copy._numAttackThisturn = _numAttackThisturn;
 			copy._stealth = _stealth;
 			copy._immune = _immune;
 			copy._taunt = _taunt;
@@ -810,12 +812,13 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumAttacksThisTurn
 		{
-			get
+			get => _numAttackThisturn;
+			set
 			{
-				_data.TryGetValue(GameTag.NUM_ATTACKS_THIS_TURN, out int value);
-				return value;
+				_numAttackThisturn = value;
+				if (_history)
+					this[GameTag.NUM_ATTACKS_THIS_TURN] = value;
 			}
-			set => this[GameTag.NUM_ATTACKS_THIS_TURN] = value;
 		}
 
 		public int PreDamage

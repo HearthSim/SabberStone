@@ -3496,9 +3496,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("The Soularium"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "The Soularium"));
 			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wisp"));
+			Assert.Single(game.CurrentPlayer.BoardZone);
 			game.EndTurn();
 			Assert.Equal(3, game.CurrentOpponent.HandZone.Count);
-			Assert.Equal(3, game.CurrentOpponent.DiscardedEntities.Count);
+			Assert.Equal(2, game.CurrentOpponent.DiscardedEntities.Count);
+			Assert.Single(game.CurrentOpponent.BoardZone);
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
@@ -3507,10 +3510,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// --------------------------------------------------------
 		// Text: Each player transforms a random minion in their hand into a Demon.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DemonicProject_BOT_913()
 		{
-			// TODO DemonicProject_BOT_913 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3518,8 +3520,18 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Demonic Project"),
+					Cards.FromName("Demonic Project"),
+					Cards.FromName("Demonic Project"),
+					Cards.FromName("Wisp")
 				},
 				Player2HeroClass = CardClass.WARLOCK,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Demonic Project"),
+					Cards.FromName("Demonic Project"),
+					Cards.FromName("Demonic Project"),
+				},
 				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -3528,7 +3540,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Demonic Project"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Demonic Project"));
+
+
+			Assert.IsType<Minion>(game.CurrentPlayer.HandZone.Last());
+			Assert.IsType<Minion>(game.CurrentOpponent.HandZone.First());
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Demonic Project"));
+
+			Assert.Equal(Race.DEMON, game.CurrentPlayer.HandZone.Last().Card.Race);
+			Assert.Equal(Race.DEMON, game.CurrentOpponent.HandZone.First().Card.Race);
 		}
 
 	}

@@ -258,6 +258,12 @@ namespace SabberStoneCore.Tasks
 						return null;
 					}))));
 
+		public static ISimpleTask AddRandomOpClassCardToHand =>
+			Create(
+				new RandomCardTask(EntityType.OP_HERO),
+				new AddStackTo(EntityType.HAND));
+
+
 		// TODO maybee better implement it with CFM_712_t + int
 		private static readonly IReadOnlyList<string> JadeGolemStr = new []
 		{

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Loader;
 
@@ -368,7 +369,9 @@ namespace SabberStoneCore.Model
 			var allWild = wild
 				.GroupBy(p => p.Set)
 				.Select(t => new { Key = t.Key, Count = t.Count() });
-			string str = String.Empty;
+
+			var str = new StringBuilder();
+
 			int totImpl = 0;
 			int totCards = 0;
 			foreach (CardSet set in StandardSets)
@@ -376,12 +379,12 @@ namespace SabberStoneCore.Model
 				int impl = implemented.FirstOrDefault(p => p.Key == set).Count;
 				totImpl += impl;
 				int tot = all.FirstOrDefault(p => p.Key == set).Count;
-				str += $"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards\n";
+				str.AppendLine($"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards");
 				totCards += tot;
 			}
 
-			str += $"Total Standard => {totImpl * 100 / totCards}% from {totCards} Cards\n";
-			str += "\n";
+			str.AppendLine($"Total Standard => {totImpl * 100 / totCards}% from {totCards} Cards");
+			str.AppendLine();
 
 			totImpl = 0;
 			totCards = 0;
@@ -390,13 +393,27 @@ namespace SabberStoneCore.Model
 				int impl = implementedWild.FirstOrDefault(p => p.Key == set).Count;
 				totImpl += impl;
 				int tot = allWild.FirstOrDefault(p => p.Key == set).Count;
-				str += $"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards\n";
+				str.AppendLine($"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards");
 				totCards += tot;
 			}
 
-			str += $"Total Wild => {totImpl * 100 / totCards}% from {totCards} Cards\n";
+			str.AppendLine($"Total Wild => {totImpl * 100 / totCards}% from {totCards} Cards");
 
-			return str;
+			var notImplementedStandard = standard
+				.Where(c => !c.Implemented)
+				.GroupBy(c => c.Set);
+
+			str.AppendLine("### Not yet implemeneted standard cards");
+			foreach (IGrouping<CardSet, Card> group in notImplementedStandard)
+			{
+				str.AppendLine($"#### {CardSetToName(group.Key)}");
+				foreach (Card c in group)
+				{
+					str.AppendLine($"- [{c.Id}] {c.Name}");
+				}
+			}
+
+			return str.ToString();
 		}
 	}
 }

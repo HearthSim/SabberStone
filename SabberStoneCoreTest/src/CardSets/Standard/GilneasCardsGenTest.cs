@@ -1745,7 +1745,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void Chameleos_GIL_142()
 		{
-			var game = new Game(new GameConfig
+			Game game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
@@ -1761,12 +1761,48 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable test = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Chameleos"));
 			Assert.Equal("GIL_142", test.Card.Id);
 
-			for (int i = 0; i < 5; i++)
+			int testId = test.Id;
+
+			for (int i = 0; i < 10; i++)
 			{
 				game.EndTurn();
 				game.EndTurn();
+				test = game.IdEntityDic[testId];
 				Assert.Contains(test.Card.Id, game.CurrentOpponent.HandZone.Select(p => p.Card.Id));
+				Assert.NotNull(test.AppliedEnchantments);
+				Assert.Single(test.AppliedEnchantments);
 			}
+
+			for (int i = game.CurrentOpponent.HandZone.Count - 1; i >= 0; i--)
+			{
+				IPlayable handCard = game.CurrentOpponent.HandZone[i];
+				Generic.DiscardBlock(game.CurrentOpponent, handCard);
+			}
+
+			for (int i = 0; i < 10; i++)
+				Generic.DrawCard(game.CurrentOpponent, Cards.FromName("Wisp"));
+
+			game.EndTurn();
+			game.EndTurn();
+
+			test = game.IdEntityDic[testId];
+			Assert.Equal("Wisp", test.Card.Name);
+			game.ProcessCard(test);
+
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Assert.Empty(test.AppliedEnchantments);
+
+			foreach (IPlayable handCard in game.CurrentOpponent.HandZone)
+				Generic.DiscardBlock(game.CurrentOpponent, handCard);
+
+			for (int i = 0; i < 10; i++)
+				Generic.DrawCard(game.CurrentOpponent, Cards.FromName("Silence"));
+
+			game.EndTurn();
+			game.EndTurn();
+
+			test = game.IdEntityDic[testId];
+			Assert.Equal("Wisp", test.Card.Name);
 		}
 
 		// ---------------------------------------- MINION - PRIEST

@@ -46,9 +46,11 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		internal void ChangeEntity(IPlayable oldEntity, IPlayable newEntity)
 		{
-			Entities[oldEntity.ZonePosition] = newEntity;
+			int pos = oldEntity.ZonePosition;
+			Entities[pos] = newEntity;
+			newEntity.ZonePosition = pos;
 			newEntity.Zone = this;
-			Auras.ForEach(a => a.EntityAdded(newEntity));
+			//Auras.ForEach(a => a.EntityAdded(newEntity));
 		}
 
 		public HandZone Clone(Controller c)

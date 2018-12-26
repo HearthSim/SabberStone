@@ -26,7 +26,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in TaskStack stack = null)
 		{
 			//Model.Entities.IPlayable drawedCard = Generic.Draw(controller);
-			bool nullFlag = false;
+			//bool nullFlag = false;
 			List<IPlayable> cards = _toStack ? new List<IPlayable>(_count) : null;
 			for (int i = 0; i < _count; i++)
 			{

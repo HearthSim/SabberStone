@@ -684,11 +684,11 @@ namespace SabberStoneCore.Model
 
 				c.BoardZone.ForEach(p =>
 				{
-					p.NumTurnsInPlay++;
+					//p.NumTurnsInPlay++;
 					p.NumAttacksThisTurn = 0;
 				});
 
-				c.Hero.NumTurnsInPlay++;
+				//c.Hero.NumTurnsInPlay++;
 				c.Hero.NumAttacksThisTurn = 0;
 
 				c.NumCardsDrawnThisTurn = 0;

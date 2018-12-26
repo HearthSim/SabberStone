@@ -50,9 +50,9 @@ namespace SabberStoneCore.Model.Entities
 		/// <value>The cost.</value>
 		int Cost { get; set; }
 
-		/// <summary>Gets or sets the number of turns this entity is in <see cref="Zone.PLAY"/>.</summary>
-		/// <value>The number of turns in play.</value>
-		int NumTurnsInPlay { get; set; }
+		///// <summary>Gets or sets the number of turns this entity is in <see cref="Zone.PLAY"/>.</summary>
+		///// <value>The number of turns in play.</value>
+		//int NumTurnsInPlay { get; set; }
 
 		/// <summary>Mark this entity for destruction.</summary>
 		/// <returns>Returns itself.</returns>
@@ -65,22 +65,14 @@ namespace SabberStoneCore.Model.Entities
 		/// <value><c>true</c> if pending destruction; otherwise, <c>false</c>.</value>
 		bool ToBeDestroyed { get; set; }
 
-		// Unused
-		// bool TurnStart { get; set; }
-
-		/// <summary>Applies on of the Powers defined on this entity.</summary>
-		/// <param name="activation">The activation trigger for the enchants.</param>
-		/// <param name="zoneType">Type of the zone the enchant will perform on.</param>
-		/// <param name="target">The target, mostly of type <see cref="ICharacter"/>.</param>
-		//void ApplyPowers(PowerActivation activation, Zone zoneType, IPlayable target = null);
-
-		void ActivateTask(in PowerActivation activation, in IEntity target = null, in int chooseOne = 0, in IPlayable source = null);
-
-		/// <summary>Stores the next Order Of Play index held by the <see cref="Game"/> instance.
-		///	Order of play is important because it's the order in which effects are resolved.
+		/// <summary>
+		/// Activates <see cref="SabberStoneCore.Enchants.Power"/> and queues up tasks.
 		/// </summary>
-		/// <param name="type">The type of this entity, stringified.</param>
-		//void SetOrderOfPlay(string type);
+		/// <param name="activation"></param>
+		/// <param name="target"></param>
+		/// <param name="chooseOne"></param>
+		/// <param name="source"></param>
+		void ActivateTask(in PowerActivation activation, in IEntity target = null, in int chooseOne = 0, in IPlayable source = null);
 
 		/// <summary>Gets or sets the entity ID target.</summary>
 		/// <value><see cref="IEntity.Id"/></value>
@@ -90,16 +82,6 @@ namespace SabberStoneCore.Model.Entities
 		/// Playable zoneposition.
 		/// </summary>
 		int ZonePosition { get; set; }
-
-		///// <summary>
-		///// Playable has just been played.
-		///// </summary>
-		//bool JustPlayed { get; set; }
-
-		///// <summary>
-		///// Playable has been summoned.
-		///// </summary>
-		//bool IsSummoned { get; set; }
 
 		/// <summary>
 		/// Playable is exhausted. <c>true</c> indicates that the entity cannot
@@ -150,8 +132,11 @@ namespace SabberStoneCore.Model.Entities
 		/// is constructed.
 		/// </summary>
 		/// <value><see cref="Power"/></value>
-		//List<Power> Powers { get; }
 		Power Power { get; }
+
+		/// <summary>Gets the ranking order of the moment this entity was played.</summary>
+		/// <value>The ranking order.</value>
+		int OrderOfPlay { get; set; }
 
 		/// <summary>
 		/// Performs a deep copy of this <see cref="Controller"/> instance and returns the result.
@@ -169,6 +154,33 @@ namespace SabberStoneCore.Model.Entities
 		Trigger ActivatedTrigger { get; set; }
 
 		List<int> Memory { get; set; }
+
+		#region obsoleted
+		// Unused
+		// bool TurnStart { get; set; }
+
+		/// <summary>Applies on of the Powers defined on this entity.</summary>
+		/// <param name="activation">The activation trigger for the enchants.</param>
+		/// <param name="zoneType">Type of the zone the enchant will perform on.</param>
+		/// <param name="target">The target, mostly of type <see cref="ICharacter"/>.</param>
+		//void ApplyPowers(PowerActivation activation, Zone zoneType, IPlayable target = null);
+
+		/// <summary>Stores the next Order Of Play index held by the <see cref="Game"/> instance.
+		///	Order of play is important because it's the order in which effects are resolved.
+		/// </summary>
+		/// <param name="type">The type of this entity, stringified.</param>
+		//void SetOrderOfPlay(string type);
+
+		///// <summary>
+		///// Playable has just been played.
+		///// </summary>
+		//bool JustPlayed { get; set; }
+
+		///// <summary>
+		///// Playable has been summoned.
+		///// </summary>
+		//bool IsSummoned { get; set; }
+		#endregion
 	}
 
 	/// <summary>

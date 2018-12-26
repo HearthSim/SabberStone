@@ -172,6 +172,13 @@ namespace SabberStoneCore.Loader
 
 		private static unsafe bool ReqTotemicCall(Controller c)
 		{
+			int count = c.BoardZone.Count;
+
+			if (count == 7)
+				return false;
+			if (count < 4)
+				return true;
+
 			int* ent = stackalloc int[4];
 			ent[0] = 537;
 			ent[1] = 850;
@@ -191,48 +198,46 @@ namespace SabberStoneCore.Loader
 
 		private static unsafe bool CheckEntourages(Controller c, int* ent, int count)
 		{
-			if (c.BoardZone.Count >= count)
+			int[] indices = new int[count];
+			ReadOnlySpan<Minion> span = c.BoardZone.GetSpan();
+			for (int i = 0, j = span.Length, k = 0; i < span.Length; i++)
 			{
-				int[] indices = new int[count];
-				ReadOnlySpan<Minion> span = c.BoardZone.GetSpan();
-				for (int i = 0, j = span.Length, k = 0; i < span.Length; i++)
-				{
-					int index = -1;
-					for (int m = 0; m < count; m++)
-						if (ent[m] == span[i].Card.AssetId)
-						{
-							index = m;
-							break;
-						}
-
-					if (index < 0)
+				int index = -1;
+				for (int m = 0; m < count; m++)
+					if (ent[m] == span[i].Card.AssetId)
 					{
-						if (--j < count)
-							break;
-						continue;
-					}
-
-					bool flag = false;
-					for (int l = 0; l < k; l++)
-					{
-						if (indices[l] != index) continue;
-						flag = true;
+						index = m;
 						break;
 					}
 
-					if (flag)
-					{
-						if (--j < count)
-							break;
-					}
-					else
-					{
-						indices[k++] = index;
-						if (k == count)
-							return false;
-					}
+				if (index < 0)
+				{
+					if (--j < count)
+						break;
+					continue;
+				}
+
+				bool flag = false;
+				for (int l = 0; l < k; l++)
+				{
+					if (indices[l] != index) continue;
+					flag = true;
+					break;
+				}
+
+				if (flag)
+				{
+					if (--j < count)
+						break;
+				}
+				else
+				{
+					indices[k++] = index;
+					if (k == count)
+						return false;
 				}
 			}
+			
 			return true;
 		}
 	}

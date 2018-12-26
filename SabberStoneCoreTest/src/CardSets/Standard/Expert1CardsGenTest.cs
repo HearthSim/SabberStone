@@ -1370,6 +1370,73 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		}
 
 		// ------------------------------------------- SPELL - MAGE
+		// [EX1_179] Icicle - COST:2 
+		// - Set: expert1, Rarity: epic
+		// --------------------------------------------------------
+		// Text: Deal $2 damage to a minion. If it's <b>Frozen</b>, draw a card. @spelldmg
+		// --------------------------------------------------------
+		// PlayReq:
+		// - REQ_TARGET_TO_PLAY = 0
+		// - REQ_MINION_TARGET = 0
+		// --------------------------------------------------------
+		// RefTag:
+		// - FREEZE = 1
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void Icicle_EX1_179()
+		{
+			// TODO Icicle_EX1_179 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Icicle"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Icicle"));
+			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Icicle"));
+		}
+
+		// ------------------------------------------- SPELL - MAGE
+		// [EX1_180] Tome of Intellect - COST:1 
+		// - Set: expert1, Rarity: common
+		// --------------------------------------------------------
+		// Text: Add a random Mage spell to your hand.
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void TomeOfIntellect_EX1_180()
+		{
+			// TODO TomeOfIntellect_EX1_180 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Tome of Intellect"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tome of Intellect"));
+			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Tome of Intellect"));
+		}
+
+		// ------------------------------------------- SPELL - MAGE
 		// [EX1_275] Cone of Cold - COST:4 
 		// - Fac: neutral, Set: expert1, Rarity: common
 		// --------------------------------------------------------
@@ -3250,6 +3317,36 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(0, eviscerate.Cost);
 		}
 
+		// ------------------------------------------ SPELL - ROGUE
+		// [EX1_182] Pilfer - COST:1 
+		// - Set: expert1, Rarity: common
+		// --------------------------------------------------------
+		// Text: Add a random card to your hand <i>(from your opponent's class)</i>.
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void Pilfer_EX1_182()
+		{
+			// TODO Pilfer_EX1_182 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.ROGUE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Pilfer"),
+				},
+				Player2HeroClass = CardClass.ROGUE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Pilfer"));
+			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Pilfer"));
+		}
+
 		// ----------------------------------------- MINION - ROGUE
 		// [EX1_131] Defias Ringleader - COST:2 [ATK:2/HP:2] 
 		// - Fac: neutral, Set: expert1, Rarity: common
@@ -4030,6 +4127,36 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 	public class WarlockExpert1Test
 	{
+		// ---------------------------------------- SPELL - WARLOCK
+		// [EX1_181] Call of the Void - COST:1 
+		// - Set: expert1, Rarity: common
+		// --------------------------------------------------------
+		// Text: Add a random Demon to your hand.
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void CallOfTheVoid_EX1_181()
+		{
+			// TODO CallOfTheVoid_EX1_181 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.WARLOCK,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Call of the Void"),
+				},
+				Player2HeroClass = CardClass.WARLOCK,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Call of the Void"));
+			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Call of the Void"));
+		}
+
 		// ---------------------------------------- SPELL - WARLOCK
 		// [EX1_303] Shadowflame - COST:4 
 		// - Fac: neutral, Set: expert1, Rarity: rare

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Auras;
@@ -912,8 +913,8 @@ namespace SabberStoneCore.CardSets.Standard
 					{
 						Card pick = p.Controller.Opponent.HandZone.Random?.Card;
 						if (pick == null) return 0;
-						Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);
-						Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("GIL_142e"), p, p, 0, 0, false);
+						IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);
+						Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("GIL_142e"), p, result, 0, 0, false);
 						return 0;
 					})
 				}
@@ -1185,9 +1186,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_827", new Power {
-				PowerTask = ComplexTask.Create(
-					new RandomCardTask(EntityType.OP_HERO),
-					new AddStackTo(EntityType.HAND))
+				PowerTask = ComplexTask.AddRandomOpClassCardToHand
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1249,9 +1248,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ECHO = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_696", new Power {
-				PowerTask = ComplexTask.Create(
-					new RandomCardTask(EntityType.OP_HERO),
-					new AddStackTo(EntityType.HAND))
+				PowerTask = ComplexTask.AddRandomOpClassCardToHand
 			});
 
 			// ----------------------------------------- WEAPON - ROGUE
@@ -2688,6 +2685,12 @@ namespace SabberStoneCore.CardSets.Standard
 						new FuncPlayablesTask(list =>
 						{
 							IPlayable p = list[1];
+
+							if (p.Zone != p.Controller.HandZone)
+							{
+								throw new Exception();
+							}
+
 							Card pick = p.Controller.Opponent.HandZone.Random?.Card;
 							if (pick == null) return null;
 							IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);

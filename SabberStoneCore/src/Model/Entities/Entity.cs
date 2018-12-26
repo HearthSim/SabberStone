@@ -22,10 +22,6 @@ namespace SabberStoneCore.Model.Entities
 		/// <value>The identifier.</value>
 		int Id { get; }
 
-		/// <summary>Gets the ranking order of the moment this entity was played.</summary>
-		/// <value>The ranking order.</value>
-		int OrderOfPlay { get; set; }
-
 		/// <summary>Gets or sets the game instance from which this entity is part of.</summary>
 		/// <value>The game instance.</value>
 		Game Game { get; set; }
@@ -403,18 +399,20 @@ namespace SabberStoneCore.Model.Entities
 			get => _toBeDestroyed;
 			set
 			{
-				this[GameTag.TO_BE_DESTROYED] = value ? 1 : 0;
 				_toBeDestroyed = value;
+
+				if (_history)
+					this[GameTag.TO_BE_DESTROYED] = value ? 1 : 0;
 			}
 		}
 
 		private bool _toBeDestroyed;
 
-		public int NumTurnsInPlay
-		{
-			get { return this[GameTag.NUM_TURNS_IN_PLAY]; }
-			set { this[GameTag.NUM_TURNS_IN_PLAY] = value; }
-		}
+		//public int NumTurnsInPlay
+		//{
+		//	get { return this[GameTag.NUM_TURNS_IN_PLAY]; }
+		//	set { this[GameTag.NUM_TURNS_IN_PLAY] = value; }
+		//}
 
 		public bool IsIgnoreDamage
 		{

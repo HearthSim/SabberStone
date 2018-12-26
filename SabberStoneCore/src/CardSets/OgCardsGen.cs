@@ -1032,9 +1032,7 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_330", new Power {
-				DeathrattleTask = ComplexTask.Create(
-					new RandomCardTask(EntityType.OP_HERO),
-					new AddStackTo(EntityType.HAND))
+				DeathrattleTask = ComplexTask.AddRandomOpClassCardToHand
 			});
 
 			// ------------------------------------------ SPELL - ROGUE

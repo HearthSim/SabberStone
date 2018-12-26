@@ -155,6 +155,7 @@ namespace SabberStoneCore.Model.Entities
 	/// <summary>
 	/// Custom Dictionary class for containing <see cref="GameTag"/>/<see cref="int"/> pairs assigned to an <see cref="Entity"/> instance.
 	/// Implements <see cref="IDictionary{TKey, TValue}"/>.
+	/// This only contains modified/added tags during runtime, rather than card's original tags.
 	/// </summary>
 	internal class EntityData : IDictionary<GameTag, int>
 	{
@@ -187,6 +188,7 @@ namespace SabberStoneCore.Model.Entities
 		public unsafe EntityData(in EntityData entityData)
 		{
 			int len = entityData._buckets.Length;
+			//int len = entityData._size << 1;
 			_buckets = new int[len];
 			fixed (int* srcPtr = entityData._buckets, dstPtr = _buckets)
 			{
@@ -401,7 +403,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			int h = (k & (_size - 1)) << 1;
 			int[] buckets = _buckets;
-			
+
 			if (buckets[h] == k)
 			{
 				index = h;

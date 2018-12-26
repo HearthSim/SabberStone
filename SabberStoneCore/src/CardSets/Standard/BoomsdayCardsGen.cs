@@ -1968,7 +1968,6 @@ namespace SabberStoneCore.CardSets.Standard
 			//       left-most minion in your hand +2/+2.
 			// --------------------------------------------------------
 			cards.Add("BOT_263", new Power {
-				// TODO [BOT_263] Soul Infusion && Test: Soul Infusion_BOT_263
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.SOURCE),
 					new FuncPlayablesTask(sourceArray =>
@@ -1989,9 +1988,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_521", new Power {
-				// TODO [BOT_521] Ectomancy && Test: Ectomancy_BOT_521
-				//PowerTask = null,
-				//Trigger = null,
+				// TODO Test: Ectomancy_BOT_521
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.MINIONS),
+					new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
+					new SummonCopyTask(EntityType.STACK))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
@@ -2005,8 +2006,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_568", new Power {
-				// TODO [BOT_568] The Soularium && Test: The Soularium_BOT_568
-				InfoCardId = "BOT_568e",
 				PowerTask = ComplexTask.Create(
 					new DrawTask(true, 3),
 					new AddEnchantmentTask("BOT_568e", EntityType.STACK))
@@ -2019,9 +2018,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Each player transforms a random minion in their hand into a Demon.
 			// --------------------------------------------------------
 			cards.Add("BOT_913", new Power {
-				// TODO [BOT_913] Demonic Project && Test: Demonic Project_BOT_913
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.HAND),
+					new FilterStackTask(SelfCondition.IsMinion),
+					new RandomTask(1, EntityType.STACK),
+					new ChangeEntityTask(EntityType.STACK, CardType.MINION, race: Race.DEMON),
+					new IncludeTask(EntityType.OP_HAND),
+					new FilterStackTask(SelfCondition.IsMinion),
+					new RandomTask(1, EntityType.STACK),
+					new ChangeEntityTask(EntityType.STACK, CardType.MINION, race: Race.DEMON))
 			});
 
 		}
@@ -2065,6 +2070,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Discards at the end of your turn.
 			// --------------------------------------------------------
 			cards.Add("BOT_568e", new Power {
+				Enchant = new Enchant()
+				{
+					RemoveWhenPlayed = true
+				},
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
 					SingleTask = new DiscardTask(EntityType.TARGET)

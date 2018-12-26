@@ -889,13 +889,23 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		/// <summary>
+		/// Returns true if for this player all cards and powers that restore Health deal damage instead.
+		/// (e.g. True when Auchenai Soulpriest is in play.)
+		/// </summary>
+		public bool RestoreToDamage
+		{
+			get => ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] > 0;
+			set => ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] = value ? 1 : 0;
+		}
+
+		/// <summary>
 		/// Returns true if for this player all battlecries should be executed another time.
 		/// This is applicable when Brann BronzeBeard is in play.
 		/// </summary>
 		public bool ExtraBattlecry
 		{
 			get => ControllerAuraEffects[GameTag.EXTRA_BATTLECRY] > 0;
-			set => ControllerAuraEffects[GameTag.EXTRA_BATTLECRY] += 1;
+			set => ControllerAuraEffects[GameTag.EXTRA_BATTLECRY] = value ? 1 : 0;
 		}
 
 		/// <summary>
@@ -905,7 +915,7 @@ namespace SabberStoneCore.Model.Entities
 		public bool ExtraEndTurnEffect
 		{
 			get => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] > 0;
-			set => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] += 1;
+			set => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] = value ? 1 : 0;
 		}
 
 		/// <summary>

@@ -1143,6 +1143,40 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// ------------------------------------------- SPELL - MAGE
+			// [EX1_179] Icicle - COST:2 
+			// - Set: expert1, Rarity: epic
+			// --------------------------------------------------------
+			// Text: Deal $2 damage to a minion. If it's <b>Frozen</b>, draw a card. @spelldmg
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_TARGET_TO_PLAY = 0
+			// - REQ_MINION_TARGET = 0
+			// --------------------------------------------------------
+			// RefTag:
+			// - FREEZE = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_179", new Power
+			{
+				PowerTask = ComplexTask.Create(
+					new DamageTask(2, EntityType.TARGET, true),
+					new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
+					new FlagTask(true, new DrawTask()))
+			});
+
+			// ------------------------------------------- SPELL - MAGE
+			// [EX1_180] Tome of Intellect - COST:1 
+			// - Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: Add a random Mage spell to your hand.
+			// --------------------------------------------------------
+			cards.Add("EX1_180", new Power
+			{
+				PowerTask = ComplexTask.Create(
+					new RandomCardTask(CardType.SPELL, CardClass.MAGE),
+					new AddStackTo(EntityType.HAND))
+			});
+
+			// ------------------------------------------- SPELL - MAGE
 			// [EX1_275] Cone of Cold - COST:4 
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
@@ -2215,6 +2249,17 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = new AddEnchantmentTask("EX1_145o", EntityType.CONTROLLER)
 			});
 
+			// ------------------------------------------ SPELL - ROGUE
+			// [EX1_182] Pilfer - COST:1 
+			// - Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: Add a random card to your hand <i>(from your opponent's class)</i>.
+			// --------------------------------------------------------
+			cards.Add("EX1_182", new Power
+			{
+				PowerTask = ComplexTask.AddRandomOpClassCardToHand
+			});
+
 			// ----------------------------------------- WEAPON - ROGUE
 			// [EX1_133] Perdition's Blade - COST:3 [ATK:2/HP:0] 
 			// - Fac: neutral, Set: expert1, Rarity: rare
@@ -2724,6 +2769,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_323", new Power {
 				PowerTask = new ReplaceHeroTask("EX1_323h", "EX1_323w", "EX1_tk33")
+			});
+
+			// ---------------------------------------- SPELL - WARLOCK
+			// [EX1_181] Call of the Void - COST:1 
+			// - Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: Add a random Demon to your hand.
+			// --------------------------------------------------------
+			cards.Add("EX1_181", new Power
+			{
+				PowerTask = ComplexTask.Create(
+					new RandomCardTask(CardType.MINION, CardClass.INVALID, Race.DEMON),
+					new AddStackTo(EntityType.HAND))
 			});
 
 			// ---------------------------------------- SPELL - WARLOCK
