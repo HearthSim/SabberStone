@@ -8364,7 +8364,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				FillDecks = true,
 				FillDecksPredictably = true
 			};
-			gameConfig.UnPredictableCardIDs.Add("CFM_637"); // don't allow patches for board count test
+
 			var game = new Game(gameConfig);
 			
 			game.StartGame();

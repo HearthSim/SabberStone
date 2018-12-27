@@ -297,23 +297,24 @@ namespace SabberStoneCore.Model.Zones
 		{
 			if (entity == null)
 				throw new ZoneException();
-			if (IsFull)
-				throw new ZoneException();
 
-			if (zonePosition < 0)
-				zonePosition = _count;
+			int c = _count;
 
-			if (zonePosition == _count)
-				Entities[zonePosition] = entity;
+			if (c == MaxSize)
+				throw new ZoneException($"Can't move {entity} to {this}. The Zone is full.");
+
+			if (zonePosition < 0 || zonePosition == c)
+				Entities[c] = entity;
 			else
 			{
 				T[] entities = Entities;
-				for (int i = _count - 1; i >= zonePosition; --i)
-					entities[i + 1] = entities[i];
+				//for (int i = c - 1; i >= zonePosition; --i)
+				//	entities[i + 1] = entities[i];
+				Array.Copy(entities, zonePosition, entities, zonePosition + 1, c - zonePosition);
 				entities[zonePosition] = entity;
 			}
 
-			_count++;
+			_count = c + 1;
 
 			entity.Zone = this;
 			if (Game.History)
@@ -447,7 +448,8 @@ namespace SabberStoneCore.Model.Zones
 
 			Reposition(zonePosition);
 
-			Auras.ForEach(a => a.EntityAdded(entity));
+			if (Auras.Count > 0)
+				Auras.ForEach(a => a.EntityAdded(entity));
 		}
 
 		public override T Remove(T entity)

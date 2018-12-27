@@ -121,6 +121,7 @@ namespace SabberStoneCore.Model.Entities
 			_healthModifier = Card.Health;
 			_dmgModifier = 0;
 			_exhausted = false;
+			_numAttackThisturn = 0;
 
 			OngoingEffect?.Remove();
 			Game.OneTurnEffects.RemoveAll(p => p.entityId == Id);
@@ -321,11 +322,7 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.ENRAGED] = value ? 1 : 0; }
 		}
 
-		public bool Freeze
-		{
-			get { return this[GameTag.FREEZE] == 1; }
-			set { this[GameTag.FREEZE] = value ? 1 : 0; }
-		}
+		public bool Freeze => Card.Freeze;
 
 		public bool Poisonous
 		{

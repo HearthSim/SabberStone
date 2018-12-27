@@ -24,6 +24,28 @@ namespace SabberStoneCore.Config
 		public const string PLAYER_NAME_DEFAULT = "Player{0}";
 
 		/// <summary>
+		/// List of <see cref="Card.Id"/>s which result in unpredictable test outcomes when included
+		/// in a <see cref="Controller"/>'s deck.
+		/// </summary>
+		public static readonly IReadOnlyCollection<string> UnPredictableCardIDs = new[] {
+			"KAR_096", // Prince Malchezaar
+			"CFM_637", // Patches the Pirate
+
+			"UNG_028", // Quests
+			"UNG_067",
+			"UNG_116",
+			"UNG_829",
+			"UNG_934",
+			"UNG_920",
+			"UNG_940",
+			"UNG_942",
+			"UNG_954",
+
+			"LOOT_149", // Corridor Creeper (trigger on board)
+			"CFM_064", // Blubber Baron (trigger on board)
+		};
+
+		/// <summary>
 		/// Gets or sets the index of the starting player.
 		/// This value is 1-indexed, where 1 indicates <see cref="Player1Name"/> will start.
 		/// </summary>
@@ -101,28 +123,6 @@ namespace SabberStoneCore.Config
 		/// </summary>
 		/// <value><c>true</c> if decks need to be filled PREDICTABLY; otherwise, <c>false</c>.</value>
 		public bool FillDecksPredictably {get; set; } = false;
-
-		/// <summary>
-		/// List of <see cref="Card.Id"/>s which result in unpredictable test outcomes when included
-		/// in a <see cref="Controller"/>'s deck.
-		/// </summary>
-		public List<string> UnPredictableCardIDs = new List<string> {
-			"KAR_096", // Prince Malchezaar
-			"CFM_637", // Patches the Pirate
-
-			"UNG_028", // Quests
-			"UNG_067",
-			"UNG_116",
-			"UNG_829",
-			"UNG_934",
-			"UNG_920",
-			"UNG_940",
-			"UNG_942",
-			"UNG_954",
-
-			"LOOT_149", // Corridor Creeper (trigger on board)
-			"CFM_064", // Blubber Baron (trigger on board)
-		};
 
 		/// <summary>
 		/// Unimplemented feature, the intention was to have all possible allowed cards for a draw in

@@ -66,6 +66,7 @@ namespace SabberStoneCore.Model
 		public bool Untouchable { get; private set; }
 		public bool HideStat { get; private set; }
 		public bool ReceivesDoubleSpelldamageBonus { get; private set; }
+		public bool Freeze { get; }
 
 
 		private Card()
@@ -166,6 +167,9 @@ namespace SabberStoneCore.Model
 							break;
 						case GameTag.RECEIVES_DOUBLE_SPELLDAMAGE_BONUS:
 							ReceivesDoubleSpelldamageBonus = true;
+							break;
+						case GameTag.FREEZE:
+							Freeze = true;
 							break;
 						case GameTag.CARDRACE:
 							Race = (Race)(int)tag.TagValue;

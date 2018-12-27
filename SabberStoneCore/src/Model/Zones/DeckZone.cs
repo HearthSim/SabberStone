@@ -50,7 +50,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public IPlayable TopCard => Entities[_count - 1];
 
-		public void Fill(List<string> excludeIds = null)
+		public void Fill(IReadOnlyCollection<string> excludeIds = null)
 		{
 			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Controller.Standard : Controller.Wild;
 			int cardsToAdd = StartingCards - _count;
