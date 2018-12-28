@@ -144,7 +144,7 @@ namespace SabberStoneCore.Tasks
 					}
 					if (left != null)
 					{
-						Generic.SummonBlock.Invoke(c, left, s.ZonePosition);
+						Generic.SummonBlock.Invoke(c.Game, left, s.ZonePosition);
 						s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(in c, left, left, e.Card));
 						//left[GameTag.ATK] = s[GameTag.ATK];
 						//left[GameTag.HEALTH] = s[GameTag.HEALTH];
@@ -153,7 +153,7 @@ namespace SabberStoneCore.Tasks
 
 						if (right != null)
 						{
-							Generic.SummonBlock.Invoke(c, right, s.ZonePosition + 1);
+							Generic.SummonBlock.Invoke(c.Game, right, s.ZonePosition + 1);
 							s.AppliedEnchantments?.ForEach(e => Enchantment.GetInstance(in c, right, right, e.Card));
 							//right[GameTag.ATK] = s[GameTag.ATK];
 							//right[GameTag.HEALTH] = s[GameTag.HEALTH];
@@ -654,7 +654,7 @@ namespace SabberStoneCore.Tasks
 					{
 						case CardType.MINION:
 							if (c.BoardZone.IsFull) break;
-							Generic.SummonBlock.Invoke(c, entity as Minion, -1);
+							Generic.SummonBlock.Invoke(c.Game, entity as Minion, -1);
 							c.Game.DeathProcessingAndAuraUpdate();
 							break;
 						case CardType.WEAPON:

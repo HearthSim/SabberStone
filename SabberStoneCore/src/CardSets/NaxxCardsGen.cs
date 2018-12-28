@@ -423,7 +423,7 @@ namespace SabberStoneCore.CardSets
 							if (graveyard[i] is Minion m && m.ToBeDestroyed)
 							{
 								if (c.BoardZone.IsFull) return 0;
-								Generic.SummonBlock.Invoke(c, (Minion) Entity.FromCard(c, m.Card), -1);
+								Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, m.Card), -1);
 								j++;
 							}
 							i--;
@@ -451,7 +451,7 @@ namespace SabberStoneCore.CardSets
 					if ((c.GraveyardZone.Any(p => p.Card.AssetId == 1797 && p.ToBeDestroyed) ||
 					     c.Opponent.GraveyardZone.Any(p => p.Card.AssetId == 1797 && p.ToBeDestroyed)) &&
 					    !c.BoardZone.IsFull)
-						Generic.SummonBlock.Invoke(c, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1);
+						Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1);
 
 					return 0;
 				})
@@ -474,7 +474,7 @@ namespace SabberStoneCore.CardSets
 					if ((c.GraveyardZone.Any(p => p.Card.AssetId == 1796 && p.ToBeDestroyed) ||
 					     c.Opponent.GraveyardZone.Any(p => p.Card.AssetId == 1796 && p.ToBeDestroyed)) &&
 					    !c.BoardZone.IsFull)
-						Generic.SummonBlock.Invoke(c, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1);
+						Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1);
 
 					return 0;
 				})

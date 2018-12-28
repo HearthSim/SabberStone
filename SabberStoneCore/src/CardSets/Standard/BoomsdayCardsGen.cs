@@ -1972,8 +1972,13 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.SOURCE),
 					new FuncPlayablesTask(sourceArray =>
 					{
-						IPlayable leftmost = sourceArray[0].Controller.HandZone.Last();
-						return leftmost is Minion ? new[] {leftmost} : new IPlayable[0];
+						ReadOnlySpan<IPlayable> hand = sourceArray[0].Controller.HandZone.GetSpan();
+
+						for (int i = 0; i < hand.Length; i++)
+							if (hand[i].Card.Type == CardType.MINION)
+								return new [] {hand[i]};
+
+						return new IPlayable[0];
 					}),
 					new AddEnchantmentTask("BOT_263e", EntityType.STACK))
 			});

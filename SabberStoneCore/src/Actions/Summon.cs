@@ -9,44 +9,43 @@ namespace SabberStoneCore.Actions
 	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
-		public static Func<Controller, Minion, int, bool> SummonBlock
-			=> delegate (Controller c, Minion minion, int zonePosition)
+		public static Func<Game, Minion, int, bool> SummonBlock
+			=> delegate (Game g, Minion minion, int zonePosition)
 			{
-				SummonPhase.Invoke(c, minion, zonePosition);
+				SummonPhase.Invoke(g, minion, zonePosition);
 
-				AfterSummonTrigger.Invoke(c, minion);
+				AfterSummonTrigger.Invoke(g, minion);
 
 				return true;
 			};
 
-		private static Action<Controller, Minion, int> SummonPhase
-			=> delegate (Controller c, Minion minion, int zonePosition)
+		private static Action<Game, Minion, int> SummonPhase
+			=> delegate (Game g, Minion minion, int zonePosition)
 			{
-				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "SummonPhase", !c.Game.Logging? "":$"Summon Minion {minion} to Board of {c.Name}.");
-				c.BoardZone.Add(minion, zonePosition);
+				g.Log(LogLevel.INFO, BlockType.PLAY, "SummonPhase", !g.Logging? "":$"Summon Minion {minion} to Board of {minion.Controller.Name}.");
+				minion.Controller.BoardZone.Add(minion, zonePosition);
 
-				c.Game.AuraUpdate();
+				g.AuraUpdate();
 
-				c.Game.SummonedMinions.Add(minion);
+				g.SummonedMinions.Add(minion);
 
 				// add summon block show entity 
-				if (c.Game.History)
-					c.Game.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(minion));
+				if (g.History)
+					g.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(minion));
 			};
 
-		private static Action<Controller, Minion> AfterSummonTrigger
-			=> delegate (Controller c, Minion minion)
+		private static Action<Game, Minion> AfterSummonTrigger
+			=> delegate (Game g, Minion minion)
 			{
 				//minion.IsSummoned = true;
-				Game game = c.Game;
 
-				game.TaskQueue.StartEvent();
-				game.TriggerManager.OnAfterSummonTrigger(minion);
-				game.ProcessTasks();
-				game.TaskQueue.EndEvent();
+				g.TaskQueue.StartEvent();
+				g.TriggerManager.OnAfterSummonTrigger(minion);
+				g.ProcessTasks();
+				g.TaskQueue.EndEvent();
 
 				if (minion.Race == Race.TOTEM)
-					c.NumTotemSummonedThisGame++;
+					minion.Controller.NumTotemSummonedThisGame++;
 			};
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

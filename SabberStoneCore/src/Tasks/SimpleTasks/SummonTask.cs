@@ -113,7 +113,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				if (summonPosition > controller.BoardZone.Count)
 					summonPosition = controller.BoardZone.Count;
 
-				bool success = Generic.SummonBlock.Invoke(controller, summonEntity, summonPosition);
+				bool success = Generic.SummonBlock.Invoke(game, summonEntity, summonPosition);
 			}
 
 			return TaskState.COMPLETE;

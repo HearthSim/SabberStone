@@ -94,7 +94,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 							{GameTag.DISPLAYED_CREATOR, source.Id}
 						});
 
-					Generic.SummonBlock.Invoke(controller, minion,
+					Generic.SummonBlock.Invoke(game, minion,
 						SummonTask.GetPosition(in source, _side, stack?.Number ?? 0, ref alternateCount));
 
 					if (_addToStack)

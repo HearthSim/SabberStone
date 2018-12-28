@@ -2043,7 +2043,7 @@ namespace SabberStoneCore.CardSets
 								p[i].Destroy();
 							c.Game.GraveYard();	// forced death phase
 							var ancientOne = (Minion) Entity.FromCard(c, Cards.FromId("OG_173a"));
-							Generic.SummonBlock.Invoke(c, ancientOne, c.BoardZone.Count);
+							Generic.SummonBlock.Invoke(c.Game, ancientOne, c.BoardZone.Count);
 							return p;
 						}))
 

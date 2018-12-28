@@ -1,5 +1,4 @@
 ﻿using SabberStoneCore.Auras;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 
@@ -9,7 +8,7 @@ namespace SabberStoneCore.Model.Zones
 	/// Zone for all entities which are held 'in hand'.
 	/// </summary>
 	public class HandZone : PositioningZone<IPlayable>
-	{ 
+	{
 		public HandZone(Controller controller) : base(10)
 		{
 			Game = controller.Game;

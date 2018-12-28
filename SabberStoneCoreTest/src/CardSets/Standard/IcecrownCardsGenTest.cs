@@ -342,7 +342,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			Generic.SummonBlock.Invoke(game.CurrentPlayer,
+			Generic.SummonBlock.Invoke(game,
 				(Minion) Entity.FromCard(game.CurrentPlayer, Cards.FromName("Doomguard")), -1);
 			Assert.Single(game.CurrentPlayer.BoardZone);
 			game.CurrentPlayer.BoardZone[0].Kill();

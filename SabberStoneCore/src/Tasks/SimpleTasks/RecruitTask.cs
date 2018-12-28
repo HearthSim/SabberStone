@@ -66,7 +66,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			for (int i = 0; i < entities.Length; i++)
 			{
 				Generic.RemoveFromZone.Invoke(controller, entities[i]);
-				Generic.SummonBlock.Invoke(controller, (Minion)entities[i], -1);
+				Generic.SummonBlock.Invoke(game, (Minion)entities[i], -1);
 			}
 
 			if (_addToStack)

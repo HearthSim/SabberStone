@@ -3414,15 +3414,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			HandZone hand = game.CurrentPlayer.HandZone;
 
-			Assert.Equal(3, hand.Last().AsCharacter().AttackDamage);
-			Assert.Equal(3, hand.Last().AsCharacter().Health);
-
-			game.ProcessCard(hand.Last());
-
-			game.ProcessCard("Soul Infusion");
-
-			Assert.Equal(1, hand[0].AsCharacter().AttackDamage);
-			Assert.Equal(1, hand[0].AsCharacter().Health);
+			Assert.Equal(3, hand[0].AsCharacter().AttackDamage);
+			Assert.Equal(3, hand[0].AsCharacter().Health);
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK

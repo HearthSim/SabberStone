@@ -313,7 +313,7 @@ namespace SabberStoneCore.Model.Entities
 
 			// add entity to the appropriate zone if it was given
 			if (zone is BoardZone)
-				Generic.SummonBlock.Invoke(controller, (Minion)result, zonePos);
+				Generic.SummonBlock.Invoke(game, (Minion)result, zonePos);
 			else if (zone is HandZone)
 				Generic.AddHandPhase.Invoke(controller, result);
 			else

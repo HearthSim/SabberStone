@@ -304,7 +304,7 @@ namespace SabberStoneCore.Actions
 				//   (death processing, aura updates)
 				game.TaskQueue.StartEvent();
 				game.TriggerManager.OnAfterPlayCardTrigger(minion);
-				AfterSummonTrigger.Invoke(c, minion);
+				AfterSummonTrigger.Invoke(game, minion);
 				game.ProcessTasks();
 				game.TaskQueue.EndEvent();
 
