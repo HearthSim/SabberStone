@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Actions;
+﻿using System;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -121,10 +122,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public static int GetPosition(in IEntity source, in SummonSide side, in int number, ref int alternateCount)
 		{
-			int summonPosition = -1;
+			int summonPosition;
 
 			switch (side)
 			{
+				case SummonSide.SPELL:
+				case SummonSide.DEFAULT:
+					return -1;
 				case SummonSide.LEFT:
 					if (source.Zone.Type == Zone.PLAY)
 						summonPosition = ((Minion) source).ZonePosition;
@@ -142,16 +146,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						summonPosition = m.LastBoardPosition;
 					else if
 						(source is Enchantment e)
-						summonPosition = ((Minion) e.Target).LastBoardPosition;
+						summonPosition = ((Minion)e.Target).LastBoardPosition;
+					else goto default;
 					break;
 				case SummonSide.NUMBER:
 					summonPosition = number - 1;
-					break;
-				case SummonSide.SPELL:
-					summonPosition = -1;
-					break;
-				case SummonSide.DEFAULT:
-					summonPosition = -1;
 					break;
 				case SummonSide.ALTERNATE:
 					if (alternateCount % 2 == 0)
@@ -160,6 +159,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						summonPosition = ((Minion) source).ZonePosition + alternateCount / 2 + 1;
 					alternateCount++;
 					break;
+				default:
+					throw new NotImplementedException();
 			}
 
 			if (summonPosition > source.Controller.BoardZone.Count)
