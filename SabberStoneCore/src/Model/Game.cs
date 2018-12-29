@@ -75,7 +75,8 @@ namespace SabberStoneCore.Model
 		/// List of Minions that sorted by its Order of Play,
 		/// ready to be destroyed and to be removed from the BoardZone.
 		/// </summary>
-		public readonly SortedList<int, Minion> DeadMinions = new SortedList<int, Minion>();
+		//public readonly SortedList<int, Minion> DeadMinions = new SortedList<int, Minion>();
+		public readonly List<Minion> DeadMinions = new List<Minion>();
 
 		/// <summary>
 		/// List of Minions summoned in current event.
@@ -997,6 +998,7 @@ namespace SabberStoneCore.Model
 		#endregion
 
 		internal Action ClearWeapons;
+		private static readonly Func<Minion, int> GetOrderOfPlay = m => m.OrderOfPlay;
 
 		/// <summary>
 		/// Move destroyed entities from <see cref="Zone.PLAY"/> <see cref="Zone{T}"/> into 
@@ -1022,7 +1024,9 @@ namespace SabberStoneCore.Model
 				if (History)
 					PowerHistoryBuilder.BlockStart(BlockType.DEATHS, 1, "", 0, 0);
 
-				foreach (Minion minion in DeadMinions.Values)
+				DeadMinions.InsertionSort(GetOrderOfPlay);
+				//foreach (Minion minion in DeadMinions.Values)
+				foreach (Minion minion in DeadMinions)
 				{
 					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"{minion} is Dead! Graveyard say 'Hello'!");
 

@@ -397,6 +397,21 @@ namespace SabberStoneCore.Model
 			}
 			return list;
 		}
+
+		internal static void InsertionSort<T>(this List<T> list, Func<T, int> intKeySelector)
+		{
+			for (int i = 1; i < list.Count; i++)
+			{
+				T temp = list[i];
+				int j = i - 1;
+				while (j >= 0 && intKeySelector(list[j]) > intKeySelector(temp))
+				{
+					list[j + 1] = list[j];
+					j--;
+				}
+				list[j + 1] = temp;
+			}
+		}
 	}
 
 	/// <summary>
