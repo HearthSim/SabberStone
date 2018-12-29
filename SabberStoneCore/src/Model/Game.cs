@@ -72,10 +72,8 @@ namespace SabberStoneCore.Model
 		public readonly List<Trigger> Triggers;
 
 		/// <summary>
-		/// List of Minions that sorted by its Order of Play,
-		/// ready to be destroyed and to be removed from the BoardZone.
+		/// List of Minions that ready to be destroyed and to be removed from the BoardZone.
 		/// </summary>
-		//public readonly SortedList<int, Minion> DeadMinions = new SortedList<int, Minion>();
 		public readonly List<Minion> DeadMinions = new List<Minion>();
 
 		/// <summary>
@@ -1008,11 +1006,6 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void GraveYard()
 		{
-			//if (Player1.Hero.Weapon != null && Player1.Hero.Weapon.ToBeDestroyed)
-			//	Player1.Hero.RemoveWeapon();
-			//if (Player2.Hero.Weapon != null && Player2.Hero.Weapon.ToBeDestroyed)
-			//	Player2.Hero.RemoveWeapon();
-
 			if (ClearWeapons != null)
 			{
 				ClearWeapons.Invoke();
@@ -1025,7 +1018,6 @@ namespace SabberStoneCore.Model
 					PowerHistoryBuilder.BlockStart(BlockType.DEATHS, 1, "", 0, 0);
 
 				DeadMinions.InsertionSort(GetOrderOfPlay);
-				//foreach (Minion minion in DeadMinions.Values)
 				foreach (Minion minion in DeadMinions)
 				{
 					Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"{minion} is Dead! Graveyard say 'Hello'!");
