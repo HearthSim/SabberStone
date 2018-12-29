@@ -522,7 +522,7 @@ namespace SabberStoneCore.Model
 		/// Part of the state machine.
 		/// Runs when STATE = RUNNING.
 		/// </summary>
-		public void StartGame(bool stopBeforeShuffling = false)
+		public void StartGame()
 		{
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : "Starting new game now!");
 
@@ -992,7 +992,6 @@ namespace SabberStoneCore.Model
 				});
 			}
 		}
-
 		#endregion
 
 		internal Action ClearWeapons;
