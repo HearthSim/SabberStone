@@ -88,7 +88,7 @@ namespace SabberStoneCore.Actions
 						break;
 				}
 
-				if (echo)
+				if (echo && !(source is Spell s && s.IsCountered))
 				{
 					var echoTags = new EntityData
 					{
