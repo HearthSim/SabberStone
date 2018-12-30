@@ -732,7 +732,10 @@ namespace SabberStoneCore.Tasks
 						c.Game.DeathProcessingAndAuraUpdate();
 					}
 
-					if (++count == 20) break;
+					if (++count == 30) break;
+
+					if (p.ToBeDestroyed || p.Zone.Type != Zone.PLAY)
+						break;
 				}
 
 				return 0;
