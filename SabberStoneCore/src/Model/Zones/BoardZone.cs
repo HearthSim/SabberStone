@@ -80,7 +80,7 @@ namespace SabberStoneCore.Model.Zones
 		public void Replace(Minion oldEntity, Minion newEntity)
 		{
 			int pos = oldEntity.ZonePosition;
-			Entities[pos] = newEntity;
+			_entities[pos] = newEntity;
 			newEntity.ZonePosition = pos;
 			newEntity[GameTag.ZONE] = (int)Type;
 			newEntity.Zone = this;
@@ -108,7 +108,12 @@ namespace SabberStoneCore.Model.Zones
 			AdjacentAuras.ForEach(a => a.BoardChanged = true);
 		}
 
-		private static void ActivateAura(Minion entity)
+		/// <summary>
+		/// Activates a <see cref="Minion"/>'s <see cref="Trigger"/> and <see cref="Aura"/> and
+		/// applies it's Spell Power increment.
+		/// </summary>
+		/// <param name="entity"></param>
+		public static void ActivateAura(Minion entity)
 		{
 			entity.Power?.Trigger?.Activate(entity);
 			entity.Power?.Aura?.Activate(entity);
@@ -182,8 +187,8 @@ namespace SabberStoneCore.Model.Zones
 			zone._untouchableCount = _untouchableCount;
 			zone._count = _count;
 
-			Minion[] entities = Entities;
-			Minion[] src = zone.Entities;
+			Minion[] entities = _entities;
+			Minion[] src = zone._entities;
 			for (int i = 0; i < _count; ++i)
 			{
 				Minion copy = (Minion)entities[i].Clone(zone.Controller);

@@ -18,14 +18,25 @@ namespace SabberStoneCoreTest
 		/// <returns>The created entity object from the card.</returns>
 		public static IPlayable ProcessCard(this Game game, string cardName, IPlayable target = null, bool asZeroCost = false, int chooseOne = 0, int zonePosition = -1)
 	    {
-			if (target != null && !(target is ICharacter character))
+			var character = target as ICharacter;
+
+			if (target != null && character == null)
 				throw new ArgumentException($"Can't target non-charater entity {target}");
 
-			IPlayable entity = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(cardName));
+			IPlayable entity;
+			try
+			{
+				entity = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(cardName));
+			}
+			catch (NullReferenceException e)
+			{
+				throw new Exception($"There is no card named \"{cardName}\". Please Check Again!");
+			}
+
 		    if (asZeroCost)
 			    entity.Cost = 0;
 		    game.DeathProcessingAndAuraUpdate();
-		    game.Process(PlayCardTask.Any(game.CurrentPlayer, entity, (ICharacter)target, zonePosition, chooseOne));
+		    game.Process(PlayCardTask.Any(game.CurrentPlayer, entity, character, zonePosition, chooseOne));
 			return entity;
 	    }
 
@@ -51,9 +62,17 @@ namespace SabberStoneCoreTest
 		/// </summary>
 		/// <returns>The created entity object from the card.</returns>
 		public static T ProcessCard<T>(this Game game, string cardName, IPlayable target = null, bool asZeroCost = false, int chooseOne = 0, int zonePosition = -1) where T: IPlayable
-	    {
-			IPlayable entity = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(cardName));
-		    if (!(entity is T t))
+		{
+			IPlayable entity;
+			try
+			{
+				entity = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(cardName));
+			}
+			catch (NullReferenceException e)
+			{
+				throw new Exception($"There is no card named \"{cardName}\". Please Check Again!");
+			}
+			if (!(entity is T t))
 			    throw new ArgumentException($"The given card is not {typeof(T)}");
 			if (target != null && !(target is ICharacter character))
 				throw new ArgumentException($"Can't target non-charater entity {target}");

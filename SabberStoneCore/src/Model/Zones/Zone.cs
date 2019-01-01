@@ -242,27 +242,27 @@ namespace SabberStoneCore.Model.Zones
 	public abstract class LimitedZone<T> : Zone<T> where T: IPlayable
 	{
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		protected T[] Entities;
+		protected readonly T[] _entities;
 		protected int _count;
 
 		protected LimitedZone(int size)
 		{
 			MaxSize = size;
-			Entities = new T[MaxSize];
+			_entities = new T[MaxSize];
 		}
 		protected LimitedZone(Controller c, LimitedZone<T> zone) : base(c)
 		{
 			_count = zone._count;
 			MaxSize = zone.MaxSize;
 			var entities = new T[MaxSize];
-			T[] src = zone.Entities;
+			T[] src = zone._entities;
 			for (int i = 0; i < _count; ++i)
 			{
 				T copy = (T)src[i].Clone(c);
 				copy.Zone = this;
 				entities[i] = copy;
 			}
-			Entities = entities;
+			_entities = entities;
 		}
 
 		/// <summary>
@@ -271,13 +271,13 @@ namespace SabberStoneCore.Model.Zones
 		/// <value>The maximum size.</value>
 		public int MaxSize { get; }
 
-		public override T this[int zonePosition] => zonePosition >= _count ? throw new IndexOutOfRangeException() : Entities[zonePosition];
+		public override T this[int zonePosition] => zonePosition >= _count ? throw new IndexOutOfRangeException() : _entities[zonePosition];
 
 		public override bool IsFull => _count == MaxSize;
 
 		public override int Count => _count;
 
-		public override T Random => _count == 0 ? default : Entities[Util.Random.Next(_count)];
+		public override T Random => _count == 0 ? default : _entities[Util.Random.Next(_count)];
 
 		public int FreeSpace => MaxSize - _count;
 
@@ -304,10 +304,10 @@ namespace SabberStoneCore.Model.Zones
 				throw new ZoneException($"Can't move {entity} to {this}. The Zone is full.");
 
 			if (zonePosition < 0 || zonePosition == c)
-				Entities[c] = entity;
+				_entities[c] = entity;
 			else
 			{
-				T[] entities = Entities;
+				T[] entities = _entities;
 				//for (int i = c - 1; i >= zonePosition; --i)
 				//	entities[i + 1] = entities[i];
 				Array.Copy(entities, zonePosition, entities, zonePosition + 1, c - zonePosition);
@@ -326,7 +326,7 @@ namespace SabberStoneCore.Model.Zones
 			if (entity.Zone == null || entity.Zone.Type != Type)
 				throw new ZoneException("Couldn't remove entity from zone.");
 
-			T[] entities = Entities;
+			T[] entities = _entities;
 			int pos;
 			for (pos = _count - 1; pos >= 0; --pos)
 				if (ReferenceEquals(entities[pos], entity)) break;
@@ -343,7 +343,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public override bool Any(Func<T, bool> predicate)
 		{
-			T[] entities = Entities;
+			T[] entities = _entities;
 			for (int i = 0; i < _count; i++)
 				if (predicate(entities[i]))
 					return true;
@@ -353,7 +353,7 @@ namespace SabberStoneCore.Model.Zones
 		public virtual T[] GetAll()
 		{
 			T[] array = new T[_count];
-			Array.Copy(Entities, array, array.Length);
+			Array.Copy(_entities, array, array.Length);
 			return array;
 		}
 
@@ -361,7 +361,7 @@ namespace SabberStoneCore.Model.Zones
 		{
 			T[] buffer = new T[_count];
 			int i = 0;
-			T[] entities = Entities;
+			T[] entities = _entities;
 			for (int k = 0; k < buffer.Length; ++k)
 			{
 				if (!predicate(entities[k])) continue;
@@ -380,39 +380,39 @@ namespace SabberStoneCore.Model.Zones
 
 		public ReadOnlySpan<T> GetSpan()
 		{
-			var span = new ReadOnlySpan<T>( Entities);
+			var span = new ReadOnlySpan<T>( _entities);
 			return span.Slice(0, _count);
 		}
 
 		internal virtual void CopyTo(Array destination, int index)
 		{
-			Array.Copy(Entities, 0, destination, index, _count);
+			Array.Copy(_entities, 0, destination, index, _count);
 		}
 
 		public void ForEach(Action<T> action)
 		{
-			T[] entities = Entities;
+			T[] entities = _entities;
 			for (int i = 0; i < _count; ++i)
 				action(entities[i]);
 		}
 
 		public void ForEach<T2>(Action<T, T2> action, T2 arg2)
 		{
-			T[] entities = Entities;
+			T[] entities = _entities;
 			for (int i = 0; i < _count; ++i)
 				action(entities[i], arg2);
 		}
 
 		public void ForEach<T2, T3>(Action<T, T2, T3> action, T2 arg2, T3 arg3)
 		{
-			T[] entities = Entities;
+			T[] entities = _entities;
 			for (int i = 0; i < _count; ++i)
 				action(entities[i], arg2, arg3);
 		}
 
 		public override IEnumerator<T> GetEnumerator()
 		{
-			T[] entities = Entities;
+			T[] entities = _entities;
 			for (int i = 0; i < _count; i++)
 				yield return entities[i];
 		}
@@ -433,11 +433,11 @@ namespace SabberStoneCore.Model.Zones
 		{
 			if (zonePosition < 0)
 			{
-				Entities[_count - 1].ZonePosition = _count - 1;
+				_entities[_count - 1].ZonePosition = _count - 1;
 				return;
 			}
 
-			T[] entities = Entities;
+			T[] entities = _entities;
 			for (int i = _count - 1; i >= zonePosition; --i)
 				entities[i].ZonePosition = i;
 		}
@@ -458,7 +458,7 @@ namespace SabberStoneCore.Model.Zones
 				throw new ZoneException("Couldn't remove entity from zone.");
 
 			int pos;
-			T[] entities = Entities;
+			T[] entities = _entities;
 			for (pos = _count - 1; pos >= 0; --pos)
 				if (ReferenceEquals(entities[pos], entity)) break;
 
@@ -491,8 +491,19 @@ namespace SabberStoneCore.Model.Zones
 			int newPos = newEntity.ZonePosition;
 			newEntity.ZonePosition = oldPos;
 			oldEntity.ZonePosition = newPos;
-			Entities[newPos] = oldEntity;
-			Entities[oldPos] = newEntity;
+			_entities[newPos] = oldEntity;
+			_entities[oldPos] = newEntity;
+		}
+
+		/// <summary>
+		/// Replaces an entity in the given position internally. (i.e. not create any history packets)
+		/// </summary>
+		internal void ChangeEntity(T oldEntity, T newEntity)
+		{
+			int pos = oldEntity.ZonePosition;
+			_entities[pos] = newEntity;
+			newEntity.ZonePosition = pos;
+			newEntity.Zone = this;
 		}
 	}
 }

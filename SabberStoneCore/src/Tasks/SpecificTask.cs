@@ -423,12 +423,10 @@ namespace SabberStoneCore.Tasks
 					if (!list.Any())
 						return new List<IPlayable>();
 					int minCost = list.Min(p => p.Cost);
-					list.Where(p => p.Cost == minCost).ToList();
-					return list.Where(p => p.Cost == minCost).ToList();
+					return list.Where(p => p.Cost == minCost).ToArray();
 				}),
 				new RandomTask(1, EntityType.STACK),
-				new CopyTask(EntityType.STACK, 1),
-				new AddStackTo(EntityType.HAND));
+				new CopyTask(EntityType.STACK, Zone.HAND));
 
 		public static ISimpleTask DeathsShadow
 			=> ComplexTask.Create(
@@ -453,7 +451,7 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(EntityType.TARGET, null, true),
 				new FuncPlayablesTask(pList =>
 				{
-					Enchantment e = pList[0] as Enchantment;
+					Enchantment e = (Enchantment) pList[0];
 					IPlayable previous = (IPlayable) e.Target;
 					e.Remove();
 
@@ -690,18 +688,18 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask Shudderwock
 			=> new FuncNumberTask(p =>
 			{
-				IList<Card> playedCards = p.Controller.PlayHistory
+				Game game = p.Game;
+				Controller c = p.Controller;
+
+				IList<Card> playedCards = c.PlayHistory
 					.Select(e => e.SourceCard)
 					.Where(card => card[GameTag.BATTLECRY] == 1 && card.AssetId != 48111)
 					.ToArray()
 					.Shuffle();
 
-				Game game = p.Game;
-
 				int count = 0;
 				foreach (Card card in playedCards)
 				{
-					Controller c = p.Controller;
 					IPlayable entity = Entity.FromCard(c, card); // TODO
 					ICharacter randTarget = null;
 					if (card.RequiresTarget || card.RequiresTargetIfAvailable)

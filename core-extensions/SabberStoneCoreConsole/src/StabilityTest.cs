@@ -147,6 +147,7 @@ namespace SabberStoneCoreConsole
 	    {
 		    Console.WriteLine("Test started");
 
+		    Stack<PlayerTask> history = new Stack<PlayerTask>();
 		    for (int i = 0; i < TESTCOUNT; i++)
 		    {
 			    var config = new GameConfig
@@ -160,16 +161,25 @@ namespace SabberStoneCoreConsole
 				    History = false,
 				    Logging = false,
 			    };
-			    var game = new Game(config);
-			    game.StartGame();
+			    var clone = new Game(config);
+			    clone.StartGame();
 			    do
 			    {
-				    Game clone = game.Clone(true);
+				    //Game clone = game.Clone(true);
 				    List<PlayerTask> options = clone.CurrentPlayer.Options();
+				    List<PlayerTask> optionsImproved = clone.CurrentPlayer.Options_improved();
+
+				    if (options.Count != optionsImproved.Count)
+					    ;
+
 				    PlayerTask option = options[rnd.Next(options.Count)];
+				    history.Push(option);
 				    clone.Process(option);
-					game = clone;
-			    } while (game.State != State.COMPLETE);
+
+					//game = clone;
+			    } while (clone.State != State.COMPLETE);
+
+			    history.Clear();
 
 			    if (i % (TESTCOUNT / 10) == 0)
 				    Console.WriteLine($"{((double)i / TESTCOUNT) * 100}% done");

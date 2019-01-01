@@ -1,5 +1,5 @@
-﻿namespace SabberStoneCore.Tasks.SimpleTasks
-{
+﻿//namespace SabberStoneCore.Tasks.SimpleTasks
+//{
 	//public class ActivateEnchantment : SimpleTask
 	//{
 	//	public ActivateEnchantment(EntityType entityType, PowerActivation activation)
@@ -39,4 +39,4 @@
 	//		return clone;
 	//	}
 	//}
-}
+//}

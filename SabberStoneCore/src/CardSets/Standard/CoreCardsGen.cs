@@ -9,7 +9,7 @@ using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 using static SabberStoneCore.Enchants.Enchants;
-
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -143,7 +143,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("CS2_034", new Power {
-				PowerTask = new DamageTask(1, EntityType.TARGET, false)
+				PowerTask = new DamageTask(1, EntityType.TARGET)
 			});
 
 			// ------------------------------------ HERO_POWER - SHAMAN
@@ -172,7 +172,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_056", new Power {
 				PowerTask = ComplexTask.Create(
-					new DamageTask(2, EntityType.HERO, false),
+					new DamageTask(2, EntityType.HERO),
 					new DrawTask())
 			});
 
@@ -198,7 +198,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_101", new Power {
-				PowerTask = new SummonTask("CS2_101t", SummonSide.DEFAULT)
+				PowerTask = new SummonTask("CS2_101t")
 			});
 
 			// ----------------------------------- HERO_POWER - WARRIOR
@@ -224,7 +224,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_OR_ENEMY_HERO = 0
 			// --------------------------------------------------------
 			cards.Add("DS1h_292", new Power {
-				PowerTask = new DamageTask(2, EntityType.OP_HERO, false)
+				PowerTask = new DamageTask(2, EntityType.OP_HERO)
 			});
 		}
 

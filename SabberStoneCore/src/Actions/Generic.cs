@@ -373,6 +373,12 @@ namespace SabberStoneCore.Actions
 
 					if (hand != null)
 						hand.ChangeEntity(p, entity);
+					else if
+						(board != null)
+						board.ChangeEntity((Minion)p, (Minion)entity);
+					else if (p.Zone is DeckZone deck)
+						entity.Zone = deck;
+					
 					c.Game.IdEntityDic[p.Id] = entity;
 					p = entity;
 				}
@@ -396,9 +402,21 @@ namespace SabberStoneCore.Actions
 					p.ChooseOnePlayables[1] = Entity.FromCard(c, Cards.FromId(newCard.Id + "b"), tags, c.SetasideZone);
 				}
 
-				p.Power?.Trigger?.Activate(p, TriggerActivation.HAND);
-				if (p.Power?.Aura is AdaptiveCostEffect e)
-					e.Activate(p);
+				switch (p.Zone.Type)
+				{
+					case Zone.HAND:
+						p.Power?.Trigger?.Activate(p, TriggerActivation.HAND);
+						if (p.Power?.Aura is AdaptiveCostEffect e)
+							e.Activate(p);
+						break;
+					case Zone.DECK:
+						p.Power?.Trigger?.Activate(p, TriggerActivation.DECK);
+						break;
+					case Zone.PLAY:
+						BoardZone.ActivateAura((Minion) p);
+						break;
+				}
+
 
 				// Reapply auras
 				if (hand != null)

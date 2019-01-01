@@ -29,39 +29,39 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			IList<IPlayable> entities =
 				IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 
-			if (game.Splitting && game.Splits.Count == 0)
-			{
-				if (Amount == 1)
-				{
-					//entities.ForEach(p =>
-					foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target,
-						stack?.Playables))
-					{
-						//game.Dump("SplitTask", $"{sets.IndexOf(p)}: {string.Join(";", p)}");
-						stack.Playables = new List<IPlayable> {p};
-						State = TaskState.COMPLETE;
-						Game clone = game.Clone();
-						game.Splits.Add(clone);
-					}
-				}
-				else
-				{
-					List<IEnumerable<IPlayable>> sets = Util.GetPowerSet(entities.ToList())
-						.Where(plist => plist.Count() == Amount).ToList();
-					foreach (IEnumerable<IPlayable> plist in sets)
-					{
-						game.Dump("SplitTask", $"{sets.IndexOf(plist)}: {String.Join(";", plist)}");
-						stack.Playables = plist.ToList();
-						State = TaskState.COMPLETE;
-						Game clone = game.Clone();
-						game.Splits.Add(clone);
-					}
-				}
+			//if (game.Splitting && game.Splits.Count == 0)
+			//{
+			//	if (Amount == 1)
+			//	{
+			//		//entities.ForEach(p =>
+			//		foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target,
+			//			stack?.Playables))
+			//		{
+			//			//game.Dump("SplitTask", $"{sets.IndexOf(p)}: {string.Join(";", p)}");
+			//			stack.Playables = new List<IPlayable> {p};
+			//			State = TaskState.COMPLETE;
+			//			Game clone = game.Clone();
+			//			game.Splits.Add(clone);
+			//		}
+			//	}
+			//	else
+			//	{
+			//		List<IEnumerable<IPlayable>> sets = Util.GetPowerSet(entities.ToList())
+			//			.Where(plist => plist.Count() == Amount).ToList();
+			//		foreach (IEnumerable<IPlayable> plist in sets)
+			//		{
+			//			game.Dump("SplitTask", $"{sets.IndexOf(plist)}: {String.Join(";", plist)}");
+			//			stack.Playables = plist.ToList();
+			//			State = TaskState.COMPLETE;
+			//			Game clone = game.Clone();
+			//			game.Splits.Add(clone);
+			//		}
+			//	}
 
-				//game.TaskQueue.TaskList.Clear();
-				game.TaskQueue.ClearCurrentEvent();
-				return TaskState.STOP;
-			}
+			//	//game.TaskQueue.TaskList.Clear();
+			//	game.TaskQueue.ClearCurrentEvent();
+			//	return TaskState.STOP;
+			//}
 
 
 			//stack.Playables = entities is List<IPlayable> list ? list : entities.ToList();

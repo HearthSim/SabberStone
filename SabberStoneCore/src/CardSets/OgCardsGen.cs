@@ -9,6 +9,7 @@ using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 using static SabberStoneCore.Tasks.SimpleTasks.RitualTask;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
 {
@@ -828,9 +829,8 @@ namespace SabberStoneCore.CardSets
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS_NOSOURCE),
 					new FilterStackTask(SelfCondition.IsMinion),
-					new CopyTask(EntityType.STACK, 1),
-					new AddEnchantmentTask("OG_316k", EntityType.STACK),
-					new SummonStackTask())
+					new CopyTask(EntityType.STACK, Zone.PLAY, addToStack: true),
+					new AddEnchantmentTask("OG_316k", EntityType.STACK))
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -1017,9 +1017,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("OG_291", new Power {
 				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
-					new AddEnchantmentTask("OG_291e", EntityType.STACK),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.TARGET, Zone.HAND, addToStack: true),
+					new AddEnchantmentTask("OG_291e", EntityType.STACK))
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1061,8 +1060,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("OG_073", new Power {
 				PowerTask = ComplexTask.Create(
 					new DrawTask(true),
-					new CopyTask(EntityType.STACK, 2),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.STACK, Zone.HAND, 2))
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1322,7 +1320,7 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_031", new Power {
-				DeathrattleTask = new SummonTask("OG_031a", SummonSide.DEFAULT)
+				DeathrattleTask = new SummonTask("OG_031a")
 			});
 
 		}
@@ -1606,8 +1604,7 @@ namespace SabberStoneCore.CardSets
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
 					new FilterStackTask(SelfCondition.IsDamaged),
-					new CopyTask(EntityType.STACK, 1),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.STACK, Zone.HAND))
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR

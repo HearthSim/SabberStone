@@ -8,7 +8,7 @@ namespace SabberStoneCore.Model.Entities
 	/// A weapon is comparable to a buff, because it gives more/stronger abilities to the
 	/// controller's hero for a limited use.
 	/// </summary>
-	/// <seealso cref="Playable{Weapon}" />
+	/// <seealso cref="Playable" />
 	public partial class Weapon : Playable
 	{
 		/// <summary>Initializes a new instance of the <see cref="Weapon"/> class.</summary>

@@ -8,6 +8,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Adventure
 {
@@ -852,7 +853,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_04p", new Power {
 				// TODO Test: Sculpt Wax_LOOTA_BOSS_04p
 				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
+					new CopyTask(EntityType.TARGET, Zone.PLAY, addToStack: true),
 					new FuncPlayablesTask(list =>
 					{
 						var target = list[0] as ICharacter;
@@ -861,8 +862,7 @@ namespace SabberStoneCore.CardSets.Adventure
 						target.Health = 1;
 						target.AttackDamage = 1;
 						return list;
-					}),
-					new SummonTask())
+					}))
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -877,7 +877,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_05p", new Power {
 				// TODO Test: Unstable Explosion_LOOTA_BOSS_05p
-				PowerTask = ComplexTask.DamageRandomTargets(2, EntityType.ENEMIES, 1, false)
+				PowerTask = ComplexTask.DamageRandomTargets(2, EntityType.ENEMIES, 1)
 
 			});
 
@@ -1007,7 +1007,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				//	TODO: implement EXTRA_DEATHRATTLE Test: Totem of the Dead_LOOTA_BOSS_16p
 				PowerTask = ComplexTask.Create(
 					new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1, true),
-				new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1, false))
+				new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1))
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1024,7 +1024,7 @@ namespace SabberStoneCore.CardSets.Adventure
 				// TODO: Test: Battle Totem_LOOTA_BOSS_17p
 				PowerTask = ComplexTask.Create(
 					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1, true),
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1, false))
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1))
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1340,7 +1340,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_36p", new Power {
 				// TODO Test: Sprouting Spore_LOOTA_BOSS_36p
-				PowerTask = new SummonTask("LOOTA_105", SummonSide.DEFAULT)
+				PowerTask = new SummonTask("LOOTA_105")
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1535,7 +1535,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_49p", new Power {
-				PowerTask = new SummonTask("LOOTA_BOSS_49t", SummonSide.DEFAULT),
+				PowerTask = new SummonTask("LOOTA_BOSS_49t"),
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL

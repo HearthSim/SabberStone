@@ -238,7 +238,7 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public int Count => _count;
-		public bool IsReadOnly { get; }
+		public bool IsReadOnly => false;
 
 		public int this[GameTag key]
 		{

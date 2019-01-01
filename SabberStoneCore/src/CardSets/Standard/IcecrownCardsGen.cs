@@ -9,6 +9,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -1203,8 +1204,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandFull),
 						new FlagTask(false, ComplexTask.Secret(
-							new CopyTask(EntityType.EVENT_SOURCE, 2, true),
-							new AddStackTo(EntityType.HAND))))
+							new CopyTask(EntityType.EVENT_SOURCE, Zone.HAND, 2))))
 				}
 			});
 
@@ -1475,7 +1475,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_244e", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.SOURCE, 1),
+					new CopyTask(EntityType.SOURCE, Zone.PLAY, addToStack: true),
 					new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK),	//	START_WITH_1_HEALTH ?
 					new SummonTask(SummonSide.DEATHRATTLE))	
 			});
@@ -1599,7 +1599,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_215", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.OP_DECK),
-					new CopyTask(EntityType.STACK, 1, false, Zone.DECK))
+					new CopyTask(EntityType.STACK, Zone.DECK))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1611,8 +1611,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_207", new Power {
 				PowerTask = ComplexTask.Create(
 					new RandomTask(3, EntityType.OP_DECK),
-					new CopyTask(EntityType.STACK, 1, true),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.STACK, Zone.HAND))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1646,9 +1645,8 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.DECK),
 					new FilterStackTask(SelfCondition.IsMinion),
 					new RandomTask(1, EntityType.STACK),
-					new CopyTask(EntityType.STACK, 1),
-					new AddEnchantmentTask("ICC_235e", EntityType.STACK),
-					new SummonTask())
+					new CopyTask(EntityType.STACK, Zone.PLAY, addToStack: true),
+					new AddEnchantmentTask("ICC_235e", EntityType.STACK))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -2066,9 +2064,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.FROZEN)
 				{
 					TriggerSource = TriggerSource.ALL_MINIONS_EXCEPT_SELF,
-					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
-						new AddStackTo(EntityType.HAND))
+					SingleTask = new CopyTask(EntityType.TARGET, Zone.HAND)
 				}
 			});
 
@@ -2418,8 +2414,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_091", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
-					new CopyTask(EntityType.STACK, 1),
-					new AddStackTo(EntityType.DECK))
+					new CopyTask(EntityType.STACK, Zone.DECK))
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -2776,8 +2771,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.GRAVEYARD),
 					new FilterStackTask(SelfCondition.IsDeathrattleMinion),
 					new RandomTask(1, EntityType.STACK),
-					new CopyTask(EntityType.STACK, 1),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.STACK, Zone.HAND))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3398,9 +3392,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Deathrattle:</b> Resummon this minion.
 			// --------------------------------------------------------
 			cards.Add("ICC_257e", new Power {
-				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.SOURCE, 1),
-					new SummonTask(SummonSide.DEATHRATTLE))
+				DeathrattleTask = new CopyTask(EntityType.SOURCE, Zone.PLAY)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

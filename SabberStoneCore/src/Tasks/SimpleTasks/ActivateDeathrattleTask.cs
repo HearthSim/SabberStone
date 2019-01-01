@@ -27,7 +27,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						game.TaskQueue.Enqueue(in task, e.Target.Controller, e.Target, e);
 					}
 
-				;
 				if (p.Controller.ControllerAuraEffects[GameTag.EXTRA_DEATHRATTLES] == 1)
 				{
 					p.ActivateTask(PowerActivation.DEATHRATTLE);

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -254,16 +253,6 @@ namespace SabberStoneCore.Model
 						return i;
 				}
 				return -1;
-			}
-
-			private int SearchEmptySlot()
-			{
-				int[] array = _array;
-				for (int i = 0; i < array.Length; i++)
-					if (array[i] == 0)
-						return i;
-
-				throw new Exception();
 			}
 
 			private void Resize()

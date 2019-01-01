@@ -10,6 +10,7 @@ using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -323,8 +324,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.DECK),
 					new FilterStackTask(SelfCondition.IsDeathrattleMinion),
 					new RandomTask(1, EntityType.STACK),
-					new CopyTask(EntityType.STACK, 1, false, Zone.SETASIDE),
-					new MoveToSetaside(EntityType.STACK),
+					new CopyTask(EntityType.STACK, Zone.SETASIDE, addToStack: true),
 					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.STACK),
 					new AddEnchantmentTask("LOOT_520e", EntityType.SOURCE, true))
 			});
@@ -1241,9 +1241,8 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.GRAVEYARD),
 					new FilterStackTask(SelfCondition.IsDeathrattleMinion, SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1)),
 					new RandomTask(2, EntityType.STACK),
-					new CopyTask(EntityType.STACK, 1),
-					new AddEnchantmentTask("LOOT_187e", EntityType.STACK),
-					new SummonStackTask())
+					new CopyTask(EntityType.STACK, Zone.PLAY, addToStack: true),
+					new AddEnchantmentTask("LOOT_187e", EntityType.STACK))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1275,8 +1274,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.OP_DECK),
 					new FilterStackTask(SelfCondition.IsSpell),
 					new RandomTask(1, EntityType.STACK),
-					new CopyTask(EntityType.STACK, 1),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.STACK, Zone.HAND))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1409,9 +1407,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("LOOT_278t3", new Power {
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("LOOT_278t3e", EntityType.TARGET),
-					new CopyTask(EntityType.TARGET, 1),
-					new AddEnchantmentTask("LOOT_278t3e2", EntityType.STACK),
-					new SummonTask())
+					new CopyTask(EntityType.TARGET, Zone.PLAY, addToStack: true),
+					new AddEnchantmentTask("LOOT_278t3e2", EntityType.STACK))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1508,10 +1505,9 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
+						new CopyTask(EntityType.TARGET, Zone.HAND, addToStack: true),
 						new AddEnchantmentTask("LOOT_165e", EntityType.STACK),
-						new AddAuraEffect(new Effect(GameTag.COST, EffectOperator.SET, 1), EntityType.STACK),
-						new AddStackTo(EntityType.HAND))
+						new AddAuraEffect(new Effect(GameTag.COST, EffectOperator.SET, 1), EntityType.STACK))
 				}
 			});
 
@@ -1546,9 +1542,9 @@ namespace SabberStoneCore.CardSets.Standard
 				DeathrattleTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsMinion),
-					new CopyTask(EntityType.STACK, 1),
-					new AddEnchantmentTask("LOOT_412e", EntityType.STACK),
-					new SummonTask())
+					new RandomTask(1, EntityType.STACK),
+					new CopyTask(EntityType.STACK, Zone.PLAY, addToStack: true),
+					new AddEnchantmentTask("LOOT_412e", EntityType.STACK))
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -3204,8 +3200,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.GRAVEYARD),
 					new FilterStackTask(SelfCondition.IsWeapon, SelfCondition.IsDead),
 					new RandomTask(1, EntityType.STACK),
-					new CopyTask(EntityType.STACK, 1),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.STACK, Zone.HAND))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3274,9 +3269,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("LOOT_516", new Power {
 				// TODO Test: Zola the Gorgon_LOOT_516
 				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
-					new SetGameTagTask(GameTag.PREMIUM, 1, EntityType.STACK),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.TARGET, Zone.HAND, addToStack: true),
+					new SetGameTagTask(GameTag.PREMIUM, 1, EntityType.STACK))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3505,8 +3499,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.TARGET),
 					new FuncPlayablesTask(p =>
 						new List<IPlayable> {p[0].Game.IdEntityDic[p[0][GameTag.TAG_SCRIPT_DATA_NUM_1]]}),
-					new CopyTask(EntityType.STACK, 2),
-					new SummonStackTask())
+					new CopyTask(EntityType.STACK, Zone.PLAY, 2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3929,10 +3922,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_998j", new Power {
-				PowerTask = new DiscoverTask(DiscoverType.LEGENDARY_MINIONS, ComplexTask.Create(
-					new IncludeTask(EntityType.TARGET),
-					new CopyTask(EntityType.STACK, 1),
-					new SummonStackTask()))
+				PowerTask = new DiscoverTask(DiscoverType.LEGENDARY_MINIONS, 
+					new CopyTask(EntityType.TARGET, Zone.PLAY))
 			});
 
 			// ---------------------------------------- SPELL - NEUTRAL

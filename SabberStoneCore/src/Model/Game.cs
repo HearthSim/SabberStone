@@ -5,7 +5,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
-using SabberStoneCore.Splits;
+//using SabberStoneCore.Splits;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
 using System;
@@ -103,20 +103,20 @@ namespace SabberStoneCore.Model
 		/// <value>The index of the next clone.</value>
 		public int NextCloneIndex { get; set; } = 1;
 
-		/// <summary>
-		/// Gets or sets the list of splitted (and fully resolved) games, derived from this game.
-		/// The values hold the derived game instances and split meta information.
-		/// </summary>
-		/// <value><see cref="SplitNode"/></value>
-		public List<SplitNode> FinalSplits { get; set; }
+		///// <summary>
+		///// Gets or sets the list of splitted (and fully resolved) games, derived from this game.
+		///// The values hold the derived game instances and split meta information.
+		///// </summary>
+		///// <value><see cref="SplitNode"/></value>
+		//public List<SplitNode> FinalSplits { get; set; }
 
-		/// <summary>
-		/// Gets or sets the list of splitted, but unresolved, game instances.
-		/// These instances are derived from the current game instance but their TaskQueue
-		/// still needs to process.
-		/// </summary>
-		/// <value><see cref="Game"/></value>
-		public List<Game> Splits { get; set; } = new List<Game>();
+		///// <summary>
+		///// Gets or sets the list of splitted, but unresolved, game instances.
+		///// These instances are derived from the current game instance but their TaskQueue
+		///// still needs to process.
+		///// </summary>
+		///// <value><see cref="Game"/></value>
+		//public List<Game> Splits { get; set; } = new List<Game>();
 
 		/// <summary>
 		/// Occurs when a TAG on an entity, which is hooked onto this game, changes.
@@ -164,12 +164,12 @@ namespace SabberStoneCore.Model
 		/// <value><see cref="FormatType"/></value>
 		public FormatType FormatType => _gameConfig.FormatType;
 
-		/// <summary>Gets a value indicating whether this <see cref="Game"/> is intended to split.
-		/// When TRUE, the game WILL SPLIT ITSELF when <see cref="Splits"/> contains games derived
-		/// from this one with different random outcomes.
-		/// </summary>
-		/// <value><c>true</c> if splitting is intended; otherwise, <c>false</c>.</value>
-		public bool Splitting => _gameConfig.Splitting;
+		///// <summary>Gets a value indicating whether this <see cref="Game"/> is intended to split.
+		///// When TRUE, the game WILL SPLIT ITSELF when <see cref="Splits"/> contains games derived
+		///// from this one with different random outcomes.
+		///// </summary>
+		///// <value><c>true</c> if splitting is intended; otherwise, <c>false</c>.</value>
+		//public bool Splitting => _gameConfig.Splitting;
 
 		/// <summary>Gets a value indicating whether this <see cref="Game"/> records debug logs.
 		/// When TRUE, detailed information each process step will be saved in <see cref="Logs"/>
@@ -429,8 +429,8 @@ namespace SabberStoneCore.Model
 		/// <param name="gameTask">The game task to execute.</param>
 		public void Process(PlayerTask gameTask)
 		{
-			// start with no splits ...
-			Splits = new List<Game>();
+			//// start with no splits ...
+			//Splits = new List<Game>();
 
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : gameTask.FullPrint());
 
@@ -502,18 +502,18 @@ namespace SabberStoneCore.Model
 			//				PowerHistory.Add(PowerHistoryBuilder.TagChange(c.Id, t, c[t])))));
 			//}
 
-			if (Splitting)
-			{
-				List<SplitNode> finalSplits = SplitNode.GetSolutions(this, 10, 10000);
-				Dump("Split", $"found {finalSplits.Count} final splits of {finalSplits.Sum(p => p.SameState)}!");
-				finalSplits.GroupBy(p => p.SameState)
-					.Select(i => new { Word = i.Key, Count = i.Count() })
-					.ToList().ForEach(p => Dump("Split", $" {p.Count},  with {p.Word} same states"));
-				Dump("Split", $"Finalsplits ordered by probability:");
-				finalSplits.OrderByDescending(p => p.Probability).ToList()
-					.ForEach(p => Dump("Split", $"{finalSplits.IndexOf(p)}. {p.Probability.ToString("0.00%")} "));
-				FinalSplits = finalSplits;
-			}
+			//if (Splitting)
+			//{
+			//	List<SplitNode> finalSplits = SplitNode.GetSolutions(this, 10, 10000);
+			//	Dump("Split", $"found {finalSplits.Count} final splits of {finalSplits.Sum(p => p.SameState)}!");
+			//	finalSplits.GroupBy(p => p.SameState)
+			//		.Select(i => new { Word = i.Key, Count = i.Count() })
+			//		.ToList().ForEach(p => Dump("Split", $" {p.Count},  with {p.Word} same states"));
+			//	Dump("Split", $"Finalsplits ordered by probability:");
+			//	finalSplits.OrderByDescending(p => p.Probability).ToList()
+			//		.ForEach(p => Dump("Split", $"{finalSplits.IndexOf(p)}. {p.Probability.ToString("0.00%")} "));
+			//	FinalSplits = finalSplits;
+			//}
 		}
 
 		#region STATE_MACHINE

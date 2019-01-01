@@ -6,7 +6,7 @@ namespace SabberStoneCore.Model.Entities
 	/// <summary>
 	/// Entity representing the special ability for a hero.
 	/// </summary>
-	/// <seealso cref="Playable{HeroPower}" />
+	/// <seealso cref="Playable" />
 	public class HeroPower : Playable
 	{
 		/// <summary>Initializes a new instance of the <see cref="HeroPower"/> class.</summary>

@@ -1,19 +1,31 @@
 ﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using SabberStoneCore.Enchants;
 
 namespace SabberStoneCore.Actions
 {
 	public partial class Generic
 	{
-		public static IPlayable Copy(in Controller controller, in IPlayable source, in Zone targetZone)
+		public static IPlayable Copy(in Controller controller, in IEntity creator, in IPlayable source, Zone targetZone)
 		{
+			// Determine whether enchantments should be also copied.
+			// Whenever a card moves forward in that flow (Deck -> Hand, Hand -> Play, Deck -> Play),
+			// it retains enchantments. If a card moves backwards in zones
+			// (Play -> Hand, Hand -> Deck, Play -> Deck, Play/Hand/Deck -> Graveyard and
+			// Graveyard -> Play/Hand/Deck), it loses enchantments.
+			// https://playhearthstone.com/en-gb/blog/21965466
 			bool copyEnchantments;
-			Zone sourceZone = source.Zone.Type;
-			if (sourceZone == targetZone)
+
+			Zone sourceZone = source.Zone?.Type ?? Zone.PLAY;
+
+
+			if (sourceZone == Zone.GRAVEYARD)
+				copyEnchantments = false;
+			else if (sourceZone == targetZone)
 				copyEnchantments = true;
+			else if (targetZone == Zone.SETASIDE)
+				copyEnchantments = false;
 			else if (targetZone == Zone.PLAY)
 				copyEnchantments = true;
 			else if (sourceZone == Zone.DECK)
@@ -23,18 +35,21 @@ namespace SabberStoneCore.Actions
 			else
 				copyEnchantments = false;
 
-			var tags = new EntityData()
-			{
-				[GameTag.DISPLAYED_CREATOR] = source.Id
-			};
-
-			IPlayable copiedEntity = Entity.FromCard(in controller, source.Card);
-
-			if (copiedEntity is Character c)
-				((Character)source).CopyInternalAttributes(in c);
+			IPlayable copiedEntity;
 
 			if (copyEnchantments)
 			{
+				var tags = new EntityData()
+				{
+					[GameTag.DISPLAYED_CREATOR] = creator.Id
+				};
+
+				copiedEntity = Entity.FromCard(in controller, source.Card, tags);
+
+				if (copiedEntity is Character c)
+					((Character)source).CopyInternalAttributes(in c);
+
+
 				if (source.AppliedEnchantments != null)
 				{
 					foreach (Enchantment e in source.AppliedEnchantments)
@@ -61,14 +76,50 @@ namespace SabberStoneCore.Actions
 						case GameTag.ZONE:
 						case GameTag.ZONE_POSITION:
 						case GameTag.CREATOR:
-						case GameTag.PREMIUM:
+						case GameTag.DISPLAYED_CREATOR:
 						case GameTag.EXHAUSTED:
 							continue;
+						case GameTag.COST:
+							copiedEntity.AuraEffects.ToBeUpdated = true;
+							goto default;
 						default:
 							tags.Add(kvps[i]);
 							break;
 					}
 				}
+
+				if (source.OngoingEffect != null && copiedEntity.OngoingEffect == null)
+					source.OngoingEffect.Clone(copiedEntity);
+
+				List<(int entityId, IEffect effect)> oneTurnEffects = controller.Game.OneTurnEffects;
+				for (int i = oneTurnEffects.Count - 1; i >= 0; i--)
+				{
+					(int id, IEffect effect) = oneTurnEffects[i];
+					if (id == source.Id)
+						oneTurnEffects.Add((copiedEntity.Id, effect));
+				}
+			}
+			else
+			{
+				copiedEntity = Entity.FromCard(in controller, source.Card);
+				copiedEntity.NativeTags.Add(GameTag.DISPLAYED_CREATOR, creator.Id);
+			}
+
+			switch (targetZone)
+			{
+				case Zone.HAND:
+					Generic.AddHandPhase.Invoke(controller, copiedEntity);
+					break;
+				case Zone.DECK:
+					Generic.ShuffleIntoDeck.Invoke(controller, creator, copiedEntity);
+					break;
+				case Zone.PLAY:
+					Generic.SummonBlock.Invoke(controller.Game, (Minion) copiedEntity,
+						creator is Enchantment e && e.Power?.DeathrattleTask != null ? e.Target[GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD] : -1);
+					break;
+				case Zone.SETASIDE:
+					controller.SetasideZone.Add(copiedEntity);
+					break;
 			}
 
 			return copiedEntity;

@@ -7,6 +7,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 using Generic = SabberStoneCore.Actions.Generic;
 using SabberStoneCore.Model.Entities;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCoreTest.CardSets
 {

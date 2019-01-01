@@ -16,7 +16,7 @@ namespace SabberStoneCoreTest.Basic
 	/// </summary>
 	public class UpdatedMechanics
 	{
-		[Fact(Skip = "not yet implemented")]
+		[Fact]
 		public static void CopyEnchantment1()
 		{
 			var game = new Game(new GameConfig
@@ -28,6 +28,10 @@ namespace SabberStoneCoreTest.Basic
 
 			// Cards that are resurrected currently do not and will continue not to retain any enchantments,
 			// unless specifically stated otherwise.
+			// => Implemented already
+
+			// If you copy a card from play to play,
+			// the copy retains enchantments. (eg. Molten Reflection)
 			// => Implemented already
 
 			// If you copy a card from a deck to a deck,
@@ -60,32 +64,116 @@ namespace SabberStoneCoreTest.Basic
 		{
 			var game = new Game(new GameConfig
 			{
+				StartPlayer = 1,
+				FillDecks = false,
+				Shuffle = false,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Mind Control"),
+					Cards.FromName("Obsidian Statue")
+				}
+			});
+			game.StartGame();
+
+			// If you copy a card from a hand to a hand, the copy retains enchantments. (eg. Mind Vision)
+			Spell testSubject = (Spell)game.CurrentPlayer.HandZone[0];
+			Minion testSubject2 = (Minion) game.CurrentPlayer.HandZone[1];
+			int cardCost = testSubject.Card.Cost;
+			// Should not copy effects from Auras
+			game.ProcessCard("Radiant Elemental", asZeroCost: true);
+			Assert.Equal(cardCost - 1, testSubject.Cost);
+			game.ProcessCard("Deathaxe Punisher", asZeroCost: true);
+			Assert.Equal(testSubject2.Card.ATK + 2, testSubject2.AttackDamage);
+			Assert.Equal(testSubject2.Card.Health + 2, testSubject2.Health);
+			game.ProcessCard("Emperor Thaurissan", asZeroCost: true);
+			game.EndTurn();
+
+			Assert.Equal(cardCost - 2, testSubject.Cost);
+			Assert.Equal(testSubject2.Card.Cost - 1, testSubject2.Cost);
+
+			for (int i = 0; i < 5; i++)
+			{
+				game.ProcessCard("Mind Vision", asZeroCost: true);
+				IPlayable copied = game.CurrentPlayer.HandZone.Last();
+				Assert.Equal(copied.Card.Cost - 1, copied.Cost);
+				if (copied is Minion m)
+				{
+					Assert.Equal(m.Card.ATK + 2, m.AttackDamage);
+					Assert.Equal(m.Card.Health + 2, m.Health);
+				}
+			}
+
+			// TODO: Haven't found a real case to test this yet.
+			// If you copy a card from hand to play, the copy retains enchantments. (eg. Kobold Illusionist)
+		}
+
+		[Fact]
+		public static void CopyEnchantment3()
+		{
+			var game = new Game(new GameConfig
+			{
 				FillDecks = true,
 				FillDecksPredictably = true,
 			});
 			game.StartGame();
 
-			// If you copy a card from a hand to a hand, the copy retains enchantments. (eg. Mind Vision)
-
-			// If you copy a card from play to play,
-			// the copy retains enchantments. (eg. Molten Reflection)
-			// => Implemented already
+			for (int i = game.CurrentPlayer.DeckZone.Count - 1; i >= 0; i--)
+				if (game.CurrentPlayer.DeckZone[i].Card.Type != CardType.MINION)
+					game.CurrentPlayer.DeckZone.Remove(game.CurrentPlayer.DeckZone[i]);
 
 			// If you copy a card from a deck to a hand, the copy retains enchantments. (eg. Thoughtsteal)
+			game.ProcessCard("Luna's Pocket Galaxy", asZeroCost: true);
+			game.ProcessCard("Prince Keleseth", asZeroCost: true);
+
+			Minion[] minions = game.CurrentPlayer.DeckZone
+				.Where(p => p.Card.Type == CardType.MINION)
+				.Cast<Minion>()
+				.ToArray();
+
+			for (int i = 0; i < minions.Length; i++)
+			{
+				Assert.Equal(1, minions[i].Cost);
+				Assert.Equal(minions[i].Card.ATK + 1, minions[i].AttackDamage);
+				Assert.Equal(minions[i].Card.Health + 1, minions[i].Health);
+			}
+
+			game.EndTurn();
+
+			game.ProcessCard("Thoughtsteal", asZeroCost: true);
+
+			for (int i = 1; i < 3; i++)
+			{
+				IPlayable copied = game.CurrentPlayer.HandZone[game.CurrentPlayer.HandZone.Count - i];
+				if (copied.AuraEffects.AdaptiveCostEffect != null)
+					Assert.Equal(1, copied.Cost);
+
+				if (copied is Minion m)
+				{
+					Assert.Equal(m.Card.ATK + 1, m.AttackDamage);
+					Assert.Equal(m.Card.Health + 1, m.Health);
+				}
+			}
 
 			// If you copy a card from a deck to play, the copy retains enchantments. (eg. Mindgames)
-
-			// If you copy a card from hand to play, the copy retains enchantments. (eg. Kobold Illusionist)
+			if (minions.Length > 0)
+			{
+				game.ProcessCard("Mindgames", asZeroCost: true);
+				Minion m = game.CurrentPlayer.BoardZone[0];
+				Assert.Equal(m.Card.ATK + 1, m.AttackDamage);
+				Assert.Equal(m.Card.Health + 1, m.Health);
+			}
 		}
 
-		[Fact]
+		[Fact(Skip ="Not implemented.")]
 		public static void Transform()
 		{
 			// Shifter Zerus, Molten Blade, and Shifting Scroll
 			// all transform in your hand at the start of every turn.
 			// Following the 12.0 update, they will no longer keep any enchantments when they transform.
 			// This includes things like hand buffs and Emperor Thaurissan mana-cost discounts.
+			// => Implemented
 
+			// TODO:
 			// The impact on Voodoo Doll is a little different with the update.
 			// If you transform the minion that’s already been cursed by Voodoo Doll,
 			// the curse will be broken, and the transformed (and formerly cursed) minion

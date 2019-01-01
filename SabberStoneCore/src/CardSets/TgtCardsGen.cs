@@ -2,6 +2,7 @@
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
 {
@@ -49,7 +50,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_OR_ENEMY_HERO = 0
 			// --------------------------------------------------------
 			cards.Add("AT_132_HUNTER", new Power {
-				PowerTask = new DamageTask(3, EntityType.OP_HERO, false)
+				PowerTask = new DamageTask(3, EntityType.OP_HERO)
 			});
 
 			// -------------------------------------- HERO_POWER - MAGE
@@ -63,7 +64,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("AT_132_MAGE", new Power {
-				PowerTask = new DamageTask(2, EntityType.TARGET, false)
+				PowerTask = new DamageTask(2, EntityType.TARGET)
 			});
 
 			// ----------------------------------- HERO_POWER - PALADIN

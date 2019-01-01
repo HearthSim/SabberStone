@@ -82,8 +82,7 @@ namespace SabberStoneCore.CardSets
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandFull),
 						new FlagTask(false, ComplexTask.Secret(
-							new CopyTask(EntityType.TARGET, 2),
-							new AddStackTo(EntityType.HAND))))
+							new CopyTask(EntityType.TARGET, Zone.HAND, 2))))
 				}
 			});
 
@@ -197,8 +196,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("FP1_025", new Power {
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET, true),
-					new CopyTask(EntityType.TARGET, 1),
-					new SummonTask())
+					new CopyTask(EntityType.TARGET, Zone.PLAY))
 			});
 
 		}

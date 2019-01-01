@@ -97,8 +97,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			switch (cardsToDiscover.Length)
 			{
 				case 1:
-					if (_numberOfChoices >= cardsToDiscover[0].Length)
-						result = cardsToDiscover[0];
+					Card[] distinct = cardsToDiscover[0].Distinct().ToArray();
+					if (_numberOfChoices >= distinct.Length)
+						result = distinct;
 					else
 					{
 						rnd = Util.Random;
@@ -582,7 +583,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private Card[][] GetClassCard(in FormatType formatType, CardClass heroClass,
 			in Func<IEnumerable<Card>, IEnumerable<Card>> filter)
 		{
-			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(formatType);
+			Dictionary<CardClass, IReadOnlyList<Card>> cardSet = Cards.FormatTypeClassCards(formatType);
 			IEnumerable<Card> classCards =
 				filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.IsQuest));
 			return new[] {classCards.ToArray()};
@@ -590,7 +591,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		private Card[][] GetTriClass(in FormatType formatType, CardClass class1, CardClass class2, CardClass class3)
 		{
-			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(formatType);
+			Dictionary<CardClass, IReadOnlyList<Card>> cardSet = Cards.FormatTypeClassCards(formatType);
 			return new[]
 			{
 				cardSet[class1].Where(p => (p.Class == class1 || p.MultiClassGroup != 0) && !p.IsQuest).ToArray(),
@@ -602,7 +603,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private Card[][] GetFilter(in FormatType formatType, in Controller controller,
 			in Func<IEnumerable<Card>, IEnumerable<Card>> filter)
 		{
-			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.FormatTypeClassCards(formatType);
+			Dictionary<CardClass, IReadOnlyList<Card>> cardSet = Cards.FormatTypeClassCards(formatType);
 			CardClass heroClass = controller.BaseClass != CardClass.NEUTRAL
 				? controller.BaseClass
 				: Util.RandomElement(Cards.HeroClasses);

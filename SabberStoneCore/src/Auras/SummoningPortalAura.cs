@@ -1,8 +1,5 @@
-﻿using System;
-using SabberStoneCore.Enchants;
-using SabberStoneCore.Enums;
+﻿using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Auras
 {
@@ -76,7 +73,7 @@ namespace SabberStoneCore.Auras
 
 			int cardValue = playable.Card.Cost;
 			int cost = cardValue > 2 ? cardValue - 2 : 1;
-			if (playable.NativeTags.TryGetValue(Enums.GameTag.COST, out int tagValue))
+			if (playable.NativeTags.TryGetValue(GameTag.COST, out int tagValue))
 			{
 				cost = cost - cardValue + tagValue;
 				if (cost < 0)

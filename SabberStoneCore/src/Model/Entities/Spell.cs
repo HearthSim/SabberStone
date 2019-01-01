@@ -6,7 +6,7 @@ namespace SabberStoneCore.Model.Entities
 	/// <summary>
 	/// Entity which produces a single effect when played.
 	/// </summary>
-	/// <seealso cref="Playable{Spell}" />
+	/// <seealso cref="Playable" />
 	public partial class Spell : Playable
 	{
 		/// <summary>Initializes a new instance of the <see cref="Spell"/> class.</summary>

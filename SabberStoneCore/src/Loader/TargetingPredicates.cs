@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Loader
@@ -41,6 +38,8 @@ namespace SabberStoneCore.Loader
 			= t => t.HasStealth;
 		public static readonly TargetingPredicate ReqTargetWithDeathrattle
 			= t => t.IsDeathrattle;
+		public static readonly TargetingPredicate ReqLegendaryTarget
+			= t => t.Card.Rarity == Rarity.LEGENDARY;
 
 		public static TargetingPredicate ReqTargetWithRace(int race)
 		{
@@ -148,7 +147,7 @@ namespace SabberStoneCore.Loader
 		{
 			if (value == 1)
 				return ReqMin1TotalMinion;
-			return c => c.BoardZone.FreeSpace >= value;
+			return c => c.BoardZone.Count + c.Opponent.BoardZone.Count >= value;
 		}
 
 		public static AvailabilityPredicate ReqEntireEntourageNotInPlay(int assetId)

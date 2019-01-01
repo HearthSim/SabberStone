@@ -41,10 +41,10 @@ namespace SabberStoneCore.Enchants
 		/// <summary> 
 		/// This option is only meaningful when this the type of this trigger is <see cref="TriggerType.TURN_END"/> or <see cref="TriggerType.TURN_START"/>.
 		/// </summary>
-		/// <value>	<see cref="true"/> means the effect can be triggered at both player's turn.</value>
+		/// <value>	true means the effect can be triggered at both player's turn.</value>
 		public bool EitherTurn;
 	    public bool FastExecution;
-		/// <value> <see cref="true"/> means this trigger will be immediately disposed after triggered.</value>
+		/// <value> true means this trigger will be immediately disposed after triggered.</value>
 	    public bool RemoveAfterTriggered;
 
 	    public Trigger(TriggerType type)
@@ -101,9 +101,9 @@ namespace SabberStoneCore.Enchants
 		/// <summary>
 		/// Create a new instance of <see cref="Trigger"/> object in source's Game. During activation, the instance's <see cref="Process(IEntity)"/> subscribes to the events in <see cref="Game.GamesEventManager"/>.
 		/// </summary>
-		public virtual Trigger Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY, bool cloning = false)
+		public virtual Trigger Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY, bool cloning = false, bool asAncillary = false)
 		{
-			if (source.ActivatedTrigger != null && !IsAncillaryTrigger)
+			if (source.ActivatedTrigger != null && !IsAncillaryTrigger && !asAncillary)
 				throw new Exceptions.EntityException($"{source} already has an activated trigger.");
 
 			if (!cloning && activation != TriggerActivation)
@@ -117,7 +117,9 @@ namespace SabberStoneCore.Enchants
 
 			var instance = new Trigger(this, source);
 
-			if (!IsAncillaryTrigger)
+			if (asAncillary)
+				instance.IsAncillaryTrigger = true;
+			else if (!IsAncillaryTrigger)
 				source.ActivatedTrigger = instance;
 
 			if (_sequenceType != SequenceType.None)
@@ -268,7 +270,7 @@ namespace SabberStoneCore.Enchants
 
 		    ProcessInternal(source);
 
-			if (_triggerType == TriggerType.TURN_END && _owner.Controller.ExtraEndTurnEffect)
+			if (_triggerType == TriggerType.TURN_END && _owner.Controller.ExtraEndTurnEffect && !_removed)
 				ProcessInternal(source);
 		}
 
@@ -281,6 +283,10 @@ namespace SabberStoneCore.Enchants
 
 		    if (RemoveAfterTriggered)
 			    Remove();
+
+		    if (_owner.ToBeDestroyed && _triggerType != TriggerType.TAKE_DAMAGE &&
+		        _triggerType != TriggerType.AFTER_ATTACK && Game.DeadMinions.Count == 0)
+			    ;
 
 
 			// Enqueue tasks

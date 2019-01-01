@@ -81,7 +81,7 @@ namespace SabberStoneCoreAi.Nodes
 
 		public void Options(ref Dictionary<string, OptionNode> optionNodes)
 		{
-			List<PlayerTask> options = _game.ControllerById(_playerId).Options(!_isOpponentTurn);
+			List<PlayerTask> options = _game.ControllerById(_playerId).Options(/*!_isOpponentTurn*/);
 
 			foreach (PlayerTask option in options)
 			{

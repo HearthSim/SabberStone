@@ -8,6 +8,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -670,8 +671,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandFull),
 						new FlagTask(false, ComplexTask.Secret(
-						new CopyTask(EntityType.TARGET, 1, true),
-						new AddStackTo(EntityType.HAND),
+						new CopyTask(EntityType.TARGET, Zone.HAND, addToStack: true),
 						new AddAuraEffect(new Effect(GameTag.COST, EffectOperator.SET, 0), EntityType.STACK))))
 				}
 			});
@@ -1086,9 +1086,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_022", new Power {
 				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
-					new AddEnchantmentTask("UNG_022e", EntityType.STACK),
-					new SummonTask())
+					new CopyTask(EntityType.TARGET, Zone.PLAY, addToStack: true),
+					new AddEnchantmentTask("UNG_022e", EntityType.STACK))
 
 			});
 
@@ -1383,8 +1382,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("UNG_060", new Power {
 				PowerTask = ComplexTask.Create(
 					new DrawTask(true),
-					new CopyTask(EntityType.STACK, 1),
-					new AddStackTo(EntityType.HAND)),
+					new CopyTask(EntityType.STACK, Zone.HAND))
 			});
 
 			// ------------------------------------------ SPELL - ROGUE

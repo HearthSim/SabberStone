@@ -26,7 +26,7 @@ namespace SabberStoneCore.Model.Zones
 		{
 			base.Add(entity, zonePosition);
 
-			if (entity.Power?.Aura is AdaptiveCostEffect e)
+			 if (entity.Power?.Aura is AdaptiveCostEffect e)
 				e.Activate(entity);
 			entity.Power?.Trigger?.Activate(entity, TriggerActivation.HAND);
 
@@ -38,18 +38,6 @@ namespace SabberStoneCore.Model.Zones
 			entity.AuraEffects.ResetCost();
 			entity.AppliedEnchantments?.ForEach(p => p.ActivatedTrigger?.Remove());
 			return base.Remove(entity);
-		}
-
-		/// <summary>
-		/// Replaces an entity in the given position internally. (i.e. not creates any history packets)
-		/// </summary>
-		internal void ChangeEntity(IPlayable oldEntity, IPlayable newEntity)
-		{
-			int pos = oldEntity.ZonePosition;
-			Entities[pos] = newEntity;
-			newEntity.ZonePosition = pos;
-			newEntity.Zone = this;
-			//Auras.ForEach(a => a.EntityAdded(newEntity));
 		}
 
 		public HandZone Clone(Controller c)

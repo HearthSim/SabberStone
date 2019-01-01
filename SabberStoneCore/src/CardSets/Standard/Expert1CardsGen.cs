@@ -7,6 +7,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Standard
 { 
@@ -41,7 +42,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_625t", new Power {
-				PowerTask = new DamageTask(2, EntityType.TARGET, false)
+				PowerTask = new DamageTask(2, EntityType.TARGET)
 			});
 
 			// ------------------------------------ HERO_POWER - PRIEST
@@ -55,7 +56,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("EX1_625t2", new Power {
-				PowerTask = new DamageTask(3, EntityType.TARGET, false)
+				PowerTask = new DamageTask(3, EntityType.TARGET)
 			});
 
 			// ----------------------------------- HERO_POWER - WARLOCK
@@ -69,7 +70,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_tk33", new Power {
-				PowerTask = new SummonTask("EX1_tk34", SummonSide.DEFAULT)
+				PowerTask = new SummonTask("EX1_tk34")
 			});
 
 		}
@@ -344,7 +345,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Deathrattle: Summon a 2/2 Treant.
 			// --------------------------------------------------------
 			cards.Add("EX1_158e", new Power {
-				DeathrattleTask = new SummonTask("EX1_158t", SummonSide.DEFAULT)
+				DeathrattleTask = new SummonTask("EX1_158t")
 			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
@@ -747,7 +748,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Condition = SelfCondition.IsProposedDefender(CardType.HERO),
 					SingleTask = ComplexTask.Create(
-						new IncludeTask(EntityType.ALL, new EntityType[] { EntityType.TARGET, EntityType.HERO }),
+						new IncludeTask(EntityType.ALL, new[] { EntityType.TARGET, EntityType.HERO }),
 						new FilterStackTask(SelfCondition.IsNotDead, SelfCondition.IsNotImmune),
 						new ConditionTask(EntityType.STACK, SelfCondition.IsInZone(Zone.PLAY)),
 						new FlagTask(true, new ConditionTask(EntityType.TARGET, SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotDead)),
@@ -1475,7 +1476,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = ComplexTask.Secret(
-						new CopyTask(EntityType.TARGET, 1),
+						new CopyTask(EntityType.TARGET, Zone.PLAY, addToStack: true),
 						new FuncPlayablesTask(list =>
 						{
 							var target = list[0] as ICharacter;
@@ -1484,8 +1485,7 @@ namespace SabberStoneCore.CardSets.Standard
 							target.Damage = target.Health - 1;
 							target.IsIgnoreDamage = false;
 							return list;
-						}),
-						new SummonTask()),
+						})),
 					RemoveAfterTriggered = true,
 				}
 			});
@@ -1881,8 +1881,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_339", new Power {
 				PowerTask = ComplexTask.Create(
 					new RandomTask(2, EntityType.OP_DECK),
-					new CopyTask(EntityType.STACK, 1, true),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.STACK, Zone.HAND))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1897,12 +1896,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_345", new Power {
+				// TODO: When No minions exist
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.OP_DECK),
 					new FilterStackTask(SelfCondition.IsMinion),
 					new RandomTask(1, EntityType.STACK),
-					new CopyTask(EntityType.STACK, 1),
-					new SummonTask()),
+					new CopyTask(EntityType.STACK, Zone.PLAY)),
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -2591,9 +2590,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Deathrattle:</b> Resummon this minion.
 			// --------------------------------------------------------
 			cards.Add("CS2_038e", new Power {
-				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.SOURCE, 1),
-					new SummonTask(SummonSide.DEATHRATTLE))
+				DeathrattleTask = new CopyTask(EntityType.SOURCE, Zone.PLAY)
 			});
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
@@ -3304,7 +3301,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new IncludeTask(EntityType.TARGET),
 						new FuncPlayablesTask(p =>
 						{
-							var m = p[0] as Minion;
+							var m = (Minion) p[0];
 							if (m.Game.CurrentEventData.EventNumber >= m.Health)
 								m.Game.CurrentEventData.EventNumber = m.Health - 1;
 							return p;
@@ -4059,7 +4056,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_082", new Power {
 				PowerTask =
-					new EnqueueTask(3, ComplexTask.DamageRandomTargets(1, EntityType.ALL_NOSOURCE, 1), false)
+					new EnqueueTask(3, ComplexTask.DamageRandomTargets(1, EntityType.ALL_NOSOURCE, 1))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -4191,8 +4188,9 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
 					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1, true),
-						new AddStackTo(EntityType.HAND))
+						new ConditionTask(EntityType.TARGET, RelaCondition.IsFriendly),
+						new FlagTask(true, new CopyTask(EntityType.TARGET, Zone.HAND, toOpponent: true)),
+						new FlagTask(false, new CopyTask(EntityType.TARGET, Zone.HAND)))
 				}
 			});
 

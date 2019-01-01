@@ -32,7 +32,7 @@ namespace SabberStoneCoreConsole
 
 			Console.WriteLine(Cards.Statistics());
 			//StabilityTest.CloneStabilityTest();
-			//StabilityTest.TestRun();
+			StabilityTest.TestRun();
 			//for (int i = 0; i < 10000; i++)
 			//	StabilityTest.ThreadSafetyTest();
 			//EntityChangeTest();
@@ -932,7 +932,7 @@ namespace SabberStoneCoreConsole
 		public static void KabalCourierDiscover()
 		{
 
-			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.Standard;
+			Dictionary<CardClass, IReadOnlyList<Card>> cardSet = Cards.Standard;
 
 			var mageCards =
 				cardSet[CardClass.MAGE].Where(p => p.Class == CardClass.MAGE || p.MultiClassGroup != 0).ToList();

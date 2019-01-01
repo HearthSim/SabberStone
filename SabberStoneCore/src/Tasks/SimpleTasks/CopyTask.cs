@@ -12,108 +12,106 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	{
 		private readonly EntityType _entityType;
 		private readonly Zone _zoneType;
+		private readonly int _amount;
+		private readonly bool _addToStack;
+		private readonly bool _toOpponent;
 
-		public CopyTask(EntityType type, int amount, bool opposite = false, Zone zoneType = Zone.INVALID)
+		public CopyTask(EntityType type, Zone targetZone, int amount = 1, bool addToStack = false, bool toOpponent = false)
 		{
 			_entityType = type;
-			Amount = amount;
-			Opposite = opposite;
-			_zoneType = zoneType;
+			_amount = amount;
+			_zoneType = targetZone;
+			_addToStack = addToStack;
+			_toOpponent = toOpponent;
 		}
 
-
-		public int Amount { get; set; }
-
-		public bool Opposite { get; set; }
-
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
-			in TaskStack stack)
+			in TaskStack stack = null)
 		{
+			Zone zone = _zoneType;
+			bool addToStack = _addToStack;
+			int amount = _amount;
 
-			var result = new List<IPlayable>(Amount);
-			//IList<IPlayable> entities = IncludeTask.GetEntities(in _entityType, in controller, source, target, stack.Playables);
-			//Controller c = Opposite ? controller.Opponent : controller;
-			//foreach (IPlayable entity in entities)
-			//{
-			//	for (int i = 0; i < Amount; i++)
-			//	{
-			//		IPlayable copiedEntity = Generic.Copy(in c, (IPlayable)source, entity.Zone.Type);
-			//		result.Add(copiedEntity);
-			//	}
-			//}
-			//stack.Playables = 
+			Controller c = _toOpponent ? controller.Opponent : controller;
+			IZone targetZone = c.ControlledZones[zone];
 
+			if (targetZone.IsFull)
+				return TaskState.STOP;
 
-			switch (_entityType)
+			List<IPlayable> result = addToStack ? new List<IPlayable>() : null;
+
+			if (_entityType == EntityType.STACK)
 			{
-				case EntityType.TARGET:
-					var playableTarget = target as IPlayable;
-					if (playableTarget == null) return TaskState.STOP;
+				if (stack?.Playables.Count < 1)
+					return TaskState.STOP;
 
-					for (int i = 0; i < Amount; i++)
-						result.Add(Opposite
-							? Entity.FromCard(playableTarget.Controller.Opponent, Cards.FromId(playableTarget.Card.Id))
-							: Entity.FromCard(controller, Cards.FromId(playableTarget.Card.Id)));
-
-					break;
-				case EntityType.SOURCE:
-					var playableSource = source as IPlayable;
-					if (playableSource == null) return TaskState.STOP;
-
-					for (int i = 0; i < Amount; i++)
-						result.Add(Opposite
-							? Entity.FromCard(playableSource.Controller.Opponent, Cards.FromId(playableSource.Card.Id))
-							: Entity.FromCard(controller, Cards.FromId(playableSource.Card.Id)));
-
-					break;
-				case EntityType.STACK:
-					if (stack?.Playables.Count < 1) return TaskState.STOP;
-
-					IZone zone = Opposite
-						? controller.Opponent.ControlledZones[_zoneType]
-						: controller.ControlledZones[_zoneType];
-					foreach (IPlayable p in stack?.Playables)
+				foreach (IPlayable p in stack.Playables)
+				{
+					for (int i = 0; i < amount; i++)
 					{
-						if (zone?.IsFull ?? false)
-							break;
-						for (int i = 0; i < Amount; i++)
+						IPlayable copied = Generic.Copy(in c, in source, in p, zone);
+						if (addToStack)
+							result.Add(copied);
+
+						if (targetZone.IsFull)
 						{
-							if (zone?.IsFull ?? false)
-								break;
-							// TODO
-							result.Add(Opposite
-								? Entity.FromCard(p.Controller.Opponent, Cards.FromId(p.Card.Id), null, zone)
-								: Entity.FromCard(controller, Cards.FromId(p.Card.Id), null, zone));
+							if (addToStack)
+								stack.Playables = result;
+							return TaskState.COMPLETE;
 						}
 					}
+				}
+			}
+			else
+			{
+				IPlayable toBeCopied;
+				switch (_entityType)
+				{
+					case EntityType.TARGET:
+						toBeCopied = target as IPlayable;
+						break;
+					case EntityType.SOURCE:
+						toBeCopied = source as IPlayable;
+						break;
+					case EntityType.EVENT_SOURCE:
+						toBeCopied = game.CurrentEventData?.EventSource;
+						break;
+					case EntityType.OP_HERO_POWER:
+						toBeCopied = Entity.FromCard(c,
+							Cards.FromId(controller.Opponent.Hero.HeroPower.Card.Id));
+						if (addToStack)
+							result.Add(toBeCopied);
+						return TaskState.COMPLETE;
+					case EntityType.WEAPON:
+						Weapon weapon = controller.Hero.Weapon;
+						if (weapon == null) return TaskState.STOP;
 
-					break;
-				case EntityType.EVENT_SOURCE:
-					IPlayable eSource = game.CurrentEventData?.EventSource;
-					if (eSource == null) return TaskState.STOP;
+						for (int i = 0; i < _amount; i++)
+							result.Add(Entity.FromCard(c, Cards.FromId(weapon.Card.Id)));
+						return TaskState.COMPLETE;
+					default:
+						throw new NotImplementedException();
+				}
 
-					for (int i = 0; i < Amount; i++)
-						result.Add(Opposite
-							? Entity.FromCard(eSource.Controller.Opponent, Cards.FromId(eSource.Card.Id))
-							: Entity.FromCard(controller, Cards.FromId(eSource.Card.Id)));
+				for (int i = 0; i < amount; i++)
+				{
+					IPlayable copied = Generic.Copy(in c, in source, in toBeCopied, zone);
 
-					break;
-				case EntityType.OP_HERO_POWER:
-					result.Add(Entity.FromCard(controller, Cards.FromId(controller.Opponent.Hero.HeroPower.Card.Id)));
-					break;
-				case EntityType.WEAPON:
-					Weapon weapon = controller.Hero.Weapon;
-					if (weapon == null) return TaskState.STOP;
+					if (addToStack)
+						result.Add(copied);
 
-					for (int i = 0; i < Amount; i++)
-						result.Add(Entity.FromCard(controller, Cards.FromId(weapon.Card.Id)));
-
-					break;
-				default:
-					throw new NotImplementedException();
+					if (targetZone.IsFull)
+					{
+						if (addToStack)
+							stack.Playables = result;
+						return TaskState.COMPLETE;
+					}
+				}
 			}
 
-			stack.Playables = result;
+			if (addToStack)
+				stack.Playables = result;
+
 			return TaskState.COMPLETE;
 		}
 	}

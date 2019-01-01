@@ -80,7 +80,6 @@ namespace SabberStoneCore.Model.Entities
 	/// <seealso cref="ICharacter"/>
 	/// <seealso cref="Playable"/>
 	/// </summary>
-	/// <typeparam name="T">Subclass of entity.</typeparam>
 	public abstract partial class Character : Playable, ICharacter
 	{
 		public event TriggerManager.TriggerHandler PreDamageTrigger;
@@ -93,6 +92,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="controller">Owner of the character; not specifically limited to players.</param>
 		/// <param name="card">The card which this character embodies.</param>
 		/// <param name="tags">Properties of this entity.</param>
+		/// <param name="id">Integral id of this entity. </param>
 		protected Character(in Controller controller, in Card card, in IDictionary<GameTag, int> tags, in int id)
 			: base(in controller, in card, in tags, in id)
 		{
@@ -538,7 +538,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Character can't be targeted by heropowers.
 		/// </summary>
-		bool CantBeTargetedByHeroPowers { get; set; }
+		bool CantBeTargetedByHeroPowers { get; }
 
 	}
 
@@ -616,13 +616,11 @@ namespace SabberStoneCore.Model.Entities
 			get => _dmgModifier;
 			set
 			{
-				if (BaseHealth <= value)
-				{
+				// don't allow negative values
+				if (value < 0)
+					value = 0;
+				else if (BaseHealth <= value)
 					ToBeDestroyed = true;
-				}
-
-				//// don't allow negative values
-				//this[GameTag.DAMAGE] = value < 0 ? 0 : value;
 
 				if (_logging)
 					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging ? "" : $"{this} set data {GameTag.DAMAGE} to {value}");
@@ -688,15 +686,17 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool CantBeTargetedByHeroPowers
 		{
-			get
-			{
-				if (!_data.TryGetValue(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS, out int value))
-					value = Card.CantBeTargetedByHeroPowers ? 1 : 0;
-				value += AuraEffects[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS];
+			//get
+			//{
+			//	if (!_data.TryGetValue(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS, out int value))
+			//		value = Card.CantBeTargetedByHeroPowers ? 1 : 0;
+			//	value += AuraEffects[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS];
 
-				return value > 0;
-			}
-			set { this[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] = value ? 1 : 0; }
+			//	return value > 0;
+			//}
+			//set { this[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] = value ? 1 : 0; }
+
+			get => CantBeTargetedBySpells;
 		}
 
 		public int Armor

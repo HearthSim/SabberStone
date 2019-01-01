@@ -78,11 +78,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (aura != null && copy.OngoingEffect == null)
 				aura.Clone(copy);
 
+			List<(int entityId, IEffect effect)> oneTurnEffects = controller.Game.OneTurnEffects;
+			for (int i = oneTurnEffects.Count - 1; i >= 0; i--)
+			{
+				(int id, IEffect effect) = oneTurnEffects[i];
+				if (id == source.Id)
+					oneTurnEffects.Add((copy.Id, effect));
+			}
+
 			if (!minionTarget.HasCharge)
 				copy.IsExhausted = true;
 
 			if (_addToStack)
-				stack.Playables = new List<IPlayable> {copy};
+				stack.Playables = new []{copy};
 
 			return TaskState.COMPLETE;
 		}

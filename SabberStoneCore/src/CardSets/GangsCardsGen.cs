@@ -6,6 +6,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
 {
@@ -365,7 +366,7 @@ namespace SabberStoneCore.CardSets
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.HERO,
-					SingleTask = new SummonTask("CFM_337t", SummonSide.DEFAULT)
+					SingleTask = new SummonTask("CFM_337t")
 				}
 			});
 
@@ -451,9 +452,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_660", new Power
 			{
-				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
-					new AddStackTo(EntityType.DECK))
+				PowerTask = new CopyTask(EntityType.TARGET, Zone.DECK)
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -730,8 +729,7 @@ namespace SabberStoneCore.CardSets
 				{
 					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = ComplexTask.Secret(
-						new CopyTask(EntityType.TARGET, 1),
-						new AddStackTo(EntityType.HAND)),
+						new CopyTask(EntityType.TARGET, Zone.HAND)),
 					RemoveAfterTriggered = true
 				}
 			});

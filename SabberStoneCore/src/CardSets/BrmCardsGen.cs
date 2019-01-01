@@ -212,10 +212,10 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, Power> cards)
-		{
+		//private static void MageNonCollect(IDictionary<string, Power> cards)
+		//{
 
-		}
+		//}
 
 		private static void Paladin(IDictionary<string, Power> cards)
 		{
@@ -297,9 +297,9 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void PriestNonCollect(IDictionary<string, Power> cards)
-		{
-		}
+		//private static void PriestNonCollect(IDictionary<string, Power> cards)
+		//{
+		//}
 
 		private static void Rogue(IDictionary<string, Power> cards)
 		{
@@ -330,9 +330,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BRM_007", new Power {
-				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 3),
-					new AddStackTo(EntityType.DECK))
+				PowerTask = new CopyTask(EntityType.TARGET, Zone.DECK, 3)
 			});
 		}
 
@@ -377,10 +375,10 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void ShamanNonCollect(IDictionary<string, Power> cards)
-		{
+		//private static void ShamanNonCollect(IDictionary<string, Power> cards)
+		//{
 
-		}
+		//}
 
 		private static void Warlock(IDictionary<string, Power> cards)
 		{
@@ -622,9 +620,7 @@ namespace SabberStoneCore.CardSets
 				Trigger = new Trigger(TriggerType.DRAW)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
-					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
-						new AddStackTo(EntityType.HAND))
+					SingleTask = new CopyTask(EntityType.TARGET, Zone.HAND)
 				}
 			});
 
@@ -761,14 +757,14 @@ namespace SabberStoneCore.CardSets
 			Hunter(cards);
 			HunterNonCollect(cards);
 			Mage(cards);
-			MageNonCollect(cards);
+			//MageNonCollect(cards);
 			Paladin(cards);
 			PaladinNonCollect(cards);
 			Priest(cards);
-			PriestNonCollect(cards);
+			//PriestNonCollect(cards);
 			Rogue(cards);
 			Shaman(cards);
-			ShamanNonCollect(cards);
+			//ShamanNonCollect(cards);
 			Warlock(cards);
 			WarlockNonCollect(cards);
 			Warrior(cards);

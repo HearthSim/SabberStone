@@ -231,6 +231,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="tags">The tags preset for the entity.</param>
 		/// <param name="zone">The zone in which the entity must spawn.</param>
 		/// <param name="id">The EntityID to assign to the newly created entity.</param>
+		/// <param name="zonePos">The position to be placed when the entity is summoned to Board.</param>
 		/// <returns></returns>
 		/// <exception cref="EntityException"></exception>
 		public static IPlayable FromCard(in Controller controller, in Card card, IDictionary<GameTag, int> tags = null, in IZone zone = null, in int id = -1, in int zonePos = -1)

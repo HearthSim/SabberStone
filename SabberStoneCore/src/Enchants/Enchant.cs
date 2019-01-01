@@ -132,7 +132,7 @@ namespace SabberStoneCore.Enchants
 		{
 			Clone((IPlayable) entity);
 
-			base.ActivateTo(entity, enchantment);
+			base.ActivateTo(entity, enchantment, num1, num2);
 		}
 
 		public void Update()

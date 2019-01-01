@@ -16,10 +16,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public EntityType Type { get; set; }
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
-			in TaskStack stack)
+			in TaskStack stack = null)
 		{
-
-
 			foreach (IPlayable p in stack.Playables)
 				p[GameTag.DISPLAYED_CREATOR] = source.Id;
 

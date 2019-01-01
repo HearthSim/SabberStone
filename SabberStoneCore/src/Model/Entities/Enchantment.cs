@@ -256,13 +256,13 @@ namespace SabberStoneCore.Model.Entities
 		public Card Card { get; set; }
 		public IZone Zone { get; set; }
 		public IAura OngoingEffect { get; set; }
-		public IEnumerable<ICharacter> ValidPlayTargets { get; }
+		public IEnumerable<ICharacter> ValidPlayTargets => null;
 		public bool ChooseOne { get; set; }
-		public bool IsPlayable { get; }
-		public bool IsPlayableByPlayer { get; }
-		public bool IsPlayableByCardReq { get; }
+		public bool IsPlayable => false;
+		public bool IsPlayableByPlayer => false;
+		public bool IsPlayableByCardReq => false;
 		public bool IsIgnoreDamage { get; set; }
-		public bool Combo { get; }
+		public bool Combo => false;
 		public int Cost { get; set; }
 		public int NumTurnsInPlay { get; set; }
 		public bool ToBeDestroyed { get; set; }
@@ -274,10 +274,10 @@ namespace SabberStoneCore.Model.Entities
 		public int Overload { get; set; }
 		public bool IsDeathrattle { get; set; }
 		public bool IsLifeSteal { get; set; }
-		public bool IsEcho { get; }
+		public bool IsEcho => false;
 		public IPlayable[] ChooseOnePlayables { get; set; }
 		public AuraEffects AuraEffects { get; set; }
-		public IDictionary<GameTag, int> NativeTags { get; }
+		public IDictionary<GameTag, int> NativeTags => _tags;
 		public List<Enchantment> AppliedEnchantments { get; set; }
 		public List<int> Memory { get; set; }
 

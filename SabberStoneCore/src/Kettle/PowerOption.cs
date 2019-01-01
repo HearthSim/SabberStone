@@ -4,7 +4,6 @@ using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
-using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Kettle
 	#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

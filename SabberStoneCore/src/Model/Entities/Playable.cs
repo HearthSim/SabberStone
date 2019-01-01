@@ -13,7 +13,7 @@ namespace SabberStoneCore.Model.Entities
 	/// Interface for an entity which can be played from <see cref="Zone.HAND"/> into
 	/// <see cref="Zone.PLAY"/>, in other words: the entity can be 'played'.
 	/// </summary>
-	/// <seealso cref="ITargeting" />
+	/// <seealso cref="IEntity" />
 	public partial interface IPlayable : IEntity
 	{
 		/// <summary>Gets a value indicating whether this entity is playable. Some entities require specific
@@ -186,9 +186,8 @@ namespace SabberStoneCore.Model.Entities
 	/// <summary>
 	/// Base implementation of the <see cref="IPlayable"/> interface.
 	/// </summary>
-	/// <typeparam name="T">Instance deriving from <see cref="Entity"/></typeparam>
-	/// <seealso cref="Targeting" />
 	/// <seealso cref="IPlayable" />
+	/// <seealso cref="Entity"/>
 	public abstract partial class Playable : Entity, IPlayable
 	{
 		/// <summary>Initializes a new instance of the <see cref="Playable"/> class.</summary>

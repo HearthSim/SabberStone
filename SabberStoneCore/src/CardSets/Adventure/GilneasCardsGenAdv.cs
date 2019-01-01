@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Enchants;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Adventure
 {

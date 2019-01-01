@@ -8,7 +8,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks
 {
-	internal partial class ComplexTask
+	internal static class ComplexTask
 	{
 		public static ISimpleTask Repeat(ISimpleTask task, int times)
 		{
@@ -42,7 +42,7 @@ namespace SabberStoneCore.Tasks
 				{
 					foreach (IPlayable p in playables)
 					{
-						var m = p as Minion;
+						var m = (Minion) p;
 						if (m.NumAttacksThisTurn == 1 && m.IsExhausted)
 							m.IsExhausted = false;
 					}
@@ -67,7 +67,7 @@ namespace SabberStoneCore.Tasks
 				{
 					foreach (IPlayable p in list)
 					{
-						Minion m = p as Minion;
+						var m = (Minion) p;
 						if (m.NumAttacksThisTurn == 0 && m.IsExhausted)
 							m.IsExhausted = false;
 					}
@@ -110,10 +110,13 @@ namespace SabberStoneCore.Tasks
 				new DestroyTask(EntityType.STACK));
 
 		public static ISimpleTask RandomCardCopyToHandFrom(EntityType entityType)
+			//=> Create(
+			//	new RandomTask(1, entityType),
+			//	new CopyTask(EntityType.STACK, 1),
+			//	new AddStackTo(EntityType.HAND));
 			=> Create(
 				new RandomTask(1, entityType),
-				new CopyTask(EntityType.STACK, 1),
-				new AddStackTo(EntityType.HAND));
+				new CopyTask(EntityType.STACK, Zone.HAND));
 
 		public static ISimpleTask IfComboElse(ISimpleTask combo)
 			=> Create(
@@ -205,8 +208,7 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(EntityType.GRAVEYARD),
 				new FilterStackTask(SelfCondition.IsMinion, SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1), selfCondition),
 				new RandomTask(amount, EntityType.STACK),
-				new CopyTask(EntityType.STACK, 1),
-				new SummonTask());
+				new CopyTask(EntityType.STACK, Zone.PLAY));
 		}
 
 		public static ISimpleTask SummonRandomMinion(GameTag tag, int value)

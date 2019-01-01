@@ -38,6 +38,8 @@ namespace SabberStoneCore.Enchants
 		/// Create a new Effect. An Effect is consist of <see cref="GameTag"/>, <see cref="EffectOperator"/>, and <see cref="int"/> value.
 		/// </summary>
 		/// <param name="tag">The <see cref="GameTag"/> to be affected.</param>
+		/// <param name="operator">The operation this effect performs.</param>
+		/// <param name="value">The right operand of the operator.</param>
 		public Effect(GameTag tag, EffectOperator @operator, int value)
 		{
 			Tag = tag;

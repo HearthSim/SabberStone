@@ -247,78 +247,88 @@ namespace SabberStoneCore.Model
 						characterType = -1;
 						break;
 					case PlayReq.REQ_TARGET_WITH_RACE:
-						TargetingPredicate = TargetingPredicates.ReqTargetWithRace(requirement.Value);
+						TargetingPredicate += TargetingPredicates.ReqTargetWithRace(requirement.Value);
 						break;
 					case PlayReq.REQ_FROZEN_TARGET:
-						TargetingPredicate = TargetingPredicates.ReqFrozenTarget;
+						TargetingPredicate += TargetingPredicates.ReqFrozenTarget;
 						break;
 					case PlayReq.REQ_DAMAGED_TARGET:
-						TargetingPredicate = TargetingPredicates.ReqDamagedTarget;
+						TargetingPredicate += TargetingPredicates.ReqDamagedTarget;
 						break;
 					case PlayReq.REQ_UNDAMAGED_TARGET:
-						TargetingPredicate = TargetingPredicates.ReqUndamagedTarget;
+						TargetingPredicate += TargetingPredicates.ReqUndamagedTarget;
 						break;
 					case PlayReq.REQ_TARGET_MAX_ATTACK:
-						TargetingPredicate = TargetingPredicates.ReqTargetMaxAttack(requirement.Value);
+						TargetingPredicate += TargetingPredicates.ReqTargetMaxAttack(requirement.Value);
 						break;
 					case PlayReq.REQ_TARGET_MIN_ATTACK:
-						TargetingPredicate = TargetingPredicates.ReqTargetMinAttack(requirement.Value);
+						TargetingPredicate += TargetingPredicates.ReqTargetMinAttack(requirement.Value);
 						break;
 					case PlayReq.REQ_MUST_TARGET_TAUNTER:
-						TargetingPredicate = TargetingPredicates.ReqMustTargetTaunter;
+						TargetingPredicate += TargetingPredicates.ReqMustTargetTaunter;
 						break;
 					case PlayReq.REQ_STEALTHED_TARGET:
-						TargetingPredicate = TargetingPredicates.ReqStealthedTarget;
+						TargetingPredicate += TargetingPredicates.ReqStealthedTarget;
 						break;
 					case PlayReq.REQ_TARGET_WITH_DEATHRATTLE:
-						TargetingPredicate = TargetingPredicates.ReqTargetWithDeathrattle;
+						TargetingPredicate += TargetingPredicates.ReqTargetWithDeathrattle;
+						break;
+					case PlayReq.REQ_LEGENDARY_TARGET:
+						TargetingPredicate += TargetingPredicates.ReqLegendaryTarget;
 						break;
 					case PlayReq.REQ_TARGET_FOR_COMBO:
-						TargetingAvailabilityPredicate = TargetingPredicates.ReqTargetForCombo;
+						needsTarget = true;
+						TargetingAvailabilityPredicate += TargetingPredicates.ReqTargetForCombo;
 						break;
 					case PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN:
-						TargetingAvailabilityPredicate = TargetingPredicates.ElementalPlayedLastTurn;
+						needsTarget = true;
+						TargetingAvailabilityPredicate += TargetingPredicates.ElementalPlayedLastTurn;
 						break;
 					case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
-						TargetingAvailabilityPredicate = TargetingPredicates.DragonInHand;
+						needsTarget = true;
+						TargetingAvailabilityPredicate += TargetingPredicates.DragonInHand;
 						break;
 					case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:
-						TargetingAvailabilityPredicate = TargetingPredicates.MinimumFriendlyMinions(requirement.Value);
+						needsTarget = true;
+						TargetingAvailabilityPredicate += TargetingPredicates.MinimumFriendlyMinions(requirement.Value);
 						break;
 					case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
-						TargetingAvailabilityPredicate = TargetingPredicates.MinimumFriendlySecrets(requirement.Value);
+						needsTarget = true;
+						TargetingAvailabilityPredicate += TargetingPredicates.MinimumFriendlySecrets(requirement.Value);
 						break;
 					case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_NO_3_COST_CARD_IN_DECK:
+						// TODO
+						TargetingType = TargetingType.AllMinions;
 						break;
 					case PlayReq.REQ_NUM_MINION_SLOTS:
-						PlayAvailabilityPredicate = TargetingPredicates.ReqNumMinionSlots;
+						PlayAvailabilityPredicate += TargetingPredicates.ReqNumMinionSlots;
 						break;
 					case PlayReq.REQ_MINIMUM_ENEMY_MINIONS:
-						PlayAvailabilityPredicate = TargetingPredicates.ReqMinimumEnemyMinions(requirement.Value);
+						PlayAvailabilityPredicate += TargetingPredicates.ReqMinimumEnemyMinions(requirement.Value);
 						break;
 					case PlayReq.REQ_MINIMUM_TOTAL_MINIONS:
-						PlayAvailabilityPredicate = TargetingPredicates.ReqMinimumTotalMinions(requirement.Value);
+						PlayAvailabilityPredicate += TargetingPredicates.ReqMinimumTotalMinions(requirement.Value);
 						break;
 					case PlayReq.REQ_HAND_NOT_FULL:
-						PlayAvailabilityPredicate = TargetingPredicates.ReqHandNotFull;
+						PlayAvailabilityPredicate += TargetingPredicates.ReqHandNotFull;
 						break;
 					case PlayReq.REQ_WEAPON_EQUIPPED:
-						PlayAvailabilityPredicate = TargetingPredicates.ReqWeaponEquipped;
+						PlayAvailabilityPredicate += TargetingPredicates.ReqWeaponEquipped;
 						break;
 					case PlayReq.REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY:
-						PlayAvailabilityPredicate = TargetingPredicates.ReqEntireEntourageNotInPlay(assetId);
+						PlayAvailabilityPredicate += TargetingPredicates.ReqEntireEntourageNotInPlay(assetId);
 						break;
 					case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
-						PlayAvailabilityPredicate = TargetingPredicates.ReqFriendlyMinionDiedThisGame;
+						PlayAvailabilityPredicate += TargetingPredicates.ReqFriendlyMinionDiedThisGame;
 						break;
 					case PlayReq.REQ_MUST_PLAY_OTHER_CARD_FIRST:
-						PlayAvailabilityPredicate = c => false;
+						PlayAvailabilityPredicate += c => false;
 						break;
 					//	REQ_STEADY_SHOT
 					//	REQ_MINION_OR_ENEMY_HERO	//	Steady Shot
 					//	REQ_MINION_SLOT_OR_MANA_CRYSTAL_SLOT	//	Jade Blossom
 					case PlayReq.REQ_SECRET_ZONE_CAP_FOR_NON_SECRET:
-						PlayAvailabilityPredicate = TargetingPredicates.ReqSecretZoneCapForNonSecret;
+						PlayAvailabilityPredicate += TargetingPredicates.ReqSecretZoneCapForNonSecret;
 						break;
 				}
 			}
@@ -554,7 +564,18 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public bool IsPlayableByCardReq(in Controller c)
 		{
-			return PlayAvailabilityPredicate?.Invoke(c) ?? true;
+			//return PlayAvailabilityPredicate?.Invoke(c) ?? true;
+
+			if (PlayAvailabilityPredicate != null)
+			{
+				//if (PlayAvailabilityPredicate.)
+
+				bool flag = true;
+				foreach (Delegate predicate in PlayAvailabilityPredicate.GetInvocationList())
+					flag &= ((AvailabilityPredicate) predicate).Invoke(c);
+				return flag;
+			}
+			return true;
 		}
 
 

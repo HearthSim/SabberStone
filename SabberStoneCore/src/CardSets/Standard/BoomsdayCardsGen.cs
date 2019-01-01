@@ -10,6 +10,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -1427,9 +1428,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_288", new Power {
-				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 3),
-					new AddStackTo(EntityType.DECK))
+				PowerTask = new CopyTask(EntityType.TARGET, Zone.DECK, 3)
             });
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1515,7 +1514,7 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = new FuncNumberTask(p =>
 				{
 					Controller c = p.Controller;
-					while (c.DeckZone.IsEmpty)
+					while (!c.DeckZone.IsEmpty)
 						Generic.Draw(c);
 					return 0;
 				})
@@ -1728,7 +1727,7 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new DrawTask(true),
 					new ConditionTask(EntityType.SOURCE, SelfCondition.ElementalPlayedLastTurn),
-					new FlagTask(true, new CopyTask(EntityType.STACK, 1, false, Zone.HAND)))
+					new FlagTask(true, new CopyTask(EntityType.STACK, Zone.HAND)))
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -2013,6 +2012,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_568", new Power {
 				PowerTask = ComplexTask.Create(
 					new DrawTask(true, 3),
+					new FilterStackTask(SelfCondition.IsInZone(Zone.HAND)),
 					new AddEnchantmentTask("BOT_568e", EntityType.STACK))
 			});
 
@@ -2890,9 +2890,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.SHUFFLE_INTO_DECK)
 				{
 					TriggerSource = TriggerSource.FRIENDLY_EVENT_SOURCE,
-					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
-						new AddStackTo(EntityType.DECK))
+					SingleTask = new CopyTask(EntityType.TARGET, Zone.DECK)
 				}
 			});
 

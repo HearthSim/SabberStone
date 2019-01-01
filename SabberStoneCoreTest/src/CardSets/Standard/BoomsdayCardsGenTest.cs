@@ -2481,10 +2481,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_IF_AVAILABLE = 0
 		// - REQ_FRIENDLY_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void LabRecruiter_BOT_288()
 		{
-			// TODO LabRecruiter_BOT_288 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2495,14 +2494,26 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				},
 				Player2HeroClass = CardClass.ROGUE,
 				Shuffle = false,
-				FillDecks = true,
+				FillDecks = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lab Recruiter"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Lab Recruiter"));
+
+			Minion testTarget = game.ProcessCard<Minion>("Stonetusk Boar");
+
+			game.ProcessCard("Cold Blood", testTarget);
+
+			Assert.Equal(5, testTarget.AttackDamage);
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Lab Recruiter", testTarget));
+
+			Assert.Equal(3, game.CurrentPlayer.DeckZone.Count);
+
+			// Should not maintain enchantments when copied into Deck
+			for (int i = 0; i < 3; i++)
+				Assert.Equal(1, game.CurrentPlayer.DeckZone[i].AsCharacter().AttackDamage);
 		}
 
 		// ----------------------------------------- MINION - ROGUE
@@ -4237,6 +4248,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Missile Launcher"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Missile Launcher"));
+
 
 			game.ProcessCard("Upgradeable Framebot");
 			game.ProcessCard("Missile Launcher", null, true, zonePosition: 0);

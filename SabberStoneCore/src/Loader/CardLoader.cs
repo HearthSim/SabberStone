@@ -74,8 +74,7 @@ namespace SabberStoneCore.Loader
 			var cardDefsXml =
 				XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Resources.CardDefs.xml"));
 			//var cardDefsXml = XDocument.Load(@"C:\Users\admin\Source\Repos\SabberStone\SabberStoneCore\Loader\Data\CardDefs.xml");
-			//var cardXml = XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.CARD.xml"))
-			;
+			//var cardXml = XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Loader.Data.CARD.xml"));
 			// Parse XML
 			var cardDefs = (from r in cardDefsXml.Descendants("Entity")
 							select new

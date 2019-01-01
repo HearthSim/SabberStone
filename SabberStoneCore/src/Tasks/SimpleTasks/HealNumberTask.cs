@@ -16,15 +16,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in TaskStack stack = null)
 		{
 			var playable = source as IPlayable;
-			//System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
-			//entities.ForEach(p =>
+
 			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, playable, target, stack?.Playables))
 			{
 				var character = p as ICharacter;
 				character?.TakeHeal(playable, stack.Number);
 			}
-
-			;
 
 			return TaskState.COMPLETE;
 		}

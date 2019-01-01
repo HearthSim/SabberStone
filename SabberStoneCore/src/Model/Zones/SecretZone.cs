@@ -55,7 +55,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public override IEnumerator<Spell> GetEnumerator()
 		{
-			var entities = Entities;
+			var entities = _entities;
 			for (int i = 0; i < _count; i++)
 				yield return entities[i];
 			if (Quest != null)

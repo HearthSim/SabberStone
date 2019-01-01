@@ -7,6 +7,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
 {
@@ -103,8 +104,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_031", new Power {
 				// http://hearthstone.gamepedia.com/Recycle
 				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
-					new AddStackTo(EntityType.OP_DECK),
+					new CopyTask(EntityType.TARGET, Zone.DECK, toOpponent: true),
 					new MoveToSetaside(EntityType.TARGET))
 			});
 
@@ -205,7 +205,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("GVG_032a", new Power {
 				PowerTask = ComplexTask.Create(
-					new ManaCrystalEmptyTask(1, false),
+					new ManaCrystalEmptyTask(1),
 					new ManaCrystalEmptyTask(1, true))
 			});
 
@@ -527,16 +527,15 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_005", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
-					new CopyTask(EntityType.STACK, 1),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.STACK, Zone.HAND))
 			});
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, Power> cards)
-		{
+		//private static void MageNonCollect(IDictionary<string, Power> cards)
+		//{
 
-		}
+		//}
 
 		private static void Paladin(IDictionary<string, Power> cards)
 		{
@@ -801,7 +800,7 @@ namespace SabberStoneCore.CardSets
 						IPlayable source = list[0];
 						for (int i = 1; i < list.Count; i++)
 						{
-							var c = list[i] as Character;
+							var c = (ICharacter) list[i];
 							Generic.DamageCharFunc(source, c, c.AttackDamage, true);
 						}
 
@@ -931,8 +930,7 @@ namespace SabberStoneCore.CardSets
 				{
 					TriggerSource = TriggerSource.ENEMY,
 					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
-						new AddStackTo(EntityType.HAND),
+						new CopyTask(EntityType.TARGET, Zone.HAND),
 						new AddCardTo("GVG_028t", EntityType.OP_HAND))
 				}
 			});
@@ -1816,7 +1814,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("GVG_090", new Power {
 				PowerTask =
-					new EnqueueTask(6, ComplexTask.DamageRandomTargets(1, EntityType.ALL_NOSOURCE, 1), false)
+					new EnqueueTask(6, ComplexTask.DamageRandomTargets(1, EntityType.ALL_NOSOURCE, 1))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2675,7 +2673,7 @@ namespace SabberStoneCore.CardSets
 			Hunter(cards);
 			HunterNonCollect(cards);
 			Mage(cards);
-			MageNonCollect(cards);
+			//MageNonCollect(cards);
 			Paladin(cards);
 			PaladinNonCollect(cards);
 			Priest(cards);

@@ -150,12 +150,12 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Retrieves all wild cards ordered by card class.
 		/// </summary>
-		public static Dictionary<CardClass, IEnumerable<Card>> Wild { get; } = new Dictionary<CardClass, IEnumerable<Card>>();
+		public static Dictionary<CardClass, IReadOnlyList<Card>> Wild { get; } = new Dictionary<CardClass, IReadOnlyList<Card>>();
 
 		/// <summary>
 		/// Retrieves all standard cards ordered by card class.
 		/// </summary>
-		public static Dictionary<CardClass, IEnumerable<Card>> Standard { get; } = new Dictionary<CardClass, IEnumerable<Card>>();
+		public static Dictionary<CardClass, IReadOnlyList<Card>> Standard { get; } = new Dictionary<CardClass, IReadOnlyList<Card>>();
 
 		/// <summary>
 		/// All cards belonging to the Standard set.
@@ -172,7 +172,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		/// <param name="formatType"></param>
 		/// <returns></returns>
-		public static Dictionary<CardClass, IEnumerable<Card>> FormatTypeClassCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Standard : Wild;
+		public static Dictionary<CardClass, IReadOnlyList<Card>> FormatTypeClassCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Standard : Wild;
 
 		/// <summary>
 		/// Retrieves the specifified set of cards.

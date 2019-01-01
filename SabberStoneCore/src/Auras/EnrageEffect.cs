@@ -52,7 +52,7 @@ namespace SabberStoneCore.Auras
 
 		public override void Update()
 		{
-			var m = Owner as Minion;
+			var m = (Minion) Owner;
 
 			if (!On)
 			{

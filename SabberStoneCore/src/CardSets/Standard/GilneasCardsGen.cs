@@ -8,8 +8,10 @@ using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -131,9 +133,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("GIL_658", new Power {
 				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
-					new AddEnchantmentTask("GIL_658e", EntityType.STACK),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.TARGET, Zone.HAND, addToStack: true),
+					new AddEnchantmentTask("GIL_658e", EntityType.STACK))
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -465,9 +466,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_828", new Power {
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("GIL_828e", EntityType.TARGET),
-					new CopyTask(EntityType.TARGET, 3),
-					new AddEnchantmentTask("GIL_828e", EntityType.STACK),
-					new AddStackTo(EntityType.DECK))
+					new CopyTask(EntityType.TARGET, Zone.DECK, 3, true),
+					new AddEnchantmentTask("GIL_828e", EntityType.STACK))
 			});
 
 		}
@@ -618,9 +618,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					Condition = SelfCondition.IsMinion,
-					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
-						new AddStackTo(EntityType.HAND))
+					SingleTask = new CopyTask(EntityType.TARGET, Zone.HAND)
 				}
 			});
 
@@ -782,12 +780,24 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = new FuncNumberTask(p =>
 				{
 					IReadOnlyList<Card> legendaries = RandomCardTask.GetCardList(p, CardType.MINION, rarity: Rarity.LEGENDARY);
-					p.Controller.DeckZone.ForEach((q, c, ls) =>
-					{
-						if (q.Cost != 1) return;
+					//p.Controller.DeckZone.ForEach((q, c, ls) =>
+					//{
+					//	if (q.Cost != 1) return;
 
-						Generic.ChangeEntityBlock.Invoke(c, q, Util.Choose(ls));
-					}, p.Controller, legendaries);
+					//	Generic.ChangeEntityBlock.Invoke(c, q, Util.Choose(ls));
+					//}, p.Controller, legendaries);
+					Random rnd = Util.Random;
+					Controller c = p.Controller;
+					DeckZone deck = c.DeckZone;
+
+					for (int i = 0; i < deck.Count; i++)
+					{
+						if (deck[i].Cost != 1) continue;
+
+						deck.SetEntity(i,
+							Generic.ChangeEntityBlock.Invoke(c, deck[i], legendaries[rnd.Next(legendaries.Count)]));
+					}
+
 					return 0;
 				})
 			});
@@ -1038,9 +1048,7 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new DamageTask(4, EntityType.TARGET, true),
 					new ConditionTask(EntityType.TARGET, SelfCondition.IsDead),
-					new FlagTask(true, ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
-						new AddStackTo(EntityType.HAND))))
+					new FlagTask(true, new CopyTask(EntityType.TARGET, Zone.HAND)))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -2343,9 +2351,8 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Condition = SelfCondition.IsMinion,
 					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
-						new AddEnchantmentTask("GIL_620e", EntityType.STACK),
-						new SummonTask())
+						new CopyTask(EntityType.TARGET, Zone.PLAY, addToStack: true),
+						new AddEnchantmentTask("GIL_620e", EntityType.STACK))
 				}
 			});
 
@@ -2547,9 +2554,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("GIL_815", new Power {
-				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
-					new AddStackTo(EntityType.DECK))
+				PowerTask = new CopyTask(EntityType.TARGET, Zone.DECK)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2868,7 +2873,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("GIL_614e1", new Power {
 				// TODO: must check the real log
-				Enchant = new Enchant(GameTag.VOODOO_LINK, EffectOperator.SET, 1)
+				Enchant = new Enchant(GameTag.VOODOO_LINK, EffectOperator.SET, 1),
+				
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
