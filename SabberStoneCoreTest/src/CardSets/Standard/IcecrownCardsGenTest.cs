@@ -1714,6 +1714,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.ProcessCard("Ice Walker");
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
 			Assert.True(game.CurrentOpponent.Hero.IsFrozen);
+
+			game.EndTurn();
+			game.EndTurn();
+
+			Assert.False(game.CurrentOpponent.Hero.IsFrozen);
+
+			game.CurrentPlayer.Hero.HeroPower = (HeroPower) Entity.FromCard(game.CurrentPlayer,
+				Cards.FromAssetId(Cards.HeroCard(CardClass.HUNTER)[GameTag.HERO_POWER]));
+			game.PlayHeroPower();
+			Assert.False(game.CurrentOpponent.Hero.IsFrozen);
+
 		}
 
 		// ------------------------------------------ MINION - MAGE

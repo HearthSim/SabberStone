@@ -133,15 +133,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					if (minion.OngoingEffect != null && copy.OngoingEffect == null)
 						minion.OngoingEffect.Clone(copy);
 
-					if (game.OneTurnEffects.Count > 0)
-					{
-						List<(int entityId, IEffect effect)> effects = game.OneTurnEffects;
-						int c = effects.Count;
-						for (int j = 0; j < c; j++)
-							if (effects[j].entityId == minion.Id)
-								effects.Add((copy.Id, effects[j].effect));
-					}
-
 					if (_addToStack)
 						stack.AddPlayable(copy);
 				}

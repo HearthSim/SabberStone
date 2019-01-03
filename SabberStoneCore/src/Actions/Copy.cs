@@ -7,7 +7,7 @@ namespace SabberStoneCore.Actions
 {
 	public partial class Generic
 	{
-		public static IPlayable Copy(in Controller controller, in IEntity creator, in IPlayable source, Zone targetZone)
+		public static IPlayable Copy(in Controller controller, in IEntity creator, in IPlayable source, Zone targetZone, bool deathrattle = false)
 		{
 			// Determine whether enchantments should be also copied.
 			// Whenever a card moves forward in that flow (Deck -> Hand, Hand -> Play, Deck -> Play),
@@ -44,6 +44,9 @@ namespace SabberStoneCore.Actions
 					[GameTag.DISPLAYED_CREATOR] = creator.Id
 				};
 
+				if (source.NativeTags.TryGetValue(GameTag.COST, out int cost))
+					tags.Add(GameTag.COST, cost);
+
 				copiedEntity = Entity.FromCard(in controller, source.Card, tags);
 
 				if (copiedEntity is Character c)
@@ -67,29 +70,26 @@ namespace SabberStoneCore.Actions
 				var kvps = new KeyValuePair<GameTag, int>[source.NativeTags.Count];
 				source.NativeTags.CopyTo(kvps, 0);
 
-				for (int i = 0; i < kvps.Length; i++)
-				{
-					switch (kvps[i].Key)
-					{
-						case GameTag.ENTITY_ID:
-						case GameTag.CONTROLLER:
-						case GameTag.ZONE:
-						case GameTag.ZONE_POSITION:
-						case GameTag.CREATOR:
-						case GameTag.DISPLAYED_CREATOR:
-						case GameTag.EXHAUSTED:
-							continue;
-						case GameTag.COST:
-							copiedEntity.AuraEffects.ToBeUpdated = true;
-							goto default;
-						default:
-							tags.Add(kvps[i]);
-							break;
-					}
-				}
-
-				if (source.OngoingEffect != null && copiedEntity.OngoingEffect == null)
-					source.OngoingEffect.Clone(copiedEntity);
+				//for (int i = 0; i < kvps.Length; i++)
+				//{
+				//	switch (kvps[i].Key)
+				//	{
+				//		case GameTag.ENTITY_ID:
+				//		case GameTag.CONTROLLER:
+				//		case GameTag.ZONE:
+				//		case GameTag.ZONE_POSITION:
+				//		case GameTag.CREATOR:
+				//		case GameTag.DISPLAYED_CREATOR:
+				//		case GameTag.EXHAUSTED:
+				//			continue;
+				//		case GameTag.COST:
+				//			copiedEntity.AuraEffects.ToBeUpdated = true;
+				//			goto default;
+				//		default:
+				//			tags.Add(kvps[i]);
+				//			break;
+				//	}
+				//}
 
 				List<(int entityId, IEffect effect)> oneTurnEffects = controller.Game.OneTurnEffects;
 				for (int i = oneTurnEffects.Count - 1; i >= 0; i--)
@@ -114,13 +114,22 @@ namespace SabberStoneCore.Actions
 					Generic.ShuffleIntoDeck.Invoke(controller, creator, copiedEntity);
 					break;
 				case Zone.PLAY:
-					Generic.SummonBlock.Invoke(controller.Game, (Minion) copiedEntity,
-						creator is Enchantment e && e.Power?.DeathrattleTask != null ? e.Target[GameTag.TAG_LAST_KNOWN_POSITION_ON_BOARD] : -1);
+					int position = -1;
+					if (deathrattle)
+					{
+						position = ((Minion) source).LastBoardPosition;
+						if (position > controller.BoardZone.Count)
+							position = controller.BoardZone.Count;
+					}
+					Generic.SummonBlock.Invoke(controller.Game, (Minion) copiedEntity, position);
 					break;
 				case Zone.SETASIDE:
 					controller.SetasideZone.Add(copiedEntity);
 					break;
 			}
+
+			if (copyEnchantments && source.OngoingEffect != null && copiedEntity.OngoingEffect == null)
+				source.OngoingEffect.Clone(copiedEntity);
 
 			return copiedEntity;
 		}

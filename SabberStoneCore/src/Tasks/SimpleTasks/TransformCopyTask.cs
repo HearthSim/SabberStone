@@ -82,7 +82,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			for (int i = oneTurnEffects.Count - 1; i >= 0; i--)
 			{
 				(int id, IEffect effect) = oneTurnEffects[i];
-				if (id == source.Id)
+
+				if (id == target.Id)
 					oneTurnEffects.Add((copy.Id, effect));
 			}
 

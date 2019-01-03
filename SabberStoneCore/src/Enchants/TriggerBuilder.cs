@@ -21,6 +21,12 @@ namespace SabberStoneCore.Enchants
 				_triggerBuilder._trigger.SingleTask = task;
 				return _triggerBuilder;
 			}
+
+			public TriggerBuilder SetSecretTasks(params ISimpleTask[] tasks)
+			{
+				_triggerBuilder._trigger.SingleTask = ComplexTask.Secret(tasks);
+				return _triggerBuilder;
+			}
 		}
 
 		private readonly Trigger _trigger;
@@ -30,7 +36,7 @@ namespace SabberStoneCore.Enchants
 			_trigger = new Trigger(type);
 		}
 
-		public static TriggerTaskBuilder Start(TriggerType type)
+		public static TriggerTaskBuilder Type(TriggerType type)
 		{
 			return new TriggerTaskBuilder(new TriggerBuilder(type));
 		}
@@ -76,18 +82,23 @@ namespace SabberStoneCore.Enchants
 		public static void Test()
 		{
 			Trigger trigger = TriggerBuilder
-				.Start(TriggerType.AFTER_ATTACK)
+				.Type(TriggerType.AFTER_ATTACK)
 				.SetTask(new DamageTask(1, EntityType.TARGET))
 				.SetActivation(TriggerActivation.PLAY)
 				.SetSource(TriggerSource.ALL)
 				.GetTrigger();
 
 			Trigger t2 = TriggerBuilder
-				.Start(TriggerType.AFTER_SUMMON)
+				.Type(TriggerType.AFTER_SUMMON)
 				.SetTask(new SummonTask("sd"))
 				.SetSource(TriggerSource.OP_HERO)
 				.SetCondition(SelfCondition.ElementalPlayedLastTurn)
 				.GetTrigger();
+		}
+
+		public static implicit operator Trigger(TriggerBuilder builder)
+		{
+			return builder.GetTrigger();
 		}
 	}
 

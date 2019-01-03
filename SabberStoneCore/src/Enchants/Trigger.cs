@@ -99,7 +99,7 @@ namespace SabberStoneCore.Enchants
 		public bool Validated { get; set; }
 
 		/// <summary>
-		/// Create a new instance of <see cref="Trigger"/> object in source's Game. During activation, the instance's <see cref="Process(IEntity)"/> subscribes to the events in <see cref="Game.GamesEventManager"/>.
+		/// Create a new instance of <see cref="Trigger"/> object in source's Game. During activation, the instance's <see cref="Process(IEntity)"/> subscribes to the events in <see cref="TriggerManager"/>.
 		/// </summary>
 		public virtual Trigger Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY, bool cloning = false, bool asAncillary = false)
 		{
@@ -284,9 +284,9 @@ namespace SabberStoneCore.Enchants
 		    if (RemoveAfterTriggered)
 			    Remove();
 
-		    if (_owner.ToBeDestroyed && _triggerType != TriggerType.TAKE_DAMAGE &&
-		        _triggerType != TriggerType.AFTER_ATTACK && Game.DeadMinions.Count == 0)
-			    ;
+		    //if (_owner.ToBeDestroyed && _triggerType != TriggerType.TAKE_DAMAGE &&
+		    //    _triggerType != TriggerType.AFTER_ATTACK && Game.DeadMinions.Count == 0)
+			   // ;
 
 
 			// Enqueue tasks
@@ -504,7 +504,7 @@ namespace SabberStoneCore.Enchants
 
 	    private void Validate(IEntity source)
 	    {
-		    if (_isSecret && _owner.IsExhausted)
+		    if (_isSecret && _owner.IsExhausted && _triggerType != TriggerType.TURN_START)
 			    return;
 
 		    switch (TriggerSource)

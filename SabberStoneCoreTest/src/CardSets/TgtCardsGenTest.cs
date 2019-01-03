@@ -7,6 +7,8 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 using Generic = SabberStoneCore.Actions.Generic;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
+
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCoreTest.CardSets
@@ -597,6 +599,7 @@ namespace SabberStoneCoreTest.CardSets
 			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Aviana"));
 			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
+			game.AuraUpdate();
 			Assert.Equal(1, minion1.Cost);
 			Assert.Equal(1, minion2.Cost);
 			Assert.Equal(7, spell.Cost);
@@ -1219,10 +1222,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: You can use your Hero Power any number of times.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ColdarraDrake_AT_008()
 		{
-			// TODO ColdarraDrake_AT_008 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1234,7 +1236,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Coldarra Drake"));
+
+			game.ProcessCard("Coldarra Drake", asZeroCost: true);
+			game.ProcessCard("Maiden of the Lake", asZeroCost: true);
+
+			Assert.Equal(1, game.CurrentPlayer.Hero.HeroPower.Cost);
+
+			for (int i = 0; i < 10; i++)
+				game.PlayHeroPower(game.CurrentOpponent.Hero);
+
+			Assert.Equal(10, game.CurrentOpponent.Hero.Damage);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1247,10 +1258,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - DEATHRATTLE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Rhonin_AT_009()
 		{
-			// TODO Rhonin_AT_009 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1263,6 +1273,16 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Rhonin"));
+
+			HandZone hand = game.CurrentPlayer.HandZone;
+
+			Assert.Equal(4, hand.Count);
+
+			Minion r1 = game.ProcessCard<Minion>("Rhonin", asZeroCost: true);
+			r1.Kill();
+
+			Assert.Equal(7, hand.Count);
+			Assert.True(hand.Skip(4).Take(3).ToList().TrueForAll(p => p.Card.Name == "Arcane Missiles"));
 		}
 	}
 
@@ -1302,6 +1322,12 @@ namespace SabberStoneCoreTest.CardSets
 			Assert.Equal(0, game.CurrentPlayer.SecretZone.Count);
 			Assert.Equal(2, ((Minion)minion).AttackDamage);
 			Assert.Equal(2, ((Minion)minion).Health);
+
+			minion.ToBeDestroyed = true;
+			game.ProcessCard("Competitive Spirit");
+			game.EndTurn();
+			game.EndTurn();
+			Assert.Equal(1, game.CurrentPlayer.SecretZone.Count);
 		}
 
 		// ---------------------------------------- SPELL - PALADIN
@@ -1920,22 +1946,39 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: Shuffle 3 Ambushes into your opponent's deck. When drawn, you summon a 4/4 Nerubian.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void BeneathTheGrounds_AT_035()
 		{
-			// TODO BeneathTheGrounds_AT_035 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
 				Player2HeroClass = CardClass.ROGUE,
-				FillDecks = true,
-				FillDecksPredictably = true
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+				},
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Beneath the Grounds"));
+
+			game.ProcessCard("Beneath the Grounds");
+
+			Assert.Equal(3, game.CurrentOpponent.DeckZone.Count);
+
+			game.EndTurn();
+
+			Assert.Equal(3, game.CurrentOpponent.BoardZone.Count);
+			for (int i = 0; i < 3; i++)
+				Assert.Equal("Nerubian", game.CurrentOpponent.BoardZone[i].Card.Name);
+
+			Assert.Equal(1, game.CurrentPlayer.Hero.Fatigue);
 		}
 
 		// ----------------------------------------- MINION - ROGUE
@@ -2548,22 +2591,32 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - InvisibleDeathrattle = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void FistOfJaraxxus_AT_022()
 		{
-			// TODO FistOfJaraxxus_AT_022 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
 				Player2HeroClass = CardClass.WARLOCK,
-				FillDecks = true,
-				FillDecksPredictably = true
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+				}
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fist of Jaraxxus"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fist of Jaraxxus"));
+
+			game.ProcessCard("Succubus");
+
+			Assert.Empty(game.CurrentPlayer.HandZone);
+
+			Assert.Equal(4, game.CurrentOpponent.Hero.Damage);
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
@@ -2651,13 +2704,23 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dreadsteed"));
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			game.Process(HeroPowerTask.Any(game.CurrentPlayer, testCard));
-			Assert.True(((Minion)testCard).IsDead);
-			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
-			Assert.Equal(testCard.Card.Id, game.CurrentOpponent.BoardZone[0].Card.Id);
+
+			Minion test = game.ProcessCard<Minion>("Dreadsteed");
+			test.Kill();
+
+			Assert.Empty(game.CurrentPlayer.BoardZone);
+
+			game.EndTurn();
+
+			Assert.Single(game.CurrentOpponent.BoardZone);
+
+			game.EndTurn();
+
+			Assert.Single(game.CurrentPlayer.BoardZone);
+
+			game.EndTurn();
+
+			Assert.Single(game.CurrentOpponent.BoardZone);
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -3076,10 +3139,9 @@ namespace SabberStoneCoreTest.CardSets
 		// RefTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void KingsDefender_AT_065()
 		{
-			// TODO KingsDefender_AT_065 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3092,6 +3154,12 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("King's Defender"));
+
+			game.ProcessCard("King's Defender");
+			Assert.Equal(2, game.CurrentPlayer.Hero.Weapon.Durability);
+			game.ProcessCard("Sen'jin Shieldmasta");
+			game.ProcessCard("King's Defender");
+			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.Durability);
 		}
 	}
 
@@ -3146,10 +3214,9 @@ namespace SabberStoneCoreTest.CardSets
 		// - ELITE = 1
 		// - CHARGE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SkycapnKragg_AT_070()
 		{
-			// TODO SkycapnKragg_AT_070 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3161,7 +3228,13 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Skycap'n Kragg"));
+			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Skycap'n Kragg"));
+			int cardCost = testCard.Card.Cost;
+			Assert.Equal(cardCost, testCard.Cost);
+			game.ProcessCard("Southsea Deckhand");
+			game.ProcessCard("Southsea Deckhand");
+			game.ProcessCard("Southsea Deckhand");
+			Assert.Equal(cardCost - 3, testCard.Cost);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3170,10 +3243,9 @@ namespace SabberStoneCoreTest.CardSets
 		// --------------------------------------------------------
 		// Text: You can use your Hero Power twice a turn.
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void GarrisonCommander_AT_080()
 		{
-			// TODO GarrisonCommander_AT_080 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3186,6 +3258,18 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Garrison Commander"));
+
+			game.ProcessCard("Garrison Commander");
+
+			HeroPower power = game.CurrentPlayer.Hero.HeroPower;
+
+			game.PlayHeroPower(game.CurrentOpponent.Hero);
+
+			Assert.False(power.IsExhausted);
+
+			game.PlayHeroPower(game.CurrentOpponent.Hero);
+
+			Assert.True(power.IsExhausted);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -4427,10 +4511,9 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void BolfRamshield_AT_124()
 		{
-			// TODO BolfRamshield_AT_124 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4443,6 +4526,15 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Bolf Ramshield"));
+
+			IPlayable test = game.ProcessCard("Bolf Ramshield");
+
+			game.ProcessCard("Pyroblast", game.CurrentPlayer.Hero, asZeroCost: true);
+
+			Assert.True(test.ToBeDestroyed);
+			Assert.Equal(0, game.CurrentPlayer.Hero.Damage);
+
+			// TODO: test with Animated Armor and Ice Block, and Lifesteal or Freeze
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

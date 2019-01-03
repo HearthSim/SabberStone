@@ -2684,6 +2684,7 @@ namespace SabberStoneCore.CardSets.Standard
 				},
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
+					FastExecution = true,
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.SOURCE),
 						new IncludeTask(EntityType.TARGET, addFlag: true),
@@ -2692,9 +2693,7 @@ namespace SabberStoneCore.CardSets.Standard
 							IPlayable p = list[1];
 
 							if (p.Zone != p.Controller.HandZone)
-							{
-								throw new Exception();
-							}
+								return null;
 
 							Card pick = p.Controller.Opponent.HandZone.Random?.Card;
 							if (pick == null) return null;

@@ -448,8 +448,8 @@ namespace SabberStoneCore.Model.Zones
 
 			Reposition(zonePosition);
 
-			if (Auras.Count > 0)
-				Auras.ForEach(a => a.EntityAdded(entity));
+			for (int i = Auras.Count - 1; i >= 0; i--)
+				Auras[i].EntityAdded(entity);
 		}
 
 		public override T Remove(T entity)
@@ -458,12 +458,15 @@ namespace SabberStoneCore.Model.Zones
 				throw new ZoneException("Couldn't remove entity from zone.");
 
 			int pos;
+			int count = _count;
 			T[] entities = _entities;
-			for (pos = _count - 1; pos >= 0; --pos)
+			for (pos = count - 1; pos >= 0; --pos)
 				if (ReferenceEquals(entities[pos], entity)) break;
 
-			if (pos < --_count)
-				Array.Copy(entities, pos + 1, entities, pos, _count - pos);
+			if (pos < --count)
+				Array.Copy(entities, pos + 1, entities, pos, count - pos);
+
+			_count = count;
 
 			Reposition(pos);
 
@@ -471,7 +474,8 @@ namespace SabberStoneCore.Model.Zones
 
 			entity.ActivatedTrigger?.Remove();
 
-			Auras.ForEach(a => a.EntityRemoved(entity));
+			for (int i = Auras.Count - 1; i >= 0; i--)
+				Auras[i].EntityRemoved(entity);
 
 			return entity;
 		}

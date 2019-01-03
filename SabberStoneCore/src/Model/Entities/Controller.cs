@@ -606,7 +606,7 @@ namespace SabberStoneCore.Model.Entities
 					spellCostHealth = ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1;
 
 				bool healthCost = playable.AuraEffects[GameTag.CARD_COSTS_HEALTH] == 1 ||
-				                  (card.Type == CardType.SPELL && spellCostHealth.Value);
+				                  (spellCostHealth.Value && playable.Card.Type == CardType.SPELL);
 
 				if (!healthCost && (playable.Cost > mana || playable.Card.HideStat))
 					return;

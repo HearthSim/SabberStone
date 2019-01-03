@@ -10,15 +10,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class PotionGenerating : SimpleTask
 	{
-		private List<Card> _kazakusPotionSpells;
+		//private List<Card> _kazakusPotionSpells;
 
 		public PotionGenerating(List<int> scriptTags = null)
 		{
 			ScriptTags = scriptTags;
 		}
 
-		private List<Card> KazakusPotionSpells =>
-			_kazakusPotionSpells ?? (_kazakusPotionSpells = GetKazakusPotionSpells());
+		//private List<Card> KazakusPotionSpells =>
+		//	_kazakusPotionSpells ?? (_kazakusPotionSpells = GetKazakusPotionSpells());
 
 		public List<int> ScriptTags { get; set; }
 
@@ -60,29 +60,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			// create card ...
-			Card baseCard = KazakusPotionSpells.First(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[0]).Clone();
+			Card baseCard = KazakusPotionSpells.First(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ScriptTags[0]);
 			List<int> ordered = ScriptTags.Skip(1).OrderBy(p => p).ToList();
 			Card spell1 = KazakusPotionSpells.First(p =>
 				p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ordered[0]);
 			Card spell2 = KazakusPotionSpells.First(p =>
 				p.Cost == baseCard.Cost && p[GameTag.TAG_SCRIPT_DATA_NUM_1] == ordered[1]);
-			//baseCard.Text = "(1) " + spell1.Text + "(2) " + spell2.Text;
-			baseCard.Text = spell1.Text + "\n" + spell2.Text;
-			//baseCard.Powers = new List<Power>();
-			//baseCard.Powers.AddRange(spell1.Powers);
-			//spell1.PlayRequirements.ToList().ForEach(p =>
-			//{
-			//	if (!baseCard.PlayRequirements.ContainsKey(p.Key))
-			//		baseCard.PlayRequirements.Add(p.Key, p.Value);
-			//});
-			//baseCard.Powers.AddRange(spell2.Powers);
-			spell2.PlayRequirements.ToList().ForEach(p =>
-			{
-				if (!baseCard.PlayRequirements.ContainsKey(p.Key))
-					baseCard.PlayRequirements.Add(p.Key, p.Value);
-			});
 
-			game.TaskQueue.Enqueue(new AddCardTo(baseCard, EntityType.HAND), in controller, in source, in target);
+			Card potionCard = Card.CreateKazakusPotion(in baseCard, in spell1, in spell2, false);
+
+			game.TaskQueue.Enqueue(new AddCardTo(potionCard, EntityType.HAND), in controller, in source, in target);
 
 			// remove tag script from used kazakus entities
 			foreach (IPlayable playables in controller.SetasideZone.Where(p => p.Card.Id.StartsWith("CFM_621")))
@@ -91,20 +78,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return TaskState.COMPLETE;
 		}
 
-		private static List<Card> GetKazakusPotionSpells()
-		{
-			//var list = Cards.All.Where(p => p.Id.StartsWith("CFM_621t")
-			//&& !p.Id.Equals("CFM_621t")
-			////&& !p.Id.Equals("CFM_621t11")
-			////&& !p.Id.Equals("CFM_621t12")
-			////&& !p.Id.Equals("CFM_621t13")
-			//&& !p.Id.Equals("CFM_621t14")
-			//&& !p.Id.Equals("CFM_621t15")
-			//).Select(p => p.Clone()).ToList();
-			//return list;
-
-			return new List<Card>
-			{
+		private static readonly IReadOnlyList<Card> KazakusPotionSpells
+		 = new []
+		 {
 				Cards.FromId("CFM_621t2").Clone(),
 				Cards.FromId("CFM_621t3").Clone(),
 				Cards.FromId("CFM_621t4").Clone(),
@@ -137,11 +113,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Cards.FromId("CFM_621t37").Clone(),
 				Cards.FromId("CFM_621t38").Clone(),
 				Cards.FromId("CFM_621t39").Clone()
-			};
-		}
+		};
+		
 
-		private void ProcessSplit(List<Card>[] cardsToDiscover, ChoiceAction choiceAction)
-		{
-		}
+		//private void ProcessSplit(List<Card>[] cardsToDiscover, ChoiceAction choiceAction)
+		//{
+		//}
 	}
 }

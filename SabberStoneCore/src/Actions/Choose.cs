@@ -101,7 +101,7 @@ namespace SabberStoneCore.Actions
 					case ChoiceAction.ADAPT:
 						c.Game.TaskQueue.StartEvent();
 						c.Choice.TargetIds.ForEach(p =>
-							playable.ActivateTask(PowerActivation.POWER, c.Game.IdEntityDic[p])
+							playable.ActivateTask(PowerActivation.POWER, (ICharacter)c.Game.IdEntityDic[p])
 						);
 						// Need to move the chosen adaptation to the Graveyard
 						c.Game.TaskQueue.Enqueue(new MoveToGraveYard(EntityType.SOURCE), in c, playable, playable);
@@ -135,8 +135,11 @@ namespace SabberStoneCore.Actions
 						if (RemoveFromZone(c, playable))
 						{
 							playable[GameTag.CREATOR] = c.Hero.Id;
-							c.Game.TaskQueue.Enqueue(new ReplaceHeroPower(playable.Card), in c, playable,
-								playable);
+							c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ReplaceHeroPower",
+								!c.Game.Logging ? "" : $"{c.Hero} power replaced by {playable}");
+
+							c.SetasideZone.Add(c.Hero.HeroPower);
+							c.Hero.HeroPower = (HeroPower) playable;
 						}
 						break;
 

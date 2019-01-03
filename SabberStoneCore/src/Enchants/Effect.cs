@@ -35,7 +35,7 @@ namespace SabberStoneCore.Enchants
 		public readonly int Value;
 
 		/// <summary>
-		/// Create a new Effect. An Effect is consist of <see cref="GameTag"/>, <see cref="EffectOperator"/>, and <see cref="int"/> value.
+		/// Create a new Effect. An Effect consists of <see cref="GameTag"/>, <see cref="EffectOperator"/>, and <see cref="int"/> value.
 		/// </summary>
 		/// <param name="tag">The <see cref="GameTag"/> to be affected.</param>
 		/// <param name="operator">The operation this effect performs.</param>

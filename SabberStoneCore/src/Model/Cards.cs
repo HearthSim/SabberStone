@@ -399,12 +399,29 @@ namespace SabberStoneCore.Model
 
 			str.AppendLine($"Total Wild => {totImpl * 100 / totCards}% from {totCards} Cards");
 
-			var notImplementedStandard = standard
+			IEnumerable<IGrouping<CardSet, Card>> notImplementedStandard = standard
 				.Where(c => !c.Implemented)
 				.GroupBy(c => c.Set);
 
-			str.AppendLine("### Not yet implemeneted standard cards");
+			str.AppendLine("### Not yet implemented standard cards");
 			foreach (IGrouping<CardSet, Card> group in notImplementedStandard)
+			{
+				str.AppendLine($"#### {CardSetToName(group.Key)}");
+				foreach (Card c in group)
+				{
+					str.AppendLine($"- [{c.Id}] {c.Name}");
+				}
+			}
+
+			str.AppendLine();
+
+			IEnumerable<IGrouping<CardSet, Card>> notImplementedWild = wild
+				.Where(c => !c.Implemented)
+				.GroupBy(c => c.Set)
+				.Where(c => WildSets.Contains(c.Key) && !StandardSets.Contains(c.Key));
+
+			str.AppendLine("### Not yet implemented wild cards");
+			foreach (IGrouping<CardSet, Card> group in notImplementedWild)
 			{
 				str.AppendLine($"#### {CardSetToName(group.Key)}");
 				foreach (Card c in group)

@@ -72,7 +72,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="target"></param>
 		/// <param name="chooseOne"></param>
 		/// <param name="source"></param>
-		void ActivateTask(in PowerActivation activation, in IEntity target = null, in int chooseOne = 0, in IPlayable source = null);
+		void ActivateTask(in PowerActivation activation, in ICharacter target = null, in int chooseOne = 0, in IPlayable source = null);
 
 		/// <summary>Gets or sets the entity ID target.</summary>
 		/// <value><see cref="IEntity.Id"/></value>
@@ -268,7 +268,7 @@ namespace SabberStoneCore.Model.Entities
 		//public List<Power> Powers => Card.Powers;
 		public Power Power => Card.Power;
 
-		public void ActivateTask(in PowerActivation activation = PowerActivation.POWER, in IEntity target = null, in int chooseOne = 0, in IPlayable source = null)
+		public void ActivateTask(in PowerActivation activation = PowerActivation.POWER, in ICharacter target = null, in int chooseOne = 0, in IPlayable source = null)
 		{
 			if (ChooseOne)
 			{

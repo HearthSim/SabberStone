@@ -65,6 +65,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			else
 			{
 				IPlayable toBeCopied;
+				bool deathrattle = false;
 				switch (_entityType)
 				{
 					case EntityType.TARGET:
@@ -72,6 +73,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						break;
 					case EntityType.SOURCE:
 						toBeCopied = source as IPlayable;
+						deathrattle = _zoneType == Zone.PLAY && target is Enchantment e && e.Power?.DeathrattleTask != null;
 						break;
 					case EntityType.EVENT_SOURCE:
 						toBeCopied = game.CurrentEventData?.EventSource;
@@ -80,7 +82,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						toBeCopied = Entity.FromCard(c,
 							Cards.FromId(controller.Opponent.Hero.HeroPower.Card.Id));
 						if (addToStack)
+						{
 							result.Add(toBeCopied);
+							stack.Playables = result;
+						}
 						return TaskState.COMPLETE;
 					case EntityType.WEAPON:
 						Weapon weapon = controller.Hero.Weapon;
@@ -93,9 +98,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						throw new NotImplementedException();
 				}
 
+				if (toBeCopied == null)
+					return TaskState.STOP;
+
 				for (int i = 0; i < amount; i++)
 				{
-					IPlayable copied = Generic.Copy(in c, in source, in toBeCopied, zone);
+					IPlayable copied = Generic.Copy(in c, in source, in toBeCopied, zone, deathrattle);
 
 					if (addToStack)
 						result.Add(copied);

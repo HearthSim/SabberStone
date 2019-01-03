@@ -301,7 +301,7 @@ namespace SabberStoneCore.Model.Entities
 			throw new NotImplementedException();
 		}
 
-		public void ActivateTask(in PowerActivation activation, in IEntity target = null, in int chooseOne = 0, in IPlayable source = null)
+		public void ActivateTask(in PowerActivation activation, in ICharacter target = null, in int chooseOne = 0, in IPlayable source = null)
 		{
 			throw new NotImplementedException();
 		}

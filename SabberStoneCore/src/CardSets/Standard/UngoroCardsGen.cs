@@ -2896,7 +2896,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new FuncPlayablesTask(list =>
 						{
 							//Generic.CastSpell(list[1].Controller, (Spell)list[1], (ICharacter)list[0], 0);
-							list[1].ActivateTask(PowerActivation.POWER, list[0]);
+							list[1].ActivateTask(PowerActivation.POWER, (ICharacter)list[0]);
 							return null;
 						}))
 				}

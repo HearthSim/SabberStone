@@ -373,5 +373,20 @@ namespace SabberStoneCore.Tasks
 				));
 			return StateTaskList.Chain(taskList);
 		}
+
+		public static ISimpleTask Conditional(EntityType type, SelfCondition condition, ISimpleTask trueTask,
+			ISimpleTask falseTask = null)
+		{
+			var tasks = new List<ISimpleTask>
+			{
+				new ConditionTask(type, condition),
+				new FlagTask(true, trueTask)
+			};
+
+			if (falseTask != null)
+				tasks.Add(new FlagTask(false, falseTask));
+
+			return Create(tasks.ToArray());
+		}
 	}
 }

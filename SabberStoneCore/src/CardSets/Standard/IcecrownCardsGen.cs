@@ -1117,8 +1117,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_068", new Power {
 				Trigger = new Trigger(TriggerType.INSPIRE)
 				{
-					Condition = new SelfCondition(p => p != null),
-					SingleTask = ComplexTask.Freeze(EntityType.TARGET)
+					//Condition = new SelfCondition(p => p != null),
+					SingleTask = ComplexTask.Freeze(EntityType.EVENT_TARGET)
 				}
 			});
 
@@ -1476,8 +1476,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_244e", new Power {
 				DeathrattleTask = ComplexTask.Create(
 					new CopyTask(EntityType.SOURCE, Zone.PLAY, addToStack: true),
-					new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK),	//	START_WITH_1_HEALTH ?
-					new SummonTask(SummonSide.DEATHRATTLE))	
+					new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK))	//	START_WITH_1_HEALTH ?	
 			});
 
 			// ---------------------------------- ENCHANTMENT - PALADIN

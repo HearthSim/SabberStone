@@ -30,7 +30,8 @@ namespace SabberStoneCore.Actions
 				}
 				else if (source is HeroPower)
 				{
-					//amount += source.Controller.Hero.HeroPowerDamage;	// TODO: TGT
+					// TODO: Consider this part only when TGT or Rumble is loaded
+					// amount += source.Controller.Hero.HeroPowerDamage; 
 					if (source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE] > 0)
 						amount *= (int)Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE]);
 				}
@@ -50,7 +51,9 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, int, bool, bool> ChangeManaCrystal
 			=> delegate (Controller c, int amount, bool fill)
 			{
-				if (c.BaseMana + amount > c.MaxResources)
+				int baseMana = c.BaseMana;
+
+				if (baseMana + amount > c.MaxResources)
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", !c.Game.Logging ? "" : $"{c.Name} is already capped in {c.MaxResources} mana crystals.");
 					if (!fill)
@@ -58,14 +61,14 @@ namespace SabberStoneCore.Actions
 					c.BaseMana = c.MaxResources;
 
 				}
-				else if (c.BaseMana + amount < 0)
+				else if (baseMana + amount < 0)
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", !c.Game.Logging ? "" : $"{c.Name} is back to minimum of 0 mana crystals.");
 					c.BaseMana = 0;
 				}
 				else
 				{
-					c.BaseMana += amount;
+					c.BaseMana = baseMana + amount;
 					if (!fill)
 						c.UsedMana += amount;
 				}
@@ -259,9 +262,9 @@ namespace SabberStoneCore.Actions
 			{
 				Power power = enchantmentCard.Power;
 
-				if (power.Enchant is OngoingEnchant && target is IPlayable entity && entity.OngoingEffect != null)
+				if (power.Enchant is OngoingEnchant && target is IPlayable entity && entity.OngoingEffect is OngoingEnchant ongoingEnchant)
 				{
-					((OngoingEnchant)(entity.OngoingEffect)).Count++;
+					ongoingEnchant.Count++;
 					return true;
 				}
 

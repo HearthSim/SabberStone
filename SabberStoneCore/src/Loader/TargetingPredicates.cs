@@ -107,7 +107,7 @@ namespace SabberStoneCore.Loader
 			= c => c.Hero.Weapon != null;
 
 		public static readonly AvailabilityPredicate ReqFriendlyMinionDiedThisGame
-			= c => c.GraveyardZone.Any(q => q.ToBeDestroyed);
+			= c => c.GraveyardZone.Any(q => q is Minion m && m.ToBeDestroyed);
 
 		public static readonly AvailabilityPredicate ReqSecretZoneCapForNonSecret
 			= c => !c.SecretZone.IsFull;

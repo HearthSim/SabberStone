@@ -282,7 +282,14 @@ namespace SabberStoneCore.Model.Entities
 			if (PreDamageTrigger != null)
 			{
 				PreDamageTrigger.Invoke(this);
+				game.ProcessTasks();
 				amount = game.CurrentEventData.EventNumber;
+				if (amount == 0)
+				{
+					if (_history)
+						PreDamage = 0;
+					return 0;
+				}
 			}
 			if (IsImmune)
 			{

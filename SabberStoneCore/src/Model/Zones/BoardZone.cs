@@ -48,7 +48,7 @@ namespace SabberStoneCore.Model.Zones
 
 			ActivateAura(entity);
 
-			for (int i = 0; i < AdjacentAuras.Count; i++)
+			for (int i = AdjacentAuras.Count - 1; i >= 0; i--)
 				AdjacentAuras[i].BoardChanged = true;
 
 			Game.TriggerManager.OnZoneTrigger(entity);

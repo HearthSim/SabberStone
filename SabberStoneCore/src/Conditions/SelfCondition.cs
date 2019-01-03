@@ -100,7 +100,8 @@ namespace SabberStoneCore.Conditions
 
 
 		public static readonly SelfCondition IsOverloadCard = new SelfCondition(me => me.Card.HasOverload);
-		public static readonly SelfCondition HasTaunt = new SelfCondition(me => me is ICharacter && me[GameTag.TAUNT] > 0);
+		public static readonly SelfCondition IsBattleCryCard = new SelfCondition(me => me.Card.Tags.ContainsKey(GameTag.BATTLECRY));
+		public static readonly SelfCondition HasTaunt = new SelfCondition(me => me is Minion m && m.HasTaunt);
 		public static readonly SelfCondition IsFrozen = new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsFrozen);
 		public static SelfCondition IsHeroPowerCard(string cardId) => new SelfCondition(me => me.Controller.Hero.HeroPower.Card.Id.Equals(cardId));
 		public static readonly SelfCondition IsManaCrystalFull = new SelfCondition(me => me.Controller.BaseMana == 10);

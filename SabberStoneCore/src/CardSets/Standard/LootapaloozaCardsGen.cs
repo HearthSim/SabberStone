@@ -1471,7 +1471,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
-			// --------------------------------------------------------
+			// -------------------------------------0-------------------
 			cards.Add("LOOT_026", new Power {
 				// Not sure this implementatio would work in servers
 				PowerTask = new AddCardTo("LOOT_026e", EntityType.DECK, 3)
@@ -1546,7 +1546,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new CopyTask(EntityType.STACK, Zone.PLAY, addToStack: true),
 					new AddEnchantmentTask("LOOT_412e", EntityType.STACK))
 			});
-
+			
 			// ------------------------------------------ SPELL - ROGUE
 			// [LOOT_204] Cheat Death - COST:2 
 			// - Set: lootapalooza, Rarity: common
