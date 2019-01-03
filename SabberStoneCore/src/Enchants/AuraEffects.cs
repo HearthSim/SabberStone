@@ -9,16 +9,6 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {
-	//public abstract class AuraEffectBase
-	//{
-	//	public IEntity Owner { get; }
-	//	public abstract int this[GameTag t] { get; set; }
-
-	//	public abstract AuraEffectBase Clone(AuraEffectBase other);
-	//	public abstract string Hash();
-	//}
-
-
 	/// <summary>
 	/// A simple container for saving tag value perturbations from external Auras. Call indexer to get value for a particular Tag.
 	/// </summary>

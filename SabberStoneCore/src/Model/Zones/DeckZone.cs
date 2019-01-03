@@ -10,12 +10,13 @@ namespace SabberStoneCore.Model.Zones
 	public class DeckZone : LimitedZone<IPlayable>
 	{
 		public const int StartingCards = 30;
+		public const int DeckMaximumCapcity = 60;
 
 		// TODO: Barnabus the Stomper
 		public bool NoEvenCostCards { get; private set; } = true;
 		public bool NoOddCostCards { get; private set; } = true;
 
-		public DeckZone(Controller controller) : base(60)
+		public DeckZone(Controller controller)
 		{
 			Game = controller.Game;
 			Controller = controller;
@@ -26,6 +27,10 @@ namespace SabberStoneCore.Model.Zones
 			NoEvenCostCards = zone.NoEvenCostCards;
 			NoOddCostCards = zone.NoOddCostCards;
 		}
+
+		public override bool IsFull => _count == DeckMaximumCapcity;
+
+		public override int MaxSize => DeckMaximumCapcity;
 
 		public override Zone Type => Zone.DECK;
 

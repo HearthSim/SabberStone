@@ -7,6 +7,8 @@ namespace SabberStoneCore.Model.Zones
 {
 	public class SecretZone : LimitedZone<Spell>
 	{
+		public const int SecretZoneMaxSize = 5;
+
 		/// <summary>
 		/// An unique field for Quest.
 		/// Gets or sets the quest in this SecretZone.
@@ -14,7 +16,7 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		public Spell Quest { get; set; }
 
-		public SecretZone(Controller controller) : base(5)
+		public SecretZone(Controller controller)
 		{
 			Game = controller.Game;
 			Controller = controller;
@@ -27,6 +29,9 @@ namespace SabberStoneCore.Model.Zones
 
 		public override Zone Type => Zone.SECRET;
 
+		public override bool IsFull => _count == SecretZoneMaxSize;
+
+		public override int MaxSize => SecretZoneMaxSize;
 
 		public override void Add(Spell entity, int zonePosition = -1)
 		{

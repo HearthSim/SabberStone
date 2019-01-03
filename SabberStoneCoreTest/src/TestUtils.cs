@@ -28,7 +28,7 @@ namespace SabberStoneCoreTest
 			{
 				entity = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(cardName));
 			}
-			catch (NullReferenceException e)
+			catch (NullReferenceException)
 			{
 				throw new Exception($"There is no card named \"{cardName}\". Please Check Again!");
 			}
@@ -68,7 +68,7 @@ namespace SabberStoneCoreTest
 			{
 				entity = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(cardName));
 			}
-			catch (NullReferenceException e)
+			catch (NullReferenceException)
 			{
 				throw new Exception($"There is no card named \"{cardName}\". Please Check Again!");
 			}

@@ -15,7 +15,7 @@ namespace SabberStoneCore.Model
 	/// All properties exposed by these instances are defined by `resources/Data/CardDefs.xml`.
 	/// <see cref="CardLoader"/> for extraction procedures.
 	/// </summary>
-	public class Card
+	public sealed class Card
 	{
 		/// <summary>
 		/// Constraint condition based on the state of a target <see cref="ICharacter"/>.

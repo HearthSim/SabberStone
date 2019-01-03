@@ -199,6 +199,7 @@ namespace SabberStoneCore.Model.Entities
 			: base(controller.Game, in card, in tags, in id)
 		{
 			Controller = controller;
+
 			if (_history)
 				tags[GameTag.CONTROLLER] = controller.PlayerId;
 		}
@@ -586,6 +587,14 @@ namespace SabberStoneCore.Model.Entities
 	{
 		protected bool _exhausted;
 		protected int _zonePosition;
+
+		//private readonly CostManager _costManager;
+		//private readonly bool _updateCost;
+
+		//public int Cost
+		//{
+		//	get => _costManager?.GetCost
+		//}
 
 		public int Cost
 		{

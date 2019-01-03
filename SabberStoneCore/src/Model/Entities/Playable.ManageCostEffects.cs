@@ -21,14 +21,25 @@
 //			/// <summary>
 //			/// Add a new Cost related effect to the owner.
 //			/// </summary>
-//			public void AddCostAura(in Effect e)
+//			public void AddCostAura(Playable p, in Effect e)
 //			{
 //				ToBeUpdated = true;
 
-//				if (_costEffects == null)
-//					_costEffects = new List<Effect> { e };
-//				else
-//					_costEffects.Add(e);
+//				int c = _modifiedCost ?? p.Card.Cost;
+
+//				switch (e.Operator)
+//				{
+//					case EffectOperator.ADD:
+//						c += e.Value;
+//						break;
+//					case EffectOperator.SUB:
+//						c -= e.Value;
+//						break;
+//					case EffectOperator.SET:
+//						break;
+//					default:
+//						throw new ArgumentOutOfRangeException();
+//				}
 //			}
 
 //			/// <summary>
@@ -44,6 +55,14 @@
 //				throw new Exception($"Can't remove cost aura {e}");
 //			}
 
+//			/// <summary>
+//			/// Activate <see cref="AdaptiveCostEffect"/> to calculate and reflect its result.
+//			/// </summary>
+//			public void ActivateAdaptiveEffect(AdaptiveCostEffect adaptiveCostEffect)
+//			{
+//				_adaptiveCostEffect = adaptiveCostEffect;
+//			}
+
 //			public void ResetCost(Playable playable)
 //			{
 //				if (_costEffects == null && _adaptiveCostEffect == null && _modifiedCost == null) return;
@@ -55,10 +74,19 @@
 //					playable.Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(playable.Id, GameTag.COST, playable.Card.Cost));
 //			}
 
-//			internal int GetCostInternal(Playable entity)
+//			public int GetCost(Playable entity)
 //			{
-//				// Get base cost or modified cost first.
-//				int c = _modifiedCost ?? entity.Card.Cost;
+//				if (ToBeUpdated)
+//					return GetCostInternal(in entity);
+
+//			}
+
+//			internal int GetCostInternal(in Playable entity)
+//			{
+//				if (!Tob)
+
+//					// Get base cost or modified cost first.
+//					int c = _modifiedCost ?? entity.Card.Cost;
 
 //				// Apply cost effects next. (e.g. Naga Sea Witch)
 //				if (_costEffects != null)

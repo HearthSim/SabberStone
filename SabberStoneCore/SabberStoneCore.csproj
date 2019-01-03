@@ -21,6 +21,7 @@
     <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
+    <DefineConstants />
   </PropertyGroup>
   <ItemGroup>
     <EmbeddedResource Include="resources\Data\CardDefs.xml">

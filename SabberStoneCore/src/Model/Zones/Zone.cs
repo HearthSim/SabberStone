@@ -245,15 +245,13 @@ namespace SabberStoneCore.Model.Zones
 		protected readonly T[] _entities;
 		protected int _count;
 
-		protected LimitedZone(int size)
+		protected LimitedZone()
 		{
-			MaxSize = size;
 			_entities = new T[MaxSize];
 		}
 		protected LimitedZone(Controller c, LimitedZone<T> zone) : base(c)
 		{
 			_count = zone._count;
-			MaxSize = zone.MaxSize;
 			var entities = new T[MaxSize];
 			T[] src = zone._entities;
 			for (int i = 0; i < _count; ++i)
@@ -269,11 +267,9 @@ namespace SabberStoneCore.Model.Zones
 		/// Gets the maximum amount of entities this zone can hold.
 		/// </summary>
 		/// <value>The maximum size.</value>
-		public int MaxSize { get; }
+		public abstract int MaxSize { get; }
 
 		public override T this[int zonePosition] => zonePosition >= _count ? throw new IndexOutOfRangeException() : _entities[zonePosition];
-
-		public override bool IsFull => _count == MaxSize;
 
 		public override int Count => _count;
 
@@ -424,7 +420,7 @@ namespace SabberStoneCore.Model.Zones
 	/// <typeparam name="T"></typeparam>
 	public abstract class PositioningZone<T> : LimitedZone<T> where T : IPlayable
 	{
-		protected PositioningZone(int size) : base(size) { }
+		protected PositioningZone() { }
 		protected PositioningZone(Controller c, PositioningZone<T> zone) : base(c, zone) { }
 
 		public readonly List<Aura> Auras = new List<Aura>();

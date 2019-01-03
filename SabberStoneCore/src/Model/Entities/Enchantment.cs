@@ -108,10 +108,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			int id = controller.Game.NextId;
 
-			var tags = new EntityData(4)
-			{
-				{GameTag.ENTITY_ID, id}
-			};
+			var tags = new EntityData(4);
 
 			var instance = new Enchantment(in controller, in card, in tags, in id)
 			{
@@ -129,6 +126,7 @@ namespace SabberStoneCore.Model.Entities
 
 			if (controller.Game.History)
 			{
+				tags.Add(GameTag.ENTITY_ID, id);
 				tags.Add(GameTag.ZONE, (int)Enums.Zone.SETASIDE);
 				tags.Add(GameTag.CONTROLLER, controller.PlayerId);
 
