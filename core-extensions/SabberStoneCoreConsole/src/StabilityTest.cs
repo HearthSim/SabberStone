@@ -166,11 +166,11 @@ namespace SabberStoneCoreConsole
 			    do
 			    {
 				    //Game clone = game.Clone(true);
-				    List<PlayerTask> options = clone.CurrentPlayer.Options();
-				    List<PlayerTask> optionsImproved = clone.CurrentPlayer.Options_improved();
+				    //List<PlayerTask> options = clone.CurrentPlayer.Options();
+				    List<PlayerTask> options = clone.CurrentPlayer.Options_improved();
 
-				    if (options.Count != optionsImproved.Count)
-					    ;
+				    //if (options.Count != optionsImproved.Count)
+					   // ;
 
 				    PlayerTask option = options[rnd.Next(options.Count)];
 				    history.Push(option);

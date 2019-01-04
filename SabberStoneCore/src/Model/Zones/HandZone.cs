@@ -9,6 +9,8 @@ namespace SabberStoneCore.Model.Zones
 	/// </summary>
 	public class HandZone : PositioningZone<IPlayable>
 	{
+		public const int MaxHandSize = 10;
+
 		public HandZone(Controller controller)
 		{
 			Game = controller.Game;
@@ -19,9 +21,9 @@ namespace SabberStoneCore.Model.Zones
 		{
 		}
 
-		public override bool IsFull => _count == Controller.MaxHandSize;
+		public override bool IsFull => _count == MaxHandSize;
 
-		public override int MaxSize => Controller.MaxHandSize;
+		public override int MaxSize => MaxHandSize;
 
 		public override Zone Type => Zone.HAND;
 

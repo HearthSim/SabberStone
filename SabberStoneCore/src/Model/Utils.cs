@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -66,6 +67,12 @@ namespace SabberStoneCore.Model
 				return node.Value;
 			}
 
+			public void Clear()
+			{
+				Count = 0;
+				_head.Next = null;
+			}
+
 			public bool Contains(in TValue value)
 			{
 				Node cursor = _head.Next;
@@ -106,7 +113,7 @@ namespace SabberStoneCore.Model
 			}
 		}
 
-		internal class SmallFastCollection
+		internal class SmallFastCollection : ICollection<int>
 		{
 			private const int InitSize = 6;
 
@@ -115,6 +122,7 @@ namespace SabberStoneCore.Model
 			private int _size;
 
 			public int Count { get; set; }
+			public bool IsReadOnly { get; }
 
 			public SmallFastCollection()
 			{
@@ -178,6 +186,11 @@ namespace SabberStoneCore.Model
 
 					i++;
 				} while (true);
+			}
+
+			public void CopyTo(int[] array, int arrayIndex)
+			{
+				throw new NotImplementedException();
 			}
 
 			public bool Remove(int item)
@@ -264,6 +277,53 @@ namespace SabberStoneCore.Model
 				_array = newArray;
 				_size = newSize;
 				_index = s;
+			}
+
+			public IEnumerator<int> GetEnumerator()
+			{
+				return new Enumerator(_array);
+			}
+
+			IEnumerator IEnumerable.GetEnumerator()
+			{
+				return GetEnumerator();
+			}
+
+			private class Enumerator : IEnumerator<int>
+			{
+				private int[] _arr;
+				private int _current;
+
+				public Enumerator(int[] arr)
+				{
+					_arr = arr;
+				}
+
+				public bool MoveNext()
+				{
+					while (true)
+					{
+						if (++_current == _arr.Length)
+							return false;
+						if (_arr[_current] == 0)
+							continue;
+						return true;
+					}
+				}
+
+				public void Reset()
+				{
+					_current = 0;
+				}
+
+				public int Current => _arr[_current];
+
+				object IEnumerator.Current => Current;
+
+				public void Dispose()
+				{
+					_arr = null;
+				}
 			}
 		}
 

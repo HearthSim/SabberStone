@@ -26,7 +26,7 @@ namespace SabberStoneCoreConsole
 
 			Console.WriteLine("Start Test!");
 
-			//ChameleosAdaptiveCostEffectTest();
+			ChameleosPintSizedSummonerDouble();
 
 			//AugmentedElekk();
 
@@ -228,7 +228,7 @@ namespace SabberStoneCoreConsole
 			}
 		}
 
-		static void ChameleosAdaptiveCostEffectTest()
+		static void ChameleosPintSizedSummonerDouble()
 		{
 			var game = new Game(new GameConfig
 			{
@@ -236,18 +236,20 @@ namespace SabberStoneCoreConsole
 				Player1Deck = new List<Card>
 				{
 					Cards.FromId("GIL_142"),
-					Cards.FromName("Wisp"),
-					Cards.FromName("Wisp"),
+					Cards.FromName("Pint-Sized Summoner"),
+					Cards.FromName("Mirage Caller"),
+					Cards.FromName("Pint-Sized Summoner"),
 					Cards.FromName("Wisp"),
 				},
 				Player2Deck = new List<Card>
 				{
-					Cards.FromName("Mountain Giant"),
-					Cards.FromName("Mountain Giant"),
-					Cards.FromName("Mountain Giant"),
-					Cards.FromName("Mountain Giant"),
+					Cards.FromName("Hallucination"),
+					Cards.FromName("Hallucination"),
+					Cards.FromName("Hallucination"),
+					Cards.FromName("Hallucination"),
+					Cards.FromName("Hallucination"),
 				},
-				FillDecks = true,
+				FillDecks = false,
 				Shuffle = false
 			});
 			game.Player1.BaseMana = 10;
@@ -256,13 +258,30 @@ namespace SabberStoneCoreConsole
 
 			var chameleosId = game.Player1.HandZone[0].Id;
 
-			do
-			{
-				game.Process(EndTurnTask.Any(game.Player1));
-				game.Process(EndTurnTask.Any(game.Player2));
-			} while (game.IdEntityDic[chameleosId].Card.Name == "Mountain Giant");
+			//do
+			//{
+			//	game.Process(EndTurnTask.Any(game.Player1));
+			//	game.Process(EndTurnTask.Any(game.Player2));
+			//} while (game.IdEntityDic[chameleosId].Card.Name == "Mountain Giant");
 
-			var clone = game.Clone();
+			//if (game.IdEntityDic[chameleosId].Card.Name != "Hallucination")
+			//	throw new Exception();
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Pint-Sized Summoner"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Mirage Caller", game.CurrentPlayer.BoardZone[0]));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			for (int i = game.CurrentPlayer.HandZone.Count - 1; i >= 0; i--)
+				game.CurrentPlayer.HandZone.Remove(game.CurrentPlayer.HandZone[i]);
+
+			Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gurubashi Berserker"));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wisp"));
+
+			Console.ReadKey();
 		}
 
 		static void CloneAdapt()

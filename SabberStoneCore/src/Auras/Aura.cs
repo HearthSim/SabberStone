@@ -242,6 +242,8 @@ namespace SabberStoneCore.Auras
 					return;
 				}
 
+				AuraUpdateInstructionsQueue.Clear();
+
 				AppliedEntityIdCollection.ForEach(Game.IdEntityDic, this,
 					(i, dict, aura) => aura.DeApply(dict[i]));
 
@@ -636,5 +638,8 @@ namespace SabberStoneCore.Auras
 			//sb.Append(ToBeUpdated ? "[U]" : "[NU]");
 			return sb.ToString();
 		}
+
+		// For debugging
+		public IReadOnlyList<IPlayable> AppliedEntities => AppliedEntityIdCollection.Select(i => Game.IdEntityDic[i]).ToArray();
 	}
 }
