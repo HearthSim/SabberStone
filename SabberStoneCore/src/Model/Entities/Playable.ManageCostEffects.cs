@@ -11,22 +11,23 @@ namespace SabberStoneCore.Model.Entities
 	{
 		private class CostManager
 		{
-			private List<Effect> _costEffects;
+			private List<Effect> _costEffects = new List<Effect>();
 			private AdaptiveCostEffect _adaptiveCostEffect;
+			private int _cache;
 
 			public bool ToBeUpdated { get; set; }
 
 			/// <summary>
 			/// Add a new Cost related effect to the owner.
 			/// </summary>
-			public void AddCostAura(Playable p, Effect e)
+			public void AddCostAura(Effect e)
 			{
 				ToBeUpdated = true;
 
-				if (_costEffects == null)
-					_costEffects = new List<Effect> {e};
-				else
-					_costEffects.Add(e);
+				_costEffects.Add(e);
+
+				if (e.Operator == EffectOperator.SET)
+
 			}
 
 			/// <summary>
@@ -34,8 +35,6 @@ namespace SabberStoneCore.Model.Entities
 			/// </summary>
 			public void RemoveCostAura(Effect e)
 			{
-				if (_costEffects == null)
-					return;
 				ToBeUpdated = true;
 				if (_costEffects.Remove(e)) return;
 
@@ -50,7 +49,7 @@ namespace SabberStoneCore.Model.Entities
 				_adaptiveCostEffect = adaptiveCostEffect;
 			}
 
-			public void ResetCost(Playable playable)
+			public void ResetCost()
 			{
 				_costEffects = null;
 				_adaptiveCostEffect?.Remove();
@@ -58,38 +57,38 @@ namespace SabberStoneCore.Model.Entities
 					playable.Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(playable.Id, GameTag.COST, playable.Card.Cost));
 			}
 
-			internal int GetCost(int c, Playable entity)
+			public int GetCost(int c)
 			{
-				if (ToBeUpdated)
-					return GetCostInternal(c, entity);
-				return c;
+				return ToBeUpdated ? _cache = GetCostInternal(c) : _cache;
 			}
 
-			private int GetCostInternal(int c, Playable entity)
+			private int GetCostInternal(int c)
 			{
-				// Apply cost effects next. (e.g. Naga Sea Witch)
-				List<Effect> effects = _costEffects;
-				if (effects != null)
-					for (int i = 0; i < effects.Count; i++)
-					{
-						Effect e = _costEffects[i];
-						switch (e.Operator)
-						{
-							case EffectOperator.ADD:
-								c += e.Value;
-								break;
-							case EffectOperator.SUB:
-								c -= e.Value;
-								break;
-							case EffectOperator.SET:
-								c = e.Value;
-								break;
-							default:
-								throw new ArgumentOutOfRangeException();
-						}
-					}
+				// 1. Get cost with enchantments first (c)
+				// e.g. Emperor Thaurissan
 
-				// Lastly apply Adaptive Cost Effect (e.g. Giants)
+				// 2. Apply cost aura effects next. (e.g. Naga Sea Witch, Sorcerer's Apprentice)
+				List<Effect> effects = _costEffects;
+				for (int i = 0; i < effects.Count; i++)
+				{
+					Effect e = effects[i];
+					switch (e.Operator)
+					{
+						case EffectOperator.ADD:
+							c += e.Value;
+							break;
+						case EffectOperator.SUB:
+							c -= e.Value;
+							break;
+						case EffectOperator.SET:
+							c = e.Value;
+							break;
+						default:
+							throw new ArgumentOutOfRangeException();
+					}
+				}
+
+				// 3. Lastly apply Adaptive Cost Effect (e.g. Giants)
 				c = _adaptiveCostEffect?.Apply(c) ?? c;
 
 				// Dismiss negative cost.
@@ -104,16 +103,57 @@ namespace SabberStoneCore.Model.Entities
 		private CostManager _costManager;
 		protected int? _modifiedCost;
 
-		public void AddCostAuraEffect(Effect e)
+		internal void AddCostAuraEffect(Effect e)
 		{
 			if (_costManager == null)
 			{
 				var costManager = new CostManager();
-				costManager.AddCostAura(this, e);
+				costManager.AddCostAura(e);
 				_costManager = costManager;
 			}
 			else
-				_costManager.AddCostAura(this, e);
+				_costManager.AddCostAura(e);
 		}
+
+		internal void RemoveCostAuraEffect(Effect e)
+		{
+			if (_costManager == null)
+			{
+				var costManager = new CostManager();
+				costManager.RemoveCostAura(e);
+			}
+			else
+				_costManager.RemoveCostAura(e);
+		}
+
+		internal void AddCostEnchantment(Effect e)
+		{
+			switch (e.Operator)
+			{
+				case EffectOperator.ADD:
+					_modifiedCost = _modifiedCost.GetValueOrDefault() + e.Value;
+					_costManager._cac
+					break;
+				case EffectOperator.SUB:
+					_modifiedCost = _modifiedCost.GetValueOrDefault() - e.Value;
+					break;
+				case EffectOperator.SET:
+					_modifiedCost = e.Value;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		internal void ResetCost()
+		{
+			_costManager.ResetCost();
+			_costManager = null;
+			_modifiedCost = null;
+
+			if (_history)
+				Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.COST, Card.Cost));
+		}
+	}
 	}
 }

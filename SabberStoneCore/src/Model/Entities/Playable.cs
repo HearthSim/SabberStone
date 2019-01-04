@@ -591,7 +591,7 @@ namespace SabberStoneCore.Model.Entities
 		public int Cost
 		{
 			get =>
-				_costManager?.GetCost(_modifiedCost ?? (_modifiedCost = Card.Cost).Value, this) ??
+				_costManager?.GetCost(_modifiedCost ?? (_modifiedCost = Card.Cost).Value) ??
 				(_modifiedCost.HasValue ? _modifiedCost < 0 ? 0 : _modifiedCost.Value : Card.Cost);
 			set => _modifiedCost = value;
 		}
