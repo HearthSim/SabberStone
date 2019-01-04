@@ -588,19 +588,19 @@ namespace SabberStoneCore.Model.Entities
 		protected bool _exhausted;
 		protected int _zonePosition;
 
-		//private readonly CostManager _costManager;
-		//private readonly bool _updateCost;
+		public int Cost
+		{
+			get =>
+				_costManager?.GetCost(_modifiedCost ?? (_modifiedCost = Card.Cost).Value, this) ??
+				(_modifiedCost.HasValue ? _modifiedCost < 0 ? 0 : _modifiedCost.Value : Card.Cost);
+			set => _modifiedCost = value;
+		}
 
 		//public int Cost
 		//{
-		//	get => _costManager?.GetCost
+		//	get => AuraEffects.GetCost();
+		//	set => AuraEffects.AddCostAura(new Effect(GameTag.COST, EffectOperator.SET, value));
 		//}
-
-		public int Cost
-		{
-			get => AuraEffects.GetCost();
-			set => AuraEffects.AddCostAura(new Effect(GameTag.COST, EffectOperator.SET, value));
-		}
 
 		public int ZonePosition
 		{

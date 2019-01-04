@@ -8,7 +8,7 @@
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <TreatSpecificWarningsAsErrors />
     <LangVersion>latest</LangVersion>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <DefineConstants>NETSTANDARD2_0</DefineConstants>
     <OutputPath>bin\Debug\netstandard2.0\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -20,7 +20,7 @@
     <TreatSpecificWarningsAsErrors />
     <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <DefineConstants />
   </PropertyGroup>
   <ItemGroup>

@@ -548,38 +548,18 @@ namespace SabberStoneCore.Auras
 
 			IEffect[] effects = Effects;
 
-			//if (_appliedEntityIds.Contains(entity.Id))
-			//{
-			//	if (!Restless || Condition.Eval(entity)) return;
-
-			//	for (int i = 0; i < effects.Length; i++)
-			//		effects[i].RemoveFrom(entity.AuraEffects);
-
-			//	_appliedEntityIds.Remove(entity.Id);
-			//	AppliedEntities.Remove(entity);
-			//}
-
 			if (Condition != null)
 				if (!Condition.Eval(entity))
 					return;
 
-			//if (ValueFunc != null)
-			//{
-			//	IEffect effect = effects[0].ChangeValue(ValueFunc(entity));
-			//	effect.ApplyTo(entity.AuraEffects);
-			//}
-			//else
-				for (int i = 0; i < effects.Length; i++)
-					effects[i].ApplyTo(entity.AuraEffects);
+			for (int i = 0; i < effects.Length; i++)
+				effects[i].ApplyTo(entity.AuraEffects);
 
 			if (EnchantmentCard != null && ((Game.History /*&& _tempList == null*/) || EnchantmentCard.Power.Trigger != null))
 			{
 				Enchantment instance = Enchantment.GetInstance(entity.Controller, Owner, entity, in EnchantmentCard);
 				EnchantmentCard.Power.Trigger?.Activate(instance);
 			}
-
-			//AppliedEntities.Add(entity);
-			//_appliedEntityIds.Add(entity.Id);
 
 			AppliedEntityIdCollection.Add(entity.Id);
 		}

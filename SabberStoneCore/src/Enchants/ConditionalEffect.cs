@@ -33,7 +33,7 @@ namespace SabberStoneCore.Enchants
 
 		public void ApplyTo(IEntity entity, bool isOneTurnEffect)
 		{
-			var value = _valueFunction((IPlayable)entity);
+			int value = _valueFunction((IPlayable)entity);
 
 			LastValue = value;
 			switch (Tag)
@@ -52,7 +52,7 @@ namespace SabberStoneCore.Enchants
 
 		public void ApplyTo(AuraEffects auraEffects)
 		{
-			var value = _valueFunction((IPlayable)auraEffects.Owner);
+			int value = _valueFunction((IPlayable)auraEffects.Owner);
 			LastValue = value;
 			switch (Tag)
 			{
