@@ -22,12 +22,22 @@ namespace SabberStoneCore.Model.Entities
 			/// </summary>
 			public void AddCostAura(Effect e)
 			{
-				ToBeUpdated = true;
-
 				_costEffects.Add(e);
 
-				if (e.Operator == EffectOperator.SET)
+				ref int c = ref _cache;
 
+				switch (e.Operator)
+				{
+					case EffectOperator.SUB:
+						c -= e.Value;
+						break;
+					case EffectOperator.ADD:
+						c += e.Value;
+						break;
+					case EffectOperator.SET:
+						c = e.Value;
+						break;
+				}
 			}
 
 			/// <summary>
@@ -35,10 +45,29 @@ namespace SabberStoneCore.Model.Entities
 			/// </summary>
 			public void RemoveCostAura(Effect e)
 			{
-				ToBeUpdated = true;
-				if (_costEffects.Remove(e)) return;
+				//ToBeUpdated = true;
+				//if (_costEffects.Remove(e)) return;
 
-				throw new Exception($"Can't remove cost aura {e}");
+				//throw new Exception($"Can't remove cost aura {e}");
+
+				if (!_costEffects.Remove(e))
+					throw new Exception($"Can't remove cost aura {e}");
+
+				ref int c = ref _cache;
+
+				switch (e.Operator)
+				{
+					case EffectOperator.SUB:
+						c += e.Value;
+						break;
+					case EffectOperator.ADD:
+						c -= e.Value;
+						break;
+					case EffectOperator.SET:
+						ToBeUpdated = true;
+						break;
+				}
+
 			}
 
 			/// <summary>
@@ -59,7 +88,9 @@ namespace SabberStoneCore.Model.Entities
 
 			public int GetCost(int c)
 			{
-				return ToBeUpdated ? _cache = GetCostInternal(c) : _cache;
+				int cost = ToBeUpdated ? GetCostInternal(c) : _cache;
+
+				return cost > 0 ? cost : 0;
 			}
 
 			private int GetCostInternal(int c)
@@ -91,8 +122,7 @@ namespace SabberStoneCore.Model.Entities
 				// 3. Lastly apply Adaptive Cost Effect (e.g. Giants)
 				c = _adaptiveCostEffect?.Apply(c) ?? c;
 
-				// Dismiss negative cost.
-				if (c < 0) c = 0;
+				_cache = c;
 
 				ToBeUpdated = false;
 
