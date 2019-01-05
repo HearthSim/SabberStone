@@ -149,8 +149,22 @@ namespace SabberStoneCore.Model.Entities
 		/// <returns></returns>
 		IPlayable Clone(in Controller controller);
 
+		/// <summary>
+		/// Gets or sets Ongoing effect of this entity.
+		/// Ongoing effects are minion, weapon, and boss Hero Power abilities
+		/// which grant special effects on an ongoing basis.
+		/// Ongoing effects are often referred to as auras, particularly
+		/// those which grant temporary enchantments to other targets.
+		/// https://hearthstone.gamepedia.com/Ongoing_effect
+		/// Here, OngoingEffect includes <see cref="OngoingEnchant"/> too.
+		/// </summary>
 		IAura OngoingEffect { get; set; }
 
+		/// <summary>
+		/// Gets or sets current activated <see cref="Trigger"/> of this entity.
+		/// Nullifying this field does not mean deactivation of the trigger.
+		/// Use <see cref="Trigger.Remove()"/> instead.
+		/// </summary>
 		Trigger ActivatedTrigger { get; set; }
 
 		List<int> Memory { get; set; }
@@ -258,6 +272,26 @@ namespace SabberStoneCore.Model.Entities
 		public IPlayable[] ChooseOnePlayables { get; set; }
 
 		/// <summary>
+		/// Gets or sets Ongoing effect of this entity.
+		/// Ongoing effects are minion, weapon, and boss Hero Power abilities
+		/// which grant special effects on an ongoing basis.
+		/// Ongoing effects are often referred to as auras, particularly
+		/// those which grant temporary enchantments to other targets.
+		/// https://hearthstone.gamepedia.com/Ongoing_effect
+		/// Here, OngoingEffect includes <see cref="OngoingEnchant"/> too.
+		/// </summary>
+		public IAura OngoingEffect { get; set; }
+
+		/// <summary>
+		/// Gets or sets current activated <see cref="Trigger"/> of this entity.
+		/// Nullifying this field does not mean deactivation of the trigger.
+		/// Use <see cref="Trigger.Remove()"/> instead.
+		/// </summary>
+		public Trigger ActivatedTrigger { get; set; }
+
+		public List<int> Memory { get; set; }
+
+		/// <summary>
 		/// Gets or sets the Powers attached to this entity.
 		/// These Powers are hardcoded into the card data, from which this entity
 		/// is constructed.
@@ -323,6 +357,11 @@ namespace SabberStoneCore.Model.Entities
 			}
 			else
 				Game.TaskQueue.Enqueue(in task, Controller, this, target);
+		}
+
+		public void ClearEnchantments()
+		{
+			
 		}
 
 		/// <summary>
@@ -544,12 +583,6 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public abstract IPlayable Clone(in Controller controller);
-
-		public IAura OngoingEffect { get; set; }
-
-		public Trigger ActivatedTrigger { get; set; }
-
-		public List<int> Memory { get; set; }
 
 		public override string Hash(params GameTag[] ignore)
 		{

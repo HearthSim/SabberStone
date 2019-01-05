@@ -11,20 +11,19 @@ namespace SabberStoneCore.Model.Entities
 	{
 		private class CostManager
 		{
+			private int _cachedValue;
+			private bool _toBeUpdated;
 			private List<Effect> _costEffects = new List<Effect>();
 			private AdaptiveCostEffect _adaptiveCostEffect;
-			private int _cache;
-
-			public bool ToBeUpdated { get; set; }
 
 			/// <summary>
-			/// Add a new Cost related effect to the owner.
+			/// Apply a new Cost effect of an <see cref="Aura"/>
 			/// </summary>
-			public void AddCostAura(Effect e)
+			public void AddCostAura(in Effect e)
 			{
 				_costEffects.Add(e);
 
-				ref int c = ref _cache;
+				ref int c = ref _cachedValue;
 
 				switch (e.Operator)
 				{
@@ -41,9 +40,10 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			/// <summary>
-			/// Remove a Cost related effect from the owner.
+			/// Remove an applied Cost effect of an <see cref="Aura"/>.
 			/// </summary>
-			public void RemoveCostAura(Effect e)
+			/// <exception cref="KeyNotFoundException"></exception>
+			public void RemoveCostAura(in Effect e)
 			{
 				//ToBeUpdated = true;
 				//if (_costEffects.Remove(e)) return;
@@ -51,9 +51,9 @@ namespace SabberStoneCore.Model.Entities
 				//throw new Exception($"Can't remove cost aura {e}");
 
 				if (!_costEffects.Remove(e))
-					throw new Exception($"Can't remove cost aura {e}");
+					throw new KeyNotFoundException($"Can't remove cost aura {e}");
 
-				ref int c = ref _cache;
+				ref int c = ref _cachedValue;
 
 				switch (e.Operator)
 				{
@@ -64,7 +64,7 @@ namespace SabberStoneCore.Model.Entities
 						c -= e.Value;
 						break;
 					case EffectOperator.SET:
-						ToBeUpdated = true;
+						_toBeUpdated = true;
 						break;
 				}
 
@@ -78,19 +78,44 @@ namespace SabberStoneCore.Model.Entities
 				_adaptiveCostEffect = adaptiveCostEffect;
 			}
 
+			/// <summary>
+			/// Add a new permanent cost enchantment effect
+			/// </summary>
+			/// <param name="e"></param>
+			public void AddCostEnchantment(in Effect e)
+			{
+				ref int c = ref _cachedValue;
+
+				switch (e.Operator)
+				{
+					case EffectOperator.SUB:
+						c += e.Value;
+						break;
+					case EffectOperator.ADD:
+						c -= e.Value;
+						break;
+					case EffectOperator.SET:
+						_toBeUpdated = true;
+						break;
+				}
+			}
+
 			public void ResetCost()
 			{
 				_costEffects = null;
 				_adaptiveCostEffect?.Remove();
-				if (playable.Game.History)
-					playable.Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(playable.Id, GameTag.COST, playable.Card.Cost));
 			}
 
 			public int GetCost(int c)
 			{
-				int cost = ToBeUpdated ? GetCostInternal(c) : _cache;
+				int cost = _toBeUpdated ? GetCostInternal(c) : _cachedValue;
 
 				return cost > 0 ? cost : 0;
+			}
+
+			internal void QueueUpdate()
+			{
+				_toBeUpdated = true;
 			}
 
 			private int GetCostInternal(int c)
@@ -122,27 +147,27 @@ namespace SabberStoneCore.Model.Entities
 				// 3. Lastly apply Adaptive Cost Effect (e.g. Giants)
 				c = _adaptiveCostEffect?.Apply(c) ?? c;
 
-				_cache = c;
+				_cachedValue = c;
 
-				ToBeUpdated = false;
+				_toBeUpdated = false;
 
 				return c;
 			}
 		}
 
 		private CostManager _costManager;
-		protected int? _modifiedCost;
+		private int? _modifiedCost;
 
 		internal void AddCostAuraEffect(Effect e)
 		{
 			if (_costManager == null)
 			{
 				var costManager = new CostManager();
-				costManager.AddCostAura(e);
+				costManager.AddCostAura(in e);
 				_costManager = costManager;
 			}
 			else
-				_costManager.AddCostAura(e);
+				_costManager.AddCostAura(in e);
 		}
 
 		internal void RemoveCostAuraEffect(Effect e)
@@ -150,10 +175,10 @@ namespace SabberStoneCore.Model.Entities
 			if (_costManager == null)
 			{
 				var costManager = new CostManager();
-				costManager.RemoveCostAura(e);
+				costManager.RemoveCostAura(in e);
 			}
 			else
-				_costManager.RemoveCostAura(e);
+				_costManager.RemoveCostAura(in e);
 		}
 
 		internal void AddCostEnchantment(Effect e)
@@ -162,7 +187,6 @@ namespace SabberStoneCore.Model.Entities
 			{
 				case EffectOperator.ADD:
 					_modifiedCost = _modifiedCost.GetValueOrDefault() + e.Value;
-					_costManager._cac
 					break;
 				case EffectOperator.SUB:
 					_modifiedCost = _modifiedCost.GetValueOrDefault() - e.Value;
@@ -173,6 +197,8 @@ namespace SabberStoneCore.Model.Entities
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+
+			_costManager?.AddCostEnchantment(in e);
 		}
 
 		internal void ResetCost()
@@ -184,6 +210,5 @@ namespace SabberStoneCore.Model.Entities
 			if (_history)
 				Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.COST, Card.Cost));
 		}
-	}
 	}
 }

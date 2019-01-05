@@ -33,7 +33,7 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
-		internal bool ToBeUpdated { get; set; }
+		//internal bool ToBeUpdated { get; set; }
 
 		// Playable
 		internal int Cost;
