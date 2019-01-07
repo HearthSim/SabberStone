@@ -359,11 +359,6 @@ namespace SabberStoneCore.Model.Entities
 				Game.TaskQueue.Enqueue(in task, Controller, this, target);
 		}
 
-		public void ClearEnchantments()
-		{
-			
-		}
-
 		/// <summary>
 		/// Stores the next Order Of Play index held by the <see cref="T:SabberStoneCore.Model.Game" /> instance.
 		/// Order of play is important because it's the order in which effects are resolved.
@@ -457,128 +452,133 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
+				// check requirments on cards here 
+				if (!Card.IsPlayableByCardReq(Controller))
+				{
+					if (_logging)
+					{
+						foreach (KeyValuePair<PlayReq, int> item in Card.PlayRequirements)
+						{
+							PlayReq req = item.Key;
+							int param = item.Value;
+
+							Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"{this} check PlayReq {req} ... !");
+
+							switch (req)
+							{
+								case PlayReq.REQ_NUM_MINION_SLOTS:
+									{
+										if (Controller.BoardZone.IsFull)
+										{
+											Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Board is full can't summon new minion.");
+											return false;
+										}
+										break;
+									}
+								case PlayReq.REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY:
+									{
+										var ids = Controller.BoardZone.Select(p => p.Card.Id).ToList();
+										bool containsAll = true;
+										for (int i = 0; i < Card.Entourage.Length; i++)
+											containsAll &= ids.Contains(Card.Entourage[i]);
+
+										if (containsAll)
+										{
+											Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"All ready all entourageing cards summoned.");
+											return false;
+										}
+										break;
+									}
+								case PlayReq.REQ_WEAPON_EQUIPPED:
+									{
+										if (Controller.Hero.Weapon == null)
+										{
+											Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Need a weapon to play this card.");
+											return false;
+										}
+										break;
+									}
+								case PlayReq.REQ_MINIMUM_ENEMY_MINIONS:
+									{
+										if (Controller.Opponent.BoardZone.Count < param)
+										{
+											Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Need at least {param} enemy minions to play this card.");
+											return false;
+										}
+										break;
+									}
+								case PlayReq.REQ_MINIMUM_TOTAL_MINIONS:
+									{
+										if (Controller.BoardZone.Count + Controller.Opponent.BoardZone.Count < param)
+										{
+											Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Need at least {param} minions to play this card.");
+											return false;
+										}
+										break;
+									}
+								case PlayReq.REQ_STEADY_SHOT:
+									{
+										if (!Controller.Hero.HeroPower.Card.Id.Equals("DS1h_292"))
+										{
+											Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Need steady shoot to be used.");
+											return false;
+										}
+										break;
+									}
+
+								case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
+									{
+										if (!Controller.GraveyardZone.Any(p => p is Minion && p.ToBeDestroyed))
+										{
+											Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"No friendly minions died this game.");
+											return false;
+										}
+										break;
+									}
+
+								// implemented in Targeting
+								case PlayReq.REQ_TARGET_FOR_COMBO:
+								case PlayReq.REQ_FROZEN_TARGET:
+								case PlayReq.REQ_MINION_OR_ENEMY_HERO:
+								case PlayReq.REQ_TARGET_MAX_ATTACK:
+								case PlayReq.REQ_MINION_TARGET:
+								case PlayReq.REQ_FRIENDLY_TARGET:
+								case PlayReq.REQ_ENEMY_TARGET:
+								case PlayReq.REQ_UNDAMAGED_TARGET:
+								case PlayReq.REQ_DAMAGED_TARGET:
+								case PlayReq.REQ_TARGET_WITH_RACE:
+								case PlayReq.REQ_MUST_TARGET_TAUNTER:
+								case PlayReq.REQ_TARGET_MIN_ATTACK:
+								case PlayReq.REQ_TARGET_WITH_DEATHRATTLE:
+								case PlayReq.REQ_TARGET_WITH_BATTLECRY:
+								case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
+								case PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN:
+								case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:
+								case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
+								case PlayReq.REQ_NONSELF_TARGET:
+									break;
+
+								// already implemented ... card.RequiresTarget and RequiresTargetIfAvailable
+								case PlayReq.REQ_TARGET_TO_PLAY:
+								case PlayReq.REQ_TARGET_IF_AVAILABLE:
+									break;
+
+								default:
+									Game.Log(LogLevel.ERROR, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"PlayReq {req} not in switch needs to be added (Playable)!");
+									break;
+							}
+						}
+					}
+				}
+
 				// check if we need a target and there are some
-				if (Card.RequiresTarget && ValidPlayTargets.Count() == 0)
+				if (Card.MustHaveTargetToPlay && HasAnyValidPlayTargets)
 				{
 					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"{this} isn't playable, because need valid target and we don't have one.");
 					return false;
 				}
 
-				// check requirments on cards here 
-				foreach (KeyValuePair<PlayReq, int> item in Card.PlayRequirements)
-				{
-					PlayReq req = item.Key;
-					int param = item.Value;
-
-					Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"{this} check PlayReq {req} ... !");
-
-					switch (req)
-					{
-						case PlayReq.REQ_NUM_MINION_SLOTS:
-							{
-								if (Controller.BoardZone.IsFull)
-								{
-									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Board is full can't summon new minion.");
-									return false;
-								}
-								break;
-							}
-						case PlayReq.REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY:
-							{
-								var ids = Controller.BoardZone.Select(p => p.Card.Id).ToList();
-								bool containsAll = true;
-								for (int i = 0; i < Card.Entourage.Length; i++)
-									containsAll &= ids.Contains(Card.Entourage[i]);
-
-								if (containsAll)
-								{
-									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"All ready all entourageing cards summoned.");
-									return false;
-								}
-								break;
-							}
-						case PlayReq.REQ_WEAPON_EQUIPPED:
-							{
-								if (Controller.Hero.Weapon == null)
-								{
-									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Need a weapon to play this card.");
-									return false;
-								}
-								break;
-							}
-						case PlayReq.REQ_MINIMUM_ENEMY_MINIONS:
-							{
-								if (Controller.Opponent.BoardZone.Count < param)
-								{
-									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Need at least {param} enemy minions to play this card.");
-									return false;
-								}
-								break;
-							}
-						case PlayReq.REQ_MINIMUM_TOTAL_MINIONS:
-							{
-								if (Controller.BoardZone.Count + Controller.Opponent.BoardZone.Count < param)
-								{
-									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Need at least {param} minions to play this card.");
-									return false;
-								}
-								break;
-							}
-						case PlayReq.REQ_STEADY_SHOT:
-							{
-								if (!Controller.Hero.HeroPower.Card.Id.Equals("DS1h_292"))
-								{
-									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"Need steady shoot to be used.");
-									return false;
-								}
-								break;
-							}
-
-						case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
-							{
-								if (!Controller.GraveyardZone.Any(p => p is Minion && p.ToBeDestroyed))
-								{
-									Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"No friendly minions died this game.");
-									return false;
-								}
-								break;
-							}
-
-						// implemented in Targeting
-						case PlayReq.REQ_TARGET_FOR_COMBO:
-						case PlayReq.REQ_FROZEN_TARGET:
-						case PlayReq.REQ_MINION_OR_ENEMY_HERO:
-						case PlayReq.REQ_TARGET_MAX_ATTACK:
-						case PlayReq.REQ_MINION_TARGET:
-						case PlayReq.REQ_FRIENDLY_TARGET:
-						case PlayReq.REQ_ENEMY_TARGET:
-						case PlayReq.REQ_UNDAMAGED_TARGET:
-						case PlayReq.REQ_DAMAGED_TARGET:
-						case PlayReq.REQ_TARGET_WITH_RACE:
-						case PlayReq.REQ_MUST_TARGET_TAUNTER:
-						case PlayReq.REQ_TARGET_MIN_ATTACK:
-						case PlayReq.REQ_TARGET_WITH_DEATHRATTLE:
-						case PlayReq.REQ_TARGET_WITH_BATTLECRY:
-						case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
-						case PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN:
-						case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:
-						case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
-						case PlayReq.REQ_NONSELF_TARGET:
-							break;
-
-						// already implemented ... card.RequiresTarget and RequiresTargetIfAvailable
-						case PlayReq.REQ_TARGET_TO_PLAY:
-						case PlayReq.REQ_TARGET_IF_AVAILABLE:
-							break;
-
-						default:
-							Game.Log(LogLevel.ERROR, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"PlayReq {req} not in switch needs to be added (Playable)!");
-							break;
-					}
-				}
-
 				return true;
-
 			}
 		}
 

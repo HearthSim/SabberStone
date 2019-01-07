@@ -629,7 +629,7 @@ namespace SabberStoneCore.Tasks
 					Controller c = p.Controller;
 					IPlayable entity = Entity.FromCard(c, card);
 					ICharacter randTarget = null;
-					if (card.RequiresTarget || card.RequiresTargetIfAvailable)
+					if (card.TargetingType != TargetingType.None)
 					{
 						List<ICharacter> targets = (List<ICharacter>)entity.ValidPlayTargets;
 
@@ -702,7 +702,7 @@ namespace SabberStoneCore.Tasks
 				{
 					IPlayable entity = Entity.FromCard(c, card); // TODO
 					ICharacter randTarget = null;
-					if (card.RequiresTarget || card.RequiresTargetIfAvailable)
+					if (card.TargetingType != TargetingType.None)
 					{
 						List<ICharacter> targets = (List<ICharacter>) entity.ValidPlayTargets;
 

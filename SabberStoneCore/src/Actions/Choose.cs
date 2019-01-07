@@ -60,7 +60,7 @@ namespace SabberStoneCore.Actions
 						if (RemoveFromZone(c, playable))
 						{
 							ICharacter randTarget = null;
-							if (playable.Card.RequiresTarget || playable.Card.RequiresTargetIfAvailable)
+							if (playable.Card.TargetingType != TargetingType.None)
 							{
 								List<ICharacter> targets = (List<ICharacter>)playable.ValidPlayTargets;
 

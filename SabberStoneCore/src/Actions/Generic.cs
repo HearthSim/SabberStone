@@ -316,8 +316,8 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, IPlayable, Card, IPlayable> ChangeEntityBlock
-			=> delegate(Controller c, IPlayable p, Card newCard)
+		public static Func<Controller, IPlayable, Card, bool, IPlayable> ChangeEntityBlock
+			=> delegate(Controller c, IPlayable p, Card newCard, bool removeEnchantments)
 			{
 				c.Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "ChangeEntityBlock",
 					!c.Game.Logging ? "" : $"{p} is changed into {newCard}.");
@@ -325,14 +325,18 @@ namespace SabberStoneCore.Actions
 				//if (!(p.Zone is HandZone hand))
 				//	throw new InvalidOperationException($"{p} is not in Hand. ({p.Zone})");
 
+				if (removeEnchantments)
+				{
+					// 12.0 Game Mechanics Update: Clear all applied enchantments when shifting
+					if (p.AppliedEnchantments != null)
+						for (int i = p.AppliedEnchantments.Count - 1; i >= 0; i--)
+							p.AppliedEnchantments[i].Remove();
+
+					p.Reset();
+				}
+
 				p.ActivatedTrigger?.Remove();
 				p.OngoingEffect?.Remove();
-				p.AuraEffects.ToBeUpdated = true;
-
-				// 12.0 Game Mechanics Update: Clear all applied enchantments when shifting
-				if (p.AppliedEnchantments != null)
-					for (int i = p.AppliedEnchantments.Count - 1; i >= 0; i--)
-						p.AppliedEnchantments[i].Remove();
 
 				HandZone hand = p.Zone as HandZone;
 				BoardZone board = p.Zone as BoardZone;

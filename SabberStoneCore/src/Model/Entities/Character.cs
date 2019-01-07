@@ -73,6 +73,8 @@ namespace SabberStoneCore.Model.Entities
 
 		event TriggerManager.TriggerHandler AfterAttackTrigger;
 		void OnAfterAttackTrigger();
+
+		bool HasAnyValidAttackTargets { get; }
 	}
 
 	/// <summary>
@@ -169,7 +171,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Character can attack.
 		/// </summary>
-		public virtual bool CanAttack => !IsExhausted && !IsFrozen && ValidAttackTargets.Any() && !CantAttack;
+		public virtual bool CanAttack => !IsExhausted && !IsFrozen && HasAnyValidAttackTargets && !CantAttack;
 
 		/// <summary>
 		/// Indicates if the provided character can be attacked by this character.
@@ -185,11 +187,13 @@ namespace SabberStoneCore.Model.Entities
 				return false;
 			}
 
-			var hero = target as Hero;
-			if (CantAttackHeroes && (hero != null))
+			if (target is Hero)
 			{
-				Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", !Game.Logging? "":$"Can't attack Heroes!");
-				return false;
+				if (CantAttackHeroes || (this is Minion m && m.AttackableByRush))
+				{
+					Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", !Game.Logging ? "" : $"Can't attack Heroes!");
+					return false;
+				}
 			}
 
 			return true;
@@ -228,6 +232,27 @@ namespace SabberStoneCore.Model.Entities
 					allTargets.Add(opHero);
 
 				return allTargets;
+			}
+		}
+
+		public bool HasAnyValidAttackTargets
+		{
+			get
+			{
+				ReadOnlySpan<Minion> span = Controller.Opponent.BoardZone.GetSpan();
+				for (int i = 0; i < span.Length; i++)
+				{
+					if (!(span[i].HasStealth || span[i].IsImmune))
+						return true;
+				}
+
+				bool isOpHeroValidPlayTarget =
+					!Controller.Opponent.Hero.HasStealth && !Controller.Opponent.Hero.IsImmune;
+
+				if (isOpHeroValidPlayTarget && (!CantAttackHeroes || this is Minion m && m.AttackableByRush))
+					return true; // Op Hero is a valid attack target
+
+				return false;
 			}
 		}
 

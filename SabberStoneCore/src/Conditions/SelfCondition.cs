@@ -226,7 +226,7 @@ namespace SabberStoneCore.Conditions
 		}
 
 		public static readonly SelfCondition HasProperTargetsInBoard =
-			new SelfCondition(me => !me.Card.RequiresTarget || me.ValidPlayTargets.Any());
+			new SelfCondition(me => !me.Card.MustHaveTargetToPlay || me.HasAnyValidPlayTargets);
 
 		public static readonly SelfCondition IsHeroLethalPreDamaged
 			= new SelfCondition(me => me is Hero hero && hero.Game.CurrentEventData.EventNumber >= hero.Health);

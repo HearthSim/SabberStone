@@ -41,7 +41,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					foreach (IPlayable p in stack?.Playables)
 					{
 						ICharacter randTarget = null;
-						if (_randTarget && p.Card.RequiresTarget)
+						if (_randTarget && p.Card.MustHaveTargetToPlay)
 						{
 							var targets = (List<ICharacter>) p.ValidPlayTargets;
 
