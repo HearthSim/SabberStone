@@ -50,7 +50,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					Card pick = Util.Choose(randCards);
 
-					Generic.ChangeEntityBlock.Invoke(controller, p, pick);
+					Generic.ChangeEntityBlock.Invoke(controller, p, pick, false);
 
 					//TODO p[GameTag.DISPLAYED_CREATOR] = source.Id;
 				}
@@ -59,7 +59,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			foreach (IPlayable p in IncludeTask.GetEntities(_type, in controller, source, target, stack?.Playables))
-				Generic.ChangeEntityBlock.Invoke(controller, p, _card);
+				Generic.ChangeEntityBlock.Invoke(controller, p, _card, false);
 
 			// TODO p[GameTag.DISPLAYED_CREATOR] = source.Id;
 

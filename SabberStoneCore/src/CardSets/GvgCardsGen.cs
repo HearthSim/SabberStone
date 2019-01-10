@@ -1450,7 +1450,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("GVG_052", new Power {
 				PowerTask = new DestroyTask(EntityType.TARGET),
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.BoardZone.Any(m => m.Damage > 0) ? 4 : 0)
+				Aura = new AdaptiveCostEffect(p => p.Controller.BoardZone.Any(m => m.Damage > 0) ? 4 : 0)
 			});
 
 			// --------------------------------------- WEAPON - WARRIOR
@@ -2281,7 +2281,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Costs (1) less for each card in your opponent's hand.
 			// --------------------------------------------------------
 			cards.Add("GVG_121", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.Opponent.HandZone.Count)
+				Aura = new AdaptiveCostEffect(p => p.Controller.Opponent.HandZone.Count)
 			});
 
 		}

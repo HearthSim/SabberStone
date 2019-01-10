@@ -2024,7 +2024,7 @@ namespace SabberStoneCore.CardSets
 			// - CHARGE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_070", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p =>
+				Aura = new AdaptiveCostEffect(p =>
 				{
 					int count = 0;
 					ReadOnlySpan<Minion> board = p.Controller.BoardZone.GetSpan();
@@ -2563,7 +2563,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Costs (1) less for each time you used your Hero Power this game.
 			// --------------------------------------------------------
 			cards.Add("AT_120", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumTimesHeroPowerUsedThisGame)
+				Aura = new AdaptiveCostEffect(p => p.Controller.NumTimesHeroPowerUsedThisGame)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

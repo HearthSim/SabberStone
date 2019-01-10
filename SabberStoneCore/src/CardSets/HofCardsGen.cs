@@ -255,7 +255,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Costs (1) less for each damage your hero has taken.
 			// --------------------------------------------------------
 			cards.Add("EX1_620", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.Hero.Damage)
+				Aura = new AdaptiveCostEffect(p => p.Controller.Hero.Damage)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

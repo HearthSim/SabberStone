@@ -9,12 +9,32 @@ namespace SabberStoneCore.Model.Entities
 {
 	public partial class Playable
 	{
-		private class CostManager
+		internal class CostManager
 		{
 			private int _cachedValue;
 			private bool _toBeUpdated;
 			private List<Effect> _costEffects = new List<Effect>();
 			private AdaptiveCostEffect _adaptiveCostEffect;
+
+			public CostManager() { }
+
+			public CostManager(AdaptiveCostEffect adaptiveEffect)
+			{
+				_adaptiveCostEffect = adaptiveEffect;
+			}
+
+			private CostManager(CostManager original)
+			{
+				_cachedValue = original._cachedValue;
+				_toBeUpdated = original._toBeUpdated;
+				_costEffects.AddRange(original._costEffects);
+			}
+
+			public int CachedValue
+			{
+				get => _cachedValue;
+				set => _cachedValue = value;
+			}
 
 			/// <summary>
 			/// Apply a new Cost effect of an <see cref="Aura"/>
@@ -78,6 +98,19 @@ namespace SabberStoneCore.Model.Entities
 				_adaptiveCostEffect = adaptiveCostEffect;
 			}
 
+			public void UpdateAdaptiveEffect(int setValue = -1)
+			{
+				if (setValue > 0)
+					_cachedValue = setValue;
+				else
+					_toBeUpdated = true;
+			}
+
+			public void DeactivateAdaptiveEffect()
+			{
+				_adaptiveCostEffect = null;
+			}
+
 			/// <summary>
 			/// Add a new permanent cost enchantment effect
 			/// </summary>
@@ -98,12 +131,6 @@ namespace SabberStoneCore.Model.Entities
 						_toBeUpdated = true;
 						break;
 				}
-			}
-
-			public void ResetCost()
-			{
-				_costEffects = null;
-				_adaptiveCostEffect?.Remove();
 			}
 
 			public int GetCost(int c)
@@ -153,10 +180,29 @@ namespace SabberStoneCore.Model.Entities
 
 				return c;
 			}
+
+			public CostManager Clone()
+			{
+				return new CostManager(this);
+			}
 		}
 
-		private CostManager _costManager;
-		private int? _modifiedCost;
+		internal CostManager _costManager;
+		internal int? _modifiedCost;
+
+		public int Cost
+		{
+			get =>
+				_costManager?.GetCost(_modifiedCost ?? (_modifiedCost = Card.Cost).Value) ??
+				(_modifiedCost.HasValue ? _modifiedCost < 0 ? 0 : _modifiedCost.Value : Card.Cost);
+			set
+			{
+				_modifiedCost = value;
+
+				if (_history)
+					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.COST, Card.Cost));
+			}
+		}
 
 		internal void AddCostAuraEffect(Effect e)
 		{
@@ -181,7 +227,7 @@ namespace SabberStoneCore.Model.Entities
 				_costManager.RemoveCostAura(in e);
 		}
 
-		internal void AddCostEnchantment(Effect e)
+		internal void AddCostEffect(Effect e)
 		{
 			switch (e.Operator)
 			{
@@ -201,9 +247,37 @@ namespace SabberStoneCore.Model.Entities
 			_costManager?.AddCostEnchantment(in e);
 		}
 
+		//internal void ActivateAdaptiveCostEffect(AdaptiveCostEffect e)
+		//{
+		//	if (_costManager == null)
+		//	{
+		//		var costManager = new CostManager();
+		//		costManager.ActivateAdaptiveEffect(e);
+		//		_costManager = costManager;
+		//	}
+		//	else
+		//	{
+		//		_costManager.ActivateAdaptiveEffect(e);
+		//	}
+		//}
+
+		//internal void UpdateAdaptiveCostEffect(int setValue = -1)
+		//{
+		//	if (setValue >= 0)
+		//	{
+		//		_costManager.CachedValue = setValue;
+		//		return;
+		//	}
+		//	_costManager.QueueUpdate();
+		//}
+
+		//internal void DeactivateAdaptiveCostEffect()
+		//{
+		//	_costManager.DeactivateAdaptiveEffect();
+		//}
+
 		internal void ResetCost()
 		{
-			_costManager.ResetCost();
 			_costManager = null;
 			_modifiedCost = null;
 

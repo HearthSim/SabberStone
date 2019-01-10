@@ -69,30 +69,32 @@ namespace SabberStoneCore.Auras
 
 		private static void Apply(IPlayable playable)
 		{
-			// The effect of Summoning Portal is always applied before any other effects
+			// The effect of Summoning Portal is always applied before any other effects.
+			Playable p = (Playable)playable;
 
-			int cardValue = playable.Card.Cost;
+			int cardValue = p.Card.Cost;
 			int cost = cardValue > 2 ? cardValue - 2 : 1;
-			if (playable.NativeTags.TryGetValue(GameTag.COST, out int tagValue))
-			{
-				cost = cost - cardValue + tagValue;
-				if (cost < 0)
-					cost = 0;
-			}
 
-			playable[GameTag.COST] = cost;
-			playable.AuraEffects.ToBeUpdated = true;
+			int? eValue = p._modifiedCost;
 
-			
+			p.Cost = eValue.HasValue ? cost - cardValue + eValue.Value : cost;
+
+			p._costManager?.QueueUpdate();
 		}
 
 		private static void DeApply(IPlayable playable)
 		{
-			int cardValue = playable.Card.Cost;
+			Playable p = (Playable)playable;
+
+			int cardValue = p.Card.Cost;
 			int delta = cardValue > 2 ? 2 : cardValue > 1 ? 1 : 0;
 
-			playable[GameTag.COST] += delta;
-			playable.AuraEffects.ToBeUpdated = true;
+			p.Cost = p._modifiedCost.Value + delta;
+
+			p._costManager?.QueueUpdate();
+
+			//playable[GameTag.COST] += delta;
+			//playable.AuraEffects.ToBeUpdated = true;
 		}
 		
 		public override void Clone(IPlayable clone)

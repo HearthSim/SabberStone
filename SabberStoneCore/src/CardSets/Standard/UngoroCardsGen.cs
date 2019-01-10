@@ -864,7 +864,7 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerSource = TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
 					SingleTask = ComplexTask.Create(
 						new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
-						new AddEnchantmentTask("UNG_953e", EntityType.SOURCE, true))
+						new AddEnchantmentTask("UNG_953e", EntityType.SOURCE, true, true))
 				}
 			});
 
@@ -1035,17 +1035,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_953e", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new IncludeTask(EntityType.TARGET),
-					new FuncPlayablesTask(list =>
-					{
-						IPlayable t = list[0];
-						return new List<IPlayable>
-						{
-							Entity.FromCard(t.Controller,
-								t.Game.IdEntityDic[t[GameTag.TAG_SCRIPT_DATA_NUM_1]]
-									.Card)
-						};
-					}),
+					GetCapturedCardTask.Task,
 					new AddStackTo(EntityType.HAND))
 			});
 
@@ -1464,7 +1454,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_061", new Power {
 				// TODO: possible performance hit
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p =>
+				Aura = new AdaptiveCostEffect(p =>
 				{
 					List<PlayHistoryEntry> history = p.Controller.PlayHistory;
 					CardClass heroClass = p.Controller.HeroClass;

@@ -1221,7 +1221,7 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("OG_028", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumTotemSummonedThisGame)
+				Aura = new AdaptiveCostEffect(p => p.Controller.NumTotemSummonedThisGame)
 			});
 
 			// ---------------------------------------- MINION - SHAMAN

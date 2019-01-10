@@ -19,24 +19,24 @@ namespace SabberStoneCore.Enchants
 		private int CANT_BE_TARGETED_BY_SPELLS;
 		private int CARD_COST_HEALTH;
 		private int CANTATTACKHEROES;
-		private List<Effect> _costEffects;
-		private AdaptiveCostEffect _adaptiveCostEffect;
+		//private List<Effect> _costEffects;
+		//private AdaptiveCostEffect _adaptiveCostEffect;
 
 		public Entity Owner { get; private set; }
-		public AdaptiveCostEffect AdaptiveCostEffect
-		{
-			get => _adaptiveCostEffect;
-			set
-			{
-				_adaptiveCostEffect = value;
-				ToBeUpdated = true;
-			}
-		}
+		//public AdaptiveCostEffect AdaptiveCostEffect
+		//{
+		//	get => _adaptiveCostEffect;
+		//	set
+		//	{
+		//		_adaptiveCostEffect = value;
+		//		ToBeUpdated = true;
+		//	}
+		//}
 
 		//internal bool ToBeUpdated { get; set; }
 
 		// Playable
-		internal int Cost;
+		//internal int Cost;
 		internal int Echo { get; set; }
 
 		// Minion
@@ -59,9 +59,9 @@ namespace SabberStoneCore.Enchants
 						return AttackDamage;
 					case GameTag.HEALTH:
 						return Health;
-					case GameTag.COST:
-						//return GetCost() - ((Entity)Owner)._data[GameTag.COST];
-						return GetCost() - Owner.GetNativeGameTag(GameTag.COST);
+					//case GameTag.COST:
+					//	//return GetCost() - ((Entity)Owner)._data[GameTag.COST];
+					//	return GetCost() - Owner.GetNativeGameTag(GameTag.COST);
 					case GameTag.CHARGE:
 						return Charge > 0 ? 1 : 0;
 					//case GameTag.WINDFURY:
@@ -107,9 +107,9 @@ namespace SabberStoneCore.Enchants
 								m.AttackableByRush = false;
 							return;
 						}
-					case GameTag.COST:
-						Cost = value;
-						return;
+					//case GameTag.COST:
+					//	Cost = value;
+					//	return;
 					//case GameTag.WINDFURY:
 					//	WINDFURY = value;
 					//	if (value > 0 && Owner[GameTag.NUM_ATTACKS_THIS_TURN] == 1)
@@ -176,14 +176,14 @@ namespace SabberStoneCore.Enchants
 		internal AuraEffects(in Entity owner)
 		{
 			Owner = owner;
-			ToBeUpdated = true;
+			//ToBeUpdated = true;
 		}
 		private AuraEffects(in Entity owner, in AuraEffects other)
 		{
 			Owner = owner;
-			ToBeUpdated = other.ToBeUpdated;
-			_costEffects = other._costEffects?.Count > 0 ? new List<Effect>(other._costEffects) : null;
-			Cost = other.Cost;
+			//ToBeUpdated = other.ToBeUpdated;
+			//_costEffects = other._costEffects?.Count > 0 ? new List<Effect>(other._costEffects) : null;
+			//Cost = other.Cost;
 			CANT_BE_TARGETED_BY_SPELLS = other.CANT_BE_TARGETED_BY_SPELLS;
 			Immune = other.Immune;
 			AttackDamage = other.AttackDamage;
@@ -202,101 +202,101 @@ namespace SabberStoneCore.Enchants
 		/// <summary>
 		/// Add a new Cost related effect to the owner.
 		/// </summary>
-		public void AddCostAura(in Effect e)
-		{
-			ToBeUpdated = true;
+		//public void AddCostAura(in Effect e)
+		//{
+		//	ToBeUpdated = true;
 
-			if (_costEffects == null)
-				_costEffects = new List<Effect>{e};
-			else
-				_costEffects.Add(e);
-		}
+		//	if (_costEffects == null)
+		//		_costEffects = new List<Effect>{e};
+		//	else
+		//		_costEffects.Add(e);
+		//}
 
 		/// <summary>
 		/// Remove a Cost related effect from the owner.
 		/// </summary>
-		public void RemoveCostAura(in Effect e)
-		{
-			if (_costEffects == null)
-				return;
-			ToBeUpdated = true;
-			if (_costEffects.Remove(e)) return;
+		//public void RemoveCostAura(in Effect e)
+		//{
+		//	if (_costEffects == null)
+		//		return;
+		//	ToBeUpdated = true;
+		//	if (_costEffects.Remove(e)) return;
 
-			throw new Exception($"Can't remove cost aura from {Owner}. Zone: {Owner.Zone.Type}, IsDead?: {Owner[GameTag.TO_BE_DESTROYED] == 1}");
-		}
+		//	throw new Exception($"Can't remove cost aura from {Owner}. Zone: {Owner.Zone.Type}, IsDead?: {Owner[GameTag.TO_BE_DESTROYED] == 1}");
+		//}
 
 		/// <summary>
 		/// Add a new Cost effect that should be applied before any others
 		/// </summary>
-		public void AddPriorCostAura(in Effect e)
-		{
-			ToBeUpdated = true;
+		//public void AddPriorCostAura(in Effect e)
+		//{
+		//	ToBeUpdated = true;
 
-			if (_costEffects == null)
-				_costEffects = new List<Effect> {e};
-			else
-				_costEffects.Insert(0, e);
-		}
+		//	if (_costEffects == null)
+		//		_costEffects = new List<Effect> {e};
+		//	else
+		//		_costEffects.Insert(0, e);
+		//}
 
 		/// <summary>
 		/// Gets the estimated Cost of the owner.
 		/// </summary>
 		/// <returns></returns>
-		public int GetCost()
-		{
-			return !ToBeUpdated ? Cost : GetCostInternal();
-		}
+		//public int GetCost()
+		//{
+		//	return !ToBeUpdated ? Cost : GetCostInternal();
+		//}
 
-		private int GetCostInternal()
-		{
-			// Obtain the Card Cost
-			if (!Owner.NativeTags.TryGetValue(GameTag.COST, out int c))
-				c = Owner.Card.Cost;
-			// Apply Cost effects
-			if (_costEffects != null)
-				foreach (Effect e in _costEffects)
-				{
-					switch (e.Operator)
-					{
-						case EffectOperator.ADD:
-							c += e.Value;
-							break;
-						case EffectOperator.SUB:
-							c -= e.Value;
-							if (c < 0) c = 0;
-							break;
-						case EffectOperator.SET:
-							c = e.Value;
-							break;
-						default:
-							throw new ArgumentOutOfRangeException();
-					}
-				}
-			ToBeUpdated = false;
+		//private int GetCostInternal()
+		//{
+		//	// Obtain the Card Cost
+		//	if (!Owner.NativeTags.TryGetValue(GameTag.COST, out int c))
+		//		c = Owner.Card.Cost;
+		//	// Apply Cost effects
+		//	if (_costEffects != null)
+		//		foreach (Effect e in _costEffects)
+		//		{
+		//			switch (e.Operator)
+		//			{
+		//				case EffectOperator.ADD:
+		//					c += e.Value;
+		//					break;
+		//				case EffectOperator.SUB:
+		//					c -= e.Value;
+		//					if (c < 0) c = 0;
+		//					break;
+		//				case EffectOperator.SET:
+		//					c = e.Value;
+		//					break;
+		//				default:
+		//					throw new ArgumentOutOfRangeException();
+		//			}
+		//		}
+		//	ToBeUpdated = false;
 
-			// Lastly apply Adaptive Cost effect (Giants + Naga Sea Witch)
-			if (AdaptiveCostEffect != null)
-			{
-				c = AdaptiveCostEffect.Apply(c);
-			}
+		//	// Lastly apply Adaptive Cost effect (Giants + Naga Sea Witch)
+		//	if (AdaptiveCostEffect != null)
+		//	{
+		//		c = AdaptiveCostEffect.Apply(c);
+		//	}
 
-			if (c < 0) c = 0;
+		//	if (c < 0) c = 0;
 
-			Cost = c;
-			return c;
-		}
+		//	Cost = c;
+		//	return c;
+		//}
 
-		public void ResetCost()
-		{
-			if (_costEffects == null && AdaptiveCostEffect == null && !Owner.NativeTags.ContainsKey(GameTag.COST)) return;
+		//public void ResetCost()
+		//{
+		//	if (_costEffects == null && AdaptiveCostEffect == null && !Owner.NativeTags.ContainsKey(GameTag.COST)) return;
 
-			_costEffects = null;
-			Owner.NativeTags.Remove(GameTag.COST);
-			AdaptiveCostEffect?.Remove();
-			Cost = Owner.Card.Cost;
-			if (Owner.Game.History)
-				Owner.Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Owner.Id, GameTag.COST, Cost));
-		}
+		//	_costEffects = null;
+		//	Owner.NativeTags.Remove(GameTag.COST);
+		//	AdaptiveCostEffect?.Remove();
+		//	Cost = Owner.Card.Cost;
+		//	if (Owner.Game.History)
+		//		Owner.Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Owner.Id, GameTag.COST, Cost));
+		//}
 
 		public AuraEffects Clone(Entity clone)
 		{
@@ -307,7 +307,7 @@ namespace SabberStoneCore.Enchants
 		{
 			var hash = new StringBuilder();
 			hash.Append("[AE:");
-			hash.Append($"{{COST,{Cost}}}");
+			//hash.Append($"{{COST,{Cost}}}");
 			if (AttackDamage > 0)
 				hash.Append($"{{ATK,{AttackDamage}}}");
 			if (Health > 0)

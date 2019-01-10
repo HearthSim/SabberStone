@@ -905,7 +905,7 @@ namespace SabberStoneCore.CardSets
 			//       you've cast this game.
 			// --------------------------------------------------------
 			cards.Add("KAR_711", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumSpellsPlayedThisGame)
+				Aura = new AdaptiveCostEffect(p => p.Controller.NumSpellsPlayedThisGame)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

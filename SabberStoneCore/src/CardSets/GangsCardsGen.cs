@@ -506,7 +506,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_760", new Power
 			{
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumSecretsPlayedThisGame * 2)
+				Aura = new AdaptiveCostEffect(p => p.Controller.NumSecretsPlayedThisGame * 2)
 				//{
 				//	UpdateTrigger = (TriggerType.AFTER_CAST, TriggerSource.FRIENDLY, SelfCondition.IsSecret)
 				//}
@@ -2099,7 +2099,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_652", new Power
 			{
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.Opponent.BoardZone.Count > 2 ? 2 : 0)
+				Aura = new AdaptiveCostEffect(p => p.Controller.Opponent.BoardZone.Count > 2 ? 2 : 0)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

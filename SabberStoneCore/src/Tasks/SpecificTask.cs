@@ -455,7 +455,7 @@ namespace SabberStoneCore.Tasks
 					IPlayable previous = (IPlayable) e.Target;
 					e.Remove();
 
-					IPlayable newEntity = Generic.ChangeEntityBlock.Invoke(e.Controller, previous, pList[1].Card);
+					IPlayable newEntity = Generic.ChangeEntityBlock.Invoke(e.Controller, previous, pList[1].Card, false);
 
 					if (newEntity[GameTag.DISPLAYED_CREATOR] == 0)
 						newEntity[GameTag.DISPLAYED_CREATOR] = e.Creator.Id;

@@ -17,6 +17,7 @@ namespace SabberStoneCore.Model.Entities
 		private int _controllerId;
 		private IPlayable _creator;
 		private Controller _controller;
+		private Card _capturedCard;
 
 		private Enchantment(in Controller controller, in Card card, in EntityData tags, in int id)
 		{
@@ -66,9 +67,22 @@ namespace SabberStoneCore.Model.Entities
 		public IEntity Target { get; private set; }
 
 		/// <summary>
-		/// The 
+		/// <see cref="SabberStoneCore.Model.Card"/> information captured in this instance.
 		/// </summary>
-		public Card ContainedCard { get; set; }
+		public Card CapturedCard
+		{
+			get => _capturedCard;
+			set
+			{
+				_capturedCard = value;
+				if (Game.History)
+				{
+					Card c = Card.Clone();
+					c.Text = String.Format(c.Text, value.Name);
+					Card = c;
+				}
+			}
+		}
 
 		public IPlayable Creator
 		{
@@ -278,6 +292,7 @@ namespace SabberStoneCore.Model.Entities
 		public IDictionary<GameTag, int> NativeTags => _tags;
 		public List<Enchantment> AppliedEnchantments { get; set; }
 		public List<int> Memory { get; set; }
+		public bool HasAnyValidPlayTargets { get; }
 
 		public void Stamp(Entity entity)
 		{

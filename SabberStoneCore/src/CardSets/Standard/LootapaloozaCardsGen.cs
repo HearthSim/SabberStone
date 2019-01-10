@@ -326,7 +326,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new RandomTask(1, EntityType.STACK),
 					new CopyTask(EntityType.STACK, Zone.SETASIDE, addToStack: true),
 					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.STACK),
-					new AddEnchantmentTask("LOOT_520e", EntityType.SOURCE, true))
+					new AddEnchantmentTask("LOOT_520e", EntityType.SOURCE, true, true))
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -831,8 +831,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
 			cards.Add("LOOT_313", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
-					p => p.Controller.BoardZone.GetAll(q => q.Card.Id.Equals("CS2_101t")).Length)
+				Aura = new AdaptiveCostEffect(p => p.Controller.BoardZone.GetAll(q => q.Card.Id.Equals("CS2_101t")).Length)
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -2796,9 +2795,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (0) if you've cast a spell that costs (5) or more this turn.
 			// --------------------------------------------------------
 			cards.Add("LOOT_130", new Power {
-				// TODO more effective way ??
-				Aura = new AdaptiveCostEffect(0, p =>
-					p.Controller.CardsPlayedThisTurn.Any(q => q.Type == CardType.SPELL && q.Cost >= 5))
+				Aura = new AdaptiveCostEffect(0, TriggerType.CAST_SPELL, TriggerSource.FRIENDLY,
+					SelfCondition.IsCost(5, RelaSign.GEQ))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2980,7 +2978,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("LOOT_161", new Power {
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
-					new AddEnchantmentTask("LOOT_161e", EntityType.SOURCE, true),
+					new AddEnchantmentTask("LOOT_161e", EntityType.SOURCE, true, true),
 					new DestroyTask(EntityType.TARGET))
 			});
 
@@ -3730,14 +3728,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Copied Deathrattle from {0}.
 			// --------------------------------------------------------
 			cards.Add("LOOT_520e", new Power {
-				DeathrattleTask = ComplexTask.Create(
-					new IncludeTask(EntityType.SOURCE),
-					new IncludeTask(EntityType.TARGET, null, true),
-					new FuncPlayablesTask(p =>
-					{
-						p[0].Game.IdEntityDic[p[1][GameTag.TAG_SCRIPT_DATA_NUM_1]].ActivateTask(PowerActivation.DEATHRATTLE, null, 0, p[0]);
-						return null;
-					}))
+				//DeathrattleTask = ComplexTask.Create(
+				//	new IncludeTask(EntityType.SOURCE),
+				//	new IncludeTask(EntityType.TARGET, null, true),
+				//	new FuncPlayablesTask(p =>
+				//	{
+				//		p[0].Game.IdEntityDic[p[1][GameTag.TAG_SCRIPT_DATA_NUM_1]].ActivateTask(PowerActivation.DEATHRATTLE, null, 0, p[0]);
+				//		return null;
+				//	}))
+				DeathrattleTask = ActivateCapturedDeathrattleTask.Task
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

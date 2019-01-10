@@ -429,7 +429,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_518", new Power {
 				// TODO Test: Wing Blast_GIL_518
 				PowerTask = new DamageTask(4, EntityType.TARGET, true),
-				Aura = new AdaptiveCostEffect(1, p => p.Controller.NumFriendlyMinionsThatDiedThisTurn + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn > 0)
+				Aura = new AdaptiveCostEffect(1, TriggerType.DEATH)
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -795,7 +795,7 @@ namespace SabberStoneCore.CardSets.Standard
 						if (deck[i].Cost != 1) continue;
 
 						deck.SetEntity(i,
-							Generic.ChangeEntityBlock.Invoke(c, deck[i], legendaries[rnd.Next(legendaries.Count)]));
+							Generic.ChangeEntityBlock.Invoke(c, deck[i], legendaries[rnd.Next(legendaries.Count)], false));
 					}
 
 					return 0;
@@ -923,7 +923,7 @@ namespace SabberStoneCore.CardSets.Standard
 					{
 						Card pick = p.Controller.Opponent.HandZone.Random?.Card;
 						if (pick == null) return 0;
-						IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);
+						IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick, true);
 						Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("GIL_142e"), p, result, 0, 0, false);
 						return 0;
 					})
@@ -2697,7 +2697,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 							Card pick = p.Controller.Opponent.HandZone.Random?.Card;
 							if (pick == null) return null;
-							IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);
+							IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick, true);
 							Generic.AddEnchantmentBlock(p.Controller, Cards.FromId("GIL_142e"), list[0], result, 0, 0,
 								false);
 							return null;

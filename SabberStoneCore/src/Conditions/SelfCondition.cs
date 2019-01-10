@@ -67,8 +67,6 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition IsNoDupeInDeck = new SelfCondition(me => !me.Controller.DeckZone.GroupBy(x => new { x.Card.Id }).Any(x => x.Skip(1).Any()));
 		public static SelfCondition HasNoSpecficCostCardsInDeck(int cost) => new SelfCondition(me => !me.Controller.DeckZone.Any(x => x.Cost == cost));
 		public static readonly SelfCondition HasNoMinionInDeck = new SelfCondition(me => !me.Controller.DeckZone.Any(p => p is Minion));
-
-		public static SelfCondition HasCost(int cost) => new SelfCondition(me => me.Cost == cost);
 		public static readonly SelfCondition HasNoOddCostInDeck = new SelfCondition(me => me.Controller.DeckZone.NoOddCostCards);
 		public static readonly SelfCondition HasNoEvenCostInDeck = new SelfCondition(me => me.Controller.DeckZone.NoEvenCostCards);
 
@@ -174,6 +172,19 @@ namespace SabberStoneCore.Conditions
 				|| relaSign == RelaSign.LEQ &&
 				   me.Controller.Opponent.BoardZone.Any(p => p[tag] <= amount
 				    || me.Controller.Opponent.Hero[tag] <= amount));
+
+
+		public static SelfCondition IsCost(int value, RelaSign relaSign = RelaSign.EQ)
+		{
+			return new SelfCondition(me =>
+			{
+				int val = me.Cost;
+
+				return relaSign == RelaSign.EQ && val == value
+				       || relaSign == RelaSign.GEQ && val >= value
+				       || relaSign == RelaSign.LEQ && val <= value;
+			});
+		}
 
 		public static SelfCondition IsTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
 		{

@@ -58,8 +58,12 @@ namespace SabberStoneCore.Enchants
 			if (oneTurnEffect)
 				entity.Game.OneTurnEffects.Add((entity.Id, this));
 
+			// TODO
 			if (Tag == GameTag.COST)
-				entity.AuraEffects.ToBeUpdated = true;
+			{
+				((Playable) entity).AddCostEffect(this);
+
+			}
 
 			switch (Operator)
 			{

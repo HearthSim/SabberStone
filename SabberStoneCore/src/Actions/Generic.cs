@@ -255,7 +255,7 @@ namespace SabberStoneCore.Actions
 			};
 
 		/// <summary>
-		/// Controller, Card, Creator, Target, ScriptTag1, ScriptTag2
+		/// Controller, Card, Creator, Target, ScriptTag1, ScriptTag2, UseEntityId
 		/// </summary>
 		public static Func<Controller, Card, IPlayable, IEntity, int, int, bool, bool> AddEnchantmentBlock
 			=> delegate (Controller c, Card enchantmentCard, IPlayable creator, IEntity target, int num1, int num2, bool useEntityId)
@@ -289,8 +289,8 @@ namespace SabberStoneCore.Actions
 					if (power.DeathrattleTask != null)
 						((IPlayable)target).IsDeathrattle = true;
 
-					//if (useEntityId)
-					//	enchantment.
+					if (useEntityId)
+						enchantment.CapturedCard = c.Game.IdEntityDic[num1].Card;
 				}
 				else
 				{
@@ -308,6 +308,9 @@ namespace SabberStoneCore.Actions
 
 						if (power.Enchant?.RemoveWhenPlayed ?? false)
 							Enchant.RemoveWhenPlayedTrigger.Activate(instance);
+
+						if (useEntityId)
+							instance.CapturedCard = c.Game.IdEntityDic[num1].Card;
 					}
 
 					//	no indicator enchantment entities when History option is off
@@ -332,7 +335,13 @@ namespace SabberStoneCore.Actions
 						for (int i = p.AppliedEnchantments.Count - 1; i >= 0; i--)
 							p.AppliedEnchantments[i].Remove();
 
-					p.Reset();
+					if (p is Minion m)
+					{
+						m._atkModifier = m.Card.ATK;
+						m._healthModifier = m.Card.Health;
+					}
+
+					((Playable)p).ResetCost();
 				}
 
 				p.ActivatedTrigger?.Remove();
@@ -414,7 +423,7 @@ namespace SabberStoneCore.Actions
 					case Zone.HAND:
 						p.Power?.Trigger?.Activate(p, TriggerActivation.HAND);
 						if (p.Power?.Aura is AdaptiveCostEffect e)
-							e.Activate(p);
+							e.Activate((Playable)p);
 						break;
 					case Zone.DECK:
 						p.Power?.Trigger?.Activate(p, TriggerActivation.DECK);

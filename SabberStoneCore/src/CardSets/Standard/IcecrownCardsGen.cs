@@ -495,33 +495,41 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_314t1", new Power {
+				//Trigger = new Trigger(TriggerType.AFTER_ATTACK)
+				//{
+				//	TriggerSource = TriggerSource.HERO,
+				//	//Condition = new SelfCondition(p =>
+				//	//{
+				//	//	return p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed;
+				//	//}),
+				//	Condition = SelfCondition.IsDefenderDead,
+				//	SingleTask = ComplexTask.Create(
+				//		new FuncNumberTask(p => p.Game.CurrentEventData.EventTarget.Id),
+				//		new MemoryTask(EntityType.SOURCE),
+				//		new AddEnchantmentTask("ICC_314t1e", EntityType.SOURCE, true))
+				//},
+				//DeathrattleTask = new MemoryTask(EntityType.SOURCE, (s, mem) =>
+				//{
+				//	if (mem == null)
+				//		return;
+				//	foreach (int id in mem)
+				//	{
+				//		if (s.Controller.BoardZone.IsFull)
+				//			return;
+				//		Card card = s.Game.IdEntityDic[id].Card;
+				//		if (card.Type == CardType.HERO)
+				//			return;
+				//		Entity.FromCard(s.Controller, card, null, s.Controller.BoardZone);
+				//	}
+				//})
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.HERO,
-					//Condition = new SelfCondition(p =>
-					//{
-					//	return p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed;
-					//}),
 					Condition = SelfCondition.IsDefenderDead,
 					SingleTask = ComplexTask.Create(
-						new FuncNumberTask(p => p.Game.CurrentEventData.EventTarget.Id),
-						new MemoryTask(EntityType.SOURCE),
-						new AddEnchantmentTask("ICC_314t1e", EntityType.SOURCE, true))
-				},
-				DeathrattleTask = new MemoryTask(EntityType.SOURCE, (s, mem) =>
-				{
-					if (mem == null)
-						return;
-					foreach (int id in mem)
-					{
-						if (s.Controller.BoardZone.IsFull)
-							return;
-						Card card = s.Game.IdEntityDic[id].Card;
-						if (card.Type == CardType.HERO)
-							return;
-						Entity.FromCard(s.Controller, card, null, s.Controller.BoardZone);
-					}
-				})
+						new GetGameTagTask(GameTag.ENTITY_ID, EntityType.EVENT_TARGET),
+						new AddEnchantmentTask("ICC_314t1e", EntityType.SOURCE, true, true))
+				}
 			});
 
 		}
@@ -2041,7 +2049,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_090", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.OverloadThisGame)
+				Aura = new AdaptiveCostEffect(p => p.Controller.OverloadThisGame)
 				//{
 				//	UpdateTrigger = (TriggerType.PLAY_CARD, TriggerSource.FRIENDLY, SelfCondition.IsCurrentEventNumber(1, RelaSign.GEQ))
 				//}
@@ -2902,7 +2910,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (0) if your hero was healed this turn.
 			// --------------------------------------------------------
 			cards.Add("ICC_700", new Power {
-				Aura = new AdaptiveCostEffect(0, p => p.Controller.AmountHeroHealedThisTurn > 0)
+				Aura = new AdaptiveCostEffect(0, TriggerType.HEAL, TriggerSource.FRIENDLY, SelfCondition.IsHero)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3401,6 +3409,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: {0}
 			// --------------------------------------------------------
 			cards.Add("ICC_314t1e", new Power {
+				DeathrattleTask = ComplexTask.Create(
+					GetCapturedCardTask.Task,
+					new SummonTask())
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

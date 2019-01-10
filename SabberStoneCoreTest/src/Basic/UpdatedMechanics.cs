@@ -8,6 +8,7 @@ using Xunit;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Auras;
 
 namespace SabberStoneCoreTest.Basic
 {
@@ -144,7 +145,7 @@ namespace SabberStoneCoreTest.Basic
 			for (int i = 1; i < 3; i++)
 			{
 				IPlayable copied = game.CurrentPlayer.HandZone[game.CurrentPlayer.HandZone.Count - i];
-				if (copied.AuraEffects.AdaptiveCostEffect != null)
+				if (!(copied.OngoingEffect is AdaptiveCostEffect))
 					Assert.Equal(1, copied.Cost);
 
 				if (copied is Minion m)

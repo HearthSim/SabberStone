@@ -258,6 +258,9 @@ namespace SabberStoneCore.Model.Entities
 
 			_exhausted = playable._exhausted;
 			_zonePosition = playable._zonePosition;
+
+			_modifiedCost = playable._modifiedCost;
+			_costManager = playable._costManager.Clone();
 		}
 
 		/// <summary>
@@ -620,14 +623,6 @@ namespace SabberStoneCore.Model.Entities
 	{
 		protected bool _exhausted;
 		protected int _zonePosition;
-
-		public int Cost
-		{
-			get =>
-				_costManager?.GetCost(_modifiedCost ?? (_modifiedCost = Card.Cost).Value) ??
-				(_modifiedCost.HasValue ? _modifiedCost < 0 ? 0 : _modifiedCost.Value : Card.Cost);
-			set => _modifiedCost = value;
-		}
 
 		//public int Cost
 		//{

@@ -15,168 +15,168 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		INVALID,
 
 		/// <summary>
-		///     All cards on the stack
+		/// All cards on the stack
 		/// </summary>
 		STACK,
 
 		/// <summary>
-		///     The target
+		/// The target
 		/// </summary>
 		TARGET,
 
 		/// <summary>
-		///     The source
+		/// The source
 		/// </summary>
 		SOURCE,
 
 		/// <summary>
-		///     Player's hero
+		/// Player's hero
 		/// </summary>
 		HERO,
 
 		/// <summary>
-		///     Player's hero power
+		/// Player's hero power
 		/// </summary>
 		HERO_POWER,
 
 		/// <summary>
-		///     Opponent's hero power
+		/// Opponent's hero power
 		/// </summary>
 		OP_HERO_POWER,
 
 		/// <summary>
-		///     The target of the current event. (e.g. the defender, the target of a spell, or the just damaged or healed
-		///     character)
+		/// The target of the current event. (e.g. the defender, the target of a spell, or the just damaged or healed
+		/// character)
 		/// </summary>
 		EVENT_TARGET,
 
 		/// <summary>
-		///     The source of the current event. (e.g. the attacker, the played card, or the just damaging or healing entity)
+		/// The source of the current event. (e.g. the attacker, the played card, or the just damaging or healing entity)
 		/// </summary>
 		EVENT_SOURCE,
 
 		/// <summary>
-		///     The top card from the player's deck
+		/// The top card from the player's deck
 		/// </summary>
 		TOPCARDFROMDECK,
 
 		/// <summary>
-		///     The top card from the opponent's deck
+		/// The top card from the opponent's deck
 		/// </summary>
 		OP_TOPDECK,
 
 		/// <summary>
-		///     All cards in the player's hand
+		/// All cards in the player's hand
 		/// </summary>
 		HAND,
 
 		/// <summary>
-		///     All cards in the player's deck
+		/// All cards in the player's deck
 		/// </summary>
 		DECK,
 
 		/// <summary>
-		///     Player's secrets
+		/// Player's secrets
 		/// </summary>
 		SECRETS,
 
 		/// <summary>
-		///     Player's minions
+		/// Player's minions
 		/// </summary>
 		MINIONS,
 
 		/// <summary>
-		///     Player's minions except the source
+		/// Player's minions except the source
 		/// </summary>
 		MINIONS_NOSOURCE,
 
 		/// <summary>
-		///     All friends characters
+		/// All friends characters
 		/// </summary>
 		FRIENDS,
 
 		/// <summary>
-		///     Opponent's Hero
+		/// Opponent's Hero
 		/// </summary>
 		OP_HERO,
 
 		/// <summary>
-		///     All cards in the opponent's hand
+		/// All cards in the opponent's hand
 		/// </summary>
 		OP_HAND,
 
 		/// <summary>
-		///     All cards in the opponent's deck
+		/// All cards in the opponent's deck
 		/// </summary>
 		OP_DECK,
 
 		/// <summary>
-		///     All opponent secret
+		/// All opponent secret
 		/// </summary>
 		OP_SECRETS,
 
 		/// <summary>
-		///     All opponent minion
+		/// All opponent minion
 		/// </summary>
 		OP_MINIONS,
 
 		/// <summary>
-		///     All opponent character
+		/// All opponent character
 		/// </summary>
 		ENEMIES,
 
 		/// <summary>
-		///     All opponent character except the source
+		/// All opponent character except the source
 		/// </summary>
 		ENEMIES_NOTARGET,
 
 		/// <summary>
-		///     All characters
+		/// All characters
 		/// </summary>
 		ALL,
 
 		/// <summary>
-		///     All characters except the source
+		/// All characters except the source
 		/// </summary>
 		ALL_NOSOURCE,
 
 		/// <summary>
-		///     Player's weapon
+		/// Player's weapon
 		/// </summary>
 		WEAPON,
 
 		/// <summary>
-		///     Opponent's weapon
+		/// Opponent's weapon
 		/// </summary>
 		OP_WEAPON,
 
 		/// <summary>
-		///     All minions
+		/// All minions
 		/// </summary>
 		ALLMINIONS,
 
 		/// <summary>
-		///     All minions except the source
+		/// All minions except the source
 		/// </summary>
 		ALLMINIONS_NOSOURCE,
 
 		/// <summary>
-		///     All cards in the graveyard
+		/// All cards in the graveyard
 		/// </summary>
 		GRAVEYARD,
 
 		/// <summary>
-		///     All heroes
+		/// All heroes
 		/// </summary>
 		HEROES,
 
 		/// <summary>
-		///     The Controller entity of the player
+		/// The Controller entity of the player
 		/// </summary>
 		CONTROLLER,
 
 		/// <summary>
-		///     The Controller entity of the opponent.
+		/// The Controller entity of the opponent.
 		/// </summary>
 		OP_CONTROLLER,
 	}

@@ -32,12 +32,11 @@ namespace SabberStoneCore.Model
 				list.Add(playable);
 			else
 			{
-				List<IPlayable> toList;
 				if (Playables == null)
 					Playables = new List<IPlayable> {playable};
 				else
 				{
-					toList = Playables.ToList();
+					List<IPlayable> toList = Playables.ToList();
 					toList.Add(playable);
 					Playables = toList;
 				}

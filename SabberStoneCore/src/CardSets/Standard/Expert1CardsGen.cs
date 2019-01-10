@@ -4232,7 +4232,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1) less for each other card in your hand.
 			// --------------------------------------------------------
 			cards.Add("EX1_105", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.HandZone.Count - 1)
+				Aura = new AdaptiveCostEffect(p => p.Controller.HandZone.Count - 1)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -4624,7 +4624,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1) less for each other minion on the battlefield.
 			// --------------------------------------------------------
 			cards.Add("EX1_586", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.BoardZone.Count + p.Controller.Opponent.BoardZone.Count)
+				Aura = new AdaptiveCostEffect(p => p.Controller.BoardZone.Count + p.Controller.Opponent.BoardZone.Count)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -4806,8 +4806,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_022", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
-					p => p.Controller.Hero.Weapon?.AttackDamage ?? 0)
+				Aura = new AdaptiveCostEffect(p => p.Controller.Hero.Weapon?.AttackDamage ?? 0)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

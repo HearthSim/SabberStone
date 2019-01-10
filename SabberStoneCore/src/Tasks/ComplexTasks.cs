@@ -265,7 +265,6 @@ namespace SabberStoneCore.Tasks
 				new RandomCardTask(EntityType.OP_HERO),
 				new AddStackTo(EntityType.HAND));
 
-
 		// TODO maybee better implement it with CFM_712_t + int
 		private static readonly IReadOnlyList<string> JadeGolemStr = new []
 		{
