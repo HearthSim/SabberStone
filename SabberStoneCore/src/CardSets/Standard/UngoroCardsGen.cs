@@ -234,7 +234,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (0).
 			// --------------------------------------------------------
 			cards.Add("UNG_116te", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 0)
+				Enchant = new Enchant(Effects.SetCost(0))
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -672,7 +672,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandFull),
 						new FlagTask(false, ComplexTask.Secret(
 						new CopyTask(EntityType.TARGET, Zone.HAND, addToStack: true),
-						new AddAuraEffect(new Effect(GameTag.COST, EffectOperator.SET, 0), EntityType.STACK))))
+						new AddAuraEffect(Effects.SetCost(0), EntityType.STACK))))
 				}
 			});
 
@@ -2564,7 +2564,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_085", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.ADD, 2))
+				Aura = new Aura(AuraType.HAND, Effects.AddCost(2))
 				{
 					Condition = SelfCondition.IsMinion
 				}
@@ -3119,7 +3119,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (5).
 			// --------------------------------------------------------
 			cards.Add("UNG_113e", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 5)
+				Enchant = new Enchant(Effects.SetCost(5))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

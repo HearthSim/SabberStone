@@ -900,7 +900,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
 						new FlagTask(true, ComplexTask.Secret(
 							new ReturnHandTask(EntityType.TARGET),
-							new AddAuraEffect(new Effect(GameTag.COST, EffectOperator.ADD, 2), EntityType.TARGET))))
+							new AddAuraEffect(Effects.AddCost(2), EntityType.TARGET))))
 				}
 			});
 
@@ -1341,7 +1341,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_612o", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 0))
+				Aura = new Aura(AuraType.HAND, Effects.SetCost(0))
 				{
 					Condition = SelfCondition.IsSecret,
 					RemoveTrigger = (TriggerType.CAST_SPELL, SelfCondition.IsSecret)
@@ -3556,7 +3556,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_227", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.ADD, 3))
+				Aura = new Aura(AuraType.HAND, Effects.AddCost(3))
 				{
 					Condition = SelfCondition.IsMinion
 				}
@@ -4707,7 +4707,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_616", new Power {
-				Aura = new Aura(AuraType.HANDS, new Effect(GameTag.COST, EffectOperator.ADD, 1))
+				Aura = new Aura(AuraType.HANDS, Effects.AddCost(1))
 				{
 					Condition = SelfCondition.IsMinion
 				}
@@ -5367,7 +5367,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Spells cost (0) this turn!
 			// --------------------------------------------------------
 			cards.Add("NEW1_029t", new Power {
-				Aura = new Aura(AuraType.OP_HAND, new Effect(GameTag.COST, EffectOperator.SET, 0))
+				Aura = new Aura(AuraType.OP_HAND, Effects.SetCost(0))
 				{
 					Condition = SelfCondition.IsSpell,
 					RemoveTrigger = (TriggerType.TURN_END, SelfCondition.IsOpTurn)

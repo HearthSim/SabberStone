@@ -141,7 +141,7 @@ namespace SabberStoneCore.Auras
 		private void Apply(Minion m)
 		{
 			for (int i = 0; i < _effects.Length; i++)
-				_effects[i].ApplyTo(m.AuraEffects);
+				_effects[i].ApplyAuraTo(m);
 
 			if (EnchantmentCard != null && _history)
 				Enchantment.GetInstance(m.Controller, _owner, m, in EnchantmentCard);
@@ -150,7 +150,7 @@ namespace SabberStoneCore.Auras
 		private void DeApply(Minion m)
 		{
 			for (int i = 0; i < _effects.Length; i++)
-				_effects[i].RemoveFrom(m.AuraEffects);
+				_effects[i].RemoveAuraFrom(m);
 
 			if (EnchantmentCard != null && (_history || EnchantmentCard.Power.Trigger != null))
 			{

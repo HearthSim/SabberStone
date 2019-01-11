@@ -507,7 +507,7 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("FP1_017", new Power {
-				Aura = new Aura(AuraType.HANDS, new Effect(GameTag.COST, EffectOperator.ADD, 2))
+				Aura = new Aura(AuraType.HANDS, Effects.AddCost(2))
 				{
 					Condition = SelfCondition.IsBattlecryMinion
 				}
@@ -633,7 +633,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Your spells cost (5) more this turn.
 			// --------------------------------------------------------
 			cards.Add("FP1_030e", new Power {
-				Aura = new Aura(AuraType.OP_HAND, new Effect(GameTag.COST, EffectOperator.ADD, 5))
+				Aura = new Aura(AuraType.OP_HAND, Effects.AddCost(5))
 				{
 					Condition = SelfCondition.IsSpell,
 					RemoveTrigger = (TriggerType.TURN_END, SelfCondition.IsOpTurn)

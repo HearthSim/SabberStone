@@ -125,7 +125,6 @@ namespace SabberStoneCore.Model.Entities
 			_data = tags is EntityData entityData ? entityData : new EntityData(in tags);
 
 			Id = id < 0 ? game?.NextId ?? 1 : id;
-			AuraEffects = new AuraEffects(this);
 
 			if (game == null) return;
 			_history = game.History;
@@ -149,7 +148,7 @@ namespace SabberStoneCore.Model.Entities
 			Card = entity.Card;
 			Id = entity.Id;
 			OrderOfPlay = entity.OrderOfPlay;
-			AuraEffects = entity.AuraEffects.Clone(this);
+			AuraEffects = entity.AuraEffects?.Clone();
 			_toBeDestroyed = entity._toBeDestroyed;
 		}
 
@@ -160,7 +159,7 @@ namespace SabberStoneCore.Model.Entities
 			var str = new StringBuilder();
 			str.Append($"[{Card.Id}]");
 			str.Append(_data.Hash(ignore));
-			str.Append(AuraEffects.Hash());
+			str.Append(AuraEffects?.Hash());
 			str.Append("[O:");
 			str.Append(OrderOfPlay);
 			str.Append("]");
@@ -200,7 +199,7 @@ namespace SabberStoneCore.Model.Entities
 				if (!_data.TryGetValue(t, out int value))
 					Card.Tags.TryGetValue(t, out value);
 
-				value += AuraEffects[in t];
+				value += AuraEffects?[in t] ?? 0;
 
 				return value > 0 ? value : 0;
 			}
@@ -209,7 +208,7 @@ namespace SabberStoneCore.Model.Entities
 				if (_logging)
 					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging? "":$"{this} set data {t} to {value}");
 				if (_history && (int)t < 1000)
-					if (value + AuraEffects[t] != this[t])
+					if (value + (AuraEffects?[t] ?? 0) != this[t])
 						Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, t, value));
 
 				_data[t] = value;

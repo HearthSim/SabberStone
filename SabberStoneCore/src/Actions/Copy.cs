@@ -44,10 +44,12 @@ namespace SabberStoneCore.Actions
 					[GameTag.DISPLAYED_CREATOR] = creator.Id
 				};
 
-				if (source.NativeTags.TryGetValue(GameTag.COST, out int cost))
-					tags.Add(GameTag.COST, cost);
-
 				copiedEntity = Entity.FromCard(in controller, source.Card, tags);
+
+				int? modifiedCost = ((Playable)source)._modifiedCost;
+
+				if (modifiedCost.HasValue)
+					copiedEntity.Cost = modifiedCost.Value;
 
 				if (copiedEntity is Character c)
 					((Character)source).CopyInternalAttributes(in c);

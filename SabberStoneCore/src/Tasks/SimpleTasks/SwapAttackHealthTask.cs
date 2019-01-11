@@ -49,8 +49,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				//new Effect(GameTag.ATK, EffectOperator.SET, health).ApplyTo(p);
 				//new Effect(GameTag.HEALTH, EffectOperator.SET, atk).ApplyTo(p);
-				new AttackEffect(EffectOperator.SET, health).ApplyTo(p);
-				new HealthEffect(EffectOperator.SET, atk).ApplyTo(p);
+				//new AttackEffect(EffectOperator.SET, health).ApplyTo(p);
+				//new HealthEffect(EffectOperator.SET, atk).ApplyTo(p);
+				Effects.SetAttack(health).ApplyTo(p);
+				Effects.SetMaxHealth(atk).ApplyTo(p);
 			}
 
 			return TaskState.COMPLETE;

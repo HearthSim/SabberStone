@@ -851,7 +851,6 @@ namespace SabberStoneCore.Tasks
 		public class RenonunceDarkness : SimpleTask
 		{
 			private static readonly Card EnchantmentCard = Cards.FromId("OG_118e");
-			private static readonly Effect CostReduceEffect = Effects.ReduceCost(1);
 
 			public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 				in TaskStack stack = null)
@@ -919,7 +918,7 @@ namespace SabberStoneCore.Tasks
 
 					IPlayable newEntity = Entity.FromCard(in controller, Util.Choose(cards), tags, controller.HandZone, -1, i);
 					newEntity.NativeTags.Add(GameTag.DISPLAYED_CREATOR, source.Id);
-					CostReduceEffect.ApplyTo(newEntity.AuraEffects);
+					newEntity.Cost = newEntity.Card.Cost - 1;
 				}
 				
 
@@ -938,7 +937,7 @@ namespace SabberStoneCore.Tasks
 					controller.DeckZone.Remove(entity);
 					controller.SetasideZone.Add(entity);
 
-					CostReduceEffect.ApplyTo(newEntity.AuraEffects);
+					newEntity.Cost = newEntity.Card.Cost - 1;
 				}
 
 				game.OnRandomHappened(true);

@@ -282,6 +282,9 @@ namespace SabberStoneCore.Conditions
 
 		private static int GetTagValue(IPlayable me, GameTag tag)
 		{
+			if (tag == GameTag.COST)
+				return me.Cost;
+
 			if (me is Character c)
 			{
 				if (tag == GameTag.ATK)

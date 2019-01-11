@@ -255,7 +255,7 @@ namespace SabberStoneCore.CardSets
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("AT_045", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.HAND, Effects.SetCost(1))
 				{
 					Condition = SelfCondition.IsMinion
 				}
@@ -2112,7 +2112,7 @@ namespace SabberStoneCore.CardSets
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("AT_085", new Power {
-				Aura = new Aura(AuraType.HEROPOWER, new Effect(GameTag.COST, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.HEROPOWER, Effects.SetCost(1))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

@@ -348,7 +348,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (7) less.
 			// --------------------------------------------------------
 			cards.Add("BOT_423e", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SUB, 7)
+				Enchant = new Enchant(Effects.ReduceCost(7))
 			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
@@ -827,7 +827,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1).
 			// --------------------------------------------------------
 			cards.Add("BOT_257e", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 1)
+				Enchant = new Enchant(Effects.SetCost(1))
 			});
 
 			// ------------------------------------- ENCHANTMENT - MAGE
@@ -1572,7 +1572,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1).
 			// --------------------------------------------------------
 			cards.Add("BOT_087e", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 1)
+				Enchant = new Enchant(Effects.SetCost(1))
 			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE

@@ -1539,7 +1539,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_041e", new Power {
-				Enchant = new Enchant(Effects.Taunt)
+				Enchant = new Enchant(Effects.TauntEff)
 			});
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN

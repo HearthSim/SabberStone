@@ -13,7 +13,9 @@ namespace SabberStoneCore.Model.Entities
 		{
 			private int _cachedValue;
 			private bool _toBeUpdated;
-			private List<Effect> _costEffects = new List<Effect>();
+
+			private readonly List<(EffectOperator Operator, int Value)> _costEffects =
+				new List<(EffectOperator @operator, int value)>();
 			private AdaptiveCostEffect _adaptiveCostEffect;
 
 			public CostManager() { }
@@ -39,22 +41,20 @@ namespace SabberStoneCore.Model.Entities
 			/// <summary>
 			/// Apply a new Cost effect of an <see cref="Aura"/>
 			/// </summary>
-			public void AddCostAura(in Effect e)
+			public void AddCostAura(EffectOperator @operator, int value)
 			{
-				_costEffects.Add(e);
+				_costEffects.Add((@operator, value));
 
-				ref int c = ref _cachedValue;
-
-				switch (e.Operator)
+				switch (@operator)
 				{
-					case EffectOperator.SUB:
-						c -= e.Value;
-						break;
 					case EffectOperator.ADD:
-						c += e.Value;
+						_cachedValue += value;
+						break;
+					case EffectOperator.SUB:
+						_cachedValue -= value;
 						break;
 					case EffectOperator.SET:
-						c = e.Value;
+						_cachedValue = value;
 						break;
 				}
 			}
@@ -63,25 +63,18 @@ namespace SabberStoneCore.Model.Entities
 			/// Remove an applied Cost effect of an <see cref="Aura"/>.
 			/// </summary>
 			/// <exception cref="KeyNotFoundException"></exception>
-			public void RemoveCostAura(in Effect e)
+			public void RemoveCostAura(EffectOperator @operator, int value)
 			{
-				//ToBeUpdated = true;
-				//if (_costEffects.Remove(e)) return;
+				if (!_costEffects.Remove((@operator, value)))
+					throw new KeyNotFoundException($"Can't remove cost aura [{@operator} {value}]");
 
-				//throw new Exception($"Can't remove cost aura {e}");
-
-				if (!_costEffects.Remove(e))
-					throw new KeyNotFoundException($"Can't remove cost aura {e}");
-
-				ref int c = ref _cachedValue;
-
-				switch (e.Operator)
+				switch (@operator)
 				{
 					case EffectOperator.SUB:
-						c += e.Value;
+						_cachedValue += value;
 						break;
 					case EffectOperator.ADD:
-						c -= e.Value;
+						_cachedValue -= value;
 						break;
 					case EffectOperator.SET:
 						_toBeUpdated = true;
@@ -151,10 +144,10 @@ namespace SabberStoneCore.Model.Entities
 				// e.g. Emperor Thaurissan
 
 				// 2. Apply cost aura effects next. (e.g. Naga Sea Witch, Sorcerer's Apprentice)
-				List<Effect> effects = _costEffects;
+				List<(EffectOperator Operator, int Value)> effects = _costEffects;
 				for (int i = 0; i < effects.Count; i++)
 				{
-					Effect e = effects[i];
+					(EffectOperator Operator, int Value) e = effects[i];
 					switch (e.Operator)
 					{
 						case EffectOperator.ADD:
@@ -200,31 +193,8 @@ namespace SabberStoneCore.Model.Entities
 				_modifiedCost = value;
 
 				if (_history)
-					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.COST, Card.Cost));
+					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.COST, Cost));
 			}
-		}
-
-		internal void AddCostAuraEffect(Effect e)
-		{
-			if (_costManager == null)
-			{
-				var costManager = new CostManager();
-				costManager.AddCostAura(in e);
-				_costManager = costManager;
-			}
-			else
-				_costManager.AddCostAura(in e);
-		}
-
-		internal void RemoveCostAuraEffect(Effect e)
-		{
-			if (_costManager == null)
-			{
-				var costManager = new CostManager();
-				costManager.RemoveCostAura(in e);
-			}
-			else
-				_costManager.RemoveCostAura(in e);
 		}
 
 		internal void AddCostEffect(Effect e)
@@ -246,35 +216,6 @@ namespace SabberStoneCore.Model.Entities
 
 			_costManager?.AddCostEnchantment(in e);
 		}
-
-		//internal void ActivateAdaptiveCostEffect(AdaptiveCostEffect e)
-		//{
-		//	if (_costManager == null)
-		//	{
-		//		var costManager = new CostManager();
-		//		costManager.ActivateAdaptiveEffect(e);
-		//		_costManager = costManager;
-		//	}
-		//	else
-		//	{
-		//		_costManager.ActivateAdaptiveEffect(e);
-		//	}
-		//}
-
-		//internal void UpdateAdaptiveCostEffect(int setValue = -1)
-		//{
-		//	if (setValue >= 0)
-		//	{
-		//		_costManager.CachedValue = setValue;
-		//		return;
-		//	}
-		//	_costManager.QueueUpdate();
-		//}
-
-		//internal void DeactivateAdaptiveCostEffect()
-		//{
-		//	_costManager.DeactivateAdaptiveEffect();
-		//}
 
 		internal void ResetCost()
 		{

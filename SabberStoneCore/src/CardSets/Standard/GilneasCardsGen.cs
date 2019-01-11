@@ -2737,7 +2737,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your spells cost (5) more this turn.
 			// --------------------------------------------------------
 			cards.Add("GIL_203e", new Power {
-				Aura = new Aura(AuraType.OP_HAND, new Effect(GameTag.COST, EffectOperator.ADD, 5))
+				Aura = new Aura(AuraType.OP_HAND, Effects.AddCost(5))
 				{
 					Condition = SelfCondition.IsSpell,
 					RemoveTrigger = (TriggerType.TURN_END, SelfCondition.IsOpTurn)
@@ -2972,7 +2972,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Enchant = new Enchant(
 					Effects.SetAttack(10),
 					Effects.SetMaxHealth(10),
-					new Effect(GameTag.COST, EffectOperator.SET, 10))
+					Effects.SetCost(10))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3002,7 +3002,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your <b>Hero Power</b> costs (1).
 			// --------------------------------------------------------
 			cards.Add("GIL_692e", new Power {
-				Enchant = new Enchant(new Effect(GameTag.COST, EffectOperator.SET, 1))
+				Enchant = new Enchant(Effects.SetCost(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3012,7 +3012,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (0).
 			// --------------------------------------------------------
 			cards.Add("GIL_800e2", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 0)
+				Enchant = new Enchant(Effects.SetCost(0))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

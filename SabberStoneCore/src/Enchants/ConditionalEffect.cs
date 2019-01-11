@@ -50,20 +50,20 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
-		public void ApplyTo(AuraEffects auraEffects)
+		public void ApplyAuraTo(IPlayable playable)
 		{
-			int value = _valueFunction((IPlayable)auraEffects.Owner);
+			int value = _valueFunction(playable);
 			LastValue = value;
 			switch (Tag)
 			{
 				case GameTag.ATK:
-					new AttackEffect(Operator, value).ApplyTo(auraEffects);
+					new AttackEffect(Operator, value).ApplyAuraTo(playable);
 					break;
 				case GameTag.HEALTH:
-					new HealthEffect(Operator, value).ApplyTo(auraEffects);
+					new HealthEffect(Operator, value).ApplyAuraTo(playable);
 					break;
 				default:
-					new Effect(Tag, Operator, value).ApplyTo(auraEffects);
+					new Effect(Tag, Operator, value).ApplyAuraTo(playable);
 					break;
 			}
 		}
@@ -91,16 +91,21 @@ namespace SabberStoneCore.Enchants
 
 		public void RemoveFrom(AuraEffects auraEffects)
 		{
+
+		}
+
+		public void RemoveAuraFrom(IPlayable playable)
+		{
 			switch (Tag)
 			{
 				case GameTag.ATK:
-					new AttackEffect(Operator, LastValue).RemoveFrom(auraEffects);
+					new AttackEffect(Operator, LastValue).RemoveAuraFrom(playable);
 					break;
 				case GameTag.HEALTH:
-					new HealthEffect(Operator, LastValue).RemoveFrom(auraEffects);
+					new HealthEffect(Operator, LastValue).RemoveAuraFrom(auraEffects);
 					break;
 				default:
-					new Effect(Tag, Operator, LastValue).RemoveFrom(auraEffects);
+					new Effect(Tag, Operator, LastValue).RemoveAuraFrom(auraEffects);
 					break;
 			}
 		}
@@ -115,10 +120,10 @@ namespace SabberStoneCore.Enchants
 			throw new NotImplementedException();
 		}
 
-		public void RemoveValueFrom(AuraEffects auraEffects)
+		public void RemoveValueFrom(IPlayable playable)
 		{
-			LastValue = _valueFunction((IPlayable)auraEffects.Owner);
-			RemoveFrom(auraEffects);
+			LastValue = _valueFunction(playable);
+			RemoveAuraFrom(playable);
 		}
 
 		/// <summary>
@@ -151,9 +156,9 @@ namespace SabberStoneCore.Enchants
 			LastValue = value;
 		}
 
-		public void ReApplyTo(AuraEffects auraEffects)
+		public void ReApplyAuraTo(IPlayable playable)
 		{
-			int value = _valueFunction((IPlayable)auraEffects.Owner);
+			int value = _valueFunction(playable);
 
 			if (_condition != null && value == LastValue)
 				return;
@@ -163,8 +168,8 @@ namespace SabberStoneCore.Enchants
 				case GameTag.ATK:
 					if (Operator == EffectOperator.SET)
 					{
-						if (auraEffects.Owner is Character c)
-							c._atkModifier = 0;
+						if (playable is Character c)
+							c._modifiedATK = 0;
 						new AttackEffect(EffectOperator.ADD, LastValue).RemoveFrom(auraEffects);
 						value = value - auraEffects.AttackDamage;
 						new AttackEffect(EffectOperator.ADD, value).ApplyTo(auraEffects);
@@ -179,8 +184,8 @@ namespace SabberStoneCore.Enchants
 					new HealthEffect(Operator, value).ApplyTo(auraEffects);
 					break;
 				default:
-					new Effect(Tag, Operator, LastValue).RemoveFrom(auraEffects);
-					new Effect(Tag, Operator, value).ApplyTo(auraEffects);
+					new Effect(Tag, Operator, LastValue).RemoveAuraFrom(playable);
+					new Effect(Tag, Operator, value).ApplyAuraTo(playable);
 					break;
 			}
 

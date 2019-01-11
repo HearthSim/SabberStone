@@ -1506,7 +1506,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new CopyTask(EntityType.TARGET, Zone.HAND, addToStack: true),
 						new AddEnchantmentTask("LOOT_165e", EntityType.STACK),
-						new AddAuraEffect(new Effect(GameTag.COST, EffectOperator.SET, 1), EntityType.STACK))
+						new AddAuraEffect(Effects.SetCost(1), EntityType.STACK))
 				}
 			});
 

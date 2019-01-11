@@ -250,7 +250,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Your next Dragon costs (2) less.
 			// --------------------------------------------------------
 			cards.Add("BRM_018e", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SUB, 2))
+				Aura = new Aura(AuraType.HAND, Effects.ReduceCost(2))
 				{
 					Condition = SelfCondition.IsRace(Race.DRAGON),
 					RemoveTrigger = (TriggerType.PLAY_MINION, SelfCondition.IsRace(Race.DRAGON))

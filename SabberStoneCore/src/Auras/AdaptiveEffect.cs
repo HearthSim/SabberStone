@@ -81,14 +81,14 @@ namespace SabberStoneCore.Auras
 				if (_isSwitching)
 					_effect.ReApplyTo(Owner);
 				else
-					_effect.ReApplyTo(Owner.AuraEffects);
+					_effect.ReApplyAuraTo(Owner);
 			}
 			else
 			{
 				if (_isSwitching)
 					_effect.RemoveFrom(Owner);
 				else
-					_effect.RemoveFrom(Owner.AuraEffects);
+					_effect.RemoveAuraFrom(Owner);
 
 				Game.Auras.Remove(this);
 			}

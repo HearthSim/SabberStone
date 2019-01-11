@@ -588,7 +588,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_687e", new Power
 			{
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 0))
+				Aura = new Aura(AuraType.HAND, Effects.SetCost(0))
 				{
 					RemoveTrigger = (TriggerType.CAST_SPELL, null)
 				}
@@ -2615,7 +2615,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_020e", new Power
 			{
-				Aura = new Aura(AuraType.HEROPOWER, new Effect(GameTag.COST, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.HEROPOWER, Effects.SetCost(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

@@ -417,7 +417,7 @@ namespace SabberStoneCore.Model.Entities
 
 				// check if player has enough mana to play card
 				bool bool1 = (this is Spell && Controller.ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1);
-				bool bool2 = (AuraEffects[GameTag.CARD_COSTS_HEALTH] == 1);
+				bool bool2 = AuraEffects?.CardCostHealth ?? false;
 				if ((!bool1 && !bool2) && Controller.RemainingMana < Cost)
 				{
 					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable",
@@ -688,7 +688,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				if (AuraEffects.Echo == 1)
+				if (AuraEffects?.Echo ?? false)
 					return true;
 				return Card.Echo;
 			}

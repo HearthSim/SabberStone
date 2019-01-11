@@ -353,7 +353,7 @@ namespace SabberStoneCoreTest.CardSets
 			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, (ICharacter) minion));
-			Assert.Equal(3, ((Minion)minion).AttackDamage - minion.AuraEffects[GameTag.ATK]);
+			Assert.Equal(3, ((Minion)minion).AttackDamage - (minion.AuraEffects?.ATK ?? 0));
 			Assert.Equal(3, ((Minion)minion).Health);
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 

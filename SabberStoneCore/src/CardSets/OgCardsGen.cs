@@ -2824,7 +2824,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Shadowcaster made this 1/1.
 			// --------------------------------------------------------
 			cards.Add("OG_291e", new Power {
-				Enchant = new Enchant(Effects.SetAttack(1), Effects.SetMaxHealth(1), new Effect(GameTag.COST, EffectOperator.SET, 1))
+				Enchant = new Enchant(
+					Effects.SetAttack(1),
+					Effects.SetMaxHealth(1),
+					Effects.SetCost(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

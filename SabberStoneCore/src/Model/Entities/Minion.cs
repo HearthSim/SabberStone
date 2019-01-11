@@ -108,14 +108,14 @@ namespace SabberStoneCore.Model.Entities
 		public override void Reset()
 		{
 			base.Reset();
-			_atkModifier = Card.ATK;
-			_healthModifier = Card.Health;
-			_dmgModifier = 0;
+			_modifiedATK = Card.ATK;
+			_modifiedHealth = Card.Health;
+			_damage = 0;
 			_exhausted = false;
 			_numAttackThisturn = 0;
-			_immune = false;
-			_taunt = Card.Taunt;
-			_stealth = Card.Stealth;
+			_modifiedImmune = false;
+			_modifiedTaunt = Card.Taunt;
+			_modifiedStealth = Card.Stealth;
 
 			OngoingEffect?.Remove();
 			Game.OneTurnEffects.RemoveAll(p => p.entityId == Id);
@@ -232,7 +232,7 @@ namespace SabberStoneCore.Model.Entities
 			//get => this[GameTag.CHARGE] >= 1;
 			get
 			{
-				if (AuraEffects.Charge > 0)
+				if (AuraEffects?.Charge > 0)
 					return true;
 				if (!_data.TryGetValue(GameTag.CHARGE, out int value))
 					return Card.Charge;
@@ -335,7 +335,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				if (AuraEffects.Lifesteal > 0)
+				if (AuraEffects?.Lifesteal ?? false)
 					return true;
 				if (!_data.TryGetValue(GameTag.LIFESTEAL, out int value))
 					return Card.LifeSteal;
@@ -349,7 +349,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				if (AuraEffects.Rush > 0)
+				if (AuraEffects?.Rush ?? false)
 					return true;
 
 				if (!_data.TryGetValue(GameTag.RUSH, out int value))

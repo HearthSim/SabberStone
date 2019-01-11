@@ -14,40 +14,142 @@ namespace SabberStoneCore.Enchants
 	/// </summary>
 	public class AuraEffects
 	{
-		//private int WINDFURY;
-		//private int CANT_ATTACK;
-		private int CANT_BE_TARGETED_BY_SPELLS;
-		private int CARD_COST_HEALTH;
-		private int CANTATTACKHEROES;
-		//private List<Effect> _costEffects;
-		//private AdaptiveCostEffect _adaptiveCostEffect;
+		private const int PlayableLength = 2;
+		private const int WeaponLength = PlayableLength + 1;
+		private const int CharacterLength = PlayableLength + 1;
+		private const int HeroLength = CharacterLength + 2;
+		private const int MinionLength = CharacterLength + 7;
 
-		public Entity Owner { get; private set; }
-		//public AdaptiveCostEffect AdaptiveCostEffect
-		//{
-		//	get => _adaptiveCostEffect;
-		//	set
-		//	{
-		//		_adaptiveCostEffect = value;
-		//		ToBeUpdated = true;
-		//	}
-		//}
+		internal readonly int[] _data;
 
-		//internal bool ToBeUpdated { get; set; }
+		internal AuraEffects(CardType type)
+		{
+			switch (type)
+			{
+				case CardType.HERO:
+					_data = new int[HeroLength];
+					break;
+				case CardType.MINION:
+					_data = new int[MinionLength];
+					break;
+				case CardType.WEAPON:
+					_data = new int[WeaponLength];
+					break;
+				case CardType.SPELL:
+					_data = new int[PlayableLength];
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(type), type, null);
+			}
 
-		// Playable
-		//internal int Cost;
-		internal int Echo { get; set; }
+			Type = type;
+		}
 
-		// Minion
-		internal int AttackDamage { get; set; }
-		internal int Health { get; set; }
-		internal int Charge { get; set; }
-		internal int Lifesteal { get; set; }
-		internal int Rush { get; set; }
+		private AuraEffects(AuraEffects original) : this (original.Type)
+		{
+			Buffer.BlockCopy(original._data, 0, _data, 0, _data.Length);
+		}
 
-		// Hero
-		internal int Immune { get; set; }
+		public readonly CardType Type;
+
+		public bool CardCostHealth
+		{
+			get => _data[0] > 0;
+			set => _data[0] = value ? 1 : 0;
+		}
+
+		public bool Echo
+		{
+			get => _data[1] > 0;
+			set => _data[1] = value ? 1 : 0;
+		}
+
+		public bool CantBeTargetedBySpells
+		{
+			get => _data[2] > 0;
+			set => _data[2] = value ? 1 : 0;
+		}
+
+		public int ATK
+		{
+			get => _data[3];
+			set => _data[3] = value;
+		}
+
+		public int Health
+		{
+			get => _data[4];
+			set => _data[4] = value;
+		}
+
+		public int Charge
+		{
+			get => _data[5];
+			set => _data[5] = value;
+		}
+
+		public bool Taunt
+		{
+			get => _data[6] > 0;
+			set => _data[6] = value ? 1 : 0;
+		}
+
+		public bool Lifesteal
+		{
+			get => _data[7] > 0;
+			set => _data[7] = value ? 1 : 0;
+		}
+
+		public bool Rush
+		{
+			get => _data[8] > 0;
+			set => _data[8] = value ? 1 : 0;
+		}
+
+		public bool CantAttack
+		{
+			get => _data[9] > 0;
+			set => _data[9] = value ? 1 : 0;
+		}
+
+		// Only for Hero entities
+		public bool CannotAttackHeroes
+		{
+			get
+			{
+				if (Type != CardType.HERO)
+					throw new NotImplementedException();
+				return _data[4] > 0;
+			}
+			set
+			{
+				if (Type != CardType.HERO)
+					throw new NotImplementedException();
+				_data[4] = value ? 1 : 0;
+			}
+		}
+
+		public int Immune
+		{
+			get
+			{
+				if (Type == CardType.HERO)
+					return _data[3];
+				if (Type == CardType.WEAPON)
+					return _data[2];
+
+				return 0;
+			}
+			set
+			{
+				if (Type == CardType.HERO)
+					_data[3] = value;
+				if (Type == CardType.WEAPON)
+					_data[2] = value;
+
+				throw new NotImplementedException();
+			}
+		}
 
 		public int this[in GameTag t]
 		{
@@ -56,7 +158,7 @@ namespace SabberStoneCore.Enchants
 				switch (t)
 				{
 					case GameTag.ATK:
-						return AttackDamage;
+						return ATK;
 					case GameTag.HEALTH:
 						return Health;
 					//case GameTag.COST:
@@ -64,25 +166,23 @@ namespace SabberStoneCore.Enchants
 					//	return GetCost() - Owner.GetNativeGameTag(GameTag.COST);
 					case GameTag.CHARGE:
 						return Charge > 0 ? 1 : 0;
-					//case GameTag.WINDFURY:
-					//	return WINDFURY > 0 ? 1 : 0;
 					case GameTag.IMMUNE:
 						return Immune;
 					case GameTag.LIFESTEAL:
-						return Lifesteal;
+						return Lifesteal ? 1 : 0;
 					//case GameTag.CANT_ATTACK:
 					//	return CANT_ATTACK;
 					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
 					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
-						return CANT_BE_TARGETED_BY_SPELLS >= 1 ? 1 : 0;
+						return CantBeTargetedBySpells ? 1 : 0;
 					case GameTag.CARD_COSTS_HEALTH:
-						return CARD_COST_HEALTH;
+						return CardCostHealth ? 1 : 0;
 					case GameTag.RUSH:
-						return Rush > 0 ? 1 : 0;
+						return Rush ? 1 : 0;
 					case GameTag.ECHO:
-						return Echo > 0 ? 1 : 0;
+						return Echo ? 1 : 0;
 					case GameTag.CANNOT_ATTACK_HEROES:
-						return CANTATTACKHEROES;
+						return CannotAttackHeroes ? 1 : 0;
 					default:
 						return 0;
 				}
@@ -92,80 +192,41 @@ namespace SabberStoneCore.Enchants
 				switch (t)
 				{
 					case GameTag.ATK:
-						AttackDamage = value;
+						ATK = value;
 						return;
 					case GameTag.HEALTH:
 						Health = value;
 						return;
 					case GameTag.CHARGE:
-						{
-							Charge = value;
-							var m = (Minion)Owner;
-							if (value > 0 && m.IsExhausted && m.NumAttacksThisTurn < 1)
-								m.IsExhausted = false;
-							if (m.AttackableByRush)
-								m.AttackableByRush = false;
-							return;
-						}
-					//case GameTag.COST:
-					//	Cost = value;
-					//	return;
-					//case GameTag.WINDFURY:
-					//	WINDFURY = value;
-					//	if (value > 0 && Owner[GameTag.NUM_ATTACKS_THIS_TURN] == 1)
-					//		Owner[GameTag.EXHAUSTED] = 0;
-					//	return;
+						Charge += value;
+						return;
 					case GameTag.HEALTH_MINIMUM:
-						Owner[GameTag.HEALTH_MINIMUM] = value;
+						//Owner[GameTag.HEALTH_MINIMUM] = value;
 						return;
 					case GameTag.IMMUNE:
 						Immune = value;
 						return;
 					case GameTag.LIFESTEAL:
-						Lifesteal = value;
+						Lifesteal = value > 0;
 						return;
 					//case GameTag.CANT_ATTACK:
 					//	CANT_ATTACK = value;
 					//	return;
 					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
 					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
-						CANT_BE_TARGETED_BY_SPELLS = value;
+						CantBeTargetedBySpells = value > 0;
 						return;
 					case GameTag.CARD_COSTS_HEALTH:
-						CARD_COST_HEALTH = value;
+						CardCostHealth = value > 0;
 						return;
 					case GameTag.RUSH:
-						{
-							Rush = value;
-							var m = (Minion)Owner;
-							if (value > 0)
-							{
-								if (m.IsExhausted && m.NumAttacksThisTurn == 0)
-								{
-									m.IsExhausted = false;
-									m.AttackableByRush = true;
-									Owner.Game.RushMinions.Add(Owner.Id);
-								}
-							}
-							else
-							{
-								if (m.AttackableByRush && !m.IsExhausted)
-								{
-									if (m.IsRush || Owner.Card.Rush)
-										return;
-
-									m.AttackableByRush = false;
-									m.IsExhausted = true;
-									Owner.Game.RushMinions.Remove(Owner.Id);
-								}
-							}
-							return;
-						}
+						Rush = value > 0;
+						return;
 					case GameTag.ECHO:
-						Echo = value;
+						Echo = value > 0;
 						return;
 					case GameTag.CANNOT_ATTACK_HEROES:
-						CANTATTACKHEROES = value;
+						CannotAttackHeroes = value > 0;
 						return;
 					default:
 						return;
@@ -173,163 +234,18 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
-		internal AuraEffects(in Entity owner)
+		public AuraEffects Clone()
 		{
-			Owner = owner;
-			//ToBeUpdated = true;
-		}
-		private AuraEffects(in Entity owner, in AuraEffects other)
-		{
-			Owner = owner;
-			//ToBeUpdated = other.ToBeUpdated;
-			//_costEffects = other._costEffects?.Count > 0 ? new List<Effect>(other._costEffects) : null;
-			//Cost = other.Cost;
-			CANT_BE_TARGETED_BY_SPELLS = other.CANT_BE_TARGETED_BY_SPELLS;
-			Immune = other.Immune;
-			AttackDamage = other.AttackDamage;
-			CANTATTACKHEROES = other.CANTATTACKHEROES;
-			if (!(owner is Minion)) return;
-			Health = other.Health;
-			Charge = other.Charge;
-			//WINDFURY = other.WINDFURY;
-			Lifesteal = other.Lifesteal;
-			//CANT_ATTACK = other.CANT_ATTACK;
-			CARD_COST_HEALTH = other.CARD_COST_HEALTH;
-			Rush = other.Rush;
-			Echo = other.Echo;
-		}
-
-		/// <summary>
-		/// Add a new Cost related effect to the owner.
-		/// </summary>
-		//public void AddCostAura(in Effect e)
-		//{
-		//	ToBeUpdated = true;
-
-		//	if (_costEffects == null)
-		//		_costEffects = new List<Effect>{e};
-		//	else
-		//		_costEffects.Add(e);
-		//}
-
-		/// <summary>
-		/// Remove a Cost related effect from the owner.
-		/// </summary>
-		//public void RemoveCostAura(in Effect e)
-		//{
-		//	if (_costEffects == null)
-		//		return;
-		//	ToBeUpdated = true;
-		//	if (_costEffects.Remove(e)) return;
-
-		//	throw new Exception($"Can't remove cost aura from {Owner}. Zone: {Owner.Zone.Type}, IsDead?: {Owner[GameTag.TO_BE_DESTROYED] == 1}");
-		//}
-
-		/// <summary>
-		/// Add a new Cost effect that should be applied before any others
-		/// </summary>
-		//public void AddPriorCostAura(in Effect e)
-		//{
-		//	ToBeUpdated = true;
-
-		//	if (_costEffects == null)
-		//		_costEffects = new List<Effect> {e};
-		//	else
-		//		_costEffects.Insert(0, e);
-		//}
-
-		/// <summary>
-		/// Gets the estimated Cost of the owner.
-		/// </summary>
-		/// <returns></returns>
-		//public int GetCost()
-		//{
-		//	return !ToBeUpdated ? Cost : GetCostInternal();
-		//}
-
-		//private int GetCostInternal()
-		//{
-		//	// Obtain the Card Cost
-		//	if (!Owner.NativeTags.TryGetValue(GameTag.COST, out int c))
-		//		c = Owner.Card.Cost;
-		//	// Apply Cost effects
-		//	if (_costEffects != null)
-		//		foreach (Effect e in _costEffects)
-		//		{
-		//			switch (e.Operator)
-		//			{
-		//				case EffectOperator.ADD:
-		//					c += e.Value;
-		//					break;
-		//				case EffectOperator.SUB:
-		//					c -= e.Value;
-		//					if (c < 0) c = 0;
-		//					break;
-		//				case EffectOperator.SET:
-		//					c = e.Value;
-		//					break;
-		//				default:
-		//					throw new ArgumentOutOfRangeException();
-		//			}
-		//		}
-		//	ToBeUpdated = false;
-
-		//	// Lastly apply Adaptive Cost effect (Giants + Naga Sea Witch)
-		//	if (AdaptiveCostEffect != null)
-		//	{
-		//		c = AdaptiveCostEffect.Apply(c);
-		//	}
-
-		//	if (c < 0) c = 0;
-
-		//	Cost = c;
-		//	return c;
-		//}
-
-		//public void ResetCost()
-		//{
-		//	if (_costEffects == null && AdaptiveCostEffect == null && !Owner.NativeTags.ContainsKey(GameTag.COST)) return;
-
-		//	_costEffects = null;
-		//	Owner.NativeTags.Remove(GameTag.COST);
-		//	AdaptiveCostEffect?.Remove();
-		//	Cost = Owner.Card.Cost;
-		//	if (Owner.Game.History)
-		//		Owner.Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Owner.Id, GameTag.COST, Cost));
-		//}
-
-		public AuraEffects Clone(Entity clone)
-		{
-			return new AuraEffects(in clone, this);
+			return new AuraEffects(this);
 		}
 
 		public string Hash()
 		{
 			var hash = new StringBuilder();
 			hash.Append("[AE:");
-			//hash.Append($"{{COST,{Cost}}}");
-			if (AttackDamage > 0)
-				hash.Append($"{{ATK,{AttackDamage}}}");
-			if (Health > 0)
-				hash.Append($"{{HEALTH,{Health}}}");
-			if (Charge > 0)
-				hash.Append($"{{CHARGE,{Charge}}}");
-			//if (WINDFURY > 0)
-			//	hash.Append($"{{WINDFURY,{WINDFURY}}}");
-			if (Lifesteal > 0)
-				hash.Append($"{{LIFESTEAL,{Lifesteal}}}");
-			if (Immune > 0)
-				hash.Append($"{{IMMUNE,{Immune}}}");
-			if (CANT_BE_TARGETED_BY_SPELLS > 0)
-				hash.Append($"{{CANT_BE_TARGETED_BY_SPELLS,{CANT_BE_TARGETED_BY_SPELLS}}}");
-			if (CARD_COST_HEALTH > 0)
-				hash.Append($"{{CARD_COST_HEALTH,{CARD_COST_HEALTH}}}");
-			if (Rush > 0)
-				hash.Append($"{{RUSH,{Rush}}}");
-			if (Echo > 0)
-				hash.Append($"{{ECHO,{Echo}}}");
-			if (CANTATTACKHEROES == 1)
-				hash.Append($"{{CANNOT_ATTACK_HEROES,{CANTATTACKHEROES}");
+			int[] data = _data;
+			for (int i = 0; i < data.Length; i++)
+				hash.Append(data[i]);
 			hash.Append("]");
 			return hash.ToString();
 		}

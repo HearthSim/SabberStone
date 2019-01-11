@@ -337,8 +337,8 @@ namespace SabberStoneCore.Actions
 
 					if (p is Minion m)
 					{
-						m._atkModifier = m.Card.ATK;
-						m._healthModifier = m.Card.Health;
+						m._modifiedATK = m.Card.ATK;
+						m._modifiedHealth = m.Card.Health;
 					}
 
 					((Playable)p).ResetCost();

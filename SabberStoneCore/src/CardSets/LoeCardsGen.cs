@@ -698,7 +698,7 @@ namespace SabberStoneCore.CardSets
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_038", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 5))
+				Aura = new Aura(AuraType.HAND, Effects.SetCost(5))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
