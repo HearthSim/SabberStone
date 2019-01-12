@@ -15,7 +15,7 @@ namespace SabberStoneCore.Auras
 	/// <summary>
 	/// Auras can affect entities and change the applied entities' ATK, COST, etc. 
 	/// Aura must be activated first to affect entities. 
-	/// The effect of an aura is applied or removed during <see cref="Game.AuraUpdate()"/>.
+	/// The effect of an aura is applied or removed during <see cref="SabberStoneCore.Model.Game.AuraUpdate"/>.
 	/// </summary>
 	public class Aura : IAura
 	{
@@ -71,8 +71,6 @@ namespace SabberStoneCore.Auras
 		private readonly int _ownerId;
 
 		private IPlayable _owner;
-		//private List<IPlayable> _appliedEntities;
-		//private List<IPlayable> _tempList;
 
 		protected bool On = true;
 		protected IEffect[] Effects;
