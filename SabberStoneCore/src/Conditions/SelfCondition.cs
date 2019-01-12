@@ -86,7 +86,7 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition IsCthunDead = new SelfCondition(me => me.Controller.GraveyardZone.Any(p => p.Card.Id.Equals("OG_280")));
 
 		public static readonly SelfCondition NotPlayedAnySpellThisTurn =
-			new SelfCondition(me => !me.Controller.CardsPlayedThisTurn.Any(p => p.Type == CardType.SPELL));
+			new SelfCondition(me => me.Controller.CardsPlayedThisTurn.All(p => p.Type != CardType.SPELL));
 
 
 		// entities that don't have a real zone like Heroes are checked on the gametag value

@@ -2311,7 +2311,7 @@ namespace SabberStoneCore.CardSets
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_011a", new Power {
-				Enchant = new Enchant(new AttackEffect(EffectOperator.SUB, 2))
+				Enchant = new Enchant(ATK.Effect(EffectOperator.SUB, 2))
 				{
 					IsOneTurnEffect = true
 				}

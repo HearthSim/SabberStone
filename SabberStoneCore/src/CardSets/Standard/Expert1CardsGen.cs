@@ -1641,8 +1641,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This minion's Attack has been doubled.
 			// --------------------------------------------------------
 			cards.Add("EX1_355e", new Power {
-				//Enchant = new Enchant(GameTag.ATK, EffectOperator.MUL, 2)
-				Enchant = new Enchant(new AttackEffect(EffectOperator.MUL, 2))
+				Enchant = new Enchant(ATK.Effect(EffectOperator.MUL, 2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
@@ -3231,7 +3230,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_411e2", new Power {
 				//Enchant = new OngoingEnchant(new Effect(GameTag.ATK, EffectOperator.SUB, 1))
-				Enchant = new OngoingEnchant(new AttackEffect(EffectOperator.SUB, 1))
+				Enchant = new OngoingEnchant(ATK.Effect(EffectOperator.SUB, 1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR

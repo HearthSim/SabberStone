@@ -39,10 +39,10 @@ namespace SabberStoneCore.Enchants
 			switch (Tag)
 			{
 				case GameTag.ATK:
-					new AttackEffect(Operator, value).ApplyTo(entity);
+					ATK.Effect(Operator, value).ApplyTo((Character)entity);
 					break;
 				case GameTag.HEALTH:
-					new HealthEffect(Operator, value).ApplyTo(entity);
+					Health.Effect(Operator, value).ApplyTo((Character)entity);
 					break;
 				default:
 					new Effect(Tag, Operator, value).ApplyTo(entity);
@@ -57,10 +57,10 @@ namespace SabberStoneCore.Enchants
 			switch (Tag)
 			{
 				case GameTag.ATK:
-					new AttackEffect(Operator, value).ApplyAuraTo(playable);
+					ATK.Effect(Operator, value).ApplyAuraTo(playable);
 					break;
 				case GameTag.HEALTH:
-					new HealthEffect(Operator, value).ApplyAuraTo(playable);
+					Health.Effect(Operator, value).ApplyAuraTo(playable);
 					break;
 				default:
 					new Effect(Tag, Operator, value).ApplyAuraTo(playable);
@@ -68,20 +68,15 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
-		public void ApplyTo(ControllerAuraEffects controllerAuraEffects)
-		{
-			throw new NotImplementedException();
-		}
-
 		public void RemoveFrom(IEntity entity)
 		{
 			switch (Tag)
 			{
 				case GameTag.ATK:
-					new AttackEffect(Operator, LastValue).RemoveFrom(entity);
+					ATK.Effect(Operator, LastValue).RemoveFrom(entity);
 					break;
 				case GameTag.HEALTH:
-					new HealthEffect(Operator, LastValue).RemoveFrom(entity);
+					Health.Effect(Operator, LastValue).RemoveFrom(entity);
 					break;
 				default:
 					new Effect(Tag, Operator, LastValue).RemoveFrom(entity);
@@ -89,30 +84,20 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
-		public void RemoveFrom(AuraEffects auraEffects)
-		{
-
-		}
-
 		public void RemoveAuraFrom(IPlayable playable)
 		{
 			switch (Tag)
 			{
 				case GameTag.ATK:
-					new AttackEffect(Operator, LastValue).RemoveAuraFrom(playable);
+					ATK.Effect(Operator, LastValue).RemoveAuraFrom(playable);
 					break;
 				case GameTag.HEALTH:
-					new HealthEffect(Operator, LastValue).RemoveAuraFrom(auraEffects);
+					Health.Effect(Operator, LastValue).RemoveAuraFrom(playable);
 					break;
 				default:
-					new Effect(Tag, Operator, LastValue).RemoveAuraFrom(auraEffects);
+					new Effect(Tag, Operator, LastValue).RemoveAuraFrom(playable);
 					break;
 			}
-		}
-
-		public void RemoveFrom(ControllerAuraEffects controllerAuraEffects)
-		{
-			throw new NotImplementedException();
 		}
 
 		public IEffect ChangeValue(int newValue)
@@ -140,12 +125,12 @@ namespace SabberStoneCore.Enchants
 			switch (Tag)
 			{
 				case GameTag.ATK:
-					new AttackEffect(Operator, LastValue).RemoveFrom(entity);
-					new AttackEffect(Operator, value).ApplyTo(entity);
+					ATK.Effect(Operator, LastValue).RemoveFrom(entity);
+					ATK.Effect(Operator, value).ApplyTo(entity);
 					break;
 				case GameTag.HEALTH:
-					new HealthEffect(Operator, LastValue).RemoveFrom(entity);
-					new HealthEffect(Operator, value).ApplyTo(entity);
+					Health.Effect(Operator, LastValue).RemoveFrom(entity);
+					Health.Effect(Operator, value).ApplyTo(entity);
 					break;
 				default:
 					new Effect(Tag, Operator, LastValue).RemoveFrom(entity);
@@ -170,18 +155,18 @@ namespace SabberStoneCore.Enchants
 					{
 						if (playable is Character c)
 							c._modifiedATK = 0;
-						new AttackEffect(EffectOperator.ADD, LastValue).RemoveFrom(auraEffects);
-						value = value - auraEffects.AttackDamage;
-						new AttackEffect(EffectOperator.ADD, value).ApplyTo(auraEffects);
+						ATK.Effect(EffectOperator.ADD, LastValue).RemoveFrom(playable);
+						value = value - playable.AuraEffects.ATK;
+						ATK.Effect(EffectOperator.ADD, value).ApplyTo(playable);
 						break;
 					}
 
-					new AttackEffect(Operator, LastValue).RemoveFrom(auraEffects);
-					new AttackEffect(Operator, value).ApplyTo(auraEffects);
+					ATK.Effect(Operator, LastValue).RemoveFrom(playable);
+					ATK.Effect(Operator, value).ApplyTo(playable);
 					break;
 				case GameTag.HEALTH:
-					new HealthEffect(Operator, LastValue).RemoveFrom(auraEffects);
-					new HealthEffect(Operator, value).ApplyTo(auraEffects);
+					Health.Effect(Operator, LastValue).RemoveFrom(playable);
+					Health.Effect(Operator, value).ApplyTo(playable);
 					break;
 				default:
 					new Effect(Tag, Operator, LastValue).RemoveAuraFrom(playable);
@@ -198,9 +183,9 @@ namespace SabberStoneCore.Enchants
 			switch (Tag)
 			{
 				case GameTag.ATK:
-					return new AttackEffect(Operator, value);
+					return ATK.Effect(Operator, value);
 				case GameTag.HEALTH:
-					return new HealthEffect(Operator, value);
+					return Health.Effect(Operator, value);
 				default:
 					return new Effect(Tag, Operator, value);
 			}

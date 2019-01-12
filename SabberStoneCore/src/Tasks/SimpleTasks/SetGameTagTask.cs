@@ -39,10 +39,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					switch (t)
 					{
 						case GameTag.ATK:
-							Effects.SetAttack(a).ApplyTo(c);
+							ATK.Effect(EffectOperator.SET, a).ApplyTo(c);
 							break;
 						case GameTag.HEALTH:
-							Effects.SetMaxHealth(a).ApplyTo(c);
+							Health.Effect(EffectOperator.SET, a).ApplyTo(c);
 							break;
 						case GameTag.DAMAGE:
 							c.Damage = a;

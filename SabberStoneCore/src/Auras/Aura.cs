@@ -455,14 +455,14 @@ namespace SabberStoneCore.Auras
 			if (Type == AuraType.CONTROLLER)
 			{
 				for (int i = 0; i < effects.Length; i++)
-					effects[i].RemoveFrom(Owner.Controller.ControllerAuraEffects);
+					((Effect)effects[i]).RemoveFrom(Owner.Controller.ControllerAuraEffects);
 			}
 			else if (Type == AuraType.CONTROLLERS)
 			{
 				for (int i = 0; i < effects.Length; i++)
 				{
-					effects[i].RemoveFrom(Owner.Controller.ControllerAuraEffects);
-					effects[i].RemoveFrom(Owner.Controller.Opponent.ControllerAuraEffects);
+					((Effect)effects[i]).RemoveFrom(Owner.Controller.ControllerAuraEffects);
+					((Effect)effects[i]).RemoveFrom(Owner.Controller.Opponent.ControllerAuraEffects);
 				}
 			}
 			else

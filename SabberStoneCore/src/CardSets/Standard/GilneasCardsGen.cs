@@ -2657,8 +2657,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("GIL_128e", new Power {
 				Enchant = new Enchant(
-					new AttackEffect(EffectOperator.MUL, 2),
-					new HealthEffect(EffectOperator.MUL, 2))
+					ATK.Effect(EffectOperator.MUL, 2),
+					Health.Effect(EffectOperator.MUL, 2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2906,7 +2906,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Decreased Health.
 			// --------------------------------------------------------
 			cards.Add("GIL_623e", new Power {
-				Enchant = new Enchant(new HealthEffect(EffectOperator.SUB, 0))
+				Enchant = new Enchant(Health.Effect(EffectOperator.SUB, 0))
 				{
 					UseScriptTag = true
 				}
@@ -2982,7 +2982,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: -2 Attack until next turn.
 			// --------------------------------------------------------
 			cards.Add("GIL_665e", new Power {
-				Enchant = new Enchant(new AttackEffect(EffectOperator.SUB, 2))
+				Enchant = new Enchant(ATK.Effect(EffectOperator.SUB, 2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3032,7 +3032,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Doubled Health.
 			// --------------------------------------------------------
 			cards.Add("GIL_837e", new Power {
-				Enchant = new Enchant(new HealthEffect(EffectOperator.MUL, 2))
+				Enchant = new Enchant(Health.Effect(EffectOperator.MUL, 2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

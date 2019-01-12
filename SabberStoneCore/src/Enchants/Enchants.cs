@@ -146,12 +146,12 @@ namespace SabberStoneCore.Enchants
 	{
 		internal static IEffect Attack_N(int n)
 		{
-			return new GenericEffect<ATK, Character>(ATK.Singleton, EffectOperator.ADD, n);
+			return ATK.Effect(EffectOperator.ADD, n);
 		}
 
 		internal static IEffect Health_N(int n)
 		{
-			return new GenericEffect<Health, Character>(Health.Singleton, EffectOperator.ADD, n);
+			return Health.Effect(EffectOperator.ADD, n);
 		}
 
 		internal static IEffect[] AttackHealth_N(int n)
@@ -161,12 +161,12 @@ namespace SabberStoneCore.Enchants
 
 		internal static IEffect SetAttack(int n)
 		{
-			return new GenericEffect<ATK, Character>(ATK.Singleton, EffectOperator.SET, n);
+			return ATK.Effect(EffectOperator.SET, n);
 		}
 
 		internal static IEffect SetMaxHealth(int n)
 		{
-			return new GenericEffect<Health, Character>(Health.Singleton, EffectOperator.SET, n);
+			return Health.Effect(EffectOperator.SET, n);
 		}
 
 		internal static IEffect[] SetAttackHealth(int n)
@@ -176,23 +176,22 @@ namespace SabberStoneCore.Enchants
 
 		internal static IEffect ReduceCost(int n)
 		{
-			return new GenericEffect<Cost, Playable>(Cost.Singleton, EffectOperator.SUB, n);
+			return Cost.Effect(EffectOperator.SUB, n);
 		}
 
 		internal static IEffect SetCost(int n)
 		{
-			return new GenericEffect<Cost, Playable>(Cost.Singleton, EffectOperator.SET, n);
+			return Cost.Effect(EffectOperator.SET, n);
 		}
 
 		internal static IEffect AddCost(int n)
 		{
-			return new GenericEffect<Cost, Playable>(Cost.Singleton, EffectOperator.ADD, n);
+			return Cost.Effect(EffectOperator.ADD, n);
 		}
 
-		internal static IEffect TauntEff => new GenericEffect<Taunt, Character>(Taunt.Singleton, EffectOperator.SET, 1);
+		internal static IEffect TauntEff => Taunt.Effect();
 
-		internal static IEffect StealthEff =>
-			new GenericEffect<Stealth, Character>(Stealth.Singleton, EffectOperator.SET, 1);
+		internal static IEffect StealthEff => Stealth.Effect();
 
 		internal static Effect Windfury => new Effect(GameTag.WINDFURY, EffectOperator.SET, 1);
 
@@ -205,165 +204,5 @@ namespace SabberStoneCore.Enchants
 		internal static Effect Rush => new Effect(GameTag.RUSH, EffectOperator.SET, 1);
 
 		internal static Effect Echo => new Effect(GameTag.ECHO, EffectOperator.SET, 1);
-
-
-		private class Cost : IntAttr<Playable>
-		{
-			public static readonly Cost Singleton = new Cost();
-
-			protected override ref int? GetRef(Playable entity)
-			{
-				return ref entity._modifiedCost;
-			}
-
-			protected override int GetCardValue(Playable entity)
-			{
-				return entity.Card.Cost;
-			}
-
-			public override void ApplyAura(Playable entity, EffectOperator @operator, int value)
-			{
-				Playable.CostManager costManager = entity._costManager;
-				if (costManager == null)
-				{
-					costManager = new Playable.CostManager();
-					entity._costManager = costManager;
-				}
-
-				costManager.AddCostAura(@operator, value);
-			}
-
-			public override void RemoveAura(Playable entity, EffectOperator @operator, int value)
-			{
-				entity._costManager.RemoveCostAura(@operator, value);
-			}
-
-			protected override ref int GetAuraRef(AuraEffects auraEffects)
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		private class ATK : IntAttr<Character>
-		{
-			public static readonly ATK Singleton = new ATK();
-
-			protected override ref int? GetRef(Character entity)
-			{
-				return ref entity._modifiedATK;
-			}
-
-			protected override int GetCardValue(Character entity)
-			{
-				return entity.Card.ATK;
-			}
-
-			protected override ref int GetAuraRef(AuraEffects auraEffects)
-			{
-				return ref auraEffects._data[3];
-			}
-
-			public override void Apply(Character entity, EffectOperator @operator, int value)
-			{
-				if (@operator == EffectOperator.SET)
-				{
-					for (int i = entity.Game.OneTurnEffects.Count - 1; i >= 0; i--)
-					{
-						(int id, IEffect eff) = entity.Game.OneTurnEffects[i];
-						if (id != entity.Id || !(eff is GenericEffect<ATK, Character>)) continue;
-						entity.Game.OneTurnEffects.RemoveAt(i);
-					}
-				}
-
-				base.Apply(entity, @operator, value);
-			}
-
-			public override void ApplyAura(Character entity, EffectOperator @operator, int value)
-			{
-				base.ApplyAura(entity, @operator, value);
-			}
-		}
-
-		private class Health : IntAttr<Character>
-		{
-			public static readonly Health Singleton = new Health();
-
-			protected override ref int? GetRef(Character entity)
-			{
-				return ref entity._modifiedHealth;
-			}
-
-			protected override int GetCardValue(Character entity)
-			{
-				return entity.Card.Health;
-			}
-
-			protected override ref int GetAuraRef(AuraEffects auraEffects)
-			{
-				return ref auraEffects._data[4];
-			}
-
-			public override void Apply(Character entity, EffectOperator @operator, int value)
-			{
-				if (@operator == EffectOperator.SET)
-				{
-					if (entity is Hero h)
-					{
-						int hbh = h.BaseHealth;
-						if (hbh > value)
-							h.Damage = hbh - value;
-						else
-							h.Health = value;
-						return;
-					}
-
-					if (entity is Minion m)
-					{
-						m.Health = value;
-						return;
-					}
-				}
-
-				base.Apply(entity, @operator, value);
-			}
-
-			public override void RemoveAura(Character entity, EffectOperator @operator, int value)
-			{
-				base.RemoveAura(entity, @operator, value);
-
-				if (@operator == EffectOperator.ADD)
-					entity.Damage -= value;
-			}
-		}
-
-		private class Stealth : BoolAttr<Character>
-		{
-			public static readonly Stealth Singleton = new Stealth();
-
-			protected override ref bool? GetRef(Character entity)
-			{
-				return ref entity._modifiedStealth;
-			}
-
-			protected override ref int GetAuraRef(AuraEffects auraEffects)
-			{
-				throw new NotImplementedException();
-			}
-		}
-
-		private class Taunt : BoolAttr<Character>
-		{
-			public static readonly Taunt Singleton = new Taunt();
-
-			protected override ref bool? GetRef(Character entity)
-			{
-				return ref entity._modifiedTaunt;
-			}
-
-			protected override ref int GetAuraRef(AuraEffects auraEffects)
-			{
-				return ref auraEffects._data[6];
-			}
-		}
 	}
 }

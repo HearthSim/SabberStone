@@ -34,7 +34,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 			foreach (IPlayable p in entities)
 			{
-				var m = p as Minion;
+				if (!(p is Minion m))
+					return TaskState.STOP;
 
 				int atk = m.AttackDamage;
 				int health = m.Health;
@@ -47,12 +48,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = health;
 				}
 
-				//new Effect(GameTag.ATK, EffectOperator.SET, health).ApplyTo(p);
-				//new Effect(GameTag.HEALTH, EffectOperator.SET, atk).ApplyTo(p);
-				//new AttackEffect(EffectOperator.SET, health).ApplyTo(p);
-				//new HealthEffect(EffectOperator.SET, atk).ApplyTo(p);
-				Effects.SetAttack(health).ApplyTo(p);
-				Effects.SetMaxHealth(atk).ApplyTo(p);
+				ATK.Effect(EffectOperator.SET, health).ApplyTo(m);
+				Health.Effect(EffectOperator.SET, atk).ApplyTo(m);
 			}
 
 			return TaskState.COMPLETE;
