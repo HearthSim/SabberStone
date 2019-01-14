@@ -33,6 +33,7 @@ namespace SabberStoneCore.Enchants
 		// 3 : ATK
 		// Hero
 		// 4 : CannotAttackHeroes
+		// 5 : Immune
 		// Minion
 		// 4 : Health
 		// 5 : Charge
@@ -138,7 +139,7 @@ namespace SabberStoneCore.Enchants
 			get
 			{
 				if (Type != CardType.HERO)
-					throw new NotImplementedException();
+					return false;
 				return _data[4] > 0;
 			}
 			set
@@ -154,7 +155,7 @@ namespace SabberStoneCore.Enchants
 			get
 			{
 				if (Type == CardType.HERO)
-					return _data[3];
+					return _data[5];
 				if (Type == CardType.WEAPON)
 					return _data[2];
 
@@ -163,7 +164,7 @@ namespace SabberStoneCore.Enchants
 			set
 			{
 				if (Type == CardType.HERO)
-					_data[3] = value;
+					_data[5] = value;
 				else if (Type == CardType.WEAPON)
 					_data[2] = value;
 				else
@@ -190,7 +191,7 @@ namespace SabberStoneCore.Enchants
 						return Charge > 0 ? 1 : 0;
 					case GameTag.IMMUNE:
 						return Immune;
-					case GameTag.LIFESTEAL:
+					case GameTag.LIFESTEAL when Type == CardType.MINION:
 						return Lifesteal ? 1 : 0;
 					//case GameTag.CANT_ATTACK:
 					//	return CANT_ATTACK;

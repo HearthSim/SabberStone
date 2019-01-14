@@ -365,6 +365,11 @@ namespace SabberStoneCore.Auras
 			AuraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(playable, Instruction.Remove), 1);
 		}
 
+		internal void Detach(int id)
+		{
+			AppliedEntityIdCollection.Remove(id);
+		}
+
 		private void UpdateInternal()
 		{
 			switch (Type)

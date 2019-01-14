@@ -921,12 +921,16 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerActivation = TriggerActivation.HAND,
 					SingleTask = new FuncNumberTask(p =>
 					{
+						if (p.Zone?.Type != Zone.HAND)
+							return 0;
+
 						Card pick = p.Controller.Opponent.HandZone.Random?.Card;
 						if (pick == null) return 0;
 						IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick, true);
 						Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("GIL_142e"), p, result, 0, 0, false);
 						return 0;
-					})
+					}),
+					FastExecution = true
 				}
 			});
 

@@ -81,7 +81,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					if (Card == null && stack?.Playables.Count > 0)
 					{
 						var m = stack?.Playables[0] as Minion;
-						if (m.Zone == null && m.GetNativeGameTag(GameTag.ZONE) != 0)
+						if (m.Zone == null)
 							stack?.Playables[0].Controller.GraveyardZone.Add(stack?.Playables[0]);
 					}
 

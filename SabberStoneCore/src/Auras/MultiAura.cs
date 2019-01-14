@@ -25,8 +25,9 @@ namespace SabberStoneCore.Auras
 		{
 			if (!On)
 				Owner.Game.Auras.Remove(this);
-			for (int i = 0; i < _auras.Count; i++)
-				_auras[i].Update();
+			else
+				for (int i = 0; i < _auras.Count; i++)
+					_auras[i].Update();
 		}
 
 		public void Remove()

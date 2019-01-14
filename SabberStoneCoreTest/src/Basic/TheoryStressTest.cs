@@ -357,5 +357,28 @@ namespace SabberStoneCoreTest.Basic
 		// Umbra + Doppelgangster + Val'anyr test
 
 		// AuraUpdate(others) test
+
+		[Fact]
+		public static void UmbraMorriganLoop()
+		{
+			var game = new Game(new GameConfig
+			{
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Dr. Morrigan"),
+				},
+				Shuffle = false
+			});
+			game.StartGame();
+
+			Assert.Single(game.CurrentPlayer.DeckZone);
+
+			game.ProcessCard("Spiritsinger Umbra", asZeroCost: true);
+			game.ProcessCard("Dr. Morrigan", asZeroCost: true);
+		}
 	}
 }

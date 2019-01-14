@@ -19,7 +19,6 @@ namespace SabberStoneCore.Actions
 
 			Zone sourceZone = source.Zone?.Type ?? Zone.PLAY;
 
-
 			if (sourceZone == Zone.GRAVEYARD)
 				copyEnchantments = false;
 			else if (sourceZone == targetZone)
@@ -65,8 +64,14 @@ namespace SabberStoneCore.Actions
 							instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
 							if (e[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
 								instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = e[GameTag.TAG_SCRIPT_DATA_NUM_2];
+
+							instance.CapturedCard = e.CapturedCard;
 						}
+
+						if (e.IsOneTurnActive)
+							instance.Game.OneTurnEffectEnchantments.Add(instance);
 					}
+					
 				}
 
 				var kvps = new KeyValuePair<GameTag, int>[source.NativeTags.Count];

@@ -495,40 +495,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_314t1", new Power {
-				//Trigger = new Trigger(TriggerType.AFTER_ATTACK)
-				//{
-				//	TriggerSource = TriggerSource.HERO,
-				//	//Condition = new SelfCondition(p =>
-				//	//{
-				//	//	return p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed;
-				//	//}),
-				//	Condition = SelfCondition.IsDefenderDead,
-				//	SingleTask = ComplexTask.Create(
-				//		new FuncNumberTask(p => p.Game.CurrentEventData.EventTarget.Id),
-				//		new MemoryTask(EntityType.SOURCE),
-				//		new AddEnchantmentTask("ICC_314t1e", EntityType.SOURCE, true))
-				//},
-				//DeathrattleTask = new MemoryTask(EntityType.SOURCE, (s, mem) =>
-				//{
-				//	if (mem == null)
-				//		return;
-				//	foreach (int id in mem)
-				//	{
-				//		if (s.Controller.BoardZone.IsFull)
-				//			return;
-				//		Card card = s.Game.IdEntityDic[id].Card;
-				//		if (card.Type == CardType.HERO)
-				//			return;
-				//		Entity.FromCard(s.Controller, card, null, s.Controller.BoardZone);
-				//	}
-				//})
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.HERO,
 					Condition = SelfCondition.IsDefenderDead,
 					SingleTask = ComplexTask.Create(
+						new ConditionTask(EntityType.TARGET, SelfCondition.IsMinion),
+						new FlagTask(true, ComplexTask.Create(
 						new GetGameTagTask(GameTag.ENTITY_ID, EntityType.EVENT_TARGET),
-						new AddEnchantmentTask("ICC_314t1e", EntityType.SOURCE, true, true))
+						new AddEnchantmentTask("ICC_314t1e", EntityType.SOURCE, true, true))))
 				}
 			});
 

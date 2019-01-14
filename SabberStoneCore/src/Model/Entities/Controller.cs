@@ -274,6 +274,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			// remove hero and place it to the setaside zone
 			Weapon weapon = null;
+			AuraEffects auraEffects = null;
 			if  (Hero != null)
 			{
 				SetasideZone.MoveTo(Hero, SetasideZone.Count);
@@ -286,6 +287,8 @@ namespace SabberStoneCore.Model.Entities
 				{
 					weapon = Hero.Weapon;
 				}
+
+				auraEffects = Hero.AuraEffects;
 			}
 
 
@@ -295,6 +298,7 @@ namespace SabberStoneCore.Model.Entities
 			Hero.HeroPower = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
 				new EntityData { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
 			Hero.Weapon = weapon;
+			Hero.AuraEffects = auraEffects;
 		}
 
 		/// <summary>

@@ -66,7 +66,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			ISimpleTask task = c.Power.DeathrattleTask;
 
 			if (task == null)
-				throw new Exception($"Captured card {c} doesn't have Deathrattle Task.");
+			{ 
+				game.Log(LogLevel.WARNING, Enums.BlockType.TRIGGER, ToString(),
+					$"Captured card {c} doesn't have Deathrattle Task.");
+				return TaskState.STOP;
+			}
 
 			game.TaskQueue.Enqueue(in task, in controller, in source, null);
 

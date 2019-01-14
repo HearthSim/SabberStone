@@ -86,6 +86,8 @@ namespace SabberStoneCore.Auras
 		{
 			Playable p = (Playable)playable;
 
+			if (p._modifiedCost == null) return;
+
 			int cardValue = p.Card.Cost;
 			int delta = cardValue > 2 ? 2 : cardValue > 1 ? 1 : 0;
 

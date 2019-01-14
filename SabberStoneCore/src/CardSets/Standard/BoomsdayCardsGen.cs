@@ -572,9 +572,10 @@ namespace SabberStoneCore.CardSets.Standard
 							var defender = c.Opponent.BoardZone.Random;
 
 							if (defender == null) break;
-
+							EventMetaData temp = c.Game.CurrentEventData;
 							Generic.AttackBlock.Invoke(c, (ICharacter)list[i], defender, true);
 							c.NumOptionsPlayedThisTurn--;
+							c.Game.CurrentEventData = temp;
 						}
 
 						return null;
@@ -1907,8 +1908,13 @@ namespace SabberStoneCore.CardSets.Standard
 						new FilterStackTask(SelfCondition.IsMinion),
 						new RandomTask(1, EntityType.STACK),
 						new RemoveFromDeck(EntityType.STACK),
-						new MoveToDeck(EntityType.SOURCE),
-						new SummonTask())))
+						new FuncNumberTask(p =>
+						{
+							Generic.RemoveFromZone(p.Controller, p);
+							return 0;
+						}),
+						new SummonTask(),
+						new MoveToDeck(EntityType.SOURCE))))
 			});
 
 			// --------------------------------------- MINION - WARLOCK

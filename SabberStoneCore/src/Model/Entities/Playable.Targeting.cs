@@ -133,7 +133,7 @@ namespace SabberStoneCore.Model.Entities
 		/// This method defaults to targetting in the context of spells/hero powers.
 		/// </summary>
 		/// <returns><see cref="ICharacter"/></returns>
-		public virtual IEnumerable<ICharacter> GetValidPlayTargets()
+		public IEnumerable<ICharacter> GetValidPlayTargets()
 		{
 			var output = new List<ICharacter>(2);
 
@@ -221,20 +221,31 @@ namespace SabberStoneCore.Model.Entities
 			{
 				bool friendlyMinions = false;
 				bool enemyMinions = false;
+				bool hero = false;
+				bool opHero = false;
 				switch (Card.TargetingType)
 				{
 					case TargetingType.None:
 						return false;
-					case TargetingType.Heroes:
-					case TargetingType.All:
 					case TargetingType.FriendlyCharacters:
-						return true;
+						hero = true;
+						friendlyMinions = true;
+						break;
+					case TargetingType.Heroes:
+						hero = true;
+						opHero = true;
+						break;
+					case TargetingType.All:
+						hero = true;
+						opHero = true;
+						friendlyMinions = true;
+						enemyMinions = true;
+						break;
 					case TargetingType.FriendlyMinions:
 						friendlyMinions = true;
 						break;
 					case TargetingType.EnemyCharacters:
-						if (!Controller.Opponent.Hero.HasStealth && !Controller.Opponent.Hero.IsImmune)
-							return true;
+						opHero = true;
 						enemyMinions = true;
 						break;
 					case TargetingType.EnemyMinions:
@@ -247,6 +258,10 @@ namespace SabberStoneCore.Model.Entities
 					default:
 						throw new ArgumentOutOfRangeException();
 				}
+
+				if (hero && TargetingRequirements(Controller.Hero)) return true;
+
+				if (opHero && TargetingRequirements(Controller.Opponent.Hero)) return true;
 
 				if (friendlyMinions)
 				{
@@ -278,7 +293,7 @@ namespace SabberStoneCore.Model.Entities
 			if (target.Card.Untouchable)
 				return false;
 
-			if (target.HasStealth && target.Controller != Controller)
+			if ((target.HasStealth || target.IsImmune) && target.Controller != Controller)
 				return false;
 
 			if (!Card.TargetingPredicate?.Invoke(target) ?? false)

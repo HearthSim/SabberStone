@@ -351,14 +351,19 @@ namespace SabberStoneCore.Actions
 				BoardZone board = p.Zone as BoardZone;
 
 				// Reapply auras
+				//if (hand != null)
+				//	hand.Auras.ForEach(a => a.EntityRemoved(p));
+				//else if
+				//	(board != null)
+				//	board.Auras.ForEach(a => a.EntityRemoved(p));
 				if (hand != null)
-					hand.Auras.ForEach(a => a.EntityRemoved(p));
+					hand.Auras.ForEach(a => a.Detach(p.Id));
 				else if
 					(board != null)
-					board.Auras.ForEach(a => a.EntityRemoved(p));
+					board.Auras.ForEach(a => a.Detach(p.Id));
 
-				if (p.Zone.Type == Zone.HAND)
-					p.Controller.HandZone.Auras.ForEach(a => a.EntityRemoved(p));
+				//if (p.Zone.Type == Zone.HAND)
+				//	p.Controller.HandZone.Auras.ForEach(a => a.EntityRemoved(p));
 
 				// TODO: PowerHistoryChangeEntity
 				// send tag variations and the id of the new Card
