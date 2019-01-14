@@ -12,181 +12,162 @@ namespace SabberStoneCore.Auras
 	/// <summary>
 	/// Effects of this kind of Auras are influenced by other factors in game, in real time. e.g. Lightspawn, Southsea Deckhand.
 	/// </summary>
-	public class AdaptiveEffect : Aura
+	public class AdaptiveEffect : IAura
 	{
-		//private readonly GameTag _tag;
-		//private readonly EffectOperator _operator;
-		//private int _lastValue;
-		//private readonly GameTag[] _tags;
-		//private readonly int[] _lastValues;
 		private readonly bool _isSwitching;
-		private readonly ConditionalEffect _effect;
+		private readonly Func<Playable, int> _valueFunction;
+		private readonly SelfCondition _condition;
+		private readonly Playable _owner;
+		private readonly GameTag _tag;
+		private readonly EffectOperator _operator;
+
+		private bool _on = true;
+		private int _lastValue;
 
 		/// <summary>
 		/// Defines a kind of effects in which the given tag varies with the value from the given function. (e.g. giants)
 		/// </summary>
-		public AdaptiveEffect(GameTag tag, EffectOperator @operator, Func<IPlayable, int> valueFunc) : base(AuraType.ADAPTIVE)
+		public AdaptiveEffect(GameTag tag, EffectOperator @operator, Func<Playable, int> valueFunc)
 		{
-			//ValueFunc = valueFunc;
-			//_tag = tag;
-			//_operator = @operator;
-
-			_effect = new ConditionalEffect(tag, @operator, valueFunc);
+			_tag = tag;
+			_operator = @operator;
+			_valueFunction = valueFunc;
 		}
 
 		/// <summary>
 		/// Defines a kind of effects in which the given tags are boolean and determined by a specific condition. (e.g. Southsea Deckhand)
 		/// </summary>
-		public AdaptiveEffect(SelfCondition condition, GameTag tag) : base(AuraType.ADAPTIVE)
+		public AdaptiveEffect(SelfCondition condition, GameTag tag)
 		{
-			//Condition = condition;
 			_isSwitching = true;
-			//_tags = tags;
-			//_lastValues = new int[tags.Length];
-			_effect = new ConditionalEffect(tag, condition);
+			_tag = tag;
+			_condition = condition;
+			_operator = EffectOperator.SET;
 		}
 
-		private AdaptiveEffect(AdaptiveEffect prototype, IPlayable owner) : base(prototype, owner)
+		private AdaptiveEffect(AdaptiveEffect prototype, Playable owner)
 		{
-			//if (prototype._isSwitching)
-			//{
-			//	_isSwitching = true;
-			//	_tags = prototype._tags;
-			//	_lastValues = new int[_tags.Length];
-			//	Array.Copy(prototype._lastValues, _lastValues, _lastValues.Length);
-			//	Condition = prototype.Condition;
-			//	return;
-			//}
-			//_tag = prototype._tag;
-			//_operator = prototype._operator;
-			//_lastValue = prototype._lastValue;
-
 			_isSwitching = prototype._isSwitching;
+			_valueFunction = prototype._valueFunction;
+			_tag = prototype._tag;
+			_operator = prototype._operator;
+			_condition = prototype._condition;
+			_lastValue = prototype._lastValue;
+			_on = prototype._on;
 
-			_effect = prototype._effect.Clone();
+			_owner = owner;
 		}
 
-		public override void Activate(IPlayable owner, bool cloning = false)
+		IPlayable IAura.Owner => _owner;
+
+		public void Activate(IPlayable owner)
 		{
-			var instance = new AdaptiveEffect(this, owner);
+			if (!(owner is Playable m))
+				throw new Exception($"Can't activate Adaptive Effect on non-Playable entity {owner}.");
+
+			IAura instance = new AdaptiveEffect(this, m);
+
+			if (!_isSwitching && m.AuraEffects == null)
+			{
+				if (m is Weapon)
+					m.Controller.Hero.AuraEffects = new AuraEffects(CardType.HERO);
+				else
+					m.AuraEffects = new AuraEffects(CardType.MINION);
+			}
 
 			owner.Game.Auras.Add(instance);
 			owner.OngoingEffect = instance;
 		}
 
-		public override void Update()
+		public void Update()
 		{
-			if (On)
+			if (_on)
 			{
+				int value;
+
 				if (_isSwitching)
-					_effect.ReApplyTo(Owner);
+				{
+					value = _condition.Eval(_owner) ? 1 : 0;
+
+					if (value == _lastValue)
+						return;
+
+
+					if (_tag == GameTag.ATK)
+					{
+						ATK.Effect(_operator, _lastValue).RemoveFrom(_owner);
+						ATK.Effect(_operator, value).ApplyTo(_owner);
+					}
+					else
+					{
+						new Effect(_tag, _operator, _lastValue).RemoveFrom(_owner);
+						new Effect(_tag, _operator, value).ApplyTo(_owner);
+					}
+				}
 				else
-					_effect.ReApplyAuraTo(Owner);
+				{
+					value = _valueFunction(_owner);
+
+					if (_tag == GameTag.ATK)
+					{
+						if (!(_owner is Character c))
+						{
+							if (_owner is Weapon)
+								c = _owner.Controller.Hero;
+							else
+								throw new Exception($"Can't apply ATK aura {this} to entity {_owner}");
+						}
+
+						if (_operator == EffectOperator.SET)
+						{
+							c._modifiedATK = 0;
+							ATK.Effect(EffectOperator.ADD, _lastValue).RemoveAuraFrom(c);
+							value = value - (c.AuraEffects?.ATK ?? 0);
+							ATK.Effect(EffectOperator.ADD, value).ApplyAuraTo(c);
+						}
+						else
+						{
+							ATK.Effect(_operator, _lastValue).RemoveAuraFrom(c);
+							ATK.Effect(_operator, value).ApplyAuraTo(c);
+						}
+					}
+					else
+					{
+						new Effect(_tag, _operator, _lastValue).RemoveAuraFrom(_owner);
+						new Effect(_tag, _operator, value).ApplyAuraTo(_owner);
+					}
+				}
+
+				_lastValue = value;
 			}
 			else
 			{
 				if (_isSwitching)
-					_effect.RemoveFrom(Owner);
+				{
+					if (_tag == GameTag.ATK)
+						ATK.Effect(_operator, _lastValue).RemoveFrom(_owner);
+					else
+						new Effect(_tag, _operator, _lastValue).RemoveFrom(_owner);
+				}
 				else
-					_effect.RemoveAuraFrom(Owner);
+				{
+					if (_tag == GameTag.ATK)
+						ATK.Effect(_operator, _lastValue).RemoveAuraFrom(_owner is Weapon ? _owner.Controller.Hero : _owner);
+					else
+						new Effect(_tag, _operator, _lastValue).RemoveAuraFrom(_owner);
+				}
 
-				Game.Auras.Remove(this);
+				_owner.Game.Auras.Remove(this);
 			}
-
-
-
-			//if (_isSwitching)
-			//{
-			//	GameTag[] tags = _tags;
-			//	for (int i = 0; i < tags.Length; i++)
-			//	{
-			//		int val = Condition.Eval(Owner) ? 1 : 0;
-			//		if (_lastValues[i] == val) continue;
-
-			//		//Owner[_tags[i]] = val;
-			//		switch (tags[i])
-			//		{
-			//			case GameTag.ATK:
-			//				new AttackEffect(EffectOperator.SET, val).ApplyTo(Owner);
-			//				break;
-			//			case GameTag.HEALTH:
-			//				new HealthEffect(EffectOperator.SET, val).ApplyTo(Owner);
-			//				break;
-			//			default:
-			//				new Effect(_tags[i], EffectOperator.SET, val).ApplyTo(Owner);
-			//				break;
-			//		}
-			//		_lastValues[i] = val;
-			//	}
-
-
-			//	return;
-			//}
-
-
-			//switch (_operator)
-			//{
-			//	case EffectOperator.ADD:
-			//	{
-			//		Owner.AuraEffects[_tag] -= _lastValue;
-			//		int val = ValueFunc(Owner);
-			//		Owner.AuraEffects[_tag] += val;
-			//		_lastValue = val;
-			//		return;
-			//	}
-			//	case EffectOperator.SUB:
-			//	{
-			//		Owner.AuraEffects[_tag] += _lastValue;
-			//		int val = ValueFunc(Owner);
-			//		Owner.AuraEffects[_tag] -= val;
-			//		_lastValue = val;
-			//		return;
-			//	}
-			//	case EffectOperator.SET:
-			//		if (Owner is Character c)
-			//		{
-			//			switch (_tag)
-			//			{
-			//				case GameTag.ATK:
-			//					c._atkModifier = 0;
-			//					break;
-			//				case GameTag.HEALTH:
-			//					c._healthModifier = 0;
-			//					break;
-			//			}
-			//		}
-			//		else
-			//			Owner[_tag] = 0;
-
-			//		Owner.AuraEffects[_tag] = ValueFunc(Owner);
-			//		return;
-			//}
 		}
 
-		public override void Remove()
+		public void Remove()
 		{
-			Owner.OngoingEffect = null;
-			On = false;
-
-			//switch (_operator)
-			//{
-			//	case EffectOperator.ADD:
-			//		Owner.AuraEffects[_tag] -= _lastValue;
-			//		return;
-			//	case EffectOperator.SUB:
-			//		Owner.AuraEffects[_tag] += _lastValue;
-			//		return;
-			//	case EffectOperator.SET:
-			//		Owner.AuraEffects[_tag] = 0;
-			//		if (Owner.Zone is BoardZone board)
-			//			board.Auras.ForEach(p => p.EntityRemoved(Owner));
-			//		return;
-			//}
-			//_effect.RemoveFrom(Owner);
-
+			_owner.OngoingEffect = null;
+			_on = false;
 		}
 
-		public override void Clone(IPlayable clone)
+		public void Clone(IPlayable clone)
 		{
 			Activate(clone);
 		}
@@ -194,7 +175,7 @@ namespace SabberStoneCore.Auras
 		public override string ToString()
 		{
 			var sb = new StringBuilder("[AE:");
-			sb.Append(Owner.Card.Name);
+			sb.Append(_owner.Card.Name);
 			sb.Append("]");
 			return sb.ToString();
 		}

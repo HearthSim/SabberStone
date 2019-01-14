@@ -69,8 +69,9 @@ namespace SabberStoneCore.Auras
 			{
 				_value = prototype._value;
 				_triggerType = prototype._triggerType;
+				_triggerSource = prototype._triggerSource;
 				_condition = prototype._condition;
-				_updateHandler = Update;
+				_updateHandler = Trigger;
 				_removedHandler = RemoveAtEnd;
 				_isTriggered = prototype._isTriggered;
 				_isAppliedThisTurn = prototype._isAppliedThisTurn;
@@ -115,14 +116,20 @@ namespace SabberStoneCore.Auras
 
 		public int Apply(int value)
 		{
-			return value - (_costFunction?.Invoke(_owner) ?? 0);
+			if (_costFunction != null)
+				return value - _costFunction.Invoke(_owner);;
+
+			if (_isAppliedThisTurn)
+				return _value;
+
+			return value;
 		}
 
 		public void Remove()
 		{
 			_owner.OngoingEffect = null;
 			_owner.Game.Auras.Remove(this);
-			_owner._costManager.DeactivateAdaptiveEffect();
+			_owner._costManager?.DeactivateAdaptiveEffect();
 		}
 
 		void IAura.Activate(IPlayable owner)
@@ -149,7 +156,7 @@ namespace SabberStoneCore.Auras
 			// TODO History
 		}
 
-		private void Update(IEntity sender)
+		private void Trigger(IEntity sender)
 		{
 			if (_isTriggered)
 				return;
@@ -180,7 +187,7 @@ namespace SabberStoneCore.Auras
 
 		private void RemoveAtEnd(IEntity sender)
 		{
-			_owner._costManager.UpdateAdaptiveEffect();
+			_owner._costManager?.UpdateAdaptiveEffect();
 			_isTriggered = false;
 			_isAppliedThisTurn = false;
 		}

@@ -36,10 +36,13 @@ namespace SabberStoneCore.Enchants
 			_attr.RemoveAura(playable, _operator, _value);
 		}
 
-		void IEffect.ApplyTo(IEntity entity, bool isOneTurnEffect = false)
+		void IEffect.ApplyTo(IEntity entity, bool oneTurnEffect = false)
 		{
 			if (!(entity is T playable))
-				throw new Exception();
+				throw new Exception($"Cannot apply {this} to an entity of type {entity.GetType()}");
+
+			if (oneTurnEffect)
+				playable.Game.OneTurnEffects.Add((playable.Id, this));
 
 			ApplyTo(playable);
 		}
@@ -47,7 +50,7 @@ namespace SabberStoneCore.Enchants
 		void IEffect.ApplyAuraTo(IPlayable playable)
 		{
 			if (!(playable is T p))
-				throw new Exception();
+				throw new Exception($"Cannot apply {this} to an entity of type {playable.GetType()}");
 
 			ApplyAuraTo(p);
 		}
@@ -71,6 +74,11 @@ namespace SabberStoneCore.Enchants
 		public IEffect ChangeValue(int newValue)
 		{
 			return new GenericEffect<TAttr, T>(_attr, _operator, newValue);
+		}
+
+		public override string ToString()
+		{
+			return $"{_operator} {_attr} {_value}";
 		}
 	}
 
@@ -261,6 +269,13 @@ namespace SabberStoneCore.Enchants
 			throw new NotImplementedException();
 		}
 
+		public override void Apply(Playable entity, EffectOperator @operator, int value)
+		{
+			base.Apply(entity, @operator, value);
+
+			entity._costManager?.AddCostEnchantment(@operator, value);
+		}
+
 		public override void ApplyAura(Playable entity, EffectOperator @operator, int value)
 		{
 			Playable.CostManager costManager = entity._costManager;
@@ -275,18 +290,20 @@ namespace SabberStoneCore.Enchants
 
 		public override void RemoveAura(Playable entity, EffectOperator @operator, int value)
 		{
-			entity._costManager.RemoveCostAura(@operator, value);
+			entity._costManager?.RemoveCostAura(@operator, value);
 		}
 	}
 
-	internal class ATK : SelfContainedIntAttr<ATK, Character>
+	internal class ATK : SelfContainedIntAttr<ATK, Playable>
 	{
-		protected override ref int? GetRef(Character entity)
+		protected override ref int? GetRef(Playable entity)
 		{
-			return ref entity._modifiedATK;
+			if (entity is Character c)
+				return ref c._modifiedATK;
+			throw new NotImplementedException();
 		}
 
-		protected override int GetCardValue(Character entity)
+		protected override int GetCardValue(Playable entity)
 		{
 			return entity.Card.ATK;
 		}
@@ -296,25 +313,39 @@ namespace SabberStoneCore.Enchants
 			return ref auraEffects._data[3];
 		}
 
-		public override void Apply(Character entity, EffectOperator @operator, int value)
+		public override void Apply(Playable entity, EffectOperator @operator, int value)
 		{
 			if (@operator == EffectOperator.SET)
 			{
 				for (int i = entity.Game.OneTurnEffects.Count - 1; i >= 0; i--)
 				{
 					(int id, IEffect eff) = entity.Game.OneTurnEffects[i];
-					if (id != entity.Id || !(eff is GenericEffect<ATK, Character>)) continue;
+					if (id != entity.Id || !(eff is GenericEffect<ATK, Playable>)) continue;
 					entity.Game.OneTurnEffects.RemoveAt(i);
 				}
 			}
 
-			base.Apply(entity, @operator, value);
+			if (entity is Character)
+				base.Apply(entity, @operator, value);
+			else
+				new Effect(Enums.GameTag.ATK, @operator, value).ApplyTo(entity);
 		}
 
-		public override void ApplyAura(Character entity, EffectOperator @operator, int value)
-		{
-			base.ApplyAura(entity, @operator, value);
-		}
+		//public override void ApplyAura(Playable entity, EffectOperator @operator, int value)
+		//{
+		//	if (entity is Weapon)
+		//		entity = entity.Controller.Hero;
+
+		//	base.ApplyAura(entity, @operator, value);
+		//}
+
+		//public override void RemoveAura(Playable entity, EffectOperator @operator, int value)
+		//{
+		//	if (entity is Weapon)
+		//		entity = entity.Controller.Hero;
+
+		//	base.RemoveAura(entity, @operator, value);
+		//}
 	}
 
 	internal class Health : SelfContainedIntAttr<Health, Character>

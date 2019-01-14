@@ -112,7 +112,7 @@ namespace SabberStoneCore.Model.Entities
 			_modifiedHealth = Card.Health;
 			_damage = 0;
 			_exhausted = false;
-			_numAttackThisturn = 0;
+			_numAttackThisTurn = 0;
 			_modifiedImmune = false;
 			_modifiedTaunt = Card.Taunt;
 			_modifiedStealth = Card.Stealth;

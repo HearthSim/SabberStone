@@ -56,6 +56,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						if (e[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
 							instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = e[GameTag.TAG_SCRIPT_DATA_NUM_2];
 					}
+					instance.CapturedCard = e.CapturedCard;
+					if (e.IsOneTurnActive)
+						game.OneTurnEffectEnchantments.Add(instance);
 				}
 
 			foreach (KeyValuePair<GameTag, int> kvp in minionTarget._data)

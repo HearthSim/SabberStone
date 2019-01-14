@@ -3200,7 +3200,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_409e", new Power {
 				Enchant = new Enchant(
-					Effects.Attack_N(1),
+					new Effect(GameTag.ATK, EffectOperator.ADD, 1),
 					new Effect(GameTag.DURABILITY, EffectOperator.ADD, 1))
 			});
 
@@ -3229,8 +3229,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Decreased Attack.
 			// --------------------------------------------------------
 			cards.Add("EX1_411e2", new Power {
-				//Enchant = new OngoingEnchant(new Effect(GameTag.ATK, EffectOperator.SUB, 1))
-				Enchant = new OngoingEnchant(ATK.Effect(EffectOperator.SUB, 1))
+				Enchant = new OngoingEnchant(new Effect(GameTag.ATK, EffectOperator.SUB, 1))
+				//Enchant = new OngoingEnchant(ATK.Effect(EffectOperator.SUB, 1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR

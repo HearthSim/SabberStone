@@ -1255,7 +1255,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal("Divine Strength", game.CurrentPlayer.HandZone[0].Card.Name);
 			game.EndTurn();
 
-			// In Hearthstone, when this minion is 'double-mind-controled' and dead,
+			// In Hearthstone, when this minion is 'double-mind-controlled' and dead,
 			// it gives ONE Mind Control
 			// But why would it gives one MC?
 

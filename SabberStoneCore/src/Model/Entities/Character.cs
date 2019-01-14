@@ -309,7 +309,7 @@ namespace SabberStoneCore.Model.Entities
 				PreDamageTrigger.Invoke(this);
 				game.ProcessTasks();
 				amount = game.CurrentEventData.EventNumber;
-				if (amount == 0)
+				if (amount == 0 && armor == 0)
 				{
 					if (_history)
 						PreDamage = 0;
@@ -586,14 +586,14 @@ namespace SabberStoneCore.Model.Entities
 		internal bool? _modifiedCantBeTargetedBySpells;
 
 		internal int _damage;
-		internal int _numAttackThisturn;
+		internal int _numAttackThisTurn;
 
 		internal void CopyInternalAttributes(in Character copy)
 		{
 			copy._modifiedATK = _modifiedATK;
 			copy._modifiedHealth = _modifiedHealth;
 			copy._damage = _damage;
-			copy._numAttackThisturn = _numAttackThisturn;
+			copy._numAttackThisTurn = _numAttackThisTurn;
 			copy._modifiedStealth = _modifiedStealth;
 			copy._modifiedImmune = _modifiedImmune;
 			copy._modifiedTaunt = _modifiedTaunt;
@@ -838,10 +838,10 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumAttacksThisTurn
 		{
-			get => _numAttackThisturn;
+			get => _numAttackThisTurn;
 			set
 			{
-				_numAttackThisturn = value;
+				_numAttackThisTurn = value;
 				if (_history)
 					this[GameTag.NUM_ATTACKS_THIS_TURN] = value;
 			}

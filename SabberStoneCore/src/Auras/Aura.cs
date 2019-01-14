@@ -175,56 +175,56 @@ namespace SabberStoneCore.Auras
 
 			if (EnchantmentCard == null) return;
 
-			Controller c = owner.Controller;
-			switch (Type)
-			{
-				case AuraType.BOARD_EXCEPT_SOURCE:
-					foreach (Minion minion in (BoardZone)owner.Zone)
-					{
-						if (minion == owner) continue;
-						if (Condition == null || Condition.Eval(minion))
-						{
-							Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
-							EnchantmentCard.Power.Trigger?.Activate(e);
-						}
-					}
-					break;
-				case AuraType.BOARD:
-					foreach (Minion minion in (BoardZone)owner.Zone)
-					{
-						if (Condition == null || Condition.Eval(minion))
-						{
-							Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
-							EnchantmentCard.Power.Trigger?.Activate(e);
-						}
-					}
-					break;
-				case AuraType.HAND_AND_BOARD:
-					foreach (Minion minion in owner.Controller.BoardZone)
-					{
-						if (Condition == null || Condition.Eval(minion))
-						{
-							Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
-							EnchantmentCard.Power.Trigger?.Activate(e);
-						}
-					}
-					foreach (IPlayable p in owner.Controller.HandZone)
-					{
-						if (!(p is Minion minion)) continue;
+			//Controller c = owner.Controller;
+			//switch (Type)
+			//{
+			//	case AuraType.BOARD_EXCEPT_SOURCE:
+			//		foreach (Minion minion in (BoardZone)owner.Zone)
+			//		{
+			//			if (minion == owner) continue;
+			//			if (Condition == null || Condition.Eval(minion))
+			//			{
+			//				Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
+			//				EnchantmentCard.Power.Trigger?.Activate(e);
+			//			}
+			//		}
+			//		break;
+			//	case AuraType.BOARD:
+			//		foreach (Minion minion in (BoardZone)owner.Zone)
+			//		{
+			//			if (Condition == null || Condition.Eval(minion))
+			//			{
+			//				Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
+			//				EnchantmentCard.Power.Trigger?.Activate(e);
+			//			}
+			//		}
+			//		break;
+			//	case AuraType.HAND_AND_BOARD:
+			//		foreach (Minion minion in owner.Controller.BoardZone)
+			//		{
+			//			if (Condition == null || Condition.Eval(minion))
+			//			{
+			//				Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
+			//				EnchantmentCard.Power.Trigger?.Activate(e);
+			//			}
+			//		}
+			//		foreach (IPlayable p in owner.Controller.HandZone)
+			//		{
+			//			if (!(p is Minion minion)) continue;
 
-						if (Condition == null || Condition.Eval(minion))
-						{
-							Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
-							EnchantmentCard.Power.Trigger?.Activate(e);
-						}
+			//			if (Condition == null || Condition.Eval(minion))
+			//			{
+			//				Enchantment e = Enchantment.GetInstance(in c, in owner, minion, in EnchantmentCard);
+			//				EnchantmentCard.Power.Trigger?.Activate(e);
+			//			}
 
-					}
-					break;
-				case AuraType.SUMMONING_PORTAL:
-					foreach (IPlayable p in owner.Controller.HandZone.Where(p => p.Card.Type == CardType.MINION))
-						Enchantment.GetInstance(in c, in owner, p, in EnchantmentCard);
-					break;
-			}
+			//		}
+			//		break;
+			//	case AuraType.SUMMONING_PORTAL:
+			//		foreach (IPlayable p in owner.Controller.HandZone.Where(p => p.Card.Type == CardType.MINION))
+			//			Enchantment.GetInstance(in c, in owner, p, in EnchantmentCard);
+			//		break;
+			//}
 		}
 
 		/// <summary>
@@ -367,14 +367,6 @@ namespace SabberStoneCore.Auras
 
 		private void UpdateInternal()
 		{
-			//if (_tempList != null)
-			//{
-			//	for (int i = 0; i < _tempList.Count; i++)
-			//		Apply(_tempList[i]);
-
-			//	_tempList = null;
-			//}
-
 			switch (Type)
 			{
 				case AuraType.BOARD:
@@ -506,17 +498,12 @@ namespace SabberStoneCore.Auras
 
 		private void DeApply(IPlayable entity)
 		{
-			//if (!_appliedEntityIds.Remove(entity.Id))
-			//	return;
 			if (!AppliedEntityIdCollection.Remove(entity.Id))
 				return;
 
 			for (int i = 0; i < Effects.Length; i++)
 			{
-				if (Effects[i] is ConditionalEffect ce)
-					ce.RemoveValueFrom(entity);
-				else
-					Effects[i].RemoveAuraFrom(entity);
+				Effects[i].RemoveAuraFrom(entity);
 			}
 
 			if (EnchantmentCard != null && (Game.History || EnchantmentCard.Power.Trigger != null))
@@ -530,10 +517,6 @@ namespace SabberStoneCore.Auras
 						break;
 					}
 			}
-
-
-			//if (_appliedEntities != null)
-			//	AppliedEntities.Remove(entity);
 		}
 
 		/// <summary>
@@ -604,11 +587,9 @@ namespace SabberStoneCore.Auras
 			sb.Append("[T:");
 			sb.Append(Type);
 			sb.Append("]");
-			if (/*_appliedEntityIds*/AppliedEntityIdCollection != null)
+			if (AppliedEntityIdCollection != null)
 			{
 				sb.Append("[AEs:");
-				//foreach (int i in _appliedEntityIds)
-				//	sb.Append($"{{{i}}}");
 				AppliedEntityIdCollection.ForEach(i => sb.Append($"{{{Game.IdEntityDic[i]}}}"));
 				sb.Append("]");
 			}

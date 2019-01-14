@@ -82,7 +82,7 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		/// <summary>
-		/// Removing a weapon to the graveyard. Triggering deathrattle events on the weapon.
+		/// Removes the equipped weapon to the graveyard. This triggers deathrattle events on the weapon.
 		/// </summary>
 		public void RemoveWeapon()
 		{

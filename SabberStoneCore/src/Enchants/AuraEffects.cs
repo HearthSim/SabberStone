@@ -14,12 +14,32 @@ namespace SabberStoneCore.Enchants
 	/// </summary>
 	public class AuraEffects
 	{
+		private static readonly int _int32Size = sizeof(int);
+
 		private const int PlayableLength = 2;
 		private const int WeaponLength = PlayableLength + 1;
-		private const int CharacterLength = PlayableLength + 1;
+		private const int CharacterLength = PlayableLength + 2;
 		private const int HeroLength = CharacterLength + 2;
 		private const int MinionLength = CharacterLength + 7;
 
+		// Indices:
+		// Playables
+		// 0 : CardCostHealth
+		// 1 : Echo
+		// Weapon
+		// 2 : Immune
+		// Characters
+		// 2 : CantBeTargetedBySpells
+		// 3 : ATK
+		// Hero
+		// 4 : CannotAttackHeroes
+		// Minion
+		// 4 : Health
+		// 5 : Charge
+		// 6 : Taunt
+		// 7 : Lifesteal
+		// 8 : Rush
+		// 9 : CantAttack
 		internal readonly int[] _data;
 
 		internal AuraEffects(CardType type)
@@ -47,7 +67,7 @@ namespace SabberStoneCore.Enchants
 
 		private AuraEffects(AuraEffects original) : this (original.Type)
 		{
-			Buffer.BlockCopy(original._data, 0, _data, 0, _data.Length);
+			Buffer.BlockCopy(original._data, 0, _data, 0, _data.Length * _int32Size);
 		}
 
 		public readonly CardType Type;
@@ -144,10 +164,10 @@ namespace SabberStoneCore.Enchants
 			{
 				if (Type == CardType.HERO)
 					_data[3] = value;
-				if (Type == CardType.WEAPON)
+				else if (Type == CardType.WEAPON)
 					_data[2] = value;
-
-				throw new NotImplementedException();
+				else
+					throw new NotImplementedException();
 			}
 		}
 
@@ -157,6 +177,8 @@ namespace SabberStoneCore.Enchants
 			{
 				switch (t)
 				{
+					case GameTag.ATK when Type != CardType.MINION:
+						return 0;
 					case GameTag.ATK:
 						return ATK;
 					case GameTag.HEALTH:

@@ -167,8 +167,6 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		Trigger ActivatedTrigger { get; set; }
 
-		List<int> Memory { get; set; }
-
 		#region obsoleted
 		// Unused
 		// bool TurnStart { get; set; }
@@ -253,14 +251,11 @@ namespace SabberStoneCore.Model.Entities
 				Array.Copy(playable.ChooseOnePlayables, ChooseOnePlayables, 2);
 			}
 
-			if (playable.Memory?.Count > 0)
-				Memory = new List<int>(playable.Memory);
-
 			_exhausted = playable._exhausted;
 			_zonePosition = playable._zonePosition;
 
 			_modifiedCost = playable._modifiedCost;
-			_costManager = playable._costManager.Clone();
+			_costManager = playable._costManager?.Clone();
 		}
 
 		/// <summary>
@@ -291,8 +286,6 @@ namespace SabberStoneCore.Model.Entities
 		/// Use <see cref="Trigger.Remove()"/> instead.
 		/// </summary>
 		public Trigger ActivatedTrigger { get; set; }
-
-		public List<int> Memory { get; set; }
 
 		/// <summary>
 		/// Gets or sets the Powers attached to this entity.
@@ -455,7 +448,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				// check requirments on cards here 
+				// check requirements on cards here 
 				if (!Card.IsPlayableByCardReq(Controller))
 				{
 					if (_logging)
@@ -572,10 +565,12 @@ namespace SabberStoneCore.Model.Entities
 							}
 						}
 					}
+
+					return false;
 				}
 
 				// check if we need a target and there are some
-				if (Card.MustHaveTargetToPlay && HasAnyValidPlayTargets)
+				if (Card.MustHaveTargetToPlay && !HasAnyValidPlayTargets)
 				{
 					Game.Log(LogLevel.VERBOSE, BlockType.PLAY, "Playable", !Game.Logging ? "" : $"{this} isn't playable, because need valid target and we don't have one.");
 					return false;
@@ -589,7 +584,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public override string Hash(params GameTag[] ignore)
 		{
-			if (ActivatedTrigger == null && OngoingEffect == null && Memory == null)
+			if (ActivatedTrigger == null && OngoingEffect == null)
 				return base.Hash(ignore);
 
 			var str = new StringBuilder(base.Hash(ignore));
@@ -604,13 +599,6 @@ namespace SabberStoneCore.Model.Entities
 			{
 				str.Append("[OE:");
 				str.Append(OngoingEffect);
-				str.Append("]");
-			}
-			if (Memory != null && Memory.Count > 0)
-			{
-				str.Append("[MEM:");
-				foreach (int datum in Memory)
-					str.Append($"{{{datum}}}");
 				str.Append("]");
 			}
 			return str.ToString();

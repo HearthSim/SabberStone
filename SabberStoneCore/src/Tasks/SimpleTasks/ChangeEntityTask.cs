@@ -15,11 +15,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly Race _race;
 		private readonly EntityType _type;
 		private readonly bool _useRandomCard;
+		private readonly bool _removeEnchantments;
 		private CardClass _cardClass;
 
 
 		public ChangeEntityTask(EntityType type, CardType cardType, CardClass cardClass = CardClass.INVALID,
-			Rarity rarity = Rarity.INVALID, Race race = Race.INVALID, bool opClass = false)
+			Rarity rarity = Rarity.INVALID, Race race = Race.INVALID, bool opClass = false, bool removeEnchantments = false)
 		{
 			_type = type;
 			_cardType = cardType;
@@ -28,6 +29,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_rarity = rarity;
 			_race = race;
 			_useRandomCard = true;
+			_removeEnchantments = removeEnchantments;
 		}
 
 		public ChangeEntityTask(string cardId)
@@ -50,7 +52,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					Card pick = Util.Choose(randCards);
 
-					Generic.ChangeEntityBlock.Invoke(controller, p, pick, false);
+					Generic.ChangeEntityBlock.Invoke(controller, p, pick, _removeEnchantments);
 
 					//TODO p[GameTag.DISPLAYED_CREATOR] = source.Id;
 				}
@@ -59,7 +61,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			foreach (IPlayable p in IncludeTask.GetEntities(_type, in controller, source, target, stack?.Playables))
-				Generic.ChangeEntityBlock.Invoke(controller, p, _card, false);
+				Generic.ChangeEntityBlock.Invoke(controller, p, _card, _removeEnchantments);
 
 			// TODO p[GameTag.DISPLAYED_CREATOR] = source.Id;
 

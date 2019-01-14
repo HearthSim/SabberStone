@@ -69,6 +69,9 @@ namespace SabberStoneCore.Model.Entities
 				if (Card.TargetingType == TargetingType.None)
 					return true;
 
+				if (!Card.TargetingAvailabilityPredicate?.Invoke(Controller) ?? false)
+					return true;
+
 				if (!HasAnyValidPlayTargets)
 					return true;
 
@@ -224,13 +227,17 @@ namespace SabberStoneCore.Model.Entities
 						return false;
 					case TargetingType.Heroes:
 					case TargetingType.All:
+					case TargetingType.FriendlyCharacters:
 						return true;
 					case TargetingType.FriendlyMinions:
-					case TargetingType.FriendlyCharacters:
 						friendlyMinions = true;
 						break;
-					case TargetingType.EnemyMinions:
 					case TargetingType.EnemyCharacters:
+						if (!Controller.Opponent.Hero.HasStealth && !Controller.Opponent.Hero.IsImmune)
+							return true;
+						enemyMinions = true;
+						break;
+					case TargetingType.EnemyMinions:
 						enemyMinions = true;
 						break;
 					case TargetingType.AllMinions:

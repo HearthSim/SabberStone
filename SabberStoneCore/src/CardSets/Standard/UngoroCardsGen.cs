@@ -2254,7 +2254,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerActivation = TriggerActivation.HAND,
 					SingleTask = ComplexTask.Create(
-						new ChangeEntityTask(EntityType.SOURCE, CardType.WEAPON),
+						new ChangeEntityTask(EntityType.SOURCE, CardType.WEAPON, removeEnchantments: true),
 						new AddEnchantmentTask("UNG_929e", EntityType.SOURCE))
 				}
 			});
@@ -2277,7 +2277,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					SingleTask = ComplexTask.Create(
-						new ChangeEntityTask(EntityType.TARGET, CardType.WEAPON),
+						new ChangeEntityTask(EntityType.TARGET, CardType.WEAPON, removeEnchantments: true),
 						new AddEnchantmentTask("UNG_929e", EntityType.TARGET))
 				}
 			});

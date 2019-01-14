@@ -36,6 +36,7 @@ namespace SabberStoneCore.Model.Entities
 			Target = e.Target is IPlayable ? (IEntity) Game.IdEntityDic[e.Target.Id] : c;
 			_controllerId = e._controllerId;
 			_creatorId = e._creatorId;
+			_capturedCard = e._capturedCard;
 			//e.OngoingEffect?.Clone(this);
 			e.ActivatedTrigger?.Activate(this);
 			//Game.IdEntityDic.Add(Id, this);
@@ -75,7 +76,7 @@ namespace SabberStoneCore.Model.Entities
 			set
 			{
 				_capturedCard = value;
-				if (Game.History)
+				if (Game.History && Card.Text.Contains("{0}"))
 				{
 					Card c = Card.Clone();
 					c.Text = String.Format(c.Text, value.Name);

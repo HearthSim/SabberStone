@@ -654,8 +654,8 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerActivation = TriggerActivation.HAND,
 					SingleTask = ComplexTask.Create(
-						new AddEnchantmentTask("LOOT_104e", EntityType.SOURCE),
-						new ChangeEntityTask(EntityType.SOURCE, CardType.SPELL, CardClass.MAGE))
+						new ChangeEntityTask(EntityType.SOURCE, CardType.SPELL, CardClass.MAGE, removeEnchantments: true),
+						new AddEnchantmentTask("LOOT_104e", EntityType.SOURCE))
 				}
 			});
 
@@ -712,7 +712,7 @@ namespace SabberStoneCore.CardSets.Standard
 		{
 			// ------------------------------------- ENCHANTMENT - MAGE
 			// [LOOT_104e] Shifting (*) - COST:0 
-			// - Set: lootapalooza, 
+			// - Set: lootapalooza,  
 			// --------------------------------------------------------
 			// Text: Transforming into random Mage spells.
 			// --------------------------------------------------------
@@ -724,7 +724,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					SingleTask = ComplexTask.Create(
-						new ChangeEntityTask(EntityType.TARGET, CardType.SPELL, CardClass.MAGE),
+						new ChangeEntityTask(EntityType.TARGET, CardType.SPELL, CardClass.MAGE, removeEnchantments: true),
 						new AddEnchantmentTask("LOOT_104e", EntityType.TARGET))
 				}
 			});
@@ -2531,7 +2531,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 2
 			// --------------------------------------------------------
 			cards.Add("LOOT_044", new Power {
-				// TODO Test: Bladed Gauntlet_LOOT_044
+				// TODO Bladed Gauntlet_LOOT_044
 				//Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.SET, p => p.Controller.Hero.Armor)
 				Aura = new MultiAura(
 					new AdaptiveEffect(GameTag.ATK, EffectOperator.SET, p => p.Controller.Hero.Armor),
@@ -3659,7 +3659,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1).
 			// --------------------------------------------------------
 			cards.Add("LOOT_358e", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 1)
+				Enchant = new Enchant(Effects.SetCost(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3764,7 +3764,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (0).
 			// --------------------------------------------------------
 			cards.Add("LOOT_998le", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 0)
+				Enchant = new Enchant(Effects.SetCost(0))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

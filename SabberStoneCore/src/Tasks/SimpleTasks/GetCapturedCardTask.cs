@@ -11,12 +11,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	/// </summary>
 	public class GetCapturedCardTask : SimpleTask
 	{
-		private static readonly GetCapturedCardTask _singleton = new GetCapturedCardTask();
+		private GetCapturedCardTask() { }
 
 		/// <summary>
 		/// Gets a singleton of this task.
 		/// </summary>
-		public static GetCapturedCardTask Task = _singleton;
+		public static GetCapturedCardTask Task { get; } = new GetCapturedCardTask();
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 			in TaskStack stack = null)
@@ -45,19 +45,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	/// </summary>
 	public class ActivateCapturedDeathrattleTask : SimpleTask
 	{
-		private static readonly ActivateCapturedDeathrattleTask _singleton = new ActivateCapturedDeathrattleTask();
+		private ActivateCapturedDeathrattleTask() { }
 
 		/// <summary>
 		/// Gets a singleton of this task.
 		/// </summary>
-		public static ActivateCapturedDeathrattleTask Task = _singleton;
+		public static ActivateCapturedDeathrattleTask Task { get; } = new ActivateCapturedDeathrattleTask();
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 			in TaskStack stack = null)
 		{
-			if (stack == null)
-				throw new Exception($"{this} should contained in StateTaskList");
-
 			if (!(target is Enchantment e))
 				throw new Exception($"Target of {this} is not Enchantment.");
 

@@ -2497,7 +2497,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("CS2_074e", new Power
 			{
-				Enchant = GetAutoEnchantFromText("CS2_074e")
+				Enchant = new Enchant(GameTag.ATK, EffectOperator.ADD, 2)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

@@ -1696,6 +1696,7 @@ namespace SabberStoneCore.CardSets
 					.SetTask(ComplexTask.Create(
 						new GetEventNumberTask(),
 						new DamageNumberTask(EntityType.HERO)))
+					.SetSource(TriggerSource.SELF)
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -1957,7 +1958,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Increased Attack.
 			// --------------------------------------------------------
 			cards.Add("AT_066e", new Power {
-				Enchant = new Enchant(Effects.Attack_N(1))
+				Enchant = new Enchant(GameTag.ATK, EffectOperator.ADD, 1)
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR

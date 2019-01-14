@@ -18,7 +18,10 @@ namespace SabberStoneCore.Model.Entities
 				new List<(EffectOperator @operator, int value)>();
 			private AdaptiveCostEffect _adaptiveCostEffect;
 
-			public CostManager() { }
+			public CostManager()
+			{
+				_toBeUpdated = true;
+			}
 
 			public CostManager(AdaptiveCostEffect adaptiveEffect)
 			{
@@ -108,17 +111,17 @@ namespace SabberStoneCore.Model.Entities
 			/// Add a new permanent cost enchantment effect
 			/// </summary>
 			/// <param name="e"></param>
-			public void AddCostEnchantment(in Effect e)
+			public void AddCostEnchantment(EffectOperator @operator, int value)
 			{
 				ref int c = ref _cachedValue;
 
-				switch (e.Operator)
+				switch (@operator)
 				{
 					case EffectOperator.SUB:
-						c += e.Value;
+						c -= value;
 						break;
 					case EffectOperator.ADD:
-						c -= e.Value;
+						c += value;
 						break;
 					case EffectOperator.SET:
 						_toBeUpdated = true;
@@ -187,7 +190,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get =>
 				_costManager?.GetCost(_modifiedCost ?? (_modifiedCost = Card.Cost).Value) ??
-				(_modifiedCost.HasValue ? _modifiedCost < 0 ? 0 : _modifiedCost.Value : Card.Cost);
+				(_modifiedCost.HasValue ? _modifiedCost < 0 ? 0 : _modifiedCost.Value : (_modifiedCost = Card.Cost).Value);
 			set
 			{
 				_modifiedCost = value;
@@ -197,30 +200,12 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
-		internal void AddCostEffect(Effect e)
-		{
-			switch (e.Operator)
-			{
-				case EffectOperator.ADD:
-					_modifiedCost = _modifiedCost.GetValueOrDefault() + e.Value;
-					break;
-				case EffectOperator.SUB:
-					_modifiedCost = _modifiedCost.GetValueOrDefault() - e.Value;
-					break;
-				case EffectOperator.SET:
-					_modifiedCost = e.Value;
-					break;
-				default:
-					throw new ArgumentOutOfRangeException();
-			}
-
-			_costManager?.AddCostEnchantment(in e);
-		}
-
 		internal void ResetCost()
 		{
 			_costManager = null;
 			_modifiedCost = null;
+			if (OngoingEffect is AdaptiveCostEffect ace)
+				ace.Remove();
 
 			if (_history)
 				Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.COST, Card.Cost));

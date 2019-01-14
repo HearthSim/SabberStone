@@ -147,20 +147,22 @@ namespace SabberStoneCore.Enchants
 						switch (Tag)
 						{
 							case GameTag.CHARGE:
-								if (m.IsExhausted && m._numAttackThisturn < 1)
+								if (m.IsExhausted && m._numAttackThisTurn < 1)
 									m.IsExhausted = false;
 								if (m.AttackableByRush)
 									m.AttackableByRush = false;
 								break;
 							case GameTag.RUSH:
-								if (m.IsExhausted && m._numAttackThisturn == 0)
+								if (m.IsExhausted && m._numAttackThisTurn == 0)
 								{
 									m.IsExhausted = false;
 									m.AttackableByRush = true;
 									playable.Game.RushMinions.Add(playable.Id);
 								}
 								break;
-
+							case GameTag.HEALTH_MINIMUM:
+								m[GameTag.HEALTH_MINIMUM] = Value;
+								break;
 						}
 					}
 					return;
@@ -236,6 +238,11 @@ namespace SabberStoneCore.Enchants
 							m.IsExhausted = true;
 							m.Game.RushMinions.Remove(m.Id);
 						}
+					}
+					else if
+						(Tag == GameTag.HEALTH_MINIMUM)
+					{
+						playable.NativeTags.Remove(GameTag.HEALTH_MINIMUM);
 					}
 					return;
 			}
