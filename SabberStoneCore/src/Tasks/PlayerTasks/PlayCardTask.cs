@@ -75,10 +75,11 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 			return new PlayCardTask(Controller, Source, Target, ZonePosition, ChooseOne);
 		}
 
-		public override TaskState Process()
+		public override bool Process()
 		{
 			bool success = Generic.PlayCard(Controller, Source, Target, ZonePosition, ChooseOne, SkipPrePhase);
-			return TaskState.COMPLETE;
+
+			return success;
 		}
 
 		public override string FullPrint()

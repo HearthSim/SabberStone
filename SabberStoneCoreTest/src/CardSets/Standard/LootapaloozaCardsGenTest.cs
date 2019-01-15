@@ -3881,6 +3881,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(2, game.CurrentPlayer.Hero.AttackDamage);
 
 			Assert.False(game.CurrentPlayer.Hero.IsValidAttackTarget(game.CurrentOpponent.Hero));
+
+			Game clone = game.Clone();
+
+			Assert.Equal(clone.CurrentPlayer.Hash(), game.CurrentPlayer.Hash());
 		}
 
 		// --------------------------------------- WEAPON - WARRIOR

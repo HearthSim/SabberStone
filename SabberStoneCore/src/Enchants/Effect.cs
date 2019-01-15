@@ -139,7 +139,7 @@ namespace SabberStoneCore.Enchants
 					return;
 				// TODO: SET Aura
 				case EffectOperator.SET:
-					playable[Tag] = 0;
+					//playable[Tag] = 0;
 					auraEffects[Tag] = Value;
 
 					if (playable is Minion m)

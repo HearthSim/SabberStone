@@ -31,12 +31,12 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
 		public List<int> Choices { get; set; }
 
-		public override TaskState Process()
+		public override bool Process()
 		{
 			Choice choice = Controller.Choice;
 
 			if (choice == null)
-				return TaskState.STOP;
+				return false;
 
 			switch (choice.ChoiceType)
 			{
@@ -47,19 +47,19 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 					Controller.MulliganState = Enums.Mulligan.DONE;
 					if (Controller.Game.History)
 						Controller.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
-					return TaskState.COMPLETE;
+					return true;
 
 				case ChoiceType.GENERAL:
-					if (!Generic.ChoicePick.Invoke(Controller, Choices[0])) return TaskState.STOP;
+					if (!Generic.ChoicePick.Invoke(Controller, Choices[0])) return false;
 					Controller.NumOptionsPlayedThisTurn++;
 					Game.ProcessTasks();
 					Game.DeathProcessingAndAuraUpdate();
-					return TaskState.COMPLETE;
+					return true;
 
 				case ChoiceType.INVALID:
 					throw new NotImplementedException();
 			}
-			return TaskState.STOP;
+			return false;
 		}
 
 		public override string FullPrint()

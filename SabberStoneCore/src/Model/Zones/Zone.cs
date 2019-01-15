@@ -319,7 +319,8 @@ namespace SabberStoneCore.Model.Zones
 
 		public override T Remove(T entity)
 		{
-			if (entity.Zone == null || entity.Zone.Type != Type)
+			//if (entity.Zone == null || entity.Zone.Type != Type)
+			if (entity.Zone != this)
 				throw new ZoneException("Couldn't remove entity from zone.");
 
 			T[] entities = _entities;
@@ -450,14 +451,15 @@ namespace SabberStoneCore.Model.Zones
 
 		public override T Remove(T entity)
 		{
-			if (entity.Zone == null || entity.Zone.Type != Type)
+			//if (entity.Zone == null || entity.Zone.Type != Type)
+			if (entity.Zone != this)
 				throw new ZoneException("Couldn't remove entity from zone.");
 
-			int pos;
+			int pos = entity.ZonePosition;
 			int count = _count;
 			T[] entities = _entities;
-			for (pos = count - 1; pos >= 0; --pos)
-				if (ReferenceEquals(entities[pos], entity)) break;
+			//for (pos = count - 1; pos >= 0; --pos)
+			//	if (ReferenceEquals(entities[pos], entity)) break;
 
 			if (pos < --count)
 				Array.Copy(entities, pos + 1, entities, pos, count - pos);

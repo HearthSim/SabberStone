@@ -421,7 +421,7 @@ namespace SabberStoneCore.Model
 		/// start the turn of <see cref="CurrentOpponent"/>. 
 		/// </summary>
 		/// <param name="gameTask">The game task to execute.</param>
-		public void Process(PlayerTask gameTask)
+		public bool Process(PlayerTask gameTask)
 		{
 			//// start with no splits ...
 			//Splits = new List<Game>();
@@ -441,27 +441,31 @@ namespace SabberStoneCore.Model
 				if (gameTask.HasTarget)
 					gameTask.Target = (ICharacter) IdEntityDic[gameTask.Target.Id];
 			}
-			gameTask.Process();
+			bool result = gameTask.Process();
 
 			// check dead heroes here again (TODO)
-			if (Player1.Hero.ToBeDestroyed)
+			if (State != State.COMPLETE)
 			{
-				if (Player2.Hero.ToBeDestroyed)
+				if (Player1.Hero.ToBeDestroyed)
 				{
-					Player1.PlayState = PlayState.TIED;
-					Player2.PlayState = PlayState.TIED;
+					if (Player2.Hero.ToBeDestroyed)
+					{
+						Player1.PlayState = PlayState.TIED;
+						Player2.PlayState = PlayState.TIED;
+					}
+					else
+						Player1.PlayState = PlayState.LOSING;
+
+					NextStep = Step.FINAL_WRAPUP;
 				}
+				else if (Player2.Hero.ToBeDestroyed)
+				{
+					Player2.PlayState = PlayState.LOSING;
 
-				Player1.PlayState = PlayState.LOSING;
-
-				NextStep = Step.FINAL_WRAPUP;
+					NextStep = Step.FINAL_WRAPUP;
+				}
 			}
-			else if (Player2.Hero.ToBeDestroyed)
-			{
-				Player2.PlayState = PlayState.LOSING;
 
-				NextStep = Step.FINAL_WRAPUP;
-			}
 
 			// add power and buff tag changes
 			//if (false)
@@ -508,6 +512,8 @@ namespace SabberStoneCore.Model
 			//		.ForEach(p => Dump("Split", $"{finalSplits.IndexOf(p)}. {p.Probability.ToString("0.00%")} "));
 			//	FinalSplits = finalSplits;
 			//}
+
+			return result;
 		}
 
 		#region STATE_MACHINE
@@ -958,6 +964,13 @@ namespace SabberStoneCore.Model
 
 			foreach (Controller player in _players)
 			{
+				if (player.PlayState == PlayState.TIED)
+				{
+					player.PlayState = PlayState.LOST;
+					player.Opponent.PlayState = PlayState.LOST;
+					break;
+				}
+
 				if (player.PlayState != PlayState.LOSING && player.PlayState != PlayState.CONCEDED) continue;
 
 				player.PlayState = PlayState.LOST;
@@ -1043,20 +1056,30 @@ namespace SabberStoneCore.Model
 
 			if (Player1.Hero.ToBeDestroyed)
 			{
+				// TODO: Temporary approach. Should change the whole structure.
+				if (State == State.COMPLETE)
+					return;
+
 				if (Player2.Hero.ToBeDestroyed)
 				{
 					Player1.PlayState = PlayState.TIED;
 					Player2.PlayState = PlayState.TIED;
 				}
-
-				Player1.PlayState = PlayState.LOSING;
+				else
+					Player1.PlayState = PlayState.LOSING;
 
 				NextStep = Step.FINAL_WRAPUP;
 			}
 			else if (Player2.Hero.ToBeDestroyed)
 			{
+				// TODO: Temporary approach. Should change the whole structure.
+				if (State == State.COMPLETE)
+					return;
+
 				Player2.PlayState = PlayState.LOSING;
 
+				if (State == State.COMPLETE)
+					return;
 				NextStep = Step.FINAL_WRAPUP;
 			}
 		}

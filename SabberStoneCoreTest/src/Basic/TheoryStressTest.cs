@@ -363,6 +363,7 @@ namespace SabberStoneCoreTest.Basic
 		{
 			var game = new Game(new GameConfig
 			{
+				StartPlayer = 1,
 				Player1Deck = new List<Card>
 				{
 					Cards.FromName("Wisp"),
@@ -371,7 +372,8 @@ namespace SabberStoneCoreTest.Basic
 					Cards.FromName("Wisp"),
 					Cards.FromName("Dr. Morrigan"),
 				},
-				Shuffle = false
+				Shuffle = false,
+				FillDecks = false,
 			});
 			game.StartGame();
 

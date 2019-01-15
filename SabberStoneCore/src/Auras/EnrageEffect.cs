@@ -54,19 +54,22 @@ namespace SabberStoneCore.Auras
 		{
 			var m = (Minion) Owner;
 
+			// Remove this EnrageEffect from the target
 			if (!On)
 			{
 				Game.Auras.Remove(this);
 
 				if (!_enraged) return;
 
+				// Spiteful Smith
 				if (Type == AuraType.WEAPON)
 				{
 					Weapon weapon = m.Controller.Hero.Weapon;
 					if (weapon == null)
 						return;
 
-					_target = weapon;
+					if (_target != weapon)
+						return;
 				}
 
 				foreach (IEffect eff in EnchantmentCard.Power.Enchant.Effects)
@@ -85,7 +88,13 @@ namespace SabberStoneCore.Auras
 				if (weapon == null)
 					return;
 
-				_target = weapon;
+				if (_target != weapon)
+				{
+					_currentInstance?.Remove();
+					_currentInstance = null;
+
+					_target = weapon;
+				}
 			}
 
 			if (!_enraged)
@@ -102,11 +111,8 @@ namespace SabberStoneCore.Auras
 			else
 			{
 				if (m.Damage != 0) return;
-				//if (_target != null)
-				//	for (int i = 0; i < Effects.Length; i++)
-				//		Effects[i].RemoveFrom(_target.AuraEffects);
-				if (_currentInstance != null)
-					_target.AppliedEnchantments.Remove(_currentInstance);
+
+				_currentInstance?.Remove();
 				_enraged = false;
 			}
 		}

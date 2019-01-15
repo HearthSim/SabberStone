@@ -67,11 +67,14 @@ namespace SabberStoneCore.Auras
 
 			IAura instance = new AdaptiveEffect(this, m);
 
-			if (!_isSwitching && m.AuraEffects == null)
+			if (!_isSwitching)
 			{
 				if (m is Weapon)
-					m.Controller.Hero.AuraEffects = new AuraEffects(CardType.HERO);
-				else
+				{
+					if (m.Controller.Hero.AuraEffects == null)
+						m.Controller.Hero.AuraEffects = new AuraEffects(CardType.HERO);
+				}
+				else if (m.AuraEffects == null)
 					m.AuraEffects = new AuraEffects(CardType.MINION);
 			}
 

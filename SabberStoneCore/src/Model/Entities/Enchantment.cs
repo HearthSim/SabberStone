@@ -79,7 +79,7 @@ namespace SabberStoneCore.Model.Entities
 			set
 			{
 				_capturedCard = value;
-				if (Game.History && Card.Text.Contains("{0}"))
+				if (value != null && Game.History && (Card.Text?.Contains("{0}") ?? false))
 				{
 					Card c = Card.Clone();
 					c.Text = String.Format(c.Text, value.Name);
@@ -280,12 +280,9 @@ namespace SabberStoneCore.Model.Entities
 		public bool IsIgnoreDamage { get; set; }
 		public bool Combo => false;
 		public int Cost { get; set; }
-		public int NumTurnsInPlay { get; set; }
 		public bool ToBeDestroyed { get; set; }
 		public int CardTarget { get; set; }
 		public int ZonePosition { get; set; }
-		public bool JustPlayed { get; set; }
-		public bool IsSummoned { get; set; }
 		public bool IsExhausted { get; set; }
 		public int Overload { get; set; }
 		public bool IsDeathrattle { get; set; }
@@ -295,13 +292,7 @@ namespace SabberStoneCore.Model.Entities
 		public AuraEffects AuraEffects { get; set; }
 		public IDictionary<GameTag, int> NativeTags => _tags;
 		public List<Enchantment> AppliedEnchantments { get; set; }
-		public List<int> Memory { get; set; }
 		public bool HasAnyValidPlayTargets { get; }
-
-		public void Stamp(Entity entity)
-		{
-			throw new NotImplementedException();
-		}
 
 		public string Hash(params GameTag[] ignore)
 		{

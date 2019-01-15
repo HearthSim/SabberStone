@@ -16,11 +16,11 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 			Controller = controller;
 		}
 
-		public override TaskState Process()
+		public override bool Process()
 		{
 			Controller.Game.Step = Enums.Step.MAIN_END;
 			Controller.Game.MainEnd();
-			return TaskState.COMPLETE;
+			return true;
 		}
 
 		public override string FullPrint()
