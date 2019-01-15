@@ -2899,6 +2899,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Assert.Equal(3, game.CurrentOpponent.Hero.Damage);
 			Assert.Equal(5, game.CurrentPlayer.OverloadOwed);
+
+			//
 		}
 
 		// ---------------------------------------- MINION - SHAMAN

@@ -239,7 +239,7 @@ namespace SabberStoneCore.Model.Entities
 					var enchantments = new List<Enchantment>(originalEnchantments.Count);
 					foreach (Enchantment p in originalEnchantments)
 					{
-						enchantments.Add((Enchantment)p.Clone(controller));
+						enchantments.Add(p.Clone(controller));
 					}
 					AppliedEnchantments = enchantments;
 				}

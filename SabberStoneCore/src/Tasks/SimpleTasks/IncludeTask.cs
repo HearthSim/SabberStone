@@ -304,6 +304,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						return c.Opponent.BoardZone.GetAll();
 					}
+					else if (target.Zone?.Type != Enums.Zone.PLAY)
+						goto case EntityType.ENEMIES;
 					else
 					{
 						if (c.Opponent.BoardZone.CountExceptUntouchables > 1)
@@ -315,7 +317,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 							return arr;
 						}
 
-						return new[] {c.Opponent.Hero};
+						return new[] { c.Opponent.Hero };
 					}
 				case EntityType.ALL:
 				{

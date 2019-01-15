@@ -54,6 +54,9 @@ namespace SabberStoneCore.Model.Entities
 			{
 				Enchant.RemoveWhenPlayedTrigger.Activate(this);
 			}
+
+			if (e.Creator is Enchantment eCreator)
+				eCreator.Clone(in c);
 		}
 
 		public int this[GameTag t]
@@ -214,7 +217,7 @@ namespace SabberStoneCore.Model.Entities
 			return instance;
 		}
 
-		public IPlayable Clone(in Controller controller)
+		public Enchantment Clone(in Controller controller)
 		{
 			return new Enchantment(in controller, this);
 		}
@@ -329,5 +332,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			return GetEnumerator();
 		}
+
+		IPlayable IPlayable.Clone(in Controller controller) => Clone(in controller);
 	}
 }

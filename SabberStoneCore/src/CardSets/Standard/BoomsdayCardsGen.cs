@@ -1831,7 +1831,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.TARGET),
-						new PlayTask(PlayType.SPELL),
+						new PlayTask(PlayType.SPELL, EntityType.EVENT_TARGET),
 						new RemoveEnchantmentTask())
 				}
 			});
@@ -1910,7 +1910,8 @@ namespace SabberStoneCore.CardSets.Standard
 						new RemoveFromDeck(EntityType.STACK),
 						new FuncNumberTask(p =>
 						{
-							Generic.RemoveFromZone(p.Controller, p);
+							if (p.Zone != null)
+								Generic.RemoveFromZone(p.Controller, p);
 							return 0;
 						}),
 						new SummonTask(),

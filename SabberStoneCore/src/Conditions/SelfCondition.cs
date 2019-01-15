@@ -75,13 +75,13 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition HasMyHeroNotAttackedThisTurn = new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn == 0);
 		public static readonly SelfCondition IsMyHeroDamagedThisTurn = new SelfCondition(me => me.Controller.Hero.DamageTakenThisTurn > 0);
 
-		public static readonly SelfCondition IsDeathrattleCard = new SelfCondition(me => me.Card[GameTag.DEATHRATTLE] == 1);
-		public static readonly SelfCondition IsEchoCard = new SelfCondition(me => me.Card[GameTag.ECHO] == 1);
-		public static readonly SelfCondition IsComboCard = new SelfCondition(me => me.Card[GameTag.COMBO] == 1);
-		public static readonly SelfCondition IsLifestealCard = new SelfCondition(me => me.Card[GameTag.LIFESTEAL] == 1);
-		public static readonly SelfCondition IsDeathrattleMinion = new SelfCondition(me => me is Minion && ((Minion)me).IsDeathrattle);
-		public static readonly SelfCondition IsBattlecryMinion = new SelfCondition(me => me is Minion && ((Minion)me).HasBattleCry);
-		public static readonly SelfCondition HasRush = new SelfCondition(me => me is Minion && ((Minion)me).IsRush);
+		public static readonly SelfCondition IsDeathrattleCard = new SelfCondition(me => me.Card.Deathrattle);
+		public static readonly SelfCondition IsEchoCard = new SelfCondition(me => me.Card.Echo);
+		public static readonly SelfCondition IsComboCard = new SelfCondition(me => me.Card.Combo);
+		public static readonly SelfCondition IsLifestealCard = new SelfCondition(me => me.Card.LifeSteal);
+		public static readonly SelfCondition IsDeathrattleMinion = new SelfCondition(me => me is Minion minion && minion.IsDeathrattle);
+		public static readonly SelfCondition IsBattlecryMinion = new SelfCondition(me => me is Minion minion && minion.HasBattleCry);
+		public static readonly SelfCondition HasRush = new SelfCondition(me => me is Minion minion && minion.IsRush);
 
 		public static readonly SelfCondition IsCthunDead = new SelfCondition(me => me.Controller.GraveyardZone.Any(p => p.Card.Id.Equals("OG_280")));
 
@@ -100,7 +100,7 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition IsOverloadCard = new SelfCondition(me => me.Card.HasOverload);
 		public static readonly SelfCondition IsBattleCryCard = new SelfCondition(me => me.Card.Tags.ContainsKey(GameTag.BATTLECRY));
 		public static readonly SelfCondition HasTaunt = new SelfCondition(me => me is Minion m && m.HasTaunt);
-		public static readonly SelfCondition IsFrozen = new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsFrozen);
+		public static readonly SelfCondition IsFrozen = new SelfCondition(me => me is ICharacter character && character.IsFrozen);
 		public static SelfCondition IsHeroPowerCard(string cardId) => new SelfCondition(me => me.Controller.Hero.HeroPower.Card.Id.Equals(cardId));
 		public static readonly SelfCondition IsManaCrystalFull = new SelfCondition(me => me.Controller.BaseMana == 10);
 		public static readonly SelfCondition IsRemaningManaFull = new SelfCondition(me => me.Controller.RemainingMana == 10);
