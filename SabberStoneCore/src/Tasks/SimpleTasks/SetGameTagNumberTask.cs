@@ -43,7 +43,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				else
 					p[Tag] = stack.Number;
 
-			;
 
 			return TaskState.COMPLETE;
 		}

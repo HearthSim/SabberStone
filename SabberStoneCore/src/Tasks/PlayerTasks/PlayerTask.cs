@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Tasks.PlayerTasks;
 
-namespace SabberStoneCore.Tasks
+namespace SabberStoneCore.Tasks.PlayerTasks
 {
 	public enum PlayerTaskType
 	{

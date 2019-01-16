@@ -3561,19 +3561,19 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Player1.BaseMana = 10;
 
-			Minion m1 = game.ProcessCard<Minion>("Stonetusk Boar");
-			Minion m2 = game.ProcessCard<Minion>("Bloodfen Raptor");
+			Minion m1 = game.ProcessCard<Minion>("Stonetusk Boar");	 // (1)
+			Minion m2 = game.ProcessCard<Minion>("Bloodfen Raptor"); // (1)(3)
 
-			game.ProcessCard("Flametongue Totem", zonePosition: 1);
+			game.ProcessCard("Flametongue Totem", zonePosition: 1);  // (3)(T)(5)
 
 			Assert.Equal(3, m1.AttackDamage);
 			Assert.Equal(5, m2.AttackDamage);
 
-			game.ProcessCard("Flametongue Totem");
+			game.ProcessCard("Flametongue Totem");					 // (3)(T)(5)(T)
 			Assert.Equal(3, m1.AttackDamage);
 			Assert.Equal(7, m2.AttackDamage);
 
-			game.ProcessCard("Flametongue Totem", zonePosition: 0);
+			game.ProcessCard("Flametongue Totem", zonePosition: 0);  // (T)(5)(T)(7)(T)
 			Assert.Equal(5, m1.AttackDamage);
 			Assert.Equal(7, m2.AttackDamage);
 		}

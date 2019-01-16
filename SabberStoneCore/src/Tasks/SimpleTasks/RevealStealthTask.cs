@@ -27,8 +27,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				minion.HasStealth = false;
 			}
 
-			;
-
 			return TaskState.COMPLETE;
 		}
 	}

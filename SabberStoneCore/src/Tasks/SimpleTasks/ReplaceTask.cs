@@ -9,13 +9,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ReplaceTask : SimpleTask
 	{
-		private ReplaceTask(EntityType type, Rarity rarity, Card card)
-		{
-			Type = type;
-			Rarity = rarity;
-			Card = card;
-		}
-
 		public ReplaceTask(EntityType type, Rarity rarity)
 		{
 			Type = type;
@@ -51,8 +44,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				controller.SetasideZone.Add(zone.Remove(p));
 				zone.Add(Entity.FromCard(in controller, cards.Count > 1 ? Util.Choose(cards) : cards.First()));
 			}
-
-			;
 
 			return TaskState.COMPLETE;
 		}

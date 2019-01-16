@@ -70,8 +70,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					game.TriggerManager.OnFreezeTrigger(p);
 			}
 
-			;
-
 			return TaskState.COMPLETE;
 		}
 	}

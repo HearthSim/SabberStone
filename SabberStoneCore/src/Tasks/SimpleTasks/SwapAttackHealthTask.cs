@@ -19,12 +19,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_enchantmentCard = Cards.FromId(enchantmentId);
 		}
 
-		private SwapAttackHealthTask(EntityType entityType, Card card)
-		{
-			Type = entityType;
-			_enchantmentCard = card;
-		}
-
 		public EntityType Type { get; set; }
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,

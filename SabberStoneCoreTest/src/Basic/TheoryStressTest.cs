@@ -5,7 +5,6 @@ using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Tasks.PlayerTasks;
 using Xunit;
 

@@ -8,7 +8,6 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Actions;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks
@@ -856,7 +855,7 @@ namespace SabberStoneCore.Tasks
 				in TaskStack stack = null)
 			{
 				// get a new class
-				CardClass randClass = 0;
+				CardClass randClass;
 				do
 				{
 					randClass = (CardClass) Random.Next(2, 11);

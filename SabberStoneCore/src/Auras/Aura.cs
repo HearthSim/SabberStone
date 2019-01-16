@@ -170,10 +170,10 @@ namespace SabberStoneCore.Auras
 			if (!cloning)
 				instance.AuraUpdateInstructionsQueue.Enqueue(new AuraUpdateInstruction(Instruction.AddAll), 1);
 
-			if (cloning || !owner.Game.History) return;
+			#region WIP: Correct History
+			//if (cloning || !owner.Game.History) return;
 
-
-			if (EnchantmentCard == null) return;
+			//if (EnchantmentCard == null) return;
 
 			//Controller c = owner.Controller;
 			//switch (Type)
@@ -225,6 +225,7 @@ namespace SabberStoneCore.Auras
 			//			Enchantment.GetInstance(in c, in owner, p, in EnchantmentCard);
 			//		break;
 			//}
+			#endregion
 		}
 
 		/// <summary>

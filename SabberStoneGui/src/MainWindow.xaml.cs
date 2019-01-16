@@ -18,6 +18,7 @@ using SabberStoneCoreGui.Meta;
 using SabberStoneGui.Core;
 using SabberStoneGui.Deck;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Visualizer;
 
 namespace SabberStoneGui

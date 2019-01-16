@@ -934,7 +934,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Destroy all minions except each player's highest Attack minion.
 			// --------------------------------------------------------
 			cards.Add("AT_078", new Power {
-				PowerTask = new FuncNumberTask((IPlayable p) =>
+				PowerTask = new FuncNumberTask(p =>
 				{
 					ReadOnlySpan<Minion> minions = p.Controller.BoardZone.GetSpan();
 					ReadOnlySpan<Minion> opMinions = p.Controller.Opponent.BoardZone.GetSpan();
@@ -2632,7 +2632,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("AT_124", new Power {
 				Trigger = TriggerBuilder
 					.Type(TriggerType.PREDAMAGE)
-					.SetTask(new FuncNumberTask((IPlayable p) =>
+					.SetTask(new FuncNumberTask(p =>
 					{
 						EventMetaData data = p.Game.CurrentEventData;
 

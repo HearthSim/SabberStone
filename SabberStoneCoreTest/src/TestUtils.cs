@@ -37,6 +37,8 @@ namespace SabberStoneCoreTest
 			    entity.Cost = 0;
 		    game.DeathProcessingAndAuraUpdate();
 		    var option = PlayCardTask.Any(game.CurrentPlayer, entity, character, zonePosition, chooseOne);
+		    if (!game.Process(option))
+			    throw new Exception($"{option} is not a valid task.");
 
 			return entity;
 	    }
@@ -47,7 +49,7 @@ namespace SabberStoneCoreTest
 		/// </summary>
 		public static IPlayable ProcessCard(this Game game, IPlayable entity, IPlayable target = null, bool asZeroCost = false, int chooseOne = 0, int zonePosition = -1)
 	    {
-			if (target != null && !(target is ICharacter character))
+			if (target != null && !(target is ICharacter))
 				throw new ArgumentException($"Can't target non-charater entity {target}");
 
 			if (asZeroCost)
@@ -77,7 +79,7 @@ namespace SabberStoneCoreTest
 			}
 			if (!(entity is T t))
 			    throw new ArgumentException($"The given card is not {typeof(T)}");
-			if (target != null && !(target is ICharacter character))
+			if (target != null && !(target is ICharacter))
 				throw new ArgumentException($"Can't target non-charater entity {target}");
 		    if (asZeroCost)
 			    entity.Cost = 0;
@@ -88,7 +90,7 @@ namespace SabberStoneCoreTest
 
 	    public static T ProcessCard<T>(this Game game, T entity, IPlayable target = null, bool asZeroCost = false, int chooseOne = 0, int zonePosition = -1) where T : IPlayable
 	    {
-			if (target != null && !(target is ICharacter character))
+			if (target != null && !(target is ICharacter))
 				throw new ArgumentException($"Can't target non-charater entity {target}");
 
 			if (asZeroCost)
@@ -115,7 +117,7 @@ namespace SabberStoneCoreTest
 		/// </summary>
 	    public static void PlayHeroPower(this Game game, IPlayable target = null, int chooseOne = 0, bool asZeroCost = false, bool autoRefresh = false)
 	    {
-			if (target != null && !(target is ICharacter character))
+			if (target != null && !(target is ICharacter))
 				throw new ArgumentException($"Can't target non-charater entity {target}");
 			var option = HeroPowerTask.Any(game.CurrentPlayer, (ICharacter) target, chooseOne, asZeroCost);
 			if (!game.Process(option))

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using SabberStoneCore.Conditions;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -117,7 +116,7 @@ namespace SabberStoneCore.Auras
 		public int Apply(int value)
 		{
 			if (_costFunction != null)
-				return value - _costFunction.Invoke(_owner);;
+				return value - _costFunction.Invoke(_owner);
 
 			if (_isAppliedThisTurn)
 				return _value;

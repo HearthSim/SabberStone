@@ -56,8 +56,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				Generic.DamageCharFunc.Invoke(source as IPlayable, entities[i] as ICharacter, amount, SpellDmg);
 			}
-
-			;
 			return TaskState.COMPLETE;
 		}
 	}

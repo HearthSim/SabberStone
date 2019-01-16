@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Actions;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -37,6 +36,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// <c>true</c> if the copies need to be summoned
 		/// in random order, <c>false</c> otherwise.
 		/// </param>
+		/// <param name="addToStack">Add the summoned entity to the stack.</param>
+		/// <param name="side">The side in which the summoned entity should be place.</param>
 		public SummonCopyTask(EntityType type, bool randomFlag = false, bool addToStack = false,
 			SummonSide side = SummonSide.DEFAULT)
 		{
@@ -50,6 +51,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		///     Summons a copy of the chosen entitytype.
 		/// </summary>
 		/// <param name="type">Selector of entity to copy.</param>
+		/// <param name="side">The side in which the summoned entity should be place.</param>
 		public SummonCopyTask(EntityType type, SummonSide side) : this(type)
 		{
 			_side = side;

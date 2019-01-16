@@ -23,21 +23,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly EntityType _type;
 		private CardClass _cardClass;
 
-		private RandomCardTask(EntityType type, CardType cardType, CardClass cardClass, CardSet cardSet, Race race,
-			Rarity rarity, GameTag[] gameTagFilter, bool opposite)
-		{
-			_type = type;
-			_cardType = cardType;
-			_cardClass = cardClass;
-			_cardSet = cardSet;
-			_race = race;
-			_rarity = rarity;
-			_gameTagFilter = gameTagFilter;
-			_opposite = opposite;
-		}
 
 		/// <summary>
-		///     Choose a random card that fits the criterias.
+		/// Choose a random card that fits the criterias.
 		/// </summary>
 		/// <param name="type">EntityType to choose the random card from.</param>
 		/// <param name="opposite">If the card is for the opponent</param>
@@ -54,7 +42,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		/// <summary>
-		///     Choose a random card that fits the criterias.
+		/// Choose a random card that fits the criterias.
 		/// </summary>
 		/// <param name="cardType">CardType filter</param>
 		/// <param name="cardClass">Cardclass filter</param>
@@ -74,7 +62,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		/// <summary>
-		///     Choose a random card that fits the criterias.
+		/// Choose a random card that fits the criterias.
 		/// </summary>
 		/// <param name="cardSet">CardSet to choose the random card from.</param>
 		public RandomCardTask(CardSet cardSet)

@@ -7,11 +7,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class QuestRewardTask : SimpleTask
 	{
-		private QuestRewardTask(Card card)
-		{
-			Card = card;
-		}
-
 		public QuestRewardTask(string cardId)
 		{
 			Card = Cards.FromId(cardId);

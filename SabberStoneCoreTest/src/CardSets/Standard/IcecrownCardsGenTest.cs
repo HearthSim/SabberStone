@@ -5026,7 +5026,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.ProcessCard("Whirlwind");
 			game.ProcessCard("Whirlwind");
 			game.ProcessCard("Whirlwind");
-			game.ProcessCard("Whirlwind");
 
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
 

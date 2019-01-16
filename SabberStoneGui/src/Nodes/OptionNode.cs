@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCoreGui.Score;
 
 namespace SabberStoneCoreGui.Nodes

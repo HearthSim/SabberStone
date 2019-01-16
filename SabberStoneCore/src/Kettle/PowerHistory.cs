@@ -19,7 +19,7 @@ namespace SabberStoneCore.Kettle
 					Id = game.Id,
 					Tags = new Dictionary<GameTag, int>(game._data)
 				},
-				Players = new PowerPlayer[]
+				Players = new[]
 						{
 					new PowerPlayer
 					{

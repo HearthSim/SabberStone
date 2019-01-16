@@ -596,8 +596,8 @@ namespace SabberStoneCore.Model
 			_players.ToList().ForEach(p =>
 			{
 				// quest draw if there is
-				IPlayable quest = p.DeckZone.Where(q => q is Spell && ((Spell)q).IsQuest).FirstOrDefault();
-				Generic.Draw(p, quest ?? null);
+				IPlayable quest = p.DeckZone.FirstOrDefault(q => q is Spell spell && spell.IsQuest);
+				Generic.Draw(p, quest);
 				Generic.Draw(p);
 				Generic.Draw(p);
 

@@ -1,5 +1,4 @@
-﻿using SabberStoneCore.Enums;
-using SabberStoneCore.Model.Entities;
+﻿using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Auras
 {

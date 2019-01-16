@@ -110,7 +110,6 @@ namespace SabberStoneCore.Model.Entities
 			/// <summary>
 			/// Add a new permanent cost enchantment effect
 			/// </summary>
-			/// <param name="e"></param>
 			public void AddCostEnchantment(EffectOperator @operator, int value)
 			{
 				ref int c = ref _cachedValue;

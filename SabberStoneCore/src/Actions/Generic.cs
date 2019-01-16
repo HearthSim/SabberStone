@@ -7,12 +7,13 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCore.Actions
 {
 	/// <summary>
 	/// Container of game logic functionality, which is invoked by processing a selected option
-	/// through <see cref="Game.Process(Tasks.PlayerTask)"/>.
+	/// through <see cref="Game.Process(PlayerTask)"/>.
 	/// </summary>
 	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member

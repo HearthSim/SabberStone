@@ -26,9 +26,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (_heroPowerCard == null)
 			{
-				if (stack?.Playables.Count != 1 || !(stack?.Playables[0] is HeroPower)) return TaskState.STOP;
+				if (stack?.Playables.Count != 1 || !(stack.Playables[0] is HeroPower)) return TaskState.STOP;
 
-				power = (HeroPower) stack?.Playables[0];
+				power = (HeroPower) stack.Playables[0];
 			}
 			else
 			{

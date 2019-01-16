@@ -24,8 +24,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				if (p.Card.IsSecret && p[GameTag.REVEALED] == 1)
 					game.TriggerManager.OnSecretRevealedTrigger(p);
 			}
-
-			;
 			return TaskState.COMPLETE;
 		}
 	}

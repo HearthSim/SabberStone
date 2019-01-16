@@ -53,7 +53,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (indices.Count == 0)
 				return TaskState.STOP;
 
-			int[] results = Util.ChooseNElements<int>(indices, amount);
+			int[] results = indices.ChooseNElements(amount);
 
 			IPlayable[] entities = new IPlayable[results.Length];
 			for (int i = 0; i < entities.Length; i++)

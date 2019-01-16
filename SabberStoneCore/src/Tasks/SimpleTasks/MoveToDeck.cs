@@ -38,8 +38,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 				Generic.ShuffleIntoDeck.Invoke(c, source, p);
 			}
-
-			;
 			return TaskState.COMPLETE;
 		}
 	}

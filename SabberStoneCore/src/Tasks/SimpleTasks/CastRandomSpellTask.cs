@@ -42,7 +42,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			Controller c = source.Controller;
 
-			Card randCard = null;
+			Card randCard;
 			do
 			{
 				randCard = cards[Random.Next(cards.Length)];

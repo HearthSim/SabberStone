@@ -211,7 +211,7 @@ namespace SabberStoneCore.Model.Zones
 			return entity;
 		}
 
-		public override void MoveTo(IPlayable entity, int zonePosition)
+		public override void MoveTo(IPlayable entity, int zonePosition = -1)
 		{
 			_entities.Add(entity);
 			entity.Zone = this;

@@ -75,13 +75,24 @@ namespace SabberStoneCore.Auras
 			// Check left-side
 			if (_left != null)
 			{
-				if (!(_left.Zone is BoardZone) || _left.ZonePosition != pos - 1)
+				//if (!(_left.Zone is BoardZone) || _left.ZonePosition != pos - 1)
+				//{
+				//	DeApply(_left);
+				//	_left = null;
+				//}
+				if (!(_left.Zone is BoardZone))
+				{
+					_left = null;
+				}
+				else if
+					(_left.ZonePosition != pos - 1)
 				{
 					DeApply(_left);
 					_left = null;
 				}
 			}
-			else
+
+			if (_left == null)
 			{
 				if (pos > 0)
 				{
@@ -99,13 +110,24 @@ namespace SabberStoneCore.Auras
 			// Check right-side
 			if (_right != null)
 			{
-				if (!(_right.Zone is BoardZone) || _right.ZonePosition != pos + 1)
+				//if (!(_right.Zone is BoardZone) || _right.ZonePosition != pos + 1)
+				//{
+				//	DeApply(_right);
+				//	_right = null;
+				//}
+				if (!(_right.Zone is BoardZone))
+				{
+					_right = null;
+				}
+				else if
+					(_right.ZonePosition != pos - 1)
 				{
 					DeApply(_right);
 					_right = null;
 				}
 			}
-			else
+
+			if (_right == null)
 			{
 				if (pos < _board.Count - 1)
 				{

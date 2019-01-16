@@ -606,7 +606,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				int value = _modifiedATK ?? Card.ATK;
+				int value = _modifiedATK ?? (_modifiedATK = Card.ATK).Value;
 
 				value += AuraEffects?.ATK ?? 0;
 
@@ -630,9 +630,9 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				int value = _modifiedHealth ?? Card.Health;
+				int value = _modifiedHealth ?? (_modifiedHealth = Card.Health).Value;
 
-				return value += AuraEffects?.Health ?? 0;
+				return value + (AuraEffects?.Health ?? 0);
 			}
 			set
 			{
