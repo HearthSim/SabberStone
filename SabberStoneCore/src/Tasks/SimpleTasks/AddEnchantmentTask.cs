@@ -35,13 +35,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 			in TaskStack stack = null)
 		{
-			int n1 = 0, n2 = 0;
-
-			if (_useScriptTag)
-			{
-				n1 = stack.Number;
-				n2 = stack.Number1;
-			}
+			int n1 = stack?.Number ?? 0;
+			int n2 = stack?.Number1 ?? 0;
 
 			//	Controller Auras (OTEs)
 			if (_entityType == EntityType.CONTROLLER)
