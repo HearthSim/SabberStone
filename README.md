@@ -6,6 +6,8 @@
 [![Travis Build Status](https://travis-ci.org/HearthSim/SabberStone.svg?branch=master)](https://travis-ci.org/HearthSim/SabberStone)
 [![AppVeyor Build status](https://ci.appveyor.com/api/projects/status/cncu269gxx9x6l3i?svg=true)](https://ci.appveyor.com/project/Bert-Proesmans/sabberstone)
 
+# SabberStone 2.1
+Massive changes and updates are applied! We are preparing documentation for this update!
 
 # Overview
 
