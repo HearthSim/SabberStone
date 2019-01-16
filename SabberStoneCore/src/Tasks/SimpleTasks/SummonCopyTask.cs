@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Actions;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -8,8 +7,9 @@ using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	// TODO: Should use Generic.Copy()
 	/// <summary>
-	///     Summon a copy of one (or more) existing entity.
+	/// Summon a copy of one (or more) existing entity.
 	/// </summary>
 	/// <seealso cref="SimpleTask" />
 	public class SummonCopyTask : SimpleTask
@@ -17,25 +17,27 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly bool _addToStack;
 
 		/// <summary>
-		///     If there are multiple entities to summon it will randomly summon them.
+		/// If there are multiple entities to summon it will randomly summon them.
 		/// </summary>
 		private readonly bool _randomFlag;
 
 		private readonly SummonSide _side;
 
 		/// <summary>
-		///     Entities to summon.
+		/// Entities to summon.
 		/// </summary>
 		private readonly EntityType _type;
 
 		/// <summary>
-		///     Summons a copy of the chosen entitytype.
+		/// Summons a copy of the chosen entitytype.
 		/// </summary>
 		/// <param name="type">Selector of entity to copy.</param>
 		/// <param name="randomFlag">
-		///     <c>true</c> if the copies need to be summoned
-		///     in random order, <c>false</c> otherwise.
+		/// <c>true</c> if the copies need to be summoned
+		/// in random order, <c>false</c> otherwise.
 		/// </param>
+		/// <param name="addToStack">Add the summoned entity to the stack.</param>
+		/// <param name="side">The side in which the summoned entity should be place.</param>
 		public SummonCopyTask(EntityType type, bool randomFlag = false, bool addToStack = false,
 			SummonSide side = SummonSide.DEFAULT)
 		{
@@ -49,6 +51,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		///     Summons a copy of the chosen entitytype.
 		/// </summary>
 		/// <param name="type">Selector of entity to copy.</param>
+		/// <param name="side">The side in which the summoned entity should be place.</param>
 		public SummonCopyTask(EntityType type, SummonSide side) : this(type)
 		{
 			_side = side;
@@ -127,7 +130,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 								instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
 								if (e[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
 									instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = e[GameTag.TAG_SCRIPT_DATA_NUM_2];
+
+								instance.CapturedCard = e.CapturedCard;
 							}
+
+							if (e.IsOneTurnActive)
+								instance.Game.OneTurnEffectEnchantments.Add(instance);
 						}
 
 					if (minion.OngoingEffect != null && copy.OngoingEffect == null)

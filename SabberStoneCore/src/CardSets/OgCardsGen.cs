@@ -1221,7 +1221,7 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("OG_028", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumTotemSummonedThisGame)
+				Aura = new AdaptiveCostEffect(p => p.Controller.NumTotemSummonedThisGame)
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1780,7 +1780,7 @@ namespace SabberStoneCore.CardSets
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsInZone(Zone.HAND)),
 						new FlagTask(true, ComplexTask.Create(
-							new ChangeEntityTask(EntityType.SOURCE, CardType.MINION),
+							new ChangeEntityTask(EntityType.SOURCE, CardType.MINION, removeEnchantments: true),
 							new AddEnchantmentTask("OG_123e", EntityType.SOURCE))))
 				}
 			});
@@ -2643,7 +2643,7 @@ namespace SabberStoneCore.CardSets
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					SingleTask = ComplexTask.Create(
-						new ChangeEntityTask(EntityType.TARGET, CardType.MINION),
+						new ChangeEntityTask(EntityType.TARGET, CardType.MINION, removeEnchantments: true),
 						new AddEnchantmentTask("OG_123e", EntityType.TARGET))
 				}
 			});
@@ -2773,7 +2773,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Attack increased.
 			// --------------------------------------------------------
 			cards.Add("OG_271e", new Power {
-				Enchant = new Enchant(new AttackEffect(EffectOperator.MUL, 2))
+				Enchant = new Enchant(ATK.Effect(EffectOperator.MUL, 2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2824,7 +2824,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Shadowcaster made this 1/1.
 			// --------------------------------------------------------
 			cards.Add("OG_291e", new Power {
-				Enchant = new Enchant(Effects.SetAttack(1), Effects.SetMaxHealth(1), new Effect(GameTag.COST, EffectOperator.SET, 1))
+				Enchant = new Enchant(
+					Effects.SetAttack(1),
+					Effects.SetMaxHealth(1),
+					Effects.SetCost(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

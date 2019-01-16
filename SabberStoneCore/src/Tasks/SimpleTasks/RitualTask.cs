@@ -35,12 +35,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_amount = amount;
 		}
 
-		private RitualTask(RitualType type, int amount)
-		{
-			_type = type;
-			_amount = amount;
-		}
-
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 			in TaskStack stack = null)
 		{

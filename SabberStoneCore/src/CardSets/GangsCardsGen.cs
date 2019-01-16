@@ -506,7 +506,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_760", new Power
 			{
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumSecretsPlayedThisGame * 2)
+				Aura = new AdaptiveCostEffect(p => p.Controller.NumSecretsPlayedThisGame * 2)
 				//{
 				//	UpdateTrigger = (TriggerType.AFTER_CAST, TriggerSource.FRIENDLY, SelfCondition.IsSecret)
 				//}
@@ -588,7 +588,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_687e", new Power
 			{
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 0))
+				Aura = new Aura(AuraType.HAND, Effects.SetCost(0))
 				{
 					RemoveTrigger = (TriggerType.CAST_SPELL, null)
 				}
@@ -956,7 +956,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_661e", new Power
 			{
-				Enchant = new Enchant(new AttackEffect(EffectOperator.SUB, 3))
+				Enchant = new Enchant(ATK.Effect(EffectOperator.SUB, 3))
 				{
 					IsOneTurnEffect = true
 				}
@@ -2099,7 +2099,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_652", new Power
 			{
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.Opponent.BoardZone.Count > 2 ? 2 : 0)
+				Aura = new AdaptiveCostEffect(p => p.Controller.Opponent.BoardZone.Count > 2 ? 2 : 0)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2615,7 +2615,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_020e", new Power
 			{
-				Aura = new Aura(AuraType.HEROPOWER, new Effect(GameTag.COST, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.HEROPOWER, Effects.SetCost(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2826,7 +2826,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_651e", new Power
 			{
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_651e")
+				Enchant = new Enchant(GameTag.ATK, EffectOperator.ADD, 1)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

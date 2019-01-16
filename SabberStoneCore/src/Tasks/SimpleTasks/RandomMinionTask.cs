@@ -92,7 +92,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				var list = new List<Card>(cardsList);
 				while (randomMinions.Count < Amount && cardsList.Count > 0)
 				{
-					Card card = Util.Choose(cardsList);
+					Card card = Util.Choose(list);
 					list.Remove(card);
 
 					// check for deck rules

@@ -112,7 +112,7 @@ namespace SabberStoneCore.Visualizer
 
 			string spacer = zone.Count == 10 ? new string(' ', 1) : new string(' ', 5 * (8 - zone.Count) + zone.Count + 1);
 
-			StringBuilder[] zoneStrArray = new StringBuilder[]
+			StringBuilder[] zoneStrArray = new[]
 			{
 				new StringBuilder("¦" + spacer),
 				new StringBuilder("¦" + spacer),
@@ -199,7 +199,7 @@ namespace SabberStoneCore.Visualizer
 				}
 			}
 
-			string[] backStrArray = new string[] { "", "", "", "", "", "" };
+			string[] backStrArray = new[] { "", "", "", "", "", "" };
 
 			char[][] zoneAscii = new CardAsciiBuilder().Create().ZoneCards(outzone.Count, outzone.Type).Build();
 			int y = turn ? 1 : 0;

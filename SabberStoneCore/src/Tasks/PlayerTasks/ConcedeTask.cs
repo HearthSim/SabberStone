@@ -15,11 +15,11 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 			Game = controller.Game;
 			Controller = controller;
 		}
-		public override TaskState Process()
+		public override bool Process()
 		{
 			Controller.PlayState = PlayState.CONCEDED;
 			Controller.Game.NextStep = Step.FINAL_WRAPUP;
-			return TaskState.COMPLETE;
+			return true;
 		}
 
 		public override string FullPrint()

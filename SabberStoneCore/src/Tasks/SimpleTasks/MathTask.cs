@@ -151,13 +151,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 	public class MathSubstractionTask : SimpleTask
 	{
-		private MathSubstractionTask(int amount, GameTag tag, EntityType type)
-		{
-			Amount = amount;
-			Tag = tag;
-			Type = type;
-		}
-
 		public MathSubstractionTask(int amount)
 		{
 			Amount = amount;

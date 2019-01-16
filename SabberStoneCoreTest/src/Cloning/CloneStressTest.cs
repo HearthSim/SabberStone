@@ -37,8 +37,8 @@ namespace SabberStoneCoreTest.Cloning
 
 				while (game.State != State.COMPLETE)
 				{
-					List<SabberStoneCore.Tasks.PlayerTask> options = game.CurrentPlayer.Options();
-					SabberStoneCore.Tasks.PlayerTask option = options[rnd.Next(options.Count)];
+					List<PlayerTask> options = game.CurrentPlayer.Options();
+					PlayerTask option = options[rnd.Next(options.Count)];
 					game.Process(option);
 					Game cloneGame = game.Clone();
 					string str1 = game.Hash();

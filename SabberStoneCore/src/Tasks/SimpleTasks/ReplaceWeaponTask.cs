@@ -20,7 +20,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 			in TaskStack stack = null)
 		{
-			if (!(source is IPlayable playable))
+			if (!(source is IPlayable))
 				return TaskState.STOP;
 
 			controller.Hero.AddWeapon(Entity.FromCard(in controller, in _weaponCard) as Weapon);

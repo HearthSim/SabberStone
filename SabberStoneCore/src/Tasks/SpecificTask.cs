@@ -8,7 +8,6 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Actions;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks
@@ -455,7 +454,7 @@ namespace SabberStoneCore.Tasks
 					IPlayable previous = (IPlayable) e.Target;
 					e.Remove();
 
-					IPlayable newEntity = Generic.ChangeEntityBlock.Invoke(e.Controller, previous, pList[1].Card);
+					IPlayable newEntity = Generic.ChangeEntityBlock.Invoke(e.Controller, previous, pList[1].Card, false);
 
 					if (newEntity[GameTag.DISPLAYED_CREATOR] == 0)
 						newEntity[GameTag.DISPLAYED_CREATOR] = e.Creator.Id;
@@ -629,7 +628,7 @@ namespace SabberStoneCore.Tasks
 					Controller c = p.Controller;
 					IPlayable entity = Entity.FromCard(c, card);
 					ICharacter randTarget = null;
-					if (card.RequiresTarget || card.RequiresTargetIfAvailable)
+					if (card.TargetingType != TargetingType.None)
 					{
 						List<ICharacter> targets = (List<ICharacter>)entity.ValidPlayTargets;
 
@@ -702,7 +701,7 @@ namespace SabberStoneCore.Tasks
 				{
 					IPlayable entity = Entity.FromCard(c, card); // TODO
 					ICharacter randTarget = null;
-					if (card.RequiresTarget || card.RequiresTargetIfAvailable)
+					if (card.TargetingType != TargetingType.None)
 					{
 						List<ICharacter> targets = (List<ICharacter>) entity.ValidPlayTargets;
 
@@ -851,13 +850,12 @@ namespace SabberStoneCore.Tasks
 		public class RenonunceDarkness : SimpleTask
 		{
 			private static readonly Card EnchantmentCard = Cards.FromId("OG_118e");
-			private static readonly Effect CostReduceEffect = Effects.ReduceCost(1);
 
 			public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 				in TaskStack stack = null)
 			{
 				// get a new class
-				CardClass randClass = 0;
+				CardClass randClass;
 				do
 				{
 					randClass = (CardClass) Random.Next(2, 11);
@@ -919,7 +917,7 @@ namespace SabberStoneCore.Tasks
 
 					IPlayable newEntity = Entity.FromCard(in controller, Util.Choose(cards), tags, controller.HandZone, -1, i);
 					newEntity.NativeTags.Add(GameTag.DISPLAYED_CREATOR, source.Id);
-					CostReduceEffect.ApplyTo(newEntity.AuraEffects);
+					newEntity.Cost = newEntity.Card.Cost - 1;
 				}
 				
 
@@ -938,7 +936,7 @@ namespace SabberStoneCore.Tasks
 					controller.DeckZone.Remove(entity);
 					controller.SetasideZone.Add(entity);
 
-					CostReduceEffect.ApplyTo(newEntity.AuraEffects);
+					newEntity.Cost = newEntity.Card.Cost - 1;
 				}
 
 				game.OnRandomHappened(true);

@@ -316,6 +316,23 @@ namespace SabberStoneCoreTest.Basic
 		}
 
 		[Fact]
+		public void DrawGameTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				FillDecks = true
+			});
+			game.StartGame();
+
+			game.Player1.Hero.Health = 1;
+			game.Player2.Hero.Health = 1;
+			game.ProcessCard("Hellfire", asZeroCost: true);
+
+			Assert.Equal(PlayState.LOST, game.Player1.PlayState);
+			Assert.Equal(PlayState.LOST, game.Player2.PlayState);
+		}
+
+		[Fact]
 		public void TauntTest()
 		{
 			var game = new Game(new GameConfig { StartPlayer = 1, Player1HeroClass = CardClass.ROGUE, Player2HeroClass = CardClass.WARLOCK, FillDecks = true, FillDecksPredictably = true });

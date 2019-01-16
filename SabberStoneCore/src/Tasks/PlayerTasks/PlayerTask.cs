@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Tasks.PlayerTasks;
 
-namespace SabberStoneCore.Tasks
+namespace SabberStoneCore.Tasks.PlayerTasks
 {
 	public enum PlayerTaskType
 	{
@@ -13,9 +12,9 @@ namespace SabberStoneCore.Tasks
 	}
 
 	//[DebuggerTypeProxy(typeof(PlayerTaskDebuggerProxy))]
-	public class PlayerTask
+	public abstract class PlayerTask
 	{
-		public TaskState State { get; set; } = TaskState.READY;
+		//public TaskState State { get; set; } = TaskState.READY;
 		public PlayerTaskType PlayerTaskType { get; set; }
 		public Game Game { get; set; }
 
@@ -40,25 +39,14 @@ namespace SabberStoneCore.Tasks
 			return new List<PlayerTask> { this };
 		}
 
-		public virtual TaskState Process()
-		{
-			return TaskState.COMPLETE;
-		}
+		public abstract bool Process();
 
-		public ISimpleTask Clone()
-		{
-			throw new NotImplementedException();
-		}
+		public abstract string FullPrint();
 
-		public virtual string FullPrint()
-		{
-			return "PlayerTask";
-		}
-
-		public void ResetState()
-		{
-			State = TaskState.READY;
-		}
+		//public void ResetState()
+		//{
+		//	State = TaskState.READY;
+		//}
 
 		public override string ToString()
 		{
@@ -104,17 +92,5 @@ namespace SabberStoneCore.Tasks
 
 			return sb.ToString();
 		}
-
-		//private class PlayerTaskDebuggerProxy
-		//{
-		//	private readonly PlayerTask _task;
-
-		//	public PlayerTaskDebuggerProxy(PlayerTask task)
-		//	{
-		//		_task = task;
-		//	}
-
-
-		//}
 	}
 }

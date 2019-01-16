@@ -34,10 +34,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (game.History)
 				tags.Add(GameTag.PREMIUM, minionTarget[GameTag.PREMIUM]);
 
-			var copy = (Minion) Entity.FromCard(in controller, minionTarget.Card, tags, null);
+			var copy = (Minion) Entity.FromCard(in controller, minionTarget.Card, tags);
 			minionTarget.CopyInternalAttributes(copy);
 
-			Trigger trigger = minionTarget.ActivatedTrigger;
+			//Trigger trigger = minionTarget.ActivatedTrigger;
 			IAura aura = minionTarget.OngoingEffect;
 
 			// LINKED_ENTITY
@@ -55,7 +55,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
 						if (e[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
 							instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = e[GameTag.TAG_SCRIPT_DATA_NUM_2];
+
+						instance.CapturedCard = e.CapturedCard;
 					}
+					if (e.IsOneTurnActive)
+						game.OneTurnEffectEnchantments.Add(instance);
 				}
 
 			foreach (KeyValuePair<GameTag, int> kvp in minionTarget._data)

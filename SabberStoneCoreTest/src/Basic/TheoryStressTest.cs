@@ -5,7 +5,6 @@ using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
-using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Tasks.PlayerTasks;
 using Xunit;
 
@@ -141,6 +140,7 @@ namespace SabberStoneCoreTest.Basic
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Stormwind Champion"));
 			game.CurrentPlayer.BoardZone[0].Damage = 4;
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
+			Assert.Equal(2, game.CurrentPlayer.BoardZone[1].Health);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Fiery Bat"));
@@ -149,6 +149,7 @@ namespace SabberStoneCoreTest.Basic
 			while (true)
 			{
 				Game clone = game.Clone();
+				Assert.Equal(2, clone.CurrentOpponent.BoardZone[1].Health);
 
 				clone.Process(MinionAttackTask.Any(clone.CurrentPlayer, clone.CurrentPlayer.BoardZone[0],
 					clone.CurrentOpponent.BoardZone[0]));
@@ -355,5 +356,30 @@ namespace SabberStoneCoreTest.Basic
 		// Umbra + Doppelgangster + Val'anyr test
 
 		// AuraUpdate(others) test
+
+		[Fact]
+		public static void UmbraMorriganLoop()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Dr. Morrigan"),
+				},
+				Shuffle = false,
+				FillDecks = false,
+			});
+			game.StartGame();
+
+			Assert.Single(game.CurrentPlayer.DeckZone);
+
+			game.ProcessCard("Spiritsinger Umbra", asZeroCost: true);
+			game.ProcessCard("Dr. Morrigan", asZeroCost: true);
+		}
 	}
 }

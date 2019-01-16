@@ -28,9 +28,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				var character = p as ICharacter;
 				character?.TakeHeal(playable, Amount);
 			}
-
-			;
-
 			return TaskState.COMPLETE;
 		}
 	}

@@ -75,13 +75,24 @@ namespace SabberStoneCore.Auras
 			// Check left-side
 			if (_left != null)
 			{
-				if (!(_left.Zone is BoardZone) || _left.ZonePosition != pos - 1)
+				//if (!(_left.Zone is BoardZone) || _left.ZonePosition != pos - 1)
+				//{
+				//	DeApply(_left);
+				//	_left = null;
+				//}
+				if (!(_left.Zone is BoardZone))
+				{
+					_left = null;
+				}
+				else if
+					(_left.ZonePosition != pos - 1)
 				{
 					DeApply(_left);
 					_left = null;
 				}
 			}
-			else
+
+			if (_left == null)
 			{
 				if (pos > 0)
 				{
@@ -99,13 +110,24 @@ namespace SabberStoneCore.Auras
 			// Check right-side
 			if (_right != null)
 			{
-				if (!(_right.Zone is BoardZone) || _right.ZonePosition != pos + 1)
+				//if (!(_right.Zone is BoardZone) || _right.ZonePosition != pos + 1)
+				//{
+				//	DeApply(_right);
+				//	_right = null;
+				//}
+				if (!(_right.Zone is BoardZone))
+				{
+					_right = null;
+				}
+				else if
+					(_right.ZonePosition != pos - 1)
 				{
 					DeApply(_right);
 					_right = null;
 				}
 			}
-			else
+
+			if (_right == null)
 			{
 				if (pos < _board.Count - 1)
 				{
@@ -141,7 +163,7 @@ namespace SabberStoneCore.Auras
 		private void Apply(Minion m)
 		{
 			for (int i = 0; i < _effects.Length; i++)
-				_effects[i].ApplyTo(m.AuraEffects);
+				_effects[i].ApplyAuraTo(m);
 
 			if (EnchantmentCard != null && _history)
 				Enchantment.GetInstance(m.Controller, _owner, m, in EnchantmentCard);
@@ -150,7 +172,7 @@ namespace SabberStoneCore.Auras
 		private void DeApply(Minion m)
 		{
 			for (int i = 0; i < _effects.Length; i++)
-				_effects[i].RemoveFrom(m.AuraEffects);
+				_effects[i].RemoveAuraFrom(m);
 
 			if (EnchantmentCard != null && (_history || EnchantmentCard.Power.Trigger != null))
 			{

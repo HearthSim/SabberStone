@@ -63,7 +63,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public override bool IsImmune
 		{
-			get => AuraEffects.Immune > 0 || base.IsImmune;
+			get => (AuraEffects?.Immune > 0) || base.IsImmune;
 			set => base.IsImmune = value;
 		}
 
@@ -82,7 +82,7 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		/// <summary>
-		/// Removing a weapon to the graveyard. Triggering deathrattle events on the weapon.
+		/// Removes the equipped weapon to the graveyard. This triggers deathrattle events on the weapon.
 		/// </summary>
 		public void RemoveWeapon()
 		{
@@ -157,6 +157,18 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public int DamageTakenThisTurn { get; set; }
+
+		public override bool CantAttackHeroes
+		{
+			get
+			{
+				if (AuraEffects?.CannotAttackHeroes ?? false)
+					return true;
+
+				return base.CantAttackHeroes;
+			}
+			set => base.CantAttackHeroes = value;
+		}
 
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}

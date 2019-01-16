@@ -234,7 +234,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (0).
 			// --------------------------------------------------------
 			cards.Add("UNG_116te", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 0)
+				Enchant = new Enchant(Effects.SetCost(0))
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -672,7 +672,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandFull),
 						new FlagTask(false, ComplexTask.Secret(
 						new CopyTask(EntityType.TARGET, Zone.HAND, addToStack: true),
-						new AddAuraEffect(new Effect(GameTag.COST, EffectOperator.SET, 0), EntityType.STACK))))
+						new AddAuraEffect(Effects.SetCost(0), EntityType.STACK))))
 				}
 			});
 
@@ -864,7 +864,7 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerSource = TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
 					SingleTask = ComplexTask.Create(
 						new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
-						new AddEnchantmentTask("UNG_953e", EntityType.SOURCE, true))
+						new AddEnchantmentTask("UNG_953e", EntityType.SOURCE, true, true))
 				}
 			});
 
@@ -1035,17 +1035,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_953e", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new IncludeTask(EntityType.TARGET),
-					new FuncPlayablesTask(list =>
-					{
-						IPlayable t = list[0];
-						return new List<IPlayable>
-						{
-							Entity.FromCard(t.Controller,
-								t.Game.IdEntityDic[t[GameTag.TAG_SCRIPT_DATA_NUM_1]]
-									.Card)
-						};
-					}),
+					GetCapturedCardTask.Task,
 					new AddStackTo(EntityType.HAND))
 			});
 
@@ -1464,7 +1454,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_061", new Power {
 				// TODO: possible performance hit
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p =>
+				Aura = new AdaptiveCostEffect(p =>
 				{
 					List<PlayHistoryEntry> history = p.Controller.PlayHistory;
 					CardClass heroClass = p.Controller.HeroClass;
@@ -2264,7 +2254,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerActivation = TriggerActivation.HAND,
 					SingleTask = ComplexTask.Create(
-						new ChangeEntityTask(EntityType.SOURCE, CardType.WEAPON),
+						new ChangeEntityTask(EntityType.SOURCE, CardType.WEAPON, removeEnchantments: true),
 						new AddEnchantmentTask("UNG_929e", EntityType.SOURCE))
 				}
 			});
@@ -2287,7 +2277,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					SingleTask = ComplexTask.Create(
-						new ChangeEntityTask(EntityType.TARGET, CardType.WEAPON),
+						new ChangeEntityTask(EntityType.TARGET, CardType.WEAPON, removeEnchantments: true),
 						new AddEnchantmentTask("UNG_929e", EntityType.TARGET))
 				}
 			});
@@ -2574,7 +2564,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_085", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.ADD, 2))
+				Aura = new Aura(AuraType.HAND, Effects.AddCost(2))
 				{
 					Condition = SelfCondition.IsMinion
 				}
@@ -3129,7 +3119,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (5).
 			// --------------------------------------------------------
 			cards.Add("UNG_113e", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 5)
+				Enchant = new Enchant(Effects.SetCost(5))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

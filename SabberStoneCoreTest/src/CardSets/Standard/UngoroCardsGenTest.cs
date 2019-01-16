@@ -1021,7 +1021,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				},
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecksPredictably = true,
+				Shuffle = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -1255,7 +1256,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal("Divine Strength", game.CurrentPlayer.HandZone[0].Card.Name);
 			game.EndTurn();
 
-			// In Hearthstone, when this minion is 'double-mind-controled' and dead,
+			// In Hearthstone, when this minion is 'double-mind-controlled' and dead,
 			// it gives ONE Mind Control
 			// But why would it gives one MC?
 

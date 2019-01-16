@@ -85,7 +85,7 @@ namespace SabberStoneCore.Enchants
 
 			if (text.Contains(@"<b>Taunt</b>"))
 		    {
-			    effects.Add(Effects.Taunt);
+			    effects.Add(Effects.TauntEff);
 		    }
 
 		    if (text.Contains(@"<b>Windfury</b>"))
@@ -145,12 +145,12 @@ namespace SabberStoneCore.Enchants
 	{
 		internal static IEffect Attack_N(int n)
 		{
-			return new AttackEffect(EffectOperator.ADD, n);
+			return ATK.Effect(EffectOperator.ADD, n);
 		}
 
 		internal static IEffect Health_N(int n)
 		{
-			return new HealthEffect(EffectOperator.ADD, n);
+			return Health.Effect(EffectOperator.ADD, n);
 		}
 
 		internal static IEffect[] AttackHealth_N(int n)
@@ -160,12 +160,12 @@ namespace SabberStoneCore.Enchants
 
 		internal static IEffect SetAttack(int n)
 		{
-			return new AttackEffect(EffectOperator.SET, n);
+			return ATK.Effect(EffectOperator.SET, n);
 		}
 
 		internal static IEffect SetMaxHealth(int n)
 		{
-			return new HealthEffect(EffectOperator.SET, n);
+			return Health.Effect(EffectOperator.SET, n);
 		}
 
 		internal static IEffect[] SetAttackHealth(int n)
@@ -173,12 +173,24 @@ namespace SabberStoneCore.Enchants
 			return new[] {SetAttack(n), SetMaxHealth(n)};
 		}
 
-		internal static Effect ReduceCost(int n)
+		internal static IEffect ReduceCost(int n)
 		{
-			return new Effect(GameTag.COST, EffectOperator.SUB, n);
+			return Cost.Effect(EffectOperator.SUB, n);
 		}
 
-		internal static Effect Taunt => new Effect(GameTag.TAUNT, EffectOperator.SET, 1);
+		internal static IEffect SetCost(int n)
+		{
+			return Cost.Effect(EffectOperator.SET, n);
+		}
+
+		internal static IEffect AddCost(int n)
+		{
+			return Cost.Effect(EffectOperator.ADD, n);
+		}
+
+		internal static IEffect TauntEff => Taunt.Effect();
+
+		internal static IEffect StealthEff => Stealth.Effect();
 
 		internal static Effect Windfury => new Effect(GameTag.WINDFURY, EffectOperator.SET, 1);
 

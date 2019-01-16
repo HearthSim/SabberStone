@@ -1,7 +1,6 @@
 ﻿using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
-using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
 {
@@ -78,23 +77,6 @@ namespace SabberStoneCore.Enchants
 		}
 
 		public Trigger GetTrigger() => _trigger;
-
-		public static void Test()
-		{
-			Trigger trigger = TriggerBuilder
-				.Type(TriggerType.AFTER_ATTACK)
-				.SetTask(new DamageTask(1, EntityType.TARGET))
-				.SetActivation(TriggerActivation.PLAY)
-				.SetSource(TriggerSource.ALL)
-				.GetTrigger();
-
-			Trigger t2 = TriggerBuilder
-				.Type(TriggerType.AFTER_SUMMON)
-				.SetTask(new SummonTask("sd"))
-				.SetSource(TriggerSource.OP_HERO)
-				.SetCondition(SelfCondition.ElementalPlayedLastTurn)
-				.GetTrigger();
-		}
 
 		public static implicit operator Trigger(TriggerBuilder builder)
 		{

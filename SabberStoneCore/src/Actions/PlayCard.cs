@@ -154,7 +154,7 @@ namespace SabberStoneCore.Actions
 						return true;
 					}
 
-					if (source.AuraEffects[GameTag.CARD_COSTS_HEALTH] == 1)
+					if (source.AuraEffects?.CardCostHealth ?? false)
 					{
 						c.Hero.TakeDamage(c.Hero, cost);
 						return true;

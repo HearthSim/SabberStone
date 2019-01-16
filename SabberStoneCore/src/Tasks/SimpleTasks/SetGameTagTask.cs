@@ -39,16 +39,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					switch (t)
 					{
 						case GameTag.ATK:
-							new AttackEffect(EffectOperator.SET, a).ApplyTo(c);
+							ATK.Effect(EffectOperator.SET, a).ApplyTo(c);
 							break;
 						case GameTag.HEALTH:
-							new HealthEffect(EffectOperator.SET, a).ApplyTo(c);
+							Health.Effect(EffectOperator.SET, a).ApplyTo(c);
 							break;
 						case GameTag.DAMAGE:
 							c.Damage = a;
 							break;
 						case GameTag.STEALTH:
-							new StealthEffect().ApplyTo(c);
+							c.HasStealth = a > 0;
 							break;
 						case GameTag.TAUNT:
 							c.HasTaunt = a > 0;
@@ -69,8 +69,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					(Tag == GameTag.FROZEN && Amount == 1)
 					game.TriggerManager.OnFreezeTrigger(p);
 			}
-
-			;
 
 			return TaskState.COMPLETE;
 		}

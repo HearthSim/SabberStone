@@ -30,7 +30,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			for (int i = 0; i < stack?.Playables.Count && !controller.BoardZone.IsFull; i++)
 			{
-				IPlayable p = stack?.Playables[i];
+				IPlayable p = stack.Playables[i];
 
 				if (RemoveFromZone)
 					p.Zone.Remove(p);

@@ -3,7 +3,7 @@ using System.Text;
 
 namespace SabberStoneCore.Model
 {
-	public class PlayHistoryEntry
+	public struct PlayHistoryEntry
 	{
 		public readonly int SourceController;
 		public readonly int TargetController;
@@ -23,6 +23,11 @@ namespace SabberStoneCore.Model
 		public PlayHistoryEntry(in Card srcCard)
 		{
 			SourceCard = srcCard;
+
+			SourceController = 0;
+			TargetController = 0;
+			TargetCard = null;
+			SubOption = 0;
 		}
 
 		public override string ToString()

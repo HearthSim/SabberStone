@@ -80,9 +80,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					if (Card == null && stack?.Playables.Count > 0)
 					{
-						var m = stack?.Playables[0] as Minion;
-						if (m.Zone == null && m.GetNativeGameTag(GameTag.ZONE) != 0)
-							stack?.Playables[0].Controller.GraveyardZone.Add(stack?.Playables[0]);
+						IPlayable m = stack.Playables[0];
+						if (m.Zone == null)
+							m.Controller.GraveyardZone.Add(stack.Playables[0]);
 					}
 
 					return TaskState.STOP;
@@ -102,8 +102,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 				else if (stack?.Playables.Count > 0)
 				{
-					summonEntity = stack?.Playables[0] as Minion;
-					if (RemoveFromStack) stack?.Playables.Remove(summonEntity);
+					summonEntity = stack.Playables[0] as Minion;
+					if (RemoveFromStack) stack.Playables.Remove(summonEntity);
 				}
 
 				if (summonEntity == null)
@@ -114,7 +114,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				if (summonPosition > controller.BoardZone.Count)
 					summonPosition = controller.BoardZone.Count;
 
-				bool success = Generic.SummonBlock.Invoke(game, summonEntity, summonPosition);
+				Generic.SummonBlock.Invoke(game, summonEntity, summonPosition);
 			}
 
 			return TaskState.COMPLETE;

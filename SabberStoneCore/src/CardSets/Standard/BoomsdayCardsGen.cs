@@ -239,7 +239,7 @@ namespace SabberStoneCore.CardSets.Standard
 						{
 							IPlayable s = list[0];
 							IPlayable t = list[1];
-							Generic.ChangeEntityBlock.Invoke(s.Controller, s, t.Card);
+							Generic.ChangeEntityBlock.Invoke(s.Controller, s, t.Card, false);
 							return null;
 						}),
 						new AddEnchantmentTask("BOT_434e", EntityType.SOURCE),
@@ -277,7 +277,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_523", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
+				Aura = new AdaptiveCostEffect(
 					p => p.Controller.GraveyardZone.Count(q => q.Card.Id == "EX1_158t" && q.ToBeDestroyed))
 			});
 
@@ -305,9 +305,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("BOT_404", new Power {
 				PowerTask = ComplexTask.Create(
-					ComplexTask.DrawFromDeck(1, SelfCondition.HasCost(7)),
-					ComplexTask.DrawFromDeck(1, SelfCondition.HasCost(8)),
-					ComplexTask.DrawFromDeck(1, SelfCondition.HasCost(9)))
+					ComplexTask.DrawFromDeck(1, SelfCondition.IsCost(7)),
+					ComplexTask.DrawFromDeck(1, SelfCondition.IsCost(8)),
+					ComplexTask.DrawFromDeck(1, SelfCondition.IsCost(9)))
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -348,7 +348,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (7) less.
 			// --------------------------------------------------------
 			cards.Add("BOT_423e", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SUB, 7)
+				Enchant = new Enchant(Effects.ReduceCost(7))
 			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
@@ -368,7 +368,7 @@ namespace SabberStoneCore.CardSets.Standard
 						{
 							IPlayable t = (IPlayable)((Enchantment) list[0]).Target;
 							IPlayable s = list[1];
-							Generic.ChangeEntityBlock.Invoke(s.Controller, t, s.Card);
+							Generic.ChangeEntityBlock.Invoke(s.Controller, t, s.Card, false);
 							return null;
 						}))
 				}
@@ -572,9 +572,10 @@ namespace SabberStoneCore.CardSets.Standard
 							var defender = c.Opponent.BoardZone.Random;
 
 							if (defender == null) break;
-
+							EventMetaData temp = c.Game.CurrentEventData;
 							Generic.AttackBlock.Invoke(c, (ICharacter)list[i], defender, true);
 							c.NumOptionsPlayedThisTurn--;
+							c.Game.CurrentEventData = temp;
 						}
 
 						return null;
@@ -827,7 +828,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1).
 			// --------------------------------------------------------
 			cards.Add("BOT_257e", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 1)
+				Enchant = new Enchant(Effects.SetCost(1))
 			});
 
 			// ------------------------------------- ENCHANTMENT - MAGE
@@ -1141,7 +1142,7 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerSource = TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
 					SingleTask = ComplexTask.Create(
 						new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
-						new AddEnchantmentTask("BOT_558e", EntityType.SOURCE, true))
+						new AddEnchantmentTask("BOT_558e", EntityType.SOURCE, true, true))
 				}
             });
 
@@ -1302,18 +1303,21 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Storing spell.
 			// --------------------------------------------------------
 			cards.Add("BOT_558e", new Power {
+				//DeathrattleTask = ComplexTask.Create(
+				//	new IncludeTask(EntityType.TARGET),
+				//	new FuncPlayablesTask(list =>
+				//	{
+				//		IPlayable t = list[0];
+				//		return new List<IPlayable>
+				//		{
+				//			Entity.FromCard(t.Controller,
+				//				t.Game.IdEntityDic[t[GameTag.TAG_SCRIPT_DATA_NUM_1]]
+				//					.Card)
+				//		};
+				//	}),
+				//	new AddStackTo(EntityType.HAND))
 				DeathrattleTask = ComplexTask.Create(
-					new IncludeTask(EntityType.TARGET),
-					new FuncPlayablesTask(list =>
-					{
-						IPlayable t = list[0];
-						return new List<IPlayable>
-						{
-							Entity.FromCard(t.Controller,
-								t.Game.IdEntityDic[t[GameTag.TAG_SCRIPT_DATA_NUM_1]]
-									.Card)
-						};
-					}),
+					GetCapturedCardTask.Task,
 					new AddStackTo(EntityType.HAND))
             });
 
@@ -1388,7 +1392,7 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = new DiscoverTask(DiscoverType.DEATHRATTLE_MINIONS,
 					ComplexTask.Create(
 						new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
-						new AddEnchantmentTask("BOT_243e", EntityType.SOURCE, true)))
+						new AddEnchantmentTask("BOT_243e", EntityType.SOURCE, true, true)))
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1569,7 +1573,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1).
 			// --------------------------------------------------------
 			cards.Add("BOT_087e", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 1)
+				Enchant = new Enchant(Effects.SetCost(1))
 			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
@@ -1827,7 +1831,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.TARGET),
-						new PlayTask(PlayType.SPELL),
+						new PlayTask(PlayType.SPELL, EntityType.EVENT_TARGET),
 						new RemoveEnchantmentTask())
 				}
 			});
@@ -1904,8 +1908,14 @@ namespace SabberStoneCore.CardSets.Standard
 						new FilterStackTask(SelfCondition.IsMinion),
 						new RandomTask(1, EntityType.STACK),
 						new RemoveFromDeck(EntityType.STACK),
-						new MoveToDeck(EntityType.SOURCE),
-						new SummonTask())))
+						new FuncNumberTask(p =>
+						{
+							if (p.Zone != null)
+								Generic.RemoveFromZone(p.Controller, p);
+							return 0;
+						}),
+						new SummonTask(),
+						new MoveToDeck(EntityType.SOURCE))))
 			});
 
 			// --------------------------------------- MINION - WARLOCK

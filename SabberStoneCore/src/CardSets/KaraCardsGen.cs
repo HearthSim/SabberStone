@@ -83,7 +83,7 @@ namespace SabberStoneCore.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_006", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 0))
+				Aura = new Aura(AuraType.HAND, Effects.SetCost(0))
 				{
 					Condition = SelfCondition.IsSecret
 				}
@@ -905,7 +905,7 @@ namespace SabberStoneCore.CardSets
 			//       you've cast this game.
 			// --------------------------------------------------------
 			cards.Add("KAR_711", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumSpellsPlayedThisGame)
+				Aura = new AdaptiveCostEffect(p => p.Controller.NumSpellsPlayedThisGame)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

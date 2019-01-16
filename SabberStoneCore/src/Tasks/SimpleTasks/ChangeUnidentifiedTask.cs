@@ -9,7 +9,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
 			in TaskStack stack = null)
 		{
-			Generic.ChangeEntityBlock(controller, (IPlayable) source, Cards.FromId(Util.Choose(source.Card.Entourage)));
+			Generic.ChangeEntityBlock(controller, (IPlayable) source, Cards.FromId(Util.Choose(source.Card.Entourage)), false);
 			return TaskState.COMPLETE;
 		}
 	}

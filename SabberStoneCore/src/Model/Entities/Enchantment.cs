@@ -17,6 +17,7 @@ namespace SabberStoneCore.Model.Entities
 		private int _controllerId;
 		private IPlayable _creator;
 		private Controller _controller;
+		private Card _capturedCard;
 
 		private Enchantment(in Controller controller, in Card card, in EntityData tags, in int id)
 		{
@@ -35,6 +36,7 @@ namespace SabberStoneCore.Model.Entities
 			Target = e.Target is IPlayable ? (IEntity) Game.IdEntityDic[e.Target.Id] : c;
 			_controllerId = e._controllerId;
 			_creatorId = e._creatorId;
+			_capturedCard = e._capturedCard;
 			//e.OngoingEffect?.Clone(this);
 			e.ActivatedTrigger?.Activate(this);
 			//Game.IdEntityDic.Add(Id, this);
@@ -52,6 +54,9 @@ namespace SabberStoneCore.Model.Entities
 			{
 				Enchant.RemoveWhenPlayedTrigger.Activate(this);
 			}
+
+			if (e.Creator is Enchantment eCreator)
+				eCreator.Clone(in c);
 		}
 
 		public int this[GameTag t]
@@ -66,9 +71,22 @@ namespace SabberStoneCore.Model.Entities
 		public IEntity Target { get; private set; }
 
 		/// <summary>
-		/// The 
+		/// <see cref="SabberStoneCore.Model.Card"/> information captured in this instance.
 		/// </summary>
-		public Card ContainedCard { get; set; }
+		public Card CapturedCard
+		{
+			get => _capturedCard;
+			set
+			{
+				_capturedCard = value;
+				if (value != null && Game.History && (Card.Text?.Contains("{0}") ?? false))
+				{
+					Card c = Card.Clone();
+					c.Text = String.Format(c.Text, value.Name);
+					Card = c;
+				}
+			}
+		}
 
 		public IPlayable Creator
 		{
@@ -199,7 +217,7 @@ namespace SabberStoneCore.Model.Entities
 			return instance;
 		}
 
-		public IPlayable Clone(in Controller controller)
+		public Enchantment Clone(in Controller controller)
 		{
 			return new Enchantment(in controller, this);
 		}
@@ -262,12 +280,9 @@ namespace SabberStoneCore.Model.Entities
 		public bool IsIgnoreDamage { get; set; }
 		public bool Combo => false;
 		public int Cost { get; set; }
-		public int NumTurnsInPlay { get; set; }
 		public bool ToBeDestroyed { get; set; }
 		public int CardTarget { get; set; }
 		public int ZonePosition { get; set; }
-		public bool JustPlayed { get; set; }
-		public bool IsSummoned { get; set; }
 		public bool IsExhausted { get; set; }
 		public int Overload { get; set; }
 		public bool IsDeathrattle { get; set; }
@@ -277,12 +292,7 @@ namespace SabberStoneCore.Model.Entities
 		public AuraEffects AuraEffects { get; set; }
 		public IDictionary<GameTag, int> NativeTags => _tags;
 		public List<Enchantment> AppliedEnchantments { get; set; }
-		public List<int> Memory { get; set; }
-
-		public void Stamp(Entity entity)
-		{
-			throw new NotImplementedException();
-		}
+		public bool HasAnyValidPlayTargets { get; }
 
 		public string Hash(params GameTag[] ignore)
 		{
@@ -313,5 +323,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			return GetEnumerator();
 		}
+
+		IPlayable IPlayable.Clone(in Controller controller) => Clone(in controller);
 	}
 }

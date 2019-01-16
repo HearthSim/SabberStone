@@ -353,7 +353,7 @@ namespace SabberStoneCoreTest.CardSets
 			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, (ICharacter) minion));
-			Assert.Equal(3, ((Minion)minion).AttackDamage - minion.AuraEffects[GameTag.ATK]);
+			Assert.Equal(3, ((Minion)minion).AttackDamage - (minion.AuraEffects?.ATK ?? 0));
 			Assert.Equal(3, ((Minion)minion).Health);
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 
@@ -767,13 +767,21 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spirit Claws"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
-			Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+			Assert.Equal(1, game.CurrentPlayer.Hero.AttackDamage);
 			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Mage"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-			Assert.Equal(3, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+			Assert.Equal(3, game.CurrentPlayer.Hero.AttackDamage);
 			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Lightning Bolt"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell, (ICharacter) minion));
-			Assert.Equal(1, game.CurrentPlayer.Hero.Weapon.AttackDamage);
+			Assert.Equal(1, game.CurrentPlayer.Hero.AttackDamage);
+
+			game.CurrentPlayer.Hero.RemoveWeapon();
+
+			Assert.Equal(0, game.CurrentPlayer.Hero.AttackDamage);
+
+			game.ProcessCard("Dalaran Mage");
+			Assert.Equal(1, game.CurrentPlayer.CurrentSpellPower);
+			Assert.Equal(0, game.CurrentPlayer.Hero.AttackDamage);
 		}
 	}
 

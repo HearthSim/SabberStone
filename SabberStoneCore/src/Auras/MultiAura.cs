@@ -9,14 +9,14 @@ namespace SabberStoneCore.Auras
 	/// <summary>
 	/// A container class for multiple auras. Use this when you want to implement a <see cref="Power"/> with multiple auras.
 	/// </summary>
-	public class MultiAura : IAura, IReadOnlyList<Aura>
+	public class MultiAura : IAura, IReadOnlyList<IAura>
 	{
-		private readonly IReadOnlyList<Aura> _auras;
+		private readonly IReadOnlyList<IAura> _auras;
 
 		public IPlayable Owner { get; set; }
 		public bool On { get; set; } = true;
 
-		public MultiAura(params Aura[] auras)
+		public MultiAura(params IAura[] auras)
 		{
 			_auras = auras;
 		}
@@ -25,8 +25,9 @@ namespace SabberStoneCore.Auras
 		{
 			if (!On)
 				Owner.Game.Auras.Remove(this);
-			for (int i = 0; i < _auras.Count; i++)
-				_auras[i].Update();
+			else
+				for (int i = 0; i < _auras.Count; i++)
+					_auras[i].Update();
 		}
 
 		public void Remove()
@@ -47,7 +48,7 @@ namespace SabberStoneCore.Auras
 			ActivateInternal(clone, true);
 		}
 
-		public IEnumerator<Aura> GetEnumerator()
+		public IEnumerator<IAura> GetEnumerator()
 		{
 			return _auras.GetEnumerator();
 		}
@@ -59,12 +60,12 @@ namespace SabberStoneCore.Auras
 
 		public int Count => _auras.Count;
 
-		public Aura this[int index] => _auras[index];
+		public IAura this[int index] => _auras[index];
 
 		public override string ToString()
 		{
 			var sb = new StringBuilder("[MA:");
-			foreach (Aura a in _auras)
+			foreach (IAura a in _auras)
 				sb.Append($"{{{a}}}");
 			sb.Append("]");
 			return sb.ToString();
@@ -72,17 +73,19 @@ namespace SabberStoneCore.Auras
 
 		private void ActivateInternal(IPlayable owner, bool cloning = false)
 		{
-			Aura[] auras = new Aura[_auras.Count];
+			IAura[] auras = new IAura[_auras.Count];
 
 			for (int i = 0; i < _auras.Count; i++)
 			{
-				_auras[i].Activate(owner, cloning);
-				var inst = (Aura)owner.OngoingEffect;
-				auras[i] = inst;
+				if (cloning)
+					_auras[i].Clone(owner);
+				else
+					_auras[i].Activate(owner);
+				auras[i] = owner.OngoingEffect;
 				owner.Game.Auras.RemoveAt(owner.Game.Auras.Count - 1);
 			}
 
-			var instance = new MultiAura(auras)
+			IAura instance = new MultiAura(auras)
 			{
 				Owner = owner,
 			};

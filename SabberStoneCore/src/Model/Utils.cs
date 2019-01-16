@@ -121,8 +121,8 @@ namespace SabberStoneCore.Model
 			private int _index;
 			private int _size;
 
-			public int Count { get; set; }
-			public bool IsReadOnly { get; }
+			public int Count { get; private set; }
+			public bool IsReadOnly => false;
 
 			public SmallFastCollection()
 			{

@@ -7,6 +7,7 @@ using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Auras;
 using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCoreTest.CardSets.Standard
@@ -433,7 +434,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			foreach (IPlayable item in game.CurrentOpponent.HandZone)
 			{
 				if (item.Card.Type != CardType.MINION || (item.Card.Cost != 0 && item.Cost >= item.Card.Cost) ||
-				    item.AuraEffects.AdaptiveCostEffect != null) continue;
+				    item.OngoingEffect is AdaptiveCostEffect) continue;
 
 				int expected = item.Card.Cost - 7;
 				if (expected < 0)
@@ -2410,7 +2411,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			// Fix first option 
 			IPlayable firstChoice = game.IdEntityDic[choice.Choices.First()];
-			Generic.ChangeEntityBlock.Invoke(game.CurrentPlayer, firstChoice, Cards.FromName("Blightnozzle Crawler"));
+			Generic.ChangeEntityBlock.Invoke(game.CurrentPlayer, firstChoice, Cards.FromName("Blightnozzle Crawler"), false);
 
 			game.ChooseNthChoice(1);
 
@@ -2898,6 +2899,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Assert.Equal(3, game.CurrentOpponent.Hero.Damage);
 			Assert.Equal(5, game.CurrentPlayer.OverloadOwed);
+
+			//
 		}
 
 		// ---------------------------------------- MINION - SHAMAN

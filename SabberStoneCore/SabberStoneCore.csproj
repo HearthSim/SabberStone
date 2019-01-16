@@ -20,7 +20,7 @@
     <TreatSpecificWarningsAsErrors />
     <LangVersion>latest</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Optimize>false</Optimize>
+    <Optimize>true</Optimize>
     <DefineConstants />
   </PropertyGroup>
   <ItemGroup>

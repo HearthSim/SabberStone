@@ -32,7 +32,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				minion.Silence();
 			}
 
-			;
 			return TaskState.COMPLETE;
 		}
 	}

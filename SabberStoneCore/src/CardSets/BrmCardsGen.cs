@@ -62,9 +62,7 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_009", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
-					p => p.Controller.NumFriendlyMinionsThatDiedThisTurn
-					   + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn)
+				Aura = AdaptiveCostEffect.NumEachMinionDiedThisTurn
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -203,9 +201,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("BRM_003", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
-					p => p.Controller.NumFriendlyMinionsThatDiedThisTurn
-					   + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn),
+				Aura = AdaptiveCostEffect.NumEachMinionDiedThisTurn,
 				PowerTask = ComplexTask.Create(
 					new DamageTask(4, EntityType.TARGET, true))
 			});
@@ -239,9 +235,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Draw 2 cards. Costs (1) less for each minion that died this turn.
 			// --------------------------------------------------------
 			cards.Add("BRM_001", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
-					p => p.Controller.NumFriendlyMinionsThatDiedThisTurn
-					   + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn),
+				Aura = AdaptiveCostEffect.NumEachMinionDiedThisTurn,
 				PowerTask = new EnqueueTask(2, new DrawTask())
 			});
 
@@ -256,7 +250,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Your next Dragon costs (2) less.
 			// --------------------------------------------------------
 			cards.Add("BRM_018e", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SUB, 2))
+				Aura = new Aura(AuraType.HAND, Effects.ReduceCost(2))
 				{
 					Condition = SelfCondition.IsRace(Race.DRAGON),
 					RemoveTrigger = (TriggerType.PLAY_MINION, SelfCondition.IsRace(Race.DRAGON))
@@ -522,9 +516,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Costs (1) less for each minion that died this turn.
 			// --------------------------------------------------------
 			cards.Add("BRM_025", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
-					p => p.Controller.NumFriendlyMinionsThatDiedThisTurn
-					   + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn),
+				Aura = AdaptiveCostEffect.NumEachMinionDiedThisTurn,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

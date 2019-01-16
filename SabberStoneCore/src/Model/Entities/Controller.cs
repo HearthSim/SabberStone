@@ -239,7 +239,7 @@ namespace SabberStoneCore.Model.Entities
 					var enchantments = new List<Enchantment>(originalEnchantments.Count);
 					foreach (Enchantment p in originalEnchantments)
 					{
-						enchantments.Add((Enchantment)p.Clone(this));
+						enchantments.Add(p.Clone(this));
 					}
 					AppliedEnchantments = enchantments;
 				}
@@ -274,6 +274,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			// remove hero and place it to the setaside zone
 			Weapon weapon = null;
+			AuraEffects auraEffects = null;
 			if  (Hero != null)
 			{
 				SetasideZone.MoveTo(Hero, SetasideZone.Count);
@@ -286,6 +287,8 @@ namespace SabberStoneCore.Model.Entities
 				{
 					weapon = Hero.Weapon;
 				}
+
+				auraEffects = Hero.AuraEffects;
 			}
 
 
@@ -295,6 +298,7 @@ namespace SabberStoneCore.Model.Entities
 			Hero.HeroPower = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
 				new EntityData { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
 			Hero.Weapon = weapon;
+			Hero.AuraEffects = auraEffects;
 		}
 
 		/// <summary>
@@ -322,155 +326,9 @@ namespace SabberStoneCore.Model.Entities
 		/// Returns a set of all options this player can perform execute at the moment.
 		/// From this set one option is picked and executed by the game.
 		/// </summary>
-		/// <param name="playCards"></param>
-		/// <returns></returns>
-		public List<PlayerTask> Options(/*bool playCards = true*/)
-		{
-			//CalculatingOptions = true;
-
-			var result = new List<PlayerTask>();
-
-			if (this != Game.CurrentPlayer)
-				return result;
-
-			if (Choice != null)
-			{
-				switch (Choice.ChoiceType)
-				{
-					case ChoiceType.GENERAL:
-						Choice.Choices.ToList().ForEach(p => result.Add(ChooseTask.Pick(this, p)));
-						return result;
-
-					case ChoiceType.MULLIGAN:
-						IEnumerable<IEnumerable<int>> choices = Util.GetPowerSet(Choice.Choices);
-						choices.ToList().ForEach(p => result.Add(ChooseTask.Mulligan(this, p.ToList())));
-						return result;
-
-					default:
-						throw new NotImplementedException();
-				}
-			}
-
-			// no options till mulligan is done for both players
-			if (Game.Step != Step.MAIN_ACTION)
-				return result;
-
-			// add end turn task ...
-			result.Add(EndTurnTask.Any(this));
-
-			// if (playCards)
-			if (true)
-			{
-				foreach (IPlayable playableCard in HandZone)
-				{
-					var minion = playableCard as Minion;
-
-					if (!playableCard.IsPlayableByPlayer)
-						continue;
-
-					List<IPlayable> playables = playableCard.ChooseOne && !Game.CurrentPlayer.ChooseBoth
-						? playableCard.ChooseOnePlayables.ToList()
-						: new List<IPlayable> { playableCard };
-
-					foreach (IPlayable t in playables)
-					{
-						if (!t.IsPlayableByCardReq)
-							continue;
-
-						IEnumerable<ICharacter> targets = t.ValidPlayTargets;
-						var subResult = new List<PlayCardTask>();
-						if (!targets.Any())
-						{
-							subResult.Add(PlayCardTask.Any(this, playableCard, null, -1,
-								playables.Count == 1 ? 0 : playables.IndexOf(t) + 1));
-						}
-
-						//subResult.AddRange(
-						//	targets.Select(
-						//		target =>
-						//			PlayCardTask.Any(this, playableCard, target, -1,
-						//				playables.Count == 1 ? 0 : playables.IndexOf(t) + 1)));
-						foreach (ICharacter target in targets)
-						{
-							subResult.Add(PlayCardTask.Any(this, playableCard, target, -1,
-								playables.Count == 1 ? 0 : playables.IndexOf(t) + 1));
-						}
-
-						if (minion != null)
-						{
-							var tempSubResult = new List<PlayCardTask>();
-							int positions = BoardZone.Count + 1;
-							for (int j = 0; j < positions; j++)
-							{
-								subResult.ForEach(p =>
-								{
-									PlayCardTask task = p.Copy();
-									task.ZonePosition = j;
-									tempSubResult.Add(task);
-								});
-							}
-							subResult = tempSubResult;
-						}
-						result.AddRange(subResult);
-					}
-				}
-			}
-
-			foreach (Minion minion in BoardZone)
-			{
-				if (!minion.CanAttack)
-					continue;
-
-				IEnumerable<ICharacter> targets = minion.ValidAttackTargets;
-				foreach (ICharacter target in targets)
-					result.Add(MinionAttackTask.Any(this, minion, target));
-			}
-
-			if (Hero.CanAttack)
-			{
-				IEnumerable<ICharacter> targets = Hero.ValidAttackTargets;
-				foreach (ICharacter target in targets)
-					result.Add(HeroAttackTask.Any(this, target));
-			}
-
-			if (Hero.HeroPower.IsPlayable)
-			{
-				if (Hero.HeroPower.ChooseOne)
-				{
-					if (ChooseBoth)
-						result.Add(HeroPowerTask.Any(this));
-					else
-					{
-						result.Add(HeroPowerTask.Any(this, null, 1));
-						result.Add(HeroPowerTask.Any(this, null, 2));
-					}
-				}
-				else
-				{
-					IEnumerable<ICharacter> targets = Hero.HeroPower.GetValidPlayTargets();
-					if (targets.Any())
-					{
-						foreach (ICharacter target in targets)
-							result.Add(HeroPowerTask.Any(this, target));
-					}
-					else
-					{
-						result.Add(HeroPowerTask.Any(this));
-					}
-				}
-			}
-
-			return result;
-		}
-
-		#region newOptions
-		/// <summary>
-		/// Returns a set of all options this player can perform execute at the moment.
-		/// From this set one option is picked and executed by the game.
-		/// </summary>
 		/// <param name="skipPrePhase">Doesn't check validity of the options generated from this when it is processed.</param>
 		/// <returns></returns>
-		public List<PlayerTask> Options_improved(bool skipPrePhase = true)
+		public List<PlayerTask> Options(bool skipPrePhase = true)
 		{
 			// No options for the opponent player.
 			if (this != Game.CurrentPlayer)
@@ -605,7 +463,7 @@ namespace SabberStoneCore.Model.Entities
 				if (!spellCostHealth.HasValue)
 					spellCostHealth = ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1;
 
-				bool healthCost = playable.AuraEffects[GameTag.CARD_COSTS_HEALTH] == 1 ||
+				bool healthCost = (playable.AuraEffects?.CardCostHealth ?? false) ||
 				                  (spellCostHealth.Value && playable.Card.Type == CardType.SPELL);
 
 				if (!healthCost && (playable.Cost > mana || playable.Card.HideStat))
@@ -876,7 +734,6 @@ namespace SabberStoneCore.Model.Entities
 			}
 			#endregion
 		}
-		#endregion
 
 		/// <summary>
 		/// Returns a string which dumps information about this player.

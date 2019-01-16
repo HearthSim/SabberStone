@@ -823,10 +823,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_TO_PLAY = 0
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void WingBlast_GIL_518()
 		{
-			// TODO WingBlast_GIL_518 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -843,8 +842,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wing Blast"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wing Blast"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wing Blast"));
+
+			Assert.Equal(testCard.Card.Cost, testCard.Cost);
+
+			Minion test = game.ProcessCard<Minion>("Stonetusk Boar");
+			test.Kill();
+
+			Assert.Equal(1, testCard.Cost);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER

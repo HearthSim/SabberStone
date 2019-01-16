@@ -42,7 +42,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			Controller c = source.Controller;
 
-			Card randCard = null;
+			Card randCard;
 			do
 			{
 				randCard = cards[Random.Next(cards.Length)];
@@ -62,7 +62,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			ICharacter randTarget = null;
-			if (randCard.RequiresTarget || randCard.RequiresTargetIfAvailable)
+			if (randCard.TargetingType != TargetingType.None)
 			{
 				var targets = (List<ICharacter>) spellToCast.ValidPlayTargets;
 

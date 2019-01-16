@@ -3429,7 +3429,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			cards.Add("LOOTA_BOSS_40pe", new Power {
 				//Enchant = new Enchant(GameTag.ATK, EffectOperator.SUB, 1)
-				Enchant = new Enchant(new AttackEffect(EffectOperator.SUB, 1))
+				Enchant = new Enchant(ATK.Effect(EffectOperator.SUB, 1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

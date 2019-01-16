@@ -73,6 +73,8 @@ namespace SabberStoneCore.Model.Entities
 
 		event TriggerManager.TriggerHandler AfterAttackTrigger;
 		void OnAfterAttackTrigger();
+
+		bool HasAnyValidAttackTargets { get; }
 	}
 
 	/// <summary>
@@ -96,8 +98,8 @@ namespace SabberStoneCore.Model.Entities
 		protected Character(in Controller controller, in Card card, in IDictionary<GameTag, int> tags, in int id)
 			: base(in controller, in card, in tags, in id)
 		{
-			_atkModifier = card.ATK;
-			_healthModifier = card.Health;
+			//_atkModifier = card.ATK;
+			//_healthModifier = card.Health;
 		}
 
 		/// <summary>
@@ -169,7 +171,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Character can attack.
 		/// </summary>
-		public virtual bool CanAttack => !IsExhausted && !IsFrozen && ValidAttackTargets.Any() && !CantAttack;
+		public virtual bool CanAttack => !IsExhausted && !IsFrozen && HasAnyValidAttackTargets && !CantAttack;
 
 		/// <summary>
 		/// Indicates if the provided character can be attacked by this character.
@@ -185,11 +187,13 @@ namespace SabberStoneCore.Model.Entities
 				return false;
 			}
 
-			var hero = target as Hero;
-			if (CantAttackHeroes && (hero != null))
+			if (target is Hero)
 			{
-				Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", !Game.Logging? "":$"Can't attack Heroes!");
-				return false;
+				if (CantAttackHeroes || (this is Minion m && m.AttackableByRush))
+				{
+					Game.Log(LogLevel.WARNING, BlockType.ACTION, "Character", !Game.Logging ? "" : $"Can't attack Heroes!");
+					return false;
+				}
 			}
 
 			return true;
@@ -228,6 +232,27 @@ namespace SabberStoneCore.Model.Entities
 					allTargets.Add(opHero);
 
 				return allTargets;
+			}
+		}
+
+		public bool HasAnyValidAttackTargets
+		{
+			get
+			{
+				ReadOnlySpan<Minion> span = Controller.Opponent.BoardZone.GetSpan();
+				for (int i = 0; i < span.Length; i++)
+				{
+					if (!(span[i].HasStealth || span[i].IsImmune))
+						return true;
+				}
+
+				bool isOpHeroValidPlayTarget =
+					!Controller.Opponent.Hero.HasStealth && !Controller.Opponent.Hero.IsImmune;
+
+				if (isOpHeroValidPlayTarget && (!CantAttackHeroes || this is Minion m && m.AttackableByRush))
+					return true; // Op Hero is a valid attack target
+
+				return false;
 			}
 		}
 
@@ -284,7 +309,7 @@ namespace SabberStoneCore.Model.Entities
 				PreDamageTrigger.Invoke(this);
 				game.ProcessTasks();
 				amount = game.CurrentEventData.EventNumber;
-				if (amount == 0)
+				if (amount == 0 && armor == 0)
 				{
 					if (_history)
 						PreDamage = 0;
@@ -428,9 +453,9 @@ namespace SabberStoneCore.Model.Entities
 		public override string Hash(params GameTag[] ignore)
 		{
 			var sb = new StringBuilder(base.Hash(ignore));
-			sb.Append($"[A:{_atkModifier}, ");
-			sb.Append($"H:{_healthModifier}, ");
-			sb.Append($"D:{_dmgModifier}]");
+			sb.Append($"[A:{_modifiedATK}, ");
+			sb.Append($"H:{_modifiedHealth}, ");
+			sb.Append($"D:{_damage}]");
 			return sb.ToString();
 		}
 	}
@@ -553,23 +578,26 @@ namespace SabberStoneCore.Model.Entities
 	{
 		private bool _lifestealChecker;
 
-		internal int _atkModifier;
-		internal int _healthModifier;
-		internal int _dmgModifier;
-		internal int _numAttackThisturn;
-		internal bool? _stealth;
-		internal bool? _immune;
-		internal bool? _taunt;
+		internal int? _modifiedATK;
+		internal int? _modifiedHealth;
+		internal bool? _modifiedStealth;
+		internal bool? _modifiedImmune;
+		internal bool? _modifiedTaunt;
+		internal bool? _modifiedCantBeTargetedBySpells;
+
+		internal int _damage;
+		internal int _numAttackThisTurn;
 
 		internal void CopyInternalAttributes(in Character copy)
 		{
-			copy._atkModifier = _atkModifier;
-			copy._healthModifier = _healthModifier;
-			copy._dmgModifier = _dmgModifier;
-			copy._numAttackThisturn = _numAttackThisturn;
-			copy._stealth = _stealth;
-			copy._immune = _immune;
-			copy._taunt = _taunt;
+			copy._modifiedATK = _modifiedATK;
+			copy._modifiedHealth = _modifiedHealth;
+			copy._damage = _damage;
+			copy._numAttackThisTurn = _numAttackThisTurn;
+			copy._modifiedStealth = _modifiedStealth;
+			copy._modifiedImmune = _modifiedImmune;
+			copy._modifiedTaunt = _modifiedTaunt;
+			copy._modifiedCantBeTargetedBySpells = _modifiedCantBeTargetedBySpells;
 		}
 
 #pragma warning disable CS1591 // Fehledes XML-Kommentar für öffentlich sichtbaren Typ oder Element
@@ -578,20 +606,23 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				int value = _atkModifier;
+				int value = _modifiedATK ?? (_modifiedATK = Card.ATK).Value;
 
-				int auraValue = AuraEffects.AttackDamage;
-				value += auraValue;
+				value += AuraEffects?.ATK ?? 0;
+
 				return value < 0 ? 0 : value;
 			}
 			set
 			{
 				if (_logging)
 					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging ? "" : $"{this} set data {GameTag.ATK} to {value}");
-				if (_history && value + AuraEffects.AttackDamage != AttackDamage)
+				if (_history && value + (AuraEffects?.ATK ?? 0) != AttackDamage)
+				{
 					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.ATK, value));
+					_data[GameTag.ATK] = value;
+				}
 
-				_atkModifier = value;
+				_modifiedATK = value;
 			}
 		}
 
@@ -599,28 +630,27 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				int value = _healthModifier;
+				int value = _modifiedHealth ?? (_modifiedHealth = Card.Health).Value;
 
-				int auraValue = AuraEffects.Health;
-				if (auraValue >= 0) return value + auraValue;
-				value += auraValue;
-				return value < 0 ? 0 : value;
+				return value + (AuraEffects?.Health ?? 0);
 			}
 			set
 			{
 				if (_logging)
 					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging ? "" : $"{this} set data {GameTag.HEALTH} to {value}");
-				if (_history && value + AuraEffects.AttackDamage != AttackDamage)
+				if (_history && value + (AuraEffects?.Health ?? 0) != AttackDamage)
+				{
 					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.HEALTH, value));
+					_data[GameTag.HEALTH] = value;
+				}
 
-				_healthModifier = value;
+				_modifiedHealth = value;
 			}
 		}
 
 		public int Damage
 		{
-			//get => NativeTags.TryGetValue(GameTag.DAMAGE, out int value) ? value : 0;
-			get => _dmgModifier;
+			get => _damage;
 			set
 			{
 				// don't allow negative values
@@ -631,16 +661,19 @@ namespace SabberStoneCore.Model.Entities
 
 				if (_logging)
 					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging ? "" : $"{this} set data {GameTag.DAMAGE} to {value}");
-				if (_history && value != _dmgModifier)
+				if (_history && value != _damage)
+				{
 					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.DAMAGE, value));
+					_data[GameTag.DAMAGE] = value;
+				}
 
-				_dmgModifier = value;
+				_damage = value;
 			}
 		}
 
 		public int Health
 		{
-			get => BaseHealth - _dmgModifier;
+			get => BaseHealth - _damage;
 			set
 			{
 				if (value == 0)
@@ -648,10 +681,22 @@ namespace SabberStoneCore.Model.Entities
 					ToBeDestroyed = true;
 				}
 
-				//this[GameTag.HEALTH] = value;
-				//this[GameTag.DAMAGE] = 0;
-				_healthModifier = value;
-				_dmgModifier = 0;
+				_modifiedHealth = value;
+				_damage = 0;
+
+				if (_logging)
+				{
+					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging ? "" : $"{this} set data {GameTag.HEALTH} to {value}");
+					Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Entity", !Game.Logging ? "" : $"{this} set data {GameTag.DAMAGE} to {value}");
+				}
+
+				if (_history)
+				{
+					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.HEALTH, value));
+					_data[GameTag.HEALTH] = value;
+					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.DAMAGE, value));
+					_data[GameTag.DAMAGE] = value;
+				}
 			}
 		}
 
@@ -667,12 +712,11 @@ namespace SabberStoneCore.Model.Entities
 			set => this[GameTag.CANT_ATTACK] = value ? 1 : 0;
 		}
 
-		public bool CantAttackHeroes
+		public virtual bool CantAttackHeroes
 		{
 			get
 			{
 				_data.TryGetValue(GameTag.CANNOT_ATTACK_HEROES, out int value);
-				value += AuraEffects[GameTag.CANNOT_ATTACK_HEROES];
 				return value > 0;
 			}
 			set => this[GameTag.CANNOT_ATTACK_HEROES] = value ? 1 : 0;
@@ -680,29 +724,18 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool CantBeTargetedBySpells
 		{
-			get
+			get => (AuraEffects?.CantBeTargetedBySpells ?? false) ||
+			       (_modifiedCantBeTargetedBySpells ??
+			        (_modifiedCantBeTargetedBySpells = Card.CantBeTargetedBySpells).Value);
+			set
 			{
-				if (!_data.TryGetValue(GameTag.CANT_BE_TARGETED_BY_SPELLS, out int value))
-					value = Card.CantBeTargetedBySpells ? 1 : 0;
-				value += AuraEffects[GameTag.CANT_BE_TARGETED_BY_SPELLS];
-
-				return value > 0;
+				_modifiedCantBeTargetedBySpells = value;
+				this[GameTag.CANT_BE_TARGETED_BY_SPELLS] = value ? 1 : 0;
 			}
-			set => this[GameTag.CANT_BE_TARGETED_BY_SPELLS] = value ? 1 : 0;
 		}
 
 		public bool CantBeTargetedByHeroPowers
 		{
-			//get
-			//{
-			//	if (!_data.TryGetValue(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS, out int value))
-			//		value = Card.CantBeTargetedByHeroPowers ? 1 : 0;
-			//	value += AuraEffects[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS];
-
-			//	return value > 0;
-			//}
-			//set { this[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] = value ? 1 : 0; }
-
 			get => CantBeTargetedBySpells;
 		}
 
@@ -746,10 +779,10 @@ namespace SabberStoneCore.Model.Entities
 
 		public virtual bool IsImmune
 		{
-			get => _immune.HasValue && _immune.Value;
+			get => _modifiedImmune == true;
 			set
 			{
-				_immune = value;
+				_modifiedImmune = value;
 				base[GameTag.IMMUNE] = value ? 1 : 0;
 			}
 		}
@@ -783,17 +816,10 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool HasTaunt
 		{
-			get
-			{
-				if (_taunt.HasValue) return _taunt.Value;
-
-				bool cardTag = Card.Taunt;
-				_taunt = cardTag;
-				return cardTag;
-			}
+			get => (AuraEffects?.Taunt ?? false) || (_modifiedTaunt ?? (_modifiedTaunt = Card.Taunt).Value);
 			set
 			{
-				_taunt = value;
+				_modifiedTaunt = value;
 				base[GameTag.TAUNT] = value ? 1 : 0;
 			}
 		}
@@ -802,27 +828,20 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool HasStealth
 		{
-			get
-			{
-				if (_stealth.HasValue) return _stealth.Value;
-
-				bool cardTag = Card.Stealth;
-				_stealth = cardTag;
-				return cardTag;
-			}
+			get => _modifiedStealth ?? (_modifiedStealth = Card.Stealth).Value;
 			set
 			{
-				_stealth = value;
+				_modifiedStealth = value;
 				base[GameTag.STEALTH] = value ? 1 : 0;
 			}
 		}
 
 		public int NumAttacksThisTurn
 		{
-			get => _numAttackThisturn;
+			get => _numAttackThisTurn;
 			set
 			{
-				_numAttackThisturn = value;
+				_numAttackThisTurn = value;
 				if (_history)
 					this[GameTag.NUM_ATTACKS_THIS_TURN] = value;
 			}

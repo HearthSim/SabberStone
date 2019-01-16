@@ -26,7 +26,7 @@ namespace SabberStoneCoreConsole
 
 			Console.WriteLine("Start Test!");
 
-			ChameleosPintSizedSummonerDouble();
+			//ChameleosPintSizedSummonerDouble();
 
 			//AugmentedElekk();
 

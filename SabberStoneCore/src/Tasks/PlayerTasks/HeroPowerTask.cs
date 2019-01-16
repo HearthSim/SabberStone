@@ -21,10 +21,10 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 			SkipPrePhase = skipPrePhase;
 		}
 
-		public override TaskState Process()
+		public override bool Process()
 		{
 			bool success = Generic.HeroPower(Controller, Target, ChooseOne, SkipPrePhase);
-			return TaskState.COMPLETE;
+			return success;
 		}
 
 		public override string FullPrint()

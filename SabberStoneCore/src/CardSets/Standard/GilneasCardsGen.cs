@@ -429,7 +429,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_518", new Power {
 				// TODO Test: Wing Blast_GIL_518
 				PowerTask = new DamageTask(4, EntityType.TARGET, true),
-				Aura = new AdaptiveCostEffect(1, p => p.Controller.NumFriendlyMinionsThatDiedThisTurn + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn > 0)
+				Aura = new AdaptiveCostEffect(1, TriggerType.DEATH)
 			});
 
 			// ----------------------------------------- SPELL - HUNTER
@@ -795,7 +795,7 @@ namespace SabberStoneCore.CardSets.Standard
 						if (deck[i].Cost != 1) continue;
 
 						deck.SetEntity(i,
-							Generic.ChangeEntityBlock.Invoke(c, deck[i], legendaries[rnd.Next(legendaries.Count)]));
+							Generic.ChangeEntityBlock.Invoke(c, deck[i], legendaries[rnd.Next(legendaries.Count)], false));
 					}
 
 					return 0;
@@ -921,12 +921,16 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerActivation = TriggerActivation.HAND,
 					SingleTask = new FuncNumberTask(p =>
 					{
+						if (p.Zone?.Type != Zone.HAND)
+							return 0;
+
 						Card pick = p.Controller.Opponent.HandZone.Random?.Card;
 						if (pick == null) return 0;
-						IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);
+						IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick, true);
 						Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("GIL_142e"), p, result, 0, 0, false);
 						return 0;
-					})
+					}),
+					FastExecution = true
 				}
 			});
 
@@ -2657,8 +2661,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("GIL_128e", new Power {
 				Enchant = new Enchant(
-					new AttackEffect(EffectOperator.MUL, 2),
-					new HealthEffect(EffectOperator.MUL, 2))
+					ATK.Effect(EffectOperator.MUL, 2),
+					Health.Effect(EffectOperator.MUL, 2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2697,7 +2701,7 @@ namespace SabberStoneCore.CardSets.Standard
 
 							Card pick = p.Controller.Opponent.HandZone.Random?.Card;
 							if (pick == null) return null;
-							IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick);
+							IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick, true);
 							Generic.AddEnchantmentBlock(p.Controller, Cards.FromId("GIL_142e"), list[0], result, 0, 0,
 								false);
 							return null;
@@ -2737,7 +2741,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your spells cost (5) more this turn.
 			// --------------------------------------------------------
 			cards.Add("GIL_203e", new Power {
-				Aura = new Aura(AuraType.OP_HAND, new Effect(GameTag.COST, EffectOperator.ADD, 5))
+				Aura = new Aura(AuraType.OP_HAND, Effects.AddCost(5))
 				{
 					Condition = SelfCondition.IsSpell,
 					RemoveTrigger = (TriggerType.TURN_END, SelfCondition.IsOpTurn)
@@ -2906,7 +2910,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Decreased Health.
 			// --------------------------------------------------------
 			cards.Add("GIL_623e", new Power {
-				Enchant = new Enchant(new HealthEffect(EffectOperator.SUB, 0))
+				Enchant = new Enchant(Health.Effect(EffectOperator.SUB, 0))
 				{
 					UseScriptTag = true
 				}
@@ -2972,7 +2976,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Enchant = new Enchant(
 					Effects.SetAttack(10),
 					Effects.SetMaxHealth(10),
-					new Effect(GameTag.COST, EffectOperator.SET, 10))
+					Effects.SetCost(10))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2982,7 +2986,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: -2 Attack until next turn.
 			// --------------------------------------------------------
 			cards.Add("GIL_665e", new Power {
-				Enchant = new Enchant(new AttackEffect(EffectOperator.SUB, 2))
+				Enchant = new Enchant(ATK.Effect(EffectOperator.SUB, 2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3002,7 +3006,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your <b>Hero Power</b> costs (1).
 			// --------------------------------------------------------
 			cards.Add("GIL_692e", new Power {
-				Enchant = new Enchant(new Effect(GameTag.COST, EffectOperator.SET, 1))
+				Enchant = new Enchant(Effects.SetCost(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3012,7 +3016,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (0).
 			// --------------------------------------------------------
 			cards.Add("GIL_800e2", new Power {
-				Enchant = new Enchant(GameTag.COST, EffectOperator.SET, 0)
+				Enchant = new Enchant(Effects.SetCost(0))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3032,7 +3036,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Doubled Health.
 			// --------------------------------------------------------
 			cards.Add("GIL_837e", new Power {
-				Enchant = new Enchant(new HealthEffect(EffectOperator.MUL, 2))
+				Enchant = new Enchant(Health.Effect(EffectOperator.MUL, 2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

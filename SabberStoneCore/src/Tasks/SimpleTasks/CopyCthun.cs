@@ -21,8 +21,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (game.History)
 			{
-				if (source.AppliedEnchantments == null)
-					source.AppliedEnchantments = new List<Enchantment>();
+				if (playableSource.AppliedEnchantments == null)
+					playableSource.AppliedEnchantments = new List<Enchantment>();
 
 				if (proxyCthun.AppliedEnchantments != null)
 					foreach (Enchantment e in proxyCthun.AppliedEnchantments)
@@ -38,7 +38,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 			}
 
-			proxyCthun.OngoingEffect?.Clone((IPlayable) source);
+			proxyCthun.OngoingEffect?.Clone(playableSource);
 
 			minionTarget.AttackDamage = proxyCthun.AttackDamage;
 			minionTarget.BaseHealth = proxyCthun.BaseHealth;

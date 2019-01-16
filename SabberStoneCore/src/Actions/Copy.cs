@@ -19,7 +19,6 @@ namespace SabberStoneCore.Actions
 
 			Zone sourceZone = source.Zone?.Type ?? Zone.PLAY;
 
-
 			if (sourceZone == Zone.GRAVEYARD)
 				copyEnchantments = false;
 			else if (sourceZone == targetZone)
@@ -44,10 +43,12 @@ namespace SabberStoneCore.Actions
 					[GameTag.DISPLAYED_CREATOR] = creator.Id
 				};
 
-				if (source.NativeTags.TryGetValue(GameTag.COST, out int cost))
-					tags.Add(GameTag.COST, cost);
-
 				copiedEntity = Entity.FromCard(in controller, source.Card, tags);
+
+				int? modifiedCost = ((Playable)source)._modifiedCost;
+
+				if (modifiedCost.HasValue)
+					copiedEntity.Cost = modifiedCost.Value;
 
 				if (copiedEntity is Character c)
 					((Character)source).CopyInternalAttributes(in c);
@@ -63,8 +64,14 @@ namespace SabberStoneCore.Actions
 							instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
 							if (e[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
 								instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = e[GameTag.TAG_SCRIPT_DATA_NUM_2];
+
+							instance.CapturedCard = e.CapturedCard;
 						}
+
+						if (e.IsOneTurnActive)
+							instance.Game.OneTurnEffectEnchantments.Add(instance);
 					}
+					
 				}
 
 				var kvps = new KeyValuePair<GameTag, int>[source.NativeTags.Count];

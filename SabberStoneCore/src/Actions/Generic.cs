@@ -7,12 +7,13 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCore.Actions
 {
 	/// <summary>
 	/// Container of game logic functionality, which is invoked by processing a selected option
-	/// through <see cref="Game.Process(Tasks.PlayerTask)"/>.
+	/// through <see cref="Game.Process(PlayerTask)"/>.
 	/// </summary>
 	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -255,7 +256,7 @@ namespace SabberStoneCore.Actions
 			};
 
 		/// <summary>
-		/// Controller, Card, Creator, Target, ScriptTag1, ScriptTag2
+		/// Controller, Card, Creator, Target, ScriptTag1, ScriptTag2, UseEntityId
 		/// </summary>
 		public static Func<Controller, Card, IPlayable, IEntity, int, int, bool, bool> AddEnchantmentBlock
 			=> delegate (Controller c, Card enchantmentCard, IPlayable creator, IEntity target, int num1, int num2, bool useEntityId)
@@ -289,8 +290,8 @@ namespace SabberStoneCore.Actions
 					if (power.DeathrattleTask != null)
 						((IPlayable)target).IsDeathrattle = true;
 
-					//if (useEntityId)
-					//	enchantment.
+					if (useEntityId)
+						enchantment.CapturedCard = c.Game.IdEntityDic[num1].Card;
 				}
 				else
 				{
@@ -308,6 +309,9 @@ namespace SabberStoneCore.Actions
 
 						if (power.Enchant?.RemoveWhenPlayed ?? false)
 							Enchant.RemoveWhenPlayedTrigger.Activate(instance);
+
+						if (useEntityId)
+							instance.CapturedCard = c.Game.IdEntityDic[num1].Card;
 					}
 
 					//	no indicator enchantment entities when History option is off
@@ -316,8 +320,8 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		public static Func<Controller, IPlayable, Card, IPlayable> ChangeEntityBlock
-			=> delegate(Controller c, IPlayable p, Card newCard)
+		public static Func<Controller, IPlayable, Card, bool, IPlayable> ChangeEntityBlock
+			=> delegate(Controller c, IPlayable p, Card newCard, bool removeEnchantments)
 			{
 				c.Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "ChangeEntityBlock",
 					!c.Game.Logging ? "" : $"{p} is changed into {newCard}.");
@@ -325,27 +329,35 @@ namespace SabberStoneCore.Actions
 				//if (!(p.Zone is HandZone hand))
 				//	throw new InvalidOperationException($"{p} is not in Hand. ({p.Zone})");
 
+				if (removeEnchantments)
+				{
+					// 12.0 Game Mechanics Update: Clear all applied enchantments when shifting
+					if (p.AppliedEnchantments != null)
+						for (int i = p.AppliedEnchantments.Count - 1; i >= 0; i--)
+							p.AppliedEnchantments[i].Remove();
+
+					if (p is Minion m)
+					{
+						m._modifiedATK = m.Card.ATK;
+						m._modifiedHealth = m.Card.Health;
+					}
+
+					((Playable)p).ResetCost();
+				}
+
 				p.ActivatedTrigger?.Remove();
 				p.OngoingEffect?.Remove();
-				p.AuraEffects.ToBeUpdated = true;
-
-				// 12.0 Game Mechanics Update: Clear all applied enchantments when shifting
-				if (p.AppliedEnchantments != null)
-					for (int i = p.AppliedEnchantments.Count - 1; i >= 0; i--)
-						p.AppliedEnchantments[i].Remove();
 
 				HandZone hand = p.Zone as HandZone;
 				BoardZone board = p.Zone as BoardZone;
 
-				// Reapply auras
+				// Detach the target from Auras
 				if (hand != null)
-					hand.Auras.ForEach(a => a.EntityRemoved(p));
+					hand.Auras.ForEach(a => a.Detach(p.Id));
 				else if
 					(board != null)
-					board.Auras.ForEach(a => a.EntityRemoved(p));
+					board.Auras.ForEach(a => a.Detach(p.Id));
 
-				if (p.Zone.Type == Zone.HAND)
-					p.Controller.HandZone.Auras.ForEach(a => a.EntityRemoved(p));
 
 				// TODO: PowerHistoryChangeEntity
 				// send tag variations and the id of the new Card
@@ -410,7 +422,7 @@ namespace SabberStoneCore.Actions
 					case Zone.HAND:
 						p.Power?.Trigger?.Activate(p, TriggerActivation.HAND);
 						if (p.Power?.Aura is AdaptiveCostEffect e)
-							e.Activate(p);
+							e.Activate((Playable)p);
 						break;
 					case Zone.DECK:
 						p.Power?.Trigger?.Activate(p, TriggerActivation.DECK);

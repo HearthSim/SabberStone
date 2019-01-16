@@ -8,6 +8,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCoreConsole
 {
@@ -166,11 +167,7 @@ namespace SabberStoneCoreConsole
 			    do
 			    {
 				    //Game clone = game.Clone(true);
-				    //List<PlayerTask> options = clone.CurrentPlayer.Options();
-				    List<PlayerTask> options = clone.CurrentPlayer.Options_improved();
-
-				    //if (options.Count != optionsImproved.Count)
-					   // ;
+				    List<PlayerTask> options = clone.CurrentPlayer.Options();
 
 				    PlayerTask option = options[rnd.Next(options.Count)];
 				    history.Push(option);

@@ -255,7 +255,7 @@ namespace SabberStoneCore.CardSets
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("AT_045", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.HAND, Effects.SetCost(1))
 				{
 					Condition = SelfCondition.IsMinion
 				}
@@ -934,7 +934,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Destroy all minions except each player's highest Attack minion.
 			// --------------------------------------------------------
 			cards.Add("AT_078", new Power {
-				PowerTask = new FuncNumberTask((IPlayable p) =>
+				PowerTask = new FuncNumberTask(p =>
 				{
 					ReadOnlySpan<Minion> minions = p.Controller.BoardZone.GetSpan();
 					ReadOnlySpan<Minion> opMinions = p.Controller.Opponent.BoardZone.GetSpan();
@@ -1696,6 +1696,7 @@ namespace SabberStoneCore.CardSets
 					.SetTask(ComplexTask.Create(
 						new GetEventNumberTask(),
 						new DamageNumberTask(EntityType.HERO)))
+					.SetSource(TriggerSource.SELF)
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -1957,7 +1958,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Increased Attack.
 			// --------------------------------------------------------
 			cards.Add("AT_066e", new Power {
-				Enchant = new Enchant(Effects.Attack_N(1))
+				Enchant = new Enchant(GameTag.ATK, EffectOperator.ADD, 1)
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
@@ -2024,7 +2025,7 @@ namespace SabberStoneCore.CardSets
 			// - CHARGE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_070", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p =>
+				Aura = new AdaptiveCostEffect(p =>
 				{
 					int count = 0;
 					ReadOnlySpan<Minion> board = p.Controller.BoardZone.GetSpan();
@@ -2112,7 +2113,7 @@ namespace SabberStoneCore.CardSets
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("AT_085", new Power {
-				Aura = new Aura(AuraType.HEROPOWER, new Effect(GameTag.COST, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.HEROPOWER, Effects.SetCost(1))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2563,7 +2564,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Costs (1) less for each time you used your Hero Power this game.
 			// --------------------------------------------------------
 			cards.Add("AT_120", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumTimesHeroPowerUsedThisGame)
+				Aura = new AdaptiveCostEffect(p => p.Controller.NumTimesHeroPowerUsedThisGame)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2631,7 +2632,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("AT_124", new Power {
 				Trigger = TriggerBuilder
 					.Type(TriggerType.PREDAMAGE)
-					.SetTask(new FuncNumberTask((IPlayable p) =>
+					.SetTask(new FuncNumberTask(p =>
 					{
 						EventMetaData data = p.Game.CurrentEventData;
 

@@ -26,7 +26,7 @@ namespace SabberStoneCore.Enchants
 		internal static Power OneTurnStealthEnchantmentPower =>
 			new Power
 			{
-				Enchant = new Enchant(new StealthEffect()),
+				Enchant = new Enchant(Effects.StealthEff),
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					SingleTask = new RemoveEnchantmentTask(),

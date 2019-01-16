@@ -1450,7 +1450,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("GVG_052", new Power {
 				PowerTask = new DestroyTask(EntityType.TARGET),
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.BoardZone.Any(m => m.Damage > 0) ? 4 : 0)
+				Aura = new AdaptiveCostEffect(p => p.Controller.BoardZone.Any(m => m.Damage > 0) ? 4 : 0)
 			});
 
 			// --------------------------------------- WEAPON - WARRIOR
@@ -2281,7 +2281,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Costs (1) less for each card in your opponent's hand.
 			// --------------------------------------------------------
 			cards.Add("GVG_121", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.Opponent.HandZone.Count)
+				Aura = new AdaptiveCostEffect(p => p.Controller.Opponent.HandZone.Count)
 			});
 
 		}
@@ -2311,7 +2311,7 @@ namespace SabberStoneCore.CardSets
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_011a", new Power {
-				Enchant = new Enchant(new AttackEffect(EffectOperator.SUB, 2))
+				Enchant = new Enchant(ATK.Effect(EffectOperator.SUB, 2))
 				{
 					IsOneTurnEffect = true
 				}
@@ -2324,7 +2324,7 @@ namespace SabberStoneCore.CardSets
 			// Text: +3 Attack.
 			// --------------------------------------------------------
 			cards.Add("GVG_022a", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("GVG_022a")
+				Enchant = new Enchant(GameTag.ATK, EffectOperator.ADD, 3)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2344,7 +2344,7 @@ namespace SabberStoneCore.CardSets
 			// Text: +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("GVG_023a", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("GVG_023a")
+				Enchant = new Enchant(GameTag.ATK, EffectOperator.ADD, 1)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

@@ -900,7 +900,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
 						new FlagTask(true, ComplexTask.Secret(
 							new ReturnHandTask(EntityType.TARGET),
-							new AddAuraEffect(new Effect(GameTag.COST, EffectOperator.ADD, 2), EntityType.TARGET))))
+							new AddAuraEffect(Effects.AddCost(2), EntityType.TARGET))))
 				}
 			});
 
@@ -1341,7 +1341,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_612o", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 0))
+				Aura = new Aura(AuraType.HAND, Effects.SetCost(0))
 				{
 					Condition = SelfCondition.IsSecret,
 					RemoveTrigger = (TriggerType.CAST_SPELL, SelfCondition.IsSecret)
@@ -1641,8 +1641,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: This minion's Attack has been doubled.
 			// --------------------------------------------------------
 			cards.Add("EX1_355e", new Power {
-				//Enchant = new Enchant(GameTag.ATK, EffectOperator.MUL, 2)
-				Enchant = new Enchant(new AttackEffect(EffectOperator.MUL, 2))
+				Enchant = new Enchant(ATK.Effect(EffectOperator.MUL, 2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
@@ -3201,7 +3200,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_409e", new Power {
 				Enchant = new Enchant(
-					Effects.Attack_N(1),
+					new Effect(GameTag.ATK, EffectOperator.ADD, 1),
 					new Effect(GameTag.DURABILITY, EffectOperator.ADD, 1))
 			});
 
@@ -3230,8 +3229,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Decreased Attack.
 			// --------------------------------------------------------
 			cards.Add("EX1_411e2", new Power {
-				//Enchant = new OngoingEnchant(new Effect(GameTag.ATK, EffectOperator.SUB, 1))
-				Enchant = new OngoingEnchant(new AttackEffect(EffectOperator.SUB, 1))
+				Enchant = new OngoingEnchant(new Effect(GameTag.ATK, EffectOperator.SUB, 1))
+				//Enchant = new OngoingEnchant(ATK.Effect(EffectOperator.SUB, 1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
@@ -3556,7 +3555,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_227", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.ADD, 3))
+				Aura = new Aura(AuraType.HAND, Effects.AddCost(3))
 				{
 					Condition = SelfCondition.IsMinion
 				}
@@ -4232,7 +4231,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1) less for each other card in your hand.
 			// --------------------------------------------------------
 			cards.Add("EX1_105", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.HandZone.Count - 1)
+				Aura = new AdaptiveCostEffect(p => p.Controller.HandZone.Count - 1)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -4624,7 +4623,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (1) less for each other minion on the battlefield.
 			// --------------------------------------------------------
 			cards.Add("EX1_586", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.BoardZone.Count + p.Controller.Opponent.BoardZone.Count)
+				Aura = new AdaptiveCostEffect(p => p.Controller.BoardZone.Count + p.Controller.Opponent.BoardZone.Count)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -4707,7 +4706,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_616", new Power {
-				Aura = new Aura(AuraType.HANDS, new Effect(GameTag.COST, EffectOperator.ADD, 1))
+				Aura = new Aura(AuraType.HANDS, Effects.AddCost(1))
 				{
 					Condition = SelfCondition.IsMinion
 				}
@@ -4806,8 +4805,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("NEW1_022", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
-					p => p.Controller.Hero.Weapon?.AttackDamage ?? 0)
+				Aura = new AdaptiveCostEffect(p => p.Controller.Hero.Weapon?.AttackDamage ?? 0)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -5368,7 +5366,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Spells cost (0) this turn!
 			// --------------------------------------------------------
 			cards.Add("NEW1_029t", new Power {
-				Aura = new Aura(AuraType.OP_HAND, new Effect(GameTag.COST, EffectOperator.SET, 0))
+				Aura = new Aura(AuraType.OP_HAND, Effects.SetCost(0))
 				{
 					Condition = SelfCondition.IsSpell,
 					RemoveTrigger = (TriggerType.TURN_END, SelfCondition.IsOpTurn)

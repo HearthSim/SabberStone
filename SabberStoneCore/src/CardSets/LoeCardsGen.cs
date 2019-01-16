@@ -393,7 +393,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOE_019", new Power {
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
-					new AddEnchantmentTask("LOE_019e", EntityType.SOURCE, true))
+					new AddEnchantmentTask("LOE_019e", EntityType.SOURCE, true, true))
 			});
 
 		}
@@ -407,14 +407,15 @@ namespace SabberStoneCore.CardSets
 			// Text: Copied Deathrattle from {0}.
 			// --------------------------------------------------------
 			cards.Add("LOE_019e", new Power {
-				DeathrattleTask = ComplexTask.Create(
-					new IncludeTask(EntityType.SOURCE),
-					new IncludeTask(EntityType.TARGET, null, true),
-					new FuncPlayablesTask(p =>
-					{
-						p[0].Game.IdEntityDic[p[1][GameTag.TAG_SCRIPT_DATA_NUM_1]].ActivateTask(PowerActivation.DEATHRATTLE, null, 0, p[0]);
-						return null;
-					}))
+				//DeathrattleTask = ComplexTask.Create(
+				//	new IncludeTask(EntityType.SOURCE),
+				//	new IncludeTask(EntityType.TARGET, null, true),
+				//	new FuncPlayablesTask(p =>
+				//	{
+				//		p[0].Game.IdEntityDic[p[1][GameTag.TAG_SCRIPT_DATA_NUM_1]].ActivateTask(PowerActivation.DEATHRATTLE, null, 0, p[0]);
+				//		return null;
+				//	}))
+				DeathrattleTask = ActivateCapturedDeathrattleTask.Task
 			});
 
 		}
@@ -466,7 +467,7 @@ namespace SabberStoneCore.CardSets
 			//       Costs (1) less for each Murloc you control.
 			// --------------------------------------------------------
 			cards.Add("LOE_113", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.BoardZone.GetAll(q => q.Race == Race.MURLOC).Length),
+				Aura = new AdaptiveCostEffect(p => p.Controller.BoardZone.GetAll(q => q.Race == Race.MURLOC).Length),
 				PowerTask = new AddEnchantmentTask("LOE_113e", EntityType.ALLMINIONS)
 			});
 
@@ -697,7 +698,7 @@ namespace SabberStoneCore.CardSets
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_038", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 5))
+				Aura = new Aura(AuraType.HAND, Effects.SetCost(5))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

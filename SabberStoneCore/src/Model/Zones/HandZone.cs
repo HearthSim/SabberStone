@@ -32,7 +32,7 @@ namespace SabberStoneCore.Model.Zones
 			base.Add(entity, zonePosition);
 
 			 if (entity.Power?.Aura is AdaptiveCostEffect e)
-				e.Activate(entity);
+				e.Activate((Playable)entity);
 			entity.Power?.Trigger?.Activate(entity, TriggerActivation.HAND);
 
 			Game.TriggerManager.OnZoneTrigger(entity);
@@ -40,7 +40,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public override IPlayable Remove(IPlayable entity)
 		{
-			entity.AuraEffects.ResetCost();
+			((Playable)entity).ResetCost();
 			entity.AppliedEnchantments?.ForEach(p => p.ActivatedTrigger?.Remove());
 			return base.Remove(entity);
 		}

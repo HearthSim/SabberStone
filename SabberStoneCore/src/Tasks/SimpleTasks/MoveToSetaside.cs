@@ -25,8 +25,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					!game.Logging ? "" : $"{p.Controller.Name}'s {p} is moved to the setaside zone.");
 				p.Controller.SetasideZone.Add(removedEntity);
 			}
-
-			;
 			return TaskState.COMPLETE;
 		}
 	}

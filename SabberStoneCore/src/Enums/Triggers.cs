@@ -73,6 +73,9 @@
 		WORGEN_TRANSFORM
 	}
 
+	/// <summary>
+	/// Types of entity that can invoke an event.
+	/// </summary>
 	public enum TriggerSource
 	{
 		ALL,
@@ -94,6 +97,9 @@
 		FRIENDLY_EVENT_SOURCE
 	}
 
+	/// <summary>
+	/// Indicates where this trigger should be activated.
+	/// </summary>
 	public enum TriggerActivation
 	{
 		PLAY,
@@ -102,6 +108,9 @@
 		HAND_OR_PLAY
 	}
 
+	/// <summary>
+	/// Types of event sequences in Hearthstone.
+	/// </summary>
 	public enum SequenceType
 	{
 		None,

@@ -36,7 +36,10 @@ namespace SabberStoneCoreTest
 		    if (asZeroCost)
 			    entity.Cost = 0;
 		    game.DeathProcessingAndAuraUpdate();
-		    game.Process(PlayCardTask.Any(game.CurrentPlayer, entity, character, zonePosition, chooseOne));
+		    var option = PlayCardTask.Any(game.CurrentPlayer, entity, character, zonePosition, chooseOne);
+		    if (!game.Process(option))
+			    throw new Exception($"{option} is not a valid task.");
+
 			return entity;
 	    }
 
@@ -46,14 +49,16 @@ namespace SabberStoneCoreTest
 		/// </summary>
 		public static IPlayable ProcessCard(this Game game, IPlayable entity, IPlayable target = null, bool asZeroCost = false, int chooseOne = 0, int zonePosition = -1)
 	    {
-			if (target != null && !(target is ICharacter character))
+			if (target != null && !(target is ICharacter))
 				throw new ArgumentException($"Can't target non-charater entity {target}");
 
 			if (asZeroCost)
 			    entity.Cost = 0;
 			game.DeathProcessingAndAuraUpdate();
-		    game.Process(PlayCardTask.Any(game.CurrentPlayer, entity, (ICharacter)target, zonePosition, chooseOne));
-		    return entity;
+			var option = PlayCardTask.Any(game.CurrentPlayer, entity, (ICharacter) target, zonePosition, chooseOne);
+			if (!game.Process(option))
+				throw new Exception($"{option} is not a valid task.");
+			return entity;
 		}
 
 		/// <summary>
@@ -74,7 +79,7 @@ namespace SabberStoneCoreTest
 			}
 			if (!(entity is T t))
 			    throw new ArgumentException($"The given card is not {typeof(T)}");
-			if (target != null && !(target is ICharacter character))
+			if (target != null && !(target is ICharacter))
 				throw new ArgumentException($"Can't target non-charater entity {target}");
 		    if (asZeroCost)
 			    entity.Cost = 0;
@@ -85,14 +90,18 @@ namespace SabberStoneCoreTest
 
 	    public static T ProcessCard<T>(this Game game, T entity, IPlayable target = null, bool asZeroCost = false, int chooseOne = 0, int zonePosition = -1) where T : IPlayable
 	    {
-			if (target != null && !(target is ICharacter character))
+			if (target != null && !(target is ICharacter))
 				throw new ArgumentException($"Can't target non-charater entity {target}");
 
 			if (asZeroCost)
 			    entity.Cost = 0;
 		    game.DeathProcessingAndAuraUpdate();
-		    game.Process(PlayCardTask.Any(game.CurrentPlayer, entity, (ICharacter)target, zonePosition, chooseOne));
-		    return entity;
+		    var option = PlayCardTask.Any(game.CurrentPlayer, entity, (ICharacter) target, zonePosition, chooseOne);
+
+			if (!game.Process(option))
+				throw new Exception($"{option} is not a valid task.");
+
+			return entity;
 	    }
 
 		/// <summary>
@@ -108,11 +117,12 @@ namespace SabberStoneCoreTest
 		/// </summary>
 	    public static void PlayHeroPower(this Game game, IPlayable target = null, int chooseOne = 0, bool asZeroCost = false, bool autoRefresh = false)
 	    {
-			if (target != null && !(target is ICharacter character))
+			if (target != null && !(target is ICharacter))
 				throw new ArgumentException($"Can't target non-charater entity {target}");
-
-			game.Process(HeroPowerTask.Any(game.CurrentPlayer, (ICharacter)target, chooseOne, asZeroCost));
-		    if (autoRefresh)
+			var option = HeroPowerTask.Any(game.CurrentPlayer, (ICharacter) target, chooseOne, asZeroCost);
+			if (!game.Process(option))
+				throw new Exception($"{option} is not a valid task.");
+			if (autoRefresh)
 			    game.CurrentPlayer.Hero.HeroPower.IsExhausted = false;
 	    }
 
@@ -123,10 +133,15 @@ namespace SabberStoneCoreTest
 	    {
 		    if (n > game.CurrentPlayer.Choice.Choices.Count)
 			    throw new ArgumentOutOfRangeException();
+		    var option = ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[n - 1]);
+		    if (!game.Process(option))
+			    throw new Exception($"{option} is not a valid task.");
+		}
 
-		    game.Process(ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[n - 1]));
-	    }
-
+		/// <summary>
+		/// Kill this Minion.
+		/// </summary>
+		/// <param name="m"></param>
 	    public static void Kill(this Minion m)
 	    {
 		    if (m.Zone.Type != SabberStoneCore.Enums.Zone.PLAY)
@@ -136,6 +151,11 @@ namespace SabberStoneCoreTest
 		    m.Game.DeathProcessingAndAuraUpdate();
 	    }
 
+		/// <summary>
+		/// Cast to <see cref="ICharacter"/>
+		/// </summary>
+		/// <param name="p"></param>
+		/// <returns></returns>
 	    public static ICharacter AsCharacter(this IPlayable p)
 	    {
 		    var c = p as ICharacter;
