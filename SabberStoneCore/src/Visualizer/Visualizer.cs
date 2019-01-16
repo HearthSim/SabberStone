@@ -15,9 +15,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
-using SabberStoneCore.Visualizer;
 using System;
-using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -127,7 +125,7 @@ namespace SabberStoneCore.Visualizer
 
 			string spacer = zone.Count == 10 ? new string(' ', 1) : new string(' ', 5 * (8 - zone.Count) + zone.Count + 1);
 
-			StringBuilder[] zoneStrArray = new StringBuilder[]
+			StringBuilder[] zoneStrArray = new[]
 			{
 				new StringBuilder("¦" + spacer),
 				new StringBuilder("¦" + spacer),
@@ -214,7 +212,7 @@ namespace SabberStoneCore.Visualizer
 				}
 			}
 
-			string[] backStrArray = new string[] { "", "", "", "", "", "" };
+			string[] backStrArray = new[] { "", "", "", "", "", "" };
 
 			char[][] zoneAscii = new CardAsciiBuilder().Create().ZoneCards(outzone.Count, outzone.Type).Build();
 			int y = turn ? 1 : 0;

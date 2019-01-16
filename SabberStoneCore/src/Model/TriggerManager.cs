@@ -64,8 +64,11 @@ namespace SabberStoneCore.Model
 
 	    public event TriggerHandler EquipWeaponTrigger;
 
+	    public event TriggerHandler ShuffleIntoDeckTrigger;
+
 		public bool HasTargetTrigger => TargetTrigger != null;
 		public bool HasOnSummonTrigger => SummonTrigger != null;
+		public bool HasShuffleIntoDeckTrigger => ShuffleIntoDeckTrigger != null;
 
 	    internal void OnDealDamageTrigger(IEntity sender)
 	    {
@@ -201,6 +204,10 @@ namespace SabberStoneCore.Model
 		    EquipWeaponTrigger?.Invoke(sender);
 	    }
 
+	    internal void OnShuffleIntoDeckTrigger(IEntity sender)
+	    {
+		    ShuffleIntoDeckTrigger?.Invoke(sender);
+	    }
 
 	    public void AddTrigger(TriggerType type, TriggerHandler method)
 	    {

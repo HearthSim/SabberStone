@@ -21,9 +21,9 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks
 {
-	internal partial class ComplexTask
+	internal static class ComplexTask
 	{
-		public static ISimpleTask Create(ISimpleTask task, int times)
+		public static ISimpleTask Repeat(ISimpleTask task, int times)
 		{
 			ISimpleTask[] list = new ISimpleTask[times];
 			for (int i = 0; i < times; i++)
@@ -53,12 +53,13 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(entityType),
 				new FuncPlayablesTask(playables =>
 				{
-					playables.ForEach(p =>
+					foreach (IPlayable p in playables)
 					{
-						var m = p as Minion;
+						var m = (Minion) p;
 						if (m.NumAttacksThisTurn == 1 && m.IsExhausted)
 							m.IsExhausted = false;
-					});
+					}
+
 					return playables;
 				}));
 
@@ -77,12 +78,12 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(entityType),
 				new FuncPlayablesTask(list =>
 				{
-					list.ForEach(p =>
+					foreach (IPlayable p in list)
 					{
-						Minion m = p as Minion;
+						var m = (Minion) p;
 						if (m.NumAttacksThisTurn == 0 && m.IsExhausted)
 							m.IsExhausted = false;
-					});
+					}
 					return null;
 				})
 			);
@@ -116,14 +117,19 @@ namespace SabberStoneCore.Tasks
 
 		public static ISimpleTask DestroyRandomTargets(int targets, EntityType type)
 			=> Create(
-				new RandomTask(targets, type),
+				new IncludeTask(type),
+				new FilterStackTask(SelfCondition.IsNotDead),
+				new RandomTask(targets, EntityType.STACK),
 				new DestroyTask(EntityType.STACK));
 
 		public static ISimpleTask RandomCardCopyToHandFrom(EntityType entityType)
+			//=> Create(
+			//	new RandomTask(1, entityType),
+			//	new CopyTask(EntityType.STACK, 1),
+			//	new AddStackTo(EntityType.HAND));
 			=> Create(
 				new RandomTask(1, entityType),
-				new CopyTask(EntityType.STACK, 1),
-				new AddStackTo(EntityType.HAND));
+				new CopyTask(EntityType.STACK, Zone.HAND));
 
 		public static ISimpleTask IfComboElse(ISimpleTask combo)
 			=> Create(
@@ -215,8 +221,7 @@ namespace SabberStoneCore.Tasks
 				new IncludeTask(EntityType.GRAVEYARD),
 				new FilterStackTask(SelfCondition.IsMinion, SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1), selfCondition),
 				new RandomTask(amount, EntityType.STACK),
-				new CopyTask(EntityType.STACK, 1),
-				new SummonTask());
+				new CopyTask(EntityType.STACK, Zone.PLAY));
 		}
 
 		public static ISimpleTask SummonRandomMinion(GameTag tag, int value)
@@ -238,7 +243,7 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask PutSecretFromDeck =>
 			Create(
 				new ConditionTask(EntityType.SOURCE, SelfCondition.IsZoneCount(Zone.SECRET, 5)),
-				new FlagTask(false, ComplexTask.Create(
+				new FlagTask(false, Create(
 					new IncludeTask(EntityType.DECK),
 					new FilterStackTask(SelfCondition.IsSecret),
 					new FuncPlayablesTask(stack =>
@@ -249,7 +254,7 @@ namespace SabberStoneCore.Tasks
 						Controller c = stack[0].Controller;
 						do
 						{
-							IPlayable pick = Util.Choose(stack);
+							IPlayable pick = Util.Choose((List<IPlayable>)stack);
 							if (c.SecretZone.Any(p => p.Card.AssetId == pick.Card.AssetId))
 							{
 								stack.Remove(pick);
@@ -267,6 +272,11 @@ namespace SabberStoneCore.Tasks
 
 						return null;
 					}))));
+
+		public static ISimpleTask AddRandomOpClassCardToHand =>
+			Create(
+				new RandomCardTask(EntityType.OP_HERO),
+				new AddStackTo(EntityType.HAND));
 
 		// TODO maybee better implement it with CFM_712_t + int
 		private static readonly IReadOnlyList<string> JadeGolemStr = new []
@@ -374,6 +384,21 @@ namespace SabberStoneCore.Tasks
 				}
 				));
 			return StateTaskList.Chain(taskList);
+		}
+
+		public static ISimpleTask Conditional(EntityType type, SelfCondition condition, ISimpleTask trueTask,
+			ISimpleTask falseTask = null)
+		{
+			var tasks = new List<ISimpleTask>
+			{
+				new ConditionTask(type, condition),
+				new FlagTask(true, trueTask)
+			};
+
+			if (falseTask != null)
+				tasks.Add(new FlagTask(false, falseTask));
+
+			return Create(tasks.ToArray());
 		}
 	}
 }

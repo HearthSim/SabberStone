@@ -11,21 +11,18 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
+
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class GetControllerManaTask : SimpleTask
 	{
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			Number = Controller.RemainingMana;
+			stack.Number = controller.RemainingMana;
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new GetControllerManaTask();
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

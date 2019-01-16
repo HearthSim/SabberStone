@@ -13,12 +13,14 @@
 #endregion
 using System.Collections.Generic;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
 {
@@ -115,8 +117,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_031", new Power {
 				// http://hearthstone.gamepedia.com/Recycle
 				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
-					new AddStackTo(EntityType.OP_DECK),
+					new CopyTask(EntityType.TARGET, Zone.DECK, toOpponent: true),
 					new MoveToSetaside(EntityType.TARGET))
 			});
 
@@ -217,7 +218,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("GVG_032a", new Power {
 				PowerTask = ComplexTask.Create(
-					new ManaCrystalEmptyTask(1, false),
+					new ManaCrystalEmptyTask(1),
 					new ManaCrystalEmptyTask(1, true))
 			});
 
@@ -539,16 +540,15 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_005", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
-					new CopyTask(EntityType.STACK, 1),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.STACK, Zone.HAND))
 			});
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, Power> cards)
-		{
+		//private static void MageNonCollect(IDictionary<string, Power> cards)
+		//{
 
-		}
+		//}
 
 		private static void Paladin(IDictionary<string, Power> cards)
 		{
@@ -764,11 +764,12 @@ namespace SabberStoneCore.CardSets
 			// [GVG_072] Shadowboxer - COST:2 [ATK:2/HP:3] 
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
-			// Text: Whenever a character is healed, deal 1 damage to a random enemy.
+			// Text: Whenever a minion is healed, deal 1 damage to a random enemy.
 			// --------------------------------------------------------
 			cards.Add("GVG_072", new Power {
 				Trigger = new Trigger(TriggerType.HEAL)
 				{
+					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = ComplexTask.Create(
 						new RandomTask(1, EntityType.ENEMIES),
 						new DamageTask(1, EntityType.STACK))
@@ -811,7 +812,11 @@ namespace SabberStoneCore.CardSets
 					{
 						IPlayable source = list[0];
 						for (int i = 1; i < list.Count; i++)
-							Generic.DamageCharFunc(source, (ICharacter)list[i], list[i][GameTag.ATK], true);
+						{
+							var c = (ICharacter) list[i];
+							Generic.DamageCharFunc(source, c, c.AttackDamage, true);
+						}
+
 						return null;
 					}))
 			});
@@ -938,8 +943,7 @@ namespace SabberStoneCore.CardSets
 				{
 					TriggerSource = TriggerSource.ENEMY,
 					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
-						new AddStackTo(EntityType.HAND),
+						new CopyTask(EntityType.TARGET, Zone.HAND),
 						new AddCardTo("GVG_028t", EntityType.OP_HAND))
 				}
 			});
@@ -995,9 +999,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("GVG_047", new Power {
-				PowerTask = ComplexTask.Create(
-					new RandomTask(1, EntityType.OP_MINIONS),
-					new DestroyTask(EntityType.STACK)),
+				PowerTask = ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS),
 				ComboTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.OP_MINIONS),
 					new IncludeTask(EntityType.OP_WEAPON, null, true),
@@ -1370,7 +1372,8 @@ namespace SabberStoneCore.CardSets
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_051", new Power {
-				Trigger = Triggers.EnrageTrigger("GVG_051e")
+				//Trigger = Triggers.EnrageTrigger("GVG_051e")
+				Aura = new EnrageEffect(AuraType.SELF, "GVG_051e")
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -1460,7 +1463,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("GVG_052", new Power {
 				PowerTask = new DestroyTask(EntityType.TARGET),
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.BoardZone.Any(m => m.Damage > 0) ? 4 : 0)
+				Aura = new AdaptiveCostEffect(p => p.Controller.BoardZone.Any(m => m.Damage > 0) ? 4 : 0)
 			});
 
 			// --------------------------------------- WEAPON - WARRIOR
@@ -1489,7 +1492,8 @@ namespace SabberStoneCore.CardSets
 			// Text: +1 Attack
 			// --------------------------------------------------------
 			cards.Add("GVG_051e", new Power {
-				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(1))
+				//Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(1))
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("GVG_051e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
@@ -1823,7 +1827,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("GVG_090", new Power {
 				PowerTask =
-					new EnqueueTask(6, ComplexTask.DamageRandomTargets(1, EntityType.ALL_NOSOURCE, 1), false)
+					new EnqueueTask(6, ComplexTask.DamageRandomTargets(1, EntityType.ALL_NOSOURCE, 1))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2290,7 +2294,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Costs (1) less for each card in your opponent's hand.
 			// --------------------------------------------------------
 			cards.Add("GVG_121", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.Opponent.HandZone.Count)
+				Aura = new AdaptiveCostEffect(p => p.Controller.Opponent.HandZone.Count)
 			});
 
 		}
@@ -2320,7 +2324,7 @@ namespace SabberStoneCore.CardSets
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_011a", new Power {
-				Enchant = new Enchant(GameTag.ATK, EffectOperator.SUB, 2)
+				Enchant = new Enchant(ATK.Effect(EffectOperator.SUB, 2))
 				{
 					IsOneTurnEffect = true
 				}
@@ -2333,7 +2337,7 @@ namespace SabberStoneCore.CardSets
 			// Text: +3 Attack.
 			// --------------------------------------------------------
 			cards.Add("GVG_022a", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("GVG_022a")
+				Enchant = new Enchant(GameTag.ATK, EffectOperator.ADD, 3)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2353,7 +2357,7 @@ namespace SabberStoneCore.CardSets
 			// Text: +1 Attack.
 			// --------------------------------------------------------
 			cards.Add("GVG_023a", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("GVG_023a")
+				Enchant = new Enchant(GameTag.ATK, EffectOperator.ADD, 1)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2467,14 +2471,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("PART_004e", new Power {
-				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
-				Trigger = new Trigger(TriggerType.TURN_START)
-				{
-					SingleTask = new RemoveEnchantmentTask(),
-					RemoveAfterTriggered = true,
-				}
-			});
+			cards.Add("PART_004e", Power.OneTurnStealthEnchantmentPower);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [PART_006a] Switched (*) - COST:0 
@@ -2689,7 +2686,7 @@ namespace SabberStoneCore.CardSets
 			Hunter(cards);
 			HunterNonCollect(cards);
 			Mage(cards);
-			MageNonCollect(cards);
+			//MageNonCollect(cards);
 			Paladin(cards);
 			PaladinNonCollect(cards);
 			Priest(cards);

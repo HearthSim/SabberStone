@@ -27,7 +27,7 @@ namespace SabberStoneBuildCardSet
 		private static readonly string Path = Directory.GetCurrentDirectory(); // @"C:\Users\admin\Source\Repos\";
 		private static readonly Regex Rgx = new Regex("[^a-zA-Z0-9 -]");
 
-		private static bool Adventure = false;
+		private static bool Adventure;
 
 		private static string MapCardSetAdventureString(CardSet cardSet)
 		{
@@ -291,7 +291,7 @@ namespace SabberStoneBuildCardSet
 				string t = null;
 				if (Tag.TypedTags.ContainsKey(key))
 				{
-					t = Enum.GetName(Tag.TypedTags[key], (int)card.Tags[key]);
+					t = Enum.GetName(Tag.TypedTags[key], card.Tags[key]);
 				}
 
 				str.AppendLine($"{tab}\t// - {key} = {(t ?? card.Tags[key].ToString())}");
@@ -319,7 +319,7 @@ namespace SabberStoneBuildCardSet
 				string t = null;
 				if (Tag.TypedTags.ContainsKey(key))
 				{
-					t = Enum.GetName(Tag.TypedTags[key], (int)card.Tags[key]);
+					t = Enum.GetName(Tag.TypedTags[key], card.Tags[key]);
 				}
 				str.AppendLine($"{tab}\t// - {key} = {t ?? card.RefTags[key].ToString()}");
 			}

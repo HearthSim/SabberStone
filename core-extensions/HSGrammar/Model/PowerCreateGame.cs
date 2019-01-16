@@ -12,10 +12,6 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HSGrammar.Model
 {

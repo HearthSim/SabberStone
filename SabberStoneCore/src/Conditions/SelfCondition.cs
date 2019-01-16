@@ -40,7 +40,7 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition IsCurrentPlayer = new SelfCondition(me => me.Game.CurrentPlayer == me.Controller);
 		public static readonly SelfCondition IsNotCurrentPlayer = new SelfCondition(me => me.Game.CurrentPlayer != me.Controller);
 
-		public static readonly SelfCondition IsComboActive = new SelfCondition(me => me.Controller.Combo);
+		public static readonly SelfCondition IsComboActive = new SelfCondition(me => me.Controller.IsComboActive);
 		public static readonly SelfCondition IsAnyWeaponEquiped = new SelfCondition(me => (me as Hero)?.Weapon != null);
 		public static readonly SelfCondition IsThisWeaponEquiped = new SelfCondition(me => me.Controller.Hero.Weapon == me);
 
@@ -71,7 +71,7 @@ namespace SabberStoneCore.Conditions
 		public static SelfCondition IsNotCardClass(CardClass cardClass) => new SelfCondition(me => me.Card.Class != cardClass);
 		public static SelfCondition IsNotStartInDeck => new SelfCondition(me => me.Id > (me.Controller.DeckCards.Count + me.Controller.Opponent.DeckCards.Count + 7));
 
-		public static SelfCondition MinionsPlayedThisTurn(int number) => new SelfCondition(me => me.Controller.NumMinionsPlayedThisTurn == number);
+		public static SelfCondition MinionsPlayedThisTurn(int number) => new SelfCondition(me => me.Controller.NumMinionsPlayedThisTurn == number && me.Controller == me.Game.CurrentPlayer);
 		public static SelfCondition ElementalPlayedLastTurn => new SelfCondition(me => me.Controller.NumElementalsPlayedLastTurn > 0);
 
 		public static SelfCondition HasMinionInDeck() => new SelfCondition(me => me.Controller.DeckZone.Any(p => p is Minion));
@@ -80,33 +80,29 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition IsNoDupeInDeck = new SelfCondition(me => !me.Controller.DeckZone.GroupBy(x => new { x.Card.Id }).Any(x => x.Skip(1).Any()));
 		public static SelfCondition HasNoSpecficCostCardsInDeck(int cost) => new SelfCondition(me => !me.Controller.DeckZone.Any(x => x.Cost == cost));
 		public static readonly SelfCondition HasNoMinionInDeck = new SelfCondition(me => !me.Controller.DeckZone.Any(p => p is Minion));
-
-		public static readonly SelfCondition HasNoOddCostInDeck = new SelfCondition(me => !me.Controller.DeckZone.Any(p => p.Cost % 2 == 1));
-		public static readonly SelfCondition HasNoEvenCostInDeck = new SelfCondition(me => !me.Controller.DeckZone.Any(p => p.Cost % 2 == 0));
+		public static readonly SelfCondition HasNoOddCostInDeck = new SelfCondition(me => me.Controller.DeckZone.NoOddCostCards);
+		public static readonly SelfCondition HasNoEvenCostInDeck = new SelfCondition(me => me.Controller.DeckZone.NoEvenCostCards);
 
 		public static readonly SelfCondition HasMinionInHand = new SelfCondition(me => me.Controller.HandZone.Any(p => p is Minion));
 		public static readonly SelfCondition HasMyHeroAttackedThisTurn = new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn > 0);
 		public static readonly SelfCondition HasMyHeroNotAttackedThisTurn = new SelfCondition(me => me.Controller.Hero.NumAttacksThisTurn == 0);
-		public static readonly SelfCondition IsMyHeroDamagedThisTurn = new SelfCondition(me => me.Controller.Hero.IsDamagedThisTurn);
+		public static readonly SelfCondition IsMyHeroDamagedThisTurn = new SelfCondition(me => me.Controller.Hero.DamageTakenThisTurn > 0);
 
-		public static readonly SelfCondition IsDeathrattleCard = new SelfCondition(me => me.Card[GameTag.DEATHRATTLE] == 1);
-		public static readonly SelfCondition IsEchoCard = new SelfCondition(me => me.Card[GameTag.ECHO] == 1);
-		public static readonly SelfCondition IsComboCard = new SelfCondition(me => me.Card[GameTag.COMBO] == 1);
-		public static readonly SelfCondition IsLifestealCard = new SelfCondition(me => me.Card[GameTag.LIFESTEAL] == 1);
-		public static readonly SelfCondition IsDeathrattleMinion = new SelfCondition(me => me is Minion && ((Minion)me).HasDeathrattle);
-		public static readonly SelfCondition IsBattlecryMinion = new SelfCondition(me => me is Minion && ((Minion)me).HasBattleCry);
-		public static readonly SelfCondition HasRush = new SelfCondition(me => me is Minion && ((Minion)me).HasRush);
+		public static readonly SelfCondition IsDeathrattleCard = new SelfCondition(me => me.Card.Deathrattle);
+		public static readonly SelfCondition IsEchoCard = new SelfCondition(me => me.Card.Echo);
+		public static readonly SelfCondition IsComboCard = new SelfCondition(me => me.Card.Combo);
+		public static readonly SelfCondition IsLifestealCard = new SelfCondition(me => me.Card.LifeSteal);
+		public static readonly SelfCondition IsDeathrattleMinion = new SelfCondition(me => me is Minion minion && minion.HasDeathrattle);
+		public static readonly SelfCondition IsBattlecryMinion = new SelfCondition(me => me is Minion minion && minion.HasBattleCry);
+		public static readonly SelfCondition HasRush = new SelfCondition(me => me is Minion minion && minion.IsRush);
 
 		public static readonly SelfCondition IsCthunDead = new SelfCondition(me => me.Controller.GraveyardZone.Any(p => p.Card.Id.Equals("OG_280")));
 
-		//public static SelfCondition IsInZone(params Zone[] zones)
-		//{
-		//	// entities that don't have a real zone like Heroes are checked on the gametag value
-		//	return new SelfCondition(me =>
-		//	(me.Zone != null && Array.IndexOf(zones, me.Zone.Type) > -1) ||
-		//	(me.Zone == null && Array.IndexOf(zones, (Zone)((Entity)me).GetNativeGameTag(GameTag.ZONE)) > -1));
-		//}
+		public static readonly SelfCondition NotPlayedAnySpellThisTurn =
+			new SelfCondition(me => me.Controller.CardsPlayedThisTurn.All(p => p.Type != CardType.SPELL));
 
+
+		// entities that don't have a real zone like Heroes are checked on the gametag value
 		public static SelfCondition IsInZone(Zone zone) =>
 			new SelfCondition(me =>
 				me.Zone != null
@@ -115,8 +111,9 @@ namespace SabberStoneCore.Conditions
 
 
 		public static readonly SelfCondition IsOverloadCard = new SelfCondition(me => me.Card.HasOverload);
-		public static readonly SelfCondition HasTaunt = new SelfCondition(me => me is ICharacter && me[GameTag.TAUNT] > 0);
-		public static readonly SelfCondition IsFrozen = new SelfCondition(me => me is ICharacter && ((ICharacter)me).IsFrozen);
+		public static readonly SelfCondition IsBattleCryCard = new SelfCondition(me => me.Card.Tags.ContainsKey(GameTag.BATTLECRY));
+		public static readonly SelfCondition HasTaunt = new SelfCondition(me => me is Minion m && m.HasTaunt);
+		public static readonly SelfCondition IsFrozen = new SelfCondition(me => me is ICharacter character && character.IsFrozen);
 		public static SelfCondition IsHeroPowerCard(string cardId) => new SelfCondition(me => me.Controller.Hero.HeroPower.Card.Id.Equals(cardId));
 		public static readonly SelfCondition IsManaCrystalFull = new SelfCondition(me => me.Controller.BaseMana == 10);
 		public static readonly SelfCondition IsRemaningManaFull = new SelfCondition(me => me.Controller.RemainingMana == 10);
@@ -162,15 +159,20 @@ namespace SabberStoneCore.Conditions
 
 		public static SelfCondition HasBoardMinion(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ)
 			=> new SelfCondition(me =>
-					relaSign == RelaSign.EQ && me.Controller.BoardZone.Any(p => p[tag] == amount)
-				 || relaSign == RelaSign.GEQ && me.Controller.BoardZone.Any(p => p[tag] >= amount)
-				 || relaSign == RelaSign.LEQ && me.Controller.BoardZone.Any(p => p[tag] <= amount));
+			{
+				return relaSign == RelaSign.EQ && me.Controller.BoardZone.Any(p => GetTagValue(p, tag) == amount)
+				       || relaSign == RelaSign.GEQ && me.Controller.BoardZone.Any(p => GetTagValue(p, tag) >= amount)
+				       || relaSign == RelaSign.LEQ && me.Controller.BoardZone.Any(p => GetTagValue(p, tag) <= amount);
+			});
 
 		public static SelfCondition HasOpBoardMinion(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ)
 			=> new SelfCondition(me =>
-					relaSign == RelaSign.EQ && me.Controller.Opponent.BoardZone.Any(p => p[tag] == amount)
-				 || relaSign == RelaSign.GEQ && me.Controller.Opponent.BoardZone.Any(p => p[tag] >= amount)
-				 || relaSign == RelaSign.LEQ && me.Controller.Opponent.BoardZone.Any(p => p[tag] <= amount));
+			{
+
+				return relaSign == RelaSign.EQ && me.Controller.Opponent.BoardZone.Any(p => GetTagValue(p, tag) == amount)
+				       || relaSign == RelaSign.GEQ && me.Controller.Opponent.BoardZone.Any(p => GetTagValue(p, tag) >= amount)
+				       || relaSign == RelaSign.LEQ && me.Controller.Opponent.BoardZone.Any(p => GetTagValue(p, tag) <= amount);
+			});
 
 		public static SelfCondition HasOp(GameTag tag, int amount, RelaSign relaSign = RelaSign.EQ)
 			=> new SelfCondition(me =>
@@ -184,11 +186,30 @@ namespace SabberStoneCore.Conditions
 				   me.Controller.Opponent.BoardZone.Any(p => p[tag] <= amount
 				    || me.Controller.Opponent.Hero[tag] <= amount));
 
+
+		public static SelfCondition IsCost(int value, RelaSign relaSign = RelaSign.EQ)
+		{
+			return new SelfCondition(me =>
+			{
+				int val = me.Cost;
+
+				return relaSign == RelaSign.EQ && val == value
+				       || relaSign == RelaSign.GEQ && val >= value
+				       || relaSign == RelaSign.LEQ && val <= value;
+			});
+		}
+
 		public static SelfCondition IsTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
-			=> new SelfCondition(me =>
-					relaSign == RelaSign.EQ && me[tag] == value
-				 || relaSign == RelaSign.GEQ && me[tag] >= value
-				 || relaSign == RelaSign.LEQ && me[tag] <= value);
+		{
+			return new SelfCondition(me =>
+			{
+				int val = GetTagValue(me, tag);
+
+				return relaSign == RelaSign.EQ && val == value
+				       || relaSign == RelaSign.GEQ && val >= value
+				       || relaSign == RelaSign.LEQ && val <= value;
+			});
+		}
 
 		public static SelfCondition IsBaseTagValue(GameTag tag, int value, RelaSign relaSign = RelaSign.EQ)
 			=> new SelfCondition(me =>
@@ -201,10 +222,13 @@ namespace SabberStoneCore.Conditions
 			{
 				if (!me.Controller.SeenCthun)
 					return false;
+
 				IPlayable proxyCthun = me.Game.IdEntityDic[me.Controller.ProxyCthun];
-				return relaSign == RelaSign.EQ && proxyCthun[tag] == value
-					|| relaSign == RelaSign.GEQ && proxyCthun[tag] >= value
-					|| relaSign == RelaSign.LEQ && proxyCthun[tag] <= value;
+				int val = GetTagValue(proxyCthun, tag);
+
+				return relaSign == RelaSign.EQ && val == value
+				       || relaSign == RelaSign.GEQ && val >= value
+				       || relaSign == RelaSign.LEQ && val <= value;
 			});
 
 		public static SelfCondition IsHealth(int value, RelaSign relaSign)
@@ -226,18 +250,10 @@ namespace SabberStoneCore.Conditions
 		}
 
 		public static readonly SelfCondition HasProperTargetsInBoard =
-			new SelfCondition(me => !me.Card.RequiresTarget || me.ValidPlayTargets.Any());
+			new SelfCondition(me => !me.Card.MustHaveTargetToPlay || me.HasAnyValidPlayTargets);
 
 		public static readonly SelfCondition IsHeroLethalPreDamaged
-			= new SelfCondition(me =>
-			{
-				var hero = me as Hero;
-				if (hero == null)
-				{
-					return false;
-				}
-				return hero.PreDamage > 0 && hero.PreDamage >= hero.Health;
-			});
+			= new SelfCondition(me => me is Hero hero && hero.Game.CurrentEventData.EventNumber >= hero.Health);
 
 		public static SelfCondition IsCurrentEventNumber(int value, RelaSign relaSign)
 		{
@@ -275,6 +291,25 @@ namespace SabberStoneCore.Conditions
 		public bool Eval(IPlayable owner)
 		{
 			return _function(owner);
+		}
+
+		private static int GetTagValue(IPlayable me, GameTag tag)
+		{
+			if (tag == GameTag.COST)
+				return me.Cost;
+
+			if (me is Character c)
+			{
+				if (tag == GameTag.ATK)
+					return c.AttackDamage;
+				else if
+					(tag == GameTag.HEALTH)
+					return c.BaseHealth;
+				else
+					return c[tag];
+			}
+			else
+				return me[tag];
 		}
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member

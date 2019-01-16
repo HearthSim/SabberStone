@@ -12,6 +12,7 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System.Collections.Generic;
+using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -74,9 +75,7 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("BRM_009", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
-					p => p.Controller.NumFriendlyMinionsThatDiedThisTurn
-					   + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn)
+				Aura = AdaptiveCostEffect.NumEachMinionDiedThisTurn
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -215,19 +214,17 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
 			cards.Add("BRM_003", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
-					p => p.Controller.NumFriendlyMinionsThatDiedThisTurn
-					   + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn),
+				Aura = AdaptiveCostEffect.NumEachMinionDiedThisTurn,
 				PowerTask = ComplexTask.Create(
 					new DamageTask(4, EntityType.TARGET, true))
 			});
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, Power> cards)
-		{
+		//private static void MageNonCollect(IDictionary<string, Power> cards)
+		//{
 
-		}
+		//}
 
 		private static void Paladin(IDictionary<string, Power> cards)
 		{
@@ -251,9 +248,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Draw 2 cards. Costs (1) less for each minion that died this turn.
 			// --------------------------------------------------------
 			cards.Add("BRM_001", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
-					p => p.Controller.NumFriendlyMinionsThatDiedThisTurn
-					   + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn),
+				Aura = AdaptiveCostEffect.NumEachMinionDiedThisTurn,
 				PowerTask = new EnqueueTask(2, new DrawTask())
 			});
 
@@ -268,7 +263,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Your next Dragon costs (2) less.
 			// --------------------------------------------------------
 			cards.Add("BRM_018e", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SUB, 2))
+				Aura = new Aura(AuraType.HAND, Effects.ReduceCost(2))
 				{
 					Condition = SelfCondition.IsRace(Race.DRAGON),
 					RemoveTrigger = (TriggerType.PLAY_MINION, SelfCondition.IsRace(Race.DRAGON))
@@ -309,9 +304,9 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void PriestNonCollect(IDictionary<string, Power> cards)
-		{
-		}
+		//private static void PriestNonCollect(IDictionary<string, Power> cards)
+		//{
+		//}
 
 		private static void Rogue(IDictionary<string, Power> cards)
 		{
@@ -342,9 +337,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BRM_007", new Power {
-				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 3),
-					new AddStackTo(EntityType.DECK))
+				PowerTask = new CopyTask(EntityType.TARGET, Zone.DECK, 3)
 			});
 		}
 
@@ -389,10 +382,10 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void ShamanNonCollect(IDictionary<string, Power> cards)
-		{
+		//private static void ShamanNonCollect(IDictionary<string, Power> cards)
+		//{
 
-		}
+		//}
 
 		private static void Warlock(IDictionary<string, Power> cards)
 		{
@@ -536,9 +529,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Costs (1) less for each minion that died this turn.
 			// --------------------------------------------------------
 			cards.Add("BRM_025", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB,
-					p => p.Controller.NumFriendlyMinionsThatDiedThisTurn
-					   + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn),
+				Aura = AdaptiveCostEffect.NumEachMinionDiedThisTurn,
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -634,9 +625,7 @@ namespace SabberStoneCore.CardSets
 				Trigger = new Trigger(TriggerType.DRAW)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
-					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
-						new AddStackTo(EntityType.HAND))
+					SingleTask = new CopyTask(EntityType.TARGET, Zone.HAND)
 				}
 			});
 
@@ -773,14 +762,14 @@ namespace SabberStoneCore.CardSets
 			Hunter(cards);
 			HunterNonCollect(cards);
 			Mage(cards);
-			MageNonCollect(cards);
+			//MageNonCollect(cards);
 			Paladin(cards);
 			PaladinNonCollect(cards);
 			Priest(cards);
-			PriestNonCollect(cards);
+			//PriestNonCollect(cards);
 			Rogue(cards);
 			Shaman(cards);
-			ShamanNonCollect(cards);
+			//ShamanNonCollect(cards);
 			Warlock(cards);
 			WarlockNonCollect(cards);
 			Warrior(cards);

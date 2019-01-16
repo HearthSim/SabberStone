@@ -15,7 +15,6 @@ using Xunit;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
 using SabberStoneCore.Model;
-using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 using System.Linq;
@@ -204,10 +203,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.ProcessCard<Minion>("Druid of the Scythe", null, true, 2);
 			Minion b = game.CurrentPlayer.BoardZone[1];
 
-			Assert.True(a.HasRush);
+			Assert.True(a.IsRush);
 			Assert.False(a.HasTaunt);
 
-			Assert.False(b.HasRush);
+			Assert.False(b.IsRush);
 			Assert.True(b.HasTaunt);
 		}
 
@@ -753,7 +752,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void HoundmasterShaw_GIL_650()
 		{
-			// TODO HoundmasterShaw_GIL_650 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -775,8 +773,21 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Minion test1 = game.ProcessCard<Minion>("Bloodfen Raptor");
 
-			Assert.True(test1.HasRush);
+			Assert.True(test1.IsRush);
 			Assert.False(test1.IsExhausted);
+
+			Game clone = game.Clone();
+
+			Minion cube = game.ProcessCard<Minion>("Carnivorous Cube", game.CurrentPlayer.BoardZone[0], true);
+			Minion cloneCube = clone.ProcessCard<Minion>("Carnivorous Cube", clone.CurrentPlayer.BoardZone[0], true);
+
+			Assert.False(cube.IsRush);
+			Assert.False(test1.IsRush);
+			Assert.False(cloneCube.IsRush);
+
+			cube.Kill();
+			cloneCube.Kill();
+			
 		}
 
 		// ---------------------------------------- MINION - HUNTER
@@ -825,10 +836,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_TO_PLAY = 0
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void WingBlast_GIL_518()
 		{
-			// TODO WingBlast_GIL_518 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -845,8 +855,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wing Blast"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wing Blast"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wing Blast"));
+
+			Assert.Equal(testCard.Card.Cost, testCard.Cost);
+
+			Minion test = game.ProcessCard<Minion>("Stonetusk Boar");
+			test.Kill();
+
+			Assert.Equal(1, testCard.Cost);
 		}
 
 		// ----------------------------------------- SPELL - HUNTER
@@ -1495,6 +1512,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Assert.True(testCard.HasTaunt);
 			Assert.True(testCard.HasLifeSteal);
+
+			var clone = game.Clone();
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -1745,7 +1764,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void Chameleos_GIL_142()
 		{
-			var game = new Game(new GameConfig
+			Game game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PRIEST,
@@ -1761,12 +1780,48 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable test = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Chameleos"));
 			Assert.Equal("GIL_142", test.Card.Id);
 
-			for (int i = 0; i < 5; i++)
+			int testId = test.Id;
+
+			for (int i = 0; i < 10; i++)
 			{
 				game.EndTurn();
 				game.EndTurn();
+				test = game.IdEntityDic[testId];
 				Assert.Contains(test.Card.Id, game.CurrentOpponent.HandZone.Select(p => p.Card.Id));
+				Assert.NotNull(test.AppliedEnchantments);
+				Assert.Single(test.AppliedEnchantments);
 			}
+
+			for (int i = game.CurrentOpponent.HandZone.Count - 1; i >= 0; i--)
+			{
+				IPlayable handCard = game.CurrentOpponent.HandZone[i];
+				Generic.DiscardBlock(game.CurrentOpponent, handCard);
+			}
+
+			for (int i = 0; i < 10; i++)
+				Generic.DrawCard(game.CurrentOpponent, Cards.FromName("Wisp"));
+
+			game.EndTurn();
+			game.EndTurn();
+
+			test = game.IdEntityDic[testId];
+			Assert.Equal("Wisp", test.Card.Name);
+			game.ProcessCard(test);
+
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Assert.Empty(test.AppliedEnchantments);
+
+			foreach (IPlayable handCard in game.CurrentOpponent.HandZone)
+				Generic.DiscardBlock(game.CurrentOpponent, handCard);
+
+			for (int i = 0; i < 10; i++)
+				Generic.DrawCard(game.CurrentOpponent, Cards.FromName("Silence"));
+
+			game.EndTurn();
+			game.EndTurn();
+
+			test = game.IdEntityDic[testId];
+			Assert.Equal("Wisp", test.Card.Name);
 		}
 
 		// ---------------------------------------- MINION - PRIEST
@@ -3006,13 +3061,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Glinda Crowskin"));
 			IPlayable wisp = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
 			game.AuraUpdate();
-			Assert.True(wisp.HasEcho);
+			Assert.True(wisp.IsEcho);
 
 			game.ProcessCard(wisp);
 			IPlayable ghost = game.CurrentPlayer.HandZone.Last();
 			Assert.Equal("Wisp", ghost.Card.Name);
 			Assert.Equal(1, ghost[GameTag.GHOSTLY]);
-			Assert.True(ghost.HasEcho);
+			Assert.True(ghost.IsEcho);
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -3348,7 +3403,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Darius Crowley"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Darius Crowley"));
 
-			IPlayable target = game.ProcessCard("Stonetusk Boar");
+			Minion target = game.ProcessCard<Minion>("Stonetusk Boar");
 			game.EndTurn();
 
 			Minion test = game.ProcessCard<Minion>("Darius Crowley");

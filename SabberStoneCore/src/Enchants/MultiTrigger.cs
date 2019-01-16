@@ -24,8 +24,8 @@ namespace SabberStoneCore.Enchants
 
 		public MultiTrigger(params Trigger[] triggers) : base(TriggerType.MULTITRIGGER)
 	    {
-			for (int i = 0; i < triggers.Length; i++)
-				triggers[i].IsAncillaryTrigger = true;
+			//for (int i = 0; i < triggers.Length; i++)
+			//	triggers[i].IsAncillaryTrigger = true;
 		    _triggers = triggers;
 	    }
 
@@ -34,17 +34,17 @@ namespace SabberStoneCore.Enchants
 			_triggers = triggers;
 	    }
 
-		public override Trigger Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY, bool cloning = false)
+		public override Trigger Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY, bool cloning = false, bool asAncillary = false)
 		{
 			if (source.ActivatedTrigger != null && !IsAncillaryTrigger)
-				throw new Exceptions.EntityException($"{source} already has an activatd trigger.");
+				throw new Exceptions.EntityException($"{source} already has an activated trigger.");
 
 			Trigger[] triggers = new Trigger[_triggers.Count];
 
 			bool flag = false;
-			for (int i = 0; i < _triggers.Count; i++)
+			for (int i = 0; i < triggers.Length; i++)
 			{
-				triggers[i] = _triggers[i]?.Activate(source, activation, cloning);
+				triggers[i] = _triggers[i]?.Activate(source, activation, cloning, true);
 				if (triggers[i] != null)
 					flag = true;
 			}

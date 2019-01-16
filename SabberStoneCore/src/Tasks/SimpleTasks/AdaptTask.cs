@@ -13,16 +13,18 @@
 #endregion
 using System.Collections.Generic;
 using System.Linq;
-using SabberStoneCore.Enums;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-
 	public class AdaptTask : SimpleTask
 	{
+		//private static readonly List<Card> TotalAdaptCards = Cards.All.Where(p => p.Id.StartsWith("UNG_999t") && p.Type == CardType.SPELL).ToList();
+		private static readonly Card[] TotalAdaptCards =
+			Cards.All.Where(p => p.Id.StartsWith("UNG_999t") && p.Type == CardType.SPELL).ToArray();
 
 		public AdaptTask(EntityType type)
 		{
@@ -31,13 +33,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
-		//private static readonly List<Card> TotalAdaptCards = Cards.All.Where(p => p.Id.StartsWith("UNG_999t") && p.Type == CardType.SPELL).ToList();
-		private static readonly Card[] TotalAdaptCards = Cards.All.Where(p => p.Id.StartsWith("UNG_999t") && p.Type == CardType.SPELL).ToArray();
-
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
 			//ChoiceAction choiceAction = ChoiceAction.ADAPT;
-			//IEnumerable<IPlayable> targets = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			//IEnumerable<IPlayable> targets = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 
 			//if (!targets.Any())
 			//	return TaskState.STOP;
@@ -65,28 +65,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//	totAdaptCards.Remove(adaptCard);
 			//}
 
-			//bool success = Generic.CreateChoiceCards.Invoke(Controller, Source, targets, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), null, null);
+			//bool success = Generic.CreateChoiceCards.Invoke(controller, source, targets, ChoiceType.GENERAL, choiceAction, resultCards.ToList(), null, null);
 			//if (!success)
 			//	return TaskState.STOP;
 
-			IList<IPlayable> targets = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+			IList<IPlayable> targets = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 
 			if (targets.Count == 0)
 				return TaskState.STOP;
 
 			Card[] results = TotalAdaptCards.ChooseNElements(3);
 
-			Generic.CreateChoiceCards.Invoke(Controller, Source, targets, ChoiceType.GENERAL, ChoiceAction.ADAPT, results, null, null);
+			Generic.CreateChoiceCards.Invoke(controller, source, targets, ChoiceType.GENERAL, ChoiceAction.ADAPT,
+				results, null, null);
 
 			return TaskState.COMPLETE;
-		}
-
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new AdaptTask(Type);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

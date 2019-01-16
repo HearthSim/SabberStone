@@ -13,7 +13,9 @@
 #endregion
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Loader;
 
@@ -97,7 +99,7 @@ namespace SabberStoneCore.Model
 		{
 			// Fetch all cards.
 			var cardLoader = new CardLoader();
-			List<Card> cards = cardLoader.Load();
+			Card[] cards = cardLoader.Load();
 
 			//string json = File.ReadAllText(CardLoader.Path + @"SabberStone\HSProtoSim\Loader\Data\cardData.json");
 			//string json = File.ReadAllText(Environment.CurrentDirectory + @"\cardData.json");
@@ -163,36 +165,36 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Retrieves all wild cards ordered by card class.
 		/// </summary>
-		public static Dictionary<CardClass, IEnumerable<Card>> Wild { get; } = new Dictionary<CardClass, IEnumerable<Card>>();
+		public static Dictionary<CardClass, IReadOnlyList<Card>> Wild { get; } = new Dictionary<CardClass, IReadOnlyList<Card>>();
 
 		/// <summary>
 		/// Retrieves all standard cards ordered by card class.
 		/// </summary>
-		public static Dictionary<CardClass, IEnumerable<Card>> Standard { get; } = new Dictionary<CardClass, IEnumerable<Card>>();
+		public static Dictionary<CardClass, IReadOnlyList<Card>> Standard { get; } = new Dictionary<CardClass, IReadOnlyList<Card>>();
 
 		/// <summary>
 		/// All cards belonging to the Standard set.
 		/// </summary>
-		public static IEnumerable<Card> AllStandard { get; }
+		public static ReadOnlyCollection<Card> AllStandard { get; }
 
 		/// <summary>
 		/// All cards belonging to the Wild set.
 		/// </summary>
-		public static IEnumerable<Card> AllWild { get; }
+		public static ReadOnlyCollection<Card> AllWild { get; }
 
 		/// <summary>
 		/// Retrieves the specified set of cards, sorted by <see cref="CardClass"/>.
 		/// </summary>
 		/// <param name="formatType"></param>
 		/// <returns></returns>
-		public static Dictionary<CardClass, IEnumerable<Card>> FormatTypeClassCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Cards.Standard : Cards.Wild;
+		public static Dictionary<CardClass, IReadOnlyList<Card>> FormatTypeClassCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Standard : Wild;
 
 		/// <summary>
 		/// Retrieves the specifified set of cards.
 		/// </summary>
 		/// <param name="formatType"></param>
 		/// <returns></returns>
-		public static IEnumerable<Card> FormatTypeCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+		public static IEnumerable<Card> FormatTypeCards(FormatType formatType) => formatType == FormatType.FT_STANDARD ? AllStandard : AllWild;
 
 		/// <summary>
 		/// Returns the default hero class card.
@@ -264,6 +266,8 @@ namespace SabberStoneCore.Model
 					return FromId("ICC_834h");
 				case 47631:
 					return FromId("GIL_504h");
+				case 48145:
+					return FromId("BOT_238p");
 				default:
 					throw new NotImplementedException();
 			}
@@ -382,7 +386,9 @@ namespace SabberStoneCore.Model
 			var allWild = wild
 				.GroupBy(p => p.Set)
 				.Select(t => new { Key = t.Key, Count = t.Count() });
-			string str = String.Empty;
+
+			var str = new StringBuilder();
+
 			int totImpl = 0;
 			int totCards = 0;
 			foreach (CardSet set in StandardSets)
@@ -390,12 +396,12 @@ namespace SabberStoneCore.Model
 				int impl = implemented.FirstOrDefault(p => p.Key == set).Count;
 				totImpl += impl;
 				int tot = all.FirstOrDefault(p => p.Key == set).Count;
-				str += $"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards\n";
+				str.AppendLine($"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards");
 				totCards += tot;
 			}
 
-			str += $"Total Standard => {totImpl * 100 / totCards}% from {totCards} Cards\n";
-			str += "\n";
+			str.AppendLine($"Total Standard => {totImpl * 100 / totCards}% from {totCards} Cards");
+			str.AppendLine();
 
 			totImpl = 0;
 			totCards = 0;
@@ -404,13 +410,44 @@ namespace SabberStoneCore.Model
 				int impl = implementedWild.FirstOrDefault(p => p.Key == set).Count;
 				totImpl += impl;
 				int tot = allWild.FirstOrDefault(p => p.Key == set).Count;
-				str += $"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards\n";
+				str.AppendLine($"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards");
 				totCards += tot;
 			}
 
-			str += $"Total Wild => {totImpl * 100 / totCards}% from {totCards} Cards\n";
+			str.AppendLine($"Total Wild => {totImpl * 100 / totCards}% from {totCards} Cards");
 
-			return str;
+			IEnumerable<IGrouping<CardSet, Card>> notImplementedStandard = standard
+				.Where(c => !c.Implemented)
+				.GroupBy(c => c.Set);
+
+			str.AppendLine("### Not yet implemented standard cards");
+			foreach (IGrouping<CardSet, Card> group in notImplementedStandard)
+			{
+				str.AppendLine($"#### {CardSetToName(group.Key)}");
+				foreach (Card c in group)
+				{
+					str.AppendLine($"- [{c.Id}] {c.Name}");
+				}
+			}
+
+			str.AppendLine();
+
+			IEnumerable<IGrouping<CardSet, Card>> notImplementedWild = wild
+				.Where(c => !c.Implemented)
+				.GroupBy(c => c.Set)
+				.Where(c => WildSets.Contains(c.Key) && !StandardSets.Contains(c.Key));
+
+			str.AppendLine("### Not yet implemented wild cards");
+			foreach (IGrouping<CardSet, Card> group in notImplementedWild)
+			{
+				str.AppendLine($"#### {CardSetToName(group.Key)}");
+				foreach (Card c in group)
+				{
+					str.AppendLine($"- [{c.Id}] {c.Name}");
+				}
+			}
+
+			return str.ToString();
 		}
 	}
 }

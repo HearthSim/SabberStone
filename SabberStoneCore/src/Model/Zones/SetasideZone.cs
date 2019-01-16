@@ -20,13 +20,13 @@ namespace SabberStoneCore.Model.Zones
 	{
 		public SetasideZone(Controller controller) : base(controller)
 		{
-			Type = Zone.SETASIDE;
 		}
 
 		private SetasideZone(Controller c, SetasideZone zone) : base(c, zone)
 		{
-			Type = Zone.SETASIDE;
 		}
+
+		public override Zone Type => Zone.SETASIDE;
 
 		public SetasideZone Clone(Controller c)
 		{

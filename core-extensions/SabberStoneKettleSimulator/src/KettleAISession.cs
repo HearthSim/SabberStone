@@ -190,9 +190,9 @@ namespace SabberStoneKettleSimulator
 				break;
 			}
 
-			if (option is PlayCardTask)
+			if (option is PlayCardTask playCard)
 			{
-				position = ((PlayerTask)option).ZonePosition;
+				position = playCard.ZonePosition;
 			}
 
 			KettleSendOption sendoption = new KettleSendOption();

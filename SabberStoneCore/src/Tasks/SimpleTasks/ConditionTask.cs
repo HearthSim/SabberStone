@@ -12,11 +12,11 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
-using System.Linq;
-using SabberStoneCore.Conditions;
-using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
+using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -49,44 +49,39 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public RelaCondition[] RelaConditions { get; set; }
 		public EntityType Type { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			IEnumerable<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
-			if (!entities.Any())
+			IList<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
+			if (entities.Count == 0)
 				return TaskState.STOP;
 
-			var source = (IPlayable)Source;
+			var playableSource = (IPlayable) source;
 
-			int i;
-			Flag = true;
+			bool flag = true;
 			foreach (IPlayable p in entities)
 			{
+				int i;
 				for (i = 0; i < SelfConditions.Length; i++)
-					Flag = Flag && SelfConditions[i].Eval(p);
+					flag = flag && SelfConditions[i].Eval(p);
 
 				for (i = 0; i < RelaConditions.Length; i++)
-					Flag = Flag && RelaConditions[i].Eval(source, p);
+					flag = flag && RelaConditions[i].Eval(playableSource, p);
 			}
 
+			stack.Flag = flag;
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new ConditionTask(Type, SelfConditions, RelaConditions);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 
 	public class NumberConditionTask : SimpleTask
 	{
-		private readonly RelaSign _sign;
 		private readonly int _reference;
+		private readonly RelaSign _sign;
 
 		/// <summary>
-		/// Create Task that compares the stored Number and the given reference value.
+		///     Create Task that compares the stored stack.Number and the given reference value.
 		/// </summary>
 		public NumberConditionTask(int referenceValue, RelaSign sign)
 		{
@@ -95,7 +90,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 
 		/// <summary>
-		/// Create Task that compares Number and Number1 in the stack.
+		///     Create Task that compares stack.Number and stack.Number1 in the stack.
 		/// </summary>
 		/// <param name="sign"></param>
 		public NumberConditionTask(RelaSign sign)
@@ -104,29 +99,25 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_reference = Int32.MinValue;
 		}
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack)
 		{
 			if (_reference == Int32.MinValue)
 			{
-				Flag =
-					_sign == RelaSign.GEQ ? Number >= Number1 :
-					_sign == RelaSign.LEQ ? Number <= Number1 :
-					Number == Number1;
+				stack.Flag =
+					_sign == RelaSign.GEQ ? stack.Number >= stack.Number1 :
+					_sign == RelaSign.LEQ ? stack.Number <= stack.Number1 :
+					stack.Number == stack.Number1;
 
 				return TaskState.COMPLETE;
 			}
 
-			Flag =
-				_sign == RelaSign.GEQ ? Number >= _reference :
-				_sign == RelaSign.LEQ ? Number <= _reference :
-				Number == _reference;
+			stack.Flag =
+				_sign == RelaSign.GEQ ? stack.Number >= _reference :
+				_sign == RelaSign.LEQ ? stack.Number <= _reference :
+				stack.Number == _reference;
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			return new NumberConditionTask(_reference, _sign);
 		}
 	}
 }

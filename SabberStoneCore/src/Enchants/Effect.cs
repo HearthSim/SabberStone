@@ -23,18 +23,38 @@ namespace SabberStoneCore.Enchants
 	}
 
 	/// <summary>
-	/// Represents an effect of <see cref="Aura"/>s or <see cref="Enchantment"/> cards.
+	/// Defines methods for tags value variation.
 	/// </summary>
-	public struct Effect : IEquatable<Effect>
+	public interface IEffect
+	{
+		void ApplyTo(IEntity entity, bool isOneTurnEffect = false);
+		void ApplyAuraTo(IPlayable playable);
+		//void ApplyTo(AuraEffects auraEffects);
+		//void ApplyTo(ControllerAuraEffects controllerAuraEffects);
+
+		void RemoveFrom(IEntity entity);
+		void RemoveAuraFrom(IPlayable playable);
+		//void RemoveFrom(AuraEffects auraEffects);
+		//void RemoveFrom(ControllerAuraEffects controllerAuraEffects);
+
+		IEffect ChangeValue(int newValue);
+	}
+
+	/// <summary>
+	///	A structure for tag value variation.
+	/// </summary>
+	public readonly struct Effect : IEffect, IEquatable<Effect>
 	{
 		public readonly GameTag Tag;
 		public readonly EffectOperator Operator;
 		public readonly int Value;
 
 		/// <summary>
-		/// Create a new Effect. An Effect is consist of <see cref="GameTag"/>, <see cref="EffectOperator"/>, and <see cref="int"/> value.
+		/// Create a new Effect. An Effect consists of <see cref="GameTag"/>, <see cref="EffectOperator"/>, and <see cref="int"/> value.
 		/// </summary>
 		/// <param name="tag">The <see cref="GameTag"/> to be affected.</param>
+		/// <param name="operator">The operation this effect performs.</param>
+		/// <param name="value">The right operand of the operator.</param>
 		public Effect(GameTag tag, EffectOperator @operator, int value)
 		{
 			Tag = tag;
@@ -45,16 +65,13 @@ namespace SabberStoneCore.Enchants
 		/// <summary>
 		/// Apply this effect to the target entity.
 		/// </summary>
-		public void Apply(IEntity entity, bool oneTurnEffect = false)
+		public void ApplyTo(IEntity entity, bool oneTurnEffect = false)
 		{
 			if (!entity.NativeTags.ContainsKey(Tag))
 				entity.NativeTags.Add(Tag, entity.Card[Tag]);
 
 			if (oneTurnEffect)
 				entity.Game.OneTurnEffects.Add((entity.Id, this));
-
-			if (Tag == GameTag.COST)
-				entity.AuraEffects.Checker = true;
 
 			switch (Operator)
 			{
@@ -73,37 +90,31 @@ namespace SabberStoneCore.Enchants
 					// experimental implmentation for simulating tricky situations
 					switch (Tag)
 					{
-						case GameTag.ATK:
-							for (int i = entity.Game.OneTurnEffects.Count - 1; i >= 0; i--)
-							{
-								(int id, Effect eff) = entity.Game.OneTurnEffects[i];
-								if (id != entity.Id || eff.Tag != GameTag.ATK) continue;
-
-								entity.Game.OneTurnEffects.RemoveAt(i);
-							}
-							break;
-						case GameTag.HEALTH:
-							if (entity is Hero h)
-							{
-								if (h.BaseHealth > Value)
-									h[GameTag.DAMAGE] = h.BaseHealth - Value;
-								else
-									h.Health = Value;
-								return;
-							}
-							((Minion)entity).Health = Value;
-							break;
 						case GameTag.CHARGE:
-							if (entity[GameTag.EXHAUSTED] == 1 && entity[GameTag.NUM_ATTACKS_THIS_TURN] == 0)
-								entity[GameTag.EXHAUSTED] = 0;
-							if (((Minion)entity).AttackableByRush)
-								entity[GameTag.ATTACKABLE_BY_RUSH] = 0;
-							break;
+							{
+								var m = (Minion)entity;
+								if (m.IsExhausted && m.NumAttacksThisTurn == 0)
+									m.IsExhausted = false;
+								if (m.AttackableByRush)
+									m.AttackableByRush = false;
+								break;
+							}
 						case GameTag.WINDFURY:
-							Minion m = entity as Minion;
-							if (m.NumAttacksThisTurn > 0 && m.IsExhausted)
-								m.IsExhausted = false;
-							break;
+							{
+								var m = (Minion)entity;
+								if (m.NumAttacksThisTurn > 0 && m.IsExhausted)
+									m.IsExhausted = false;
+								break;
+							}
+						case GameTag.TAUNT:
+							((Character) entity).HasTaunt = Value > 0;
+							return;
+						case GameTag.IMMUNE:
+							if (entity is Character c)
+								c.IsImmune = Value > 0;
+							else
+								break;
+							return;
 					}
 
 					if (oneTurnEffect && entity.NativeTags[Tag] == Value)
@@ -121,12 +132,13 @@ namespace SabberStoneCore.Enchants
 		/// <summary>
 		/// Apply this effect to the target as an aura effect.
 		/// </summary>
-		public void Apply(AuraEffects auraEffects)
+		public void ApplyAuraTo(IPlayable playable)
 		{
-			if (Tag == GameTag.COST)
+			AuraEffects auraEffects = playable.AuraEffects;
+			if (auraEffects == null)
 			{
-				auraEffects.AddCostAura(this);
-				return;
+				auraEffects = new AuraEffects(playable.Card.Type);
+				playable.AuraEffects = auraEffects;
 			}
 
 			switch (Operator)
@@ -135,12 +147,36 @@ namespace SabberStoneCore.Enchants
 					auraEffects[Tag] += Value;
 					return;
 				case EffectOperator.SUB:
-					auraEffects[Tag] += Value;
+					auraEffects[Tag] -= Value;
 					return;
 				// TODO: SET Aura
 				case EffectOperator.SET:
-					auraEffects.Owner[Tag] = 0;
+					//playable[Tag] = 0;
 					auraEffects[Tag] = Value;
+
+					if (playable is Minion m)
+					{
+						switch (Tag)
+						{
+							case GameTag.CHARGE:
+								if (m.IsExhausted && m._numAttackThisTurn < 1)
+									m.IsExhausted = false;
+								if (m.AttackableByRush)
+									m.AttackableByRush = false;
+								break;
+							case GameTag.RUSH:
+								if (m.IsExhausted && m._numAttackThisTurn == 0)
+								{
+									m.IsExhausted = false;
+									m.AttackableByRush = true;
+									playable.Game.RushMinions.Add(playable.Id);
+								}
+								break;
+							case GameTag.HEALTH_MINIMUM:
+								m[GameTag.HEALTH_MINIMUM] = Value;
+								break;
+						}
+					}
 					return;
 				default:
 					throw new NotImplementedException();
@@ -150,7 +186,7 @@ namespace SabberStoneCore.Enchants
 		/// <summary>
 		/// Apply this effect to the target controller as an aura effect.
 		/// </summary>
-		public void Apply(ControllerAuraEffects auraEffects)
+		public void ApplyTo(ControllerAuraEffects auraEffects)
 		{
 			switch (Operator)
 			{
@@ -169,19 +205,14 @@ namespace SabberStoneCore.Enchants
 		/// <summary>
 		/// Remove this effect from the target entity.
 		/// </summary>
-		public void Remove(IEntity entity)
+		public void RemoveFrom(IEntity entity)
 		{
-			// TODO
-			if (Tag == GameTag.COST)
-			{
-				if (!entity.NativeTags.ContainsKey(GameTag.COST))
-					return;
-			}
-
 			switch (Operator)
 			{
 				case EffectOperator.ADD:
 					entity[Tag] -= Value;
+					if (Tag == GameTag.SPELLPOWER)
+						entity.Controller.CurrentSpellPower -= Value;
 					return;
 				case EffectOperator.SUB:
 					entity[Tag] = entity.NativeTags[Tag] + Value;
@@ -195,35 +226,41 @@ namespace SabberStoneCore.Enchants
 		/// <summary>
 		/// Remove ths aura effect from the target entity.
 		/// </summary>
-		public void Remove(AuraEffects auraEffects)
+		public void RemoveAuraFrom(IPlayable playable)
 		{
-			if (Tag == GameTag.COST)
-			{
-				auraEffects.RemoveCostAura(this);
-				return;
-			}
-
-			if (Tag == GameTag.HEALTH && Operator == EffectOperator.ADD)
-			{
-				//((ICharacter)auraEffects.Owner).Damage -= Value;
-				auraEffects.Owner[GameTag.DAMAGE] -= Value;
-			}
-
 			switch (Operator)
 			{
 				case EffectOperator.ADD:
-					auraEffects[Tag] -= Value;
+					playable.AuraEffects[Tag] -= Value;
 					return;
 				case EffectOperator.SUB:
-					auraEffects[Tag] += Value;
+					playable.AuraEffects[Tag] += Value;
 					return;
 				case EffectOperator.SET:
-					auraEffects[Tag] -= Value;
+					playable.AuraEffects[Tag] -= Value;
+					if (Tag == GameTag.RUSH)
+					{
+						var m = (Minion)playable;
+						if (m.AttackableByRush && !m.IsExhausted)
+						{
+							if (m.IsRush || m.Card.Rush)
+								return;
+
+							m.AttackableByRush = false;
+							m.IsExhausted = true;
+							m.Game.RushMinions.Remove(m.Id);
+						}
+					}
+					else if
+						(Tag == GameTag.HEALTH_MINIMUM)
+					{
+						playable.NativeTags.Remove(GameTag.HEALTH_MINIMUM);
+					}
 					return;
 			}
 		}
 
-		public void Remove(ControllerAuraEffects auraEffects)
+		public void RemoveFrom(ControllerAuraEffects auraEffects)
 		{
 			switch (Operator)
 			{
@@ -242,7 +279,7 @@ namespace SabberStoneCore.Enchants
 		/// <summary>
 		/// Creates a new Effect having changed amount of <see cref="Value"/>.
 		/// </summary>
-		public Effect ChangeValue(int newValue)
+		public IEffect ChangeValue(int newValue)
 		{
 			return new Effect(Tag, Operator, newValue);
 		}
@@ -252,11 +289,17 @@ namespace SabberStoneCore.Enchants
 		{
 			return Tag == other.Tag && Operator == other.Operator && Value == other.Value;
 		}
+
 		public override bool Equals(object obj)
 		{
 			if (obj is null) return false;
 			return obj is Effect effect && Equals(effect);
 		}
+
+		public static bool operator ==(Effect e1, Effect e2) => e1.Equals(e2);
+
+		public static bool operator !=(Effect e1, Effect e2) => !(e1.Equals(e2));
+
 		public override int GetHashCode()
 		{
 			unchecked

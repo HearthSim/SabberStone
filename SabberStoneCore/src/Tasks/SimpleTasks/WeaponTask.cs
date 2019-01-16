@@ -20,45 +20,33 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class WeaponTask : SimpleTask
 	{
 		private readonly Card _card;
+		private readonly bool _op;
 
-		public WeaponTask(string cardId = null)
+		public WeaponTask(string cardId = null, bool opponent = false)
 		{
 			if (cardId != null)
 				_card = Cards.FromId(cardId);
+
+			_op = opponent;
 		}
 
-		private WeaponTask(Card card)
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			_card = card;
-		}
+			if (_card == null && stack?.Playables.Count != 1) return TaskState.STOP;
 
-		public override TaskState Process()
-		{
-			if (_card == null && Playables.Count != 1)
-			{
-				return TaskState.STOP;
-			}
+			Controller c = _op ? controller.Opponent : controller;
 
-			if (Controller.Hero.Weapon != null)
-			{
-				Controller.Hero.Weapon.ToBeDestroyed = true;
-			}
+			if (c.Hero.Weapon != null)
+				c.Hero.Weapon.ToBeDestroyed = true;
 
-			
-			Weapon weapon = _card != null ?
-				Entity.FromCard(Controller, _card) as Weapon :
-				Playables[0] as Weapon;
+			Weapon weapon = _card != null
+				? Entity.FromCard(c, _card) as Weapon
+				: stack?.Playables[0] as Weapon;
 
-			Generic.PlayWeapon.Invoke(Controller, weapon, null, 0);
+			Generic.PlayWeapon.Invoke(c, weapon, null, 0);
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new WeaponTask(_card);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

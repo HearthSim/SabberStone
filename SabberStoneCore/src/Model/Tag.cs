@@ -17,7 +17,7 @@ using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model
 {
-	public class Tag
+	public struct Tag
 	{
 		public GameTag GameTag { get; }
 		public TagValue TagValue { get; }

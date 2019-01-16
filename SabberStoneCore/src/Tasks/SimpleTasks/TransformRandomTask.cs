@@ -29,23 +29,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public EntityType Type { get; set; }
 		public int CostChange { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			//System.Collections.Generic.IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
-			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
-				if (Cards.CostMinionCards(Game.FormatType).TryGetValue(p.Card.Cost + CostChange, out List<Card> minions))
+			//System.Collections.Generic.IEnumerable<Card> cards = game.FormatType == FormatType.FT_STANDARD ? Cards.AllStandard : Cards.AllWild;
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
+				if (Cards.CostMinionCards(game.FormatType)
+					.TryGetValue(p.Card.Cost + CostChange, out List<Card> minions))
 					Generic.TransformBlock.Invoke(p.Controller, Util.RandomElement(minions), p as Minion);
 
-			Game.OnRandomHappened(true);
+			game.OnRandomHappened(true);
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new TransformMinionTask(Type, CostChange);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

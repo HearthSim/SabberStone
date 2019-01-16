@@ -71,7 +71,7 @@ namespace SabberStoneCore.Actions
 				c.NumTimesHeroPowerUsedThisGame++;
 
 				game.TaskQueue.StartEvent();
-				game.TriggerManager.OnInspireTrigger(target);
+				game.TriggerManager.OnInspireTrigger(heroPower);
 				game.ProcessTasks();
 				game.TaskQueue.EndEvent();
 

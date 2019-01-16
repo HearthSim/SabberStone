@@ -30,6 +30,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Blade
 		}
 
+		private static readonly Card BuffEnchantmentCard = Cards.FromId("OG_281e");
+		private static readonly Card BladeofCThunEnchantmentCard = Cards.FromId("OG_282e");
+		private static readonly Card TauntEnchantmentCard = Cards.FromId("OG_284e");
+		private readonly int _amount;
+
+		private readonly RitualType _type;
+
 		public RitualTask(RitualType type = RitualType.Check)
 		{
 			_type = type;
@@ -41,20 +48,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_amount = amount;
 		}
 
-		private RitualTask(RitualType type, int amount)
-		{
-			_type = type;
-			_amount = amount;
-		}
-
-		private readonly RitualType _type;
-		private readonly int _amount;
-
-		private static readonly Card BuffEnchantmentCard = Cards.FromId("OG_281e");
-		private static readonly Card BladeofCThunEnchantmentCard = Cards.FromId("OG_282e");
-		private static readonly Card TauntEnchantmentCard = Cards.FromId("OG_284e");
-
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
 			//[irc] Patashu @darkfriend77 yeah, that's the general idea. 
 			// there's two kinds of triggers, one when a c'thun is summoned or 
@@ -65,70 +60,71 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			// hand and board that aren't silenced
 
 			IPlayable proxyCthun;
-			if (!Controller.SeenCthun)
+			if (!controller.SeenCthun)
 			{
-				proxyCthun = Entity.FromCard(Controller, Cards.FromId("OG_279"));
+				proxyCthun = Entity.FromCard(in controller, Cards.FromId("OG_279"));
 				proxyCthun[GameTag.REVEALED] = 1;
-				Controller.SetasideZone.Add(proxyCthun);
-				Controller.ProxyCthun = proxyCthun.Id;
-				Controller.SeenCthun = true;
+				controller.SetasideZone.Add(proxyCthun);
+				controller.ProxyCthun = proxyCthun.Id;
+				controller.SeenCthun = true;
 			}
 			else
-				proxyCthun = Game.IdEntityDic[Controller.ProxyCthun];
+			{
+				proxyCthun = game.IdEntityDic[controller.ProxyCthun];
+			}
 
 			var entities = new List<IPlayable> {proxyCthun};
-			entities.AddRange(Controller.BoardZone.GetAll(p => p.Card.Id.Equals("OG_280")));
-			entities.AddRange(Controller.HandZone.GetAll(p => p.Card.Id.Equals("OG_280")));
+			entities.AddRange(controller.BoardZone.GetAll(p => p.Card.Id.Equals("OG_280")));
+			entities.AddRange(controller.HandZone.GetAll(p => p.Card.Id.Equals("OG_280")));
 
 			switch (_type)
 			{
 				case RitualType.Buff:
 					if (proxyCthun.OngoingEffect == null)
 					{
-						entities.ForEach(p =>
+						foreach (IPlayable p in entities)
 						{
-							Generic.AddEnchantmentBlock.Invoke(Controller, BuffEnchantmentCard, (IPlayable) Source, p, 0, 0);
+							Generic.AddEnchantmentBlock.Invoke(controller, BuffEnchantmentCard, (IPlayable) source, p,
+								0, 0, false);
 
-							((OngoingEnchant) p.OngoingEffect).Count += (_amount - 1);
-						});
+							((OngoingEnchant) p.OngoingEffect).Count += _amount - 1;
+						}
+
 						break;
 					}
-					entities.ForEach(p =>
-					{
+
+					foreach (IPlayable p in entities)
 						if (p.OngoingEffect == null)
 						{
-							Generic.AddEnchantmentBlock.Invoke(Controller, BuffEnchantmentCard, (IPlayable) Source, p, 0, 0);
-							((OngoingEnchant)p.OngoingEffect).Count += (_amount - 1);
+							Generic.AddEnchantmentBlock.Invoke(controller, BuffEnchantmentCard, (IPlayable) source, p,
+								0, 0, false);
+							((OngoingEnchant) p.OngoingEffect).Count += _amount - 1;
 						}
 						else
-							((OngoingEnchant)p.OngoingEffect).Count += _amount;
-					});
+						{
+							((OngoingEnchant) p.OngoingEffect).Count += _amount;
+						}
+
 					break;
 
 				case RitualType.Taunt:
 					if (proxyCthun[GameTag.TAUNT] == 1) break;
-					entities.ForEach(p =>
-					{
-						Generic.AddEnchantmentBlock.Invoke(Controller, TauntEnchantmentCard, (IPlayable)Source, p, 0, 0);
-					});
+					foreach (IPlayable p in entities)
+						Generic.AddEnchantmentBlock.Invoke(controller, TauntEnchantmentCard, (IPlayable) source, p, 0,
+							0, false);
+
 					break;
 
 				case RitualType.Blade:
-					entities.ForEach(p =>
-					{
-						Generic.AddEnchantmentBlock.Invoke(Controller, BladeofCThunEnchantmentCard, (IPlayable) Source, p, Number,
-							Number1);
-					});
+					foreach (IPlayable p in entities)
+						Generic.AddEnchantmentBlock.Invoke(controller, BladeofCThunEnchantmentCard, (IPlayable) source,
+							p, stack.Number,
+							stack.Number1, false);
+
 					break;
 			}
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new RitualTask(_type, _amount);
-			return clone;
 		}
 	}
 }

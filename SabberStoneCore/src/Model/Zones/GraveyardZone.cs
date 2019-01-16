@@ -11,7 +11,6 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
-using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 
@@ -21,14 +20,14 @@ namespace SabberStoneCore.Model.Zones
 	{
 		public GraveyardZone(Controller controller) : base(controller)
 		{
-			Type = Zone.GRAVEYARD;
 		}
 
 		private GraveyardZone(Controller c, GraveyardZone zone) : base(c, zone)
 		{
-			Type = Zone.GRAVEYARD;
 			//Entities = new List<IPlayable>(zone.Entities);
 		}
+
+		public override Zone Type => Zone.GRAVEYARD;
 
 		public override void Add(IPlayable entity, int zonePosition = -1)
 		{

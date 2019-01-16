@@ -12,6 +12,7 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Actions;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
@@ -25,18 +26,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
-				Generic.DiscardBlock.Invoke(Controller, p);
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
+				Generic.DiscardBlock.Invoke(controller, p);
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new DiscardTask(Type);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

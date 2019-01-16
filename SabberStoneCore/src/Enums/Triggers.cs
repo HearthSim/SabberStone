@@ -77,14 +77,18 @@ namespace SabberStoneCore.Enums
 		FROZEN,
 		/// <summary> The effect will be triggered when a hero gains armor. </summary>
 		ARMOR,
-		/// <summary> The effect will be triggered when equips a weapon. </summary>
+		/// <summary> The effect will be triggered when a hero equips a weapon. </summary>
 		EQUIP_WEAPON,
-
+		/// <summary> The effect will be triggered when a card is shuffled into a deck. </summary>
+		SHUFFLE_INTO_DECK,
 
 
 		WORGEN_TRANSFORM
 	}
 
+	/// <summary>
+	/// Types of entity that can invoke an event.
+	/// </summary>
 	public enum TriggerSource
 	{
 		ALL,
@@ -102,9 +106,13 @@ namespace SabberStoneCore.Enums
 		WEAPON,
 		HERO_POWER,
 		FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
-		FRIENDLY_SPELL_CASTED_ON_OWN_MINIONS
+		FRIENDLY_SPELL_CASTED_ON_OWN_MINIONS,
+		FRIENDLY_EVENT_SOURCE
 	}
 
+	/// <summary>
+	/// Indicates where this trigger should be activated.
+	/// </summary>
 	public enum TriggerActivation
 	{
 		PLAY,
@@ -113,6 +121,9 @@ namespace SabberStoneCore.Enums
 		HAND_OR_PLAY
 	}
 
+	/// <summary>
+	/// Types of event sequences in Hearthstone.
+	/// </summary>
 	public enum SequenceType
 	{
 		None,

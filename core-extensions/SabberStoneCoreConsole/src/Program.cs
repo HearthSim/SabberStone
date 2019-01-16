@@ -26,8 +26,6 @@ using System.Threading.Tasks;
 using SabberStoneCore.Model.Entities;
 using System.Text;
 using System.IO;
-using SabberStoneCore.Enchants;
-using SabberStoneCore.Visualizer;
 
 namespace SabberStoneCoreConsole
 {
@@ -37,12 +35,19 @@ namespace SabberStoneCoreConsole
 
 		static void Main(string[] args)
 		{
+			//SimpleTest();
 
 			Console.WriteLine("Start Test!");
 
+			//ChameleosPintSizedSummonerDouble();
+
+			//AugmentedElekk();
+
 			Console.WriteLine(Cards.Statistics());
 			//StabilityTest.CloneStabilityTest();
-			//StabilityTest.ThreadSafetyTest();
+			StabilityTest.TestRun();
+			//for (int i = 0; i < 10000; i++)
+			//	StabilityTest.ThreadSafetyTest();
 			//EntityChangeTest();
 			//YoggTest();
 			//TessGreymane();
@@ -81,6 +86,92 @@ namespace SabberStoneCoreConsole
 
 			Console.WriteLine("Finished! Press key now.");
 			Console.ReadKey();
+		}
+
+		private static void AugmentedElekk()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Augmented Elekk"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Augmented Elekk"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Augmented Elekk"));
+
+			int deckCount = game.CurrentPlayer.DeckZone.Count;
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer,
+				Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fal'dorei Strider"))));
+
+			ShowLog(game, LogLevel.VERBOSE);
+		}
+
+		private static void SimpleTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.DRUID,
+				Player2HeroClass = CardClass.DRUID,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+				},
+				FillDecks = false,
+				History = false,
+			});
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.StartGame();
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer,
+				Entity.FromCard(game.CurrentPlayer, Cards.FromName("Emerald Hive Queen"), zone: game.CurrentPlayer.HandZone)));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer,
+				Entity.FromCard(game.CurrentPlayer, Cards.FromName("Emerald Hive Queen"), zone: game.CurrentPlayer.HandZone)));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			var clone = game.Clone();
+
+			var rnd = new Random();
+
+			var hand = clone.CurrentOpponent.HandZone;
+			var deck = clone.CurrentOpponent.DeckZone;
+			var n = hand.Count;
+			for (var i = n; i > 0;)
+			{
+				var card = hand[--i];
+
+				deck.Add(hand.Remove(card));
+				hand.Add(deck.Remove(deck[rnd.Next(deck.Count)]));
+				
+			}
+			deck.Shuffle();
+
+			clone.AuraUpdate();
+
+			var bomb = (Minion)Generic.DrawCard(clone.CurrentPlayer, Cards.FromName("Spider Bomb"));
+			clone.Process(PlayCardTask.Any(clone.CurrentPlayer, bomb));
+
+			bomb.AttackDamage += 10;
+
+			bomb.HasCharge = true;
+
+			clone.Process(MinionAttackTask.Any(clone.CurrentPlayer, bomb, clone.CurrentOpponent.BoardZone[0]));
 		}
 
 		private static void ShowCardAsAsic()
@@ -148,6 +239,62 @@ namespace SabberStoneCoreConsole
 			{
 				Console.WriteLine("Something goes wrong!");
 			}
+		}
+
+		static void ChameleosPintSizedSummonerDouble()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromId("GIL_142"),
+					Cards.FromName("Pint-Sized Summoner"),
+					Cards.FromName("Mirage Caller"),
+					Cards.FromName("Pint-Sized Summoner"),
+					Cards.FromName("Wisp"),
+				},
+				Player2Deck = new List<Card>
+				{
+					Cards.FromName("Hallucination"),
+					Cards.FromName("Hallucination"),
+					Cards.FromName("Hallucination"),
+					Cards.FromName("Hallucination"),
+					Cards.FromName("Hallucination"),
+				},
+				FillDecks = false,
+				Shuffle = false
+			});
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.StartGame();
+
+			var chameleosId = game.Player1.HandZone[0].Id;
+
+			//do
+			//{
+			//	game.Process(EndTurnTask.Any(game.Player1));
+			//	game.Process(EndTurnTask.Any(game.Player2));
+			//} while (game.IdEntityDic[chameleosId].Card.Name == "Mountain Giant");
+
+			//if (game.IdEntityDic[chameleosId].Card.Name != "Hallucination")
+			//	throw new Exception();
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Pint-Sized Summoner"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Mirage Caller", game.CurrentPlayer.BoardZone[0]));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			for (int i = game.CurrentPlayer.HandZone.Count - 1; i >= 0; i--)
+				game.CurrentPlayer.HandZone.Remove(game.CurrentPlayer.HandZone[i]);
+
+			Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gurubashi Berserker"));
+
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Wisp"));
+
+			Console.ReadKey();
 		}
 
 		static void CloneAdapt()
@@ -803,7 +950,7 @@ namespace SabberStoneCoreConsole
 			game.Player2.BaseMana = 10;
 			game.StartGame();
 
-			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			var minion = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion));
@@ -817,7 +964,7 @@ namespace SabberStoneCoreConsole
 		public static void KabalCourierDiscover()
 		{
 
-			Dictionary<CardClass, IEnumerable<Card>> cardSet = Cards.Standard;
+			Dictionary<CardClass, IReadOnlyList<Card>> cardSet = Cards.Standard;
 
 			var mageCards =
 				cardSet[CardClass.MAGE].Where(p => p.Class == CardClass.MAGE || p.MultiClassGroup != 0).ToList();
@@ -898,7 +1045,7 @@ namespace SabberStoneCoreConsole
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Grim Patron"));
-			IPlayable grim = game.CurrentPlayer.BoardZone[0] as Minion;
+			Minion grim = game.CurrentPlayer.BoardZone[0];
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Stonetusk Boar"));
 			IPlayable boar = game.CurrentPlayer.BoardZone[0] as Minion;

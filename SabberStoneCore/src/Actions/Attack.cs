@@ -26,50 +26,54 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, ICharacter, ICharacter, bool, bool> AttackBlock
 			=> delegate (Controller c, ICharacter source, ICharacter target, bool skipPrePhase)
 			{
+				Game g = c.Game;
+
 				if (skipPrePhase)
 				{
-					if (c.Game.History)
-						c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.ATTACK, source.Id, "", -1, target.Id));
+					if (g.History)
+					{
+						g.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.ATTACK, source.Id, "", -1, target.Id));
 
-					c.Game.ProposedAttacker = source.Id;
-					c.Game.ProposedDefender = target.Id;
-					c.Game.CurrentEventData = new EventMetaData(source, target);
+						g.ProposedAttacker = source.Id;
+						g.ProposedDefender = target.Id;
+					}
+					g.CurrentEventData = new EventMetaData(source, target);
 				}
 				else if (!PreAttackPhase.Invoke(c, source, target))
 					return false;
 
-				if (!OnAttackTrigger.Invoke(c, source, target))
+				if (!OnAttackTrigger.Invoke(g, source, target))
 				{
 					// end block
-					if (c.Game.History)
-						c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
-					c.Game.DeathProcessingAndAuraUpdate();
-					c.Game.CurrentEventData = null;
+					if (g.History)
+						g.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+					g.DeathProcessingAndAuraUpdate();
+					g.CurrentEventData = null;
 					return false;
 				}
-				Trigger.ValidateTriggers(c.Game, source, SequenceType.Target);
+				Trigger.ValidateTriggers(g, source, SequenceType.Target);
 				if (!AttackPhase.Invoke(c, source))
 				{
 					// end block
-					if (c.Game.History)
-						c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
-					c.Game.DeathProcessingAndAuraUpdate();
-					c.Game.CurrentEventData = null;
+					if (g.History)
+						g.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+					g.DeathProcessingAndAuraUpdate();
+					g.CurrentEventData = null;
 					return false;
 				}
 				// end block
-				if (c.Game.History)
-					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+				if (g.History)
+					g.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
-				c.Game.TaskQueue.StartEvent();
+				g.TaskQueue.StartEvent();
 				source.OnAfterAttackTrigger();
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				g.ProcessTasks();
+				g.TaskQueue.EndEvent();
 
 
-				c.Game.DeathProcessingAndAuraUpdate();
-				c.Game.CurrentEventData = null;
-				c.Game.NextStep = Step.MAIN_ACTION;
+				g.DeathProcessingAndAuraUpdate();
+				g.CurrentEventData = null;
+				g.NextStep = Step.MAIN_ACTION;
 
 				return true;
 			};
@@ -99,33 +103,42 @@ namespace SabberStoneCore.Actions
 
 				// attack block
 				if (c.Game.History)
+				{
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.ATTACK, source.Id, "", -1, target.Id));
 
-				// TODO need to be manipulated for 50% chance to attack  someone else 
-				c.Game.ProposedAttacker = source.Id;
-				c.Game.ProposedDefender = target.Id;
+					c.Game.ProposedAttacker = source.Id;
+					c.Game.ProposedDefender = target.Id;
+				}
+
 				c.Game.CurrentEventData = new EventMetaData(source, target);
+
+				// TODO: need to be manipulated for 50% chance to attack  someone else 
 
 				return true;
 			};
 
-		private static Func<Controller, ICharacter, ICharacter, bool> OnAttackTrigger
-			=> delegate (Controller c, ICharacter source, ICharacter target)
+		private static Func<Game, ICharacter, ICharacter, bool> OnAttackTrigger
+			=> delegate (Game g, ICharacter source, ICharacter target)
 			{
+				//if (g.History)
+				//{
+
+				//}
 				source.IsAttacking = true;
 				target.IsDefending = true;
 
 				// Invoke onAttackTrigger
-				Trigger.ValidateTriggers(c.Game, source, SequenceType.Attack);
-				c.Game.TaskQueue.StartEvent();
+				//Trigger.ValidateTriggers(g, source, SequenceType.Attack);
+
+				g.TaskQueue.StartEvent();
 				source.Game.TriggerManager.OnAttackTrigger(source);
-				c.Game.ProcessTasks();
-				c.Game.TaskQueue.EndEvent();
+				g.ProcessTasks();
+				g.TaskQueue.EndEvent();
 				if (source.ToBeDestroyed || target.ToBeDestroyed || (source.Zone != null && source.Zone.Type != Zone.PLAY) ||
 				    (target.Zone != null && target.Zone.Type != Zone.PLAY))
 				{
-					c.Game.Log(LogLevel.INFO, BlockType.ATTACK, "OnAttackTrigger",
-						!c.Game.Logging ? "" : "Oh shizzle, something died to the shizzeling of triggering ...");
+					g.Log(LogLevel.INFO, BlockType.ATTACK, "OnAttackTrigger",
+						!g.Logging ? "" : "Oh shizzle, something died to the shizzeling of triggering ...");
 					return false;
 				}
 
@@ -152,8 +165,6 @@ namespace SabberStoneCore.Actions
 				//	return false;
 				//}
 
-				//var target = (ICharacter)proposedDefender;
-
 				var target = (ICharacter) game.CurrentEventData.EventTarget;
 
 				// Force the game into MAIN_COMBAT step!
@@ -166,13 +177,6 @@ namespace SabberStoneCore.Actions
 
 				int targetRealDamage = target.TakeDamage(source, sourceAttack);
 				bool targetDamaged = targetRealDamage > 0;
-
-				//// lifesteal attacker
-				//if (targetDamaged && source.HasLifeSteal)
-				//{
-				//	game.Log(LogLevel.VERBOSE, BlockType.ATTACK, "AttackPhase", !game.Logging? "":$"lifesteal attacker has damaged target for {targetRealDamage}.");
-				//	c.Hero.TakeHeal(source, targetRealDamage);
-				//}
 
 				// freeze target if attacker is freezer
 				if (targetDamaged && minion != null && minion.Freeze)
@@ -193,12 +197,6 @@ namespace SabberStoneCore.Actions
 				{
 					int sourceRealDamage = source.TakeDamage(target, targetAttack);
 					bool sourceDamaged = sourceRealDamage > 0;
-
-					//// lifesteal defender
-					//if (sourceDamaged && target.HasLifeSteal)
-					//{
-					//	target.Controller.Hero.TakeHeal(target, sourceRealDamage);
-					//}
 
 					// freeze source if defender is freezer
 					var targetMinion = target as Minion;
@@ -226,21 +224,28 @@ namespace SabberStoneCore.Actions
 					hero.Weapon.Damage += 1;
 				}
 
+				//if (game.History)
+				//{
+
+				//}
 				source.IsAttacking = false;
 				target.IsDefending = false;
 
-				source.NumAttacksThisTurn++;
+				int numAtk = source.NumAttacksThisTurn + 1;
+
 				c.NumOptionsPlayedThisTurn++;
 				if (minion != null)
 					c.NumFriendlyMinionsThatAttackedThisTurn++;
 
 				// set exhausted ...
-				if (source.NumAttacksThisTurn > 0 && !source.HasWindfury ||
-					source.NumAttacksThisTurn > 1 && source.HasWindfury)
+				if (numAtk > 0 && !source.HasWindfury ||
+					numAtk > 1 && source.HasWindfury)
 				{
 					game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", !game.Logging? "":$"{source} is now exhausted.");
 					source.IsExhausted = true;
 				}
+
+				source.NumAttacksThisTurn = numAtk;
 
 				game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", !game.Logging? "":$"[AttackPhase]{source}[ATK:{source.AttackDamage}/HP:{source.Health}{(hero != null ? $"/ARM:{hero.Armor}" : "")}] " +
 						$"{(hero?.Weapon != null ? $"[{hero.Weapon}[A:{hero.Weapon.AttackDamage}/D:{hero.Weapon.Durability}]] " : "")}attacked " +

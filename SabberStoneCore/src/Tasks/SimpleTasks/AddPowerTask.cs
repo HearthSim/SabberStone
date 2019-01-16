@@ -35,20 +35,20 @@
 
 //		public override TaskState Process()
 //		{
-//			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, Controller, Source, Target, Playables);
+//			System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
 //			entities.ForEach(p =>
 //			{
 //				var minion = p as Minion;
 //				if (minion != null)
 //				{
-//					minion.HasDeathrattle = Power.Activation == PowerActivation.DEATHRATTLE ? true : false;
+//					minion.IsDeathrattle = Power.Activation == PowerActivation.DEATHRATTLE ? true : false;
 //					//if (minion.Powers == null)
 //					//	minion.Powers = new System.Collections.Generic.List<Power> { Power };
 //					//else
 //					//	minion.Powers.Add(Power);
 //					if (Activate)
 //					{
-//						//Power.Activate(Controller, minion);
+//						//Power.Activate(controller, minion);
 //					}
 //				}
 //			});
@@ -63,3 +63,6 @@
 //		}
 //	}
 //}
+
+
+

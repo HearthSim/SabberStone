@@ -20,6 +20,8 @@ namespace SabberStoneCore.Model.Zones
 {
 	public class SecretZone : LimitedZone<Spell>
 	{
+		public const int SecretZoneMaxSize = 5;
+
 		/// <summary>
 		/// An unique field for Quest.
 		/// Gets or sets the quest in this SecretZone.
@@ -27,29 +29,33 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		public Spell Quest { get; set; }
 
-		public SecretZone(Controller controller) : base(5)
+		public SecretZone(Controller controller)
 		{
 			Game = controller.Game;
 			Controller = controller;
-			Type = Zone.SECRET;
 		}
 
 		private SecretZone(Controller c, SecretZone zone) : base(c, zone)
 		{
 			Quest = (Spell) zone.Quest?.Clone(c);
-			Type = Zone.SECRET;
 		}
 
-		public override void Add(IPlayable entity, int zonePosition = -1)
+		public override Zone Type => Zone.SECRET;
+
+		public override bool IsFull => _count == SecretZoneMaxSize;
+
+		public override int MaxSize => SecretZoneMaxSize;
+
+		public override void Add(Spell entity, int zonePosition = -1)
 		{
 			if (entity.Card.IsQuest)
 			{
 				if (Quest != null)
 					throw new ZoneException($"Another quest is already in play");
 
-				Quest = (Spell)entity;
-				Quest[GameTag.ZONE] = (int)Type;
-				Quest.Zone = this;
+				Quest = entity;
+				entity[GameTag.ZONE] = (int)Type;
+				entity.Zone = this;
 
 				Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Quest {entity} has been added to zone '{Type}'.");
 
@@ -67,7 +73,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public override IEnumerator<Spell> GetEnumerator()
 		{
-			var entities = (Spell[])Entities;
+			var entities = _entities;
 			for (int i = 0; i < _count; i++)
 				yield return entities[i];
 			if (Quest != null)

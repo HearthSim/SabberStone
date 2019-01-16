@@ -12,8 +12,6 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
-using SabberStoneCore.Tasks.PlayerTasks;
 using System.Text;
 
 namespace SabberStonePowerLog.Model

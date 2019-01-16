@@ -49,11 +49,28 @@ namespace SabberStoneCore.Actions
 				// remove from hand zone
 				if (source is Spell)
 					source[GameTag.TAG_LAST_KNOWN_COST_IN_HAND] = source.Cost;
+
+				bool echo = source.IsEcho;
+
 				if (!RemoveFromZone.Invoke(c, source))
 					return false;
 
 				c.NumCardsPlayedThisTurn++;
 				c.LastCardPlayed = source.Id;
+
+				// Check Overload
+				if (source.Card.HasOverload)
+				{
+					int amount = source.Overload;
+					c.OverloadOwed += amount;
+					c.OverloadThisGame += amount;
+					c.Game.CurrentEventData.EventNumber = amount;
+				}
+
+				// record played cards for effect of cards like Obsidian Shard and Lynessa Sunsorrow
+				// or use graveyard instead with 'played' tag(or bool)?
+				c.CardsPlayedThisTurn.Add(source.Card);
+				c.PlayHistory.Add(new PlayHistoryEntry(in source, in target, in chooseOne));
 
 				//// show entity
 				//if (c.Game.History)
@@ -65,6 +82,7 @@ namespace SabberStoneCore.Actions
 					source.CardTarget = target.Id;
 					Trigger.ValidateTriggers(c.Game, source, SequenceType.Target);
 				}
+
 
 				Trigger.ValidateTriggers(c.Game, source, SequenceType.PlayCard);
 				switch (source)
@@ -83,9 +101,9 @@ namespace SabberStoneCore.Actions
 						break;
 				}
 
-				if (source.HasEcho)
+				if (echo && !(source is Spell s && s.IsCountered))
 				{
-					var echoTags = new EntityData.Data
+					var echoTags = new EntityData
 					{
 						{GameTag.GHOSTLY, 1}
 					};
@@ -103,14 +121,14 @@ namespace SabberStoneCore.Actions
 					c.IsComboActive = true;
 
 				if (c.Game.History)
+				{
+					if (source[GameTag.GHOSTLY] == 1)
+						source[GameTag.GHOSTLY] = 0;
 					c.Game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+				}
 
 				c.Game.CurrentEventData = null;
 
-				// record played cards for effect of cards like Obsidian Shard and Lynessa Sunsorrow
-				// or use graveyard instead with 'played' tag(or bool)?
-				c.CardsPlayedThisTurn.Add(source.Card);
-				c.PlayHistory.Add(new PlayHistoryEntry(source, target, chooseOne));
 
 				return true;
 			};
@@ -140,14 +158,6 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, IPlayable, bool> PayPhase
 			=> delegate (Controller c, IPlayable source)
 			{
-				if (source.Card.HasOverload)
-				{
-					int amount = source.Overload;
-					c.OverloadOwed += amount;
-					c.OverloadThisGame += amount;
-					c.Game.CurrentEventData.EventNumber = amount;
-				}
-					
 				int cost = source.Cost;
 				if (cost > 0)
 				{
@@ -157,7 +167,7 @@ namespace SabberStoneCore.Actions
 						return true;
 					}
 
-					if (source.AuraEffects[GameTag.CARD_COSTS_HEALTH] == 1)
+					if (source.AuraEffects?.CardCostHealth ?? false)
 					{
 						c.Hero.TakeDamage(c.Hero, cost);
 						return true;
@@ -183,10 +193,12 @@ namespace SabberStoneCore.Actions
 				Hero oldHero = c.Hero;
 				hero[GameTag.ZONE] = (int)Zone.PLAY;
 				//hero[GameTag.LINKED_ENTITY] = c.Hero.Id;
-				hero[GameTag.HEALTH] = oldHero[GameTag.HEALTH];
-				hero[GameTag.DAMAGE] = oldHero[GameTag.DAMAGE];
+				//hero[GameTag.HEALTH] = oldHero[GameTag.HEALTH];
+				hero.BaseHealth = oldHero.BaseHealth;
+				//hero[GameTag.DAMAGE] = oldHero[GameTag.DAMAGE];
+				hero.Damage = oldHero.Damage;
 				hero[GameTag.ARMOR] = oldHero[GameTag.ARMOR] + hero.Card[GameTag.ARMOR];
-				hero[GameTag.EXHAUSTED] = oldHero[GameTag.EXHAUSTED];
+				hero.IsExhausted = oldHero.IsExhausted;
 
 				c.SetasideZone.Add(oldHero);
 				//oldHero[GameTag.REVEALED] = 1;
@@ -305,7 +317,7 @@ namespace SabberStoneCore.Actions
 				//   (death processing, aura updates)
 				game.TaskQueue.StartEvent();
 				game.TriggerManager.OnAfterPlayCardTrigger(minion);
-				AfterSummonTrigger.Invoke(c, minion);
+				AfterSummonTrigger.Invoke(game, minion);
 				game.ProcessTasks();
 				game.TaskQueue.EndEvent();
 
@@ -368,7 +380,7 @@ namespace SabberStoneCore.Actions
 						}
 					}
 
-					CastSpell.Invoke(c, spell, target, chooseOne);
+					CastSpell.Invoke(c, spell, target, chooseOne, false);
 					game.DeathProcessingAndAuraUpdate();
 				}
 				

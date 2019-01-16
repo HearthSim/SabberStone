@@ -30,7 +30,7 @@ namespace SabberStoneCoreAi
 	{
 		private static readonly Random Rnd = new Random();
 
-		private static void Main(string[] args)
+		private static void Main()
 		{
 			Console.WriteLine("Starting test setup.");
 
@@ -135,8 +135,8 @@ namespace SabberStoneCoreAi
 				var game = new Game(gameConfig);
 				game.StartGame();
 
-				game.Process(ChooseTask.Mulligan(game.Player1, new List<int>{}));
-				game.Process(ChooseTask.Mulligan(game.Player2, new List<int>{}));
+				game.Process(ChooseTask.Mulligan(game.Player1, new List<int>()));
+				game.Process(ChooseTask.Mulligan(game.Player2, new List<int>()));
 
 				game.MainReady();
 
