@@ -13,33 +13,23 @@
 #endregion
 using System.Collections.Generic;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DrawStackTask : SimpleTask
 	{
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			if (Playables.Count == 0)
-			{
-				return TaskState.STOP;
-			}
+			if (stack?.Playables.Count == 0) return TaskState.STOP;
 
 			var list = new List<IPlayable>();
-			Playables.ForEach(p =>
-			{
-				list.Add(Generic.DrawBlock(Controller, p));
-			});
-			Playables = list;
-			return TaskState.COMPLETE;
-		}
+			foreach (IPlayable p in stack?.Playables) list.Add(Generic.DrawBlock(controller, p));
 
-		public override ISimpleTask Clone()
-		{
-			var clone = new DrawStackTask();
-			clone.Copy(this);
-			return clone;
+			stack.Playables = list;
+			return TaskState.COMPLETE;
 		}
 	}
 }

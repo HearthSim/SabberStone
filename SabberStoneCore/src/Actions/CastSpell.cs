@@ -19,9 +19,16 @@ namespace SabberStoneCore.Actions
 {
     public static partial class Generic
     {
-	    public static Action<Controller, Spell, ICharacter, int> CastSpell
-		    => delegate(Controller c, Spell spell, ICharacter target, int chooseOne)
+	    public static Action<Controller, Spell, ICharacter, int, bool> CastSpell
+		    => delegate(Controller c, Spell spell, ICharacter target, int chooseOne, bool checkOverload)
 		    {
+			    if (checkOverload && spell.Card.HasOverload)
+			    {
+				    int amount = spell.Overload;
+				    c.OverloadOwed += amount;
+				    c.OverloadThisGame += amount;
+				}
+
 			    c.Game.TaskQueue.StartEvent();
 			    if (spell.IsSecret || spell.IsQuest)
 			    {

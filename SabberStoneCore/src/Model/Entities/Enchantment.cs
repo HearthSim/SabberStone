@@ -15,53 +15,61 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Zones;
-using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Model.Entities
 {
 	public partial class Enchantment : IPlayable
 	{
-		private readonly IDictionary<GameTag, int> _tags;
+		private readonly EntityData _tags;
 		private int _creatorId;
+		private int _controllerId;
 		private IPlayable _creator;
+		private Controller _controller;
+		private Card _capturedCard;
 
-		private Enchantment(Controller controller, Card card, IDictionary<GameTag, int> tags)
+		private Enchantment(in Controller controller, in Card card, in EntityData tags, in int id)
 		{
 			Game = controller.Game;
 			Controller = controller;
 			Card = card;
 			_tags = tags;
-			Id = tags[GameTag.ENTITY_ID];
+			Id = id;
 		}
 
-		private Enchantment(Controller c, Enchantment e)
+		private Enchantment(in Controller c, in Enchantment e)
 		{
 			Game = c.Game;
-			Controller = c;
 			Card = e.Card;
 			Id = e.Id;
 			Target = e.Target is IPlayable ? (IEntity) Game.IdEntityDic[e.Target.Id] : c;
+			_controllerId = e._controllerId;
 			_creatorId = e._creatorId;
-			e.OngoingEffect?.Clone(this);
+			_capturedCard = e._capturedCard;
+			//e.OngoingEffect?.Clone(this);
 			e.ActivatedTrigger?.Activate(this);
-			Game.IdEntityDic.Add(Id, this);
+			//Game.IdEntityDic.Add(Id, this);
+			Game.IdEntityDic[Id] = this;
 			if (e.IsOneTurnActive)
 				c.Game.OneTurnEffectEnchantments.Add(this);
 
 			//if (c.Game.History)
 			//{
 				Zone = c.BoardZone;
-				_tags = new EntityData.Data((EntityData.Data) e._tags);
+				_tags = new EntityData(entityData: e._tags);
 			//}
 
 			if (Power.Enchant?.RemoveWhenPlayed ?? false)
 			{
 				Enchant.RemoveWhenPlayedTrigger.Activate(this);
 			}
+
+			if (e.Creator is Enchantment eCreator)
+				eCreator.Clone(in c);
 		}
 
 		public int this[GameTag t]
@@ -70,7 +78,28 @@ namespace SabberStoneCore.Model.Entities
 			set => _tags[t] = value;
 		}
 
+		/// <summary>
+		/// The entity that this enchantment is attached to.
+		/// </summary>
 		public IEntity Target { get; private set; }
+
+		/// <summary>
+		/// <see cref="SabberStoneCore.Model.Card"/> information captured in this instance.
+		/// </summary>
+		public Card CapturedCard
+		{
+			get => _capturedCard;
+			set
+			{
+				_capturedCard = value;
+				if (value != null && Game.History && (Card.Text?.Contains("{0}") ?? false))
+				{
+					Card c = Card.Clone();
+					c.Text = String.Format(c.Text, value.Name);
+					Card = c;
+				}
+			}
+		}
 
 		public IPlayable Creator
 		{
@@ -79,6 +108,16 @@ namespace SabberStoneCore.Model.Entities
 			{
 				_creatorId = value.Id;
 				_creator = value;
+			}
+		}
+
+		public Controller Controller
+		{
+			get => _controller ?? (_controller = Game.ControllerById(_controllerId));
+			set
+			{
+				_controllerId = value.Id;
+				_controller = value;
 			}
 		}
 
@@ -96,16 +135,13 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="target">The entity who is subjected to the enchantment.</param>
 		/// <param name="card">The card from which the enchantment must be derived.</param>
 		/// <returns>The resulting enchantment entity.</returns>
-		public static Enchantment GetInstance(Controller controller, IPlayable creator, IEntity target, Card card)
+		public static Enchantment GetInstance(in Controller controller, in IPlayable creator, in IEntity target, in Card card)
 		{
-			var tags = new EntityData.Data(8)
-			{
-				{GameTag.ZONE, (int) Enums.Zone.SETASIDE},
-				{GameTag.CONTROLLER, controller.PlayerId},
-				{GameTag.ENTITY_ID, controller.Game.NextId}
-			};
+			int id = controller.Game.NextId;
 
-			var instance = new Enchantment(controller, card, tags)
+			var tags = new EntityData(4);
+
+			var instance = new Enchantment(in controller, in card, in tags, in id)
 			{
 				Creator = creator,
 				Target = target,
@@ -116,10 +152,15 @@ namespace SabberStoneCore.Model.Entities
 			else
 				target.AppliedEnchantments.Add(instance);
 
-			controller.Game.IdEntityDic.Add(instance.Id, instance);
+			//controller.Game.IdEntityDic.Add(instance.Id, instance);
+			controller.Game.IdEntityDic[instance.Id] = instance;
 
 			if (controller.Game.History)
 			{
+				tags.Add(GameTag.ENTITY_ID, id);
+				tags.Add(GameTag.ZONE, (int)Enums.Zone.SETASIDE);
+				tags.Add(GameTag.CONTROLLER, controller.PlayerId);
+
 				controller.Game.PowerHistory.Add(new PowerHistoryFullEntity
 				{
 					Entity = new PowerHistoryEntity
@@ -189,9 +230,9 @@ namespace SabberStoneCore.Model.Entities
 			return instance;
 		}
 
-		public IPlayable Clone(Controller controller)
+		public Enchantment Clone(in Controller controller)
 		{
-			return new Enchantment(controller, this);
+			return new Enchantment(in controller, this);
 		}
 
 		public void Remove()
@@ -204,18 +245,10 @@ namespace SabberStoneCore.Model.Entities
 				this[GameTag.ZONE] = (int)Enums.Zone.REMOVEDFROMGAME;
 			}
 
+			// Activate enchantment deathrattle task.
 			if (Power.DeathrattleTask != null && Target.Zone is GraveyardZone)
 			{
-				ISimpleTask clone = Power.DeathrattleTask.Clone();
-				clone.Game = Game;
-				clone.Controller = Target.Controller;
-				clone.Source = Target;
-				clone.Target = this;
-				//clone.Number = this[GameTag.TAG_SCRIPT_DATA_NUM_1];
-				//if (clone.Number > 0)
-				//	;
-
-				Game.TaskQueue.Enqueue(clone);
+				Game.TaskQueue.Enqueue(Power.DeathrattleTask, Target.Controller, Target, this);
 			}
 
 			OngoingEffect?.Remove();
@@ -250,38 +283,29 @@ namespace SabberStoneCore.Model.Entities
 		public int OrderOfPlay { get; set; }
 		public Game Game { get; set; }
 		public Card Card { get; set; }
-		public Controller Controller { get; set; }
 		public IZone Zone { get; set; }
 		public IAura OngoingEffect { get; set; }
-		public IEnumerable<ICharacter> ValidPlayTargets { get; }
+		public IEnumerable<ICharacter> ValidPlayTargets => null;
 		public bool ChooseOne { get; set; }
-		public bool IsPlayable { get; }
-		public bool IsPlayableByPlayer { get; }
-		public bool IsPlayableByCardReq { get; }
+		public bool IsPlayable => false;
+		public bool IsPlayableByPlayer => false;
+		public bool IsPlayableByCardReq => false;
 		public bool IsIgnoreDamage { get; set; }
-		public bool Combo { get; }
+		public bool Combo => false;
 		public int Cost { get; set; }
-		public int NumTurnsInPlay { get; set; }
 		public bool ToBeDestroyed { get; set; }
 		public int CardTarget { get; set; }
 		public int ZonePosition { get; set; }
-		public bool JustPlayed { get; set; }
-		public bool IsSummoned { get; set; }
 		public bool IsExhausted { get; set; }
 		public int Overload { get; set; }
 		public bool HasDeathrattle { get; set; }
 		public bool HasLifeSteal { get; set; }
-		public bool HasEcho { get; }
+		public bool IsEcho => false;
 		public IPlayable[] ChooseOnePlayables { get; set; }
 		public AuraEffects AuraEffects { get; set; }
-		public IDictionary<GameTag, int> NativeTags { get; }
+		public IDictionary<GameTag, int> NativeTags => _tags;
 		public List<Enchantment> AppliedEnchantments { get; set; }
-		public List<int> Memory { get; set; }
-
-		public void Stamp(Entity entity)
-		{
-			throw new NotImplementedException();
-		}
+		public bool HasAnyValidPlayTargets { get; }
 
 		public string Hash(params GameTag[] ignore)
 		{
@@ -298,7 +322,7 @@ namespace SabberStoneCore.Model.Entities
 			throw new NotImplementedException();
 		}
 
-		public void ActivateTask(PowerActivation activation, IPlayable target = null, int chooseOne = 0, IPlayable source = null)
+		public void ActivateTask(in PowerActivation activation, in ICharacter target = null, in int chooseOne = 0, in IPlayable source = null)
 		{
 			throw new NotImplementedException();
 		}
@@ -312,5 +336,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			return GetEnumerator();
 		}
+
+		IPlayable IPlayable.Clone(in Controller controller) => Clone(in controller);
 	}
 }

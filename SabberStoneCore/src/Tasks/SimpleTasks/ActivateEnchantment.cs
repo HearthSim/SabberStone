@@ -28,7 +28,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	//	public override TaskState Process()
 	//	{
 
-	//		System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, Controller, Source, Target, Playables);
+	//		System.Collections.Generic.List<IPlayable> entities = IncludeTask.GetEntites(Type, in controller, source, target, stack?.Playables);
 
 	//		entities.ForEach(p =>
 	//		{
@@ -36,7 +36,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	//			{
 	//				if (t.Activation == Activation)
 	//				{
-	//					//t.Activate(Controller, p, Target as IPlayable);
+	//					//t.Activate(controller, p, target as IPlayable);
 	//				}
 	//			});
 
@@ -52,4 +52,4 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	//		return clone;
 	//	}
 	//}
-}
+//}

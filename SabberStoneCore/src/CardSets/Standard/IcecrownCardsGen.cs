@@ -14,13 +14,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
-using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Standard
 {
@@ -509,30 +510,13 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.HERO,
-					//Condition = new SelfCondition(p =>
-					//{
-					//	return p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed;
-					//}),
 					Condition = SelfCondition.IsDefenderDead,
 					SingleTask = ComplexTask.Create(
-						new FuncNumberTask(p => p.Game.ProposedDefender),
-						new MemoryTask(EntityType.SOURCE),
-						new AddEnchantmentTask("ICC_314t1e", EntityType.SOURCE, true))
-				},
-				DeathrattleTask = new MemoryTask(EntityType.SOURCE, (s, mem) =>
-				{
-					if (mem == null)
-						return;
-					foreach (int id in mem)
-					{
-						if (s.Controller.BoardZone.IsFull)
-							return;
-						Card card = s.Game.IdEntityDic[id].Card;
-						if (card.Type == CardType.HERO)
-							return;
-						Entity.FromCard(s.Controller, card, null, s.Controller.BoardZone);
-					}
-				})
+						new ConditionTask(EntityType.EVENT_TARGET, SelfCondition.IsMinion),
+						new FlagTask(true, ComplexTask.Create(
+						new GetGameTagTask(GameTag.ENTITY_ID, EntityType.EVENT_TARGET),
+						new AddEnchantmentTask("ICC_314t1e", EntityType.SOURCE, true, true))))
+				}
 			});
 
 		}
@@ -1128,8 +1112,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_068", new Power {
 				Trigger = new Trigger(TriggerType.INSPIRE)
 				{
-					Condition = new SelfCondition(p => p != null),
-					SingleTask = ComplexTask.Freeze(EntityType.TARGET)
+					//Condition = new SelfCondition(p => p != null),
+					SingleTask = ComplexTask.Freeze(EntityType.EVENT_TARGET)
 				}
 			});
 
@@ -1156,7 +1140,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_083", new Power {
-				Aura = new Aura(AuraType.OP_HAND, new Effect(GameTag.COST, EffectOperator.ADD, 1))
+				Aura = new Aura(AuraType.OP_HAND, Effects.AddCost(1))
 				{
 					Condition = SelfCondition.IsSpell
 				}
@@ -1215,8 +1199,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandFull),
 						new FlagTask(false, ComplexTask.Secret(
-							new CopyTask(EntityType.EVENT_SOURCE, 2, true),
-							new AddStackTo(EntityType.HAND))))
+							new CopyTask(EntityType.EVENT_SOURCE, Zone.HAND, 2))))
 				}
 			});
 
@@ -1247,7 +1230,7 @@ namespace SabberStoneCore.CardSets.Standard
 							if (ids.Contains(e.Card.AssetId)) continue;
 
 							c.DeckZone.Remove(e);
-							Generic.CastSpell(c, (Spell) e, null, 0);
+							Generic.CastSpell(c, (Spell) e, null, 0, true);
 							ids.Add(e.Card.AssetId);
 
 							if (c.SecretZone.IsFull) return 0;
@@ -1487,9 +1470,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("ICC_244e", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.SOURCE, 1),
-					new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK),	//	START_WITH_1_HEALTH ?
-					new SummonTask(SummonSide.DEATHRATTLE))	
+					new CopyTask(EntityType.SOURCE, Zone.PLAY, addToStack: true),
+					new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK))	//	START_WITH_1_HEALTH ?	
 			});
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
@@ -1595,9 +1577,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_214", new Power {
-				DeathrattleTask = ComplexTask.Create(
-					new RandomTask(1, EntityType.OP_MINIONS),
-					new DestroyTask(EntityType.STACK))
+				DeathrattleTask = ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS)
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -1613,7 +1593,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_215", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.OP_DECK),
-					new CopyTask(EntityType.STACK, 1, false, Zone.DECK))
+					new CopyTask(EntityType.STACK, Zone.DECK))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1625,8 +1605,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_207", new Power {
 				PowerTask = ComplexTask.Create(
 					new RandomTask(3, EntityType.OP_DECK),
-					new CopyTask(EntityType.STACK, 1, true),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.STACK, Zone.HAND))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1660,9 +1639,8 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.DECK),
 					new FilterStackTask(SelfCondition.IsMinion),
 					new RandomTask(1, EntityType.STACK),
-					new CopyTask(EntityType.STACK, 1),
-					new AddEnchantmentTask("ICC_235e", EntityType.STACK),
-					new SummonTask())
+					new CopyTask(EntityType.STACK, Zone.PLAY, addToStack: true),
+					new AddEnchantmentTask("ICC_235e", EntityType.STACK))
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1968,14 +1946,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b> until your next turn.
 			// --------------------------------------------------------
-			cards.Add("ICC_827e3", new Power {
-				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
-				Trigger = new Trigger(TriggerType.TURN_START)
-				{
-					SingleTask = new RemoveEnchantmentTask(),
-					RemoveAfterTriggered = true,
-				}
-			});
+			cards.Add("ICC_827e3", Power.OneTurnStealthEnchantmentPower);
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_850e] Shaded (*) - COST:0 
@@ -2065,7 +2036,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_090", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.OverloadThisGame)
+				Aura = new AdaptiveCostEffect(p => p.Controller.OverloadThisGame)
 				//{
 				//	UpdateTrigger = (TriggerType.PLAY_CARD, TriggerSource.FRIENDLY, SelfCondition.IsCurrentEventNumber(1, RelaSign.GEQ))
 				//}
@@ -2087,9 +2058,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.FROZEN)
 				{
 					TriggerSource = TriggerSource.ALL_MINIONS_EXCEPT_SELF,
-					SingleTask = ComplexTask.Create(
-						new CopyTask(EntityType.TARGET, 1),
-						new AddStackTo(EntityType.HAND))
+					SingleTask = new CopyTask(EntityType.TARGET, Zone.HAND)
 				}
 			});
 
@@ -2439,8 +2408,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_091", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
-					new CopyTask(EntityType.STACK, 1),
-					new AddStackTo(EntityType.DECK))
+					new CopyTask(EntityType.STACK, Zone.DECK))
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -2751,14 +2719,14 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsWeapon),
-					new FuncPlayablesTask(p =>
+					new FuncNumberTask(p =>
 					{
-						p.ForEach(w =>
-						{
-							p[0].Game.TaskStack.Numbers[0] += w[GameTag.ATK];
-							p[0].Game.TaskStack.Numbers[1] += w[GameTag.DURABILITY];
-						});
-						return p;
+						return p.Sum(w => w[GameTag.DURABILITY]);
+					}),
+					new MathNumberIndexTask(1, 0, MathOperation.ADD, 1),
+					new FuncNumberTask(p =>
+					{
+						return p.Sum(w => w[GameTag.ATK]);
 					}),
 					new DiscardTask(EntityType.STACK),
 					new AddEnchantmentTask("ICC_096e", EntityType.SOURCE, true))
@@ -2797,8 +2765,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.GRAVEYARD),
 					new FilterStackTask(SelfCondition.IsDeathrattleMinion),
 					new RandomTask(1, EntityType.STACK),
-					new CopyTask(EntityType.STACK, 1),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.STACK, Zone.HAND))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2930,7 +2897,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Costs (0) if your hero was healed this turn.
 			// --------------------------------------------------------
 			cards.Add("ICC_700", new Power {
-				Aura = new AdaptiveCostEffect(0, p => p.Controller.AmountHeroHealedThisTurn > 0)
+				Aura = new AdaptiveCostEffect(0, TriggerType.HEAL, TriggerSource.FRIENDLY, SelfCondition.IsHero)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3005,7 +2972,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_706", new Power {
-				Aura = new Aura(AuraType.HANDS, new Effect(GameTag.COST, EffectOperator.ADD, 2))
+				Aura = new Aura(AuraType.HANDS, Effects.AddCost(2))
 				{
 					Condition = SelfCondition.IsSpell
 				}
@@ -3026,7 +2993,9 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_810", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
-					new FilterStackTask(SelfCondition.IsTagValue(GameTag.LIFESTEAL, 1, RelaSign.EQ)),
+					new FilterStackTask(
+						SelfCondition.IsTagValue(GameTag.LIFESTEAL, 1),
+						SelfCondition.IsMinion),
 					new RandomTask(1, EntityType.STACK),
 					new AddEnchantmentTask("ICC_810e", EntityType.STACK)),
 			});
@@ -3049,8 +3018,8 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.DECK, null, true),
 					new FuncPlayablesTask(list =>
 					{
-						int atk = list[0][GameTag.ATK];
-						return list.Where(p => p is Minion && p[GameTag.ATK] < atk).ToList();
+						int atk = ((Character)list[0]).AttackDamage;
+						return list.Where(p => p is Minion m && m.AttackDamage < atk).ToList();
 					}),
 					new RandomTask(1, EntityType.STACK),
 					new RemoveFromDeck(EntityType.STACK),
@@ -3417,9 +3386,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Deathrattle:</b> Resummon this minion.
 			// --------------------------------------------------------
 			cards.Add("ICC_257e", new Power {
-				DeathrattleTask = ComplexTask.Create(
-					new CopyTask(EntityType.SOURCE, 1),
-					new SummonTask(SummonSide.DEATHRATTLE))
+				DeathrattleTask = new CopyTask(EntityType.SOURCE, Zone.PLAY)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3429,6 +3396,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: {0}
 			// --------------------------------------------------------
 			cards.Add("ICC_314t1e", new Power {
+				DeathrattleTask = ComplexTask.Create(
+					GetCapturedCardTask.Task,
+					new SummonTask())
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

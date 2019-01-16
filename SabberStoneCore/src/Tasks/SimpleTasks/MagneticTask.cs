@@ -11,10 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Text;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -23,13 +21,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class MagneticTask : SimpleTask
 	{
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			Minion s = (Minion)Source;
+			var s = (Minion) source;
 
 			if (s == null || s[GameTag.MODULAR] == 0)
 			{
-				Game.Log(Model.LogLevel.ERROR, BlockType.POWER, "Magnetic", $"{Source}'s not a Magnetic Minion");
+				game.Log(LogLevel.ERROR, BlockType.POWER, "Magnetic", $"{source}'s not a Magnetic Minion");
 				return TaskState.STOP;
 			}
 
@@ -43,10 +42,27 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (t.Race != Race.MECHANICAL)
 				return TaskState.STOP;
 
-			if (Game.History)
+			if (game.History)
 				s[GameTag.TAG_SCRIPT_DATA_NUM_1] = t.Id;
 
-			Generic.AddEnchantmentBlock.Invoke(Controller, Cards.FromId(s.Card.Id + "e"), s, t, s.AttackDamage, s.BaseHealth);
+			Generic.AddEnchantmentBlock.Invoke(controller, Cards.FromId(s.Card.Id + "e"), s, t, s.AttackDamage,
+				s.BaseHealth, false);
+
+			// Aggregate triggers
+			if (s.Power.Trigger != null)
+			{
+				if (t.ActivatedTrigger != null)
+				{
+					var aggregatedTrigger = new MultiTrigger(t.ActivatedTrigger, s.Power.Trigger);
+					t.ActivatedTrigger.Remove();
+					t.ActivatedTrigger = null;
+					aggregatedTrigger.Activate(t);
+				}
+				else
+				{
+					s.Power.Trigger.Activate(t);
+				}
+			}
 
 			// Tag 871 ??
 			// Tag 1037 ??
@@ -55,11 +71,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			s.Controller.SetasideZone.Add(s.Zone.Remove(s));
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			return new MagneticTask();
 		}
 	}
 }

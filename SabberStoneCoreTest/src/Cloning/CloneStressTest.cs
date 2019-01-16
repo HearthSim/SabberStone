@@ -20,7 +20,6 @@ using SabberStoneCore.Tasks.PlayerTasks;
 
 using Generic = SabberStoneCore.Actions.Generic;
 using System.Collections.Generic;
-using System.Text;
 
 namespace SabberStoneCoreTest.Cloning
 {
@@ -37,27 +36,29 @@ namespace SabberStoneCoreTest.Cloning
 				CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR
 			};
 			bool flag = true;
-			for (int i = 0; i < 10 && flag; i++)
+			for (int i = 0; i < 100; i++)
 			{
 				var game = new Game(new GameConfig
 				{
 					StartPlayer = 1,
 					Player1HeroClass = classes[rnd.Next(classes.Length)],
 					Player2HeroClass = classes[rnd.Next(classes.Length)],
-					FillDecks = true
+					FillDecks = true,
+					Logging = false
 				});
 				game.StartGame();
 
 				while (game.State != State.COMPLETE)
 				{
-					List<SabberStoneCore.Tasks.PlayerTask> options = game.CurrentPlayer.Options();
-					SabberStoneCore.Tasks.PlayerTask option = options[rnd.Next(options.Count)];
+					List<PlayerTask> options = game.CurrentPlayer.Options();
+					PlayerTask option = options[rnd.Next(options.Count)];
 					game.Process(option);
 					Game cloneGame = game.Clone();
 					string str1 = game.Hash();
 					string str2 = cloneGame.Hash();
 
 					flag &= str1.Equals(str2);
+
 					if (!flag)
 						break;
 				}
@@ -74,7 +75,9 @@ namespace SabberStoneCoreTest.Cloning
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
 				Player2HeroClass = CardClass.SHAMAN,
-				FillDecks = true
+				FillDecks = true,
+				History = false,
+				Logging = false
 			});
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
@@ -106,7 +109,10 @@ namespace SabberStoneCoreTest.Cloning
 
 			GameTag[] ignored = new GameTag[] {GameTag.LAST_CARD_PLAYED, GameTag.ENTITY_ID};
 
-			Assert.Equal(game.Hash(ignored), clone.Hash(ignored));
+			string gameHash = game.Hash(ignored);
+			string cloneHash = clone.Hash(ignored);
+
+			Assert.Equal(gameHash, cloneHash);
 		}
 
 		[Fact]

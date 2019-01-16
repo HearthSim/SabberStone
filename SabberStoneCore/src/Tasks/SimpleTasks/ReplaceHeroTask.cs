@@ -18,49 +18,41 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class ReplaceHeroTask : SimpleTask
 	{
+		private readonly Card _heroCard;
+		private readonly Card _powerCard;
+		private readonly Card _weaponCard;
+
 		public ReplaceHeroTask(Card cardHero, Card cardWeapon, Card cardPower)
 		{
-			HeroCard = cardHero;
-			WeaponCard = cardWeapon;
-			PowerCard = cardPower;
+			_heroCard = cardHero;
+			_weaponCard = cardWeapon;
+			_powerCard = cardPower;
 		}
+
 		public ReplaceHeroTask(string cardIdHero, string cardIdPower)
 		{
-			HeroCard = Cards.FromId(cardIdHero);
-			PowerCard = Cards.FromId(cardIdPower);
+			_heroCard = Cards.FromId(cardIdHero);
+			_powerCard = Cards.FromId(cardIdPower);
 		}
+
 		public ReplaceHeroTask(string cardIdHero, string cardIdWeapon, string cardIdPower)
 		{
-			HeroCard = Cards.FromId(cardIdHero);
-			WeaponCard = Cards.FromId(cardIdWeapon);
-			PowerCard = Cards.FromId(cardIdPower);
+			_heroCard = Cards.FromId(cardIdHero);
+			_weaponCard = Cards.FromId(cardIdWeapon);
+			_powerCard = Cards.FromId(cardIdPower);
 		}
 
-		public Card HeroCard { get; set; }
-		public Card WeaponCard { get; set; }
-		public Card PowerCard { get; set; }
-
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			var source = Source as IPlayable;
-			if (source == null || Controller == null)
-			{
-				return TaskState.STOP;
-			}
+			var playable = source as IPlayable;
+			if (playable == null || controller == null) return TaskState.STOP;
 
-			source.Controller.SetasideZone.Add(source.Zone.Remove(source));
-			Controller.AddHeroAndPower(HeroCard, PowerCard);
-			if (WeaponCard != null)
-				Controller.Hero.AddWeapon(Entity.FromCard(Controller, WeaponCard) as Weapon);
+			playable.Controller.SetasideZone.Add(playable.Zone.Remove(playable));
+			controller.AddHeroAndPower(_heroCard, _powerCard);
+			if (_weaponCard != null)
+				controller.Hero.AddWeapon(Entity.FromCard(in controller, in _weaponCard) as Weapon);
 			return TaskState.COMPLETE;
 		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new ReplaceHeroTask(HeroCard, WeaponCard, PowerCard);
-			clone.Copy(this);
-			return clone;
-		}
 	}
-
 }

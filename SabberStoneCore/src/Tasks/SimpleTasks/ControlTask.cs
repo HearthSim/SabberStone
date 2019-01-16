@@ -29,36 +29,40 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public bool Opposite { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			//IncludeTask.GetEntities(Type, Controller, Source, Target, Playables).ForEach(p =>
-			foreach (IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+			//IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables).ForEach(p =>
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
 			{
 				if (p.Zone.Type != Zone.PLAY)
-					continue;//return;
+					continue; //return;
 
-				if ((!Opposite && Controller.BoardZone.IsFull) || (Opposite && Controller.Opponent.BoardZone.IsFull))
+				if (!Opposite && controller.BoardZone.IsFull || Opposite && controller.Opponent.BoardZone.IsFull)
 				{
 					p.Destroy();
-					continue;//return;
+					continue; //return;
 				}
-				IPlayable removedEntity = p.Zone.Remove(p);
-				Game.AuraUpdate();
-				removedEntity.Controller = Opposite ? Controller.Opponent : Controller;
+
+				Minion removedEntity = (Minion) p.Zone.Remove(p);
+				game.AuraUpdate();
+				removedEntity.Controller = Opposite ? controller.Opponent : controller;
 				removedEntity[GameTag.CONTROLLER] = removedEntity.Controller.PlayerId;
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask", !Game.Logging? "":$"{Controller.Name} is taking control of {p}.");
+				game.Log(LogLevel.INFO, BlockType.PLAY, "ControlTask",
+					!game.Logging ? "" : $"{controller.Name} is taking control of {p}.");
 
 				removedEntity.Controller.BoardZone.Add(removedEntity);
-			};
+				if (removedEntity.HasCharge)
+					removedEntity.IsExhausted = false;
+				else if (removedEntity.IsRush)
+				{
+					removedEntity.IsExhausted = false;
+					removedEntity.AttackableByRush = true;
+				}
+			}
+
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new ControlTask(Type, Opposite);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

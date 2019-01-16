@@ -11,7 +11,6 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
-using System;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 
@@ -19,56 +18,61 @@ namespace SabberStoneCore.Model
 {
 	public class TaskStack
 	{
-		public Game Game { get; set; }
-
-		public Controller Controller { get; set; }
-		public IEntity Source;
-		public IEntity Target;
-
-		public List<IPlayable> Playables { get; set; } = new List<IPlayable>();
-		//public List<string> CardIds { get; set; }
+		public IList<IPlayable> Playables { get; set; }
 		public bool Flag { get; set; }
-		public int[] Numbers { get; set; } = new[] { 0, 0, 0, 0, 0 };
+		public int Number { get; set; }
+		public int Number1 { get; set; }
+		public int Number2 { get; set; }
+		public int Number3 { get; set; }
+		public int Number4 { get; set; }
 
-		public TaskStack(Game game)
+		public void AddPlayables(IEnumerable<IPlayable> playables)
 		{
-			Game = game;
+			if (Playables is List<IPlayable> list)
+				list.AddRange(playables);
+			else
+			{
+				var toList = Playables.ToList();
+				toList.AddRange(playables);
+				Playables = toList;
+			}
 		}
-
-		//public void SetDamageMetaData(IPlayable source, IPlayable target)
-		//{
-		//	_damageSource = source;
-		//	_damageTarget = target;
-		//}
-
-		//public void ResetDamageMetaData()
-		//{
-		//	_damageSource = null;
-		//	_damageTarget = null;
-		//}
-
-		public void Reset()
+		
+		public void AddPlayable(IPlayable playable)
 		{
-			Playables = new List<IPlayable>();
-			Flag = false;
-			Numbers = new[] { 0, 0, 0, 0, 0 };
+			if (Playables is List<IPlayable> list)
+				list.Add(playable);
+			else
+			{
+				if (Playables == null)
+					Playables = new List<IPlayable> {playable};
+				else
+				{
+					List<IPlayable> toList = Playables.ToList();
+					toList.Add(playable);
+					Playables = toList;
+				}
+			}
 		}
-
-		public void Stamp(TaskStack taskStack)
+		
+		public TaskStack Clone(Game game)
 		{
-			//Playables = taskStack.Playables?.Select(p => Game.IdEntityDic[p.Id]).ToList();
-			Playables = new List<IPlayable>();
-			//CardIds = new List<string>();
-			Flag = taskStack.Flag;
-			Numbers = new int[5];
-			Array.Copy(taskStack.Numbers, Numbers, 5);
 
-			if (taskStack.Controller != null)
-				Controller = Game.ControllerById(taskStack.Controller.Id);
-			if (taskStack.Source != null)
-				Source = Game.IdEntityDic[taskStack.Source.Id];
-			if (taskStack.Target != null)
-				Target = Game.IdEntityDic[taskStack.Target.Id];
+			var clone = new TaskStack()
+			{
+				Playables = new List<IPlayable>(),
+				Flag = Flag,
+				Number = Number,
+				Number1 = Number1,
+				Number2 = Number2,
+				Number3 = Number3,
+				Number4 = Number4
+			};
+
+			if (Playables.Count > 0)
+				clone.AddPlayables(Playables.Select(p => game.IdEntityDic[p.Id]));
+
+			return clone;
 		}
 	}
 }

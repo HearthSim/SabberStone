@@ -12,12 +12,14 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System.Collections.Generic;
+using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
 {
@@ -377,7 +379,7 @@ namespace SabberStoneCore.CardSets
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.HERO,
-					SingleTask = new SummonTask("CFM_337t", SummonSide.DEFAULT)
+					SingleTask = new SummonTask("CFM_337t")
 				}
 			});
 
@@ -463,9 +465,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_660", new Power
 			{
-				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
-					new AddStackTo(EntityType.DECK))
+				PowerTask = new CopyTask(EntityType.TARGET, Zone.DECK)
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -519,7 +519,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_760", new Power
 			{
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumSecretsPlayedThisGame * 2)
+				Aura = new AdaptiveCostEffect(p => p.Controller.NumSecretsPlayedThisGame * 2)
 				//{
 				//	UpdateTrigger = (TriggerType.AFTER_CAST, TriggerSource.FRIENDLY, SelfCondition.IsSecret)
 				//}
@@ -601,7 +601,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_687e", new Power
 			{
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 0))
+				Aura = new Aura(AuraType.HAND, Effects.SetCost(0))
 				{
 					RemoveTrigger = (TriggerType.CAST_SPELL, null)
 				}
@@ -742,8 +742,7 @@ namespace SabberStoneCore.CardSets
 				{
 					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = ComplexTask.Secret(
-						new CopyTask(EntityType.TARGET, 1),
-						new AddStackTo(EntityType.HAND)),
+						new CopyTask(EntityType.TARGET, Zone.HAND)),
 					RemoveAfterTriggered = true
 				}
 			});
@@ -970,7 +969,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_661e", new Power
 			{
-				Enchant = new Enchant(GameTag.ATK, EffectOperator.SUB, 3)
+				Enchant = new Enchant(ATK.Effect(EffectOperator.SUB, 3))
 				{
 					IsOneTurnEffect = true
 				}
@@ -2113,7 +2112,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_652", new Power
 			{
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.Opponent.BoardZone.Count > 2 ? 2 : 0)
+				Aura = new AdaptiveCostEffect(p => p.Controller.Opponent.BoardZone.Count > 2 ? 2 : 0)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2463,7 +2462,7 @@ namespace SabberStoneCore.CardSets
 						new ClearStackTask(),
 						ComplexTask.Create(new FuncNumberTask(p =>
 							{
-								Model.Entities.Controller controller = p.Controller;
+								Controller controller = p.Controller;
 								int diffHands = 3 - controller.Opponent.HandZone.Count;
 								return diffHands > 0 ? diffHands : 0;
 							}),
@@ -2629,7 +2628,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_020e", new Power
 			{
-				Aura = new Aura(AuraType.HEROPOWER, new Effect(GameTag.COST, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.HEROPOWER, Effects.SetCost(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2840,7 +2839,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_651e", new Power
 			{
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_651e")
+				Enchant = new Enchant(GameTag.ATK, EffectOperator.ADD, 1)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

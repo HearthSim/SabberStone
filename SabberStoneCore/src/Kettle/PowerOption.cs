@@ -17,7 +17,7 @@ using System.Text;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks;
-using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Tasks.PlayerTasks;
 
 namespace SabberStoneCore.Kettle
 	#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
@@ -94,7 +94,7 @@ namespace SabberStoneCore.Kettle
 					var subOptions = playCards.Where(p => p.Source.Id == sourceId && p.ChooseOne == i).ToList();
 					if (subOptions.Any())
 					{
-						int refCardId = ((IPlayable)subOptions.First().Source).ChooseOnePlayables[i - 1].Id;
+						int refCardId = subOptions.First().Source.ChooseOnePlayables[i - 1].Id;
 						var refCardTargets = subOptions.Where(p => p.Target != null).Select(p => p.Target).ToList();
 						mainOption.SubOptions.Add(new PowerSubOption
 						{

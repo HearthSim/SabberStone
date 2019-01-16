@@ -11,10 +11,11 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
-using System;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -27,28 +28,27 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public bool CardTextPrint { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
 			if (true)
 			{
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", !Game.Logging? "":$"Log task is beeing processed!");
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", !Game.Logging? "": $"Flag: {Flag}, Number: {Number}");
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", !Game.Logging? "":$"Controller: {Controller?.Name}, Source: {Source}, Target: {Target}!");
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", !Game.Logging? "":$"Playables: {String.Join(",", Playables.Select(x => x.Card))} [{Playables.Count}]");
+				game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask",
+					!game.Logging ? "" : "Log task is beeing processed!");
+				game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask",
+					!game.Logging ? "" : $"Flag: {stack.Flag}, stack.Number: {stack.Number}");
+				game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask",
+					!game.Logging ? "" : $"Controller: {controller?.Name}, source: {source}, target: {target}!");
+				game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask",
+					!game.Logging
+						? ""
+						: $"stack?.Playables: {String.Join(",", stack?.Playables.Select(x => x.Card))} [{stack?.Playables.Count}]");
 			}
 
 			if (CardTextPrint)
-			{
-				Game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", !Game.Logging? "":$"{Source.Card.Text}");
-			}
-			return TaskState.COMPLETE;
-		}
+				game.Log(LogLevel.INFO, BlockType.PLAY, "LogTask", !game.Logging ? "" : $"{source.Card.Text}");
 
-		public override ISimpleTask Clone()
-		{
-			var clone = new LogTask(CardTextPrint);
-			clone.Copy(this);
-			return clone;
+			return TaskState.COMPLETE;
 		}
 	}
 }

@@ -20,69 +20,77 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
-	public enum PlayType { SPELL };
+	public enum PlayType
+	{
+		SPELL
+	}
 
 	/// <summary>
-	/// Allows to have a playable played out in a task
+	///     Allows to have a playable played out in a task
 	/// </summary>
 	public class PlayTask : SimpleTask
 	{
+		private readonly PlayType _playType;
 		private readonly bool _randTarget;
+		private readonly EntityType _targetType;
 
 		/// <summary>
-		/// Create a PlayTask to play a card as a task.
+		///     Create a PlayTask to play a card as a task.
 		/// </summary>
 		/// <param name="playType">The type of playable.</param>
 		/// <param name="randTarget">true if the target of the playable is chosen randomly</param>
 		public PlayTask(PlayType playType, bool randTarget = false)
 		{
-			PlayType = playType;
+			_playType = playType;
 			_randTarget = randTarget;
 		}
 
-		public PlayType PlayType { get; set; }
-
-		public override TaskState Process()
+		public PlayTask(PlayType playType, EntityType targetType)
 		{
-			switch (PlayType)
+			_playType = playType;
+			_targetType = targetType;
+		}
+
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
+		{
+			switch (_playType)
 			{
 				case PlayType.SPELL:
-					Playables.ForEach(p =>
+					foreach (IPlayable p in stack?.Playables)
 					{
-						ICharacter randTarget = null;
-						if (_randTarget && p.Card.RequiresTarget)
+						ICharacter cardTarget = null;
+						if (_randTarget && p.Card.MustHaveTargetToPlay)
 						{
-							List<ICharacter> targets = (List<ICharacter>)p.ValidPlayTargets;
+							var targets = (List<ICharacter>) p.ValidPlayTargets;
 
-							randTarget = targets.Count > 0 ? Util.RandomElement(targets) : throw new InvalidOperationException();
+							cardTarget = targets.Count > 0
+								? Util.RandomElement(targets)
+								: throw new InvalidOperationException();
 
-							p.CardTarget = randTarget?.Id ?? -1;
+							p.CardTarget = cardTarget?.Id ?? -1;
 
-							Game.Log(LogLevel.INFO, BlockType.POWER, "PlayTask",
-								!Game.Logging ? "" : $"{p}'s target is randomly selected to {randTarget}");
+							game.Log(LogLevel.INFO, BlockType.POWER, "PlayTask",
+								!game.Logging ? "" : $"{p}'s target is randomly selected to {cardTarget}");
 						}
-						if (p is Spell spell && (p.Zone == null || Generic.RemoveFromZone(Controller, p)))
+						else if
+							(_targetType != EntityType.INVALID)
 						{
-							Generic.CastSpell.Invoke(Controller, spell, randTarget, 0);
+							cardTarget = (ICharacter)IncludeTask.GetEntities(_targetType, in controller, source, target, stack?.Playables)[0];
 						}
 
-						while (Controller.Choice != null)
-						{
-							Generic.ChoicePick(Controller, Util.Choose(Controller.Choice.Choices));
-						}
-					});
+						if (p is Spell spell && (p.Zone == null || Generic.RemoveFromZone(controller, p)))
+							Generic.CastSpell.Invoke(controller, spell, cardTarget, 0, true);
+
+						while (controller.Choice != null)
+							Generic.ChoicePick(controller, Util.Choose(controller.Choice.Choices));
+					}
+
 					return TaskState.COMPLETE;
 
 				default:
 					throw new NotImplementedException();
 			}
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new PlayTask(PlayType, _randTarget);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

@@ -24,27 +24,23 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Card = card;
 			Type = type;
 		}
+
 		public TransformTask(string cardId, EntityType type)
 		{
 			Card = Cards.FromId(cardId);
 			Type = type;
 		}
+
 		public Card Card { get; set; }
 		public EntityType Type { get; set; }
 
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			foreach(IPlayable p in IncludeTask.GetEntities(Type, Controller, Source, Target, Playables))
+			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
 				Generic.TransformBlock.Invoke(p.Controller, Card, p as Minion);
 
 			return TaskState.COMPLETE;
-		}
-
-		public override ISimpleTask Clone()
-		{
-			var clone = new TransformTask(Card, Type);
-			clone.Copy(this);
-			return clone;
 		}
 	}
 }

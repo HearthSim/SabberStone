@@ -12,6 +12,7 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Enchants
 {
@@ -19,7 +20,7 @@ namespace SabberStoneCore.Enchants
 	{
 		public string InfoCardId { get; set; } = null;
 
-		public Aura Aura { get; set; }
+		public IAura Aura { get; set; }
 
 		public Enchant Enchant { get; set; }
 
@@ -32,5 +33,16 @@ namespace SabberStoneCore.Enchants
 		public ISimpleTask ComboTask { get; set; }
 
 		public ISimpleTask TopdeckTask { get; set; }
+
+		internal static Power OneTurnStealthEnchantmentPower =>
+			new Power
+			{
+				Enchant = new Enchant(Effects.StealthEff),
+				Trigger = new Trigger(TriggerType.TURN_START)
+				{
+					SingleTask = new RemoveEnchantmentTask(),
+					RemoveAfterTriggered = true,
+				}
+			};
 	}
 }

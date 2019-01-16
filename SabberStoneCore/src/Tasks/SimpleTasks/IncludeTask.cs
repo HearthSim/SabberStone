@@ -14,203 +14,233 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+
+	/// <summary>
+	/// Indicator enum to specify target range of <see cref="ISimpleTask"/>s.
+	/// </summary>
 	public enum EntityType
 	{
+		INVALID,
+
 		/// <summary>
-		///  The target
-		/// </summary>
-		TARGET,
-		/// <summary>
-		///  The source
-		/// </summary>
-		SOURCE,
-		/// <summary>
-		///  Player's hero
-		/// </summary>
-		HERO,
-		/// <summary>
-		///  Player's hero power
-		/// </summary>
-		HERO_POWER,
-		/// <summary>
-		///  Opponent's hero power
-		/// </summary>
-		OP_HERO_POWER,
-		/// <summary>
-		///  All cards in the player's hand
-		/// </summary>
-		HAND,
-		///// <summary>
-		/////  All cards in the player's hand except the source
-		///// </summary>
-		//HAND_NOSOURCE,
-		/// <summary>
-		///  All cards in the player's deck
-		/// </summary>
-		DECK,
-		/// <summary>
-		///  Player's secrets
-		/// </summary>
-		SECRETS,
-		/// <summary>
-		///  Player's minions
-		/// </summary>
-		MINIONS,
-		/// <summary>
-		///  Player's minions except the source
-		/// </summary>
-		MINIONS_NOSOURCE,
-		/// <summary>
-		///  All friends characters
-		/// </summary>
-		FRIENDS,
-		/// <summary>
-		///  Opponent's Hero
-		/// </summary>
-		OP_HERO,
-		/// <summary>
-		///  All cards in the opponent's hand
-		/// </summary>
-		OP_HAND,
-		/// <summary>
-		///  All cards in the opponent's deck
-		/// </summary>
-		OP_DECK,
-		/// <summary>
-		///  All opponent secret
-		/// </summary>
-		OP_SECRETS,
-		/// <summary>
-		///  All opponent minion
-		/// </summary>
-		OP_MINIONS,
-		/// <summary>
-		///  All opponent character
-		/// </summary>
-		ENEMIES,
-		/// <summary>
-		///  All opponent character except the source
-		/// </summary>
-		ENEMIES_NOTARGET,
-		/// <summary>
-		///  All characters
-		/// </summary>
-		ALL,
-		/// <summary>
-		///  All characters except the source
-		/// </summary>
-		ALL_NOSOURCE,
-		/// <summary>
-		///  Player's weapon
-		/// </summary>
-		WEAPON,
-		/// <summary>
-		///  Opponent's weapon
-		/// </summary>
-		OP_WEAPON,
-		/// <summary>
-		///  All cards on the stack
+		/// All cards on the stack
 		/// </summary>
 		STACK,
+
 		/// <summary>
-		///  All minions
+		/// The target
 		/// </summary>
-		ALLMINIONS,
+		TARGET,
+
 		/// <summary>
-		///  Invalid
+		/// The source
 		/// </summary>
-		INVALID,
+		SOURCE,
+
 		/// <summary>
-		///  All minions except the source
+		/// Player's hero
 		/// </summary>
-		ALLMINIONS_NOSOURCE,
+		HERO,
+
 		/// <summary>
-		///  All cards in the graveyard
+		/// Player's hero power
 		/// </summary>
-		GRAVEYARD,
+		HERO_POWER,
+
 		/// <summary>
-		///  All heroes
+		/// Opponent's hero power
 		/// </summary>
-		HEROES,
+		OP_HERO_POWER,
+
+		/// <summary>
+		/// The target of the current event. (e.g. the defender, the target of a spell, or the just damaged or healed
+		/// character)
+		/// </summary>
+		EVENT_TARGET,
+
+		/// <summary>
+		/// The source of the current event. (e.g. the attacker, the played card, or the just damaging or healing entity)
+		/// </summary>
+		EVENT_SOURCE,
+
 		/// <summary>
 		/// The top card from the player's deck
 		/// </summary>
 		TOPCARDFROMDECK,
+
 		/// <summary>
 		/// The top card from the opponent's deck
 		/// </summary>
 		OP_TOPDECK,
+
+		/// <summary>
+		/// All cards in the player's hand
+		/// </summary>
+		HAND,
+
+		/// <summary>
+		/// All cards in the player's deck
+		/// </summary>
+		DECK,
+
+		/// <summary>
+		/// Player's secrets
+		/// </summary>
+		SECRETS,
+
+		/// <summary>
+		/// Player's minions
+		/// </summary>
+		MINIONS,
+
+		/// <summary>
+		/// Player's minions except the source
+		/// </summary>
+		MINIONS_NOSOURCE,
+
+		/// <summary>
+		/// All friends characters
+		/// </summary>
+		FRIENDS,
+
+		/// <summary>
+		/// Opponent's Hero
+		/// </summary>
+		OP_HERO,
+
+		/// <summary>
+		/// All cards in the opponent's hand
+		/// </summary>
+		OP_HAND,
+
+		/// <summary>
+		/// All cards in the opponent's deck
+		/// </summary>
+		OP_DECK,
+
+		/// <summary>
+		/// All opponent secret
+		/// </summary>
+		OP_SECRETS,
+
+		/// <summary>
+		/// All opponent minion
+		/// </summary>
+		OP_MINIONS,
+
+		/// <summary>
+		/// All opponent character
+		/// </summary>
+		ENEMIES,
+
+		/// <summary>
+		/// All opponent character except the source
+		/// </summary>
+		ENEMIES_NOTARGET,
+
+		/// <summary>
+		/// All characters
+		/// </summary>
+		ALL,
+
+		/// <summary>
+		/// All characters except the source
+		/// </summary>
+		ALL_NOSOURCE,
+
+		/// <summary>
+		/// Player's weapon
+		/// </summary>
+		WEAPON,
+
+		/// <summary>
+		/// Opponent's weapon
+		/// </summary>
+		OP_WEAPON,
+
+		/// <summary>
+		/// All minions
+		/// </summary>
+		ALLMINIONS,
+
+		/// <summary>
+		/// All minions except the source
+		/// </summary>
+		ALLMINIONS_NOSOURCE,
+
+		/// <summary>
+		/// All cards in the graveyard
+		/// </summary>
+		GRAVEYARD,
+
+		/// <summary>
+		/// All heroes
+		/// </summary>
+		HEROES,
+
 		/// <summary>
 		/// The Controller entity of the player
 		/// </summary>
 		CONTROLLER,
+
 		/// <summary>
 		/// The Controller entity of the opponent.
 		/// </summary>
 		OP_CONTROLLER,
-		/// <summary>
-		/// The Target of the current event. (e.g. the defender, the target of a spell, or the just damaged or healed character)
-		/// </summary>
-		EVENT_TARGET,
-		/// <summary>
-		/// The Source of the current event. (e.g. the attacker, the played card, or the just damaging or healing entity)
-		/// </summary>
-		EVENT_SOURCE
 	}
 
 	public class IncludeTask : SimpleTask
 	{
+		private const int SingleTypesRange = 9;
+
+		private readonly bool _addFlag;
+		private readonly EntityType[] _excludeTypeArray;
+		private readonly EntityType _includeType;
+
 		public IncludeTask(EntityType includeType, EntityType[] excludeTypeArray = null, bool addFlag = false)
 		{
-			IncludeType = includeType;
-			ExcludeTypeArray = excludeTypeArray;
-			AddFlag = addFlag;
+			_includeType = includeType;
+			_excludeTypeArray = excludeTypeArray;
+			_addFlag = addFlag;
 		}
 
-		public EntityType IncludeType { get; set; }
-		public EntityType[] ExcludeTypeArray { get; set; }
-		public bool AddFlag { get; set; }
-
-		public override TaskState Process()
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+			in TaskStack stack = null)
 		{
-			if (AddFlag)
+			if (stack == null)
+				throw new ArgumentException();
+
+			IList<IPlayable> boardGetAll = GetEntities(_includeType, in controller, source, target, stack.Playables);
+			if (_excludeTypeArray != null)
 			{
-				Playables.AddRange(RemoveEntities(GetEntities(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray));
+				var exceptListEntities = new List<IPlayable>();
+				foreach (EntityType excludeType in _excludeTypeArray)
+					exceptListEntities.AddRange(
+						GetEntities(excludeType, in controller, source, target, stack.Playables));
+
+				IEnumerable<IPlayable> result = boardGetAll.Except(exceptListEntities);
+
+				if (_addFlag)
+					stack.AddPlayables(result);
+				else
+					stack.Playables = boardGetAll.Except(exceptListEntities).ToList();
 			}
+			else if
+				(_addFlag)
+				stack.AddPlayables(boardGetAll);
 			else
-			{
-				Playables = RemoveEntities(GetEntities(IncludeType, Controller, Source, Target, Playables), ExcludeTypeArray).ToList();
-			}
+				stack.Playables = boardGetAll;
+
 			return TaskState.COMPLETE;
 		}
 
-		public override ISimpleTask Clone()
-		{
-			var clone = new IncludeTask(IncludeType, ExcludeTypeArray, AddFlag);
-			clone.Copy(this);
-			return clone;
-		}
-
-		private IEnumerable<IPlayable> RemoveEntities(IEnumerable<IPlayable> boardGetAll, IEnumerable<EntityType> exceptArray)
-		{
-			if (exceptArray == null)
-			{
-				return boardGetAll;
-			}
-			var exceptListEntities = new List<IPlayable>();
-			foreach (EntityType excludeType in exceptArray)
-			{
-				exceptListEntities.AddRange(GetEntities(excludeType, Controller, Source, Target, Playables));
-			}
-			return boardGetAll.Except(exceptListEntities);
-		}
-
-		public static IList<IPlayable> GetEntities(EntityType type, Controller c, IEntity source,
-			IEntity target, List<IPlayable> stack)
+		public static IList<IPlayable> GetEntities(in EntityType type, in Controller c, IEntity source,
+			IEntity target, in IList<IPlayable> stack)
 		{
 			switch (type)
 			{
@@ -242,7 +272,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					if (source.Controller == c)
 					{
 						Minion[] board = c.BoardZone.GetAll(p => p != source);
-						Minion[] array = new Minion[board.Length + c.Opponent.BoardZone.CountExceptUntouchables];
+						var array = new Minion[board.Length + c.Opponent.BoardZone.CountExceptUntouchables];
 						board.CopyTo(array, 0);
 						c.Opponent.BoardZone.CopyTo(array, board.Length);
 						return array;
@@ -250,7 +280,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					else
 					{
 						Minion[] board = c.Opponent.BoardZone.GetAll(p => p != source);
-						Minion[] array = new Minion[board.Length + c.BoardZone.CountExceptUntouchables];
+						var array = new Minion[board.Length + c.BoardZone.CountExceptUntouchables];
 						board.CopyTo(array, 0);
 						c.BoardZone.CopyTo(array, board.Length);
 						return array;
@@ -264,9 +294,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					return arr;
 				}
 				case EntityType.TARGET:
-					return target == null ? new IPlayable[0] : new [] {(IPlayable)target};
+					return target == null ? new IPlayable[0] : new[] {(IPlayable) target};
 				case EntityType.SOURCE:
-					return new[] {(IPlayable)source};
+					return new[] {(IPlayable) source};
 				case EntityType.HERO:
 					return new[] {c.Hero};
 				case EntityType.HERO_POWER:
@@ -284,7 +314,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					return new[] {c.Opponent.Hero};
 				case EntityType.ENEMIES_NOTARGET:
 					if (target is Hero)
+					{
 						return c.Opponent.BoardZone.GetAll();
+					}
+					else if (target.Zone?.Type != Enums.Zone.PLAY)
+						goto case EntityType.ENEMIES;
 					else
 					{
 						if (c.Opponent.BoardZone.CountExceptUntouchables > 1)
@@ -296,11 +330,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 							return arr;
 						}
 
-						return new[] {c.Opponent.Hero};
+						return new[] { c.Opponent.Hero };
 					}
 				case EntityType.ALL:
 				{
-					var arr = new IPlayable[c.BoardZone.CountExceptUntouchables + c.Opponent.BoardZone.CountExceptUntouchables + 2];
+					var arr = new IPlayable[c.BoardZone.CountExceptUntouchables +
+					                        c.Opponent.BoardZone.CountExceptUntouchables + 2];
 					c.BoardZone.CopyTo(arr, 0);
 					c.Opponent.BoardZone.CopyTo(arr, c.BoardZone.CountExceptUntouchables);
 					arr[arr.Length - 2] = c.Hero;
@@ -311,7 +346,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					if (source.Zone == null) throw new NotImplementedException();
 
-					var arr = new IPlayable[c.BoardZone.CountExceptUntouchables + c.Opponent.BoardZone.CountExceptUntouchables + 1];
+					var arr = new IPlayable[c.BoardZone.CountExceptUntouchables +
+					                        c.Opponent.BoardZone.CountExceptUntouchables + 1];
+					                        
+					if (source is Enchantment e)
+					{
+						source = e.Target;
+					}
+					
 					if (source.Zone == c.BoardZone)
 					{
 						c.BoardZone.GetAll(p => p != source).CopyTo(arr, 0);
@@ -333,6 +375,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						arr[arr.Length - 2] = c.Hero;
 						arr[arr.Length - 1] = c.Opponent.Hero;
 					}
+
 					return arr;
 				}
 				case EntityType.WEAPON:
@@ -341,7 +384,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					return c.Opponent.Hero.Weapon == null ? new IPlayable[0] : new[] {c.Opponent.Hero.Weapon};
 				case EntityType.ALLMINIONS:
 				{
-					var arr = new Minion[c.BoardZone.CountExceptUntouchables + c.Opponent.BoardZone.CountExceptUntouchables];
+					var arr = new Minion[c.BoardZone.CountExceptUntouchables +
+					                     c.Opponent.BoardZone.CountExceptUntouchables];
 					c.BoardZone.CopyTo(arr, 0);
 					c.Opponent.BoardZone.CopyTo(arr, c.BoardZone.CountExceptUntouchables);
 					return arr;
@@ -353,12 +397,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				case EntityType.OP_TOPDECK:
 					return c.Opponent.DeckZone.Count > 0 ? new[] {c.Opponent.DeckZone.TopCard} : new IPlayable[0];
 				case EntityType.EVENT_SOURCE:
-					return c.Game.CurrentEventData != null ? new[] {c.Game.CurrentEventData.EventSource} : new IPlayable[0];
+					return c.Game.CurrentEventData != null
+						? new[] {c.Game.CurrentEventData.EventSource}
+						: new IPlayable[0];
 				case EntityType.EVENT_TARGET:
-					return c.Game.CurrentEventData != null ? new[] { c.Game.CurrentEventData.EventTarget} : new IPlayable[0];
+					return c.Game.CurrentEventData != null
+						? new[] {c.Game.CurrentEventData.EventTarget}
+						: new IPlayable[0];
 				default:
 					throw new NotImplementedException();
 			}
 		}
+
+		//public static IPlayable GetEntity(in EntityType type, in TaskStack stack)
+		//{
+		//	switch (type) { }
+		//}
 	}
 }

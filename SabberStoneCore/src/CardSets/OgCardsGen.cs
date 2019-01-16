@@ -13,6 +13,7 @@
 #endregion
 using System.Collections.Generic;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -21,6 +22,7 @@ using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 using static SabberStoneCore.Tasks.SimpleTasks.RitualTask;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
 {
@@ -840,9 +842,8 @@ namespace SabberStoneCore.CardSets
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS_NOSOURCE),
 					new FilterStackTask(SelfCondition.IsMinion),
-					new CopyTask(EntityType.STACK, 1),
-					new AddEnchantmentTask("OG_316k", EntityType.STACK),
-					new SummonStackTask())
+					new CopyTask(EntityType.STACK, Zone.PLAY, addToStack: true),
+					new AddEnchantmentTask("OG_316k", EntityType.STACK))
 			});
 
 			// ---------------------------------------- MINION - PRIEST
@@ -1029,9 +1030,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("OG_291", new Power {
 				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
-					new AddEnchantmentTask("OG_291e", EntityType.STACK),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.TARGET, Zone.HAND, addToStack: true),
+					new AddEnchantmentTask("OG_291e", EntityType.STACK))
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1044,9 +1044,7 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_330", new Power {
-				DeathrattleTask = ComplexTask.Create(
-					new RandomCardTask(EntityType.OP_HERO),
-					new AddStackTo(EntityType.HAND))
+				DeathrattleTask = ComplexTask.AddRandomOpClassCardToHand
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1075,8 +1073,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("OG_073", new Power {
 				PowerTask = ComplexTask.Create(
 					new DrawTask(true),
-					new CopyTask(EntityType.STACK, 2),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.STACK, Zone.HAND, 2))
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -1237,7 +1234,7 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("OG_028", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumTotemSummonedThisGame)
+				Aura = new AdaptiveCostEffect(p => p.Controller.NumTotemSummonedThisGame)
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -1336,7 +1333,7 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
 			cards.Add("OG_031", new Power {
-				DeathrattleTask = new SummonTask("OG_031a", SummonSide.DEFAULT)
+				DeathrattleTask = new SummonTask("OG_031a")
 			});
 
 		}
@@ -1545,7 +1542,8 @@ namespace SabberStoneCore.CardSets
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_218", new Power {
-				Trigger = Triggers.EnrageTrigger("OG_218e")
+				//Trigger = Triggers.EnrageTrigger("OG_218e")
+				Aura = new EnrageEffect(AuraType.SELF, "OG_218e")
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -1619,8 +1617,7 @@ namespace SabberStoneCore.CardSets
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
 					new FilterStackTask(SelfCondition.IsDamaged),
-					new CopyTask(EntityType.STACK, 1),
-					new AddStackTo(EntityType.HAND))
+					new CopyTask(EntityType.STACK, Zone.HAND))
 			});
 
 			// ---------------------------------------- SPELL - WARRIOR
@@ -1796,7 +1793,7 @@ namespace SabberStoneCore.CardSets
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsInZone(Zone.HAND)),
 						new FlagTask(true, ComplexTask.Create(
-							new ChangeEntityTask(EntityType.SOURCE, CardType.MINION),
+							new ChangeEntityTask(EntityType.SOURCE, CardType.MINION, removeEnchantments: true),
 							new AddEnchantmentTask("OG_123e", EntityType.SOURCE))))
 				}
 			});
@@ -1926,7 +1923,8 @@ namespace SabberStoneCore.CardSets
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_150", new Power {
-				Trigger = Triggers.EnrageTrigger("OG_150e")
+				//Trigger = Triggers.EnrageTrigger("OG_150e")
+				Aura = new EnrageEffect(AuraType.SELF, "OG_150e")
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2051,10 +2049,11 @@ namespace SabberStoneCore.CardSets
 							if (p.Count < 2)
 								return p;
 							Controller c = p[0].Controller;
-							p.ForEach(q => q.Destroy());
+							for (int i = 0; i < p.Count; i++)
+								p[i].Destroy();
 							c.Game.GraveYard();	// forced death phase
 							var ancientOne = (Minion) Entity.FromCard(c, Cards.FromId("OG_173a"));
-							Generic.SummonBlock.Invoke(c, ancientOne, c.BoardZone.Count);
+							Generic.SummonBlock.Invoke(c.Game, ancientOne, c.BoardZone.Count);
 							return p;
 						}))
 
@@ -2572,14 +2571,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Stealthed until your next turn.
 			// --------------------------------------------------------
-			cards.Add("OG_080de", new Power {
-				Enchant = new Enchant(new Effect(GameTag.STEALTH, EffectOperator.SET, 1)),
-				Trigger = new Trigger(TriggerType.TURN_START)
-				{
-					SingleTask = new RemoveEnchantmentTask(),
-					RemoveAfterTriggered = true,
-				}
-			});
+			cards.Add("OG_080de", Power.OneTurnStealthEnchantmentPower);
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [OG_080ee] BriarthorTn (*) - COST:0 
@@ -2663,10 +2655,9 @@ namespace SabberStoneCore.CardSets
 				},
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
-
 					SingleTask = ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsInZone(Zone.HAND)),
-						new FlagTask(true, new ChangeEntityTask(EntityType.TARGET, CardType.MINION)))
+						new ChangeEntityTask(EntityType.TARGET, CardType.MINION, removeEnchantments: true),
+						new AddEnchantmentTask("OG_123e", EntityType.TARGET))
 				}
 			});
 
@@ -2690,7 +2681,8 @@ namespace SabberStoneCore.CardSets
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_150e", new Power {
-				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(2))
+				//Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(2))
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("OG_150e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2753,7 +2745,8 @@ namespace SabberStoneCore.CardSets
 			// - ENRAGED = 1
 			// --------------------------------------------------------
 			cards.Add("OG_218e", new Power {
-				Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(3))
+				//Aura = new EnrageEffect(AuraType.SELF, Effects.Attack_N(3))
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("OG_218e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2793,7 +2786,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Attack increased.
 			// --------------------------------------------------------
 			cards.Add("OG_271e", new Power {
-				Enchant = new Enchant(GameTag.ATK, EffectOperator.MUL, 2)
+				Enchant = new Enchant(ATK.Effect(EffectOperator.MUL, 2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2844,7 +2837,10 @@ namespace SabberStoneCore.CardSets
 			// Text: Shadowcaster made this 1/1.
 			// --------------------------------------------------------
 			cards.Add("OG_291e", new Power {
-				Enchant = new Enchant(Effects.SetAttack(1), Effects.SetMaxHealth(1), new Effect(GameTag.COST, EffectOperator.SET, 1))
+				Enchant = new Enchant(
+					Effects.SetAttack(1),
+					Effects.SetMaxHealth(1),
+					Effects.SetCost(1))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

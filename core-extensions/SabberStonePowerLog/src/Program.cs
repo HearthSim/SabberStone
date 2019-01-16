@@ -13,11 +13,7 @@
 #endregion
 using System;
 using System.Linq;
-using SabberStoneCore.Config;
-using SabberStoneCore.Model;
-using SabberStoneCore.Model.Entities;
 using SabberStonePowerLog.Model;
-using SabberStonePowerLog.src.Sync;
 using System.Collections.Generic;
 
 namespace SabberStonePowerLog
@@ -26,7 +22,7 @@ namespace SabberStonePowerLog
 	{
 		static void Main(string[] args)
 		{
-			var interpreter = new Interpreter(@"C:\Program Files (x86)\Hearthstone\Logs\", "Power.log");
+			var interpreter = new Interpreter(@"D:\Hearthstone\Logs\", "Power.log");
 			List<PowerGame> games = interpreter.Parse(true, true);
 			Console.WriteLine($"Done parsing! Found {games.Count} game(s) in log.");
 			Console.ReadKey();

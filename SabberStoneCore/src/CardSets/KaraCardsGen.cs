@@ -12,6 +12,7 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System.Collections.Generic;
+using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -19,6 +20,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
 {
@@ -42,9 +44,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_WITH_RACE = 20
 			// --------------------------------------------------------
 			cards.Add("KAR_065", new Power {
-				PowerTask = ComplexTask.Create(
-					new CopyTask(EntityType.TARGET, 1),
-					new SummonTask())
+				PowerTask = new CopyTask(EntityType.TARGET, Zone.PLAY)
 			});
 
 			// ----------------------------------------- MINION - DRUID
@@ -96,7 +96,7 @@ namespace SabberStoneCore.CardSets
 			// - SECRET = 1
 			// --------------------------------------------------------
 			cards.Add("KAR_006", new Power {
-				Aura = new Aura(AuraType.HAND, new Effect(GameTag.COST, EffectOperator.SET, 0))
+				Aura = new Aura(AuraType.HAND, Effects.SetCost(0))
 				{
 					Condition = SelfCondition.IsSecret
 				}
@@ -481,7 +481,7 @@ namespace SabberStoneCore.CardSets
 				{
 					TriggerActivation = TriggerActivation.HAND,
 					TriggerSource = TriggerSource.SELF,
-					SingleTask = new SummonTask("KAR_205", SummonSide.DEFAULT)
+					SingleTask = new SummonTask("KAR_205")
 				}
 			});
 
@@ -865,9 +865,8 @@ namespace SabberStoneCore.CardSets
 						new IncludeTask(EntityType.DECK),
 						new FilterStackTask(SelfCondition.IsMinion),
 						new RandomTask(1, EntityType.STACK),
-						new CopyTask(EntityType.STACK, 1),
-						new AddEnchantmentTask("KAR_114e", EntityType.STACK),
-						new SummonTask())))
+						new CopyTask(EntityType.STACK, Zone.PLAY, addToStack: true),
+						new AddEnchantmentTask("KAR_114e", EntityType.STACK))))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -919,7 +918,7 @@ namespace SabberStoneCore.CardSets
 			//       you've cast this game.
 			// --------------------------------------------------------
 			cards.Add("KAR_711", new Power {
-				Aura = new AdaptiveCostEffect(EffectOperator.SUB, p => p.Controller.NumSpellsPlayedThisGame)
+				Aura = new AdaptiveCostEffect(p => p.Controller.NumSpellsPlayedThisGame)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

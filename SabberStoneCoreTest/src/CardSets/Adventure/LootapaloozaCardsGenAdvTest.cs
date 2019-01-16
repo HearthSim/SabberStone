@@ -15,8 +15,6 @@ using Xunit;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
 using SabberStoneCore.Model;
-using SabberStoneCore.Model.Zones;
-using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 
 namespace SabberStoneCoreTest.CardSets.Adventure

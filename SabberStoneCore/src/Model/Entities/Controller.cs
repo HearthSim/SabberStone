@@ -18,6 +18,7 @@ using System.Text;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
+using SabberStoneCore.Loader;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Model.Zones;
@@ -115,12 +116,12 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// All standard cards which can be put into a deck of this class.
 		/// </summary>
-		public IEnumerable<Card> Standard => Cards.Standard[HeroClass];
+		public IReadOnlyList<Card> Standard => Cards.Standard[HeroClass];
 
 		/// <summary>
 		/// All wild cards which can be put into a deck of this class.
 		/// </summary>
-		public IEnumerable<Card> Wild => Cards.Wild[HeroClass];
+		public IReadOnlyList<Card> Wild => Cards.Wild[HeroClass];
 
 		/// <summary>
 		/// The amount of mana available to actually use after calculating all resource factors.
@@ -140,7 +141,7 @@ namespace SabberStoneCore.Model.Entities
 		/// The last choice set proposed to this player.
 		/// The actual chosen entity is also stored in the Choice object.
 		/// </summary>
-		public Choice Choice { get; set; } = null;
+		public Choice Choice { get; set; }
 
 		/// <summary>
 		/// The opponent player instance.
@@ -149,7 +150,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public override int this[GameTag t]
 		{
-			get => _data[t] + ControllerAuraEffects[t];
+			get
+			{
+				_data.TryGetValue(t, out int value);
+				return value + ControllerAuraEffects[t];
+			}
 			set
 			{
 				if (_logging)
@@ -158,7 +163,7 @@ namespace SabberStoneCore.Model.Entities
 					if (value + ControllerAuraEffects[t] != this[t])
 						Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, t, value));
 
-				_data.Tags[t] = value;
+				_data[t] = value;
 			}
 		}
 
@@ -169,25 +174,12 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="name">The name of the player.</param>
 		/// <param name="playerId">The player index; The first player will get assigned 1.</param>
 		/// <param name="id">Entity ID of this controller.</param>
-		public Controller(Game game, string name, int playerId, int id)
-			: base(game, Card.CardPlayer,
-			new EntityData.Data(64)
-			{
-				//[GameTag.HERO_ENTITY] = heroId,
-				[GameTag.MAXHANDSIZE] = 10,
-				[GameTag.STARTHANDSIZE] = 4,
-				[GameTag.PLAYER_ID] = playerId,
-				[GameTag.TEAM_ID] = playerId,
-				[GameTag.ZONE] = (int)Enums.Zone.PLAY,
-				[GameTag.CONTROLLER] = playerId,
-				[GameTag.ENTITY_ID] = id,
-				[GameTag.MAXRESOURCES] = 10,
-				[GameTag.CARDTYPE] = (int)CardType.PLAYER
-
-			})
+		public Controller(Game game, string name, int playerId, int id, IDictionary<GameTag, int> tags)
+			: base(in game, Card.CardPlayer, in tags, in id)
 		{
 			Name = name;
 			_playerId = playerId;
+			Controller = this;
 
 			DeckZone = new DeckZone(this);
 			BoardZone = new BoardZone(this);
@@ -213,9 +205,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="game">The target <see cref="Game"/> instance.</param>
 		/// <param name="controller">The source <see cref="Controller"/></param>
-		private Controller(Game game, Controller controller) : base(game, controller)
+		private Controller(in Game game, in Controller controller) : base(in game, controller)
 		{
 			Name = controller.Name;
+
+			Controller = this;
 
 			Hero = (Hero)controller.Hero.Clone(this);
 
@@ -249,13 +243,20 @@ namespace SabberStoneCore.Model.Entities
 			PlayHistory = new List<PlayHistoryEntry>(controller.PlayHistory);
 			DiscardedEntities = new List<int>(controller.DiscardedEntities);
 			CardsPlayedThisTurn = new List<Card>(controller.CardsPlayedThisTurn);
-			controller.AppliedEnchantments?.ForEach(p =>
-			{
-				if (AppliedEnchantments == null)
-					AppliedEnchantments = new List<Enchantment>(controller.AppliedEnchantments.Count);
 
-				AppliedEnchantments.Add((Enchantment) p.Clone(this));
-			});
+			// Cloning applied enchantments.
+			{
+				List<Enchantment> originalEnchantments = controller.AppliedEnchantments;
+				if (originalEnchantments != null)
+				{
+					var enchantments = new List<Enchantment>(originalEnchantments.Count);
+					foreach (Enchantment p in originalEnchantments)
+					{
+						enchantments.Add(p.Clone(this));
+					}
+					AppliedEnchantments = enchantments;
+				}
+			}
 
 			// non-tag attributes
 			_playerId = controller._playerId;
@@ -270,9 +271,9 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		/// <param name="game">The target Game.</param>
 		/// <returns></returns>
-		public Controller Clone(Game game)
+		public Controller Clone(in Game game)
 		{
-			return new Controller(game, this);
+			return new Controller(in game, this);
 		}
 
 		/// <summary>
@@ -282,10 +283,11 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="powerCard">The heropower card to derive the hero power entity from.</param>
 		/// <param name="tags">The inherited tags</param>
 		/// <param name="id">The entity id to assign to the generated HERO entity</param>
-		public void AddHeroAndPower(Card heroCard, Card powerCard = null, IDictionary<GameTag, int> tags = null, int id = -1)
+		public void AddHeroAndPower(in Card heroCard, in Card powerCard = null, in IDictionary<GameTag, int> tags = null, in int id = -1)
 		{
 			// remove hero and place it to the setaside zone
 			Weapon weapon = null;
+			AuraEffects auraEffects = null;
 			if  (Hero != null)
 			{
 				SetasideZone.MoveTo(Hero, SetasideZone.Count);
@@ -298,15 +300,18 @@ namespace SabberStoneCore.Model.Entities
 				{
 					weapon = Hero.Weapon;
 				}
+
+				auraEffects = Hero.AuraEffects;
 			}
 
 
-			Hero = FromCard(this, heroCard, tags, null, id) as Hero;
+			Hero = (Hero) FromCard(this, in heroCard, tags, null, id);
 			Hero[GameTag.ZONE] = (int) Enums.Zone.PLAY;
 			HeroId = Hero.Id;
 			Hero.HeroPower = FromCard(this, powerCard ?? Cards.FromAssetId(Hero[GameTag.HERO_POWER]),
-				new EntityData.Data { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
+				new EntityData { [GameTag.CREATOR] = Hero.Id }) as HeroPower;
 			Hero.Weapon = weapon;
+			Hero.AuraEffects = auraEffects;
 		}
 
 		/// <summary>
@@ -334,29 +339,25 @@ namespace SabberStoneCore.Model.Entities
 		/// Returns a set of all options this player can perform execute at the moment.
 		/// From this set one option is picked and executed by the game.
 		/// </summary>
-		/// <param name="playCards"></param>
+		/// <param name="skipPrePhase">Doesn't check validity of the options generated from this when it is processed.</param>
 		/// <returns></returns>
-		public List<PlayerTask> Options(bool playCards = true)
+		public List<PlayerTask> Options(bool skipPrePhase = true)
 		{
-			//CalculatingOptions = true;
-
-			var result = new List<PlayerTask>();
-
+			// No options for the opponent player.
 			if (this != Game.CurrentPlayer)
-				return result;
+				return new List<PlayerTask>(0);
 
+			//	ChooseTasks
 			if (Choice != null)
 			{
 				switch (Choice.ChoiceType)
 				{
 					case ChoiceType.GENERAL:
-						Choice.Choices.ToList().ForEach(p => result.Add(ChooseTask.Pick(this, p)));
-						return result;
+						return Choice.Choices.Select(p => (PlayerTask)ChooseTask.Pick(this, p)).ToList();
 
 					case ChoiceType.MULLIGAN:
 						IEnumerable<IEnumerable<int>> choices = Util.GetPowerSet(Choice.Choices);
-						choices.ToList().ForEach(p => result.Add(ChooseTask.Mulligan(this, p.ToList())));
-						return result;
+						return choices.Select(p => (PlayerTask) ChooseTask.Mulligan(this, p.ToList())).ToList();
 
 					default:
 						throw new NotImplementedException();
@@ -365,113 +366,386 @@ namespace SabberStoneCore.Model.Entities
 
 			// no options till mulligan is done for both players
 			if (Game.Step != Step.MAIN_ACTION)
-				return result;
+				return new List<PlayerTask>(0);
 
-			// add end turn task ...
-			result.Add(EndTurnTask.Any(this));
+			//	EndTurnTask
+			var allOptions = new List<PlayerTask>(20) { EndTurnTask.Any(this) };
 
-			if (playCards)
+			#region PlayCardTasks
+			int mana = RemainingMana;
+			int zonePosRange = BoardZone.Count;
+			bool? spellCostHealth = null;
+
+			Character[] allTargets = null;
+			Minion[] friendlyMinions = null;
+			Minion[] enemyMinions = null;
+			Minion[] allMinions = null;
+			Character[] allFriendly = null;
+			Character[] allEnemies = null;
+
+			ReadOnlySpan<IPlayable> handSpan = HandZone.GetSpan();
+			for (int i = 0; i < handSpan.Length; i++)
 			{
-				foreach (IPlayable playableCard in HandZone)
+				if (!handSpan[i].ChooseOne || ChooseBoth)
+					GetPlayCardTasks(handSpan[i]);
+				else
 				{
-					var minion = playableCard as Minion;
-
-					if (!playableCard.IsPlayableByPlayer)
-						continue;
-
-					List<IPlayable> playables = playableCard.ChooseOne && !Game.CurrentPlayer.ChooseBoth
-						? playableCard.ChooseOnePlayables.ToList()
-						: new List<IPlayable> { playableCard };
-
-					foreach (IPlayable t in playables)
-					{
-						if (!t.IsPlayableByCardReq)
-							continue;
-
-						IEnumerable<ICharacter> targets = t.ValidPlayTargets;
-						var subResult = new List<PlayCardTask>();
-						if (!targets.Any())
-						{
-							subResult.Add(PlayCardTask.Any(this, playableCard, null, -1,
-								playables.Count == 1 ? 0 : playables.IndexOf(t) + 1));
-						}
-
-						//subResult.AddRange(
-						//	targets.Select(
-						//		target =>
-						//			PlayCardTask.Any(this, playableCard, target, -1,
-						//				playables.Count == 1 ? 0 : playables.IndexOf(t) + 1)));
-						foreach (ICharacter target in targets)
-						{
-							subResult.Add(PlayCardTask.Any(this, playableCard, target, -1,
-								playables.Count == 1 ? 0 : playables.IndexOf(t) + 1));
-						}
-
-						if (minion != null)
-						{
-							var tempSubResult = new List<PlayCardTask>();
-							int positions = BoardZone.Count + 1;
-							for (int j = 0; j < positions; j++)
-							{
-								subResult.ForEach(p =>
-								{
-									PlayCardTask task = p.Copy();
-									task.ZonePosition = j;
-									tempSubResult.Add(task);
-								});
-							}
-							subResult = tempSubResult;
-						}
-						result.AddRange(subResult);
-					}
+					IPlayable[] playables = handSpan[i].ChooseOnePlayables;
+					for (int j = 1; j < 3; j++)
+						GetPlayCardTasks(handSpan[i], playables[j - 1], j);
 				}
 			}
+			#endregion
 
-			foreach (Minion minion in BoardZone)
+			#region HeroPowerTask
+			HeroPower power = Hero.HeroPower;
+			Card heroPowerCard = power.Card;
+			if (!power.IsExhausted && mana >= power.Cost &&
+			    !HeroPowerDisabled && !heroPowerCard.HideStat)
 			{
-				if (!minion.CanAttack)
-					continue;
-
-				IEnumerable<ICharacter> targets = minion.ValidAttackTargets;
-				foreach (ICharacter target in targets)
-					result.Add(MinionAttackTask.Any(this, minion, target));
-			}
-
-			if (Hero.CanAttack)
-			{
-				IEnumerable<ICharacter> targets = Hero.ValidAttackTargets;
-				foreach (ICharacter target in targets)
-					result.Add(HeroAttackTask.Any(this, target));
-			}
-
-			if (Hero.HeroPower.IsPlayable)
-			{
-				if (Hero.HeroPower.ChooseOne)
+				if (heroPowerCard.ChooseOne)
 				{
 					if (ChooseBoth)
-						result.Add(HeroPowerTask.Any(this));
+						allOptions.Add(HeroPowerTask.Any(this, skipPrePhase: true));
 					else
 					{
-						result.Add(HeroPowerTask.Any(this, null, 1));
-						result.Add(HeroPowerTask.Any(this, null, 2));
+						allOptions.Add(HeroPowerTask.Any(this, null, 1, true));
+						allOptions.Add(HeroPowerTask.Any(this, null, 2, true));
 					}
 				}
 				else
 				{
-					IEnumerable<ICharacter> targets = Hero.HeroPower.GetValidPlayTargets();
-					if (targets.Any())
+					if (heroPowerCard.IsPlayableByCardReq(this))
 					{
-						foreach (ICharacter target in targets)
-							result.Add(HeroPowerTask.Any(this, target));
+						Character[] targets = GetTargets(heroPowerCard);
+						if (targets != null)
+							for (int i = 0; i < targets.Length; i++)
+								allOptions.Add(HeroPowerTask.Any(this, targets[i], skipPrePhase: true));
+						else
+							allOptions.Add(HeroPowerTask.Any(this, skipPrePhase: true));
+					}
+				}
+			}
+			#endregion
+
+			#region MinionAttackTasks
+			Minion[] attackTargets = null;
+			bool isOpHeroValidAttackTarget = false;
+			ReadOnlySpan<Minion> boardSpan = BoardZone.GetSpan();
+			for (int j = 0; j < boardSpan.Length; j++)
+			{
+				Minion minion = boardSpan[j];
+
+				if (minion.IsExhausted && (!minion.HasCharge || minion.NumAttacksThisTurn != 0))
+					continue;
+				if (minion.IsFrozen || minion.AttackDamage == 0 || minion.CantAttack || minion.Untouchable)
+					continue;
+
+				GenerateAttackTargets();
+
+				for (int i = 0; i < attackTargets.Length; i++)
+					allOptions.Add(MinionAttackTask.Any(this, minion, attackTargets[i], skipPrePhase));
+
+				if (isOpHeroValidAttackTarget && !(minion.CantAttackHeroes || minion.AttackableByRush))
+					allOptions.Add(MinionAttackTask.Any(this, minion, Opponent.Hero, skipPrePhase));
+			}
+			#endregion
+
+			#region HeroAttackTaskts
+			Hero hero = Hero;
+
+			if (!hero.IsExhausted && hero.AttackDamage > 0 && !hero.IsFrozen)
+			{
+				GenerateAttackTargets();
+
+				for (int i = 0; i < attackTargets.Length; i++)
+					allOptions.Add(HeroAttackTask.Any(this, attackTargets[i], skipPrePhase));
+
+				if (isOpHeroValidAttackTarget && !hero.CantAttackHeroes)
+					allOptions.Add(HeroAttackTask.Any(this, Opponent.Hero, skipPrePhase));
+			}
+			#endregion
+
+			return allOptions;
+
+			#region local functions
+			void GetPlayCardTasks(in IPlayable playable, in IPlayable chooseOnePlayable = null, int subOption = -1)
+			{
+				Card card = chooseOnePlayable?.Card ?? playable.Card;
+
+				if (!spellCostHealth.HasValue)
+					spellCostHealth = ControllerAuraEffects[GameTag.SPELLS_COST_HEALTH] == 1;
+
+				bool healthCost = (playable.AuraEffects?.CardCostHealth ?? false) ||
+				                  (spellCostHealth.Value && playable.Card.Type == CardType.SPELL);
+
+				if (!healthCost && (playable.Cost > mana || playable.Card.HideStat))
+					return;
+
+				// check PlayableByPlayer
+				switch (playable.Card.Type)
+				{
+					//	REQ_MINION_CAP
+					case CardType.MINION when BoardZone.IsFull:
+						return;
+					case CardType.SPELL:
+					{
+						if (card.IsSecret)
+						{
+							if (SecretZone.IsFull) // REQ_SECRET_CAP
+								return;
+							if (SecretZone.Any(p => p.Card.AssetId == card.AssetId)) // REQ_UNIQUE_SECRET
+								return;
+						}
+
+						if (card.IsQuest && SecretZone.Quest != null)
+							return;
+						break;
+					}
+				}
+
+				{
+					if (!card.IsPlayableByCardReq(this))
+						return;
+
+					Character[] targets = GetTargets(card);
+
+					// Card doesn't require any targets
+					if (targets == null)
+					{
+						if (playable is Minion)
+							for (int i = 0; i <= zonePosRange; i++)
+								allOptions.Add(PlayCardTask.Any(this, playable, null, i, subOption, skipPrePhase));
+						else
+							allOptions.Add(PlayCardTask.Any(this, playable, null, -1, subOption, skipPrePhase));
 					}
 					else
 					{
-						result.Add(HeroPowerTask.Any(this));
+						if (targets.Length == 0)
+						{
+							if (card.MustHaveTargetToPlay)
+								return;
+
+							if (playable is Minion)
+								for (int i = 0; i <= zonePosRange; i++)
+									allOptions.Add(PlayCardTask.Any(this, playable, null, i, subOption, skipPrePhase));
+							else
+								allOptions.Add(PlayCardTask.Any(this, playable, null, -1, subOption, skipPrePhase));
+						}
+						else
+						{
+							for (int j = 0; j < targets.Length; j++)
+							{
+								ICharacter target = targets[j];
+								if (playable is Minion)
+									for (int i = 0; i <= zonePosRange; i++)
+										allOptions.Add(PlayCardTask.Any(this, playable, target, i, subOption,
+											true));
+								else
+									allOptions.Add(PlayCardTask.Any(this, playable, target, -1, subOption, skipPrePhase));
+
+							}
+						}
 					}
 				}
 			}
 
-			return result;
+			// Returns null if targeting is not required
+			// Returns 0 Array if there is no available target
+			Character[] GetTargets(Card card)
+			{
+				// Check it needs additional validation
+				if (!card.TargetingAvailabilityPredicate?.Invoke(this) ?? false)
+					return null;
+
+				Character[] targets;
+
+				switch (card.TargetingType)
+				{
+					case TargetingType.None:
+						return null;
+					case TargetingType.All:
+						if (allTargets == null)
+						{
+							if (Opponent.Hero.HasStealth)
+							{
+								allTargets = new Character[GetFriendlyMinions().Length + GetEnemyMinions().Length + 1];
+								allTargets[0] = Hero;
+								Array.Copy(GetAllMinions(), 0, allTargets, 1, allMinions.Length);
+							}
+							else
+							{
+								allTargets = new Character[GetFriendlyMinions().Length + GetEnemyMinions().Length + 2];
+								allTargets[0] = Hero;
+								allTargets[1] = Opponent.Hero;
+								Array.Copy(GetAllMinions(), 0, allTargets, 2, allMinions.Length);
+							}
+						}
+						targets = allTargets;
+						break;
+					case TargetingType.FriendlyCharacters:
+						if (allFriendly == null)
+						{
+							allFriendly = new Character[GetFriendlyMinions().Length + 1];
+							allFriendly[0] = Hero;
+							Array.Copy(friendlyMinions, 0, allFriendly, 1, friendlyMinions.Length);
+						}
+						targets = allFriendly;
+						break;
+					case TargetingType.EnemyCharacters:
+						if (allEnemies == null)
+						{
+							if (!Opponent.Hero.HasStealth)
+							{
+								allEnemies = new Character[GetEnemyMinions().Length + 1];
+								allEnemies[0] = Opponent.Hero;
+								Array.Copy(enemyMinions, 0, allEnemies, 1, enemyMinions.Length);
+							}
+							else
+								allEnemies = GetEnemyMinions();
+						}
+						targets = allEnemies;
+						break;
+					case TargetingType.AllMinions:
+						targets = GetAllMinions();
+						break;
+					case TargetingType.FriendlyMinions:
+						targets = GetFriendlyMinions();
+						break;
+					case TargetingType.EnemyMinions:
+						targets = GetEnemyMinions();
+						break;
+					case TargetingType.Heroes:
+						targets = !Opponent.Hero.HasStealth
+							? new[] { Hero, Opponent.Hero }
+							: new[] { Hero };
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
+
+				// Filtering for target_if_available
+				TargetingPredicate p = card.TargetingPredicate;
+				if (p != null)
+				{
+					if (card.Type == CardType.SPELL || card.Type == CardType.HERO_POWER)
+					{
+						Character[] buffer = new Character[targets.Length];
+						int i = 0;
+						for (int j = 0; j < targets.Length; ++j)
+						{
+							if (!p(targets[j]) || targets[j].CantBeTargetedBySpells) continue;
+							buffer[i] = targets[j];
+							i++;
+						}
+
+						if (i != targets.Length)
+						{
+							Character[] result = new Character[i];
+							Array.Copy(buffer, result, i);
+							return result;
+						}
+						return buffer;
+					}
+					else
+					{
+						if (!card.TargetingAvailabilityPredicate?.Invoke(this) ?? false)
+							return null;
+
+						Character[] buffer = new Character[targets.Length];
+						int i = 0;
+						for (int j = 0; j < targets.Length; ++j)
+						{
+							if (!p(targets[j])) continue;
+							buffer[i] = targets[j];
+							i++;
+						}
+
+						if (i != targets.Length)
+						{
+							Character[] result = new Character[i];
+							Array.Copy(buffer, result, i);
+							return result;
+						}
+						return buffer;
+					}
+				}
+				else if (card.Type == CardType.SPELL || card.Type == CardType.HERO_POWER)
+				{
+					Character[] buffer = new Character[targets.Length];
+					int i = 0;
+					for (int j = 0; j < targets.Length; ++j)
+					{
+						if (targets[j].CantBeTargetedBySpells) continue;
+						buffer[i] = targets[j];
+						i++;
+					}
+
+					if (i != targets.Length)
+					{
+						Character[] result = new Character[i];
+						Array.Copy(buffer, result, i);
+						return result;
+					}
+					return buffer;
+				}
+
+				return targets;
+
+				Minion[] GetFriendlyMinions()
+				{
+					return friendlyMinions ?? (friendlyMinions = BoardZone.GetAll());
+				}
+
+				Minion[] GetAllMinions()
+				{
+					if (allMinions != null)
+						return allMinions;
+
+					allMinions = new Minion[GetEnemyMinions().Length + GetFriendlyMinions().Length];
+					Array.Copy(enemyMinions, allMinions, enemyMinions.Length);
+					Array.Copy(friendlyMinions, 0, allMinions, enemyMinions.Length, friendlyMinions.Length);
+
+					return allMinions;
+				}
+			}
+
+			void GenerateAttackTargets()
+			{
+				if (attackTargets != null) return;
+
+				Minion[] eMinions = GetEnemyMinions();
+				//var taunts = new Minion[eMinions.Length];
+				Minion[] taunts = null;
+				int tCount = 0;
+				for (int i = 0; i < eMinions.Length; i++)
+					if (eMinions[i].HasTaunt)
+					{
+						if (taunts == null)
+							taunts = new Minion[eMinions.Length];
+						taunts[tCount] = eMinions[i];
+						tCount++;
+					}
+
+				if (tCount > 0)
+				{
+					var targets = new Minion[tCount];
+					Array.Copy(taunts, targets, tCount);
+					attackTargets = targets;
+					isOpHeroValidAttackTarget = false;  // some brawls allow taunt heros and this should be fixed
+					return;
+				}
+				attackTargets = eMinions;
+
+				isOpHeroValidAttackTarget =
+					!Opponent.Hero.IsImmune && !Opponent.Hero.HasStealth;
+			}
+
+			Minion[] GetEnemyMinions()
+			{
+				return enemyMinions ?? (enemyMinions = Opponent.BoardZone.GetAll(p => !p.HasStealth && !p.IsImmune));
+			}
+			#endregion
 		}
 
 		/// <summary>
@@ -554,7 +828,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			//get { return this[GameTag.RESOURCES]; }
 			//set { this[GameTag.RESOURCES] = value; }
-			get { return GetNativeGameTag(GameTag.RESOURCES); }
+			get { return this[GameTag.RESOURCES]; }
 			set { this[GameTag.RESOURCES] = value; }
 		}
 
@@ -565,9 +839,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int UsedMana
 		{
-			//get { return this[GameTag.RESOURCES_USED]; }
-			//set { this[GameTag.RESOURCES_USED] = value; }
-			get { return GetNativeGameTag(GameTag.RESOURCES_USED); }
+			get
+			{
+				_data.TryGetValue(GameTag.RESOURCES_USED, out int value);
+				return value;
+			}
 			set { this[GameTag.RESOURCES_USED] = value; }
 		}
 
@@ -576,9 +852,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int TemporaryMana
 		{
-			//get { return this[GameTag.TEMP_RESOURCES]; }
-			//set { this[GameTag.TEMP_RESOURCES] = value; }
-			get { return GetNativeGameTag(GameTag.TEMP_RESOURCES); }
+			get
+			{
+				_data.TryGetValue(GameTag.TEMP_RESOURCES, out int value);
+				return value;
+			}
 			set { this[GameTag.TEMP_RESOURCES] = value; }
 		}
 
@@ -589,9 +867,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool IsComboActive
 		{
-			//get { return this[GameTag.COMBO_ACTIVE] == 1; }
-			//set { this[GameTag.COMBO_ACTIVE] = value ? 1 : 0; }
-			get { return GetNativeGameTag(GameTag.COMBO_ACTIVE) == 1; }
+			get
+			{
+				_data.TryGetValue(GameTag.COMBO_ACTIVE, out int value);
+				return value == 1;
+			}
 			set { this[GameTag.COMBO_ACTIVE] =  value ? 1 : 0; }
 		}
 
@@ -599,7 +879,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumCardsDrawnThisTurn
 		{
-			get { return this[GameTag.NUM_CARDS_DRAWN_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_CARDS_DRAWN_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_CARDS_DRAWN_THIS_TURN] = value; }
 		}
 
@@ -617,43 +901,71 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumCardsPlayedThisTurn
 		{
-			get { return this[GameTag.NUM_CARDS_PLAYED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_CARDS_PLAYED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_CARDS_PLAYED_THIS_TURN] = value; }
 		}
 
 		public int NumMinionsPlayedThisTurn
 		{
-			get { return this[GameTag.NUM_MINIONS_PLAYED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_MINIONS_PLAYED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_MINIONS_PLAYED_THIS_TURN] = value; }
 		}
 
 		public int NumElementalsPlayedThisTurn
 		{
-			get { return this[GameTag.NUM_ELEMENTAL_PLAYED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_ELEMENTAL_PLAYED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_ELEMENTAL_PLAYED_THIS_TURN] = value; }
 		}
 
 		public int NumElementalsPlayedLastTurn
 		{
-			get { return this[GameTag.NUM_ELEMENTAL_PLAYED_LAST_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_ELEMENTAL_PLAYED_LAST_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_ELEMENTAL_PLAYED_LAST_TURN] = value; }
 		}
 
 		public int NumOptionsPlayedThisTurn
 		{
-			get { return this[GameTag.NUM_OPTIONS_PLAYED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_OPTIONS_PLAYED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_OPTIONS_PLAYED_THIS_TURN] = value; }
 		}
 
 		public int NumFriendlyMinionsThatAttackedThisTurn
 		{
-			get { return this[GameTag.NUM_FRIENDLY_MINIONS_THAT_ATTACKED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_FRIENDLY_MINIONS_THAT_ATTACKED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_FRIENDLY_MINIONS_THAT_ATTACKED_THIS_TURN] = value; }
 		}
 
 		public int NumFriendlyMinionsThatDiedThisTurn
 		{
-			get { return this[GameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_FRIENDLY_MINIONS_THAT_DIED_THIS_TURN] = value; }
 		}
 
@@ -665,49 +977,81 @@ namespace SabberStoneCore.Model.Entities
 
 		public int NumMinionsPlayerKilledThisTurn
 		{
-			get { return this[GameTag.NUM_MINIONS_PLAYER_KILLED_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_MINIONS_PLAYER_KILLED_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_MINIONS_PLAYER_KILLED_THIS_TURN] = value; }
 		}
 
 		public int TotalManaSpentThisGame
 		{
-			get { return this[GameTag.NUM_RESOURCES_SPENT_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_RESOURCES_SPENT_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_RESOURCES_SPENT_THIS_GAME] = value; }
 		}
 
 		public int HeroPowerActivationsThisTurn
 		{
-			get { return this[GameTag.HEROPOWER_ACTIVATIONS_THIS_TURN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.HEROPOWER_ACTIVATIONS_THIS_TURN, out int value);
+				return value;
+			}
 			set { this[GameTag.HEROPOWER_ACTIVATIONS_THIS_TURN] = value; }
 		}
 
 		public int NumTimesHeroPowerUsedThisGame
 		{
-			get { return this[GameTag.NUM_TIMES_HERO_POWER_USED_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_TIMES_HERO_POWER_USED_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_TIMES_HERO_POWER_USED_THIS_GAME] = value; }
 		}
 
 		public int NumSecretsPlayedThisGame
 		{
-			get { return this[GameTag.NUM_SECRETS_PLAYED_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_SECRETS_PLAYED_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_SECRETS_PLAYED_THIS_GAME] = value; }
 		}
 
 		public int NumSpellsPlayedThisGame
 		{
-			get { return this[GameTag.NUM_SPELLS_PLAYED_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_SPELLS_PLAYED_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_SPELLS_PLAYED_THIS_GAME] = value; }
 		}
 
 		public int NumWeaponsPlayedThisGame
 		{
-			get { return this[GameTag.NUM_WEAPONS_PLAYED_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_WEAPONS_PLAYED_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_WEAPONS_PLAYED_THIS_GAME] = value; }
 		}
 
 		public int NumMurlocsPlayedThisGame
 		{
-			get { return this[GameTag.NUM_MURLOCS_PLAYED_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_MURLOCS_PLAYED_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_MURLOCS_PLAYED_THIS_GAME] = value; }
 		}
 
@@ -715,7 +1059,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public int AmountHeroHealedThisTurn
 		{
-			get => this[GameTag.AMOUNT_HERO_HEALED_THIS_TURN];
+			get
+			{
+				_data.TryGetValue(GameTag.AMOUNT_HERO_HEALED_THIS_TURN, out int value);
+				return value;
+			}
 			set => this[GameTag.AMOUNT_HERO_HEALED_THIS_TURN] = value;
 		}
 
@@ -730,7 +1078,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int NumTurnsLeft
 		{
-			get { return this[GameTag.NUM_TURNS_LEFT]; }
+			get
+			{
+				_data.TryGetValue(GameTag.NUM_TURNS_LEFT, out int value);
+				return value;
+			}
 			set { this[GameTag.NUM_TURNS_LEFT] = value; }
 		}
 
@@ -739,7 +1091,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int OverloadOwed
 		{
-			get { return this[GameTag.OVERLOAD_OWED]; }
+			get
+			{
+				_data.TryGetValue(GameTag.OVERLOAD_OWED, out int value);
+				return value;
+			}
 			set { this[GameTag.OVERLOAD_OWED] = value; }
 		}
 
@@ -751,9 +1107,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int OverloadLocked
 		{
-			//get { return this[GameTag.OVERLOAD_LOCKED]; }
-			//set { this[GameTag.OVERLOAD_LOCKED] = value; }
-			get { return GetNativeGameTag(GameTag.OVERLOAD_LOCKED); }
+			get
+			{
+				_data.TryGetValue(GameTag.OVERLOAD_LOCKED, out int value);
+				return value;
+			}
 			set { this[GameTag.OVERLOAD_LOCKED] = value; }
 		}
 
@@ -762,7 +1120,11 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int OverloadThisGame
 		{
-			get { return this[GameTag.OVERLOAD_THIS_GAME]; }
+			get
+			{
+				_data.TryGetValue(GameTag.OVERLOAD_THIS_GAME, out int value);
+				return value;
+			}
 			set { this[GameTag.OVERLOAD_THIS_GAME] = value; }
 		}
 
@@ -788,7 +1150,11 @@ namespace SabberStoneCore.Model.Entities
 
 		public bool SeenCthun
 		{
-			get { return this[GameTag.SEEN_CTHUN] == 1; }
+			get
+			{
+				_data.TryGetValue(GameTag.SEEN_CTHUN, out int value);
+				return value == 1;
+			}
 			set { this[GameTag.SEEN_CTHUN] = value ? 1 : 0; }
 		}
 
@@ -801,8 +1167,22 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int ProxyCthun
 		{
-			get { return this[GameTag.PROXY_CTHUN]; }
+			get
+			{
+				_data.TryGetValue(GameTag.PROXY_CTHUN, out int value);
+				return value;
+			}
 			set { this[GameTag.PROXY_CTHUN] = value; }
+		}
+
+		/// <summary>
+		/// Returns true if for this player all cards and powers that restore Health deal damage instead.
+		/// (e.g. True when Auchenai Soulpriest is in play.)
+		/// </summary>
+		public bool RestoreToDamage
+		{
+			get => ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] > 0;
+			set => ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] = value ? 1 : 0;
 		}
 
 		/// <summary>
@@ -822,7 +1202,7 @@ namespace SabberStoneCore.Model.Entities
 		public bool ExtraEndTurnEffect
 		{
 			get => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] > 0;
-			set => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] += 1;
+			set => ControllerAuraEffects[GameTag.EXTRA_END_TURN_EFFECT] = value ? 1 : 0;
 		}
 
 		/// <summary>

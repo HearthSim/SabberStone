@@ -202,7 +202,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Overwhelming"));
-			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
+			var minion = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, minion));
 			Assert.Equal(5, ((Minion)minion).AttackDamage);
@@ -250,7 +250,7 @@ namespace SabberStoneCoreTest.CardSets
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sylvanas Windrunner"));
+			var minion2 = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sylvanas Windrunner"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 
 			int myBoardCount = game.CurrentPlayer.BoardZone.Count;

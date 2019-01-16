@@ -13,6 +13,7 @@
 #endregion
 using System.Collections.Generic;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
@@ -94,8 +95,7 @@ namespace SabberStoneCore.CardSets
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandFull),
 						new FlagTask(false, ComplexTask.Secret(
-							new CopyTask(EntityType.TARGET, 2),
-							new AddStackTo(EntityType.HAND))))
+							new CopyTask(EntityType.TARGET, Zone.HAND, 2))))
 				}
 			});
 
@@ -209,8 +209,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("FP1_025", new Power {
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET, true),
-					new CopyTask(EntityType.TARGET, 1),
-					new SummonTask())
+					new CopyTask(EntityType.TARGET, Zone.PLAY))
 			});
 
 		}
@@ -435,7 +434,7 @@ namespace SabberStoneCore.CardSets
 							if (graveyard[i] is Minion m && m.ToBeDestroyed)
 							{
 								if (c.BoardZone.IsFull) return 0;
-								Generic.SummonBlock.Invoke(c, (Minion) Entity.FromCard(c, m.Card), -1);
+								Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, m.Card), -1);
 								j++;
 							}
 							i--;
@@ -463,7 +462,7 @@ namespace SabberStoneCore.CardSets
 					if ((c.GraveyardZone.Any(p => p.Card.AssetId == 1797 && p.ToBeDestroyed) ||
 					     c.Opponent.GraveyardZone.Any(p => p.Card.AssetId == 1797 && p.ToBeDestroyed)) &&
 					    !c.BoardZone.IsFull)
-						Generic.SummonBlock.Invoke(c, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1);
+						Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1);
 
 					return 0;
 				})
@@ -486,7 +485,7 @@ namespace SabberStoneCore.CardSets
 					if ((c.GraveyardZone.Any(p => p.Card.AssetId == 1796 && p.ToBeDestroyed) ||
 					     c.Opponent.GraveyardZone.Any(p => p.Card.AssetId == 1796 && p.ToBeDestroyed)) &&
 					    !c.BoardZone.IsFull)
-						Generic.SummonBlock.Invoke(c, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1);
+						Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1);
 
 					return 0;
 				})
@@ -521,7 +520,7 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("FP1_017", new Power {
-				Aura = new Aura(AuraType.HANDS, new Effect(GameTag.COST, EffectOperator.ADD, 2))
+				Aura = new Aura(AuraType.HANDS, Effects.AddCost(2))
 				{
 					Condition = SelfCondition.IsBattlecryMinion
 				}
@@ -647,7 +646,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Your spells cost (5) more this turn.
 			// --------------------------------------------------------
 			cards.Add("FP1_030e", new Power {
-				Aura = new Aura(AuraType.OP_HAND, new Effect(GameTag.COST, EffectOperator.ADD, 5))
+				Aura = new Aura(AuraType.OP_HAND, Effects.AddCost(5))
 				{
 					Condition = SelfCondition.IsSpell,
 					RemoveTrigger = (TriggerType.TURN_END, SelfCondition.IsOpTurn)

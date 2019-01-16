@@ -23,37 +23,60 @@ namespace SabberStoneCore.Model.Zones
 	public class DeckZone : LimitedZone<IPlayable>
 	{
 		public const int StartingCards = 30;
+		public const int DeckMaximumCapcity = 60;
 
-		public DeckZone(Controller controller) : base(60)
+		// TODO: Barnabus the Stomper
+		public bool NoEvenCostCards { get; private set; } = true;
+		public bool NoOddCostCards { get; private set; } = true;
+
+		public DeckZone(Controller controller)
 		{
 			Game = controller.Game;
 			Controller = controller;
-			Type = Zone.DECK;
 		}
 
 		private DeckZone(Controller c, DeckZone zone) : base(c, zone)
 		{
-			Type = Zone.DECK;
+			NoEvenCostCards = zone.NoEvenCostCards;
+			NoOddCostCards = zone.NoOddCostCards;
 		}
+
+		public override bool IsFull => _count == DeckMaximumCapcity;
+
+		public override int MaxSize => DeckMaximumCapcity;
+
+		public override Zone Type => Zone.DECK;
 
 		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
 			base.Add(entity, zonePosition);
 
 			entity.Power?.Trigger?.Activate(entity, TriggerActivation.DECK);
+
+			if (NoEvenCostCards || NoOddCostCards)
+			{
+				if (entity.Cost % 2 == 0)
+				{
+					NoEvenCostCards = false;
+				}
+				else if (NoOddCostCards)
+				{
+					NoOddCostCards = false;
+				}
+			}
 		}
 
-		public IPlayable TopCard => Entities[_count - 1];
+		public IPlayable TopCard => _entities[_count - 1];
 
-		public void Fill(List<string> excludeIds = null)
+		public void Fill(IReadOnlyCollection<string> excludeIds = null)
 		{
-			IEnumerable<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Controller.Standard : Controller.Wild;
+			IReadOnlyList<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Controller.Standard : Controller.Wild;
 			int cardsToAdd = StartingCards - _count;
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging ? "" : $"Deck[{Game.FormatType}] from {Controller.Name} filling up with {cardsToAdd} random cards.");
 			while (cardsToAdd > 0)
 			{
-				Card card = Util.Choose<Card>(cards.ToList());
+				Card card = Util.Choose(cards);
 
 				// don't add cards that have to be excluded here.
 				if (excludeIds != null && excludeIds.Contains(card.Id))
@@ -80,7 +103,7 @@ namespace SabberStoneCore.Model.Zones
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging ? "" : $"{Controller.Name} shuffles its deck.");
 
-			var entities = (IPlayable[])Entities;
+			var entities = _entities;
 			for (int i = 0; i < n; i++)
 			{
 				int r = rnd.Next(i, n);
@@ -93,6 +116,12 @@ namespace SabberStoneCore.Model.Zones
 		public DeckZone Clone(Controller c)
 		{
 			return new DeckZone(c, this);
+		}
+
+		internal void SetEntity(int index, IPlayable newEntity)
+		{
+			_entities[index] = newEntity;
+			newEntity.Zone = this;
 		}
 	}
 }
