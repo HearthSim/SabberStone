@@ -29,12 +29,4 @@
       <LogicalName>SabberStoneCore.Resources.PlayErrors.xml</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="resources\Data\Archive\CardDefs.xml">
-      <LogicalName>SabberStoneCore.Resources.Archive.CardDefs.xml</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="resources\Data\Archive\CARD.xml">
-      <LogicalName>SabberStoneCore.Resources.Archive.CARD.xml</LogicalName>
-    </EmbeddedResource>
-  </ItemGroup>
 </Project>

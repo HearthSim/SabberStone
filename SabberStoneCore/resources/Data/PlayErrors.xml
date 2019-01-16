@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0"?>
 <PlayErrors>
 	<PlayRequirements>
 		<PlayRequirement reqID="1" name="REQ_MINION_TARGET" description="Target must be a minion." alwaysRequired="false" hasParam="false" isTargetDetail="true" />

@@ -1,5 +1,5 @@
 <p align="center">
-<img src="docs/readme/sabberstone.png" alt="SabberStone logo" height="80%"/>
+<img src="docs/readme/sabberstoneNew.png" alt="SabberStone logo" height="80%"/>
 </p>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

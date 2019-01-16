@@ -1,4 +1,17 @@
-﻿using System;
+﻿#region copyright
+// SabberStone, Hearthstone Simulator in C# .NET Core
+// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+//
+// SabberStone is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License.
+// SabberStone is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+#endregion
+using System;
 using System.Collections.Generic;
 using System.Text;
 using SabberStoneCore.Enums;
@@ -338,13 +351,13 @@ namespace SabberStoneCore.Enchants
 						return _spellPowerDouble;
 					case GameTag.HERO_POWER_DOUBLE:
 						return _heroPowerDouble;
-					case GameTag.RESTORE_TO_DAMAGE:
+					case GameTag.HEALING_DOES_DAMAGE:
 						return _restoreToDamage >= 1 ? 1 : 0;
 					case GameTag.CHOOSE_BOTH:
 						return _chooseBoth >= 1 ? 1 : 0;
 					case GameTag.SPELLS_COST_HEALTH:
 						return _spellsCostHealth >= 1 ? 1 : 0;
-					case GameTag.EXTRA_BATTLECRY:
+					case GameTag.EXTRA_BATTLECRIES_BASE:
 						return _extraBattecry;
 					case GameTag.EXTRA_END_TURN_EFFECT:
 						return _extraEndTurnEffect;
@@ -368,7 +381,7 @@ namespace SabberStoneCore.Enchants
 					case GameTag.HERO_POWER_DOUBLE:
 						_heroPowerDouble = value;
 						return;
-					case GameTag.RESTORE_TO_DAMAGE:
+					case GameTag.HEALING_DOES_DAMAGE:
 						_restoreToDamage = value;
 						return;
 					case GameTag.CHOOSE_BOTH:
@@ -377,7 +390,7 @@ namespace SabberStoneCore.Enchants
 					case GameTag.SPELLS_COST_HEALTH:
 						_spellsCostHealth = value;
 						return;
-					case GameTag.EXTRA_BATTLECRY:
+					case GameTag.EXTRA_BATTLECRIES_BASE:
 						_extraBattecry = value;
 						return;
 					case GameTag.EXTRA_END_TURN_EFFECT:

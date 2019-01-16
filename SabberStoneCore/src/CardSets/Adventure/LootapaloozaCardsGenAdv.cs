@@ -1,4 +1,17 @@
-﻿using System.Collections.Generic;
+﻿#region copyright
+// SabberStone, Hearthstone Simulator in C# .NET Core
+// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+//
+// SabberStone is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License.
+// SabberStone is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+#endregion
+using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
@@ -1006,8 +1019,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_16p", new Power {
 				//	TODO: implement EXTRA_DEATHRATTLE Test: Totem of the Dead_LOOTA_BOSS_16p
 				PowerTask = ComplexTask.Create(
-					new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1, true),
-				new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1, false))
+					new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1, true),
+				new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1, false))
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1023,8 +1036,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_17p", new Power {
 				// TODO: Test: Battle Totem_LOOTA_BOSS_17p
 				PowerTask = ComplexTask.Create(
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1, true),
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1, false))
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1, true),
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1, false))
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
@@ -1368,10 +1381,10 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_38p", new Power {
 				// TODO [LOOTA_BOSS_38p] Totem of Chaos && Test: Totem of Chaos_LOOTA_BOSS_38p
 				PowerTask = ComplexTask.Create(
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1),
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1, true),
-					new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1),
-					new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1))
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1),
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1, true),
+					new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1),
+					new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1))
 			});
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
