@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Actions;
@@ -3083,7 +3085,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your <b>Deathrattles</b> trigger twice.
 			// --------------------------------------------------------
 			cards.Add("BOT_039e", new Power {
-				Enchant = new Enchant(GameTag.EXTRA_DEATHRATTLES, EffectOperator.ADD, 1)
+				Enchant = new Enchant(GameTag.EXTRA_DEATHRATTLES_BASE, EffectOperator.ADD, 1)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

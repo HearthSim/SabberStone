@@ -1181,8 +1181,8 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public bool RestoreToDamage
 		{
-			get => ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] > 0;
-			set => ControllerAuraEffects[GameTag.RESTORE_TO_DAMAGE] = value ? 1 : 0;
+			get => ControllerAuraEffects[GameTag.HEALING_DOES_DAMAGE] > 0;
+			set => ControllerAuraEffects[GameTag.HEALING_DOES_DAMAGE] = value ? 1 : 0;
 		}
 
 		/// <summary>

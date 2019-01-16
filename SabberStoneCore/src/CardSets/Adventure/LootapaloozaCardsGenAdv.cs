@@ -1019,9 +1019,9 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_16p", new Power {
 				//	TODO: implement EXTRA_DEATHRATTLE Test: Totem of the Dead_LOOTA_BOSS_16p
 				PowerTask = ComplexTask.Create(
-					new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1, true),
-				new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES, 1))
-					new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1, true),
+		new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES_BASE, 1, true),
+				new SetControllerGameTagTask(GameTag.EXTRA_DEATHRATTLES_BASE, 1),
+				new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1, true),
 				new SetControllerGameTagTask(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, 1, false))
 			});
 
@@ -1038,8 +1038,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("LOOTA_BOSS_17p", new Power {
 				// TODO: Test: Battle Totem_LOOTA_BOSS_17p
 				PowerTask = ComplexTask.Create(
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1, true),
-					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRY, 1))
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1, true),
+					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1),
 					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1, true),
 					new SetControllerGameTagTask(GameTag.EXTRA_BATTLECRIES_BASE, 1, false))
 			});
