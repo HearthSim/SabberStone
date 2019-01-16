@@ -98,8 +98,7 @@ namespace SabberStoneCore.Model.Entities
 		protected Character(in Controller controller, in Card card, in IDictionary<GameTag, int> tags, in int id)
 			: base(in controller, in card, in tags, in id)
 		{
-			//_atkModifier = card.ATK;
-			//_healthModifier = card.Health;
+
 		}
 
 		/// <summary>
@@ -351,7 +350,7 @@ namespace SabberStoneCore.Model.Entities
 			game.CurrentEventData = temp;
 
 			// Check if the source is lifesteal
-			if (source.IsLifeSteal && !_lifestealChecker)
+			if (source.HasLifeSteal && !_lifestealChecker)
 			{
 				if (_history)
 					game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, source.Id, source.Card.Id, -1, 0)); // TriggerKeyword=LIFESTEAL
@@ -498,20 +497,6 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		bool IsDefending { get; set; }
 
-		///// <summary>
-		///// The entityID of the character which wants to attack, by entering the
-		///// next combat phase.
-		///// The defender is this character.
-		///// </summary>
-		//int ProposedAttacker { get; set; }
-
-		///// <summary>
-		///// The entityID of the character which has to defend during the next
-		///// ombat phase.
-		///// The attacker is this character.
-		///// </summary>
-		//int ProposedDefender { get; set; }
-
 		/// <summary>
 		/// Amount of attacks this character has executed during this turn.
 		/// </summary>
@@ -522,10 +507,10 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		Race Race { get; }
 
-		/// <summary>
-		/// Character should exit combat.
-		/// </summary>
-		bool ShouldExitCombat { get; set; }
+		///// <summary>
+		///// Character should exit combat.
+		///// </summary>
+		//bool ShouldExitCombat { get; set; }
 
 		/// <summary>
 		/// Character is frozen.
@@ -550,7 +535,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Character has windfury.
 		/// </summary>
-		bool IsWindfury { get; }
+		bool HasWindfury { get; }
 
 		/// <summary>
 		/// Character has stealth.
@@ -824,7 +809,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
-		public abstract bool IsWindfury { get; set; }
+		public abstract bool HasWindfury { get; set; }
 
 		public bool HasStealth
 		{

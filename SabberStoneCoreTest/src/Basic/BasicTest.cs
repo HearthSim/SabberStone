@@ -867,7 +867,7 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(testTarget.Card.Health + 2, testTarget.Health);
 			Assert.True(testTarget.HasDivineShield);
 			Assert.True(testTarget.HasTaunt);
-			Assert.True(testTarget.IsLifeSteal);
+			Assert.True(testTarget.HasLifeSteal);
 			Assert.True(testTarget.AttackableByRush);
 
 			game.ProcessCard("Spellbreaker", testTarget, true);
@@ -876,7 +876,7 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(testTarget.Card.Health, testTarget.Health);
 			Assert.False(testTarget.HasDivineShield);
 			Assert.False(testTarget.HasTaunt);
-			Assert.False(testTarget.IsLifeSteal);
+			Assert.False(testTarget.HasLifeSteal);
 			Assert.False(testTarget.AttackableByRush);
 		}
 

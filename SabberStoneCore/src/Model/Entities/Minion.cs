@@ -45,13 +45,13 @@ namespace SabberStoneCore.Model.Entities
 			IsFrozen = false;
 			IsEnraged = false;
 			HasCharge = false;
-			IsWindfury = false;
+			HasWindfury = false;
 			HasDivineShield = false;
 			HasStealth = false;
-			IsDeathrattle = false;
+			HasDeathrattle = false;
 			HasBattleCry = false;
 			HasInspire = false;
-			IsLifeSteal = false;
+			HasLifeSteal = false;
 			//CantBeTargetedByHeroPowers = false;
 			CantBeTargetedBySpells = false;
 			IsImmune = false;
@@ -275,7 +275,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
-		public override bool IsWindfury
+		public override bool HasWindfury
 		{
 			//get { return this[GameTag.WINDFURY] >= 1; }
 			get
@@ -293,7 +293,7 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.BATTLECRY] = value ? 1 : 0; }
 		}
 
-		public override bool IsDeathrattle
+		public override bool HasDeathrattle
 		{
 			//get { return this[GameTag.DEATHRATTLE] == 1; }
 			get
@@ -331,7 +331,7 @@ namespace SabberStoneCore.Model.Entities
 			set { this[GameTag.POISONOUS] = value ? 1 : 0; }
 		}
 
-		public override bool IsLifeSteal
+		public override bool HasLifeSteal
 		{
 			get
 			{
@@ -341,7 +341,7 @@ namespace SabberStoneCore.Model.Entities
 					return Card.LifeSteal;
 				return value > 0;
 			}
-			set => base.IsLifeSteal = value; }
+			set => base.HasLifeSteal = value; }
 
 		public bool Untouchable => Card.Untouchable;
 

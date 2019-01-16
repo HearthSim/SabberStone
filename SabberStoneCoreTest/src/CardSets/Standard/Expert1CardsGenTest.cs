@@ -5459,12 +5459,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Leper Gnome"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
 
-			Assert.True(((Minion)minion1).IsDeathrattle);
+			Assert.True(((Minion)minion1).HasDeathrattle);
 
 			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ironbeak Owl"));
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion2, (ICharacter) minion1));
 
-			Assert.False(((Minion)minion1).IsDeathrattle);
+			Assert.False(((Minion)minion1).HasDeathrattle);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -7455,13 +7455,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			Assert.True(minion1.IsWindfury);
+			Assert.True(minion1.HasWindfury);
 
 			IPlayable minion3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ironbeak Owl"));
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion3, minion1));
 
 			Assert.Equal(2, minion1.Health);
-			Assert.False(minion1.IsWindfury);
+			Assert.False(minion1.HasWindfury);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

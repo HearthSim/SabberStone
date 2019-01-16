@@ -53,13 +53,13 @@ namespace SabberStoneCore.Model.Entities
 
 		public override bool CanAttack => TotalAttackDamage > 0 && base.CanAttack;
 
-		public override bool IsWindfury
+		public override bool HasWindfury
 		{
 			get => Weapon != null && Weapon.IsWindfury;
 			set => Weapon.IsWindfury = value;
 		}
 
-		public override bool IsLifeSteal => Weapon?.IsLifeSteal ?? false;
+		public override bool HasLifeSteal => Weapon?.HasLifeSteal ?? false;
 
 		public override bool IsImmune
 		{
@@ -89,7 +89,7 @@ namespace SabberStoneCore.Model.Entities
 			if (Weapon == null)
 				return;
 
-			if (Weapon.IsDeathrattle)
+			if (Weapon.HasDeathrattle)
 				Weapon.ActivateTask(PowerActivation.DEATHRATTLE);
 
 			Game.TriggerManager.OnDeathTrigger(Weapon);

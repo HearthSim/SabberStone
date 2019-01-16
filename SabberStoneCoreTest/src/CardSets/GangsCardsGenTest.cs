@@ -1265,7 +1265,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, "Wickerflame Burnbristle"));
 			Assert.True(game.CurrentPlayer.BoardZone[0].HasDivineShield);
-			Assert.True(game.CurrentPlayer.BoardZone[0].IsLifeSteal);
+			Assert.True(game.CurrentPlayer.BoardZone[0].HasLifeSteal);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, "Consecration"));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));

@@ -79,7 +79,7 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition IsEchoCard = new SelfCondition(me => me.Card.Echo);
 		public static readonly SelfCondition IsComboCard = new SelfCondition(me => me.Card.Combo);
 		public static readonly SelfCondition IsLifestealCard = new SelfCondition(me => me.Card.LifeSteal);
-		public static readonly SelfCondition IsDeathrattleMinion = new SelfCondition(me => me is Minion minion && minion.IsDeathrattle);
+		public static readonly SelfCondition IsDeathrattleMinion = new SelfCondition(me => me is Minion minion && minion.HasDeathrattle);
 		public static readonly SelfCondition IsBattlecryMinion = new SelfCondition(me => me is Minion minion && minion.HasBattleCry);
 		public static readonly SelfCondition HasRush = new SelfCondition(me => me is Minion minion && minion.IsRush);
 

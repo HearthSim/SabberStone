@@ -97,7 +97,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
-		public override bool IsLifeSteal
+		public override bool HasLifeSteal
 		{
 			get
 			{
@@ -105,10 +105,10 @@ namespace SabberStoneCore.Model.Entities
 					return Card.LifeSteal;
 				return true;
 			}
-			set => base.IsLifeSteal = value;
+			set => base.HasLifeSteal = value;
 		}
 
-		public override bool IsDeathrattle
+		public override bool HasDeathrattle
 		{
 			get => Card.Deathrattle;
 			set => this[GameTag.DEATHRATTLE] = value ? 1 : 0;

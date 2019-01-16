@@ -1166,7 +1166,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.ProcessCard("Wisp");
 
 			game.ProcessCard("Cybertech Chip");
-			Assert.True(game.CurrentPlayer.BoardZone.ToList().TrueForAll(m => m.IsDeathrattle));
+			Assert.True(game.CurrentPlayer.BoardZone.ToList().TrueForAll(m => m.HasDeathrattle));
 
 			game.ProcessCard("Whirlwind");
 			Assert.Equal(8, game.CurrentPlayer.HandZone.Count);
@@ -2120,7 +2120,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			foreach (IPlayable handCard in game.CurrentPlayer.HandZone)
 			{
-				if (handCard.IsDeathrattle && handCard.Card.Type == CardType.MINION)
+				if (handCard.HasDeathrattle && handCard.Card.Type == CardType.MINION)
 				{
 					int expected = handCard.Card.Cost - 3;
 					expected = expected < 0 ? 0 : expected;

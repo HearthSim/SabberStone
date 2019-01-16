@@ -1034,7 +1034,7 @@ namespace SabberStoneCore.Model
 					minion.LastBoardPosition = minion.ZonePosition;
 					minion.Zone.Remove(minion);
 
-					if (minion.IsDeathrattle)
+					if (minion.HasDeathrattle)
 						minion.ActivateTask(PowerActivation.DEATHRATTLE);
 
 					minion.Controller.GraveyardZone.Add(minion);

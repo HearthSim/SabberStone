@@ -37,7 +37,7 @@ namespace SabberStoneCore.Loader
 		public static readonly TargetingPredicate ReqStealthedTarget
 			= t => t.HasStealth;
 		public static readonly TargetingPredicate ReqTargetWithDeathrattle
-			= t => t.IsDeathrattle;
+			= t => t.HasDeathrattle;
 		public static readonly TargetingPredicate ReqLegendaryTarget
 			= t => t.Card.Rarity == Rarity.LEGENDARY;
 

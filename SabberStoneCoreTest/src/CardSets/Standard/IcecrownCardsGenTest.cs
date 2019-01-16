@@ -176,7 +176,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(Race.BEAST, zomBeast.Race);
 			Assert.Equal(firstCard.Cost + secondCard.Cost, zomBeast.Cost);
 			Assert.Equal(secondCard.Taunt, zomBeast.HasTaunt);
-			Assert.Equal(secondCard.LifeSteal, zomBeast.IsLifeSteal);
+			Assert.Equal(secondCard.LifeSteal, zomBeast.HasLifeSteal);
 			Assert.Equal(secondCard.Rush, zomBeast.IsRush);
 		}
 
@@ -455,7 +455,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			var tarCreeper = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Tar Creeper"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
-			Assert.True(game.CurrentPlayer.BoardZone.First().IsLifeSteal);
+			Assert.True(game.CurrentPlayer.BoardZone.First().HasLifeSteal);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
@@ -464,14 +464,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, tarCreeper));
-			Assert.True(tarCreeper.IsLifeSteal);
+			Assert.True(tarCreeper.HasLifeSteal);
 
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, opponentWisp));
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
 
 			var playerWisp = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, playerWisp));
-			Assert.False(playerWisp.IsLifeSteal);
+			Assert.False(playerWisp.HasLifeSteal);
 		}
 
 		// ----------------------------------------- HERO - WARRIOR
@@ -2965,7 +2965,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.ProcessCard("Deadly Poison");
 			game.ProcessCard("Deadly Poison");
 			game.ProcessCard("Leeching Poison");
-			Assert.True(game.CurrentPlayer.Hero.Weapon.IsLifeSteal);
+			Assert.True(game.CurrentPlayer.Hero.Weapon.HasLifeSteal);
 			game.CurrentPlayer.Hero.Damage = 10;
 			game.Process(HeroAttackTask.Any(game.CurrentPlayer, game.CurrentOpponent.Hero));
 			Assert.Equal(5, game.CurrentPlayer.Hero.Damage);
@@ -5191,7 +5191,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(3, game.CurrentPlayer.HandZone.Count);
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, game.CurrentPlayer.BoardZone[0]));
 			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
-			Assert.True(game.CurrentPlayer.HandZone[3].IsDeathrattle);
+			Assert.True(game.CurrentPlayer.HandZone[3].HasDeathrattle);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -5501,12 +5501,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			var testCard2 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Prince Valanar"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 			Assert.False(testCard.HasTaunt);
-			Assert.False(testCard.IsLifeSteal);
+			Assert.False(testCard.HasLifeSteal);
 			game.Player1.UsedMana = 0;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Arcane Intellect"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2));
 			Assert.True(testCard2.HasTaunt);
-			Assert.True(testCard2.IsLifeSteal);
+			Assert.True(testCard2.HasLifeSteal);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -5859,8 +5859,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Corpsetaker"));
 			Assert.Equal(game.CurrentPlayer.DeckZone.Any(p => p is Minion && ((Minion)p).HasTaunt), game.CurrentPlayer.BoardZone[0].HasTaunt);
 			Assert.Equal(game.CurrentPlayer.DeckZone.Any(p => p is Minion && ((Minion)p).HasDivineShield), game.CurrentPlayer.BoardZone[0].HasDivineShield);
-			Assert.Equal(game.CurrentPlayer.DeckZone.Any(p => p is Minion && ((Minion)p).IsLifeSteal), game.CurrentPlayer.BoardZone[0].IsLifeSteal);
-			Assert.Equal(game.CurrentPlayer.DeckZone.Any(p => p is Minion && ((Minion)p).IsWindfury), game.CurrentPlayer.BoardZone[0].IsWindfury);
+			Assert.Equal(game.CurrentPlayer.DeckZone.Any(p => p is Minion && ((Minion)p).HasLifeSteal), game.CurrentPlayer.BoardZone[0].HasLifeSteal);
+			Assert.Equal(game.CurrentPlayer.DeckZone.Any(p => p is Minion && ((Minion)p).HasWindfury), game.CurrentPlayer.BoardZone[0].HasWindfury);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

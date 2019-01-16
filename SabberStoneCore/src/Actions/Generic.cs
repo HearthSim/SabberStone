@@ -288,7 +288,7 @@ namespace SabberStoneCore.Actions
 						Enchant.RemoveWhenPlayedTrigger.Activate(enchantment);
 
 					if (power.DeathrattleTask != null)
-						((IPlayable)target).IsDeathrattle = true;
+						((IPlayable)target).HasDeathrattle = true;
 
 					if (useEntityId)
 						enchantment.CapturedCard = c.Game.IdEntityDic[num1].Card;

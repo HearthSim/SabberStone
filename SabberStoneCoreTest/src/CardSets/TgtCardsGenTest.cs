@@ -3331,11 +3331,11 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dragonhawk Rider"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			Assert.False(((Minion)testCard).IsWindfury);
+			Assert.False(((Minion)testCard).HasWindfury);
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
-			Assert.True(((Minion)testCard).IsWindfury);
+			Assert.True(((Minion)testCard).HasWindfury);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			Assert.False(((Minion)testCard).IsWindfury);
+			Assert.False(((Minion)testCard).HasWindfury);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

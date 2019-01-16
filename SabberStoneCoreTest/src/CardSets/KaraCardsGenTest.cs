@@ -465,10 +465,10 @@ namespace SabberStoneCoreTest.CardSets
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Purify"));
 			IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Loot Hoarder"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
-			Assert.True(((Minion)minion).IsDeathrattle);
+			Assert.True(((Minion)minion).HasDeathrattle);
 			Assert.Equal(1, game.CurrentPlayer.NumCardsDrawnThisTurn);
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard, (ICharacter) minion));
-			Assert.False(((Minion)minion).IsDeathrattle);
+			Assert.False(((Minion)minion).HasDeathrattle);
 			Assert.Equal(2, game.CurrentPlayer.NumCardsDrawnThisTurn);
 		}
 

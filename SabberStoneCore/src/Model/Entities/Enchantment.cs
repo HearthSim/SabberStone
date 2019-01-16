@@ -209,7 +209,7 @@ namespace SabberStoneCore.Model.Entities
 			//	323 = 1
 
 			if (card.Power.DeathrattleTask != null)
-				((IPlayable)target).IsDeathrattle = true;
+				((IPlayable)target).HasDeathrattle = true;
 
 			controller.Game.Log(LogLevel.VERBOSE, BlockType.ACTION, "Enchantment",
 				!controller.Game.Logging ? "" : $"Enchantment {card} created by {creator} is added to {target}.");
@@ -285,8 +285,8 @@ namespace SabberStoneCore.Model.Entities
 		public int ZonePosition { get; set; }
 		public bool IsExhausted { get; set; }
 		public int Overload { get; set; }
-		public bool IsDeathrattle { get; set; }
-		public bool IsLifeSteal { get; set; }
+		public bool HasDeathrattle { get; set; }
+		public bool HasLifeSteal { get; set; }
 		public bool IsEcho => false;
 		public IPlayable[] ChooseOnePlayables { get; set; }
 		public AuraEffects AuraEffects { get; set; }

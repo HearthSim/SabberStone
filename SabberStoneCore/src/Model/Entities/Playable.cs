@@ -99,12 +99,12 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Playable has deathrattle.
 		/// </summary>
-		bool IsDeathrattle { get; set; }
+		bool HasDeathrattle { get; set; }
 
 		/// <summary>
 		/// Playable has lifesteal.
 		/// </summary>
-		bool IsLifeSteal { get; set; }
+		bool HasLifeSteal { get; set; }
 
 		/// <summary>
 		/// Playable has Echo ability.
@@ -612,12 +612,6 @@ namespace SabberStoneCore.Model.Entities
 		protected bool _exhausted;
 		protected int _zonePosition;
 
-		//public int Cost
-		//{
-		//	get => AuraEffects.GetCost();
-		//	set => AuraEffects.AddCostAura(new Effect(GameTag.COST, EffectOperator.SET, value));
-		//}
-
 		public int ZonePosition
 		{
 			get => _zonePosition;
@@ -660,13 +654,13 @@ namespace SabberStoneCore.Model.Entities
 
 		public int Overload => Card.Overload;
 
-		public virtual bool IsDeathrattle
+		public virtual bool HasDeathrattle
 		{
 			get => false;
 			set => throw new NotImplementedException();
 		}
 
-		public virtual bool IsLifeSteal
+		public virtual bool HasLifeSteal
 		{
 			get => Card.LifeSteal;
 			set => this[GameTag.LIFESTEAL] = value ? 1 : 0;

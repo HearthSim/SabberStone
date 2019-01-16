@@ -1493,12 +1493,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Minion testCard = game.CurrentPlayer.BoardZone[0];
 
 			Assert.False(testCard.HasTaunt);
-			Assert.False(testCard.IsLifeSteal);
+			Assert.False(testCard.HasLifeSteal);
 
 			game.ProcessCard("Blessing of Might", testCard);
 
 			Assert.True(testCard.HasTaunt);
-			Assert.True(testCard.IsLifeSteal);
+			Assert.True(testCard.HasLifeSteal);
 
 			var clone = game.Clone();
 		}

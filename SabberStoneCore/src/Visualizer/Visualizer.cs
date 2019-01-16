@@ -68,7 +68,7 @@ namespace SabberStoneCore.Visualizer
 				.HeroWeaponAttackDamage(hero.Weapon?.AttackDamage ?? 0)
 				.HeroWeaponDurability(hero.Weapon?.Durability ?? 0)
 				.Health(hero.Health)
-				.Windfury(hero.IsWindfury)
+				.Windfury(hero.HasWindfury)
 				.Windfury(hero.IsFrozen)
 				.Build();
 
@@ -148,7 +148,7 @@ namespace SabberStoneCore.Visualizer
 						.AttackDamage(minion.AttackDamage)
 						.Health(minion.Health)
 						.Spellpower(minion[GameTag.SPELLPOWER])
-						.Deathrattle(minion.IsDeathrattle)
+						.Deathrattle(minion.HasDeathrattle)
 						.Battlecry(minion.HasBattleCry)
 						.Inspire(minion.HasInspire)
 						.Poisonus(minion[GameTag.POISONOUS] == 1)
@@ -160,7 +160,7 @@ namespace SabberStoneCore.Visualizer
 						.Enrage(minion.IsEnraged)
 						.Frozen(minion.IsFrozen)
 						.DivineShield(minion.HasDivineShield)
-						.Windfury(minion.IsWindfury)
+						.Windfury(minion.HasWindfury)
 						.Exhausted(minion.IsExhausted)
 						.Build();
 
