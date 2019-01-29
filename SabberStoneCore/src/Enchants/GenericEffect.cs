@@ -221,7 +221,14 @@ namespace SabberStoneCore.Enchants
 
 		public override void ApplyAura(T entity, EffectOperator @operator, int value)
 		{
-			GetAuraRef(entity.AuraEffects)++;
+			AuraEffects auraEffects = entity.AuraEffects;
+			if (auraEffects == null)
+			{
+				auraEffects = new AuraEffects(entity.Card.Type);
+				entity.AuraEffects = auraEffects;
+			}
+
+			GetAuraRef(auraEffects)++;
 		}
 
 		public override void RemoveAura(T entity, EffectOperator @operator, int value)
@@ -421,6 +428,19 @@ namespace SabberStoneCore.Enchants
 		protected override ref int GetAuraRef(AuraEffects auraEffects)
 		{
 			return ref auraEffects._data[6];
+		}
+	}
+
+	internal class CantBeTargetedBySpells : SelfContainedBoolAttr<CantBeTargetedBySpells, Character>
+	{
+		protected override ref int GetAuraRef(AuraEffects auraEffects)
+		{
+			return ref auraEffects._data[2];
+		}
+
+		protected override ref bool? GetRef(Character entity)
+		{
+			return ref entity._modifiedCantBeTargetedBySpells;
 		}
 	}
 }

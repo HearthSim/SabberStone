@@ -3278,9 +3278,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_999t5e", new Power {
-				Enchant = new Enchant(
-					new Effect(GameTag.CANT_BE_TARGETED_BY_SPELLS, EffectOperator.SET, 1),
-					new Effect(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS, EffectOperator.SET, 1))
+				Enchant = new Enchant(Effects.CantBeTargetedBySpellsAndHeroPowers)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

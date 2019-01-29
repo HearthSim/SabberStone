@@ -1030,5 +1030,33 @@ namespace SabberStoneCoreTest.Basic
 
 			game.ProcessCard("Rebuke", asZeroCost: true);
 		}
+
+		[Fact]
+		public void CantBeTargetedBy()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+			});
+			game.StartGame();
+
+			Minion target = game.ProcessCard<Minion>("Faerie Dragon", asZeroCost: true);
+
+			Assert.False(game.CurrentPlayer.Hero.HeroPower.IsValidPlayTarget(target));
+
+			var spell = (Spell) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+
+			Assert.False(spell.IsValidPlayTarget(target));
+
+			Minion target2 = game.ProcessCard<Minion>("Stonetusk Boar", asZeroCost: true);
+
+			game.ProcessCard(Generic.DrawCard(game.CurrentPlayer, Cards.FromId("ICC_314t7")), asZeroCost: true);
+
+			Assert.True(target2.CantBeTargetedBySpells);
+			Assert.True(target2.CantBeTargetedByHeroPowers);
+			Assert.False(game.CurrentPlayer.Hero.HeroPower.IsValidPlayTarget(target2));
+			Assert.False(spell.IsValidPlayTarget(target2));
+		}
 	}
 }

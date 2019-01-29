@@ -3415,8 +3415,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Enchant = new Enchant(
 					Effects.Attack_N(2),
 					Effects.Health_N(2),
-					new Effect(GameTag.CANT_BE_TARGETED_BY_SPELLS, EffectOperator.SET, 1),
-					new Effect(GameTag.CANT_BE_TARGETED_BY_HERO_POWERS, EffectOperator.SET, 1))
+					Effects.CantBeTargetedBySpellsAndHeroPowers)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

@@ -4818,12 +4818,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shimmering Courser"));
+			var testCard = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shimmering Courser"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Shimmering Courser"));
 
-			Assert.NotEqual(1, testCard[GameTag.CANT_BE_TARGETED_BY_SPELLS]);
+			Assert.False(testCard.CantBeTargetedBySpells);
 			game.EndTurn();
-			Assert.Equal(1, testCard[GameTag.CANT_BE_TARGETED_BY_SPELLS]);
+			Assert.True(testCard.CantBeTargetedBySpells);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

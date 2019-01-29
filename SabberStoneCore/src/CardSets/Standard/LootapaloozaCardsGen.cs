@@ -3038,8 +3038,7 @@ namespace SabberStoneCore.CardSets.Standard
 			//       Hero Powers.
 			// --------------------------------------------------------
 			cards.Add("LOOT_193", new Power {
-				Aura = new Aura(AuraType.SELF,
-					new Effect(GameTag.CANT_BE_TARGETED_BY_SPELLS, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.SELF, Effects.CantBeTargetedBySpellsAndHeroPowers)
 				{
 					Condition = SelfCondition.IsOpTurn,
 					Restless = true
@@ -3162,7 +3161,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Your hero can't be targeted by spells or Hero_Powers.
 			// --------------------------------------------------------
 			cards.Add("LOOT_382", new Power {
-				Aura = new Aura(AuraType.HERO, new Effect(GameTag.CANT_BE_TARGETED_BY_SPELLS, EffectOperator.SET, 1))
+				Aura = new Aura(AuraType.HERO, Effects.CantBeTargetedBySpellsAndHeroPowers)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
