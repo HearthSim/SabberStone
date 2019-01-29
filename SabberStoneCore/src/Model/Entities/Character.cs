@@ -150,6 +150,8 @@ namespace SabberStoneCore.Model.Entities
 					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
 					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
 						return CantBeTargetedBySpells ? 1 : 0;
+					case GameTag.NUM_ATTACKS_THIS_TURN:
+						return _numAttackThisTurn;
 					default:
 						return base[t];
 				}
@@ -179,6 +181,9 @@ namespace SabberStoneCore.Model.Entities
 					case GameTag.CANT_BE_TARGETED_BY_SPELLS:
 					case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
 						CantBeTargetedBySpells = value > 0;
+						return;
+					case GameTag.NUM_ATTACKS_THIS_TURN:
+						_numAttackThisTurn = value;
 						return;
 					default:
 						base[t] = value;
@@ -737,8 +742,8 @@ namespace SabberStoneCore.Model.Entities
 				_modifiedCantBeTargetedBySpells = value;
 				if (_history)
 				{
-					this[GameTag.CANT_BE_TARGETED_BY_SPELLS] = value ? 1 : 0;
-					this[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] = value ? 1 : 0;
+					base[GameTag.CANT_BE_TARGETED_BY_SPELLS] = value ? 1 : 0;
+					base[GameTag.CANT_BE_TARGETED_BY_HERO_POWERS] = value ? 1 : 0;
 				}
 			}
 		}
@@ -808,11 +813,11 @@ namespace SabberStoneCore.Model.Entities
 				if (value)
 				{
 					Game.TriggerManager.OnFreezeTrigger(this);
-					NativeTags[GameTag.FROZEN] = 1;
+					base[GameTag.FROZEN] = 1;
 				}
 				else
 				{
-					NativeTags[GameTag.FROZEN] = 0;
+					base[GameTag.FROZEN] = 0;
 				}
 			}
 		}
@@ -852,7 +857,7 @@ namespace SabberStoneCore.Model.Entities
 			{
 				_numAttackThisTurn = value;
 				if (_history)
-					this[GameTag.NUM_ATTACKS_THIS_TURN] = value;
+					base[GameTag.NUM_ATTACKS_THIS_TURN] = value;
 			}
 		}
 
