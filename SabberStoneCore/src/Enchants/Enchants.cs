@@ -205,6 +205,8 @@ namespace SabberStoneCore.Enchants
 
 		internal static IEffect StealthEff => Stealth.Effect();
 
+		internal static IEffect CantBeTargetedBySpellsAndHeroPowers => CantBeTargetedBySpells.Effect();
+
 		internal static Effect Windfury => new Effect(GameTag.WINDFURY, EffectOperator.SET, 1);
 
 		internal static Effect Charge => new Effect(GameTag.CHARGE, EffectOperator.SET, 1);
