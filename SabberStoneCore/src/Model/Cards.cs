@@ -39,12 +39,11 @@ namespace SabberStoneCore.Model
 			CardSet.CORE,
 			CardSet.EXPERT1,
 
-			CardSet.UNGORO,
-			CardSet.ICECROWN,
-			CardSet.LOOTAPALOOZA,
-			CardSet.GILNEAS,
-			CardSet.BOOMSDAY,
-			CardSet.TROLL
+			CardSet.GILNEAS, // 2018 The Witchwood
+			CardSet.BOOMSDAY, // 2018 The Boomsday Project
+			CardSet.TROLL, // 2018 Rastakhan’s Rumble
+
+			CardSet.DALARAN // 2019 Rise of Shadows
 		};
 
 		/// <summary>
@@ -62,6 +61,7 @@ namespace SabberStoneCore.Model
 			CardSet.GILNEAS,
 			CardSet.BOOMSDAY,
 			CardSet.TROLL,
+			CardSet.DALARAN,
 
 			// wild
 			CardSet.BRM,
@@ -361,6 +361,8 @@ namespace SabberStoneCore.Model
 					return "The Boomsday Project";
 				case CardSet.TROLL:
 					return "Rastakhan\'s Rumble";
+				case CardSet.DALARAN:
+					return "Rise of Shadows";
 				default:
 					throw new ArgumentOutOfRangeException(nameof(cardSet), cardSet, null);
 			}

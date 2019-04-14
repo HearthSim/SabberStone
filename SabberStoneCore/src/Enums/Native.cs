@@ -30,7 +30,7 @@ namespace SabberStoneCore.Enums
 		RITUAL = 9,
 		REVEAL_CARD = 10,
 		GAME_RESET = 11,
-		ACTION = 99,
+		ACTION = 99
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
@@ -61,8 +61,9 @@ namespace SabberStoneCore.Enums
 		BGT_FSG_BRAWL_PVP = 41,
 		BGT_FSG_BRAWL_1P_VERSUS_AI = 42,
 		BGT_FSG_BRAWL_2P_COOP = 43,
-		BGT_TOURNAMENT = 44
-		//BGT_LAST = 45
+		//BGT_TOURNAMENT = 44
+		BGT_RANKED_STANDARD_NEW_PLAYER = 45
+		//BGT_LAST = 46
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
@@ -95,7 +96,7 @@ namespace SabberStoneCore.Enums
 		GOBLINS_VS_GNOMES = 9,
 		THE_GRAND_TOURNAMENT = 10,
 		OLD_GODS = 11,
-		FIRST_PURCHASE = 17,
+		//FIRST_PURCHASE = 17,
 		SIGNUP_INCENTIVE = 18,
 		MEAN_STREETS = 19,
 		UNGORO = 20,
@@ -105,6 +106,8 @@ namespace SabberStoneCore.Enums
 		WITCHWOOD = 31,
 		THE_BOOMSDAY_PROJECT = 38,
 		MAMMOTH_BUNDLE = 41,
+		DALARAN = 49,
+		FIRST_PURCHASE = 181
 	}
 	/// <summary>
 	/// UNUSED
@@ -183,7 +186,8 @@ namespace SabberStoneCore.Enums
 		LOOTAPALOOZA = 1004,
 		GILNEAS = 1125,
 		BOOMSDAY = 1127,
-		TROLL = 1129
+		TROLL = 1129,
+		DALARAN = 1130
 		//TAVERNS_OF_TIME = 1143
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
@@ -241,7 +245,7 @@ namespace SabberStoneCore.Enums
 		PRECON_DECK = 5,
 		TAVERN_BRAWL_DECK = 6,
 		FSG_BRAWL_DECK = 7,
-		FRIENDLY_TOURNAMENT_DECK = 8,
+		//FRIENDLY_TOURNAMENT_DECK = 8,
 		HIDDEN_DECK = 1000
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
@@ -704,11 +708,12 @@ namespace SabberStoneCore.Enums
 		HIDE_RESTART_BUTTON = 990,
 		WILD = 991,
 		HALL_OF_FAME = 992,
+		MARK_OF_EVIL = 994,
 		DECK_RULE_MOD_DECK_SIZE = 997,
 		FAST_BATTLECRY = 998,
 		END_TURN_BUTTON_ALTERNATIVE_APPEARANCE = 1000,
 		NUM_SPELLS_PLAYED_THIS_GAME = 1001, // more or less guessed gametags
-		NUM_SECRETS_PLAYED_THIS_GAME = 1002, // more or less guessed gametags
+		WEATHER = 1002,
 		NUM_WEAPONS_PLAYED_THIS_GAME = 1003, // more or less guessed gametags
 		LAST_CARD_DRAWN = 1004, // more or less guessed gametags
 		LAST_CARD_DISCARDED = 1005, // more or less guessed gametags
@@ -716,6 +721,11 @@ namespace SabberStoneCore.Enums
 		NUM_ELEMENTAL_PLAYED_LAST_TURN = 1007, // more or less guessed gametags
 		NUM_MURLOCS_PLAYED_THIS_GAME = 1008, // more or less guessed gametags
 		TAG_LAST_KNOWN_POSITION_ON_BOARD = 1009, // more or less guessed gametags: position aren't changed in graveyard and setaside zone ??? obolet?
+		NUM_SECRETS_PLAYED_THIS_GAME = 1010, // more or less guessed gametags, moved from previous 1002
+		WEATHERSNOWSTORM = 1012,
+		WEATHERTHUNDERSTORM = 1013,
+		WEATHERFIRESTORM = 1014,
+		WAND = 1015,
 		TREAT_AS_PLAYED_HERO_CARD = 1016,
 		NUM_HERO_POWER_DAMAGE_THIS_GAME = 1025,
 		PUZZLE_NAME = 1026,
@@ -735,6 +745,7 @@ namespace SabberStoneCore.Enums
 		PUZZLE_MODE = 1073,
 		CARD_DOES_NOTHING = 1075,
 		CASTSWHENDRAWN = 1077,
+		QUEST_REWARD_DATABASE_ID = 1089,
 		DORMANT = 1090,
 		CUSTOMTEXT1 = 1093,
 		CUSTOMTEXT2 = 1094,
@@ -755,7 +766,16 @@ namespace SabberStoneCore.Enums
 		ALTERNATE_MOUSE_OVER_CARD = 1132,
 		ENCHANTMENT_BANNER_TEXT = 1135,
 		MOUSE_OVER_CARD_APPEARANCE = 1142,
-		IS_ADVENTURE_SCENARIO = 1172
+		IS_ADVENTURE_SCENARIO = 1172,
+		TWINSPELL_COPY = 1186,
+		TWINSPELL = 1193,
+		MEGA_WINDFURY = 1207,
+		TWINSPELLPENDING = 1269,
+		DRUSTVAR_HORROR_DEBUG_CURRENT_SPELL_DATABASE_ID = 1280,
+		DRUSTVAR_HORROR_DEBUG_CURRENT_ITERATION = 1281,
+		DRUSTVAR_HORROR_DEBUG_MAX_ITERATIONS = 1283,
+		CREATOR_DBID = 1284,
+		COPIED_BY_KHADGAR = 1326
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
@@ -851,7 +871,9 @@ namespace SabberStoneCore.Enums
 		BURNED_CARD = 14,
 		EFFECT_SELECTION = 15,
 		BEGIN_LISTENING_FOR_TURN_EVENTS = 16,
-		HOLD_DRAWN_CARD = 17
+		HOLD_DRAWN_CARD = 17,
+		CONTROLLER_AND_ZONE_CHANGE = 18,
+		ARTIFICIAL_PAUSE_STUBBED_FOR_14_2 = 19
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
@@ -986,13 +1008,15 @@ namespace SabberStoneCore.Enums
 		REQ_CAN_BE_TARGETED_BY_COMBOS = 72,
 		REQ_CANNOT_PLAY_THIS = 73,
 		REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 74,
-		REQ_DRAG_TO_PLAY = 75,
+		REQ_DRAG_TO_PLAY_PRE29933 = 75,
 		REQ_OPPONENT_PLAYED_CARDS_THIS_GAME = 77,
 		REQ_LITERALLY_UNPLAYABLE = 78,
 		REQ_TARGET_IF_AVAILABLE_AND_HERO_HAS_ATTACK = 79,
 		REQ_FRIENDLY_MINION_OF_RACE_DIED_THIS_TURN = 80,
 		REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_SPELLS_PLAYED_THIS_TURN = 81,
-		REQ_FRIENDLY_MINION_OF_RACE_IN_HAND = 82
+		REQ_FRIENDLY_MINION_OF_RACE_IN_HAND = 82,
+		REQ_DRAG_TO_PLAY = 83,
+		REQ_FRIENDLY_DEATHRATTLE_MINION_DIED_THIS_GAME = 86
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
