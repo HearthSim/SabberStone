@@ -37,6 +37,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Memory" Version="4.5.2-servicing-27114-05" />
+    <PackageReference Include="System.Memory" Version="4.5.2" />
   </ItemGroup>
 </Project>
