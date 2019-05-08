@@ -12,7 +12,7 @@ Please check the Changelog: https://github.com/HearthSim/SabberStone/wiki/Change
 
 # Overview
 
-**State of Implementation: 97% (Rise of Shadows 93%, Rastakhan's Rumble 92%, The Boomsday Project 97%, The Witchwood 98%) of current Standard Cards (Year of the Dragon)!** ***(16.01.2019)***
+**State of Implementation: 97% (Rise of Shadows 93%, Rastakhan's Rumble 92%, The Boomsday Project 97%, The Witchwood 98%) of current Standard Cards (Year of the Dragon)!** ***(08.05.2019)***
 
 SabberStone is just another Hearthstone simulator and implementation, written in C#. The project was started in Nov'16 while trying to implement aura, buffs & triggers into Brimstone. Focused to prototype my so called onion system I created SabberStone, which is using a layer approach to handle entity changing enchantments. Since then I haven't stopped implementing day by day new cards, new tests and new stuff. I created for fun a visualisation and a scoring based tree search a.i. which can be used to play games ([SabberStoneGui](/extensions/SabberStoneGui)).
 
