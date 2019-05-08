@@ -67,12 +67,12 @@ namespace SabberStoneCore.Actions
 			{
 				int baseMana = c.BaseMana;
 
-				if (baseMana + amount > c.MaxResources)
+				if (baseMana + amount > Controller.MaxResources)
 				{
-					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", !c.Game.Logging ? "" : $"{c.Name} is already capped in {c.MaxResources} mana crystals.");
+					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", !c.Game.Logging ? "" : $"{c.Name} is already capped in {Controller.MaxResources} mana crystals.");
 					if (!fill)
-						c.UsedMana += c.MaxResources - c.BaseMana;
-					c.BaseMana = c.MaxResources;
+						c.UsedMana += Controller.MaxResources - c.BaseMana;
+					c.BaseMana = Controller.MaxResources;
 
 				}
 				else if (baseMana + amount < 0)
@@ -271,15 +271,15 @@ namespace SabberStoneCore.Actions
 		/// <summary>
 		/// Controller, Card, Creator, Target, ScriptTag1, ScriptTag2, UseEntityId
 		/// </summary>
-		public static Func<Controller, Card, IPlayable, IEntity, int, int, bool, bool> AddEnchantmentBlock
-			=> delegate (Controller c, Card enchantmentCard, IPlayable creator, IEntity target, int num1, int num2, bool useEntityId)
+		public static Action<Controller, Card, IPlayable, IEntity, int, int, int> AddEnchantmentBlock
+			=> delegate (Controller c, Card enchantmentCard, IPlayable creator, IEntity target, int num1, int num2, int entityId)
 			{
 				Power power = enchantmentCard.Power;
 
 				if (power.Enchant is OngoingEnchant && target is IPlayable entity && entity.OngoingEffect is OngoingEnchant ongoingEnchant)
 				{
 					ongoingEnchant.Count++;
-					return true;
+					return;
 				}
 
 				if (c.Game.History)
@@ -303,8 +303,15 @@ namespace SabberStoneCore.Actions
 					if (power.DeathrattleTask != null)
 						((IPlayable)target).HasDeathrattle = true;
 
-					if (useEntityId)
-						enchantment.CapturedCard = c.Game.IdEntityDic[num1].Card;
+					if (entityId > 0)
+					{
+						enchantment.CapturedCard = c.Game.IdEntityDic[entityId].Card;
+						if (c.Game.Logging)
+						{
+							c.Game.Log(LogLevel.DEBUG, BlockType.POWER,
+								"AddEnchantmentBlock", $"{c.Game.IdEntityDic[entityId]} is captured in {enchantment}.");
+						}
+					}
 				}
 				else
 				{
@@ -323,14 +330,13 @@ namespace SabberStoneCore.Actions
 						if (power.Enchant?.RemoveWhenPlayed ?? false)
 							Enchant.RemoveWhenPlayedTrigger.Activate(instance);
 
-						if (useEntityId)
-							instance.CapturedCard = c.Game.IdEntityDic[num1].Card;
+						if (entityId > 0)
+							instance.CapturedCard = c.Game.IdEntityDic[entityId].Card;
 					}
 
 					//	no indicator enchantment entities when History option is off
 					power.Enchant?.ActivateTo(target, null, num1, num2);
 				}
-				return true;
 			};
 
 		public static Func<Controller, IPlayable, Card, bool, IPlayable> ChangeEntityBlock
@@ -363,13 +369,21 @@ namespace SabberStoneCore.Actions
 
 				HandZone hand = p.Zone as HandZone;
 				BoardZone board = p.Zone as BoardZone;
+				int id = p.Id;
 
 				// Detach the target from Auras
 				if (hand != null)
-					hand.Auras.ForEach(a => a.Detach(p.Id));
+					hand.Auras.ForEach(a => a.Detach(id));
 				else if
 					(board != null)
-					board.Auras.ForEach(a => a.Detach(p.Id));
+				{
+					board.Auras.ForEach(a => a.Detach(id));
+
+					if (p.Card.Untouchable)
+					{
+						board.DecrementUntouchablesCount();
+					}
+				}
 
 
 				// TODO: PowerHistoryChangeEntity
@@ -384,16 +398,16 @@ namespace SabberStoneCore.Actions
 					switch (newCard.Type)
 					{
 						case CardType.MINION:
-							entity = new Minion(c, newCard, p.NativeTags, p.Id);
+							entity = new Minion(c, newCard, p.NativeTags, id);
 							break;
 						case CardType.SPELL:
-							entity = new Spell(c, newCard, p.NativeTags, p.Id);
+							entity = new Spell(c, newCard, p.NativeTags, id);
 							break;
 						case CardType.HERO:
-							entity = new Hero(c, newCard, p.NativeTags, p.Id);
+							entity = new Hero(c, newCard, p.NativeTags, id);
 							break;
 						case CardType.WEAPON:
-							entity = new Weapon(c, newCard, p.NativeTags, p.Id);
+							entity = new Weapon(c, newCard, p.NativeTags, id);
 							break;
 						default:
 							throw new ArgumentNullException();
@@ -406,28 +420,44 @@ namespace SabberStoneCore.Actions
 						board.ChangeEntity((Minion)p, (Minion)entity);
 					else if (p.Zone is DeckZone deck)
 						entity.Zone = deck;
-					
-					c.Game.IdEntityDic[p.Id] = entity;
+
+					c.Game.IdEntityDic[id] = entity;
 					p = entity;
 				}
 
+
 				if (newCard.ChooseOne)
 				{
-					if (p.ChooseOnePlayables == null)
-						p.ChooseOnePlayables = new IPlayable[2];
 
 					EntityData tags = null;
 					if (c.Game.History)
 					{
 						tags = new EntityData
 						{
-							{GameTag.CREATOR, p.Id},
-							{GameTag.PARENT_CARD, p.Id}
+							{GameTag.CREATOR, id},
+							{GameTag.PARENT_CARD, id}
 						};
 					}
 
-					p.ChooseOnePlayables[0] = Entity.FromCard(c, Cards.FromId(newCard.Id + "a"), tags, c.SetasideZone);
-					p.ChooseOnePlayables[1] = Entity.FromCard(c, Cards.FromId(newCard.Id + "b"), tags, c.SetasideZone);
+					if (newCard.AssetId == 43310)
+					{
+						var chooseOnes = new IPlayable[4];
+						chooseOnes[0] = Entity.FromCard(in c, Cards.FromId("TRL_343at1"), tags, c.SetasideZone);
+						chooseOnes[1] = Entity.FromCard(in c, Cards.FromId("TRL_343ct1"), tags, c.SetasideZone);
+						chooseOnes[2] = Entity.FromCard(in c, Cards.FromId("TRL_343dt1"), tags, c.SetasideZone);
+						chooseOnes[3] = Entity.FromCard(in c, Cards.FromId("TRL_343bt1"), tags, c.SetasideZone);
+
+						p.ChooseOnePlayables = chooseOnes;
+					}
+					else
+					{
+						if (p.ChooseOnePlayables == null)
+							p.ChooseOnePlayables = new IPlayable[2];
+
+
+						p.ChooseOnePlayables[0] = Entity.FromCard(c, Cards.FromId(newCard.Id + "a"), tags, c.SetasideZone);
+						p.ChooseOnePlayables[1] = Entity.FromCard(c, Cards.FromId(newCard.Id + "b"), tags, c.SetasideZone);
+					}
 				}
 
 				switch (p.Zone.Type)
@@ -457,6 +487,26 @@ namespace SabberStoneCore.Actions
 
 				return p;
 			};
+
+		public static void OverloadBlock(Controller controller, IPlayable source, bool history)
+		{
+			if (!source.Card.HasOverload)
+				return;
+
+			if (history)
+				controller.Game.PowerHistory.Add(
+					PowerHistoryBuilder.BlockStart(BlockType.POWER, source.Id, "", 1, 0));
+
+			int amount = source.Card.Overload;
+
+			controller.OverloadOwed += amount;
+			controller.OverloadThisGame += amount;
+			controller.Game.TriggerManager.OnOverloadTrigger(source, amount);
+
+			if (history)
+				controller.Game.PowerHistory.Add(
+					PowerHistoryBuilder.BlockEnd());
+		}
 
 		// Work in progress
 		public static void RevealCardBlock(IPlayable source, IPlayable target)

@@ -7,6 +7,7 @@
     <OutputTypeEx>library</OutputTypeEx>
     <StartupObject />
     <LangVersion>7.2</LangVersion>
+    <Configurations>Debug;Release;NoSpan</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

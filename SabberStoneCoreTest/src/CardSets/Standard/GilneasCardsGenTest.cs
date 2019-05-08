@@ -3921,19 +3921,29 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - ELITE = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void AzalinaSoulthief_GIL_198()
-		{
-			// TODO AzalinaSoulthief_GIL_198 test
+		{ 
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.MAGE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Azalina Soulthief"),
+					Cards.FromName("Bloodfen Raptor"),
+					Cards.FromName("Bloodfen Raptor"),
+					Cards.FromName("Bloodfen Raptor"),
+					Cards.FromName("Bloodfen Raptor"),
 				},
 				Player2HeroClass = CardClass.MAGE,
+				Player2Deck = new List<Card>()
+				{
+					Cards.FromName("Azalina Soulthief"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+				},
 				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -3941,8 +3951,12 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Azalina Soulthief"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Azalina Soulthief"));
+
+			game.EndTurn();
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Azalina Soulthief"));
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
+			Assert.True(game.CurrentPlayer.HandZone.ToList().TrueForAll(p => p.Card.Name == "Bloodfen Raptor"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

@@ -21,7 +21,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCore.Model.Entities;
 
-namespace SabberStoneCoreTest.CardSets.Standard
+namespace SabberStoneCoreTest.CardSets
 {
 	public class HeroPowersUngoroTest
 	{

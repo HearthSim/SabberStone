@@ -38,7 +38,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_toOpponent = toOpponent;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			Zone zone = _zoneType;
@@ -82,7 +83,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				switch (_entityType)
 				{
 					case EntityType.TARGET:
-						toBeCopied = target as IPlayable;
+						toBeCopied = target;
 						break;
 					case EntityType.SOURCE:
 						toBeCopied = source as IPlayable;

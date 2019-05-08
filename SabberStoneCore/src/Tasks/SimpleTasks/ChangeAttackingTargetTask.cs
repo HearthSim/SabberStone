@@ -32,7 +32,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public EntityType TypeA { get; set; }
 		public EntityType TypeB { get; set; }
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			//System.Collections.Generic.List<IPlayable> typeA = IncludeTask.GetEntities(TypeA, in controller, source, target, stack?.Playables);

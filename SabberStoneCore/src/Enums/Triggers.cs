@@ -26,7 +26,7 @@ namespace SabberStoneCore.Enums
 		TURN_START,
 		/// <summary> The effect will be triggered when a minion dies. </summary>
 		DEATH,
-		/// <summary> The effect will be triggered when a player uses Hero Power. </summary>
+		/// <summary> The effect will be triggered after a player uses Hero Power. </summary>
 		INSPIRE,
 		/// <summary> The effect will be triggered when a character is damaged. </summary>
 		DEAL_DAMAGE,
@@ -82,6 +82,7 @@ namespace SabberStoneCore.Enums
 		/// <summary> The effect will be triggered when a card is shuffled into a deck. </summary>
 		SHUFFLE_INTO_DECK,
 
+		OVERLOAD,
 
 		WORGEN_TRANSFORM
 	}
@@ -107,7 +108,8 @@ namespace SabberStoneCore.Enums
 		HERO_POWER,
 		FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
 		FRIENDLY_SPELL_CASTED_ON_OWN_MINIONS,
-		FRIENDLY_EVENT_SOURCE
+		FRIENDLY_EVENT_SOURCE,
+		ADJACENT_TO_THE_OWNER
 	}
 
 	/// <summary>

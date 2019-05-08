@@ -19,7 +19,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 
-namespace SabberStoneCore.Enchants
+namespace SabberStoneCore.Triggers
 {
     public class Trigger
 	{ 
@@ -265,6 +265,9 @@ namespace SabberStoneCore.Enchants
 				case TriggerType.SHUFFLE_INTO_DECK:
 					source.Game.TriggerManager.ShuffleIntoDeckTrigger += instance._processHandler;
 					break;
+				case TriggerType.OVERLOAD:
+					source.Game.TriggerManager.OverloadTrigger += instance._processHandler;
+					break;
 			}
 
 			return instance;
@@ -272,6 +275,8 @@ namespace SabberStoneCore.Enchants
 
 		private void Process(IEntity source)
 		{
+			// TODO: Report debug log here;
+
 			if (_removed)
 				return;
 
@@ -297,11 +302,6 @@ namespace SabberStoneCore.Enchants
 		    if (RemoveAfterTriggered)
 			    Remove();
 
-		    //if (_owner.ToBeDestroyed && _triggerType != TriggerType.TAKE_DAMAGE &&
-		    //    _triggerType != TriggerType.AFTER_ATTACK && Game.DeadMinions.Count == 0)
-			   // ;
-
-
 			// Enqueue tasks
 			// Source: The owner of this trigger
 			// Target: The source of this trigger or
@@ -315,8 +315,8 @@ namespace SabberStoneCore.Enchants
 		    {
 			    Game.TaskQueue.Enqueue(SingleTask, _owner.Controller,
 				    /*_owner is Enchantment ec ? ec : */_owner,
-				    source is IPlayable ?
-					    source :
+				    source is IPlayable pSource?
+					    pSource :
 					    _owner is Enchantment ew && ew.Target is IPlayable p ?
 						    p :
 						    null);
@@ -460,6 +460,9 @@ namespace SabberStoneCore.Enchants
 					break;
 				case TriggerType.SHUFFLE_INTO_DECK:
 					Game.TriggerManager.ShuffleIntoDeckTrigger -= _processHandler;
+					break;
+				case TriggerType.OVERLOAD:
+					Game.TriggerManager.OverloadTrigger -= _processHandler;
 					break;
 				default:
 				    throw new ArgumentOutOfRangeException();

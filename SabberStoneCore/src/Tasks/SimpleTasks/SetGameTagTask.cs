@@ -33,7 +33,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public int Amount { get; set; }
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			//System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
@@ -82,6 +83,31 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					(Tag == GameTag.FROZEN && Amount == 1)
 					game.TriggerManager.OnFreezeTrigger(p);
 			}
+
+			return TaskState.COMPLETE;
+		}
+	}
+
+	public class ApplyEffectTask : SimpleTask
+	{
+		private readonly EntityType _type;
+		private readonly IEffect[] _effs;
+
+		public ApplyEffectTask(EntityType entityType, params IEffect[] effects)
+		{
+			_type = entityType;
+			_effs = effects;
+		}
+
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
+			in TaskStack stack = null)
+		{
+			IEffect[] effects = _effs;
+
+			foreach (IPlayable p in IncludeTask.GetEntities(in _type, in controller, source, target, stack?.Playables))
+				for (int i = 0; i < effects.Length; i++)
+					effects[i].ApplyTo(p);
 
 			return TaskState.COMPLETE;
 		}

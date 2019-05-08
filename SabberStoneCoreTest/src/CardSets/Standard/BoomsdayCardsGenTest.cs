@@ -13,6 +13,7 @@
 #endregion
 using System.Linq;
 using Xunit;
+using Xunit.Abstractions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Config;
 using SabberStoneCore.Model;
@@ -3575,6 +3576,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 	public class WarriorBoomsdayTest
 	{
+		public WarriorBoomsdayTest(ITestOutputHelper output)
+		{
+			this.output = output;
+		}
+
 		// --------------------------------------- MINION - WARRIOR
 		// [BOT_059] Eternium Rover - COST:1 [ATK:1/HP:3] 
 		// - Race: mechanical, Set: boomsday, Rarity: common
@@ -3844,10 +3850,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - GEARS = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void OmegaAssembly_BOT_299()
 		{
-			// TODO OmegaAssembly_BOT_299 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3862,10 +3867,21 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				FillDecksPredictably = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 10;
-			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Omega Assembly"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Omega Assembly"));
+
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Omega Assembly"));
+
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			Assert.True(game.CurrentPlayer.SetasideZone.All(p => p.Card.Race == Race.MECHANICAL));
+			game.ChooseNthChoice(1);
+
+			game.CurrentPlayer.BaseMana = 10;
+			game.CurrentPlayer.UsedMana = 0;
+
+			game.ProcessCard("Omega Assembly");
+			Assert.Null(game.CurrentPlayer.Choice);
+			for (int i = 0; i < 3; i++)
+				Assert.True(game.CurrentPlayer.HandZone
+					[game.CurrentPlayer.HandZone.Count - 1 - i].Card.Race == Race.MECHANICAL);
 		}
 
 		// --------------------------------------- WEAPON - WARRIOR
@@ -3880,10 +3896,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - DURABILITY = 3
 		// - FINISH_ATTACK_SPELL_ON_DAMAGE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Supercollider_BOT_406()
 		{
-			// TODO Supercollider_BOT_406 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3901,9 +3916,26 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Supercollider"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Supercollider"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Supercollider"));
+			game.EndTurn();
+
+			Minion target = game.ProcessCard<Minion>("Chillwind Yeti");
+			Minion target2 = game.ProcessCard<Minion>("Chillwind Yeti");
+			game.EndTurn();
+
+			game.CurrentPlayer.Hero.Attack(target);
+
+			while (game.Logs.Count != 0)
+			{
+				output.WriteLine(game.Logs.Dequeue().ToString());
+			}
+
+			Assert.True(target.IsDead);
+			Assert.Equal(1, target2.Health);
+
 		}
 
+		private readonly ITestOutputHelper output;
 	}
 
 	public class NeutralBoomsdayTest

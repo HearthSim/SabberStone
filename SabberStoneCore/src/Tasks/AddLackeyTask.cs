@@ -11,31 +11,31 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
-using SabberStoneCore.Actions;
+using System.Linq;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
-namespace SabberStoneCore.Tasks.SimpleTasks
+namespace SabberStoneCore.Tasks
 {
-	public class ManaCrystalFullTask : SimpleTask
+	public class AddLackeyTask : SimpleTask
 	{
-		private readonly bool _both;
+		public static readonly Card[]
+			Lackeys = Cards.All.Where(card => card[Enums.GameTag.MARK_OF_EVIL] == 1).ToArray();
 
-		public ManaCrystalFullTask(int amount, bool both = false)
+		private readonly int _amount;
+		public AddLackeyTask(int amount)
 		{
-			Amount = amount;
-			_both = both;
+			_amount = amount;
 		}
 
-		public int Amount { get; set; }
-
-
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
 			in TaskStack stack = null)
 		{
-			if (_both)
-				Generic.ChangeManaCrystal.Invoke(controller.Opponent, Amount, true);
-			bool success = Generic.ChangeManaCrystal.Invoke(controller, Amount, true);
+			game.OnRandomHappened(true);
+
+			for (int i = 0; i < _amount && !controller.HandZone.IsFull; i++)
+				Entity.FromCard(in controller, Util.Choose(Lackeys), zone: controller.HandZone);
+
 			return TaskState.COMPLETE;
 		}
 	}

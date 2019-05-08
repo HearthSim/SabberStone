@@ -63,10 +63,13 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 					return true;
 
 				case ChoiceType.GENERAL:
-					if (!Generic.ChoicePick.Invoke(Controller, Choices[0])) return false;
+					//Game.CurrentEventData =
+					//	new EventMetaData(Game.IdEntityDic[choice.SourceId], Game.IdEntityDic[Choices[0]]);
+					if (!Generic.ChoicePick.Invoke(Controller, Game, Choices[0])) return false;
 					Controller.NumOptionsPlayedThisTurn++;
 					Game.ProcessTasks();
 					Game.DeathProcessingAndAuraUpdate();
+					//Game.CurrentEventData = null;
 					return true;
 
 				case ChoiceType.INVALID:

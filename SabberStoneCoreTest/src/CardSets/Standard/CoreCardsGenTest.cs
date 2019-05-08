@@ -882,7 +882,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			Assert.Equal(2, game.CurrentPlayer.RemainingMana);
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			Assert.Equal(3, game.CurrentPlayer.RemainingMana);
 
 			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wild Growth"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, spell1));
@@ -892,29 +895,29 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			Assert.Equal(4, game.CurrentPlayer.RemainingMana);
+			Assert.Equal(5, game.CurrentPlayer.RemainingMana);
 			game.CurrentPlayer.BaseMana = 10;
 			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wild Growth"));
 
-			Assert.Equal(7, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(8, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, spell2));
-			Assert.Equal(7, game.CurrentPlayer.HandZone.Count);
-			Assert.Equal("CS2_013t", game.CurrentPlayer.HandZone[6].Card.Id);
+			Assert.Equal(8, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal("CS2_013t", game.CurrentPlayer.HandZone[7].Card.Id);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			game.CurrentPlayer.BaseMana = 9;
-			IPlayable spell3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Innervate"));
-			Assert.Equal(9, game.CurrentPlayer.HandZone.Count);
-			IPlayable spell4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wild Growth"));
+			IPlayable spell3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("GAME_005"));
 			Assert.Equal(10, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, spell3));
 			Assert.Equal(9, game.CurrentPlayer.HandZone.Count);
+			IPlayable spell4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wild Growth"));
+			Assert.Equal(10, game.CurrentPlayer.HandZone.Count);
 			spell4.Cost = 0;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, spell4));
 			Assert.Equal(10, game.CurrentPlayer.RemainingMana);
-			Assert.Equal(9, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(10, game.CurrentPlayer.HandZone.Count);
 		}
 
 		// ------------------------------------------ SPELL - DRUID
@@ -3548,7 +3551,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		}
 
 		// ---------------------------------------- MINION - SHAMAN
-		// [EX1_565] Flametongue Totem - COST:2 [ATK:0/HP:3] 
+		// [EX1_565] Flametongue Totem - COST:3 [ATK:0/HP:3] 
 		// - Race: totem, Fac: neutral, Set: core, Rarity: common
 		// --------------------------------------------------------
 		// Text: Adjacent minions have +2_Attack.
@@ -3576,6 +3579,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Minion m1 = game.ProcessCard<Minion>("Stonetusk Boar");	 // (1)
 			Minion m2 = game.ProcessCard<Minion>("Bloodfen Raptor"); // (1)(3)
+
+			game.Player1.UsedMana = 0;
 
 			game.ProcessCard("Flametongue Totem", zonePosition: 1);  // (3)(T)(5)
 

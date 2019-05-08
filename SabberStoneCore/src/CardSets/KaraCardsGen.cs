@@ -20,6 +20,8 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
+
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
@@ -725,7 +727,10 @@ namespace SabberStoneCore.CardSets
 						IPlayable originalTarget = p[0].Game.IdEntityDic[id];
 						if (originalTarget.Controller.BoardZone.IsFull)
 							return null;
-						Entity.FromCard(originalTarget.Controller, originalTarget.Card, null, originalTarget.Controller.BoardZone);
+						Entity.FromCard(originalTarget.Controller,
+							originalTarget.Card, null,
+							originalTarget.Controller.BoardZone,
+							creator: p[0]);
 						return null;
 					}))
 			});

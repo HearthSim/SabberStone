@@ -74,8 +74,8 @@ namespace SabberStoneCoreTest.Basic
 			game.StartGame();
 
 			Assert.Equal(CardClass.HUNTER, game.Player1.HeroClass); // Hero class isn't matching
-			Assert.Equal(10, game.Player1.MaxHandSize); // Max size isn't set correctly
-			Assert.Equal(10, game.Player1.MaxResources); // Max ressources aren't set correctly
+			Assert.Equal(10, Controller.MaxHandSize); // Max size isn't set correctly
+			Assert.Equal(10, Controller.MaxResources); // Max ressources aren't set correctly
 		}
 
 		[Fact]

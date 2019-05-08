@@ -66,7 +66,7 @@ namespace SabberStoneCore.Loader
 				case Race.EGG:
 					return null;
 				default:
-					throw new IndexOutOfRangeException(
+					throw new System.IndexOutOfRangeException(
 						$@"Targeting Race {(Race)race} is not implemented! Please Check \Loader\TargetingPredicates.cs");
 			}
 		}
@@ -109,8 +109,29 @@ namespace SabberStoneCore.Loader
 		public static readonly AvailabilityPredicate ReqFriendlyMinionDiedThisGame
 			= c => c.GraveyardZone.Any(q => q is Minion m && m.ToBeDestroyed);
 
+		public static AvailabilityPredicate ReqFriendlyMinionOfRaceDiedThisTurn(Race race)
+		{
+			return c =>
+			{
+				int num = c.NumFriendlyMinionsThatDiedThisTurn;
+				for (int i = c.GraveyardZone.Count - 1, k = 0; i >= 0 && k < num; --i)
+				{
+					if (c.GraveyardZone[i].Card.Type != CardType.MINION || !c.GraveyardZone[i].ToBeDestroyed)
+						continue;
+					k++;
+					if (c.GraveyardZone[i].Card.Race == race)
+						return true;
+				}
+
+				return false;
+			};
+		}
+
 		public static readonly AvailabilityPredicate ReqSecretZoneCapForNonSecret
 			= c => !c.SecretZone.IsFull;
+
+		public static readonly AvailabilityPredicate ReqHeroHasAttack
+			= c => c.Hero.AttackDamage > 0;
 
 		public static AvailabilityPredicate MinimumFriendlyMinions(int value)
 		{
@@ -198,7 +219,7 @@ namespace SabberStoneCore.Loader
 		private static unsafe bool CheckEntourages(Controller c, int* ent, int count)
 		{
 			int[] indices = new int[count];
-			ReadOnlySpan<Minion> span = c.BoardZone.GetSpan();
+			var span = c.BoardZone.GetSpan();
 			for (int i = 0, j = span.Length, k = 0; i < span.Length; i++)
 			{
 				int index = -1;

@@ -16,6 +16,7 @@ using SabberStoneCore.Auras;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
 
 namespace SabberStoneCore.Enchants
 {
@@ -36,6 +37,8 @@ namespace SabberStoneCore.Enchants
 		public ISimpleTask ComboTask { get; set; }
 
 		public ISimpleTask TopdeckTask { get; set; }
+
+		public ISimpleTask OverkillTask { get; set; }
 
 		internal static Power OneTurnStealthEnchantmentPower =>
 			new Power

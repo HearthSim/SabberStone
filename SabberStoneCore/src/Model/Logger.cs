@@ -29,5 +29,9 @@ namespace SabberStoneCore.Model
 		public string Location { get; set; }
 		public string Text { get; set; }
 
+		public override string ToString()
+		{
+			return $"{TimeStamp.ToLongTimeString()} - {Level} [{BlockType}] - {Location}: {Text}";
+		}
 	}
 }

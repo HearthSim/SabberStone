@@ -202,6 +202,29 @@ namespace SabberStoneCoreTest.Basic
 		//}
 
 		[Fact]
+		public static void MultipleAuraRemove()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.SHAMAN,
+				Player2HeroClass = CardClass.SHAMAN,
+				FillDecks = false,
+				Shuffle = false
+			});
+			game.Player1.BaseMana = 10;
+			game.StartGame();
+
+			Minion testTarget = game.ProcessCard<Minion>("Murloc Raider");
+			Minion aura1 = game.ProcessCard<Minion>("Murloc Warleader");
+			Minion aura2 = game.ProcessCard<Minion>("Grimscale Oracle");
+
+			Assert.Equal(5, testTarget.AttackDamage);
+			aura1.Kill();
+			Assert.Equal(3, testTarget.AttackDamage);
+		}
+
+		[Fact]
 		public static void JaraxxusRepentance()
 		{
 			var game = new Game(new GameConfig

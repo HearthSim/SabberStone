@@ -26,6 +26,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SabberStoneCore.Auras;
+using SabberStoneCore.Triggers;
 
 // TODO check if event should be removed
 // TODO ... spellbender phase ??? and spell text ? wtf .. did you forget them???
@@ -194,7 +195,7 @@ namespace SabberStoneCore.Model
 		/// This object facilitates building POWER blocks to send to the hearthstone client.
 		/// </summary>
 		/// <value><see cref="Kettle.PowerHistory"/></value>
-		public PowerHistory PowerHistory { get; set; } = new PowerHistory();
+		public PowerHistory PowerHistory { get; }
 
 		/// <summary>Gets a value indicating whether this <see cref="Game"/> has Power History 
 		/// building enabled.
@@ -244,19 +245,19 @@ namespace SabberStoneCore.Model
 		/// Gets the dictionary containing all generated choice sets for this game.
 		/// </summary>
 		/// <value><see cref="PowerEntityChoices"/></value>
-		public Dictionary<int, PowerEntityChoices> EntityChoicesMap { get; } = new Dictionary<int, PowerEntityChoices>();
+		public Dictionary<int, PowerEntityChoices> EntityChoicesMap { get; }
 
 		/// <summary>
 		/// Gets all the dictionary containing all generated option sets for this game.
 		/// </summary>
 		/// <value><see cref="PowerAllOptions"/></value>
-		public Dictionary<int, PowerAllOptions> AllOptionsMap { get; } = new Dictionary<int, PowerAllOptions>();
+		public Dictionary<int, PowerAllOptions> AllOptionsMap { get; }
 
 		/// <summary>
 		/// Gets or sets the collection of log entries.
 		/// </summary>
 		/// <value><see cref="LogEntry"/></value>
-		public Queue<LogEntry> Logs { get; set; } = new Queue<LogEntry>();
+		public Queue<LogEntry> Logs { get; }
 
 		/// <summary>Initializes a new instance of the <see cref="Game"/> class.</summary>
 		/// <param name="gameConfig">The game configuration.</param>
@@ -277,17 +278,21 @@ namespace SabberStoneCore.Model
 			Triggers = new List<Trigger>();
 			GamesEventManager = new GameEventManager(this);
 
-			EntityData p1Dict = gameConfig.History
+			bool history = gameConfig.History;
+			if (gameConfig.Logging)
+				Logs = new Queue<LogEntry>();
+
+			EntityData p1Dict = history
 				? new EntityData(64)
 				{
 					//[GameTag.HERO_ENTITY] = heroId,
-					[GameTag.MAXHANDSIZE] = 10,
+					[GameTag.MAXHANDSIZE] = Controller.MaxHandSize,
 					[GameTag.STARTHANDSIZE] = 4,
 					[GameTag.PLAYER_ID] = 1,
 					[GameTag.TEAM_ID] = 1,
 					[GameTag.ZONE] = (int) SabberStoneCore.Enums.Zone.PLAY,
 					[GameTag.CONTROLLER] = 1,
-					[GameTag.MAXRESOURCES] = 10,
+					[GameTag.MAXRESOURCES] = Controller.MaxResources,
 					[GameTag.CARDTYPE] = (int) CardType.PLAYER
 				}
 				: new EntityData(64)
@@ -295,7 +300,7 @@ namespace SabberStoneCore.Model
 					{GameTag.MAXRESOURCES, 10},
 					{GameTag.MAXHANDSIZE, 10}
 				};
-			EntityData p2Dict = gameConfig.History
+			EntityData p2Dict = history
 				? new EntityData(64)
 				{
 					//[GameTag.HERO_ENTITY] = heroId,
@@ -317,8 +322,13 @@ namespace SabberStoneCore.Model
 			_players[1] = new Controller(this, gameConfig.Player2Name, 2, 3, p2Dict);
 
 			// add power history create game
-			if (History)
+			if (history)
+			{
+				EntityChoicesMap = new Dictionary<int, PowerEntityChoices>();
+				AllOptionsMap = new Dictionary<int, PowerAllOptions>();
+				PowerHistory = new PowerHistory();
 				PowerHistory.Add(PowerHistoryBuilder.CreateGame(this, _players));
+			}
 
 			if (setupHeroes)
 			{
@@ -364,6 +374,15 @@ namespace SabberStoneCore.Model
 			//IdEntityDic = new Dictionary<int, IPlayable>(game.IdEntityDic.Count);
 			IdEntityDic = new EntityList(game.IdEntityDic.Count);
 			Game = this;
+
+			if (logging)
+				Logs = new Queue<LogEntry>();	// Logs are not cloned.
+			if (game.History)
+			{
+				PowerHistory = new PowerHistory();
+				EntityChoicesMap = new Dictionary<int, PowerEntityChoices>();
+				AllOptionsMap = new Dictionary<int, PowerAllOptions>();
+			}
 
 			Auras = new List<IAura>(game.Auras.Count);
 			Triggers = new List<Trigger>(game.Triggers.Count);
@@ -776,18 +795,20 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public void MainRessources()
 		{
+			Controller c = CurrentPlayer;
+
 			// adding manacrystal to next player
-			Generic.ChangeManaCrystal.Invoke(CurrentPlayer, 1, false);
+			Generic.ChangeManaCrystal.Invoke(c, 1, false);
 
 			// clear used mana
-			CurrentPlayer.UsedMana = 0;
+			c.UsedMana = 0;
 
 			// remove temp mana
-			CurrentPlayer.TemporaryMana = 0;
+			c.TemporaryMana = 0;
 
 			// overload
-			CurrentPlayer.OverloadLocked = CurrentPlayer.OverloadOwed;
-			CurrentPlayer.OverloadOwed = 0;
+			c.OverloadLocked = c.OverloadOwed;
+			c.OverloadOwed = 0;
 
 			//// set next step
 			//NextStep = Step.MAIN_DRAW;

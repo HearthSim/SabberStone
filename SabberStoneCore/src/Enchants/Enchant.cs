@@ -19,6 +19,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
 
 namespace SabberStoneCore.Enchants
 {
@@ -37,9 +38,11 @@ namespace SabberStoneCore.Enchants
 			};
 
 		public readonly IEffect[] Effects;
-	    public bool UseScriptTag;
+		public bool UseScriptTag;
 		public bool IsOneTurnEffect;
 		public bool RemoveWhenPlayed;
+		public int ScriptTagValue1;
+		public int ScriptTagValue2;
 
 		public Enchant(GameTag tag, EffectOperator @operator, int value)
 	    {
@@ -69,20 +72,28 @@ namespace SabberStoneCore.Enchants
 		/// <param name="num2">Integer value for GameTag.TAG_SCRIPT_DATA_NUM_2.</param>
 		public virtual void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
 		{
-			var effects = Effects;
+			IEffect[] effects = Effects;
 			if (!UseScriptTag)
 				for (int i = 0; i < effects.Length; i++)
 					effects[i].ApplyTo(entity, IsOneTurnEffect);
 			else if (enchantment != null)
 			{
-				effects[0].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).ApplyTo(entity, IsOneTurnEffect);
+				int val1 = enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1];
+				ScriptTagValue1 = val1;
+
+				effects[0].ChangeValue(val1).ApplyTo(entity, IsOneTurnEffect);
 
 				if (effects.Length < 2) return;
 
-				if (enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
-					effects[1].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2]).ApplyTo(entity, IsOneTurnEffect);
+				int val2 = enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2];
+
+				if (val2 > 0)
+				{
+					effects[1].ChangeValue(val2).ApplyTo(entity, IsOneTurnEffect);
+					ScriptTagValue2 = val2;
+				}
 				else
-					effects[1].ChangeValue(enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1]).ApplyTo(entity, IsOneTurnEffect);
+					effects[1].ChangeValue(val1).ApplyTo(entity, IsOneTurnEffect);
 
 				for (int i = 2; i < effects.Length; i++)
 					effects[i].ApplyTo(entity, IsOneTurnEffect);
@@ -90,16 +101,39 @@ namespace SabberStoneCore.Enchants
 			else
 			{
 				effects[0].ChangeValue(num1).ApplyTo(entity, IsOneTurnEffect);
+				ScriptTagValue1 = num1;
 
 				if (effects.Length < 2) return;
 
 				if (num2 > 0)
+				{
 					effects[1].ChangeValue(num2).ApplyTo(entity, IsOneTurnEffect);
+					ScriptTagValue2 = num2;
+				}
 				else
 					effects[1].ChangeValue(num1).ApplyTo(entity, IsOneTurnEffect);
 
 				for (int i = 2; i < effects.Length; i++)
 					effects[i].ApplyTo(entity, IsOneTurnEffect);
+			}
+		}
+
+		public void RemoveEffect(in IEntity target)
+		{
+			if (!UseScriptTag)
+				for (int i = 0; i < Effects.Length; i++)
+					Effects[i].RemoveFrom(target);
+			else
+			{
+				Effects[0].ChangeValue(ScriptTagValue1).RemoveFrom(target);
+				if (Effects.Length == 1) return;
+				if (ScriptTagValue2 > 0)
+					Effects[1].ChangeValue(ScriptTagValue2).RemoveFrom(target);
+				else
+					Effects[1].ChangeValue(ScriptTagValue1).RemoveFrom(target);
+
+				for (int i = 2; i < Effects.Length; i++)
+					Effects[i].RemoveFrom(target);
 			}
 		}
     }

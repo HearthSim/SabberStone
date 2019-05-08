@@ -22,14 +22,12 @@ namespace SabberStoneCore.Actions
 	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
-		public static Func<Game, Minion, int, bool> SummonBlock
-			=> delegate (Game g, Minion minion, int zonePosition)
+		public static Action<Game, Minion, int, IEntity> SummonBlock
+			=> delegate (Game g, Minion minion, int zonePosition, IEntity summoner)
 			{
 				SummonPhase.Invoke(g, minion, zonePosition);
 
-				AfterSummonTrigger.Invoke(g, minion);
-
-				return true;
+				AfterSummonTrigger.Invoke(g, minion, summoner);
 			};
 
 		private static Action<Game, Minion, int> SummonPhase
@@ -47,14 +45,18 @@ namespace SabberStoneCore.Actions
 					g.PowerHistory.Add(PowerHistoryBuilder.ShowEntity(minion));
 			};
 
-		private static Action<Game, Minion> AfterSummonTrigger
-			=> delegate (Game g, Minion minion)
+		private static Action<Game, Minion, IEntity> AfterSummonTrigger
+			=> delegate (Game g, Minion minion, IEntity summoner)
 			{
 				//minion.IsSummoned = true;
 
 				g.TaskQueue.StartEvent();
+				EventMetaData temp = g.CurrentEventData;
+				if (summoner != null)
+					g.CurrentEventData = new EventMetaData(summoner as IPlayable, minion);
 				g.TriggerManager.OnAfterSummonTrigger(minion);
 				g.ProcessTasks();
+				g.CurrentEventData = temp;
 				g.TaskQueue.EndEvent();
 
 				if (minion.Race == Race.TOTEM)

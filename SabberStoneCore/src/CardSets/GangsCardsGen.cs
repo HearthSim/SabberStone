@@ -19,6 +19,8 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
+
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
@@ -629,8 +631,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("CFM_062", new Power
 			{
 				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.MINIONS),
-					new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+					new IncludeAdjacentTask(EntityType.SOURCE),
 					new SetGameTagTask(GameTag.DIVINE_SHIELD, 1, EntityType.STACK))
 			});
 
@@ -1930,7 +1931,11 @@ namespace SabberStoneCore.CardSets
 					TriggerSource = TriggerSource.SELF,
 					//Condition = new SelfCondition(p => p.Game.IdEntityDic[p.Game.ProposedDefender].ToBeDestroyed),
 					Condition = SelfCondition.IsDefenderDead,
-					SingleTask = new EnqueueTask(2, ComplexTask.SummonRandomMinion(EntityType.DECK, RelaCondition.IsSameRace))
+					SingleTask = ComplexTask.Create(
+						new IncludeTask(EntityType.DECK),
+						new FilterStackTask(SelfCondition.IsRace(Race.MURLOC)),
+						new RandomTask(2, EntityType.STACK),
+						new SummonStackTask())
 				}
 			});
 

@@ -53,6 +53,11 @@ namespace SabberStoneCore.Model.Zones
 		/// <value><c>true</c> if this zone reach the maximum amount of entities; otherwise, <c>false</c>.</value>
 		public abstract bool IsFull { get; }
 
+		/// <summary>
+		/// Gets the size of available space of this zone.
+		/// </summary>
+		public abstract int FreeSpace { get; }
+
 		public abstract Zone Type { get; }
 
 		/// <summary>
@@ -178,6 +183,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public override int Count => _entities.Count;
 		public override bool IsFull => false;
+		public override int FreeSpace => int.MaxValue;
 
 		protected UnlimitedZone(Controller controller)
 		{
@@ -288,7 +294,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public override T Random => _count == 0 ? default : _entities[Util.Random.Next(_count)];
 
-		public int FreeSpace => MaxSize - _count;
+		public override int FreeSpace => MaxSize - _count;
 
 		public override void Add(T entity, int zonePosition = -1)
 		{
@@ -351,6 +357,22 @@ namespace SabberStoneCore.Model.Zones
 			return entity;
 		}
 
+		public T Remove(int index)
+		{
+			if (index < 0 || index >= _count)
+				throw new ArgumentOutOfRangeException(nameof(index));
+
+			T entity = _entities[index];
+			if (index < --_count)
+				Array.Copy(_entities, index + 1, _entities, index, _count - index);
+
+			entity.Zone = null;
+
+			entity.ActivatedTrigger?.Remove();
+
+			return entity;
+		}
+
 		public override bool Any(Func<T, bool> predicate)
 		{
 			T[] entities = _entities;
@@ -393,6 +415,14 @@ namespace SabberStoneCore.Model.Zones
 			var span = new ReadOnlySpan<T>( _entities);
 			return span.Slice(0, _count);
 		}
+
+		//public ReadOnlySpan<T> GetSpan(int start, int count)
+		//{
+		//	if (count > _count)
+		//		throw new ArgumentOutOfRangeException(nameof(count));
+
+		//	return new ReadOnlySpan<T>(_entities, start, count);
+		//}
 
 		internal virtual void CopyTo(Array destination, int index)
 		{
@@ -513,7 +543,7 @@ namespace SabberStoneCore.Model.Zones
 		/// <summary>
 		/// Replaces an entity in the given position internally. (i.e. not create any history packets)
 		/// </summary>
-		internal void ChangeEntity(T oldEntity, T newEntity)
+		internal virtual void ChangeEntity(T oldEntity, T newEntity)
 		{
 			int pos = oldEntity.ZonePosition;
 			_entities[pos] = newEntity;
@@ -521,4 +551,31 @@ namespace SabberStoneCore.Model.Zones
 			newEntity.Zone = this;
 		}
 	}
+
+#if NOSPAN
+	/// <summary>
+	/// A Mocking class for System.Memory.ReadOnlySpan.
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	public readonly ref struct ReadOnlySpan<T>
+	{
+		private readonly T[] _array;
+		public int Length { get; }
+
+		public ReadOnlySpan(T[] array)
+		{
+			Length = array.Length;
+			_array = array;
+		}
+
+		public T this[int index] => _array[index];
+
+		public ReadOnlySpan<T> Slice(int start, int count)
+		{
+			T[] slice = new T[count];
+			Array.Copy(_array, start, slice, 0, count);
+			return new ReadOnlySpan<T>(slice);
+		}
+	}
+#endif
 }

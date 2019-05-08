@@ -22,7 +22,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	/// </summary>
 	public class MoveWeaponToSetaside : SimpleTask
 	{
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			if (controller.Hero.Weapon == null)

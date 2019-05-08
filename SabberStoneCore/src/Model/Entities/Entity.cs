@@ -245,14 +245,21 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="zone">The zone in which the entity must spawn.</param>
 		/// <param name="id">The EntityID to assign to the newly created entity.</param>
 		/// <param name="zonePos">The position to be placed when the entity is summoned to Board.</param>
+		/// <param name="creator">The creator entity of the new entity.</param>
 		/// <returns></returns>
 		/// <exception cref="EntityException"></exception>
-		public static IPlayable FromCard(in Controller controller, in Card card, IDictionary<GameTag, int> tags = null, in IZone zone = null, in int id = -1, in int zonePos = -1)
+		public static IPlayable FromCard(in Controller controller, in Card card,
+			IDictionary<GameTag, int> tags = null,
+			in IZone zone = null, in int id = -1, in int zonePos = -1,
+			in IEntity creator = null)
 		{
 			Game game = controller.Game;
 
 			tags = tags ?? new EntityData();
 			//tags[GameTag.CARD_ID] = card.AssetId;
+
+			//if (creator != null)
+			//	tags.Add(GameTag.CREATOR, creator.Id);
 
 			IPlayable result;
 			switch (card.Type)
@@ -327,7 +334,7 @@ namespace SabberStoneCore.Model.Entities
 
 			// add entity to the appropriate zone if it was given
 			if (zone is BoardZone)
-				Generic.SummonBlock.Invoke(game, (Minion)result, zonePos);
+				Generic.SummonBlock.Invoke(game, (Minion)result, zonePos, creator);
 			else if (zone is HandZone)
 				Generic.AddHandPhase.Invoke(controller, result);
 			else

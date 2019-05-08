@@ -29,7 +29,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public bool SpellDmg { get; set; }
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			if (stack.Number < 1) return TaskState.STOP;

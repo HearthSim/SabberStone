@@ -11,14 +11,14 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
-using SabberStoneCore.Conditions;
+
 using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 
-namespace SabberStoneCore.Enchants
+namespace SabberStoneCore.Triggers
 {
-    public static class Triggers
+	public static class TriggerLibrary
     {
 		//public static Trigger EnrageTrigger(string enchantmentId)
 	 //   {
@@ -51,5 +51,28 @@ namespace SabberStoneCore.Enchants
 			    RemoveAfterTriggered = true
 		    };
 	    }
+
+		public static Trigger SpiritTrigger(Trigger trigger)
+		{
+			return new MultiTrigger(OneTurnStealth, trigger);
+		}
+
+		public static readonly Trigger OneTurnStealth
+			= new Trigger(TriggerType.TURN_START)
+			{
+				TriggerActivation = TriggerActivation.PLAY,
+				SingleTask = new RevealStealthTask(EntityType.SOURCE),
+				RemoveAfterTriggered = true,
+			};
+
+		public static readonly Trigger UpgradeEachTurn =
+			new Trigger(TriggerType.TURN_END)
+			{
+				TriggerActivation = TriggerActivation.HAND,
+				SingleTask = ComplexTask.Create(
+					new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+					new MathAddTask(1),
+					new SetGameTagNumberTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE))
+			};
     }
 }

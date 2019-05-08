@@ -219,7 +219,7 @@ namespace SabberStoneCore.Tasks
 		{
 			return Create(
 				new IncludeTask(EntityType.GRAVEYARD),
-				new FilterStackTask(SelfCondition.IsMinion, SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1), selfCondition),
+				new FilterStackTask(SelfCondition.IsDead, selfCondition),
 				new RandomTask(amount, EntityType.STACK),
 				new CopyTask(EntityType.STACK, Zone.PLAY));
 		}
@@ -277,6 +277,49 @@ namespace SabberStoneCore.Tasks
 			Create(
 				new RandomCardTask(EntityType.OP_HERO),
 				new AddStackTo(EntityType.HAND));
+
+		public static ISimpleTask AddRandomMageSpellToHand =>
+			Create(
+				new RandomCardTask(CardType.SPELL, CardClass.MAGE),
+				new AddStackTo(EntityType.HAND));
+
+		public static ISimpleTask SummonRandomBasicTotem =>
+			Create(
+				new IncludeTask(EntityType.SOURCE),
+				new FuncPlayablesTask(list =>
+				{
+					list[0].Game.OnRandomHappened(true);
+					switch (Util.Random.Next(0, 4))
+					{
+						case 0:
+							return new List<IPlayable>
+							{
+								Entity.FromCard(list[0].Controller,
+									Cards.FromId("NEW1_009"))
+							};
+						case 1:
+							return new List<IPlayable>
+							{
+								Entity.FromCard(list[0].Controller,
+									Cards.FromId("CS2_050"))
+							};
+						case 2:
+							return new List<IPlayable>
+							{
+								Entity.FromCard(list[0].Controller,
+									Cards.FromId("CS2_051"))
+							};
+						case 3:
+							return new List<IPlayable>
+							{
+								Entity.FromCard(list[0].Controller,
+									Cards.FromId("CS2_052"))
+							};
+						default:
+							return null;
+					}
+				}),
+				new SummonTask());
 
 		// TODO maybee better implement it with CFM_712_t + int
 		private static readonly IReadOnlyList<string> JadeGolemStr = new []
@@ -370,6 +413,38 @@ namespace SabberStoneCore.Tasks
 					new ChangeEntityTask(cardId))));
 		}
 
+		public static ISimpleTask Scheme(ISimpleTask taskWithNumber)
+		{
+			return Create(
+				new GetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, EntityType.SOURCE),
+				taskWithNumber);
+		}
+
+		public static readonly ISimpleTask DiscardLowestCostCard
+			= Create(
+				new IncludeTask(EntityType.HAND),
+				new FuncPlayablesTask(list =>
+				{
+					if (list.Count == 0)
+						return list;
+					list[0].Game.OnRandomHappened(true);
+					list.Shuffle();
+					int min = int.MaxValue;
+					int minArg = -1;
+					for (int i = 0; i < list.Count; i++)
+					{
+						int cost = list[i].Cost;
+						if (cost < min)
+						{
+							min = list[i].Cost;
+							minArg = i;
+						}
+					}
+
+					return new[] {list[minArg]};
+				}),
+				new DiscardTask(EntityType.STACK));
+
 		public static ISimpleTask RecursiveTask(ConditionTask repeatCondition, params ISimpleTask[] tasks)
 		{
 			ISimpleTask[] taskList = new ISimpleTask[tasks.Length + 2];
@@ -386,12 +461,12 @@ namespace SabberStoneCore.Tasks
 			return StateTaskList.Chain(taskList);
 		}
 
-		public static ISimpleTask Conditional(EntityType type, SelfCondition condition, ISimpleTask trueTask,
+		public static ISimpleTask Conditional(SelfCondition condition, ISimpleTask trueTask,
 			ISimpleTask falseTask = null)
 		{
 			var tasks = new List<ISimpleTask>
 			{
-				new ConditionTask(type, condition),
+				new ConditionTask(EntityType.SOURCE, condition),
 				new FlagTask(true, trueTask)
 			};
 
@@ -400,5 +475,24 @@ namespace SabberStoneCore.Tasks
 
 			return Create(tasks.ToArray());
 		}
+
+		/// <summary>
+		/// Repeat the given task for each entity in the stack.
+		/// </summary>
+		/// <returns></returns>
+		//public static ISimpleTask ForEach(ISimpleTask task)
+		//{
+		//	return new FuncPlayablesTask(stack =>
+		//	{
+		//		if (stack.Count == 0) return stack;
+
+		//		TaskQueue queue = stack[0].Game.TaskQueue;
+
+		//		foreach (IPlayable p in stack)
+		//		{
+		//			queue.Enqueue(in task, )
+		//		}
+		//	})
+		//}
 	}
 }

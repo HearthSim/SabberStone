@@ -77,7 +77,7 @@ namespace SabberStoneBuildCardSet
 			//{ CardSet.GVG};
 			//CardSet[] cardSets = new[] { CardSet.NAXX, CardSet.KARA, CardSet.BRM, CardSet.LOE, CardSet.ICECROWN  };
 			//CardSet[] cardSets = new[] { CardSet.CORE, CardSet.EXPERT1, CardSet.UNGORO, CardSet.LOOTAPALOOZA, CardSet.ICECROWN, CardSet.GILNEAS, CardSet.BOOMSDAY, CardSet.TROLL, CardSet.HOF };
-			CardSet[] cardSets = new[] { CardSet.DALARAN };
+			CardSet[] cardSets = new[] { CardSet.ICECROWN };
 			//var cardSets = Enum.GetValues(typeof(CardSet));
 			foreach (CardSet cardSet in cardSets)
 			{
@@ -99,6 +99,8 @@ namespace SabberStoneBuildCardSet
 
 			var str = new StringBuilder();
 			str.AppendLine("using System.Collections.Generic;");
+			str.AppendLine("using SabberStoneCore.Actions;");
+			str.AppendLine("using SabberStoneCore.Auras;");
 			str.AppendLine("using SabberStoneCore.Enchants;");
 			str.AppendLine("using SabberStoneCore.Conditions;");
 			str.AppendLine("using SabberStoneCore.Enums;");
@@ -107,6 +109,8 @@ namespace SabberStoneBuildCardSet
 			str.AppendLine("using SabberStoneCore.Model.Entities;");
 			str.AppendLine("using SabberStoneCore.Tasks;");
 			str.AppendLine("using SabberStoneCore.Tasks.SimpleTasks;");
+			str.AppendLine("using SabberStoneCore.Triggers;");
+			str.AppendLine("// ReSharper disable RedundantEmptyObjectOrCollectionInitializer");
 			str.AppendLine();
 			str.AppendLine("namespace SabberStoneCore.CardSets.Undefined");
 			str.AppendLine("{");
@@ -345,8 +349,13 @@ namespace SabberStoneBuildCardSet
 			str.AppendLine($"\t\t\t\t// TODO [{card.Id}] {card.Name} && Test: {card.Name}_{card.Id}");
 			if (enchantId != null)
 				str.AppendLine($"\t\t\t\tInfoCardId = \"{enchantId}\",");
-			str.AppendLine($"\t\t\t\t//PowerTask = null,");
-			str.AppendLine($"\t\t\t\t//Trigger = null,");
+			if (card.Type == CardType.ENCHANTMENT)
+				str.AppendLine($"\t\t\t\t//Enchant = Enchants.Enchants.GetAutoEnchantFromText(\"{card.Id}\")");
+			else
+			{
+				str.AppendLine($"\t\t\t\t//PowerTask = null,");
+				str.AppendLine($"\t\t\t\t//Trigger = null,");
+			}
 
 			str.AppendLine($"\t\t\t}});\n");
 			return str.ToString();
@@ -358,12 +367,14 @@ namespace SabberStoneBuildCardSet
 
 			var str = new StringBuilder();
 			str.AppendLine("using Xunit;");
+			str.AppendLine("using SabberStoneCore.Actions;");
+			str.AppendLine("using SabberStoneCore.Auras;");
 			str.AppendLine("using SabberStoneCore.Enums;");
 			str.AppendLine("using SabberStoneCore.Config;");
 			str.AppendLine("using SabberStoneCore.Model;");
-			str.AppendLine("using SabberStoneCore.Model.Zones;");
 			str.AppendLine("using SabberStoneCore.Model.Entities;");
 			str.AppendLine("using System.Collections.Generic;");
+			str.AppendLine("using System.Linq;");
 			str.AppendLine();
 			str.AppendLine("namespace SabberStoneCoreTest.CardSets.Undefined");
 			str.AppendLine("{");
@@ -437,6 +448,7 @@ namespace SabberStoneBuildCardSet
 			{
 				var cardNameRx = Rgx.Replace(card.Name, "").Split(' ', '-').ToList();
 				string cardName = String.Join("", cardNameRx.Select(p => UpperCaseFirst(p)).ToList());
+				string typeName = UpperCaseFirst(card.Type.ToString().ToLower());
 				CardClass heroClass1 = card.Class == CardClass.INVALID || card.Class == CardClass.NEUTRAL
 					? CardClass.MAGE
 					: card.Class;
@@ -464,8 +476,8 @@ namespace SabberStoneBuildCardSet
 				str.AppendLine("\t\t\tgame.StartGame();");
 				str.AppendLine("\t\t\tgame.Player1.BaseMana = 10;");
 				str.AppendLine("\t\t\tgame.Player2.BaseMana = 10;");
-				str.AppendLine($"\t\t\t//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(\"{card.Name}\"));");
-				str.AppendLine($"\t\t\t//game.Process(PlayCardTask.Any(game.CurrentPlayer, \"{card.Name}\"));");
+				str.AppendLine($"\t\t\t//IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName(\"{card.Name}\"));");
+				str.AppendLine($"\t\t\t//{typeName} testCard = game.ProcessCard<{typeName}>(\"{card.Name}\");");
 				str.AppendLine("\t\t}");
 				str.AppendLine();
 			}

@@ -41,6 +41,11 @@ namespace SabberStoneCore.Enchants
 		    {
 			    UseScriptTag = true
 		    };
+	    public static readonly Enchant SetHealthScriptTag =
+		    new Enchant(Effects.SetMaxHealth(0))
+		    {
+			    UseScriptTag = true
+		    };
 		public static readonly Enchant AddAttackHealthScriptTag =
 		    new Enchant(Effects.AttackHealth_N(0))
 		    {

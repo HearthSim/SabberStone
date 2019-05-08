@@ -41,14 +41,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_addToStack = addToStack;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			int amount = Math.Min(_amount, controller.BoardZone.FreeSpace);
 
 			if (amount == 0) return TaskState.STOP;
 
-			ReadOnlySpan<IPlayable> deck = controller.DeckZone.GetSpan();
+			var deck = controller.DeckZone.GetSpan();
 			SelfCondition[] conditions = _conditions;
 			var indices = new List<int>();
 
@@ -78,7 +79,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			for (int i = 0; i < entities.Length; i++)
 			{
 				Generic.RemoveFromZone.Invoke(controller, entities[i]);
-				Generic.SummonBlock.Invoke(game, (Minion)entities[i], -1);
+				Generic.SummonBlock.Invoke(game, (Minion)entities[i], -1, source);
 
 				if (controller.BoardZone.IsFull)
 					break;

@@ -18,6 +18,7 @@ using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
 
 namespace SabberStoneCore.CardSets
 {
@@ -357,7 +358,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("BRM_012", new Power {
 				PowerTask = ComplexTask.Create(
 					new MathRandTask(1,4),
-					new AddEnchantmentTask("BRM_012e", EntityType.SOURCE))
+					new AddEnchantmentTask("BRM_012e", EntityType.SOURCE, true))
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN

@@ -36,7 +36,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
 		public override bool Process()
 		{
-			bool success = Generic.AttackBlock.Invoke(Controller, Source as Minion, Target, SkipPrePhase);
+			bool success = Generic.AttackBlock.Invoke(Controller, Source as Minion, Target, SkipPrePhase, false);
 
 			return success;
 		}

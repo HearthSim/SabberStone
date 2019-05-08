@@ -80,8 +80,9 @@ namespace SabberStoneCore.Model
 		public bool HideStat { get; private set; }
 		public bool ReceivesDoubleSpelldamageBonus { get; private set; }
 		public bool Freeze { get; }
+		public bool Overkill { get; }
 
-
+		public bool TwinSpell { get; }
 		private Card()
 		{
 
@@ -153,6 +154,12 @@ namespace SabberStoneCore.Model
 							break;
 						case GameTag.RUSH:
 							Rush = true;
+							break;
+						case GameTag.OVERKILL:
+							Overkill = true;
+							break;
+						case GameTag.TWINSPELL:
+							TwinSpell = true;
 							break;
 						case GameTag.CANT_BE_TARGETED_BY_SPELLS:
 							CantBeTargetedBySpells = true;
@@ -313,6 +320,10 @@ namespace SabberStoneCore.Model
 						// TODO
 						TargetingType = TargetingType.AllMinions;
 						break;
+					case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_HERO_HAS_ATTACK:
+						needsTarget = true;
+						TargetingAvailabilityPredicate += TargetingPredicates.ReqHeroHasAttack;
+						break;
 					case PlayReq.REQ_NUM_MINION_SLOTS:
 						PlayAvailabilityPredicate += TargetingPredicates.ReqNumMinionSlots;
 						break;
@@ -333,6 +344,10 @@ namespace SabberStoneCore.Model
 						break;
 					case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
 						PlayAvailabilityPredicate += TargetingPredicates.ReqFriendlyMinionDiedThisGame;
+						break;
+					case PlayReq.REQ_FRIENDLY_MINION_OF_RACE_DIED_THIS_TURN:
+						PlayAvailabilityPredicate +=
+							TargetingPredicates.ReqFriendlyMinionOfRaceDiedThisTurn((Race) requirement.Value);
 						break;
 					case PlayReq.REQ_MUST_PLAY_OTHER_CARD_FIRST:
 						PlayAvailabilityPredicate += c => false;
@@ -742,6 +757,20 @@ namespace SabberStoneCore.Model
 			potion.PlayAvailabilityPredicate = secondCard.PlayAvailabilityPredicate;
 
 			return potion;
+		}
+
+		public static Card GetTigerCard(int value, bool modifyTags)
+		{
+			Card instance = Cards.FromId("TRL_309t");
+			instance.ATK = value;
+			instance.Health = value;
+			if (modifyTags)
+			{
+				instance.Tags[GameTag.ATK] = value;
+				instance.Tags[GameTag.HEALTH] = value;
+			}
+
+			return instance;
 		}
 	}
 }

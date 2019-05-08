@@ -111,18 +111,24 @@ namespace SabberStoneCore.Model
 			Data.Load(cards);
 
 			//Log.Debug("Standard:");
-			Enum.GetValues(typeof(CardClass)).Cast<CardClass>().ToList().ForEach(heroClass =>
+			//Enum.GetValues(typeof(CardClass)).Cast<CardClass>().ToList().ForEach(heroClass =>
+			for (int i = 0; i < HeroClasses.Length; i++)
 			{
+				CardClass heroClass = HeroClasses[i];
 				Standard.Add(heroClass, All.Where(c =>
-				c.Collectible &&
+					c.Collectible &&
 					(c.Class == heroClass ||
 					 c.Class == CardClass.NEUTRAL && c.MultiClassGroup == 0 ||
-					 c.MultiClassGroup == 1 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER || c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
-					 c.MultiClassGroup == 2 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID || c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
-					 c.MultiClassGroup == 3 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE || c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) &&
-					 c.Type != CardType.HERO && StandardSets.Contains(c.Set)).ToList().AsReadOnly());
+					 c.MultiClassGroup == 1 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.HUNTER ||
+					                            c.Class == CardClass.PALADIN || c.Class == CardClass.WARRIOR) ||
+					 c.MultiClassGroup == 2 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.DRUID ||
+					                            c.Class == CardClass.ROGUE || c.Class == CardClass.SHAMAN) ||
+					 c.MultiClassGroup == 3 && (c.Class == CardClass.NEUTRAL || c.Class == CardClass.MAGE ||
+					                            c.Class == CardClass.PRIEST || c.Class == CardClass.WARLOCK)) &&
+					c.Type != CardType.HERO && StandardSets.Contains(c.Set)).ToList().AsReadOnly());
 				//Log.Debug($"-> [{heroClass}] - {Standard[heroClass].Count} cards.");
-			});
+				//});
+			}
 
 			//Log.Debug("AllStandard:");
 			AllStandard = All.Where(c => c.Collectible && c.Type != CardType.HERO && StandardSets.Contains(c.Set)).ToList().AsReadOnly();
@@ -395,7 +401,7 @@ namespace SabberStoneCore.Model
 			int totCards = 0;
 			foreach (CardSet set in StandardSets)
 			{
-				int impl = implemented.FirstOrDefault(p => p.Key == set).Count;
+				int impl = implemented.FirstOrDefault(p => p.Key == set)?.Count ?? 0;
 				totImpl += impl;
 				int tot = all.FirstOrDefault(p => p.Key == set).Count;
 				str.AppendLine($"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards");
@@ -409,7 +415,7 @@ namespace SabberStoneCore.Model
 			totCards = 0;
 			foreach (CardSet set in WildSets)
 			{
-				int impl = implementedWild.FirstOrDefault(p => p.Key == set).Count;
+				int impl = implementedWild.FirstOrDefault(p => p.Key == set)?.Count ?? 0;
 				totImpl += impl;
 				int tot = allWild.FirstOrDefault(p => p.Key == set).Count;
 				str.AppendLine($"{CardSetToName(set)} => {impl * 100 / tot}% from {tot} Cards");

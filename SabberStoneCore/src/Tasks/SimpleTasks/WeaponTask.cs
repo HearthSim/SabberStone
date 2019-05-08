@@ -30,7 +30,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_op = opponent;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			if (_card == null && stack?.Playables.Count != 1) return TaskState.STOP;
@@ -44,7 +45,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				? Entity.FromCard(c, _card) as Weapon
 				: stack?.Playables[0] as Weapon;
 
-			Generic.PlayWeapon.Invoke(c, weapon, null, 0);
+			Generic.PlayWeapon.Invoke(c, game, weapon, null, 0);
 
 			return TaskState.COMPLETE;
 		}

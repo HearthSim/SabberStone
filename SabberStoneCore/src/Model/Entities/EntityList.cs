@@ -32,10 +32,14 @@ namespace SabberStoneCore.Model.Entities
 				IPlayable[] list = _list;
 				if (id >= list.Length)
 				{
-					var newlist = new IPlayable[(int)(list.Length * 1.5)];
-					Array.Copy(list, newlist, list.Length);
-					list = newlist;
-					_list = newlist;
+					double newLength = list.Length * 1.5;
+					while (id >= newLength)
+						newLength *= 1.5;
+
+					var newList = new IPlayable[(int)newLength];
+					Array.Copy(list, newList, list.Length);
+					list = newList;
+					_list = newList;
 				}
 
 				if (list[id] == null)

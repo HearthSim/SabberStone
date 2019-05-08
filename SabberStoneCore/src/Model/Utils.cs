@@ -305,7 +305,7 @@ namespace SabberStoneCore.Model
 			private class Enumerator : IEnumerator<int>
 			{
 				private int[] _arr;
-				private int _current;
+				private int _current = -1;
 
 				public Enumerator(int[] arr)
 				{
@@ -460,7 +460,7 @@ namespace SabberStoneCore.Model
 			return list;
 		}
 
-		internal static void InsertionSort<T>(this List<T> list, Func<T, int> intKeySelector)
+		internal static void InsertionSort<T>(this IList<T> list, Func<T, int> intKeySelector)
 		{
 			for (int i = 1; i < list.Count; i++)
 			{
@@ -472,6 +472,28 @@ namespace SabberStoneCore.Model
 					j--;
 				}
 				list[j + 1] = temp;
+			}
+		}
+
+		internal static void InsertionSort<T>(this IList<T> list, IList<int> keys)
+		{
+			if (list.Count != keys.Count)
+				throw new ArgumentException("The key list must have the same number of elements of the given list.",
+					nameof(keys));
+
+			for (int i = 0; i < list.Count; i++)
+			{
+				T temp = list[i];
+				int tempKey = keys[i];
+				int j = i - 1;
+				while (j >= 0 && keys[j] > tempKey)
+				{
+					list[j + 1] = list[j];
+					keys[j + 1] = keys[j];
+					j--;
+				}
+				list[j + 1] = temp;
+				keys[j + 1] = tempKey;
 			}
 		}
 	}

@@ -12,16 +12,17 @@
 // GNU Affero General Public License for more details.
 #endregion
 using SabberStoneCore.Actions;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Triggers;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class MagneticTask : SimpleTask
 	{
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			var s = (Minion) source;
@@ -46,7 +47,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				s[GameTag.TAG_SCRIPT_DATA_NUM_1] = t.Id;
 
 			Generic.AddEnchantmentBlock.Invoke(controller, Cards.FromId(s.Card.Id + "e"), s, t, s.AttackDamage,
-				s.BaseHealth, false);
+				s.BaseHealth, 0);
 
 			// Aggregate triggers
 			if (s.Power.Trigger != null)

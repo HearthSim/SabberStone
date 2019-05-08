@@ -19,35 +19,54 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class SummonOpTask : SimpleTask
 	{
-		public SummonOpTask(Card card = null)
+		private readonly Card _card;
+		private readonly int _amount;
+
+		/// <summary>
+		/// Creates a task that summons an entity of the given card or
+		/// in the stack for the opponent.
+		/// </summary>
+		/// <param name="card"></param>
+		public SummonOpTask(Card card = null, int amount = 1)
 		{
-			Card = card;
+			_card = card;
+			_amount = amount;
 		}
 
-		public SummonOpTask(string cardId)
+		public SummonOpTask(string cardId, int amount = 1)
 		{
-			Card = Cards.FromId(cardId);
+			_card = Cards.FromId(cardId);
+			_amount = amount;
 		}
 
-		public Card Card { get; set; }
-
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			if (controller.Opponent.BoardZone.IsFull)
+			//if (controller.Opponent.BoardZone.IsFull)
+			//	return TaskState.STOP;
+
+			if (_card == null && stack?.Playables.Count < 1)
 				return TaskState.STOP;
 
-			if (Card == null && stack?.Playables.Count < 1)
-				return TaskState.STOP;
+			for (int i = 0; i < _amount; i++)
+			{
+				if (controller.Opponent.BoardZone.IsFull)
+					return TaskState.STOP;
 
-			Minion summonEntity = Card != null
-				? Entity.FromCard(controller.Opponent, Card) as Minion
-				: stack?.Playables[0] as Minion;
+				Minion summonEntity;
 
-			if (summonEntity == null)
-				return TaskState.STOP;
+				if (_card == null)
+				{
+					summonEntity = (Minion) stack.Playables[0];
+					if (summonEntity.Controller == controller)
+						throw new System.Exception("SummonOpTask attempts to summon a friendly minion.");
+				}
+				else
+					summonEntity = (Minion) Entity.FromCard(controller.Opponent, in _card);
 
-			Generic.SummonBlock.Invoke(game, summonEntity, -1);
+				Generic.SummonBlock.Invoke(game, summonEntity, -1, source);
+			}
 
 			return TaskState.COMPLETE;
 		}

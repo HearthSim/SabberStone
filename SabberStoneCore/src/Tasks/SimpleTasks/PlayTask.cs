@@ -14,7 +14,6 @@
 using System;
 using System.Collections.Generic;
 using SabberStoneCore.Actions;
-using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -35,7 +34,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly EntityType _targetType;
 
 		/// <summary>
-		///     Create a PlayTask to play a card as a task.
+		/// Create a PlayTask to play a card as a task.
 		/// </summary>
 		/// <param name="playType">The type of playable.</param>
 		/// <param name="randTarget">true if the target of the playable is chosen randomly</param>
@@ -51,7 +50,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_targetType = targetType;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			switch (_playType)
@@ -59,31 +59,46 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				case PlayType.SPELL:
 					foreach (IPlayable p in stack?.Playables)
 					{
+						if (!(p is Spell spell)) throw new Exception();
+						Controller c = spell.Controller;
+
 						ICharacter cardTarget = null;
-						if (_randTarget && p.Card.MustHaveTargetToPlay)
+						if (_randTarget)
 						{
-							var targets = (List<ICharacter>) p.ValidPlayTargets;
+							game.OnRandomHappened(true);
+							if (spell.Card.MustHaveTargetToPlay)
+							{
+								cardTarget = spell.GetRandomValidTarget();
+								if (cardTarget == null)
+								{
+									//throw new Exception($"{source} cannot play {p}; there is no valid target.");
+									if (spell.Zone != null)
+										Generic.RemoveFromZone(c, p);
 
-							cardTarget = targets.Count > 0
-								? Util.RandomElement(targets)
-								: throw new InvalidOperationException();
-
-							p.CardTarget = cardTarget?.Id ?? -1;
-
-							game.Log(LogLevel.INFO, BlockType.POWER, "PlayTask",
-								!game.Logging ? "" : $"{p}'s target is randomly selected to {cardTarget}");
+									return TaskState.STOP;
+								}
+							}
 						}
 						else if
 							(_targetType != EntityType.INVALID)
 						{
-							cardTarget = (ICharacter)IncludeTask.GetEntities(_targetType, in controller, source, target, stack?.Playables)[0];
+							IList<IPlayable> targets = IncludeTask.GetEntities(_targetType, in controller, source, target,
+								stack?.Playables);
+
+							if (targets.Count == 0)
+								return TaskState.STOP;
+
+							cardTarget = (ICharacter)targets[0];
 						}
 
-						if (p is Spell spell && (p.Zone == null || Generic.RemoveFromZone(controller, p)))
-							Generic.CastSpell.Invoke(controller, spell, cardTarget, 0, true);
+						if (spell.Zone == null || Generic.RemoveFromZone(c, p))
+						{
+							Generic.CastSpell.Invoke(c, game, spell, cardTarget, 0);
+							Generic.OverloadBlock(c, spell, game.History);
+						}
 
-						while (controller.Choice != null)
-							Generic.ChoicePick(controller, Util.Choose(controller.Choice.Choices));
+						while (c.Choice != null)
+							Generic.ChoicePick(c, game, Util.Choose(c.Choice.Choices));
 					}
 
 					return TaskState.COMPLETE;

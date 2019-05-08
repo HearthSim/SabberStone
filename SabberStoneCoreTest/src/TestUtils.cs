@@ -12,6 +12,7 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
+using System.Collections.Generic;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -133,22 +134,51 @@ namespace SabberStoneCoreTest
 			if (target != null && !(target is ICharacter))
 				throw new ArgumentException($"Can't target non-charater entity {target}");
 			var option = HeroPowerTask.Any(game.CurrentPlayer, (ICharacter) target, chooseOne, asZeroCost);
+
+			if (asZeroCost)
+			{
+				Generic.AddEnchantmentBlock(game.CurrentPlayer, Cards.FromId("TRL_407e"), game.CurrentPlayer.Hero, game.CurrentPlayer,
+					0, 0, 0);
+				game.AuraUpdate();
+			}
+
 			if (!game.Process(option))
 				throw new Exception($"{option} is not a valid task.");
 			if (autoRefresh)
 			    game.CurrentPlayer.Hero.HeroPower.IsExhausted = false;
 	    }
 
-	    /// <summary>
-	    /// Choose Nth item from choices (the leftest one is 1)
-	    /// </summary>
-	    public static void ChooseNthChoice(this Game game, int n)
+		/// <summary>
+		/// Choose Nth item from choices (the leftest one is 1).
+		/// </summary>
+		/// <returns>The chosen entity.</returns>
+		public static IPlayable ChooseNthChoice(this Game game, int n)
 	    {
 		    if (n > game.CurrentPlayer.Choice.Choices.Count)
 			    throw new ArgumentOutOfRangeException();
-		    var option = ChooseTask.Pick(game.CurrentPlayer, game.CurrentPlayer.Choice.Choices[n - 1]);
+
+		    int pick = game.CurrentPlayer.Choice.Choices[n - 1];
+		    ChooseTask option = ChooseTask.Pick(game.CurrentPlayer, pick);
 		    if (!game.Process(option))
 			    throw new Exception($"{option} is not a valid task.");
+
+		    return game.IdEntityDic[pick];
+	    }
+
+		/// <summary>
+		/// Gets the cards of current choice session.
+		/// </summary>
+		public static Card[] GetChoiceCards(this Game game)
+		{
+			List<int> choices = game.CurrentPlayer.Choice?.Choices;
+			if (choices == null)
+				throw new Exception("There is no active choices.");
+
+			Card[] result = new Card[choices.Count];
+			for (int i = 0; i < choices.Count; i++)
+				result[i] = game.IdEntityDic[choices[i]].Card;
+
+			return result;
 		}
 
 		/// <summary>
@@ -177,5 +207,49 @@ namespace SabberStoneCoreTest
 
 			return c;
 	    }
+
+		/// <summary>
+		/// Performs an attack with this character to the given defender.
+		/// </summary>
+		public static void Attack(this ICharacter attacker, ICharacter defender)
+		{
+			if (defender == null)
+				throw new ArgumentNullException(nameof(defender));
+
+			string reason;
+			if (attacker.Controller != attacker.Game.CurrentPlayer)
+				reason = "The attacker is a minion of the current player.";
+			else if (attacker.IsExhausted)
+			{
+				if (!(attacker is Hero hero) || hero.ExtraAttacksThisTurn <= 0 ||
+					hero.ExtraAttacksThisTurn < hero.NumAttacksThisTurn)
+					reason = "The attacker is exhausted.";
+				else
+					reason = null;
+			}
+			else if
+				(attacker.AttackDamage == 0)
+				reason = "The attacker's ATK is 0.";
+			else if (attacker.IsFrozen)
+				reason = "The attacker is frozen.";
+			else if
+				(attacker.Card.Untouchable)
+				reason = "The attacker is dormant.";
+			else if
+				(!attacker.IsValidAttackTarget(defender))
+				reason = $"{defender} is not a valid attack target for the attacker.";
+			else
+				reason = null;
+
+			if (reason != null)
+				throw new Exception($"{attacker} can't attack. ({reason})");
+
+			PlayerTask task = attacker is Hero
+				? (PlayerTask) HeroAttackTask.Any(attacker.Controller, defender)
+				: MinionAttackTask.Any(attacker.Controller, attacker, defender);
+
+			if (!attacker.Game.Process(task))
+				throw new Exception($"{task} is not a valid task.");
+		}
     }
 }

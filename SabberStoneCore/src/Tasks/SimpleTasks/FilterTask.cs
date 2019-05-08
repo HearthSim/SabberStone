@@ -13,6 +13,7 @@
 #endregion
 using System.Collections.Generic;
 using SabberStoneCore.Conditions;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -43,7 +44,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_relaConditions = relaConditions;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			if (_relaConditions != null)

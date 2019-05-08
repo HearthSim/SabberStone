@@ -22,6 +22,7 @@ using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
 
 namespace SabberStoneCore.CardSets
 {
@@ -301,7 +302,7 @@ namespace SabberStoneCore.CardSets
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsTagValue(GameTag.CUSTOM_KEYWORD_EFFECT, 1)),
 						new FlagTask(true, ComplexTask.Create(
 							new SetGameTagTask(GameTag.CUSTOM_KEYWORD_EFFECT, 0, EntityType.SOURCE),
-							new SummonCopyTask(EntityType.SOURCE, SummonSide.RIGHT)))),
+							new SummonCopyTask(EntityType.SOURCE, side: SummonSide.RIGHT)))),
 					RemoveAfterTriggered = true
 				}
 			});
@@ -434,7 +435,7 @@ namespace SabberStoneCore.CardSets
 							if (graveyard[i] is Minion m && m.ToBeDestroyed)
 							{
 								if (c.BoardZone.IsFull) return 0;
-								Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, m.Card), -1);
+								Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, m.Card), -1, src);
 								j++;
 							}
 							i--;
@@ -462,7 +463,7 @@ namespace SabberStoneCore.CardSets
 					if ((c.GraveyardZone.Any(p => p.Card.AssetId == 1797 && p.ToBeDestroyed) ||
 					     c.Opponent.GraveyardZone.Any(p => p.Card.AssetId == 1797 && p.ToBeDestroyed)) &&
 					    !c.BoardZone.IsFull)
-						Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1);
+						Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1, src);
 
 					return 0;
 				})
@@ -485,7 +486,7 @@ namespace SabberStoneCore.CardSets
 					if ((c.GraveyardZone.Any(p => p.Card.AssetId == 1796 && p.ToBeDestroyed) ||
 					     c.Opponent.GraveyardZone.Any(p => p.Card.AssetId == 1796 && p.ToBeDestroyed)) &&
 					    !c.BoardZone.IsFull)
-						Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1);
+						Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1, src);
 
 					return 0;
 				})

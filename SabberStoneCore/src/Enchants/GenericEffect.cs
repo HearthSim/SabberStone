@@ -36,7 +36,7 @@ namespace SabberStoneCore.Enchants
 			_attr.RemoveAura(playable, _operator, _value);
 		}
 
-		void IEffect.ApplyTo(IEntity entity, bool oneTurnEffect = false)
+		void IEffect.ApplyTo(IEntity entity, bool oneTurnEffect)
 		{
 			if (!(entity is T playable))
 				throw new Exception($"Cannot apply {this} to an entity of type {entity.GetType()}");
