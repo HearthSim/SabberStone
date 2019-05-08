@@ -49,6 +49,8 @@ namespace SabberStoneCore.Loader
 					                power.PowerTask != null ||
 					                power.DeathrattleTask != null ||
 					                power.ComboTask != null ||
+									power.TopdeckTask != null ||
+									power.OverkillTask != null ||
 					                power.Aura != null ||
 					                power.Trigger != null ||
 					                power.Enchant != null;

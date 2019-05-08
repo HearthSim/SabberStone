@@ -19,7 +19,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class DrawCardTask : SimpleTask
 	{
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			if (stack?.Playables.Count != 1) return TaskState.STOP;

@@ -16,30 +16,30 @@ using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 
-namespace SabberStoneCore.Enchants
+namespace SabberStoneCore.Triggers
 {
-    public class MultiTrigger : Trigger, IReadOnlyList<Trigger>
-    {
+	public class MultiTrigger : Trigger, IReadOnlyList<Trigger>
+	{
 		private readonly IReadOnlyList<Trigger> _triggers;
 
 		public MultiTrigger(params Trigger[] triggers) : base(TriggerType.MULTITRIGGER)
-	    {
+		{
 			//for (int i = 0; i < triggers.Length; i++)
 			//	triggers[i].IsAncillaryTrigger = true;
-		    _triggers = triggers;
-	    }
-
-	    private MultiTrigger(Trigger[] triggers, MultiTrigger protoType, IPlayable owner) : base(protoType, owner)
-	    {
 			_triggers = triggers;
-	    }
+		}
+
+		private MultiTrigger(Trigger[] triggers, MultiTrigger protoType, IPlayable owner) : base(protoType, owner)
+		{
+			_triggers = triggers;
+		}
 
 		public override Trigger Activate(IPlayable source, TriggerActivation activation = TriggerActivation.PLAY, bool cloning = false, bool asAncillary = false)
 		{
 			if (source.ActivatedTrigger != null && !IsAncillaryTrigger)
 				throw new Exceptions.EntityException($"{source} already has an activated trigger.");
 
-			Trigger[] triggers = new Trigger[_triggers.Count];
+			var triggers = new Trigger[_triggers.Count];
 
 			bool flag = false;
 			for (int i = 0; i < triggers.Length; i++)
@@ -72,14 +72,14 @@ namespace SabberStoneCore.Enchants
 				_owner.ActivatedTrigger = null;
 		}
 
-	    public IEnumerator<Trigger> GetEnumerator()
-	    {
-		    return _triggers.GetEnumerator();
-	    }
+		public IEnumerator<Trigger> GetEnumerator()
+		{
+			return _triggers.GetEnumerator();
+		}
 
-	    IEnumerator IEnumerable.GetEnumerator()
-	    {
-		    return GetEnumerator();
-	    }
-    }
+		IEnumerator IEnumerable.GetEnumerator()
+		{
+			return GetEnumerator();
+		}
+	}
 }

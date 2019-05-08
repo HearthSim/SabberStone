@@ -18,7 +18,6 @@ using System.Linq;
 using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
-using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
 using SabberStoneCoreAi.Meta;
 using SabberStoneCoreAi.Nodes;

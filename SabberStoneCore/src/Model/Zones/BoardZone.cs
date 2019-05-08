@@ -14,7 +14,6 @@
 using System;
 using System.Collections.Generic;
 using SabberStoneCore.Auras;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 
@@ -86,6 +85,15 @@ namespace SabberStoneCore.Model.Zones
 			return base.Remove(entity);
 		}
 
+		//internal override void ChangeEntity(Minion oldEntity, Minion newEntity)
+		//{
+		//	if (oldEntity.Untouchable)
+		//		if (!newEntity.Untouchable && --_untouchableCount == 0)
+		//			_hasUntouchables = false;
+
+		//	base.ChangeEntity(oldEntity, newEntity);
+		//}
+
 		/// <summary>
 		/// Replaces an entity in this zone to new entity and returns the old entity.
 		/// The position of the new entity is the same position the old entity had.
@@ -125,7 +133,7 @@ namespace SabberStoneCore.Model.Zones
 		}
 
 		/// <summary>
-		/// Activates a <see cref="Minion"/>'s <see cref="Trigger"/> and <see cref="Aura"/> and
+		/// Activates a <see cref="Minion"/>'s <see cref="Triggers.Trigger"/> and <see cref="Aura"/> and
 		/// applies it's Spell Power increment.
 		/// </summary>
 		/// <param name="entity"></param>
@@ -183,7 +191,7 @@ namespace SabberStoneCore.Model.Zones
 		{
 			if (_hasUntouchables)
 			{
-				Array.Copy(GetAll(null), 0, destination, index, _count - _untouchableCount);
+				Array.Copy(GetAll(null), 0, destination, index, CountExceptUntouchables);
 				return;
 			}
 

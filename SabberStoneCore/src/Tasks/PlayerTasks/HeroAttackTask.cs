@@ -33,7 +33,7 @@ namespace SabberStoneCore.Tasks.PlayerTasks
 
 		public override bool Process()
 		{
-			bool success = Generic.AttackBlock.Invoke(Controller, Controller.Hero, Target, SkipPrePhase);
+			bool success = Generic.AttackBlock.Invoke(Controller, Controller.Hero, Target, SkipPrePhase, false);
 			return success;
 		}
 

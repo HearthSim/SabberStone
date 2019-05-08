@@ -33,7 +33,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public EntityType Type { get; set; }
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			//ChoiceAction choiceAction = ChoiceAction.ADAPT;
@@ -77,7 +78,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Card[] results = TotalAdaptCards.ChooseNElements(3);
 
 			Generic.CreateChoiceCards.Invoke(controller, source, targets, ChoiceType.GENERAL, ChoiceAction.ADAPT,
-				results, null, null);
+				results, null);
 
 			return TaskState.COMPLETE;
 		}

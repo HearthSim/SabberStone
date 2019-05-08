@@ -68,8 +68,10 @@ namespace SabberStoneCore.Model.Entities
 			/// <exception cref="KeyNotFoundException"></exception>
 			public void RemoveCostAura(EffectOperator @operator, int value)
 			{
+				// TODO: Fix the behaviour when adaptive cost effect + redraw
 				if (!_costEffects.Remove((@operator, value)))
-					throw new KeyNotFoundException($"Can't remove cost aura [{@operator} {value}]");
+					//throw new KeyNotFoundException($"Can't remove cost aura [{@operator} {value}]");
+					return;
 
 				switch (@operator)
 				{

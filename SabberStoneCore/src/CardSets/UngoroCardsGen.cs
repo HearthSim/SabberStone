@@ -21,9 +21,10 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
-namespace SabberStoneCore.CardSets.Standard
+namespace SabberStoneCore.CardSets
 {
 	public class UngoroCardsGen
 	{
@@ -449,7 +450,7 @@ namespace SabberStoneCore.CardSets.Standard
 							if (target.Card.Untouchable)
 								return null;
 							EventMetaData temp = source.Game.CurrentEventData;
-							Generic.AttackBlock.Invoke(source.Controller, source, target, true);
+							Generic.AttackBlock.Invoke(source.Controller, source, target, true, false);
 							source.Game.CurrentEventData = temp;
 							source.Controller.NumOptionsPlayedThisTurn--;
 							return null;
@@ -469,9 +470,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_910", new Power {
 				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.ALLMINIONS),
-					new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
 					new DamageTask(2, EntityType.TARGET, true),
+					new IncludeAdjacentTask(EntityType.TARGET),
 					new DamageTask(1, EntityType.STACK, true))
 			});
 
@@ -722,7 +722,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("UNG_941", new Power {
-				PowerTask = new DiscoverTask(DiscoverType.SPELL, "UNG_941e")
+				PowerTask = new DiscoverTask(DiscoverType.SPELL,
+					afterDiscoverTask: new AddEnchantmentTask("UNG_941e", EntityType.TARGET))
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -752,9 +753,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("UNG_955", new Power {
 				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.ALLMINIONS),
-					new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
 					new DamageTask(15, EntityType.TARGET, true),
+					new IncludeAdjacentTask(EntityType.TARGET),
 					new DamageTask(3, EntityType.STACK, true))
 			});
 
@@ -877,7 +877,7 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerSource = TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
 					SingleTask = ComplexTask.Create(
 						new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
-						new AddEnchantmentTask("UNG_953e", EntityType.SOURCE, true, true))
+						new AddEnchantmentTask("UNG_953e", EntityType.SOURCE, false, true))
 				}
 			});
 
@@ -1357,7 +1357,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
-			// - DEATHRATTLE = 1
+			// - DEATHRATTLE = 10
 			// --------------------------------------------------------
 			cards.Add("UNG_065", new Power {
 				DeathrattleTask = new SummonTask("UNG_065t", SummonSide.DEATHRATTLE)
@@ -1957,7 +1957,7 @@ namespace SabberStoneCore.CardSets.Standard
 							var newEntity = (Minion) Entity.FromCard(p.Controller, p.Card);
 							p[GameTag.TAG_SCRIPT_DATA_ENT_1] = newEntity.Id;
 							newEntity[GameTag.TAG_SCRIPT_DATA_ENT_1] = newEntity.Id;
-							Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("UNG_836e"), newEntity, newEntity, 0, 0, false);
+							Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("UNG_836e"), newEntity, newEntity, 0, 0, 0);
 							//newEntity[GameTag.ATK] = p[GameTag.ATK] + 2;
 							//newEntity[GameTag.HEALTH] = p[GameTag.HEALTH] + 2;
 							newEntity.AttackDamage = p.AttackDamage + 2;

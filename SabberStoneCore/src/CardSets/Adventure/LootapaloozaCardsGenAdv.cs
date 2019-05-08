@@ -21,6 +21,8 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
+
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Adventure
@@ -1335,7 +1337,8 @@ namespace SabberStoneCore.CardSets.Adventure
 				// TODO Test: Dampen Magic_LOOTA_BOSS_35p
 				PowerTask = new FuncNumberTask(p =>
 					{
-						Generic.CastSpell.Invoke(p.Controller, (Spell) Entity.FromCard(p.Controller, Cards.FromId("EX1_287")), null, 0, false);
+						Generic.CastSpell.Invoke(p.Controller, p.Game,
+							(Spell) Entity.FromCard(p.Controller, Cards.FromId("EX1_287")), null, 0);
 						return 0;
 					})
 			});

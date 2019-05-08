@@ -55,33 +55,35 @@ namespace SabberStoneCore.Actions
 				{
 					// DrawTrigger vs TOPDECK ?? not sure which one is first
 
+					Game game = c.Game;
+
 					if (cardToDraw == null)
 					{
-						c.Game.TaskQueue.StartEvent();
-						c.Game.TriggerManager.OnDrawTrigger(playable);
-						c.Game.ProcessTasks();
-						c.Game.TaskQueue.EndEvent();
+						game.TaskQueue.StartEvent();
+						game.TriggerManager.OnDrawTrigger(playable);
+						game.ProcessTasks();
+						game.TaskQueue.EndEvent();
 					}
 
 					ISimpleTask task = playable.Power?.TopdeckTask;
 					if (task != null)
 					{
-						if (c.Game.History)
+						if (game.History)
 						{
 							// TODO: triggerkeyword: TOPDECK
-							c.Game.PowerHistory.Add(
+							game.PowerHistory.Add(
 								PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, playable.Id, "", 0, 0));
 						}
 
 						c.SetasideZone.Add(c.HandZone.Remove(playable));
 
-						c.Game.Log(LogLevel.INFO, BlockType.TRIGGER, "TOPDECK",
-							!c.Game.Logging ? "" : $"{playable}'s TOPDECK effect is activated.");
+						game.Log(LogLevel.INFO, BlockType.TRIGGER, "TOPDECK",
+							!game.Logging ? "" : $"{playable}'s TOPDECK effect is activated.");
 
-						task.Process(c.Game, c, playable, null);
+						task.Process(game, c, playable, null);
 
-						if (c.Game.History)
-							c.Game.PowerHistory.Add(
+						if (game.History)
+							game.PowerHistory.Add(
 								PowerHistoryBuilder.BlockEnd());
 					}
 				}
@@ -113,6 +115,51 @@ namespace SabberStoneCore.Actions
 
 				return playable;
 			};
+
+		public static IPlayable Draw(Controller c, int index)
+		{
+			IPlayable playable = c.DeckZone.Remove(index);
+			c.Game.Log(LogLevel.INFO, BlockType.ACTION, "DrawPhase", !c.Game.Logging ? "" : $"{c.Name} draws {playable}");
+
+			c.NumCardsDrawnThisTurn++;
+			c.LastCardDrawn = playable.Id;
+
+			if (AddHandPhase.Invoke(c, playable))
+			{
+				// DrawTrigger vs TOPDECK ?? not sure which one is first
+
+				Game game = c.Game;
+
+				game.TaskQueue.StartEvent();
+				game.TriggerManager.OnDrawTrigger(playable);
+				game.ProcessTasks();
+				game.TaskQueue.EndEvent();
+				
+				ISimpleTask task = playable.Power?.TopdeckTask;
+				if (task != null)
+				{
+					if (game.History)
+					{
+						// TODO: triggerkeyword: TOPDECK
+						game.PowerHistory.Add(
+							PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, playable.Id, "", 0, 0));
+					}
+
+					c.SetasideZone.Add(c.HandZone.Remove(playable));
+
+					game.Log(LogLevel.INFO, BlockType.TRIGGER, "TOPDECK",
+						!game.Logging ? "" : $"{playable}'s TOPDECK effect is activated.");
+
+					task.Process(game, c, playable, null);
+
+					if (game.History)
+						game.PowerHistory.Add(
+							PowerHistoryBuilder.BlockEnd());
+				}
+			}
+
+			return playable;
+		}
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

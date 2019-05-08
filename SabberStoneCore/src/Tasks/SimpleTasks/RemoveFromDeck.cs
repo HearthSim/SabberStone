@@ -21,18 +21,27 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RemoveFromDeck : SimpleTask
 	{
-		public RemoveFromDeck(EntityType type)
+		private readonly EntityType _type;
+		private readonly bool _addToStack;
+
+		public RemoveFromDeck(EntityType type, bool addToStack = true)
 		{
-			Type = type;
+			_type = type;
+			_addToStack = addToStack;
 		}
 
-		public EntityType Type { get; set; }
-
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			stack.Playables = IncludeTask.GetEntities(Type, in controller, source, target, stack.Playables)
-				.Where(p => p.Zone.Type == Zone.DECK && Generic.RemoveFromZone.Invoke(p.Controller, p)).ToList();
+			if (_addToStack)
+				stack.Playables = IncludeTask.GetEntities(_type, in controller, source, target, stack.Playables)
+					.Where(p => p.Zone.Type == Zone.DECK && Generic.RemoveFromZone.Invoke(p.Controller, p)).ToList();
+			else
+				foreach(IPlayable p in IncludeTask.GetEntities(in _type, in controller, source, target, stack?.Playables))
+					if (p.Zone.Type == Zone.DECK)
+						Generic.RemoveFromZone(p.Controller, p);
+			
 			return TaskState.COMPLETE;
 		}
 	}

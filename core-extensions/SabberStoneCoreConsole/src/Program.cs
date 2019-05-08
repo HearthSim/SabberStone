@@ -20,7 +20,6 @@ using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
-using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.PlayerTasks;
 using System.Threading.Tasks;
 using SabberStoneCore.Model.Entities;
@@ -45,7 +44,7 @@ namespace SabberStoneCoreConsole
 
 			Console.WriteLine(Cards.Statistics());
 			//StabilityTest.CloneStabilityTest();
-			StabilityTest.TestRun();
+			//StabilityTest.TestRun();
 			//for (int i = 0; i < 10000; i++)
 			//	StabilityTest.ThreadSafetyTest();
 			//EntityChangeTest();
@@ -63,7 +62,7 @@ namespace SabberStoneCoreConsole
 			//GameSplitTest();
 			//Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
-			//PowerHistoryTest();
+			PowerHistoryTest();
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
@@ -1413,7 +1412,7 @@ namespace SabberStoneCoreConsole
 
 					Console.ForegroundColor = foreground;
 
-					string logStr = $"{logEntry.TimeStamp.ToLongTimeString()} - {logEntry.Level} [{logEntry.BlockType}] - {logEntry.Location}: {logEntry.Text}";
+					string logStr = logEntry.ToString();
 					str.Append(logStr + "\n");
 					Console.WriteLine(logStr);
 				}

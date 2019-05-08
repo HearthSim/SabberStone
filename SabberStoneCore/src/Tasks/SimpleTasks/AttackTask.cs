@@ -28,7 +28,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_dType = defender;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			var attacker =
@@ -38,8 +39,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (defender.Card.Untouchable) return TaskState.STOP;
 
-			Generic.AttackBlock.Invoke(attacker.Controller, attacker, defender, true);
+			EventMetaData temp = game.CurrentEventData;
+			Generic.AttackBlock.Invoke(attacker.Controller, attacker, defender, true, false);
 			attacker.Controller.NumOptionsPlayedThisTurn--;
+			game.CurrentEventData = temp;
 
 			return TaskState.COMPLETE;
 		}

@@ -32,29 +32,47 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_useEntityId = useEntityId;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			int n1 = stack?.Number ?? 0;
-			int n2 = stack?.Number1 ?? 0;
+			
+			//int n1 = stack?.Number ?? 0;
+			//int n2 = stack?.Number1 ?? 0;
+
+			int n1 = 0, n2 = 0, entityId = 0;
+			if (_useScriptTag)
+			{
+				n1 = stack.Number;
+				n2 = stack.Number1;
+				if (_useEntityId)
+					entityId = stack.Playables[0].Id;
+			}
+			else if (_useEntityId)
+			{
+				n1 = entityId = stack.Number;
+			}
+
+			//int entityId = _useEntityId ? stack.Playables[0].Id : 0;
 
 			//	Controller Auras (OTEs)
 			if (_entityType == EntityType.CONTROLLER)
 			{
-				Generic.AddEnchantmentBlock.Invoke(controller, _enchantmentCard, (IPlayable) source, controller, n1, n2, _useEntityId);
+				Generic.AddEnchantmentBlock.Invoke(controller, _enchantmentCard, (IPlayable) source, controller, n1, n2, entityId);
 				return TaskState.COMPLETE;
 			}
 
 			if (_entityType == EntityType.OP_CONTROLLER)
 			{
 				Generic.AddEnchantmentBlock.Invoke(controller, _enchantmentCard, (IPlayable) source,
-					controller.Opponent, n1, n2, _useEntityId);
+					controller.Opponent, n1, n2, entityId);
 				return TaskState.COMPLETE;
 			}
 
+
 			foreach (IPlayable p in IncludeTask.GetEntities(_entityType, in controller, source, target,
 				stack?.Playables))
-				Generic.AddEnchantmentBlock.Invoke(controller, _enchantmentCard, (IPlayable) source, p, n1, n2, _useEntityId);
+				Generic.AddEnchantmentBlock.Invoke(controller, _enchantmentCard, (IPlayable) source, p, n1, n2, entityId);
 
 			return TaskState.COMPLETE;
 		}

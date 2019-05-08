@@ -18,12 +18,15 @@ using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
+
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
-namespace SabberStoneCore.CardSets.Standard
+namespace SabberStoneCore.CardSets
 {
 	public static class IcecrownCardsGen
 	{
@@ -515,7 +518,7 @@ namespace SabberStoneCore.CardSets.Standard
 						new ConditionTask(EntityType.EVENT_TARGET, SelfCondition.IsMinion),
 						new FlagTask(true, ComplexTask.Create(
 						new GetGameTagTask(GameTag.ENTITY_ID, EntityType.EVENT_TARGET),
-						new AddEnchantmentTask("ICC_314t1e", EntityType.SOURCE, true, true))))
+						new AddEnchantmentTask("ICC_314t1e", EntityType.SOURCE, false, true))))
 				}
 			});
 
@@ -932,7 +935,7 @@ namespace SabberStoneCore.CardSets.Standard
 					Condition = SelfCondition.IsSecret,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsZoneCount(Zone.SECRET, 4, RelaSign.LEQ)),
-						new FlagTask(true, SpecificTask.RandomHunterSecretPlay))
+						new FlagTask(true, SpecificTask.CastRandomSecret(CardClass.HUNTER)))
 
 				}
 			});
@@ -1221,6 +1224,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new FuncNumberTask(p =>
 					{
 						Controller c = p.Controller;
+						Game g = p.Game;
 						if (c.SecretZone.IsFull) return 0;
 						IPlayable[] entities = c.DeckZone.GetAll(x => x.Card.IsSecret);
 						List<int> ids = c.SecretZone.Select(x => x.Card.AssetId).ToList();
@@ -1230,7 +1234,7 @@ namespace SabberStoneCore.CardSets.Standard
 							if (ids.Contains(e.Card.AssetId)) continue;
 
 							c.DeckZone.Remove(e);
-							Generic.CastSpell(c, (Spell) e, null, 0, true);
+							Generic.CastSpell(c, g, (Spell) e, null, 0);
 							ids.Add(e.Card.AssetId);
 
 							if (c.SecretZone.IsFull) return 0;
@@ -1798,10 +1802,10 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [ICC_221] Leeching Poison - COST:2 
+			// [ICC_221] Leeching Poison - COST:1 
 			// - Fac: neutral, Set: icecrown, Rarity: common
 			// --------------------------------------------------------
-			// Text: Give your weapon <b>Lifesteal</b>.
+			// Text: Give your weapon <b>Lifesteal</b> this turn.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_WEAPON_EQUIPPED = 0
@@ -1880,13 +1884,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ICC_221e] Leeching Poison (*) - COST:0 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			// Text: <b>Lifesteal</b>
+			// Text: Has <b>Lifesteal</b> this turn.
 			// --------------------------------------------------------
 			// GameTag:
+			// - TAG_ONE_TURN_EFFECT = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_221e", new Power {
 				Enchant = new Enchant(Effects.Lifesteal)
+				{
+					IsOneTurnEffect = true
+				}
 			});
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
@@ -2097,8 +2105,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_078", new Power {
 				PowerTask = ComplexTask.Create(
 					ComplexTask.Freeze(EntityType.TARGET),
-					new IncludeTask(EntityType.ALLMINIONS),
-					new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
+					new IncludeAdjacentTask(EntityType.TARGET),
 					new DamageTask(3, EntityType.STACK, true))
 			});
 
@@ -2503,7 +2510,7 @@ namespace SabberStoneCore.CardSets.Standard
 					new GetGameTagTask(GameTag.DURABILITY, EntityType.WEAPON, 0, 1),
 					new GetGameTagTask(GameTag.DAMAGE, EntityType.WEAPON, 0, 2),
 					new MathNumberIndexTask(1, 2, MathOperation.SUB, 1),
-					new AddEnchantmentTask("ICC_018e", EntityType.SOURCE))
+					new AddEnchantmentTask("ICC_018e", EntityType.SOURCE, true))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2588,8 +2595,7 @@ namespace SabberStoneCore.CardSets.Standard
 				// TODO Test: Sunborne Val'kyr_ICC_028
 				InfoCardId = "ICC_028e",
 				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.MINIONS),
-					new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+					new IncludeAdjacentTask(EntityType.SOURCE),
 					new AddEnchantmentTask("ICC_028e", EntityType.STACK))
 			});
 
@@ -2852,7 +2858,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_466", new Power {
-				PowerTask = new SummonCopyTask(EntityType.SOURCE, SummonSide.RIGHT)
+				PowerTask = new SummonTask("ICC_466", SummonSide.RIGHT)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

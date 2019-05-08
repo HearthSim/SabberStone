@@ -21,6 +21,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
 using static SabberStoneCore.Tasks.SimpleTasks.RitualTask;
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
@@ -747,7 +748,8 @@ namespace SabberStoneCore.CardSets
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("OG_311", new Power {
-				PowerTask = new DiscoverTask(DiscoverType.MINION, "OG_311e")
+				PowerTask = new DiscoverTask(DiscoverType.MINION,
+					afterDiscoverTask: new AddEnchantmentTask("OG_311e", EntityType.TARGET))
 			});
 
 			// --------------------------------------- WEAPON - PALADIN
@@ -901,8 +903,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("OG_100", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.ALLMINIONS),
-					new FilterStackTask(EntityType.SOURCE,
-						RelaCondition.IsOther(SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.LEQ))),
+					new FilterStackTask(SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.LEQ)),
 					new DestroyTask(EntityType.STACK))
 			});
 
@@ -1755,11 +1756,11 @@ namespace SabberStoneCore.CardSets
 					new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET, 0, 3),
 					new GetGameTagTask(GameTag.DAMAGE, EntityType.TARGET, 0, 4),
 					new MathNumberIndexTask(3, 4, MathOperation.SUB, 3),
-					new AddEnchantmentTask("OG_102e", EntityType.TARGET),
+					new AddEnchantmentTask("OG_102e", EntityType.TARGET, true),
 					new MathMultiplyTask(0),
 					new MathNumberIndexTask(3, 0, MathOperation.ADD, 1),
 					new MathNumberIndexTask(2, 0, MathOperation.ADD),
-					new AddEnchantmentTask("OG_102e", EntityType.SOURCE))
+					new AddEnchantmentTask("OG_102e", EntityType.SOURCE, true))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2053,7 +2054,7 @@ namespace SabberStoneCore.CardSets
 								p[i].Destroy();
 							c.Game.GraveYard();	// forced death phase
 							var ancientOne = (Minion) Entity.FromCard(c, Cards.FromId("OG_173a"));
-							Generic.SummonBlock.Invoke(c.Game, ancientOne, c.BoardZone.Count);
+							Generic.SummonBlock.Invoke(c.Game, ancientOne, c.BoardZone.Count, p[0]);
 							return p;
 						}))
 

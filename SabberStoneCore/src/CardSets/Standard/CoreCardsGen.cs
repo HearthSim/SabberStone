@@ -21,6 +21,7 @@ using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
 using static SabberStoneCore.Enchants.Enchants;
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 

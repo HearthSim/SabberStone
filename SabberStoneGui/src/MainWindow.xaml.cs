@@ -24,7 +24,6 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Newtonsoft.Json;
 using SabberStoneCore.Model;
-using SabberStoneCore.Tasks;
 using SabberStoneCoreGui.Score;
 using SabberStoneCoreGui.Nodes;
 using SabberStoneCoreGui.Meta;

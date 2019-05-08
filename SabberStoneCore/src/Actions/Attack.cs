@@ -12,19 +12,19 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Triggers;
 
 namespace SabberStoneCore.Actions
 {
 	public static partial class Generic
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
-		public static Func<Controller, ICharacter, ICharacter, bool, bool> AttackBlock
-			=> delegate (Controller c, ICharacter source, ICharacter target, bool skipPrePhase)
+		public static Func<Controller, ICharacter, ICharacter, bool, bool, bool> AttackBlock
+			=> delegate (Controller c, ICharacter source, ICharacter target, bool skipPrePhase, bool skipDeathPhase)
 			{
 				Game g = c.Game;
 
@@ -47,17 +47,19 @@ namespace SabberStoneCore.Actions
 					// end block
 					if (g.History)
 						g.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
-					g.DeathProcessingAndAuraUpdate();
+					if (!skipDeathPhase)
+						g.DeathProcessingAndAuraUpdate();
 					g.CurrentEventData = null;
 					return false;
 				}
 				Trigger.ValidateTriggers(g, source, SequenceType.Target);
-				if (!AttackPhase.Invoke(c, source))
+				if (!AttackPhase.Invoke(c, source, skipDeathPhase))
 				{
 					// end block
 					if (g.History)
 						g.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
-					g.DeathProcessingAndAuraUpdate();
+					if (!skipDeathPhase)
+						g.DeathProcessingAndAuraUpdate();
 					g.CurrentEventData = null;
 					return false;
 				}
@@ -70,8 +72,8 @@ namespace SabberStoneCore.Actions
 				g.ProcessTasks();
 				g.TaskQueue.EndEvent();
 
-
-				g.DeathProcessingAndAuraUpdate();
+				if (!skipDeathPhase)
+					g.DeathProcessingAndAuraUpdate();
 				g.CurrentEventData = null;
 				g.NextStep = Step.MAIN_ACTION;
 
@@ -145,8 +147,8 @@ namespace SabberStoneCore.Actions
 				return true;
 			};
 
-		private static Func<Controller, ICharacter, bool> AttackPhase
-			=> delegate (Controller c, ICharacter source)
+		private static Func<Controller, ICharacter, bool, bool> AttackPhase
+			=> delegate (Controller c, ICharacter source, bool noExhaustion)
 			{
 				Game game = c.Game;
 
@@ -238,8 +240,8 @@ namespace SabberStoneCore.Actions
 					c.NumFriendlyMinionsThatAttackedThisTurn++;
 
 				// set exhausted ...
-				if (numAtk > 0 && !source.HasWindfury ||
-					numAtk > 1 && source.HasWindfury)
+				if (!noExhaustion && (numAtk > 0 && !source.HasWindfury ||
+					numAtk > 1 && source.HasWindfury))
 				{
 					game.Log(LogLevel.INFO, BlockType.ATTACK, "AttackPhase", !game.Logging? "":$"{source} is now exhausted.");
 					source.IsExhausted = true;

@@ -11,13 +11,24 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+#if NOSPAN
+using SabberStoneCore.Model.Zones;
+#else
+using System;
+#endif
 using System.Collections.Generic;
 using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
+
+
+
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
@@ -34,7 +45,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// GameTag:
 			// - FREEZE = 1
-			// --------------------------------------------------------
+			// ------------------------------------st--------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
@@ -203,7 +214,7 @@ namespace SabberStoneCore.CardSets
 				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p =>
 				{
 					int count = 0;
-					var span = p.Controller.BoardZone.GetSpan();
+					ReadOnlySpan<Minion> span = p.Controller.BoardZone.GetSpan();
 					for (int i = 0; i < span.Length; i++)
 						if (span[i].Race == Race.MURLOC)
 							count++;

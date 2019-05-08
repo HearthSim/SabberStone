@@ -11,6 +11,9 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System.Collections.Generic;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -29,7 +32,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_spellDmg = spellDmg;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			int times = _spellDmg ? _amount + controller.CurrentSpellPower : _amount;
@@ -45,6 +49,58 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//		target = target as IPlayable
 			//	});
 
+			return TaskState.COMPLETE;
+		}
+	}
+
+	public class EnqueuePendingTask : SimpleTask
+	{
+		private readonly ISimpleTask _task;
+		private readonly EntityType _targetType;
+
+		public EnqueuePendingTask(ISimpleTask task, EntityType targetType)
+		{
+			_task = task;
+			_targetType = targetType;
+		}
+
+		public EnqueuePendingTask(EntityType targetType)
+		{
+			_targetType = targetType;
+		}
+
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
+			in TaskStack stack = null)
+		{
+			IList<IPlayable> targets = IncludeTask.GetEntities(in _targetType, in controller, source, target, stack?.Playables);
+
+			if (_task == null)
+			{
+				ISimpleTask task = source.Card.Power.PowerTask;
+				if (source.Card.HasOverload)
+					task = ComplexTask.Create(task, OverloadTask.Task);
+				foreach (IPlayable p in targets)
+					game.TaskQueue.EnqueuePendingTask(in task, in controller, in source, in p);
+			}
+			else
+				foreach (IPlayable p in targets)
+					game.TaskQueue.EnqueuePendingTask(in _task, in controller, in source, in p);
+
+			return TaskState.COMPLETE;
+		}
+	}
+
+	public class OverloadTask : SimpleTask
+	{
+		private OverloadTask() { }
+
+		public static readonly OverloadTask Task = new OverloadTask();
+
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
+			in TaskStack stack = null)
+		{
+			Generic.OverloadBlock(controller, (IPlayable) source, game.History);
 			return TaskState.COMPLETE;
 		}
 	}

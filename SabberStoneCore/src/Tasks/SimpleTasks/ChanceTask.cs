@@ -25,7 +25,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public bool UseFlag { get; set; }
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			int random = Util.Random.Next(0, 2);

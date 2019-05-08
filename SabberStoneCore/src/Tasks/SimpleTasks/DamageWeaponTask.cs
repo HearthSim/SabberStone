@@ -35,7 +35,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_opponent = opponent;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			Weapon weapon = _opponent ? source.Controller.Opponent.Hero.Weapon : source.Controller.Hero.Weapon;

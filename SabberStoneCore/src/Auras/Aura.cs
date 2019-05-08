@@ -140,10 +140,7 @@ namespace SabberStoneCore.Auras
 
 			var instance = new Aura(this, owner);
 
-			owner.Game.Auras.Add(instance);
-			owner.OngoingEffect = instance;
-
-			instance.AddToZone();
+			AddToGame(owner, instance);
 
 			if (RemoveTrigger.Type != TriggerType.NONE)
 			{
@@ -163,6 +160,9 @@ namespace SabberStoneCore.Auras
 						break;
 					case TriggerType.AFTER_PLAY_CARD:
 						owner.Game.TriggerManager.AfterPlayCardTrigger += instance._removeHandler;
+						break;
+					case TriggerType.INSPIRE:
+						owner.Game.TriggerManager.InspireTrigger += instance._removeHandler;
 						break;
 				}
 			}
@@ -313,9 +313,11 @@ namespace SabberStoneCore.Auras
 
 			switch (RemoveTrigger.Type)
 			{
+				case TriggerType.NONE:
+					break;
 				case TriggerType.CAST_SPELL:
 					Game.TriggerManager.CastSpellTrigger -= _removeHandler;
-					return;
+					break;
 				case TriggerType.TURN_END:
 					Game.TriggerManager.EndTurnTrigger -= _removeHandler;
 					break;
@@ -328,6 +330,11 @@ namespace SabberStoneCore.Auras
 				case TriggerType.AFTER_PLAY_CARD:
 					Game.TriggerManager.AfterPlayCardTrigger -= _removeHandler;
 					break;
+				case TriggerType.INSPIRE:
+					Game.TriggerManager.InspireTrigger -= _removeHandler;
+					break;
+				default:
+					throw new NotImplementedException();
 			}
 
 			if (Owner is Enchantment e)
@@ -373,6 +380,8 @@ namespace SabberStoneCore.Auras
 
 		private void UpdateInternal()
 		{
+			if (!On) return;
+
 			switch (Type)
 			{
 				case AuraType.BOARD:
@@ -394,7 +403,7 @@ namespace SabberStoneCore.Auras
 					if (board.Count == 1)
 						return;
 					int pos = Owner.ZonePosition;
-						if (pos > 0)
+					if (pos > 0)
 						Apply(board[pos - 1]);
 					if (pos < board.Count - 1)
 						Apply(board[pos + 1]);
@@ -443,7 +452,7 @@ namespace SabberStoneCore.Auras
 			}
 		}
 
-		private void RemoveInternal()
+		protected virtual void RemoveInternal()
 		{
 			IEffect[] effects = Effects;
 
@@ -487,6 +496,11 @@ namespace SabberStoneCore.Auras
 								entity.AppliedEnchantments[i].Remove();
 					});
 			}
+
+			if (Game.Logging)
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Aura.RemoveInternal",
+					$"{Owner}'s aura is removed from game and " +
+					$"{string.Join(",", AppliedEntityIdCollection.Select(i => Game.IdEntityDic[i]))})");
 		}
 
 		private void TriggeredRemove(IEntity source)
@@ -523,6 +537,10 @@ namespace SabberStoneCore.Auras
 						break;
 					}
 			}
+
+			if (Game.Logging)
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Aura.DeApply",
+					$"{Owner}'s aura is removed from {entity}.");
 		}
 
 		/// <summary>
@@ -549,31 +567,37 @@ namespace SabberStoneCore.Auras
 			}
 
 			AppliedEntityIdCollection.Add(entity.Id);
+
+			if (Game.Logging)
+				Game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "Aura.Apply", $"{Owner}'s aura is applied to {entity}.");
 		}
 
 		[MethodImpl(MethodImplOptions.AggressiveInlining)]
-		private void AddToZone()
+		protected static void AddToGame(IPlayable owner, Aura aura)
 		{
-			switch (Type)
+			owner.Game.Auras.Add(aura);
+			owner.OngoingEffect = aura;
+
+			switch (aura.Type)
 			{
 				case AuraType.BOARD:
 				case AuraType.BOARD_EXCEPT_SOURCE:
 				case AuraType.ADJACENT:
-					Owner.Controller.BoardZone.Auras.Add(this);
+					owner.Controller.BoardZone.Auras.Add(aura);
 					break;
 				case AuraType.HAND:
-					Owner.Controller.HandZone.Auras.Add(this);
+					owner.Controller.HandZone.Auras.Add(aura);
 					break;
 				case AuraType.OP_HAND:
-					Owner.Controller.Opponent.HandZone.Auras.Add(this);
+					owner.Controller.Opponent.HandZone.Auras.Add(aura);
 					break;
 				case AuraType.HANDS:
-					Owner.Controller.HandZone.Auras.Add(this);
-					Owner.Controller.Opponent.HandZone.Auras.Add(this);
+					owner.Controller.HandZone.Auras.Add(aura);
+					owner.Controller.Opponent.HandZone.Auras.Add(aura);
 					break;
 				case AuraType.HAND_AND_BOARD:
-					Owner.Controller.HandZone.Auras.Add(this);
-					Owner.Controller.BoardZone.Auras.Add(this);
+					owner.Controller.HandZone.Auras.Add(aura);
+					owner.Controller.BoardZone.Auras.Add(aura);
 					break;
 			}
 		}

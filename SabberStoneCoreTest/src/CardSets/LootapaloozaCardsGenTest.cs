@@ -23,7 +23,7 @@ using Generic = SabberStoneCore.Actions.Generic;
 using System.Linq;
 using SabberStoneCore.Tasks.PlayerTasks;
 
-namespace SabberStoneCoreTest.CardSets.Standard
+namespace SabberStoneCoreTest.CardSets
 {
 	public class DruidLootapaloozaTest
 	{
@@ -341,7 +341,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Branching Paths"));
 
 			Assert.Equal(3, game.CurrentPlayer.Choice.Choices.Count);
-			Assert.True(game.CurrentPlayer.Choice.ChoiceQueue.Count == 1);
+			//Assert.True(game.CurrentPlayer.Choice.ChoiceQueue.Count == 1);
+			Assert.NotNull(game.CurrentPlayer.Choice.NextChoice);
 
 			game.ChooseNthChoice(1);
 
@@ -700,6 +701,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal("Emerald Spellstone", testCard2.Card.Name);
 			Assert.Equal("Emerald Spellstone", testCard3.Card.Name);
 
+			game.CurrentPlayer.UsedMana = 0;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard2, skipPrePhase: true));
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
 

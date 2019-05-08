@@ -299,6 +299,7 @@ namespace SabberStoneCore.Enchants
 		private int _extraEndTurnEffect;
 		private int _heroPowerDisabled;
 		private int _allHealingDouble;
+		private int _extraBattlecryAndCombo;
 
 		public int this[GameTag t]
 		{
@@ -327,6 +328,8 @@ namespace SabberStoneCore.Enchants
 						return _heroPowerDisabled >= 1 ? 1 : 0;
 					case GameTag.ALL_HEALING_DOUBLE:
 						return _allHealingDouble;
+					case GameTag.EXTRA_MINION_BATTLECRIES_BASE:
+						return _extraBattlecryAndCombo;
 					default:
 						return 0;
 				}
@@ -366,6 +369,9 @@ namespace SabberStoneCore.Enchants
 					case GameTag.ALL_HEALING_DOUBLE:
 						_allHealingDouble = value;
 						return;
+					case GameTag.EXTRA_MINION_BATTLECRIES_BASE:
+						_extraBattlecryAndCombo = value;
+						return;
 					default:
 						return;
 				}
@@ -390,6 +396,7 @@ namespace SabberStoneCore.Enchants
 			sb.Append(_extraEndTurnEffect);
 			sb.Append(_heroPowerDisabled);
 			sb.Append(_allHealingDouble);
+			sb.Append(_extraBattlecryAndCombo);
 			sb.Append("]");
 			return sb.ToString();
 		}

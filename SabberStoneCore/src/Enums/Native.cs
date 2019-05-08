@@ -131,6 +131,10 @@ namespace SabberStoneCore.Enums
 	public enum CardClass
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
+		// Custom enums for easy syntax.
+		ANOTHER_CLASS = -2,
+		OP_CLASS = -1,	
+
 		INVALID = 0,
 		DEATHKNIGHT = 1,
 		DRUID = 2,

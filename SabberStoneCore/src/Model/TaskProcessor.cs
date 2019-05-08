@@ -11,132 +11,205 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+//#define LOGEVENT
+using System.Collections;
 using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 
-using TaskInstance = System.ValueTuple<SabberStoneCore.Tasks.ISimpleTask, SabberStoneCore.Model.Entities.Controller, SabberStoneCore.Model.Entities.IEntity, SabberStoneCore.Model.Entities.IEntity>;
+//using TaskInstance = System.ValueTuple<SabberStoneCore.Tasks.ISimpleTask, SabberStoneCore.Model.Entities.Controller, SabberStoneCore.Model.Entities.IEntity, SabberStoneCore.Model.Entities.IEntity>;
 
 namespace SabberStoneCore.Model
 {
 	public class TaskQueue
 	{
-		//private class TaskInstance
+		private class TaskInstance
+		{
+			public readonly ISimpleTask Task;
+			public readonly Controller Controller;
+			public readonly IEntity Source;
+			public readonly IPlayable Target;
+
+			public TaskInstance(in ISimpleTask task, in Controller controller, in IEntity source, in IPlayable target)
+			{
+				Task = task;
+				Controller = controller;
+				Source = source;
+				Target = target;
+			}
+
+			public static implicit operator (ISimpleTask, Controller, IEntity, IPlayable) (TaskInstance t)
+			{
+				return (t.Task, t.Controller, t.Source, t.Target);
+			}
+
+			public void Deconstruct(out ISimpleTask simpleTask, out Controller controller, out IEntity entity, out IPlayable target)
+			{
+				simpleTask = Task;
+				controller = Controller;
+				entity = Source;
+				target = Target;
+			}
+		}
+
+		//private readonly struct Event
 		//{
-		//	public readonly ISimpleTask Task;
-		//	public readonly Controller Controller;
-		//	public readonly IEntity Source;
-		//	public readonly IEntity Target;
+		//	public readonly Queue<TaskInstance> Queue;
 
-		//	public TaskInstance(ISimpleTask task, Controller controller, IEntity source, IEntity target)
+		//	public Event(Queue<TaskInstance> newQueue)
 		//	{
-		//		Task = task;
-		//		Controller = controller;
-		//		Source = source;
-		//		Target = target;
-		//	}
-
-		//	public static implicit operator (ISimpleTask, Controller, IEntity, IEntity)(TaskInstance t)
-		//	{
-		//		return (t.Task, t.Controller, t.Source, t.Target);
-		//	}
-
-		//	public void Deconstruct(out ISimpleTask simpleTask, out Controller controller, out IEntity entity, out IEntity entity1)
-		//	{
-		//		simpleTask = Task;
-		//		controller = Controller;
-		//		entity = Source;
-		//		entity1 = Target;
+		//		Queue = newQueue;
 		//	}
 		//}
 
-
 		private readonly Game _game;
 		private readonly Stack<Queue<TaskInstance>> _eventStack;
+		//private readonly Stack<Event> _eventStack;
 		private readonly Queue<TaskInstance> _baseQueue;
-	
-		//private int _stackHeight;
-		// Flag == true : current event have not ended yet and no tasks queue in this event;
-		private bool _eventFlag;
-		
+		private readonly Queue<TaskInstance> _pendingTasks;
+#if LOGEVENT
+		private int _stackHeight;
+#endif
+
 		public TaskQueue(Game game)
 		{
 			_game = game;
 			_eventStack = new Stack<Queue<TaskInstance>>();
+			//_eventStack = new Stack<Event>();
 			_baseQueue = new Queue<TaskInstance>();
+			CurrentQueue = _baseQueue;
+			_pendingTasks = new Queue<TaskInstance>();
 		}
 
-		private Queue<TaskInstance> CurrentQueue => _eventStack.Count == 0 ? _baseQueue : _eventStack.Peek();
+		//private Queue<TaskInstance> CurrentQueue => _eventStack.Count == 0 ? _baseQueue : _eventStack.Peek();
+		private Queue<TaskInstance> CurrentQueue { get; set; }
 
 		// nothing left in current event
-		public bool IsEmpty => _eventFlag || CurrentQueue.Count == 0;
+		//public bool IsEmpty => _eventFlag || CurrentQueue.Count == 0;
+		public bool IsEmpty => CurrentQueue == null || CurrentQueue.Count == 0;
 
 		public ISimpleTask CurrentTask { get; private set; }
 
 		public void StartEvent()
 		{
-			_eventFlag = true;
+			//_eventFlag = true;
+			//_numEventsStarted++;
+			//_eventStack.Push(null);
 
-			//if (_game.Logging)
-			//{
-			//	_stackHeight++;
-			//	var sb = new StringBuilder("Event Starts");
-			//	for (int i = 0; i < 10 - _stackHeight; i++)
-			//		sb.Append("----");
-			//	_game.Log(LogLevel.DEBUG, BlockType.ACTION, "TaskQueue", sb.ToString());
-			//}
+			_eventStack.Push(CurrentQueue);
+			CurrentQueue = null;
+
+#if LOGEVENT
+			if (_game.Logging)
+			{
+				//var sb = new System.Text.StringBuilder("Event Starts");
+				//for (int i = 0; i < 10 - _stackHeight; i++)
+				//	sb.Append("----");
+				_game.Log(LogLevel.DEBUG, BlockType.ACTION, "TaskQueue",
+					//sb.ToString()
+					$"Event ({_stackHeight}) Starts"
+				);
+				_stackHeight++;
+			}
+#endif
 		}
 
 		public void EndEvent()
 		{
-			//if (_game.Logging)
+#if LOGEVENT
+			if (_game.Logging)
+			{
+				//var sb = new System.Text.StringBuilder("Event Ends--");
+				//for (int i = 0; i < 10 - _stackHeight; i++)
+				//	sb.Append("----");
+				//_stackHeight--;
+				_stackHeight--;
+				_game.Log(LogLevel.DEBUG, BlockType.ACTION, "TaskQueue",
+					//sb.ToString()
+					$"Event ({_stackHeight}) Ends"
+				);
+			}
+#endif
+
+
+
+			//if (!_eventFlag)
 			//{
-			//	var sb = new StringBuilder("Event Ends--");
-			//	for (int i = 0; i < 10 - _stackHeight; i++)
-			//		sb.Append("----");
-			//	_game.Log(LogLevel.DEBUG, BlockType.ACTION, "TaskQueue", sb.ToString());
-			//	_stackHeight--;
+			//	if (_eventStack.Count > 0)
+			//		_eventStack.Pop();
+			//}
+			//else
+			//{
+			//	_eventFlag = false;
+			//	_numEventsStarted--;
 			//}
 
-			if (_eventFlag)
-			{
-				_eventFlag = false;
-				return;
-			}
+			//if (_numEventsStarted > 0)
+			//	_eventFlag = true;
 
-			if (_eventStack.Count > 0)
-				_eventStack.Pop();
+			CurrentQueue = _eventStack.Pop();
 		}
 
-		public void Enqueue(in ISimpleTask task, in Controller controller, in IEntity source, in IEntity target)
+		public void Enqueue(in ISimpleTask task, in Controller controller, in IEntity source, in IPlayable target)
 		{
-			if (_eventFlag)	// flag = true means Event starts and no tasks queue yet
-			{
-				if (CurrentQueue.Count != 0) // Check if an ongoing event exists
-					_eventStack.Push(new Queue<TaskInstance>());
+			//if (_eventFlag)	// flag = true means Event starts and no tasks queue yet
+			//{
+			//	if (CurrentQueue.Count != 0) // Check if an ongoing event exists
+			//		_eventStack.Push(new Queue<TaskInstance>());
 
-				_eventFlag = false;
+			//	_eventFlag = false;
+			//	_numEventsStarted--;
+			//}
+
+			//Stack<Queue<TaskInstance>> stack = _eventStack;
+			Queue<TaskInstance> queue = CurrentQueue;
+			if (queue == null)
+			{
+				queue = new Queue<TaskInstance>();
+				CurrentQueue = queue;
 			}
 
-			CurrentQueue.Enqueue(new TaskInstance(task, controller, source, target));
+			queue.Enqueue(new TaskInstance(task, controller, source, target));
 
-			//_game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "TaskQueue",
-			//	!_game.Logging ? "" : $"{task.GetType().Name} is Enqueued in {_eventStack.Count}th stack");
+			while (_pendingTasks.Count != 0)
+				queue.Enqueue(_pendingTasks.Dequeue());
+
+#if LOGEVENT
+			_game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "TaskQueue",
+				!_game.Logging ? "" : $"{task.GetType().Name} is Enqueued in {_eventStack.Count}th stack");
+#endif
 		}
 
-		public void EnqueueBase(in ISimpleTask task, in Controller controller, in IEntity source, in IEntity target)
+		public void EnqueueBase(in ISimpleTask task, in Controller controller, in IEntity source, in IPlayable target)
 		{
-			_baseQueue.Enqueue((task, controller, source, target));
+			//_baseQueue.Enqueue((task, controller, source, target));
+			//if (!_eventFlag && _eventStack.Count == 0)
+			//{
+			//	_eventStack.Push(new Queue<TaskInstance>(_baseQueue));
+			//	_baseQueue.Clear();
+			//}
+
+			_baseQueue.Enqueue(new TaskInstance(in task, in controller, in source, in target));
 
 			_game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "TaskQueue",
 				!_game.Logging ? "" : $"{task.GetType().Name} is Enqueued in 0th stack");
 		}
 
+		/// <summary>
+		/// Queue a task that will be processed after a task is queued and processed.
+		/// </summary>
+		/// <param name="task"></param>
+		public void EnqueuePendingTask(in ISimpleTask task, in Controller controller, in IEntity source, in IPlayable target)
+		{
+			_pendingTasks.Enqueue(new TaskInstance(in task, in controller, in source, in target));
+		}
+
 		public TaskState Process()
 		{
-			(ISimpleTask task, Controller controller, IEntity source, IEntity target) = CurrentQueue.Dequeue();
+			(ISimpleTask task, Controller controller, IEntity source, IPlayable target) = CurrentQueue.Peek();
+			ISimpleTask temp = CurrentTask;
 			CurrentTask = task;
 
 			//if (currentTask is StateTaskList tasks)
@@ -155,7 +228,8 @@ namespace SabberStoneCore.Model
 			// reset between task execution
 			//_game.TaskStack.Reset();
 
-			CurrentTask = null;
+			CurrentQueue.Dequeue();
+			CurrentTask = temp;
 
 			return success;
 		}

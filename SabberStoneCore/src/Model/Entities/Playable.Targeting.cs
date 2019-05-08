@@ -132,7 +132,7 @@ namespace SabberStoneCore.Model.Entities
 		/// This method defaults to targetting in the context of spells/hero powers.
 		/// </summary>
 		/// <returns><see cref="ICharacter"/></returns>
-		public IEnumerable<ICharacter> GetValidPlayTargets()
+		private List<ICharacter> GetValidPlayTargets()
 		{
 			var output = new List<ICharacter>(2);
 
@@ -146,7 +146,7 @@ namespace SabberStoneCore.Model.Entities
 			switch (Card.TargetingType)
 			{
 				case TargetingType.None:
-					// If this is an untargeted card, return an empty list
+					// If this is a non-targeting card, return an empty list
 					return output;
 				case TargetingType.All:
 					friendlyMinions = true;
@@ -182,7 +182,7 @@ namespace SabberStoneCore.Model.Entities
 
 			if (friendlyMinions)
 			{
-				ReadOnlySpan<Minion> span = Controller.BoardZone.GetSpan();
+				var span = Controller.BoardZone.GetSpan();
 				for (int i = 0; i < span.Length; i++)
 					if (TargetingRequirements(span[i]))
 						output.Add(span[i]);
@@ -190,7 +190,7 @@ namespace SabberStoneCore.Model.Entities
 
 			if (enemyMinions)
 			{
-				ReadOnlySpan<Minion> span = Controller.Opponent.BoardZone.GetSpan();
+				var span = Controller.Opponent.BoardZone.GetSpan();
 				for (int i = 0; i < span.Length; i++)
 					if (TargetingRequirements(span[i]))
 						output.Add(span[i]);
@@ -264,7 +264,7 @@ namespace SabberStoneCore.Model.Entities
 
 				if (friendlyMinions)
 				{
-					ReadOnlySpan<Minion> span = Controller.BoardZone.GetSpan();
+					var span = Controller.BoardZone.GetSpan();
 					for (int i = 0; i < span.Length; i++)
 						if (TargetingRequirements(span[i]))
 							return true;
@@ -272,7 +272,7 @@ namespace SabberStoneCore.Model.Entities
 
 				if (enemyMinions)
 				{
-					ReadOnlySpan<Minion> span = Controller.Opponent.BoardZone.GetSpan();
+					var span = Controller.Opponent.BoardZone.GetSpan();
 					for (int i = 0; i < span.Length; i++)
 						if (TargetingRequirements(span[i]))
 							return true;
@@ -280,6 +280,22 @@ namespace SabberStoneCore.Model.Entities
 
 				return false;
 			}
+		}
+
+		public ICharacter GetRandomValidTarget()
+		{
+			List<ICharacter> validTargets = GetValidPlayTargets();
+			if (validTargets.Count == 0)
+				return null;
+
+			ICharacter randTarget = Util.RandomElement(validTargets);
+			CardTarget = randTarget.Id;
+
+			if (Game.Logging)
+				Game.Log(LogLevel.INFO, BlockType.POWER, "GetRandomValidTarget",
+					$"{this}'s target is randomly selected to {randTarget}");
+
+			return randTarget;
 		}
 
 		/// <summary>Calculates if a target is valid by testing the game state for each hardcoded requirement.

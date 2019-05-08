@@ -60,20 +60,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_side = side;
 		}
 
-		/// <summary>
-		///     Summons a copy of the chosen entitytype.
-		/// </summary>
-		/// <param name="type">Selector of entity to copy.</param>
-		/// <param name="side">The side in which the summoned entity should be place.</param>
-		public SummonCopyTask(EntityType type, SummonSide side) : this(type)
-		{
-			_side = side;
-		}
-
-
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			int alternateCount = 0;
@@ -111,7 +101,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						});
 
 					Generic.SummonBlock.Invoke(game, minion,
-						SummonTask.GetPosition(in source, _side, stack?.Number ?? 0, ref alternateCount));
+						SummonTask.GetPosition(in source, _side, stack?.Number ?? 0, ref alternateCount),
+						source);
 
 					if (_addToStack)
 						stack.AddPlayable(minion);
@@ -131,7 +122,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					int zonePosition = SummonTask.GetPosition(in source, _side, stack?.Number ?? 0, ref alternateCount);
 
 					var copy = (Minion)Entity.FromCard(in controller, minion.Card, tags, controller.BoardZone,
-						zonePos: in zonePosition);
+						zonePos: in zonePosition, creator: in source);
 					minion.CopyInternalAttributes(copy);
 
 					if (minion.AppliedEnchantments != null)
@@ -143,9 +134,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 								instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
 								if (e[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
 									instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = e[GameTag.TAG_SCRIPT_DATA_NUM_2];
-
-								instance.CapturedCard = e.CapturedCard;
 							}
+							
+							instance.CapturedCard = e.CapturedCard;
 
 							if (e.IsOneTurnActive)
 								instance.Game.OneTurnEffectEnchantments.Add(instance);

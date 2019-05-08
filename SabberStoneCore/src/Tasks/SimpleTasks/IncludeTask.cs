@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -88,10 +89,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// </summary>
 		DECK,
 
-		/// <summary>
-		/// Player's secrets
-		/// </summary>
-		SECRETS,
+		///// <summary>
+		///// Player's secrets
+		///// </summary>
+		//SECRETS,
 
 		/// <summary>
 		/// Player's minions
@@ -192,6 +193,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// The Controller entity of the opponent.
 		/// </summary>
 		OP_CONTROLLER,
+
+		/// <summary>
+		/// The cards have been discarded from the player's hand.
+		/// </summary>
+		DISCARDED
 	}
 
 	public class IncludeTask : SimpleTask
@@ -209,7 +215,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_addFlag = addFlag;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			if (stack == null)
@@ -252,8 +259,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					return c.DeckZone.GetAll();
 				case EntityType.MINIONS:
 					return c.BoardZone.GetAll();
-				case EntityType.SECRETS:
-					return c.SecretZone.GetAll();
 				case EntityType.GRAVEYARD:
 					return c.GraveyardZone.ToArray();
 				case EntityType.OP_HAND:
@@ -286,6 +291,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						return array;
 					}
 				}
+
 				case EntityType.ENEMIES:
 				{
 					var arr = new ICharacter[c.Opponent.BoardZone.CountExceptUntouchables + 1];
@@ -293,6 +299,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					c.Opponent.BoardZone.CopyTo(arr, 1);
 					return arr;
 				}
+
 				case EntityType.TARGET:
 					return target == null ? new IPlayable[0] : new[] {(IPlayable) target};
 				case EntityType.SOURCE:
@@ -310,6 +317,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					c.BoardZone.CopyTo(arr, 1);
 					return arr;
 				}
+
 				case EntityType.OP_HERO:
 					return new[] {c.Opponent.Hero};
 				case EntityType.ENEMIES_NOTARGET:
@@ -330,8 +338,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 							return arr;
 						}
 
-						return new[] { c.Opponent.Hero };
+						return new[] {c.Opponent.Hero};
 					}
+
 				case EntityType.ALL:
 				{
 					var arr = new IPlayable[c.BoardZone.CountExceptUntouchables +
@@ -342,18 +351,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					arr[arr.Length - 1] = c.Opponent.Hero;
 					return arr;
 				}
+
 				case EntityType.ALL_NOSOURCE:
 				{
 					if (source.Zone == null) throw new NotImplementedException();
 
 					var arr = new IPlayable[c.BoardZone.CountExceptUntouchables +
 					                        c.Opponent.BoardZone.CountExceptUntouchables + 1];
-					                        
+
 					if (source is Enchantment e)
 					{
 						source = e.Target;
 					}
-					
+
 					if (source.Zone == c.BoardZone)
 					{
 						c.BoardZone.GetAll(p => p != source).CopyTo(arr, 0);
@@ -378,6 +388,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 					return arr;
 				}
+
 				case EntityType.WEAPON:
 					return c.Hero.Weapon == null ? new IPlayable[0] : new[] {c.Hero.Weapon};
 				case EntityType.OP_WEAPON:
@@ -390,12 +401,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					c.Opponent.BoardZone.CopyTo(arr, c.BoardZone.CountExceptUntouchables);
 					return arr;
 				}
+
 				case EntityType.HEROES:
 					return new[] {c.Hero, c.Opponent.Hero};
 				case EntityType.TOPCARDFROMDECK:
 					return c.DeckZone.Count > 0 ? new[] {c.DeckZone.TopCard} : new IPlayable[0];
 				case EntityType.OP_TOPDECK:
 					return c.Opponent.DeckZone.Count > 0 ? new[] {c.Opponent.DeckZone.TopCard} : new IPlayable[0];
+				case EntityType.DISCARDED:
+				{
+					EntityList dict = c.Game.IdEntityDic;
+					return c.DiscardedEntities.Select(id => dict[id]).ToArray();
+				}
 				case EntityType.EVENT_SOURCE:
 					return c.Game.CurrentEventData != null
 						? new[] {c.Game.CurrentEventData.EventSource}
@@ -408,10 +425,103 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					throw new NotImplementedException();
 			}
 		}
+	}
 
-		//public static IPlayable GetEntity(in EntityType type, in TaskStack stack)
-		//{
-		//	switch (type) { }
-		//}
+	public class IncludeAdjacentTask : SimpleTask
+	{
+		private readonly EntityType _type;
+		private readonly bool _includeCentre;
+
+		/// <summary>
+		/// Get minions adjacent to the minion of the given entity type
+		/// and add them to the stack. 
+		/// </summary>
+		/// <param name="includeCentre">True if the centre minion should be included.</param>
+		public IncludeAdjacentTask(EntityType entityType, bool includeCentre = false)
+		{
+			_type = entityType;
+			_includeCentre = includeCentre;
+		}
+
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
+			in TaskStack stack = null)
+		{
+			Minion left = null, right = null, centre;
+			Minion[] minions;
+
+			switch (_type)
+			{
+				case EntityType.SOURCE:
+					centre = source as Minion;
+					break;
+				case EntityType.TARGET:
+					centre = target as Minion;
+					break;
+				case EntityType.EVENT_SOURCE:
+					centre = game.CurrentEventData?.EventSource as Minion;
+					break;
+				case EntityType.EVENT_TARGET:
+					centre = game.CurrentEventData?.EventTarget as Minion;
+					break;
+				default:
+					throw new NotImplementedException();
+			}
+
+			if (centre == null)
+				throw new Exception($"Can't obtain adjacent minions of non-minion. (Source:{source}, Target:{target}");
+
+			if (!(centre.Zone is BoardZone zone))
+				minions = new Minion[0];
+			else
+			{
+				bool l = false, c = _includeCentre, r = false;
+				int count = c ? 1 : 0;
+				int pos = centre.ZonePosition;
+
+				if (pos > 0)
+				{
+					left = zone[pos - 1];
+					if (!left.Untouchable)
+					{
+						l = true;
+						count++;
+					}
+
+					if (pos < zone.Count - 1)
+					{
+						right = zone[pos + 1];
+						if (!right.Untouchable)
+						{
+							r = true;
+							count++;
+						}
+					}
+				}
+				else if (zone.Count > 1)
+				{
+					right = zone[pos + 1];
+					if (!right.Untouchable)
+					{
+						r = true;
+						count++;
+					}
+				}
+
+				minions = new Minion[count];
+
+				if (r)
+					minions[--count] = right;
+				if (c)
+					minions[--count] = centre;
+				if (l)
+					minions[--count] = left;
+
+			}
+
+			stack.Playables = minions;
+
+			return TaskState.COMPLETE;
+		}
 	}
 }

@@ -395,7 +395,7 @@ namespace SabberStoneCore.Model.Entities
 				int[] buckets = _buckets;
 				for (int i = 0, j = 0; i < buckets.Length; i += 2)
 				{
-					if (buckets[i] < 0) continue;
+					if (buckets[i] <= 0) continue;
 					tags[j] = (GameTag)buckets[i];
 					++j;
 				}
@@ -412,7 +412,7 @@ namespace SabberStoneCore.Model.Entities
 				int[] buckets = _buckets;
 				for (int i = 0, j = 0; i < buckets.Length; i += 2)
 				{
-					if (buckets[i] < 0) continue;
+					if (buckets[i] <= 0) continue;
 					values[j] = buckets[i + 1];
 					++j;
 				}

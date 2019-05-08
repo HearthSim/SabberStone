@@ -68,17 +68,18 @@ namespace SabberStoneCore.Auras
 
 		private static void Apply(IPlayable playable)
 		{
-			// The effect of Summoning Portal is always applied before any other effects.
-			Playable p = (Playable)playable;
+			if (!(playable is Minion m)) return;
 
-			int cardValue = p.Card.Cost;
+			// The effect of Summoning Portal is always applied before any other effects.
+
+			int cardValue = m.Card.Cost;
 			int cost = cardValue > 2 ? cardValue - 2 : 1;
 
-			int? eValue = p._modifiedCost;
+			int? eValue = m._modifiedCost;
 
-			p.Cost = eValue.HasValue ? cost - cardValue + eValue.Value : cost;
+			m.Cost = eValue.HasValue ? cost - cardValue + eValue.Value : cost;
 
-			p._costManager?.QueueUpdate();
+			m._costManager?.QueueUpdate();
 		}
 
 		private static void DeApply(IPlayable playable)
@@ -100,7 +101,7 @@ namespace SabberStoneCore.Auras
 		
 		public override void Clone(IPlayable clone)
 		{
-			Activate(clone);
+			Activate(clone, true);
 		}
 	}
 }

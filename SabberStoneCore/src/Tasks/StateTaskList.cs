@@ -38,30 +38,17 @@ namespace SabberStoneCore.Tasks
 
 		public bool IsTrigger { get; set; }
 
-		public TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target, in TaskStack stack = null)
+		public TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
+			in TaskStack stack = null)
 		{
 			TaskStack currentStack = stack ?? new TaskStack();
 
 			State = TaskState.RUNNING;
-			//TaskStack temp = Game.TaskStack;
-			//Game.TaskStack = Stack;
+
 			for (int i = 0; i < _tasks.Length; ++i)
-			{
-				//ISimpleTask current = _tasks[i];
-				//if (current is StateTaskList stacklist)
-				//	stacklist.Stack = Stack;
-				//else
-				//{
-				//	current.Game = Game;    
-				//	current.Controller = Controller;
-				//	current.Source = Source;
-				//	current.Target = Target;
-				//}
-
-
-				if (_tasks[i].Process(in game, in controller, in source, in target, in currentStack) != TaskState.COMPLETE)
+				if (_tasks[i].Process(in game, in controller, in source, in target, in currentStack) !=
+				    TaskState.COMPLETE)
 					break;
-			}
 
 			State = TaskState.COMPLETE;
 

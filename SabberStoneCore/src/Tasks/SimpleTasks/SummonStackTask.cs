@@ -36,18 +36,21 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public bool RemoveFromStack { get; set; }
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			if (controller.BoardZone.IsFull || stack?.Playables.Count == 0) return TaskState.STOP;
 
-			for (int i = 0; i < stack?.Playables.Count && !controller.BoardZone.IsFull; i++)
+			for (int i = 0; i < stack?.Playables.Count; i++)
 			{
 				IPlayable p = stack.Playables[i];
 
+				if (p.Controller.BoardZone.IsFull) continue;
+
 				if (RemoveFromZone)
 					p.Zone.Remove(p);
-				Generic.SummonBlock(game, (Minion) p, -1);
+				Generic.SummonBlock(game, (Minion) p, -1, source);
 			}
 
 			return TaskState.COMPLETE;

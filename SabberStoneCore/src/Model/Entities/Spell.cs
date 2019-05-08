@@ -111,6 +111,8 @@ namespace SabberStoneCore.Model.Entities
 		}
 
 		public int QuestTotalProgress => this[GameTag.QUEST_PROGRESS_TOTAL];
+
+		public bool IsTwinSpell => Card.TwinSpell;
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

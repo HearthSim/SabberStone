@@ -12,24 +12,37 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System;
+using System.Text;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Actions
 {
     public static partial class Generic
     {
-	    public static Action<Controller, Spell, ICharacter, int, bool> CastSpell
-		    => delegate(Controller c, Spell spell, ICharacter target, int chooseOne, bool checkOverload)
+	    public static Action<Controller, Game, Spell, ICharacter, int> CastSpell
+		    => delegate(Controller c, Game game, Spell spell, ICharacter target, int chooseOne)
 		    {
-			    if (checkOverload && spell.Card.HasOverload)
-			    {
-				    int amount = spell.Overload;
-				    c.OverloadOwed += amount;
-				    c.OverloadThisGame += amount;
+				if (game.Logging)
+				{
+					var sb = new StringBuilder();
+					sb.Append("Spell ");
+					sb.Append(spell);
+					sb.Append(" is cast");
+					if (target != null)
+					{
+						sb.Append(" to ");
+						sb.Append(target);
+					}
+					sb.Append(".");
+					if (chooseOne > 0)
+						sb.Append($"(ChooseOne: {{{chooseOne}}}.)");
+
+					game.Log(LogLevel.INFO, BlockType.PLAY, "CastSpell", sb.ToString());
 				}
 
-			    c.Game.TaskQueue.StartEvent();
+				game.TaskQueue.StartEvent();
 			    if (spell.IsSecret || spell.IsQuest)
 			    {
 				    spell.Power.Trigger?.Activate(spell);
@@ -38,7 +51,9 @@ namespace SabberStoneCore.Actions
 			    }
 			    else
 			    {
-				    spell.Power?.Trigger?.Activate(spell);
+				    //spell.Power?.Trigger?.Activate(spell);
+				    if (spell.Power?.Trigger != null && spell.ActivatedTrigger == null)
+					    spell.Power.Trigger.Activate(spell);
 				    spell.Power?.Aura?.Activate(spell);
 
 				    if (spell.Combo && c.IsComboActive)
@@ -49,9 +64,14 @@ namespace SabberStoneCore.Actions
 				    c.GraveyardZone.Add(spell);
 			    }
 
+			    if (spell.IsTwinSpell)
+			    {
+				    Entity.FromCard(in c, Cards.FromAssetId(spell.Card[GameTag.TWINSPELL_COPY]), zone: c.HandZone);
+			    }
+
 			    // process power tasks
-			    c.Game.ProcessTasks();
-			    c.Game.TaskQueue.EndEvent();
+			    game.ProcessTasks();
+			    game.TaskQueue.EndEvent();
 		    };
     }
 }

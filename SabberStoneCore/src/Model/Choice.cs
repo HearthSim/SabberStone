@@ -17,6 +17,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using System;
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Tasks.SimpleTasks;
 
 namespace SabberStoneCore.Model
 {
@@ -26,7 +27,7 @@ namespace SabberStoneCore.Model
 	public enum ChoiceAction
 	{
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-		ADAPT, HAND, SUMMON, HEROPOWER, KAZAKUS, TRACKING, INVALID, SPELL_RANDOM, GLIMMERROOT, BUILDABEAST, CAST
+		ADAPT, HAND, SUMMON, HEROPOWER, KAZAKUS, TRACKING, INVALID, SPELL_RANDOM, GLIMMERROOT, BUILDABEAST, CAST, STACK,
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 	}
 
@@ -41,6 +42,29 @@ namespace SabberStoneCore.Model
 		public Choice(Controller controller)
 		{
 			Controller = controller;
+		}
+
+		public Choice(Controller controller, Card[][] cardSet)
+		{
+			Controller = controller;
+			_cardSets = cardSet;
+		}
+
+		private Choice(Controller controller, Choice choice)
+		{
+			Controller = controller;
+			_cardSets = choice._cardSets;
+			ChoiceType = choice.ChoiceType;
+			ChoiceAction = choice.ChoiceAction;
+			if (choice.Choices != null)
+				Choices = new List<int>(choice.Choices);
+			SourceId = choice.SourceId;
+			LastChoice = choice.LastChoice;
+			AfterChooseTask = choice.AfterChooseTask;
+			if (choice.EntityStack != null)
+				EntityStack = new List<int>(choice.EntityStack);
+			if (choice.NextChoice != null)
+				NextChoice = new Choice(Controller, choice.NextChoice);
 		}
 
 		/// <summary>Gets or sets the controller making the choice.</summary>
@@ -65,42 +89,83 @@ namespace SabberStoneCore.Model
 
 		/// <summary>Gets or sets the IDs of the entities to choose from.</summary>
 		/// <value>The entity IDs.</value>
-		public List<int> TargetIds { get; set; }
+		//public List<int> TargetIds { get; set; }
 
 		/// <summary>Gets or sets the remaining choices for the controller.</summary>
-		public Queue<Choice> ChoiceQueue { get; set; } = new Queue<Choice>();
+		//public Queue<Choice> ChoiceQueue { get; set; } = new Queue<Choice>();
 
 		/// <summary>Gets or sets the ID of the last chosen entity.</summary>
 		/// <value>The entity Id.</value>
 		public int LastChoice { get; set; }
 
 		/// <summary>Gets or sets the card of enchantment that must be applied after the entity is chosen.</summary>
-		public Card EnchantmentCard { get; set; }
+		//public Card EnchantmentCard { get; set; }
 
 		/// <summary>Gets or sets the task that must be done after the entity is chosen.</summary>
 		public ISimpleTask AfterChooseTask { get; set; }
 
+		/// <summary>Gets or sets the next consecutive choice.</summary>
+		public Choice NextChoice { get; set;}
+
+		//internal IList<IPlayable> EntityStack { get; set; }
+		internal List<int> EntityStack { get; set; }
+
+		private readonly Card[][] _cardSets;
+
+		internal void TryPrepare()
+		{
+			if (_cardSets == null) return;
+
+			Card[] cards = DiscoverTask.GetChoices(_cardSets, 3);
+			var choices = new List<int>(3);
+			foreach (Card card in cards)
+				choices.Add(Entity.FromCard(Controller, card,  new EntityData
+				{
+					{GameTag.CREATOR, SourceId},
+					{GameTag.DISPLAYED_CREATOR, SourceId}
+				},Controller.SetasideZone).Id);
+
+			Choices = choices;
+		}
+
+		internal void AddToStack(int entityId)
+		{
+			if (EntityStack == null)
+				EntityStack = new List<int> {entityId};
+			else
+				EntityStack.Add(entityId);
+
+			//if (EntityStack is List<IPlayable> list)
+			//	list.Add(entity);
+			//else if (EntityStack != null)
+			//{
+			//	list = new List<IPlayable>(EntityStack) {entity};
+			//	EntityStack = list;
+			//}
+			//else
+			//{
+			//	list = new List<IPlayable> {entity};
+			//	EntityStack = list;
+			//}
+
+		}
+
+		internal bool TryPopNextChoice(int lastChoice, out Choice nextChoice)
+		{
+			nextChoice = NextChoice;
+			if (nextChoice == null)
+				return false;
+			nextChoice.LastChoice = lastChoice;
+			nextChoice.TryPrepare();
+			nextChoice.EntityStack = EntityStack;
+			return true;
+		}
+
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-		public void Stamp(Choice choice)
+		public Choice Clone(Controller controller)
 		{
-			ChoiceType = choice.ChoiceType;
-			ChoiceAction = choice.ChoiceAction;
-			Choices = new List<int>(choice.Choices);
-			SourceId = choice.SourceId;
-			if (choice.TargetIds != null)
-				TargetIds = new List<int>(choice.TargetIds);
-			if (choice.ChoiceQueue.Count != 0)
-			{
-				foreach (Choice item in choice.ChoiceQueue)
-				{
-					var clone = new Choice(Controller);
-					clone.Stamp(item);
-					ChoiceQueue.Enqueue(clone);
-				}
-			}
-			LastChoice = choice.LastChoice;
-			EnchantmentCard = choice.EnchantmentCard;
+			return new Choice(controller, this);
 		}
 
 		public string FullPrint()

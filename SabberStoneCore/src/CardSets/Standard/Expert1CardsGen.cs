@@ -20,6 +20,8 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
+
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Standard
@@ -784,8 +786,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_537", new Power {
 				PowerTask = ComplexTask.Create(
 					new DamageTask(5, EntityType.TARGET, true),
-					new IncludeTask(EntityType.ALLMINIONS),
-					new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
+					new IncludeAdjacentTask(EntityType.TARGET),
 					new DamageTask(2, EntityType.STACK, true))
 			});
 
@@ -1185,9 +1186,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_180", new Power
 			{
-				PowerTask = ComplexTask.Create(
-					new RandomCardTask(CardType.SPELL, CardClass.MAGE),
-					new AddStackTo(EntityType.HAND))
+				PowerTask = ComplexTask.AddRandomMageSpellToHand
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -1205,12 +1204,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_275", new Power {
 				PowerTask = ComplexTask.Create(
-					new DamageTask(1, EntityType.TARGET, true),
-					ComplexTask.Freeze(EntityType.TARGET),
-					new IncludeTask(EntityType.ALLMINIONS),
-					new FilterStackTask(EntityType.TARGET, RelaCondition.IsSideBySide),
-					new DamageTask(1, EntityType.STACK, true),
-					ComplexTask.Freeze(EntityType.STACK))
+					new IncludeAdjacentTask(EntityType.TARGET, true),
+					ComplexTask.Freeze(EntityType.STACK),
+					new DamageTask(1, EntityType.STACK, true))
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -1315,7 +1311,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("tt_010", new Power {
 				Trigger = new Trigger(TriggerType.TARGET)
 				{
-					Condition = new SelfCondition(p => p is Spell && p.Game.IdEntityDic[p.CardTarget] is Minion),
+					Condition = SelfCondition.IsSpellTargetingMinion,
 					SingleTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull, SelfCondition.IsTagValue(GameTag.CANT_PLAY, 0)),
 						new FlagTask(true, ComplexTask.Secret(
@@ -2696,8 +2692,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_304", new Power {
 				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.MINIONS_NOSOURCE),
-					new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+					new IncludeAdjacentTask(EntityType.SOURCE),
 					new GetGameTagTask(GameTag.ATK, EntityType.STACK, 0, 1),
 					new GetGameTagTask(GameTag.ATK, EntityType.STACK, 1, 2),
 					new MathNumberIndexTask(1, 2, MathOperation.ADD),
@@ -3988,8 +3983,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_058", new Power {
 				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.MINIONS),
-					new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+					new IncludeAdjacentTask(EntityType.SOURCE),
 					ComplexTask.Taunt(EntityType.STACK))
 			});
 
@@ -4033,10 +4027,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("EX1_076", new Power {
-				Aura = new Aura(AuraType.HAND, Effects.ReduceCost(1))
+				//Aura = new Aura(AuraType.HAND, Effects.ReduceCost(1))
+				//{
+				//	Condition = SelfCondition.MinionsPlayedThisTurn(0),
+				//	Restless = true
+				//}
+				Aura = new SwitchingAura(AuraType.HAND, SelfCondition.MinionsPlayedThisTurn(0),
+					TriggerType.PLAY_MINION, Effects.ReduceCost(1))
 				{
-					Condition = SelfCondition.MinionsPlayedThisTurn(0),
-					Restless = true
+					Condition = SelfCondition.IsMinion
 				}
 			});
 
@@ -4140,8 +4139,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_093", new Power {
 				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.MINIONS),
-					new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+					new IncludeAdjacentTask(EntityType.SOURCE),
 					new AddEnchantmentTask("EX1_093e", EntityType.STACK))
 			});
 
@@ -4624,8 +4622,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_584", new Power {
 				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.MINIONS),
-					new FilterStackTask(EntityType.SOURCE, RelaCondition.IsSideBySide),
+					new IncludeAdjacentTask(EntityType.SOURCE),
 					new AddEnchantmentTask("EX1_584e", EntityType.STACK))
 			});
 

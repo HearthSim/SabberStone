@@ -66,6 +66,8 @@ namespace SabberStoneCore.Model
 
 	    public event TriggerHandler ShuffleIntoDeckTrigger;
 
+	    public event TriggerHandler OverloadTrigger;
+
 		public bool HasTargetTrigger => TargetTrigger != null;
 		public bool HasOnSummonTrigger => SummonTrigger != null;
 		public bool HasShuffleIntoDeckTrigger => ShuffleIntoDeckTrigger != null;
@@ -207,6 +209,17 @@ namespace SabberStoneCore.Model
 	    internal void OnShuffleIntoDeckTrigger(IEntity sender)
 	    {
 		    ShuffleIntoDeckTrigger?.Invoke(sender);
+	    }
+
+	    internal void OnOverloadTrigger(IPlayable sender, int amount)
+	    {
+			if (OverloadTrigger == null)
+				return;
+
+			EventMetaData temp = sender.Game.CurrentEventData;
+			sender.Game.CurrentEventData = new EventMetaData(sender, null, amount);
+			OverloadTrigger.Invoke(sender);
+			sender.Game.CurrentEventData = temp;
 	    }
 
 	    public void AddTrigger(TriggerType type, TriggerHandler method)

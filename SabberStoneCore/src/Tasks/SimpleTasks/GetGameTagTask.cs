@@ -34,7 +34,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		public int EntityIndex { get; set; }
 		public int NumberIndex { get; set; }
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			IList<IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
@@ -54,6 +55,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						break;
 					case GameTag.DAMAGE:
 						value = c.Damage;
+						break;
+					case GameTag.EXTRA_ATTACKS_THIS_TURN:
+						if (c is Hero h)
+							value = h.ExtraAttacksThisTurn;
+						else
+							value = 0;
 						break;
 					default:
 						value = c[Tag];
@@ -99,7 +106,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_numberIndex = numberIndex;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			switch (_numberIndex)
@@ -122,6 +130,29 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				default:
 					throw new ArgumentOutOfRangeException();
 			}
+
+			return TaskState.COMPLETE;
+		}
+	}
+
+	public class SetEventNumberTask : SimpleTask
+	{
+		private readonly int _num;
+		public SetEventNumberTask()
+		{
+			_num = -1;
+		}
+
+		public SetEventNumberTask(int num)
+		{
+			_num = num;
+		}
+
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
+			in TaskStack stack = null)
+		{
+			game.CurrentEventData.EventNumber = _num > 0 ? _num : stack.Number;
 
 			return TaskState.COMPLETE;
 		}

@@ -27,7 +27,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public Func<IList<IPlayable>, IList<IPlayable>> Function { get; set; }
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			IList<IPlayable> results = Function(stack?.Playables);
@@ -35,6 +36,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (stack != null)
 				stack.Playables = results;
 
+			return TaskState.COMPLETE;
+		}
+	}
+
+	public class CustomTask : SimpleTask
+	{
+		private readonly Action<Game, Controller, IEntity, IPlayable, TaskStack> _func;
+		public CustomTask(Action<Game, Controller, IEntity, IPlayable, TaskStack> customFunction)
+		{
+			_func = customFunction;
+		}
+
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IPlayable target,
+			in TaskStack stack = null)
+		{
+			_func(game, controller, source, target, stack);
 			return TaskState.COMPLETE;
 		}
 	}

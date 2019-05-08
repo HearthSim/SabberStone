@@ -29,7 +29,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_addToStack = addToStack;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			var minionTarget = (Minion) target;
@@ -68,9 +69,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
 						if (e[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
 							instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = e[GameTag.TAG_SCRIPT_DATA_NUM_2];
-
-						instance.CapturedCard = e.CapturedCard;
 					}
+					instance.CapturedCard = e.CapturedCard;
 					if (e.IsOneTurnActive)
 						game.OneTurnEffectEnchantments.Add(instance);
 				}

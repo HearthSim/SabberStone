@@ -15,6 +15,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -24,6 +25,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public enum DiscoverType
 	{
+		INVALID,
 		BASIC_HEROPOWERS,
 		DRAGON,
 		OP_DECK,
@@ -35,6 +37,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		DEATHRATTLE,
 		ONE_COST,
 		THREE_COST,
+		SIX_COST_SUMMON,
 		BEAST,
 		MECHANICAL,
 		ARTIFACT,
@@ -58,7 +61,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		DEMON,
 		OP_DECK_MINION,
 		DEATHRATTLE_MINIONS,
-		SPELL_COSTS_5_OR_MORE
+		SPELL_COSTS_5_OR_MORE,
+		WEAPON_ANOTHERCLASS,
+		_d_WEAPON_ANOTHERCLASS,
+		_h_WEAPON_ANOTHERCLASS,
+		_m_WEAPON_ANOTHERCLASS,
+		_pa_WEAPON_ANOTHERCLASS,
+		_pr_WEAPON_ANOTHERCLASS,
+		_r_WEAPON_ANOTHERCLASS,
+		_s_WEAPON_ANOTHERCLASS,
+		_wl_WEAPON_ANOTHERCLASS,
+		_wr_WEAPON_ANOTHERCLASS,
 	}
 
 	public class DiscoverTask : SimpleTask
@@ -67,17 +80,38 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			CachedDiscoverySets =
 				new ConcurrentDictionary<DiscoverType, (Card[][], ChoiceAction)>();
 
+		private static readonly ConcurrentDictionary<(DiscoverCriteria, CardClass), Card[][]>
+			CachedDiscoverySetsByCriteria = new ConcurrentDictionary<(DiscoverCriteria, CardClass), Card[][]>();
+
 		private readonly DiscoverType _discoverType;
-		private readonly Card _enchantmentCard;
+		//private readonly Card _enchantmentCard;
 		private readonly int _numberOfChoices = 3;
 		private readonly ISimpleTask _taskTodo;
+		private readonly Predicate<Card[]> _keepAllCondition;
 
-		public DiscoverTask(DiscoverType discoverType, string enchantmentId = null, int numberOfChoices = 3)
+		private readonly DiscoverCriteria _discoverCriteria;
+		private readonly ChoiceAction _choiceAction;
+		private readonly int _repeat;
+
+		private ref readonly DiscoverCriteria Criteria => ref _discoverCriteria;
+
+		public DiscoverTask(CardType cardType = CardType.INVALID, CardClass cardClass = CardClass.INVALID,
+			(GameTag tag, RelaSign relaSign, int value) tagValueCriteria = default, ChoiceAction choiceAction = ChoiceAction.HAND,
+			ISimpleTask afterDiscoverTask = null, int repeat = 1)
+		{
+			_discoverCriteria =
+				new DiscoverCriteria(cardType, cardClass, tagValueCriteria);
+			_choiceAction = choiceAction;
+			_repeat = repeat;
+			_taskTodo = afterDiscoverTask;
+		}
+
+		public DiscoverTask(DiscoverType discoverType, int numberOfChoices = 3)
 		{
 			_discoverType = discoverType;
 			_numberOfChoices = numberOfChoices;
-			if (enchantmentId != null)
-				_enchantmentCard = Cards.FromId(enchantmentId);
+			//if (enchantmentId != null)
+			//	_enchantmentCard = Cards.FromId(enchantmentId);
 		}
 
 		public DiscoverTask(DiscoverType discoverType, ISimpleTask afterDiscoverTask)
@@ -86,103 +120,39 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_taskTodo = afterDiscoverTask;
 		}
 
-		private DiscoverTask(DiscoverType type, Card enchantmentCard, ISimpleTask afterDiscoverTask, int number)
+		/// <summary>
+		/// Keep all cards if the given condition is satisfied.
+		/// </summary>
+		public DiscoverTask(DiscoverType discoverType, Predicate<Card[]> keepAllCondition)
 		{
-			_discoverType = type;
-			_enchantmentCard = enchantmentCard;
-			_taskTodo = afterDiscoverTask;
-			_numberOfChoices = number;
+			_discoverType = discoverType;
+			_keepAllCondition = keepAllCondition;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			Card[][] cardsToDiscover;
+			ChoiceAction choiceAction;
 
 			// Sets of cards to discover.
-			Card[][] cardsToDiscover =
-				Discovery(in game, controller, in _discoverType, out ChoiceAction choiceAction);
-
-			Card[] result;
-			Random rnd;
-
-			// 2 Sets means Class cards / Neutral cards.
-			// 3 Sets means Tri-Class discovers. (Gangs)
-			switch (cardsToDiscover.Length)
+			if (_discoverType != DiscoverType.INVALID)
+				cardsToDiscover = Discover(in game, controller, in _discoverType, out choiceAction);
+			else
 			{
-				case 1:
-					Card[] distinct = cardsToDiscover[0].Distinct().ToArray();
-					if (_numberOfChoices >= distinct.Length)
-						result = distinct;
-					else
-					{
-						rnd = Util.Random;
-						result = new Card[_numberOfChoices];
-						Card pick;
-						for (int i = 0; i < result.Length; i++)
-						{
-							do
-							{
-								pick = cardsToDiscover[0][rnd.Next(cardsToDiscover[0].Length)];
-							} while (result.Contains(pick));
-
-							result[i] = pick;
-						}
-					}
-					break;
-				case 2:
-					rnd = Util.Random;
-					int classCount = cardsToDiscover[1].Length;
-					int neutralCount = cardsToDiscover[0].Length;
-					result = new Card[_numberOfChoices];
-					for (int i = 0; i < result.Length; i++)
-					{
-						int roll = rnd.Next(neutralCount + (classCount << 2));
-						Card pick;
-						if (roll < neutralCount)
-							pick = cardsToDiscover[0][rnd.Next(cardsToDiscover[0].Length)];
-						else
-							pick = cardsToDiscover[1][rnd.Next(cardsToDiscover[1].Length)];
-
-						bool contains = false;
-						for (int j = 0; j < i; j++)
-							if (result[j] == pick)
-								contains = true;
-
-						if (contains)
-						{
-							i--;
-							continue;
-						}
-
-						result[i] = pick;
-
-						if (roll < neutralCount)
-							neutralCount--;
-						else
-							classCount--;
-					}
-					break;
-				case 3:
-					result = new Card[3];
-					rnd = Util.Random;
-					for (int i = 0; i < result.Length; i++)
-					{
-						Card pick;
-						bool contains = false;
-						do
-						{
-							pick = cardsToDiscover[i][rnd.Next(cardsToDiscover[i].Length)];
-							for (int j = 0; j < i; j++)
-								if (result[j] == pick)
-									contains = true;
-						} while (contains);
-
-						result[i] = pick;
-					}
-					break;
-				default:
-					throw new NotImplementedException();
+				cardsToDiscover = Discover(game.FormatType, _discoverCriteria,
+					Criteria.CardClass == CardClass.OP_CLASS ?
+						controller.Opponent.HeroClass :
+						controller.HeroClass);
+				choiceAction = _choiceAction;
 			}
+
+			if (cardsToDiscover.Length == 1)
+				cardsToDiscover[0] = cardsToDiscover[0].Distinct().ToArray();
+
+			// Gets cards to choose from the sets. 
+			Card[] result = GetChoices(cardsToDiscover, _numberOfChoices);
 
 			// TODO work on it ...
 			//if (game.Splitting)
@@ -192,45 +162,80 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 
 			if (result.Length == 0)
+			{
 				game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask",
 					!game.Logging ? "" : $"Found no potential cards to use for {_discoverType}");
-			else
-				Generic.CreateChoiceCards.Invoke(controller, source, null, ChoiceType.GENERAL, choiceAction,
-					result, _enchantmentCard, _taskTodo);
+
+				return TaskState.STOP;
+			}
+
+			if (_keepAllCondition?.Invoke(result) ?? false)
+			{
+				for (int i = 0; i < result.Length && !controller.HandZone.IsFull; i++)
+				{
+					IPlayable entity = Entity.FromCard(in controller, result[i]);
+					entity[GameTag.DISPLAYED_CREATOR] = source.Id;
+					Generic.AddHandPhase.Invoke(controller, entity);
+				}
+
+				return TaskState.COMPLETE;
+			}
+
+			Generic.CreateChoiceCards.Invoke(controller, source, null, ChoiceType.GENERAL, choiceAction,
+					result, _taskTodo);
+
+			if (_repeat > 1)
+			{
+				Choice current = controller.Choice;
+				current.AfterChooseTask = null;
+				for (int i = _repeat - 2; i >= 0; i--)
+				{
+					Choice choice = new Choice(controller, cardsToDiscover)
+					{
+						ChoiceAction = choiceAction,
+						ChoiceType = ChoiceType.GENERAL,
+						SourceId = source.Id,
+					};
+					current.NextChoice = choice;
+					current = choice;
+				}
+
+				current.AfterChooseTask = _taskTodo;
+			}
 
 			return TaskState.COMPLETE;
 		}
 
-		private void ProcessSplit(Game game, Controller controller, IEntity source, Card[][] cardsToDiscover,
-			ChoiceAction choiceAction)
-		{
-			int neutralCnt = cardsToDiscover[0].Length;
-			int classCnt = 0;
-			var uniqueList = new List<Card>(cardsToDiscover[0]);
+		//private void ProcessSplit(Game game, Controller controller, IEntity source, Card[][] cardsToDiscover,
+		//	ChoiceAction choiceAction)
+		//{
+		//	int neutralCnt = cardsToDiscover[0].Length;
+		//	int classCnt = 0;
+		//	var uniqueList = new List<Card>(cardsToDiscover[0]);
 
-			if (cardsToDiscover.Length > 1)
-			{
-				classCnt = cardsToDiscover[1].Length;
-				uniqueList.AddRange(cardsToDiscover[1]);
-			}
+		//	if (cardsToDiscover.Length > 1)
+		//	{
+		//		classCnt = cardsToDiscover[1].Length;
+		//		uniqueList.AddRange(cardsToDiscover[1]);
+		//	}
 
-			List<IEnumerable<Card>> combinations = Util.GetDiscoverSets(uniqueList).ToList();
+		//	List<IEnumerable<Card>> combinations = Util.GetDiscoverSets(uniqueList).ToList();
 
-			game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask",
-				!game.Logging
-					? ""
-					: $"... found {combinations.Count} discovery splits [class: {classCnt}, neutral: {neutralCnt}]");
-			combinations.ForEach(p =>
-			{
-				Game cloneGame = game.Clone();
-				Controller cloneController = cloneGame.ControllerById(controller.Id);
-				bool success = Generic.CreateChoiceCards.Invoke(cloneController, source, null, ChoiceType.GENERAL,
-					choiceAction, p.ToArray(), null, _taskTodo);
-				cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
-			});
-		}
+		//	game.Log(LogLevel.INFO, BlockType.PLAY, "DiscoverTask",
+		//		!game.Logging
+		//			? ""
+		//			: $"... found {combinations.Count} discovery splits [class: {classCnt}, neutral: {neutralCnt}]");
+		//	combinations.ForEach(p =>
+		//	{
+		//		Game cloneGame = game.Clone();
+		//		Controller cloneController = cloneGame.ControllerById(controller.Id);
+		//		bool success = Generic.CreateChoiceCards.Invoke(cloneController, source, null, ChoiceType.GENERAL,
+		//			choiceAction, p.ToArray(), null, _taskTodo);
+		//		cloneGame.TaskQueue.CurrentTask.State = TaskState.COMPLETE;
+		//	});
+		//}
 
-		private Card[][] Discovery(in Game game, Controller controller, in DiscoverType discoverType,
+		private Card[][] Discover(in Game game, Controller controller, in DiscoverType discoverType,
 			out ChoiceAction choiceAction)
 		{
 			if (!CachedDiscoverySets.TryGetValue(discoverType, out (Card[][], ChoiceAction) result))
@@ -475,6 +480,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;
 					}
+					case DiscoverType.SIX_COST_SUMMON:
+					{
+						choiceAction = ChoiceAction.SUMMON;
+						Card[][] cardSets =
+							GetFilter(in format, in controller, list => list.Where(p => p.Cost == 6 && p.Type == CardType.MINION));
+
+						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
+						return cardSets;
+					}
 					case DiscoverType.SPELL:
 					{
 						choiceAction = ChoiceAction.HAND;
@@ -584,6 +598,11 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;
 					}
+					case DiscoverType.WEAPON_ANOTHERCLASS:
+					{
+						choiceAction = ChoiceAction.HAND;
+						return GetAnotherClassWeapons(controller.HeroClass, format);
+					}
 					default:
 						throw new ArgumentOutOfRangeException(nameof(discoverType), discoverType, null);
 				}
@@ -624,6 +643,277 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			IEnumerable<Card> classCards =
 				filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.IsQuest));
 			return new[] {nonClassCards.ToArray(), classCards.ToArray()};
+		}
+
+		private Card[][] GetAnotherClassWeapons(CardClass myClass, FormatType format)
+		{
+			DiscoverType type;
+
+			switch (myClass)
+			{
+				case CardClass.DRUID:
+					type = DiscoverType._d_WEAPON_ANOTHERCLASS;
+					break;
+				case CardClass.HUNTER:
+					type = DiscoverType._h_WEAPON_ANOTHERCLASS;
+					break;
+				case CardClass.MAGE:
+					type = DiscoverType._m_WEAPON_ANOTHERCLASS;
+					break;
+				case CardClass.PALADIN:
+					type = DiscoverType._pa_WEAPON_ANOTHERCLASS;
+					break;
+				case CardClass.PRIEST:
+					type = DiscoverType._pr_WEAPON_ANOTHERCLASS;
+					break;
+				case CardClass.ROGUE:
+					type = DiscoverType._r_WEAPON_ANOTHERCLASS;
+					break;
+				case CardClass.SHAMAN:
+					type = DiscoverType._s_WEAPON_ANOTHERCLASS;
+					break;
+				case CardClass.WARLOCK:
+					type = DiscoverType._wl_WEAPON_ANOTHERCLASS;
+					break;
+				case CardClass.WARRIOR:
+					type = DiscoverType._wr_WEAPON_ANOTHERCLASS;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(myClass), myClass, null);
+			}
+
+			if (CachedDiscoverySets.TryGetValue(type, out (Card[][], ChoiceAction) value))
+				return value.Item1;
+
+			Card[][] cardSets = {
+				Cards.FormatTypeCards(format)
+					.Where(p => p.Type == CardType.WEAPON && p.Class != myClass)
+					.ToArray()
+			};
+
+			CachedDiscoverySets.TryAdd(type, (cardSets, ChoiceAction.HAND));
+
+			return cardSets;
+		}
+
+		private Card[][] Discover(FormatType format, DiscoverCriteria criteria, CardClass cls)
+		{
+			Card[][] cards;
+			if (criteria.CardClass != CardClass.INVALID)
+				cls = CardClass.INVALID;
+
+			if (CachedDiscoverySetsByCriteria.TryGetValue((criteria, cls), out cards))
+				return cards;
+
+			if (criteria.CardClass == CardClass.INVALID)
+			{ // Use the player's Class
+				IReadOnlyList<Card> allCards = Cards.FormatTypeClassCards(format)[cls];
+				List<Card> classCards = new List<Card>();
+				List<Card> neutralCards = new List<Card>();
+				foreach (Card card in allCards)
+				{
+					if (!criteria.Evaluate(card)) continue;
+
+					if (card.Class == cls)
+						classCards.Add(card);
+					else
+						neutralCards.Add(card);
+				}
+				//IReadOnlyList<Card> neutralCards = Cards.FormatTypeClassCards(format)[CardClass.NEUTRAL];
+
+				cards = new[]
+				{
+					neutralCards.ToArray(),
+					classCards.ToArray()
+				};
+			}
+			else if
+				(criteria.CardClass == CardClass.ANOTHER_CLASS)
+			{
+				IEnumerable<Card> allCards = Cards.FormatTypeCards(format);
+				List<Card> matching = new List<Card>();
+				foreach (Card card in allCards)
+				{
+					if (!criteria.Evaluate(card)) continue;
+
+					if (card.Class != cls)
+						matching.Add(card);
+				}
+
+				cards = new[] {matching.ToArray(), new Card[0]};
+			}
+			else
+			{ // Use the given class criterion
+				IReadOnlyList<Card> allCards = Cards.FormatTypeClassCards(format)[criteria.CardClass];
+
+				List<Card> classCards = new List<Card>();
+				foreach (Card card in allCards)
+				{
+					if (!criteria.Evaluate(card)) continue;
+
+					if (card.Class == criteria.CardClass)
+						classCards.Add(card);
+				}
+
+				cards = new[] {classCards.ToArray(), new Card[0]};
+				//cls = CardClass.INVALID;
+			}
+
+			CachedDiscoverySetsByCriteria.TryAdd((criteria, cls), cards);
+
+			return cards;
+		}
+
+		// 2 Sets means Class cards / Neutral cards.
+		// 3 Sets means Tri-Class discovers. (Gangs)
+		public static Card[] GetChoices(Card[][] cardsToDiscover, int numberOfChoices)
+		{
+			Card[] result;
+			Random rnd;
+
+			switch (cardsToDiscover.Length)
+			{
+				case 1:
+					Card[] distinct = cardsToDiscover[0].Distinct().ToArray();
+					if (numberOfChoices >= distinct.Length)
+						result = distinct;
+					else
+					{
+						rnd = Util.Random;
+						result = new Card[numberOfChoices];
+						Card pick;
+						for (int i = 0; i < result.Length; i++)
+						{
+							do
+							{
+								pick = cardsToDiscover[0][rnd.Next(cardsToDiscover[0].Length)];
+							} while (result.Contains(pick));
+
+							result[i] = pick;
+						}
+					}
+					break;
+				case 2:
+					rnd = Util.Random;
+					int classCount = cardsToDiscover[1].Length;
+					int neutralCount = cardsToDiscover[0].Length;
+					result = new Card[numberOfChoices];
+					for (int i = 0; i < result.Length; i++)
+					{
+						int roll = rnd.Next(neutralCount + (classCount << 2));
+						Card pick;
+						if (roll < neutralCount)
+							pick = cardsToDiscover[0][rnd.Next(cardsToDiscover[0].Length)];
+						else
+							pick = cardsToDiscover[1][rnd.Next(cardsToDiscover[1].Length)];
+
+						bool contains = false;
+						for (int j = 0; j < i; j++)
+							if (result[j] == pick)
+								contains = true;
+
+						if (contains)
+						{
+							i--;
+							continue;
+						}
+
+						result[i] = pick;
+
+						if (roll < neutralCount)
+							neutralCount--;
+						else
+							classCount--;
+					}
+					break;
+				case 3:
+					result = new Card[3];
+					rnd = Util.Random;
+					for (int i = 0; i < result.Length; i++)
+					{
+						Card pick;
+						bool contains = false;
+						do
+						{
+							pick = cardsToDiscover[i][rnd.Next(cardsToDiscover[i].Length)];
+							for (int j = 0; j < i; j++)
+								if (result[j] == pick)
+									contains = true;
+						} while (contains);
+
+						result[i] = pick;
+					}
+					break;
+				default:
+					throw new NotImplementedException();
+			}
+
+			return result;
+		}
+
+		private readonly struct DiscoverCriteria : IEquatable<DiscoverCriteria>
+		{
+			public readonly CardType CardType;
+			public readonly CardClass CardClass;
+			public readonly GameTag Tag;
+			public readonly RelaSign RelaSign;
+			public readonly int Value;
+
+			public DiscoverCriteria(CardType cardType, CardClass cardClass, (GameTag tag, RelaSign relaSign, int value) tagValueCriteria)
+			{
+				CardType = cardType;
+				CardClass = cardClass;
+				(Tag, RelaSign, Value) = tagValueCriteria;
+			}
+
+			public bool Evaluate(Card card)
+			{
+				return
+					(CardType == CardType.INVALID || card.Type == CardType) &&
+					//(CardClass == CardClass.INVALID || card.Class == CardClass) &&
+					(Tag == default ||
+					 ((RelaSign == RelaSign.EQ && card[Tag] == Value) ||
+					 (RelaSign == RelaSign.LEQ && card[Tag] <= Value) ||
+					  (RelaSign == RelaSign.GEQ && card[Tag] >= Value)));
+			}
+
+			#region Equality members
+
+			public bool Equals(DiscoverCriteria other)
+			{
+				return CardType == other.CardType && CardClass == other.CardClass && Tag == other.Tag && RelaSign == other.RelaSign;
+			}
+
+			public override bool Equals(object obj)
+			{
+				return obj is DiscoverCriteria other && Equals(other);
+			}
+
+			public override int GetHashCode()
+			{
+				unchecked
+				{
+					var hashCode = (int) CardType;
+					hashCode = (hashCode * 397) ^ (int) CardClass;
+					hashCode = (hashCode * 397) ^ (int) Tag;
+					hashCode = (hashCode * 397) ^ (int) RelaSign;
+					return hashCode;
+				}
+			}
+
+			#endregion
+
+			public override string ToString()
+			{
+				var sb = new StringBuilder();
+				if (CardType != CardType.INVALID)
+					sb.Append($"[{CardType}]");
+				if (CardClass != CardClass.INVALID)
+					sb.Append($"[{CardClass}]");
+				if (Tag != default)
+					sb.Append($"[{Tag},{RelaSign},{Value}]");
+				return sb.ToString();
+			}
 		}
 	}
 }

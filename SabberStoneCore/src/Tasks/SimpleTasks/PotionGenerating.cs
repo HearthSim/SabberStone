@@ -35,14 +35,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public List<int> ScriptTags { get; set; }
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			var minion = source as Minion;
 			if (minion != null && ScriptTags == null)
 			{
 				Generic.CreateChoiceCards.Invoke(controller, source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS,
-					minion.Card.Entourage.Select(Cards.FromId).ToArray(), null, null);
+					minion.Card.Entourage.Select(Cards.FromId).ToArray(), null);
 				return TaskState.COMPLETE;
 			}
 
@@ -68,7 +69,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Card[] cardList = cardIdList.ChooseNElements(3);
 
 				Generic.CreateChoiceCards.Invoke(controller, source, null, ChoiceType.GENERAL, ChoiceAction.KAZAKUS,
-					cardList, null, null);
+					cardList, null);
 				return TaskState.COMPLETE;
 			}
 

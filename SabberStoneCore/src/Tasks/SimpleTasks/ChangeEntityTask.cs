@@ -27,11 +27,17 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private readonly Rarity _rarity;
 		private readonly Race _race;
 		private readonly EntityType _type;
+		private readonly EntityType _protoType;
 		private readonly bool _useRandomCard;
 		private readonly bool _removeEnchantments;
 		private CardClass _cardClass;
 
-
+		/// <summary>
+		/// Creates a task that transforms the given type of entities
+		/// into random cards satisfying the criteria.
+		/// </summary>
+		/// <param name="opClass">Transform entities into the opponent's class cards.</param>
+		/// <param name="removeEnchantments">Removes any applied enchantments during this transformation.</param>
 		public ChangeEntityTask(EntityType type, CardType cardType, CardClass cardClass = CardClass.INVALID,
 			Rarity rarity = Rarity.INVALID, Race race = Race.INVALID, bool opClass = false, bool removeEnchantments = false)
 		{
@@ -45,13 +51,28 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_removeEnchantments = removeEnchantments;
 		}
 
-		public ChangeEntityTask(string cardId)
+		/// <summary>
+		/// Creates a task that transforms the given type of entities
+		/// into the given card.
+		/// </summary>
+		public ChangeEntityTask(string cardId, EntityType type = EntityType.SOURCE)
 		{
 			_card = Cards.FromId(cardId);
-			_type = EntityType.SOURCE;
+			_type = type;
 		}
 
-		public override TaskState Process(in Game game, in Controller controller, in IEntity source, in IEntity target,
+		/// <summary>
+		/// Creates a task that transforms the given type of entities
+		/// into the card of the another type of entity.
+		/// </summary>
+		public ChangeEntityTask(EntityType sourceType, EntityType protoType)
+		{
+			_type = sourceType;
+			_protoType = protoType;
+		}
+
+		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
+			in IPlayable target,
 			in TaskStack stack = null)
 		{
 			if (_opClass)
@@ -73,8 +94,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				return TaskState.COMPLETE;
 			}
 
+			Card card = _protoType != EntityType.INVALID
+				? IncludeTask.GetEntities(_protoType, in controller, source, target, stack?.Playables)[0].Card
+				: _card;
+
 			foreach (IPlayable p in IncludeTask.GetEntities(_type, in controller, source, target, stack?.Playables))
-				Generic.ChangeEntityBlock.Invoke(controller, p, _card, _removeEnchantments);
+				Generic.ChangeEntityBlock.Invoke(controller, p, card, _removeEnchantments);
 
 			// TODO p[GameTag.DISPLAYED_CREATOR] = source.Id;
 

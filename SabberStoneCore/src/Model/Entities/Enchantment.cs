@@ -20,6 +20,7 @@ using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Zones;
+using SabberStoneCore.Triggers;
 
 namespace SabberStoneCore.Model.Entities
 {
@@ -27,8 +28,10 @@ namespace SabberStoneCore.Model.Entities
 	{
 		private readonly EntityData _tags;
 		private int _creatorId;
+		private int _targetId;
 		private int _controllerId;
 		private IPlayable _creator;
+		private IEntity _target;
 		private Controller _controller;
 		private Card _capturedCard;
 
@@ -46,7 +49,10 @@ namespace SabberStoneCore.Model.Entities
 			Game = c.Game;
 			Card = e.Card;
 			Id = e.Id;
-			Target = e.Target is IPlayable ? (IEntity) Game.IdEntityDic[e.Target.Id] : c;
+			//Target = e.Target is IPlayable ? (IEntity) Game.IdEntityDic[e.Target.Id] : c;
+			_targetId = e._targetId;
+			if (e.Target is Controller)
+				_target = c;
 			_controllerId = e._controllerId;
 			_creatorId = e._creatorId;
 			_capturedCard = e._capturedCard;
@@ -69,7 +75,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			if (e.Creator is Enchantment eCreator)
-				eCreator.Clone(in c);
+				_creator = eCreator.Clone(in c);
 		}
 
 		public int this[GameTag t]
@@ -81,7 +87,16 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// The entity that this enchantment is attached to.
 		/// </summary>
-		public IEntity Target { get; private set; }
+		//public IEntity Target { get; private set; }
+		public IEntity Target
+		{
+			get => _target ?? (_target = Game.IdEntityDic[_targetId]);
+			private set
+			{
+				_targetId = value.Id;
+				_target = value;
+			}
+		}
 
 		/// <summary>
 		/// <see cref="SabberStoneCore.Model.Card"/> information captured in this instance.
@@ -121,7 +136,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
-		public bool IsOneTurnActive => Card[GameTag.TAG_ONE_TURN_EFFECT] == 1;
+		public bool IsOneTurnActive { get; private set; }
 
 		public int ScriptTag1 => this[GameTag.TAG_SCRIPT_DATA_NUM_1];
 
@@ -172,40 +187,29 @@ namespace SabberStoneCore.Model.Entities
 
 				if (!(target.Zone is DeckZone))
 				{
+					var gameTags = new Dictionary<GameTag, int>
+					{
+						{GameTag.CONTROLLER, controller.PlayerId},
+						{GameTag.CARDTYPE, (int) CardType.ENCHANTMENT},
+						{GameTag.ATTACHED, target.Id},
+						{GameTag.DAMAGE, 0},
+						{GameTag.ZONE, (int) Enums.Zone.SETASIDE},
+						{GameTag.ENTITY_ID, instance.Id},
+						{GameTag.ZONE_POSITION, 0},
+						{GameTag.CREATOR, creator.Id},
+						{GameTag.TAG_LAST_KNOWN_COST_IN_HAND, 0}
+						//	CREATOR_DBID
+						//	479
+					};
+					if (card[GameTag.TAG_ONE_TURN_EFFECT] == 1)
+						gameTags.Add(GameTag.TAG_ONE_TURN_EFFECT, 1);
 					controller.Game.PowerHistory.Add(new PowerHistoryShowEntity
 					{
 						Entity = new PowerHistoryEntity
 						{
 							Id = instance.Id,
 							Name = instance.Card.Name,
-							Tags = new Dictionary<GameTag, int>
-							{
-								{GameTag.CONTROLLER, controller.PlayerId},
-								{GameTag.CARDTYPE, (int) CardType.ENCHANTMENT},
-								{GameTag.PREMIUM, creator[GameTag.PREMIUM]},
-								{GameTag.ATTACHED, target.Id},
-								{GameTag.DAMAGE, 0},
-								{GameTag.ZONE, (int) Enums.Zone.SETASIDE},
-								{GameTag.ENTITY_ID, instance.Id},
-								{GameTag.SILENCE, 0},
-								{GameTag.WINDFURY, 0},
-								{GameTag.TAUNT, 0},
-								{GameTag.STEALTH, 0},
-								{GameTag.DIVINE_SHIELD, 0},
-								{GameTag.CHARGE, 0},
-								{GameTag.FROZEN, 0},
-								{GameTag.ZONE_POSITION, 0},
-								{GameTag.NUM_ATTACKS_THIS_TURN, 0},
-								{GameTag.CREATOR, creator.Id},
-								{GameTag.FORCED_PLAY, 0},
-								{GameTag.TO_BE_DESTROYED, 0},
-								{GameTag.POISONOUS, 0},
-								{GameTag.CUSTOM_KEYWORD_EFFECT, 0},
-								{GameTag.EXTRA_ATTACKS_THIS_TURN, 0},
-								{GameTag.TAG_LAST_KNOWN_ATK_IN_HAND, 0},
-								//	479
-								{GameTag.LIFESTEAL, 0}
-							}
+							Tags = gameTags
 						}
 					});
 				}
@@ -214,7 +218,10 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			if (card[GameTag.TAG_ONE_TURN_EFFECT] == 1)
+			{
+				instance.IsOneTurnActive = true;
 				controller.Game.OneTurnEffectEnchantments.Add(instance);
+			}
 
 
 			instance.Zone = controller.BoardZone;
@@ -301,6 +308,7 @@ namespace SabberStoneCore.Model.Entities
 		public bool HasDeathrattle { get; set; }
 		public bool HasLifeSteal { get; set; }
 		public bool IsEcho => false;
+		public bool HasOverkill => false;
 		public IPlayable[] ChooseOnePlayables { get; set; }
 		public AuraEffects AuraEffects { get; set; }
 		public IDictionary<GameTag, int> NativeTags => _tags;

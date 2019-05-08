@@ -18,6 +18,8 @@ using SabberStoneCore.Conditions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
+using SabberStoneCore.Triggers;
+
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets
@@ -406,7 +408,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOE_019", new Power {
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
-					new AddEnchantmentTask("LOE_019e", EntityType.SOURCE, true, true))
+					new AddEnchantmentTask("LOE_019e", EntityType.SOURCE, false, true))
 			});
 
 		}

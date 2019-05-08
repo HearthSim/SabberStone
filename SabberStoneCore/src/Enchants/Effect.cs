@@ -115,6 +115,30 @@ namespace SabberStoneCore.Enchants
 							else
 								break;
 							return;
+						case GameTag.RUSH:
+						{
+							var m = (Minion)entity;
+							if (m.IsExhausted)
+							{
+								if (m.HasWindfury)
+								{
+									if (m.NumAttacksThisTurn < 2)
+									{
+										m.IsExhausted = false;
+										m.AttackableByRush = true;
+									}
+								}
+								else
+								{
+									if (m.NumAttacksThisTurn == 0)
+									{
+										m.IsExhausted = false;
+										m.AttackableByRush = true;
+									}
+								}
+							}
+							break;
+						}
 					}
 
 					if (oneTurnEffect && entity.NativeTags[Tag] == Value)
@@ -218,7 +242,12 @@ namespace SabberStoneCore.Enchants
 					entity[Tag] = entity.NativeTags[Tag] + Value;
 					return;
 				case EffectOperator.SET:
-					entity[Tag] = 0;		// unstable
+					entity[Tag] = 0;
+					entity.NativeTags.Remove(Tag);		// unstable
+					if (entity.Game.History)
+						entity.Game.PowerHistory.Add(
+							Kettle.PowerHistoryBuilder
+								.TagChange(entity.Id, Tag, entity.Card[Tag]));
 					return;
 			}
 		}

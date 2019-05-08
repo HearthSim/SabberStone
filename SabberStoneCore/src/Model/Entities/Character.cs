@@ -263,7 +263,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get
 			{
-				ReadOnlySpan<Minion> span = Controller.Opponent.BoardZone.GetSpan();
+				var span = Controller.Opponent.BoardZone.GetSpan();
 				for (int i = 0; i < span.Length; i++)
 				{
 					if (!(span[i].HasStealth || span[i].IsImmune))
@@ -337,6 +337,9 @@ namespace SabberStoneCore.Model.Entities
 				{
 					if (_history)
 						PreDamage = 0;
+
+					game.TaskQueue.EndEvent();
+					game.CurrentEventData = temp;
 					return 0;
 				}
 			}
@@ -370,6 +373,14 @@ namespace SabberStoneCore.Model.Entities
 			TakeDamageTrigger?.Invoke(this);
 			game.TriggerManager.OnDamageTrigger(this);
 			game.TriggerManager.OnDealDamageTrigger(source);
+
+			// Check if the source is Overkill
+			if (source.HasOverkill && source.Controller == game.CurrentPlayer && Health < 0)
+			{
+				game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "TakeDamage", !_logging ? "" : $"{source}' Overkill is triggered.");
+				game.TaskQueue.Enqueue(source.Card.Power.OverkillTask, source.Controller, source, null);
+			}
+
 			game.ProcessTasks();
 			game.TaskQueue.EndEvent();
 			game.CurrentEventData = temp;
@@ -390,6 +401,9 @@ namespace SabberStoneCore.Model.Entities
 
 			if (hero != null)
 				hero.DamageTakenThisTurn += amount;
+
+			if (source.Card.Type == CardType.HERO_POWER)
+				source.Controller.NumHeroPowerDamageThisGame += amount;
 
 			return amount;
 		}
