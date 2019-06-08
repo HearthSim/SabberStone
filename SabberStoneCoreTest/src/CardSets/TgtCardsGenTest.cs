@@ -1465,7 +1465,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(Race.MURLOC, game.CurrentPlayer.BoardZone[2].Card.Race);
+			Assert.True(game.CurrentPlayer.BoardZone[2].Card.IsRace(Race.MURLOC));
 		}
 
 		// --------------------------------------- MINION - PALADIN

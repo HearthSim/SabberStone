@@ -48,19 +48,19 @@ namespace SabberStoneCore.Conditions
 		public static readonly SelfCondition IsDamaged = new SelfCondition(me => me is ICharacter && ((ICharacter)me).Damage > 0);
 		public static readonly SelfCondition IsUndamaged = new SelfCondition(me => me is ICharacter && ((ICharacter)me).Damage == 0);
 
-		public static SelfCondition IsControllingRace(Race race) => new SelfCondition(me => me.Controller.BoardZone.Any(p => p.Card.Race == race));
+		public static SelfCondition IsControllingRace(Race race) => new SelfCondition(me => me.Controller.BoardZone.Any(p => p.Card.IsRace(race)));
 
 		public static readonly SelfCondition IsControllingFrozen =
 			new SelfCondition(me => me.Controller.BoardZone.Any(p => p.IsFrozen));
 		public static readonly SelfCondition IsControllingSecret = new SelfCondition(me => me.Controller.SecretZone.Count > 0);
 
-		public static readonly SelfCondition IsDragonInHand = new SelfCondition(me => me.Controller.HandZone.Any(p => p is ICharacter && ((ICharacter)p).Race == Race.DRAGON));
+		public static readonly SelfCondition IsDragonInHand = new SelfCondition(me => me.Controller.HandZone.Any(p => p is ICharacter && ((ICharacter)p).IsRace(Race.DRAGON)));
 		public static readonly SelfCondition Is5PlusAtkInHand = new SelfCondition(me => me.Controller.HandZone.Any(p => p is ICharacter && ((ICharacter)p).AttackDamage >= 5));
 
 		public static readonly SelfCondition Has5PlusCostSpellInHand = new SelfCondition(me =>
 			me.Controller.HandZone.Any(p => p.Card.Type == CardType.SPELL && p.Cost >= 5));
-		public static SelfCondition IsRace(Race race) => new SelfCondition(me => me is ICharacter ch && race == ch.Race);
-		public static SelfCondition IsNotRace(params Race[] races) => new SelfCondition(me => me is ICharacter ch && !races.Contains(ch.Race));
+		public static SelfCondition IsRace(Race race) => new SelfCondition(me => me is ICharacter ch && ch.IsRace(race));
+		public static SelfCondition IsNotRace(Race race) => new SelfCondition(me => me is ICharacter ch && !ch.IsRace(race));
 		public static readonly SelfCondition IsMinion = new SelfCondition(me => me is Minion);
 		public static readonly SelfCondition IsSpell = new SelfCondition(me => me is Spell);
 		public static readonly SelfCondition IsSecret = new SelfCondition(me => me.Card.IsSecret);

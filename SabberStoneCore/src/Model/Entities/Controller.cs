@@ -130,7 +130,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Returns true if this player has a dragon in his hand.
 		/// </summary>
-		public bool DragonInHand => HandZone.Any(p => p.Card.Race == Race.DRAGON);
+		public bool DragonInHand => HandZone.Any(p => p.Card.IsRace(Race.DRAGON));
 
 		public int NumTotemSummonedThisGame { get; set; }
 

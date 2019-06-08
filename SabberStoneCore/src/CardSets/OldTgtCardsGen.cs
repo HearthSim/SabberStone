@@ -2376,7 +2376,7 @@
 //						{
 //							[GameTag.COST] = 0
 //						},
-//						ValueFunc = owner => -owner.Controller.BoardZone.Count(p => p.Card.Race == Race.PIRATE)
+//						ValueFunc = owner => -owner.Controller.BoardZone.Count(p => p.Card.IsMemberOf(Race.PIRATE))
 //					}
 //				}
 //			});

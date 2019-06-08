@@ -317,15 +317,10 @@ namespace SabberStoneCore.Actions
 
 				game.DeathProcessingAndAuraUpdate();
 
-				switch (minion.Race)
-				{
-					case Race.ELEMENTAL:
-						c.NumElementalsPlayedThisTurn++;
-						break;
-					case Race.MURLOC:
-						c.NumMurlocsPlayedThisGame++;
-						break;
-				}
+				if (minion.IsRace(Race.ELEMENTAL))
+					c.NumElementalsPlayedThisTurn++;
+				if (minion.IsRace(Race.MURLOC))
+					c.NumMurlocsPlayedThisGame++;
 
 				return true;
 			};

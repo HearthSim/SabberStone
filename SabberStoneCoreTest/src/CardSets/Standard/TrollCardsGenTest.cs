@@ -398,7 +398,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			var testCard = (Spell)game.ProcessCard<Spell>("Predatory Instincts");
 			IPlayable drawn = game.IdEntityDic[game.CurrentPlayer.LastCardDrawn];
 
-			Assert.Equal(Race.BEAST, drawn.Card.Race);
+			Assert.True(drawn.Card.IsRace(Race.BEAST));
 			Assert.Equal(drawn.Card.Health * 2, ((Minion)drawn).Health);
 		}
 
@@ -2192,7 +2192,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
 			List<Minion> summoned = game.CurrentPlayer.BoardZone.Skip(1).ToList();
-			Assert.True(summoned.TrueForAll(m => m.Card.Race == Race.PIRATE));
+			Assert.True(summoned.TrueForAll(m => m.Card.IsRace(Race.PIRATE)));
 			Assert.True(summoned.TrueForAll(m => m.AttackableByRush));
 		}
 

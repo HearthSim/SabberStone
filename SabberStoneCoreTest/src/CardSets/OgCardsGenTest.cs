@@ -414,7 +414,7 @@ namespace SabberStoneCoreTest.CardSets
 			Assert.Equal(4, game.CurrentOpponent.HandZone.Count);
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer, minion1));
 			Assert.Equal(5, game.CurrentOpponent.HandZone.Count);
-			Assert.Equal(Race.BEAST, game.CurrentOpponent.HandZone[4].Card.Race);
+			Assert.True(game.CurrentOpponent.HandZone[4].Card.IsRace(Race.BEAST));
 		}
 
 		// ----------------------------------------- SPELL - HUNTER

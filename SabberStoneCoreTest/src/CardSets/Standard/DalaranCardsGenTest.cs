@@ -3657,7 +3657,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void HenchClanHag_DAL_087()
 		{
 			// TODO HenchClanHag_DAL_087 test
@@ -3677,8 +3677,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hench-Clan Hag"));
-			//Minion testCard = game.ProcessCard<Minion>("Hench-Clan Hag");
+			Minion testCard = game.ProcessCard<Minion>("Hench-Clan Hag");
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal("Amalgam", game.CurrentPlayer.BoardZone[0].Card.Name);
+			Assert.Equal("Hench-Clan Hag", game.CurrentPlayer.BoardZone[1].Card.Name);
+			Assert.Equal("Amalgam", game.CurrentPlayer.BoardZone[2].Card.Name);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

@@ -470,10 +470,32 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public CardClass Class { get; }
 
+		private Race Race;
+
 		/// <summary>
-		/// <see cref="Race"/>
+		/// To get the raw Race defined by the card Date, typically shouldn't be use
+		/// Consider using IsRace instead
+		/// Why do Card's race?  Should only be for characters
+		/// <seealso cref="CardClass"/>
 		/// </summary>
-		public Race Race { get; }
+		public Race GetRawRace()
+		{
+			return Race;
+		}
+
+		public bool IsRace(Race race)
+		{
+			if (Race == Race.ALL)
+				return race == Race.ELEMENTAL
+					|| race == Race.MECHANICAL
+					|| race == Race.DEMON
+					|| race == Race.DRAGON
+					|| race == Race.BEAST
+					|| race == Race.PIRATE
+					|| race == Race.TOTEM
+					|| race == Race.ALL;  // ALL case may not be needed?
+			return Race == race;   // standard flow for all non All/Amalgadan types
+		}
 
 		/// <summary>
 		/// <see cref="Faction"/>

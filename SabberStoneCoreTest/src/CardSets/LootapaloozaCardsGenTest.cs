@@ -508,7 +508,7 @@ namespace SabberStoneCoreTest.CardSets
 					Cards.FromName("Wisp"),
 					Cards.FromName("Wisp"),
 					Cards.FromName("Stonetusk Boar"),
-					Cards.FromName("Stonetusk Boar"),
+					Cards.FromName("Nightmare Amalgam"),
 				},
 				Player2HeroClass = CardClass.HUNTER,
 				Shuffle = false,
@@ -522,12 +522,12 @@ namespace SabberStoneCoreTest.CardSets
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Kathrena Winterwisp"));
 
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(Race.BEAST, game.CurrentPlayer.BoardZone.Last().Card.Race);
+			Assert.True(game.CurrentPlayer.BoardZone.Last().Card.IsRace(Race.BEAST));
 
 			game.CurrentPlayer.BoardZone[0].Kill();
 
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(Race.BEAST, game.CurrentPlayer.BoardZone.Last().Card.Race);
+			Assert.True(game.CurrentPlayer.BoardZone.Last().Card.IsRace(Race.BEAST));
 		}
 
 		// ---------------------------------------- MINION - HUNTER
@@ -2872,7 +2872,7 @@ namespace SabberStoneCoreTest.CardSets
 
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
 
-			Assert.True(game.CurrentPlayer.BoardZone.ToList().TrueForAll(p => p.Card.Race == Race.TOTEM));
+			Assert.True(game.CurrentPlayer.BoardZone.ToList().TrueForAll(p => p.Card.IsRace(Race.TOTEM)));
 		}
 
 		// ----------------------------------------- SPELL - SHAMAN

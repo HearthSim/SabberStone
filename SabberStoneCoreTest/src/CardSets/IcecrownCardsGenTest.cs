@@ -186,7 +186,7 @@ namespace SabberStoneCoreTest.CardSets
 			// Zombeast
 			Assert.Equal(2, game.CurrentPlayer.HandZone.Count); //	The Coin and created Zombeast
 			Minion zomBeast = (Minion)game.CurrentPlayer.HandZone[1];
-			Assert.Equal(Race.BEAST, zomBeast.Race);
+			Assert.True(zomBeast.IsRace(Race.BEAST));  // this is rare case where we may want an exact Race enum check
 			Assert.Equal(firstCard.Cost + secondCard.Cost, zomBeast.Cost);
 			Assert.Equal(secondCard.Taunt, zomBeast.HasTaunt);
 			Assert.Equal(secondCard.LifeSteal, zomBeast.HasLifeSteal);
@@ -4174,7 +4174,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Fireball", game.CurrentOpponent.BoardZone[0]));
 			Assert.Equal(4, game.CurrentOpponent.HandZone.Count);
-			Assert.True(((Minion)game.CurrentOpponent.HandZone[3]).Race == Race.DRAGON);
+			Assert.True(((Minion)game.CurrentOpponent.HandZone[3]).IsRace(Race.DRAGON));
 
 		}
 

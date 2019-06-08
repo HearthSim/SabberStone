@@ -4922,7 +4922,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		//       Demon, Murloc, Dragon,
 		//       Beast, Pirate and Totem.</i>
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void NightmareAmalgam_GIL_681()
 		{
 			// TODO NightmareAmalgam_GIL_681 test
@@ -4932,18 +4932,41 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1HeroClass = CardClass.MAGE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Nightmare Amalgam"),
 				},
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Nightmare Amalgam"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Nightmare Amalgam"));
+			Minion testCard = game.ProcessCard<Minion>("Nightmare Amalgam");
+			Assert.Equal(3, testCard.AttackDamage);
+
+			Minion timberWolf = game.ProcessCard<Minion>("Timber Wolf");
+			Assert.Equal(4, testCard.AttackDamage);
+
+			game.ProcessCard<Minion>("Southsea Captain");
+			Assert.Equal(5, testCard.AttackDamage);
+			Assert.Equal(5, testCard.Health);
+
+			game.ProcessCard<Spell>("Totemic Might");
+			Assert.Equal(7, testCard.Health);
+
+			game.ProcessCard<Spell>("Earthen Might", testCard);
+			Assert.Single(game.CurrentPlayer.HandZone);
+			IPlayable card = game.CurrentPlayer.HandZone[0];
+			Assert.True(card.Card.IsRace(Race.ELEMENTAL));
+			Assert.Equal(7, testCard.AttackDamage);
+			Assert.Equal(9, testCard.Health);
+
+			game.ProcessCard<Spell>("Counterfeit Coin");
+			game.ProcessCard<Spell>("Counterfeit Coin");
+			game.ProcessCard<Spell>("Counterfeit Coin");
+			game.ProcessCard<Spell>("Counterfeit Coin");
+			game.ProcessCard<Spell>("Counterfeit Coin");
+			game.ProcessCard<Minion>("E.M.P. Operative", testCard);
+			Assert.True(testCard.IsDead);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

@@ -542,9 +542,9 @@ namespace SabberStoneCore.Model.Entities
 		int NumAttacksThisTurn { get; set; }
 
 		/// <summary>
-		/// <see cref="Enums.Race"/>
+		/// Character is member of Race.  Supports "All"/Amalgam race
 		/// </summary>
-		Race Race { get; }
+		bool IsRace(Race race);
 
 		///// <summary>
 		///// Character should exit combat.
@@ -881,7 +881,7 @@ namespace SabberStoneCore.Model.Entities
 			set => this[GameTag.PREDAMAGE] = value;
 		}
 
-		public Race Race => Card.Race;
+		public bool IsRace(Race race) => Card.IsRace(race);
 
 		public bool ShouldExitCombat
 		{

@@ -2013,7 +2013,7 @@ namespace SabberStoneCore.CardSets
 					int count = 0;
 					ReadOnlySpan<Minion> board = p.Controller.BoardZone.GetSpan();
 					for (int i = 0; i < board.Length; i++)
-						if (board[i].Race == Race.PIRATE)
+						if (board[i].IsRace(Race.PIRATE))
 							count++;
 
 					return count;
