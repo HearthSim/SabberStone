@@ -4970,6 +4970,45 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
+		// [GIL_681] Nightmare Amalgam - COST:3 [ATK:3/HP:4] 
+		// - Race: all, Set: gilneas, Rarity: epic
+		// --------------------------------------------------------
+		// Text: [x]<i>This is an Elemental, Mech,
+		//       Demon, Murloc, Dragon,
+		//       Beast, Pirate and Totem.</i>
+		// --------------------------------------------------------
+		[Fact]
+		public void NightmareAmalgam_GIL_681_moretests()
+		{
+			// TODO NightmareAmalgam_GIL_681 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = false
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			// Test Skycap'n Kragg mana cost is reduced by Amalgam in field
+			var skycapn = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Skycap'n Kragg"));
+			Minion testCard = game.ProcessCard<Minion>("Nightmare Amalgam");
+			Assert.Equal(6, skycapn.Cost);
+
+			// test magnetic
+			game.ProcessCard<Minion>("Skaterbot", zonePosition:0);  // 1/1 magnetic rush
+			Assert.Equal(4, testCard.AttackDamage);
+			Assert.Equal(5, testCard.Health);
+			Assert.True(testCard.IsRush);
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
 		// [GIL_682] Muck Hunter - COST:5 [ATK:5/HP:8] 
 		// - Set: gilneas, Rarity: epic
 		// --------------------------------------------------------

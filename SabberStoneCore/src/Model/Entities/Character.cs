@@ -542,7 +542,8 @@ namespace SabberStoneCore.Model.Entities
 		int NumAttacksThisTurn { get; set; }
 
 		/// <summary>
-		/// Character is member of Race.  Supports "All"/Amalgam race
+		/// Character is member of Race.
+		/// Characters of Race.ALL.  IE Amalgam.IsRace(Race.MULROC/Race.DRAGON/...) => true
 		/// </summary>
 		bool IsRace(Race race);
 

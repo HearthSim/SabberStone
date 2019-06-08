@@ -475,8 +475,7 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// To get the raw Race defined by the card Date, typically shouldn't be use
 		/// Consider using IsRace instead
-		/// Why do Card's race?  Should only be for characters
-		/// <seealso cref="CardClass"/>
+		/// <see cref="Race"/>
 		/// </summary>
 		public Race GetRawRace()
 		{
