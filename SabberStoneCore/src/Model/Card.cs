@@ -486,14 +486,7 @@ namespace SabberStoneCore.Model
 		public bool IsRace(Race race)
 		{
 			if (Race == Race.ALL)
-				return race == Race.ELEMENTAL
-					|| race == Race.MECHANICAL
-					|| race == Race.DEMON
-					|| race == Race.DRAGON
-					|| race == Race.BEAST
-					|| race == Race.PIRATE
-					|| race == Race.TOTEM
-					|| race == Race.ALL;  // ALL case may not be needed?
+				return true;
 			return Race == race;   // standard flow for all non All/Amalgadan types
 		}
 
