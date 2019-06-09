@@ -4302,8 +4302,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
-			Assert.Equal(Race.DEMON, game.CurrentPlayer.HandZone[5].Card.Race);
-			Assert.Equal(Race.DEMON, game.CurrentPlayer.HandZone[4].Card.Race);
+			Assert.True(game.CurrentPlayer.HandZone[5].Card.IsRace(Race.DEMON));
+			Assert.True(game.CurrentPlayer.HandZone[4].Card.IsRace(Race.DEMON));
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK

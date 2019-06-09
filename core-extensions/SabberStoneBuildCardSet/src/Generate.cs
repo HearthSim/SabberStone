@@ -232,8 +232,8 @@ namespace SabberStoneBuildCardSet
 			}
 
 			string cardRace = "";
-			if (card.Race != Race.INVALID)
-				cardRace = $"Race: {card.Race.ToString().ToLower()}, ";
+			if (card.GetRawRace() != Race.INVALID)
+				cardRace = $"Race: {card.GetRawRace().ToString().ToLower()}, ";
 			string cardFac = "";
 			if (card.Faction != Faction.INVALID)
 				cardFac = $"Fac: {card.Faction.ToString().ToLower()}, ";

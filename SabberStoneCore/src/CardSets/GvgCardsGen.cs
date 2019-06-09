@@ -1019,7 +1019,7 @@ namespace SabberStoneCore.CardSets
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("GVG_024", new Power {
-				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p => p.Controller.BoardZone.Any(m => m.Race == Race.MECHANICAL) ? 2 : 0)
+				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p => p.Controller.BoardZone.Any(m => m.IsRace(Race.MECHANICAL)) ? 2 : 0)
 			});
 
 		}
@@ -1573,7 +1573,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("GVG_013", new Power {
 				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD,
-					p => p.Controller.BoardZone.Any(m => m.Race == Race.MECHANICAL) ? 2 : 0)
+					p => p.Controller.BoardZone.Any(m => m.IsRace(Race.MECHANICAL)) ? 2 : 0)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

@@ -346,8 +346,8 @@ namespace SabberStoneCore.Tasks
 							// In Hearthstone, cards from K & C is not included in the card pool for Build-A-Beast
 							// I am not sure whether Sabber should follow the rule or not ...
 							IEnumerable<Card> all = controller.Game.FormatType == FormatType.FT_STANDARD ?
-								Cards.Standard[CardClass.HUNTER].Where(c => c.Race == Race.BEAST && c.Cost <= 5) :
-								Cards.Wild[CardClass.HUNTER].Where(c => c.Race == Race.BEAST && c.Cost <= 5);
+								Cards.Standard[CardClass.HUNTER].Where(c => c.IsRace(Race.BEAST) && c.Cost <= 5) :
+								Cards.Wild[CardClass.HUNTER].Where(c => c.IsRace(Race.BEAST) && c.Cost <= 5);
 							var firstBeasts = new List<Card>();
 							var secondBeasts = new List<Card>();
 							foreach (Card card in all)
@@ -945,7 +945,7 @@ namespace SabberStoneCore.Tasks
 				{
 					minions.InsertionSort(indices);
 
-					if (count == 3 && minions.TrueForAll(e => e.Card.Race == Race.BEAST))
+					if (count == 3 && minions.TrueForAll(e => e.Card.IsRace(Race.BEAST)))
 					{
 						for (int i = count - 1; i >= 0; i--)
 						{
@@ -981,7 +981,7 @@ namespace SabberStoneCore.Tasks
 				}
 
 				Array.Sort(choiceIndices, choices);
-				if (Array.TrueForAll(choices, e => e.Card.Race == Race.BEAST))
+				if (Array.TrueForAll(choices, e => e.Card.IsRace(Race.BEAST)))
 				{
 					for (int i = choiceIndices.Length - 1; i >= 0; i--)
 					{

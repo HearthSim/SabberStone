@@ -79,7 +79,7 @@ namespace SabberStoneCoreConsole
 
 			//GatherTagsUsedByEnchantsOrTriggers();
 
-			//Console.WriteLine(Cards.AllStandard.Where(p => p.Race == Race.BEAST && p.Collectible).Count());
+			//Console.WriteLine(Cards.AllStandard.Where(p => p.IsRace(Race.BEAST) && p.Collectible).Count());
 
 			//Cards.Standard[CardClass.PALADIN].ForEach(p => Console.WriteLine($" {p.Id} {p.Type} {p}"));
 

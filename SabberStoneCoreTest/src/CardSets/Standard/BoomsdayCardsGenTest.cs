@@ -1185,7 +1185,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.ProcessCard("Whirlwind");
 			Assert.Equal(8, game.CurrentPlayer.HandZone.Count);
 			Assert.True(game.CurrentPlayer.HandZone.Skip(4).Take(4).ToList()
-				.TrueForAll(p => p is Minion m && m.Race == Race.MECHANICAL));
+				.TrueForAll(p => p is Minion m && m.IsRace(Race.MECHANICAL)));
 		}
 
 	}
@@ -3568,8 +3568,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Demonic Project"));
 
-			Assert.Equal(Race.DEMON, game.CurrentPlayer.HandZone.Last().Card.Race);
-			Assert.Equal(Race.DEMON, game.CurrentOpponent.HandZone.First().Card.Race);
+			Assert.True(game.CurrentPlayer.HandZone.Last().Card.IsRace(Race.DEMON));
+			Assert.True(game.CurrentOpponent.HandZone.First().Card.IsRace(Race.DEMON));
 		}
 
 	}
@@ -3871,7 +3871,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Omega Assembly"));
 
 			Assert.NotNull(game.CurrentPlayer.Choice);
-			Assert.True(game.CurrentPlayer.SetasideZone.All(p => p.Card.Race == Race.MECHANICAL));
+			Assert.True(game.CurrentPlayer.SetasideZone.All(p => p.Card.IsRace(Race.MECHANICAL)));
 			game.ChooseNthChoice(1);
 
 			game.CurrentPlayer.BaseMana = 10;
@@ -3881,7 +3881,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Null(game.CurrentPlayer.Choice);
 			for (int i = 0; i < 3; i++)
 				Assert.True(game.CurrentPlayer.HandZone
-					[game.CurrentPlayer.HandZone.Count - 1 - i].Card.Race == Race.MECHANICAL);
+					[game.CurrentPlayer.HandZone.Count - 1 - i].Card.IsRace(Race.MECHANICAL));
 		}
 
 		// --------------------------------------- WEAPON - WARRIOR

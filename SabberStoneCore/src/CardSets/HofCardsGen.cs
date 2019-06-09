@@ -216,7 +216,7 @@ namespace SabberStoneCore.CardSets
 					int count = 0;
 					ReadOnlySpan<Minion> span = p.Controller.BoardZone.GetSpan();
 					for (int i = 0; i < span.Length; i++)
-						if (span[i].Race == Race.MURLOC)
+						if (span[i].IsRace(Race.MURLOC))
 							count++;
 					return count;
 				})
