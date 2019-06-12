@@ -470,10 +470,24 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public CardClass Class { get; }
 
+		private Race Race;
+
 		/// <summary>
+		/// To get the raw Race defined by the card Date, typically shouldn't be use
+		/// Consider using IsRace instead
 		/// <see cref="Race"/>
 		/// </summary>
-		public Race Race { get; }
+		public Race GetRawRace()
+		{
+			return Race;
+		}
+
+		public bool IsRace(Race race)
+		{
+			if (Race == Race.ALL)
+				return true;
+			return Race == race;   // standard flow for all non All/Amalgadan types
+		}
 
 		/// <summary>
 		/// <see cref="Faction"/>

@@ -287,7 +287,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.DRAGON));
+							list => list.Where(p => p.IsRace(Race.DRAGON)));
 
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;
@@ -329,7 +329,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.BEAST));
+							list => list.Where(p => p.IsRace(Race.BEAST)));
 						
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;
@@ -338,7 +338,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.MURLOC));
+							list => list.Where(p => p.IsRace(Race.MURLOC)));
 						
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;
@@ -347,7 +347,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.ELEMENTAL));
+							list => list.Where(p => p.IsRace(Race.ELEMENTAL)));
 						
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;
@@ -356,7 +356,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.MECHANICAL));
+							list => list.Where(p => p.IsRace(Race.MECHANICAL)));
 						
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;
@@ -365,7 +365,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.DEMON));
+							list => list.Where(p => p.IsRace(Race.DEMON)));
 						
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;

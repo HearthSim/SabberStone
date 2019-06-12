@@ -134,7 +134,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					(cardType == CardType.INVALID || p.Type == cardType) &&
 					(cardClass == CardClass.INVALID || p.Class == cardClass) &&
 					(cardSet == CardSet.INVALID || p.Set == cardSet) &&
-					(race == Race.INVALID || p.Race == race) &&
+					(race == Race.INVALID || p.IsRace(race)) &&
 					(rarity == Rarity.INVALID || p.Rarity == rarity) &&
 					(gameTagFilter == null ||
 					 Array.TrueForAll(gameTagFilter, gameTag => p.Tags.ContainsKey(gameTag))) &&

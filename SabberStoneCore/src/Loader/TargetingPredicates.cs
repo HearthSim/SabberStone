@@ -10,21 +10,21 @@ namespace SabberStoneCore.Loader
 	public static class TargetingPredicates
 	{
 		private static readonly TargetingPredicate ReqMurlocTarget
-			= t => t.Race == Race.MURLOC;
+			= t => t.IsRace(Race.MURLOC);
 		private static readonly TargetingPredicate ReqDemonTarget
-			= t => t.Race == Race.DEMON;
+			= t => t.IsRace(Race.DEMON);
 		private static readonly TargetingPredicate ReqMechTarget
-			= t => t.Race == Race.MECHANICAL;
+			= t => t.IsRace(Race.MECHANICAL);
 		private static readonly TargetingPredicate ReqElementalTarget
-			= t => t.Race == Race.ELEMENTAL;
+			= t => t.IsRace(Race.ELEMENTAL);
 		private static readonly TargetingPredicate ReqBeastTarget
-			= t => t.Race == Race.BEAST;
+			= t => t.IsRace(Race.BEAST);
 		private static readonly TargetingPredicate ReqTotemTarget
-			= t => t.Race == Race.TOTEM;
+			= t => t.IsRace(Race.TOTEM);
 		private static readonly TargetingPredicate ReqPirateTarget
-			= t => t.Race == Race.PIRATE;
+			= t => t.IsRace(Race.PIRATE);
 		private static readonly TargetingPredicate ReqDragonTarget
-			= t => t.Race == Race.DRAGON;
+			= t => t.IsRace(Race.DRAGON);
 
 		public static readonly TargetingPredicate ReqFrozenTarget
 			= t => t.IsFrozen;
@@ -119,7 +119,7 @@ namespace SabberStoneCore.Loader
 					if (c.GraveyardZone[i].Card.Type != CardType.MINION || !c.GraveyardZone[i].ToBeDestroyed)
 						continue;
 					k++;
-					if (c.GraveyardZone[i].Card.Race == race)
+					if (c.GraveyardZone[i].Card.IsRace(race))
 						return true;
 				}
 

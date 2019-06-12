@@ -569,7 +569,7 @@ namespace SabberStoneCore.CardSets.Standard
 									if (card.Type != CardType.MINION)
 										continue;
 									k++;
-									if (card.Race == Race.BEAST)
+									if (card.IsRace(Race.BEAST))
 									{
 										Entity.FromCard(in c, in card,
 											zone: c.BoardZone, creator: in s);

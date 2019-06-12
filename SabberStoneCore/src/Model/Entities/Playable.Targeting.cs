@@ -368,7 +368,7 @@ namespace SabberStoneCore.Model.Entities
 			//			}
 			//			break;
 			//		case PlayReq.REQ_TARGET_WITH_RACE: // Target must have race: [Always:False, Param:True]
-			//			if (target.Race != (Race)param)
+			//			if (target.IsRace((Race)param))
 			//			{
 			//				return false;
 			//			}
@@ -446,9 +446,9 @@ namespace SabberStoneCore.Model.Entities
 			//			}
 			//			break;
 			//		case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
-			//			if (Card.Race == Race.DRAGON)
+			//			if (Card.IsRace(Race.DRAGON))
 			//			{
-			//				IPlayable[] dragons = Controller.HandZone.GetAll(p => p.Card.Race == Race.DRAGON);
+			//				IPlayable[] dragons = Controller.HandZone.GetAll(p => p.Card.IsRace(Race.DRAGON));
 			//				if (dragons.Length == 1 && dragons[0] == this)
 			//					return false;
 			//			}

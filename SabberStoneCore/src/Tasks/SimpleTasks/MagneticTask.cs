@@ -40,7 +40,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			else
 				return TaskState.STOP;
 
-			if (t.Race != Race.MECHANICAL)
+			if (!t.IsRace(Race.MECHANICAL))
 				return TaskState.STOP;
 
 			if (game.History)

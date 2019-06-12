@@ -59,7 +59,7 @@ namespace SabberStoneCore.Actions
 				g.CurrentEventData = temp;
 				g.TaskQueue.EndEvent();
 
-				if (minion.Race == Race.TOTEM)
+				if (minion.IsRace(Race.TOTEM))
 					minion.Controller.NumTotemSummonedThisGame++;
 			};
 	}

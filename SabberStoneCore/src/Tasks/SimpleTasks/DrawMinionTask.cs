@@ -80,7 +80,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Race race = _race;
 				for (int i = 0; i < deck.Length; i++)
 				{
-					if (deck[i].Card.Race == race)
+					if (deck[i].Card.IsRace(race))
 						indices.Add(i);
 				}
 			}
