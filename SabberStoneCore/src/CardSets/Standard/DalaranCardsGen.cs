@@ -1378,10 +1378,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("DAL_716", new Power {
-				// TODO [DAL_716] Vendetta && Test: Vendetta_DAL_716
-				//PowerTask = null,
-				//Trigger = null,
-				//PowerTask = new DamageTask(4, EntityType.TARGET, true),
+				PowerTask = new DamageTask(4, EntityType.TARGET),
+				Aura = new AdaptiveCostEffect(0, TriggerType.ZONE, triggerCondition: SelfCondition.HoldingAnotherClassCard)
 			});
 
 			// ------------------------------------------ SPELL - ROGUE

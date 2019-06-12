@@ -2266,26 +2266,35 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_TO_PLAY = 0
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Vendetta_DAL_716()
 		{
-			// TODO Vendetta_DAL_716 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Vendetta"),
 				},
-				Player2HeroClass = CardClass.ROGUE,
+				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vendetta"));
+			Assert.Equal(4, testCard.Cost);
+			Minion blinkFox = game.ProcessCard<Minion>("Blink Fox", asZeroCost: true);
+			Assert.True(game.Player1.HandZone.Last().Card.Class != CardClass.ROGUE);
+			Assert.Equal(0, testCard.Cost);
+			Assert.False(testCard.IsValidPlayTarget(game.Player2.Hero));
+			Assert.Equal(10, game.Player1.RemainingMana);
+			game.ProcessCard(testCard, blinkFox);
+			Assert.Equal(10, game.Player1.RemainingMana);
+			Assert.True(blinkFox.IsDead);
+
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vendetta"));
 			//Spell testCard = game.ProcessCard<Spell>("Vendetta");
 		}

@@ -141,6 +141,9 @@ namespace SabberStoneCore.Auras
 				case TriggerType.TURN_START:
 					owner.Game.TriggerManager.TurnStartTrigger += instance._updateHandler;
 					break;
+				case TriggerType.ZONE:
+					owner.Game.TriggerManager.ZoneTrigger += instance._updateHandler;
+					break;
 				default:
 					throw new NotImplementedException();
 			}
@@ -193,6 +196,9 @@ namespace SabberStoneCore.Auras
 					break;
 				case TriggerType.TURN_START:
 					_owner.Game.TriggerManager.TurnStartTrigger -= _updateHandler;
+					break;
+				case TriggerType.ZONE:
+					_owner.Game.TriggerManager.ZoneTrigger -= _updateHandler;
 					break;
 				default:
 					throw new NotImplementedException();
