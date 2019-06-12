@@ -72,12 +72,9 @@ Join us on [Discord](https://discord.gg/my9WTwK)!
 
 **Not Implemented Standard Cards**
 ##### Rise of Shadows
-- [DAL_352] Crystalsong Portal
 - [DAL_377] Nine Lives
-- [DAL_417] Heistbaron Togwaggle
 - [DAL_431] Swampqueen Hagatha
 - [DAL_573] Commander Rhyssa
-- [DAL_716] Vendetta
 - [DAL_729] Madame Lazul
 - [DAL_731] Duel!
 - [DAL_742] Whirlwind Tempest
@@ -101,7 +98,6 @@ Join us on [Discord](https://discord.gg/my9WTwK)!
 
 ##### The Witchwood
 - [GIL_655] Festeroot Hulk
-- [GIL_681] Nightmare Amalgam
 
 *(Standard is beeing prioritized.)*
 
