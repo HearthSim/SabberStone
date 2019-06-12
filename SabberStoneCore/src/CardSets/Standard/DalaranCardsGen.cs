@@ -1289,9 +1289,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
 			cards.Add("DAL_417", new Power {
-				// TODO [DAL_417] Heistbaron Togwaggle && Test: Heistbaron Togwaggle_DAL_417
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE,
+						SelfCondition.IsControllingLackey),
+					new FlagTask(true, new DiscoverTask(DiscoverType.HEISTBARON_TOGWAGGLE, numberOfChoices: 4)))
 			});
 
 			// ----------------------------------------- MINION - ROGUE

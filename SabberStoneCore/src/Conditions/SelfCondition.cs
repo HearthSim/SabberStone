@@ -76,6 +76,9 @@ namespace SabberStoneCore.Conditions
 
 		public static readonly SelfCondition IsControllingTreant =
 			new SelfCondition(me => me.Controller.BoardZone.Any(m => m.Card.Name == "Treant"));
+		public static readonly SelfCondition IsControllingLackey =
+			new SelfCondition(me => me.Controller.BoardZone.Any(m => m.Card[Enums.GameTag.MARK_OF_EVIL] == 1));
+
 		public static readonly SelfCondition IsSpellDmgOnHero = new SelfCondition(me => me.Controller.CurrentSpellPower > 0);
 		public static readonly SelfCondition IsntSpellDmgOnHero = new SelfCondition(me => me.Controller.CurrentSpellPower == 0);
 		public static SelfCondition IsNotAttackingThisTurn(int number) => new SelfCondition(me => me is ICharacter ch && ch.NumAttacksThisTurn == number);

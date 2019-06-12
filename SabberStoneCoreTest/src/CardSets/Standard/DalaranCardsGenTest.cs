@@ -2050,7 +2050,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - MARK_OF_EVIL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void HeistbaronTogwaggle_DAL_417()
 		{
 			// TODO HeistbaronTogwaggle_DAL_417 test
@@ -2060,18 +2060,49 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1HeroClass = CardClass.ROGUE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Heistbaron Togwaggle"),
 				},
 				Player2HeroClass = CardClass.ROGUE,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Heistbaron Togwaggle"));
-			//Minion testCard = game.ProcessCard<Minion>("Heistbaron Togwaggle");
+
+			game.ProcessCard<Minion>("EVIL Cable Rat");
+			game.ProcessCard(game.Player1.HandZone[0]);  // play the lackey
+			Minion testCard = game.ProcessCard<Minion>("Heistbaron Togwaggle");
+
+			var treasures = new HashSet<string> { "Tolin's Goblet", "Zarog's Crown", "Wondrous Wand", "Golden Kobold" };
+			Card[] choiceCards = game.GetChoiceCards();
+			var choiceNameSet = choiceCards.Select(card => card.Name).ToHashSet();
+			Assert.Equal(treasures, choiceNameSet);
+			int choiceNum = Array.FindIndex(choiceCards, card => card.Name.Equals("Wondrous Wand"));
+			game.ChooseNthChoice(choiceNum + 1);
+			Assert.Single(game.Player1.HandZone);
+			Assert.Equal("Wondrous Wand", game.Player1.HandZone[0].Card.Name);
+		}
+
+		[Fact]
+		public void HeistbaronTogwaggle_DAL_417_failed_battlecry()
+		{
+			// TODO HeistbaronTogwaggle_DAL_417 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.ROGUE,
+				Player1Deck = new List<Card>()
+				{
+				},
+				Player2HeroClass = CardClass.ROGUE,
+				Shuffle = false,
+				FillDecks = false,
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			Minion testCard = game.ProcessCard<Minion>("Heistbaron Togwaggle");
+			Assert.Empty(game.CurrentPlayer.HandZone);
 		}
 
 		// ----------------------------------------- MINION - ROGUE
@@ -3895,7 +3926,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - MARK_OF_EVIL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void EvilCableRat_DAL_400()
 		{
 			// TODO EvilCableRat_DAL_400 test
@@ -3905,18 +3936,21 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1HeroClass = CardClass.MAGE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("EVIL Cable Rat"),
 				},
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
-				FillDecks = true,
+				FillDecks = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("EVIL Cable Rat"));
-			//Minion testCard = game.ProcessCard<Minion>("EVIL Cable Rat");
+			Minion testCard = game.ProcessCard<Minion>("EVIL Cable Rat");
+
+			List<string> lackeyList = new List<string>() {
+				"Ethereal Lackey", "Faceless Lackey", "Goblin Lackey","Kobold Lackey","Witchy Lackey",};
+			Assert.Single(game.Player1.HandZone);
+			Assert.Contains(game.Player1.HandZone[0].Card.Name, lackeyList);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
