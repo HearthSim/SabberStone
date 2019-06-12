@@ -161,9 +161,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("DAL_352", new Power {
-				// TODO [DAL_352] Crystalsong Portal && Test: Crystalsong Portal_DAL_352
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Conditional(SelfCondition.HasMinionInHand,
+					new DiscoverTask(CardType.MINION, CardClass.DRUID),
+					new DiscoverTask(CardType.MINION, CardClass.DRUID, keepAllCondition: c => true))
 			});
 
 			// ------------------------------------------ SPELL - DRUID

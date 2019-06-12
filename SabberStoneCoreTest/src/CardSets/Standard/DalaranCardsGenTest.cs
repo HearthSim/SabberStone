@@ -340,28 +340,52 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - DISCOVER = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CrystalsongPortal_DAL_352()
 		{
-			// TODO CrystalsongPortal_DAL_352 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.DRUID,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Crystalsong Portal"),
+					Cards.FromName("Wisp"),
 				},
 				Player2HeroClass = CardClass.DRUID,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crystalsong Portal"));
-			//Spell testCard = game.ProcessCard<Spell>("Crystalsong Portal");
+			Spell testCard = game.ProcessCard<Spell>("Crystalsong Portal");
+			IPlayable chosen = game.ChooseNthChoice(1);
+			Assert.Equal(CardType.MINION, chosen.Card.Type);
+			Assert.Equal(CardClass.DRUID, chosen.Card.Class);
+			Assert.Equal(2, game.Player1.HandZone.Count);
+		}
+
+		[Fact]
+		public void CrystalsongPortal_DAL_352_keepall3()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.DRUID,
+				Player1Deck = new List<Card>()
+				{
+				},
+				Player2HeroClass = CardClass.DRUID,
+				Shuffle = false,
+				FillDecks = false,
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			Spell testCard = game.ProcessCard<Spell>("Crystalsong Portal");
+			Assert.Equal(3, game.Player1.HandZone.Count);
+			Assert.All(game.Player1.HandZone, playable => playable.Card.Type.Equals(CardType.MINION));
+			Assert.All(game.Player1.HandZone, playable => playable.Card.Class.Equals(CardClass.DRUID));
 		}
 
 		// ------------------------------------------ SPELL - DRUID

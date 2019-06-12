@@ -98,13 +98,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public DiscoverTask(CardType cardType = CardType.INVALID, CardClass cardClass = CardClass.INVALID,
 			(GameTag tag, RelaSign relaSign, int value) tagValueCriteria = default, ChoiceAction choiceAction = ChoiceAction.HAND,
-			ISimpleTask afterDiscoverTask = null, int repeat = 1)
+			ISimpleTask afterDiscoverTask = null, int repeat = 1, Predicate<Card[]> keepAllCondition = null)
 		{
 			_discoverCriteria =
 				new DiscoverCriteria(cardType, cardClass, tagValueCriteria);
 			_choiceAction = choiceAction;
 			_repeat = repeat;
 			_taskTodo = afterDiscoverTask;
+			_keepAllCondition = keepAllCondition;
 		}
 
 		public DiscoverTask(DiscoverType discoverType, int numberOfChoices = 3)
