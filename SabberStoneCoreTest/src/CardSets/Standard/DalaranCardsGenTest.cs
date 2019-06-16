@@ -2077,7 +2077,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void HeistbaronTogwaggle_DAL_417()
 		{
-			// TODO HeistbaronTogwaggle_DAL_417 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -2092,15 +2091,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-
-			game.ProcessCard<Minion>("EVIL Cable Rat");
-			game.ProcessCard(game.Player1.HandZone[0]);  // play the lackey
+			IPlayable lackey = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("DAL_615"));  // Goblin Lackey
+			game.ProcessCard(lackey);
 			Minion testCard = game.ProcessCard<Minion>("Heistbaron Togwaggle");
 
-			var treasures = new HashSet<string> { "Tolin's Goblet", "Zarog's Crown", "Wondrous Wand", "Golden Kobold" };
+			var expectTreasures = new HashSet<string> { "Tolin's Goblet", "Zarog's Crown", "Wondrous Wand", "Golden Kobold" };
 			Card[] choiceCards = game.GetChoiceCards();
 			var choiceNameSet = choiceCards.Select(card => card.Name).ToHashSet();
-			Assert.Equal(treasures, choiceNameSet);
+			Assert.Equal(expectTreasures, choiceNameSet);
 			int choiceNum = Array.FindIndex(choiceCards, card => card.Name.Equals("Wondrous Wand"));
 			game.ChooseNthChoice(choiceNum + 1);
 			Assert.Single(game.Player1.HandZone);
