@@ -71,12 +71,7 @@ namespace SabberStoneCore.Model.Entities
 			IsImmune = false;
 			AttackableByRush = false;
 
-			int sp = this[GameTag.SPELLPOWER];
-			if (sp > 0)
-			{
-				Controller.CurrentSpellPower -= sp;
-				this[GameTag.SPELLPOWER] = 0;
-			}
+			this[GameTag.SPELLPOWER] = 0;
 
 			// remove enchantments, aura and trigger
 			OngoingEffect?.Remove();
@@ -236,7 +231,6 @@ namespace SabberStoneCore.Model.Entities
 			}
 			set
 			{
-				Controller.CurrentSpellPower += (value - SpellPower);
 				this[GameTag.SPELLPOWER] = value;
 			}
 		}

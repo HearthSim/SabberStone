@@ -300,6 +300,7 @@ namespace SabberStoneCore.Enchants
 		private int _heroPowerDisabled;
 		private int _allHealingDouble;
 		private int _extraBattlecryAndCombo;
+		private int _spellPower;
 
 		public int this[GameTag t]
 		{
@@ -330,6 +331,8 @@ namespace SabberStoneCore.Enchants
 						return _allHealingDouble;
 					case GameTag.EXTRA_MINION_BATTLECRIES_BASE:
 						return _extraBattlecryAndCombo;
+					case GameTag.SPELLPOWER:
+						return _spellPower;
 					default:
 						return 0;
 				}
@@ -372,6 +375,9 @@ namespace SabberStoneCore.Enchants
 					case GameTag.EXTRA_MINION_BATTLECRIES_BASE:
 						_extraBattlecryAndCombo = value;
 						return;
+					case GameTag.SPELLPOWER:
+						_spellPower = value;
+						return;
 					default:
 						return;
 				}
@@ -397,6 +403,7 @@ namespace SabberStoneCore.Enchants
 			sb.Append(_heroPowerDisabled);
 			sb.Append(_allHealingDouble);
 			sb.Append(_extraBattlecryAndCombo);
+			sb.Append(_spellPower);
 			sb.Append("]");
 			return sb.ToString();
 		}

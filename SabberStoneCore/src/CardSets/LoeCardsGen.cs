@@ -52,9 +52,7 @@ namespace SabberStoneCore.CardSets
 			// - SPELLPOWER = 2
 			// --------------------------------------------------------
 			cards.Add("LOE_051", new Power {
-				// TODO [LOE_051] Jungle Moonkin && Test: Jungle Moonkin_LOE_051
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.OPPONENT, new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, 2))
 			});
 
 			// ------------------------------------------ SPELL - DRUID

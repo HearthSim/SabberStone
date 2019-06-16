@@ -30,7 +30,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			stack.Number = Tag == GameTag.CURRENT_SPELLPOWER ? controller.CurrentSpellPower : controller[Tag];
+			stack.Number = controller[Tag];
 			return TaskState.COMPLETE;
 		}
 	}

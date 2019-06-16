@@ -1227,13 +1227,10 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int CurrentSpellPower
 		{
-			get => _currentSpellPower;
-			set
-			{
-				_currentSpellPower = value;
-				if (Game.History)
-					this[GameTag.CURRENT_SPELLPOWER] = value;
-			}
+			get => BoardZone.Sum(m => m.SpellPower)
+				+ (Hero.NativeTags.ContainsKey(GameTag.SPELLPOWER) ? Hero.NativeTags[GameTag.SPELLPOWER] : 0)
+				+ ControllerAuraEffects[GameTag.SPELLPOWER];
+			// TODO from auras
 		}
 
 		public int AmountHealedThisGame
