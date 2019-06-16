@@ -1379,7 +1379,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("DAL_716", new Power {
 				PowerTask = new DamageTask(4, EntityType.TARGET),
-				Aura = new AdaptiveCostEffect(0, TriggerType.ZONE, triggerCondition: SelfCondition.HoldingAnotherClassCard)
+				Aura = new AdaptiveCostEffect(p => 0, @operator: EffectOperator.SET, triggerCondition: SelfCondition.HoldingAnotherClassCard)
 			});
 
 			// ------------------------------------------ SPELL - ROGUE

@@ -2093,8 +2093,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			IPlayable lackey = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("DAL_615"));  // Goblin Lackey
 			game.ProcessCard(lackey);
-			Minion testCard = game.ProcessCard<Minion>("Heistbaron Togwaggle");
 
+			Minion testCard = game.ProcessCard<Minion>("Heistbaron Togwaggle");
 			var expectTreasures = new HashSet<string> { "Tolin's Goblet", "Zarog's Crown", "Wondrous Wand", "Golden Kobold" };
 			Card[] choiceCards = game.GetChoiceCards();
 			var choiceNameSet = choiceCards.Select(card => card.Name).ToHashSet();
@@ -4927,7 +4927,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Minion[] drawnMinions = drawnCards.Cast<Minion>().ToArray();
 			Assert.True(Array.TrueForAll(drawnMinions, p => p.AttackDamage == 1));
 			Assert.True(Array.TrueForAll(drawnMinions, p => p.Health == 1));
-			Assert.True(Array.TrueForAll(drawnMinions, p => p.Cost == 1 || p.OngoingEffect is AdaptiveCostEffect));
+			Assert.True(Array.TrueForAll(drawnMinions, p => p.Cost == 1 || p.OngoingEffect is IAdaptiveCostEffect));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
