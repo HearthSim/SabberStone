@@ -431,6 +431,10 @@ namespace SabberStoneCore.Auras
 					for (int i = 0; i < Effects.Length; i++)
 						((Effect)Effects[i]).ApplyTo(Owner.Controller.ControllerAuraEffects);
 					break;
+				case AuraType.OPPONENT:
+					for (int i = 0; i < Effects.Length; i++)
+						((Effect)Effects[i]).ApplyTo(Owner.Controller.Opponent.ControllerAuraEffects);
+					break;
 				case AuraType.CONTROLLERS:
 					for (int i = 0; i < Effects.Length; i++)
 					{
@@ -461,6 +465,11 @@ namespace SabberStoneCore.Auras
 			{
 				for (int i = 0; i < effects.Length; i++)
 					((Effect)effects[i]).RemoveFrom(Owner.Controller.ControllerAuraEffects);
+			}
+			else if (Type == AuraType.OPPONENT)
+			{
+				for (int i = 0; i < effects.Length; i++)
+					((Effect)effects[i]).RemoveFrom(Owner.Controller.Opponent.ControllerAuraEffects);
 			}
 			else if (Type == AuraType.CONTROLLERS)
 			{

@@ -1097,7 +1097,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.CurrentPlayer.UsedMana = 0;
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard1, minion2));
 			Assert.Equal(6, ((Minion)minion2).Health);
-			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Mage"));
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Mage"));  // +1 Spell Damage
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion1));
 			game.CurrentPlayer.UsedMana = 0;
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, minion2));

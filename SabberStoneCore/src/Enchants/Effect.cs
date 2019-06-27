@@ -77,8 +77,6 @@ namespace SabberStoneCore.Enchants
 			{
 				case EffectOperator.ADD:
 					entity.NativeTags[Tag] += Value;
-					if (Tag == GameTag.SPELLPOWER)
-						entity.Controller.CurrentSpellPower += Value;
 					break;
 				case EffectOperator.SUB:
 					entity.NativeTags[Tag] -= Value;
@@ -235,8 +233,6 @@ namespace SabberStoneCore.Enchants
 			{
 				case EffectOperator.ADD:
 					entity[Tag] -= Value;
-					if (Tag == GameTag.SPELLPOWER)
-						entity.Controller.CurrentSpellPower -= Value;
 					return;
 				case EffectOperator.SUB:
 					entity[Tag] = entity.NativeTags[Tag] + Value;

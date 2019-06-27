@@ -785,7 +785,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("BOT_254", new Power {
 				PowerTask = ComplexTask.Create(
-					new GetGameTagControllerTask(GameTag.CURRENT_SPELLPOWER),
+					new FuncNumberTask(p => p.Controller.CurrentSpellPower),
 					new MathAddTask(2),
 					new EnqueueNumberTask(
 						ComplexTask.Create(

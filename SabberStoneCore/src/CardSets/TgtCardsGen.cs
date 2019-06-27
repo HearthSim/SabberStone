@@ -786,9 +786,9 @@ namespace SabberStoneCore.CardSets
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
 			cards.Add("AT_004", new Power {
-				// TODO [AT_004] Arcane Blast && Test: Arcane Blast_AT_004
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new FuncNumberTask(p => 2 + p.Controller.CurrentSpellPower * 2),
+					new DamageNumberTask(EntityType.TARGET, false))
 			});
 
 			// ------------------------------------------- SPELL - MAGE
