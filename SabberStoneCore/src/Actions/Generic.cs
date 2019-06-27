@@ -464,7 +464,7 @@ namespace SabberStoneCore.Actions
 				{
 					case Zone.HAND:
 						p.Power?.Trigger?.Activate(p, TriggerActivation.HAND);
-						if (p.Power?.Aura is AdaptiveCostEffect e)
+						if (p.Power?.Aura is IAdaptiveCostEffect e)
 							e.Activate((Playable)p);
 						break;
 					case Zone.DECK:

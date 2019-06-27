@@ -72,6 +72,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		_s_WEAPON_ANOTHERCLASS,
 		_wl_WEAPON_ANOTHERCLASS,
 		_wr_WEAPON_ANOTHERCLASS,
+		HEISTBARON_TOGWAGGLE,
 	}
 
 	public class DiscoverTask : SimpleTask
@@ -97,13 +98,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public DiscoverTask(CardType cardType = CardType.INVALID, CardClass cardClass = CardClass.INVALID,
 			(GameTag tag, RelaSign relaSign, int value) tagValueCriteria = default, ChoiceAction choiceAction = ChoiceAction.HAND,
-			ISimpleTask afterDiscoverTask = null, int repeat = 1)
+			ISimpleTask afterDiscoverTask = null, int repeat = 1, Predicate<Card[]> keepAllCondition = null)
 		{
 			_discoverCriteria =
 				new DiscoverCriteria(cardType, cardClass, tagValueCriteria);
 			_choiceAction = choiceAction;
 			_repeat = repeat;
 			_taskTodo = afterDiscoverTask;
+			_keepAllCondition = keepAllCondition;
 		}
 
 		public DiscoverTask(DiscoverType discoverType, int numberOfChoices = 3)
@@ -602,6 +604,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						return GetAnotherClassWeapons(controller.HeroClass, format);
+					}
+					case DiscoverType.HEISTBARON_TOGWAGGLE:
+					{
+						choiceAction = ChoiceAction.HAND;
+						Card[][] cardSets =
+						{
+							new []
+							{
+								Cards.FromId("LOOT_998h"), // Tolin's Goblet
+								Cards.FromId("LOOT_998j"), // Zarog's Crown
+								Cards.FromId("LOOT_998l"), // Wondrous Wand
+								Cards.FromId("LOOT_998k"), // Golden Kobold
+							}
+						};
+						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
+						return cardSets;
 					}
 					default:
 						throw new ArgumentOutOfRangeException(nameof(discoverType), discoverType, null);

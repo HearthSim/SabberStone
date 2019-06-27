@@ -445,7 +445,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_518", new Power {
 				// TODO Test: Wing Blast_GIL_518
 				PowerTask = new DamageTask(4, EntityType.TARGET, true),
-				Aura = new AdaptiveCostEffect(1, TriggerType.DEATH)
+				Aura = new AdaptiveCostEffect(p => 1, EffectOperator.SET, SelfCondition.IsAnyDiedThisTurn)
 			});
 
 			// ----------------------------------------- SPELL - HUNTER

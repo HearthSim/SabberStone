@@ -417,5 +417,64 @@ namespace SabberStoneCoreTest.Basic
 			game.ProcessCard("Spiritsinger Umbra", asZeroCost: true);
 			game.ProcessCard("Dr. Morrigan", asZeroCost: true);
 		}
+
+		[Fact]
+		public static void DrawMechanicsTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Chillwind Yeti"),
+					Cards.FromId("BOT_511t"),          // Bomb
+					Cards.FromName("River Crocolisk"),
+					Cards.FromId("BOT_511t"),          // Bomb
+					Cards.FromId("BOT_511t"),          // Bomb
+					Cards.FromId("BOT_511t"),          // Bomb
+					Cards.FromId("BOT_511t"),          // Bomb
+				},
+				Shuffle = false,
+				FillDecks = false,
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			// draw up to 8 wisps in hand
+			game.ProcessCard("Arcane Intellect", asZeroCost: true);
+			game.ProcessCard("Arcane Intellect", asZeroCost: true);
+			Assert.Equal(8, game.Player1.HandZone.Count);
+			Assert.All(game.Player1.HandZone, hz => hz.Card.Name.Equals("Wisp"));
+
+			IPlayable wondrousWand = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("LOOT_998l"));
+			// expect:
+			//   draw Chillwind Yeti for cost 0
+			//   draw Bomb and take 5 damage
+			//      draw River Crocolisk from bomb (no cost reduction)
+			//   overdraw bomb
+			game.ProcessCard(wondrousWand);
+			Assert.True(game.Player1.HandZone.IsFull);
+			Assert.Equal("Chillwind Yeti", game.Player1.HandZone[8].Card.Name);
+			Assert.Equal("River Crocolisk", game.Player1.HandZone[9].Card.Name);
+			int mana = game.Player1.RemainingMana;
+			game.ProcessCard(game.Player1.HandZone[8]); // 0 cost Chillwind Yeta
+			Assert.Equal(mana, game.Player1.RemainingMana); 
+			game.ProcessCard(game.Player1.HandZone[8]); // 2 cost River Crocolisk
+			Assert.Equal(mana-2, game.Player1.RemainingMana);
+
+			Assert.Equal(25, game.Player1.Hero.Health);
+
+			// The bomb after the River Crocolisk was discarded, leaving 3 bombs let in deck
+			Assert.Equal(3, game.Player1.DeckZone.Count);
+		}
 	}
 }
