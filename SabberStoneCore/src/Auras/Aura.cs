@@ -448,6 +448,9 @@ namespace SabberStoneCore.Auras
 				case AuraType.HEROPOWER:
 					Apply(Owner.Controller.Hero.HeroPower);
 					break;
+				case AuraType.OP_HEROPOWER:
+					Apply(Owner.Controller.Opponent.Hero.HeroPower);
+					break;
 				case AuraType.SELF:
 					Apply(Owner);
 					break;

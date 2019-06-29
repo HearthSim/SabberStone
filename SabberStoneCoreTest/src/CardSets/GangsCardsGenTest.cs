@@ -1792,7 +1792,7 @@ namespace SabberStoneCoreTest.CardSets
 			var minion2 = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stonetusk Boar"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
-			Assert.True(((Minion)testCard).HasStealth);
+			Assert.False(((Minion)testCard).HasStealth);
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, minion2));
 			Assert.True(((Minion)testCard).HasStealth);
 		}

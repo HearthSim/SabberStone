@@ -1767,7 +1767,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void GraveHorror_TRL_408()
 		{
 			// TODO GraveHorror_TRL_408 test
@@ -2519,7 +2519,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void Zentimo_TRL_085()
 		{
 			var game = new Game(new GameConfig

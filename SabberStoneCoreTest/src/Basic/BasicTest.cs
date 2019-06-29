@@ -867,7 +867,6 @@ namespace SabberStoneCoreTest.Basic
 				StartPlayer = 1,
 				Shuffle = false,
 				FillDecks = false,
-				History = false,
 				Logging = false,
 			});
 

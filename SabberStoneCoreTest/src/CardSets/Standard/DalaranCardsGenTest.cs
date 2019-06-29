@@ -2041,7 +2041,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				{
 					Cards.FromName("Hench-Clan Burglar"),
 				},
-				Player2HeroClass = CardClass.ROGUE,
+				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -2053,8 +2053,29 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Minion testCard = game.ProcessCard<Minion>("Hench-Clan Burglar");
 			Assert.NotNull(game.CurrentPlayer.Choice);
 			Card[] choiceCards = game.GetChoiceCards();
+			IEnumerable<Card> unexpectedChoices = choiceCards.Where(
+										c => c.Class == CardClass.ROGUE || c.Type != CardType.SPELL);
+			foreach (Card c in unexpectedChoices)
+			{
+				Assert.Equal("Unexpected Card", c.Name);
+			}
 
 			Assert.True(Array.TrueForAll(choiceCards, c => c.Class != CardClass.ROGUE));
+			Assert.True(Array.TrueForAll(choiceCards, c => c.Type == CardType.SPELL));
+
+			// turn the tables to verify we're not using bad cache
+			game.EndTurn();
+			testCard = game.ProcessCard<Minion>("Hench-Clan Burglar");
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			choiceCards = game.GetChoiceCards();
+			unexpectedChoices = choiceCards.Where(
+										c => c.Class == CardClass.MAGE || c.Type != CardType.SPELL);
+			foreach (Card c in unexpectedChoices)
+			{
+				Assert.Equal("Unexpected Card", c.Name);
+			}
+
+			Assert.True(Array.TrueForAll(choiceCards, c => c.Class != CardClass.MAGE));
 			Assert.True(Array.TrueForAll(choiceCards, c => c.Type == CardType.SPELL));
 		}
 

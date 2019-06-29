@@ -366,7 +366,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
 			Assert.Equal(10, game.CurrentPlayer.BaseMana);
 			Assert.Equal(10, game.CurrentPlayer.RemainingMana);
-			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(0, game.CurrentPlayer.HandZone.Count);
 		}
 
 		// ------------------------------------------ SPELL - DRUID

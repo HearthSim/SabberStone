@@ -35,6 +35,8 @@ namespace SabberStoneCore.Auras
 
 		HEROPOWER,
 
+		OP_HEROPOWER,
+
 		HAND_AND_BOARD,
 
 		SUMMONING_PORTAL,

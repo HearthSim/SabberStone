@@ -717,7 +717,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		private Card[][] Discover(FormatType format, DiscoverCriteria criteria, CardClass cls)
 		{
 			Card[][] cards;
-			if (criteria.CardClass != CardClass.INVALID)
+			if (criteria.CardClass != CardClass.INVALID && criteria.CardClass != CardClass.ANOTHER_CLASS)
 				cls = CardClass.INVALID;
 
 			if (CachedDiscoverySetsByCriteria.TryGetValue((criteria, cls), out cards))
@@ -754,7 +754,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					if (!criteria.Evaluate(card)) continue;
 
-					if (card.Class != cls)
+					if (card.Class != cls && card.IsClassCard())
 						matching.Add(card);
 				}
 

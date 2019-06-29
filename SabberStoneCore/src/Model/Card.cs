@@ -470,6 +470,11 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public CardClass Class { get; }
 
+		public bool IsClassCard()
+		{
+			return Class >= CardClass.DRUID && Class <= CardClass.WARRIOR;
+		}
+
 		private Race Race;
 
 		/// <summary>

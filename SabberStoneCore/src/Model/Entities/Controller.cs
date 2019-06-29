@@ -255,7 +255,6 @@ namespace SabberStoneCore.Model.Entities
 
 			// non-tag attributes
 			_playerId = controller._playerId;
-			_currentSpellPower = controller._currentSpellPower;
 			NumTotemSummonedThisGame = controller.NumTotemSummonedThisGame;
 			TemporusFlag = controller.TemporusFlag;
 		}
@@ -1229,6 +1228,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			get => BoardZone.Sum(m => m.SpellPower)
 				+ (Hero.NativeTags.ContainsKey(GameTag.SPELLPOWER) ? Hero.NativeTags[GameTag.SPELLPOWER] : 0)
+				+ (NativeTags.ContainsKey(GameTag.SPELLPOWER) ? NativeTags [GameTag.SPELLPOWER] : 0)
 				+ ControllerAuraEffects[GameTag.SPELLPOWER];
 		}
 
@@ -1244,7 +1244,6 @@ namespace SabberStoneCore.Model.Entities
 			set => this[GameTag.NUM_HERO_POWER_DAMAGE_THIS_GAME] = value;
 		}
 
-		private int _currentSpellPower;
 		private Controller _opponent;
 	}
 }

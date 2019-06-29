@@ -1455,21 +1455,41 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Unexpected Results"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Unexpected Results"));
 
 			BoardZone board = game.CurrentPlayer.BoardZone;
 
 			Assert.Equal(2, board.Count);
 			Assert.True(board.ToList().TrueForAll(p => p is Minion m && m.Cost == 2));
+		}
 
-			game.ProcessCard("Twisting Nether", asZeroCost: true);
+		[Fact]
+		public void UnexpectedResults_BOT_254_withSpellPower()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Unexpected Results"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.ProcessCard("Bloodmage Thalnos", asZeroCost: true);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Unexpected Results"));
 
-			game.ProcessCard("Dalaran Mage", asZeroCost: true);
+			BoardZone board = game.CurrentPlayer.BoardZone;
 
-			game.ProcessCard("Unexpected Results");
-
-			Assert.Equal(4, board.Count);
+			Assert.Equal(3, board.Count);
+			Assert.Equal(3, board[1].Card.Cost);
+			Assert.Equal(3, board[2].Card.Cost);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -2671,11 +2691,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Academic Espionage"));
+			game.ProcessCard("Academic Espionage");
 
 			Assert.Equal(10, game.CurrentPlayer.DeckZone.Count);
-			Assert.True(game.CurrentPlayer.DeckZone.ToList()
-				.TrueForAll(p => p.Cost == 1 && p.Card.Class == CardClass.PALADIN));
+			IEnumerable<IPlayable> unexpectedCards = game.CurrentPlayer.DeckZone.Where(
+										p => p.Cost != 1 || p.Card.Class != CardClass.PALADIN);
+			foreach (Playable p in unexpectedCards)
+			{
+				Assert.Equal("Unexpected Card", p.Card.Name);
+			}
+
+			// now test it again from the opponents side, to verify we're not cacheing wrong
+			game.EndTurn();
+			game.ProcessCard("Academic Espionage");
+
+			Assert.Equal(10, game.CurrentPlayer.DeckZone.Count);
+			IEnumerable<IPlayable> unexpectedCards2 = game.CurrentPlayer.DeckZone.Where(
+										p => p.Cost != 1 || p.Card.Class != CardClass.ROGUE);
+			foreach (Playable p in unexpectedCards2)
+			{
+				Assert.Equal("Unexpected Card", p.Card.Name);
+			}
 		}
 
 		// ------------------------------------------ SPELL - ROGUE
@@ -5436,8 +5472,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				},
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;

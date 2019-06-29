@@ -45,7 +45,7 @@ namespace SabberStoneCore.Actions
 				else if (source is HeroPower)
 				{
 					// TODO: Consider this part only when TGT or Rumble is loaded
-					// amount += source.Controller.Hero.HeroPowerDamage; 
+					amount += source.Controller.Hero.HeroPowerDamage; 
 					if (source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE] > 0)
 						amount *= (int)Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE]);
 				}

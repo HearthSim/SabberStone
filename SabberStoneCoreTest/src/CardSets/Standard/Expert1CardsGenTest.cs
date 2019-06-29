@@ -1875,7 +1875,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				},
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = false,
-				History = false,
 			});
 			game2.StartGame();
 			game2.Player1.BaseMana = 3;

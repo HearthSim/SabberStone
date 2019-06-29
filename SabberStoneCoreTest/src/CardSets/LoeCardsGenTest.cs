@@ -1008,7 +1008,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DURABILITY = 3
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void CursedBlade_LOE_118()
 		{
 			var game = new Game(new GameConfig

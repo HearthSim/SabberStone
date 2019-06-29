@@ -305,13 +305,10 @@ namespace SabberStoneCore.CardSets
 			// - 890 = 10
 			// --------------------------------------------------------
 			cards.Add("AT_043", new Power {
-				// TODO [AT_043] Astral Communion && Test: Astral Communion_AT_043
-				//PowerTask = null,
-				//Trigger = null,
 				PowerTask = ComplexTask.Create(
-				new DiscardTask(EntityType.HAND),
-						  ComplexTask.ExcessManaCheck,
-						  new ManaCrystalFullTask(10))
+					new ManaCrystalFullTask(10),
+					new TempManaTask(10),
+					new DiscardTask(EntityType.HAND))
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -667,8 +664,7 @@ namespace SabberStoneCore.CardSets
 			// - HEROPOWER_DAMAGE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_003", new Power {
-				// TODO [AT_003] Fallen Hero && Test: Fallen Hero_AT_003
-				//Aura = new Aura(AuraType.HERO, new Effect(GameTag.HEROPOWER_DAMAGE, EffectOperator.ADD, 1))
+				Aura = new Aura(AuraType.HERO, new Effect(GameTag.HEROPOWER_DAMAGE, EffectOperator.ADD, 1))
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -2109,8 +2105,7 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_086", new Power {
-				// TODO [AT_086] Saboteur && Test: Saboteur_AT_086
-				//PowerTask = new AddEnchantmentTask("AT_086e", EntityType.OP_HERO_POWER)
+				PowerTask = new AddEnchantmentTask("AT_086e", EntityType.OP_HERO_POWER)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2923,10 +2918,9 @@ namespace SabberStoneCore.CardSets
 			// Text: Your Hero Power costs (5) more this turn.
 			// --------------------------------------------------------
 			cards.Add("AT_086e", new Power {
-				// TODO [AT_086e] Villainy && Test: Villainy_AT_086e
-				//PowerTask = null,
-				//Trigger = null,
-
+				Enchant = new Enchant(Effects.AddCost(5)),
+				Trigger = TriggerBuilder.Type(TriggerType.TURN_START)
+					.SetTask(new RemoveEnchantmentTask())
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

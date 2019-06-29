@@ -1097,12 +1097,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("TRL_408", new Power {
 				// TODO: Possible performance overhead
-				//Aura = new AdaptiveCostEffect(p => p.Controller.PlayHistory.Count(h => h.SourceCard.Type == CardType.SPELL))
-				Aura = new AdaptiveCostEffectObsolete(
-					initialisationFunction: p => p.Card.Cost - p.Controller.PlayHistory.Count(h => h.SourceCard.Type == CardType.SPELL),
-					triggerValueFunction: p => -1,
-					trigger: TriggerType.AFTER_CAST,
-					triggerSource: TriggerSource.FRIENDLY)
+				Aura = new AdaptiveCostEffect(p => p.Controller.PlayHistory.Count(h => h.SourceCard.Type == CardType.SPELL))
+				//Aura = new AdaptiveCostEffectObsolete(
+				//	initialisationFunction: p => p.Card.Cost - p.Controller.PlayHistory.Count(h => h.SourceCard.Type == CardType.SPELL),
+				//	triggerValueFunction: p => -1,
+				//	trigger: TriggerType.AFTER_CAST,
+				//	triggerSource: TriggerSource.FRIENDLY)
 			});
 
 			// ---------------------------------------- MINION - PRIEST

@@ -784,14 +784,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_254", new Power {
-				PowerTask = ComplexTask.Create(
-					new FuncNumberTask(p => p.Controller.CurrentSpellPower),
-					new MathAddTask(2),
-					new EnqueueNumberTask(
-						ComplexTask.Create(
-							new RandomMinionTask(GameTag.COST, 2),
-							new SummonTask())))
-			});
+				PowerTask = new EnqueueTask(2,
+					ComplexTask.Create(
+						new FuncNumberTask(p => 2 + p.Controller.CurrentSpellPower),
+						new RandomMinionNumberTask(GameTag.COST),
+						new SummonTask()))
+				});
 
 			// ------------------------------------------- SPELL - MAGE
 			// [BOT_257] Luna's Pocket Galaxy - COST:7 
@@ -862,12 +860,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_531e", new Power {
-				Enchant = new Enchant(new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, 2)),
-				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				// Seems like there are some problems with Enchant SPELLPOWER effects not being removed
+				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, 2))
 				{
-					Condition = SelfCondition.IsSpell,
+					RemoveTrigger = (TriggerType.TURN_END, null),
+				},
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
 					SingleTask = new RemoveEnchantmentTask()
 				}
+
+				//Enchant = new Enchant(new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, 2)),
+				//{
+				//	IsOneTurnEffect = true
+				//},
+				//Trigger = new Trigger(TriggerType.AFTER_CAST)
+				//{
+				//	SingleTask = new RemoveEnchantmentTask()
+				//}
 			});
 
 			// ------------------------------------- ENCHANTMENT - MAGE
@@ -1519,7 +1529,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_087", new Power {
 				PowerTask = ComplexTask.Repeat(
 					ComplexTask.Create(
-						new RandomCardTask(EntityType.OP_HERO),
+						new RandomCardTask(EntityType.OP_HERO, useCache:false),
 						new AddEnchantmentTask("BOT_087e", EntityType.STACK),
 						new AddStackTo(EntityType.DECK)), 10)
 			});

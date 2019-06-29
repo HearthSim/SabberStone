@@ -2962,12 +2962,10 @@ namespace SabberStoneCoreTest.CardSets
 				Player1HeroClass = CardClass.SHAMAN,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Unstable Evolution"),
 				},
 				Player2HeroClass = CardClass.SHAMAN,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -2976,7 +2974,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.ProcessCard("Stonetusk Boar");
 			game.ProcessCard("Unstable Evolution", game.CurrentPlayer.BoardZone[0]);
 			Assert.Equal(2, game.CurrentPlayer.BoardZone[0].Cost);
-			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
 
 			int i = 0;
 			while (i != 8)
@@ -2989,7 +2987,10 @@ namespace SabberStoneCoreTest.CardSets
 
 			game.EndTurn();
 
-			Assert.Equal(4, game.CurrentOpponent.HandZone.Count);
+			// random scenarios will add cards to hand (Archmage Antonidas), hand count is not a good test
+			//Assert.Equal(4, game.CurrentOpponent.HandZone.Count);
+			Assert.All(game.CurrentOpponent.HandZone, c =>
+				Assert.NotEqual("Unstable Evolution", c.Card.Name));
 		}
 
 		// ---------------------------------------- WEAPON - SHAMAN
@@ -3330,23 +3331,19 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Rin, the First Disciple"));
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Rin, the First Disciple"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Rin, the First Disciple"));
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, testCard));
 
-			game.ProcessCard("Cataclysm", null, true);
-			game.CurrentPlayer.UsedMana = 0;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // The First Seal
-			game.CurrentPlayer.UsedMana = 0;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // The Second Seal
-			game.CurrentPlayer.UsedMana = 0;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // The Third Seal
-			game.CurrentPlayer.UsedMana = 0;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // The Fourth Seal
-			game.CurrentPlayer.UsedMana = 0;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // The Final Seal
-			game.CurrentPlayer.UsedMana = 0;
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, game.CurrentPlayer.HandZone[0])); // Azari, the Devourer
+			game.ProcessCard("Twisting Nether", null, true);
+			Assert.Equal("The First Seal", game.CurrentPlayer.HandZone.Last().Card.Name);
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last(), asZeroCost:true); // The First Seal
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last(), asZeroCost: true); // The Second Seal
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last(), asZeroCost: true); // The Third Seal
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last(), asZeroCost: true); // The Fourth Seal
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last(), asZeroCost: true); // The Final Seal
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last(), asZeroCost: true); // Azari, the Devourer
 
+			Assert.Equal("Felhunter", game.CurrentPlayer.BoardZone[0].Card.Name);
 			Assert.Equal(2, game.CurrentPlayer.BoardZone[0].AttackDamage);
 			Assert.Equal(3, game.CurrentPlayer.BoardZone[1].AttackDamage);
 			Assert.Equal(4, game.CurrentPlayer.BoardZone[2].AttackDamage);
