@@ -146,11 +146,6 @@ namespace SabberStoneCore.Model.Zones
 		private static void RemoveAura(Minion entity)
 		{
 			entity.OngoingEffect?.Remove();
-			int csp = entity.Controller.CurrentSpellPower;
-			if (csp > 0)
-			{
-				int sp = entity.SpellPower;
-			}
 		}
 
 		/// <summary>

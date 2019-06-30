@@ -179,6 +179,7 @@ namespace SabberStoneCore.Loader
 				case 687:
 				case 40247:
 				case 53238:
+				case 55964:
 					return ReqTotemicCall;
 				// True Love
 				case 39563:

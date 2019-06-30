@@ -3024,6 +3024,42 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
+			// [BOT_700] SN1P-SN4P - COST:3 [ATK:2/HP:3] 
+			// - Race: mechanical, Set: boomsday, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Magnetic</b>, <b>Echo</b>
+			//       <b>Deathrattle:</b> Summon two 1/1 Microbots.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - DEATHRATTLE = 1
+			// - ECHO = 1
+			// - MODULAR = 1
+			// --------------------------------------------------------
+			cards.Add("BOT_700", new Power
+			{
+				InfoCardId = "BOT_700e",
+				PowerTask = new MagneticTask(),
+				DeathrattleTask = new SummonTask("BOT_312t", 2)
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [BOT_700e] SN1P-SN4P (*) - COST:0 
+			// - Set: boomsday, 
+			// --------------------------------------------------------
+			// Text: <b>Deathrattle:</b> Summon two 1/1 Microbots.
+			// --------------------------------------------------------
+			// GameTag:
+			// - MODULAR = 1
+			// --------------------------------------------------------
+			cards.Add("BOT_700e", new Power
+			{
+				Enchant = new Enchant(Effects.Attack_N(2), Effects.Health_N(3)),
+				DeathrattleTask = new SummonTask("BOT_312t", 2)
+				// Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_700e")
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
 			// [BOT_907] Galvanizer - COST:2 [ATK:1/HP:2] 
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
