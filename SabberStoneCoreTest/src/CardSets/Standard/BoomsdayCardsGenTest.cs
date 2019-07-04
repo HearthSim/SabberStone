@@ -4339,6 +4339,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Assert.Single(game.CurrentPlayer.BoardZone);
 			Minion test = game.CurrentPlayer.BoardZone[0];
+			Assert.Equal(5, test.AttackDamage);
 			Assert.NotNull(test.ActivatedTrigger);
 
 			game.EndTurn();
@@ -5553,6 +5554,53 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kaboom Bot"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Kaboom Bot"));
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [BOT_700] SN1P-SN4P - COST:3 [ATK:2/HP:3] 
+		// - Race: mechanical, Set: boomsday, Rarity: legendary
+		// --------------------------------------------------------
+		// Text: <b>Magnetic</b>, <b>Echo</b>
+		//       <b>Deathrattle:</b> Summon two 1/1 Microbots.
+		// --------------------------------------------------------
+		// GameTag:
+		// - ELITE = 1
+		// - DEATHRATTLE = 1
+		// - ECHO = 1
+		// - MODULAR = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void Sn1pSn4p_BOT_700()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = false,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			Minion testCard = game.ProcessCard<Minion>("SN1P-SN4P");
+			Minion test = game.CurrentPlayer.BoardZone[0];
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last(), null, zonePosition:0); // play echo copy
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last(), null, zonePosition: 0); // play echo copy
+
+			Assert.Equal(9, test.BaseHealth);
+			Assert.Equal(6, test.AttackDamage);
+
+			game.ProcessCard<Minion>("E.M.P. Operative", test, asZeroCost:true, zonePosition: 0);
+
+			Assert.Equal(7, game.CurrentPlayer.BoardZone.Count);
+			int microbotCount = game.CurrentPlayer.BoardZone.Where(m => m.Card.Name.Equals("Microbot")).Count();
+			Assert.Equal(6, microbotCount);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
