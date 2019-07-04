@@ -23,19 +23,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RandomCardTask : SimpleTask
 	{
-		private static readonly ConcurrentDictionary<int, Card[]> CachedCardLists =
-			new ConcurrentDictionary<int, Card[]>();
+		private static readonly ConcurrentDictionary<(int, CardClass), Card[]> CachedCardLists =
+			new ConcurrentDictionary<(int, CardClass), Card[]>();
 
 		private readonly CardSet _cardSet;
 		private readonly CardType _cardType;
 		private readonly GameTag[] _gameTagFilter;
 		private readonly bool _opposite;
-		private readonly bool _useCache;
 		private readonly Race _race;
 		private readonly Rarity _rarity;
 
 		private readonly EntityType _type;
-		private CardClass _cardClass;
+		private readonly CardClass _cardClass;
 
 
 		/// <summary>
@@ -43,7 +42,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		/// </summary>
 		/// <param name="type">EntityType to choose the random card from.</param>
 		/// <param name="opposite">If the card is for the opponent</param>
-		public RandomCardTask(EntityType type, bool opposite = false, bool useCache = true)
+		public RandomCardTask(EntityType type, bool opposite = false)
 		{
 			_type = type;
 			_cardType = CardType.INVALID;
@@ -53,7 +52,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_rarity = Rarity.INVALID;
 			_gameTagFilter = null;
 			_opposite = opposite;
-			_useCache = useCache;
 		}
 
 		/// <summary>
@@ -74,7 +72,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			_rarity = rarity;
 			_gameTagFilter = gameTagFilter;
 			_opposite = opposite;
-			_useCache = true;
 		}
 
 		/// <summary>
@@ -95,15 +92,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
+			CardClass cardClass;
+
 			switch (_type)
 			{
 				case EntityType.HERO:
-					_cardClass = controller.HeroClass;
+					cardClass = controller.HeroClass;
 					break;
 				case EntityType.OP_HERO:
-					_cardClass = controller.Opponent.HeroClass;
+					cardClass = controller.Opponent.HeroClass;
 					break;
 				case EntityType.INVALID:
+					cardClass = _cardClass;
 					break;
 				default:
 					throw new NotImplementedException();
@@ -111,7 +111,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 
 			IReadOnlyList<Card> cardsList =
-				GetCardList(source, _cardType, _cardClass, _cardSet, _race, _rarity, _gameTagFilter, useCache: _useCache);
+				GetCardList(source, _cardType, cardClass, _cardSet, _race, _rarity, _gameTagFilter);
 
 
 			IPlayable randomCard =
@@ -125,13 +125,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public static IReadOnlyList<Card> GetCardList(IEntity source, CardType cardType = CardType.INVALID,
 			CardClass cardClass = CardClass.INVALID, CardSet cardSet = CardSet.INVALID, Race race = Race.INVALID,
-			Rarity rarity = Rarity.INVALID, GameTag[] gameTagFilter = null, bool useCache = true)
+			Rarity rarity = Rarity.INVALID, GameTag[] gameTagFilter = null)
 		{
 			IEnumerable<Card> cards = source.Game.FormatType == FormatType.FT_STANDARD
 				? Cards.AllStandard
 				: Cards.AllWild;
 
-			if (!useCache || !CachedCardLists.TryGetValue(source.Card.AssetId, out Card[] cardsList))
+			if (!CachedCardLists.TryGetValue((source.Card.AssetId, cardClass), out Card[] cardsList))
 			{
 				cardsList = cards.Where(p =>
 					(cardType == CardType.INVALID || p.Type == cardType) &&
@@ -143,8 +143,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					 Array.TrueForAll(gameTagFilter, gameTag => p.Tags.ContainsKey(gameTag))) &&
 					p[GameTag.QUEST] == 0).ToArray();
 
-				if (useCache)
-					CachedCardLists.TryAdd(source.Card.AssetId, cardsList);
+				CachedCardLists.TryAdd((source.Card.AssetId, cardClass), cardsList);
 			}
 
 			return cardsList;

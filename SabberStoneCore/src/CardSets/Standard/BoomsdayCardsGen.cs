@@ -1529,7 +1529,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_087", new Power {
 				PowerTask = ComplexTask.Repeat(
 					ComplexTask.Create(
-						new RandomCardTask(EntityType.OP_HERO, useCache:false),
+						new RandomCardTask(EntityType.OP_HERO),
 						new AddEnchantmentTask("BOT_087e", EntityType.STACK),
 						new AddStackTo(EntityType.DECK)), 10)
 			});

@@ -143,7 +143,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				cardsToDiscover = Discover(in game, controller, in _discoverType, out choiceAction);
 			else
 			{
-				cardsToDiscover = Discover(game.FormatType, _discoverCriteria,
+				cardsToDiscover = Discover(game.FormatType, in _discoverCriteria,
 					Criteria.CardClass == CardClass.OP_CLASS ?
 						controller.Opponent.HeroClass :
 						controller.HeroClass);
@@ -714,7 +714,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return cardSets;
 		}
 
-		private Card[][] Discover(FormatType format, DiscoverCriteria criteria, CardClass cls)
+		private Card[][] Discover(FormatType format, in DiscoverCriteria criteria, CardClass cls)
 		{
 			Card[][] cards;
 			if (criteria.CardClass != CardClass.INVALID && criteria.CardClass != CardClass.ANOTHER_CLASS)
@@ -754,14 +754,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				{
 					if (!criteria.Evaluate(card)) continue;
 
-					if (card.Class != cls && card.IsClassCard())
+					if (card.Class != cls)
 						matching.Add(card);
 				}
 
 				cards = new[] {matching.ToArray(), new Card[0]};
 			}
 			else
-			{ // Use the given class criterion
+			{	// Use the given class criterion
 				IReadOnlyList<Card> allCards = Cards.FormatTypeClassCards(format)[criteria.CardClass];
 
 				List<Card> classCards = new List<Card>();

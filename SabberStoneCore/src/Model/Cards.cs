@@ -152,6 +152,10 @@ namespace SabberStoneCore.Model
 
 			StandardCostMinionCards = AllStandard.Where(c => c.Type == CardType.MINION).GroupBy(c => c.Cost).ToDictionary(g => g.Key, g => g.ToList());
 			WildCostMinionCards = AllWild.Where(c => c.Type == CardType.MINION).GroupBy(c => c.Cost).ToDictionary(g => g.Key, g => g.ToList());
+
+			// Temporary fix for Lotus Assassin
+			Data.Cards["CFM_634"].Stealth = true;
+			Data.Cards["CFM_634"].Tags.Add(GameTag.STEALTH, 1);
 		}
 
 		#endregion

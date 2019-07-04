@@ -60,7 +60,7 @@ namespace SabberStoneCore.Model
 		public int SpellPower { get; private set; }
 		public bool Taunt { get; private set; }
 		public bool Charge { get; private set; }
-		public bool Stealth { get; private set; }
+		public bool Stealth { get; internal set; }
 		public bool Poisonous { get; private set; }
 		public bool DivineShield { get; private set; }
 		public bool Windfury { get; private set; }
@@ -470,10 +470,6 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		public CardClass Class { get; }
 
-		public bool IsClassCard()
-		{
-			return Class >= CardClass.DRUID && Class <= CardClass.WARRIOR;
-		}
 
 		private Race Race;
 
