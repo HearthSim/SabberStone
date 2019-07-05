@@ -62,7 +62,7 @@ namespace SabberStoneCoreConsole
 			//GameSplitTest();
 			//Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
-			PowerHistoryTest();
+			//PowerHistoryTest();
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
