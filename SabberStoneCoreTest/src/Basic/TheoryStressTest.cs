@@ -374,7 +374,7 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(zerus.Cost, zerus.Card.Cost);
 		}
 
-		[Fact(Skip="should be fixed")]
+		[Fact]
 		public static void MurmuringKazakus()
 		{
 			var game = new Game(new GameConfig());

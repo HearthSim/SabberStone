@@ -66,8 +66,8 @@ namespace SabberStoneCore.Actions
 			=> delegate (Controller c, int amount, bool fill)
 			{
 				int baseMana = c.BaseMana;
-
-				if (baseMana + amount > Controller.MaxResources)
+				int total = baseMana + amount;
+				if (total > Controller.MaxResources)
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", !c.Game.Logging ? "" : $"{c.Name} is already capped in {Controller.MaxResources} mana crystals.");
 					if (!fill)
@@ -75,14 +75,14 @@ namespace SabberStoneCore.Actions
 					c.BaseMana = Controller.MaxResources;
 
 				}
-				else if (baseMana + amount < 0)
+				else if (total < 0)
 				{
 					c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ChangeManaCrystal", !c.Game.Logging ? "" : $"{c.Name} is back to minimum of 0 mana crystals.");
 					c.BaseMana = 0;
 				}
 				else
 				{
-					c.BaseMana = baseMana + amount;
+					c.BaseMana = total;
 					if (!fill)
 						c.UsedMana += amount;
 				}

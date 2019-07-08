@@ -461,7 +461,7 @@ namespace SabberStoneCore.Model
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : gameTask.FullPrint());
 
 			// clear last power history
-			PowerHistory.Last.Clear();
+			PowerHistory?.Last.Clear();
 
 			// make sure that we only use task for this game ...
 			if (gameTask.Game != this)

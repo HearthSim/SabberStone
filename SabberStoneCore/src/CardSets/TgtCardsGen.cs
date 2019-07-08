@@ -306,9 +306,22 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("AT_043", new Power {
 				PowerTask = ComplexTask.Create(
-					new ManaCrystalFullTask(10),
-					new TempManaTask(10),
-					new DiscardTask(EntityType.HAND))
+			new DiscardTask(EntityType.HAND),
+			new CustomTask((g,c,s,t,stack) =>
+				{
+					if (c.BaseMana == 10 || c.RemainingMana == 10)
+					{
+						stack.Flag = true;
+						return;
+					}
+
+					c.BaseMana = 10;
+					c.OverloadLocked = 0;
+					c.OverloadOwed = 0;
+					c.UsedMana = 0;
+					c.TemporaryMana = 0;
+				}),
+			new FlagTask(true, new AddCardTo("CS2_013t", EntityType.HAND)))
 			});
 
 			// ------------------------------------------ SPELL - DRUID

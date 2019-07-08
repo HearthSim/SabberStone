@@ -426,19 +426,30 @@ namespace SabberStoneCore.Model
 			if (amount > c)
 				amount = c;
 
-			int[] indices = Enumerable.Range(0, c).ToArray();
-
 			T[] results = new T[amount];
-			for (int i = 0, k = 0; i < amount; i++)
+
+			Span<int> indices = stackalloc int[amount];
+			for (int k = 0; k < amount; k++)
 			{
-				int j = rnd.Next(i, c);
+				int j;
+				bool flag;
+				do
+				{
+					j = rnd.Next(c);
 
-				int temp = indices[i];
-				indices[i] = indices[j];
-				indices[j] = temp;
+					flag = false;
+					for (int i = 0; i < k; i++)
+						if (indices[i] == j)
+						{
+							flag = true;
+							break;
+						}
+				} while (flag);
 
-				results[k++] = list[indices[i]];
+				results[k] = list[j];
+				indices[k] = j;
 			}
+
 
 			return results;
 		}
@@ -453,6 +464,20 @@ namespace SabberStoneCore.Model
 			for (int i = 0; i < list.Count; i++)
 			{
 				int r = rnd.Next(i, list.Count);
+				T temp = list[i];
+				list[i] = list[r];
+				list[r] = temp;
+			}
+			return list;
+		}
+
+		public static Span<T> Shuffle<T>(this Span<T> list, Random rnd = null)
+		{
+			if (rnd == null)
+				rnd = Random;
+			for (int i = 0; i < list.Length; i++)
+			{
+				int r = rnd.Next(i, list.Length);
 				T temp = list[i];
 				list[i] = list[r];
 				list[r] = temp;

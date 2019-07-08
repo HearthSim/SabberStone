@@ -3365,12 +3365,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1087
 			// --------------------------------------------------------
-			cards.Add("CFM_621t11", new Power
-			{
-				// TODO [CFM_621t11] Lesser Potion && Test: Lesser Potion_CFM_621t11
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("CFM_621t11", null);
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t12] Greater Potion (*) - COST:5 
@@ -3381,12 +3376,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1088
 			// --------------------------------------------------------
-			cards.Add("CFM_621t12", new Power
-			{
-				// TODO [CFM_621t12] Greater Potion && Test: Greater Potion_CFM_621t12
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("CFM_621t12", null);
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t13] Superior Potion (*) - COST:10 
@@ -3397,12 +3387,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1089
 			// --------------------------------------------------------
-			cards.Add("CFM_621t13", new Power
-			{
-				// TODO [CFM_621t13] Superior Potion && Test: Superior Potion_CFM_621t13
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("CFM_621t13", null);
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t14] Kazakus Potion (*) - COST:5 

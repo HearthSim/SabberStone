@@ -3048,7 +3048,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("BOT_700", new Power
 			{
-				InfoCardId = "BOT_700e",
 				PowerTask = new MagneticTask(),
 				DeathrattleTask = new SummonTask("BOT_312t", 2)
 			});
@@ -3064,9 +3063,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("BOT_700e", new Power
 			{
-				Enchant = new Enchant(Effects.Attack_N(2), Effects.Health_N(3)),
-				DeathrattleTask = new SummonTask("BOT_312t", 2)
-				// Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_700e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_700e"),
+				DeathrattleTask = new SummonTask("BOT_312t", 3, SummonSide.DEATHRATTLE)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -3285,7 +3283,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_312e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_312e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_312e"),
+				DeathrattleTask = new SummonTask("BOT_312t", 3, SummonSide.DEATHRATTLE)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

@@ -757,6 +757,7 @@ namespace SabberStoneCore.Model
 
 		public static Card CreateKazakusPotion(in Card firstCard, in Card secondCard, in Card thirdCard, bool modifyTags)
 		{
+			// TODO: Use placeholders
 			Card potion = firstCard.Clone();
 
 			potion.Text = secondCard.Text + "\n" + thirdCard.Text;

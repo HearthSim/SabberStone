@@ -429,6 +429,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void DreampetalFlorist_BOT_423()
 		{
+			start:
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -457,8 +458,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Assert.Equal(expected, item.Cost);
 				return;
 			}
-
-			Assert.False(game.CurrentPlayer.HandZone.Any(p => p.Card.Type == CardType.MINION));
+			goto start;
 		}
 
 		// ----------------------------------------- MINION - DRUID

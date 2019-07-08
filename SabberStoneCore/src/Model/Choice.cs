@@ -112,6 +112,18 @@ namespace SabberStoneCore.Model
 
 		private readonly Card[][] _cardSets;
 
+		internal void AppendNext(List<int> choices)
+		{
+			var choice = new Choice(Controller);
+			choice.ChoiceType = ChoiceType;
+			choice.ChoiceAction = ChoiceAction;
+			choice.SourceId = SourceId;
+			choice.NextChoice = NextChoice;
+			choice.EntityStack = EntityStack;
+			choice.Choices = choices;
+			NextChoice = choice;
+		}
+
 		internal void TryPrepare()
 		{
 			if (_cardSets == null) return;
@@ -134,20 +146,6 @@ namespace SabberStoneCore.Model
 				EntityStack = new List<int> {entityId};
 			else
 				EntityStack.Add(entityId);
-
-			//if (EntityStack is List<IPlayable> list)
-			//	list.Add(entity);
-			//else if (EntityStack != null)
-			//{
-			//	list = new List<IPlayable>(EntityStack) {entity};
-			//	EntityStack = list;
-			//}
-			//else
-			//{
-			//	list = new List<IPlayable> {entity};
-			//	EntityStack = list;
-			//}
-
 		}
 
 		internal bool TryPopNextChoice(int lastChoice, out Choice nextChoice)
