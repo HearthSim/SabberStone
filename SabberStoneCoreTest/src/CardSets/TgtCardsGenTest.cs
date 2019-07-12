@@ -2626,7 +2626,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fist of Jaraxxus"));
 
-			game.ProcessCard("Succubus");
+			game.ProcessCard("Felstalker");
 
 			Assert.Empty(game.CurrentPlayer.HandZone);
 

@@ -98,6 +98,20 @@ namespace SabberStoneCore.CardSets
 			});
 		}
 
+		private static void Priest(IDictionary<string, Power> cards)
+		{
+			// ----------------------------------------- SPELL - PRIEST
+			// [DS1_233] Mind Blast - COST:2 
+			// - Fac: neutral, Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: Deal $5 damage to the enemy hero. @spelldmg
+			// --------------------------------------------------------
+			cards.Add("DS1_233", new Power
+			{
+				PowerTask = new DamageTask(5, EntityType.OP_HERO, true)
+			});
+		}
+
 		private static void Rogue(IDictionary<string, Power> cards)
 		{
 			// ------------------------------------------ SPELL - ROGUE
@@ -113,6 +127,16 @@ namespace SabberStoneCore.CardSets
 				PowerTask = new AddEnchantmentTask("EX1_128e", EntityType.MINIONS)
 			});
 
+			// ------------------------------------------ SPELL - ROGUE
+			// [NEW1_004] Vanish - COST:6 
+			// - Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: Return all minions to their owner's hand.
+			// --------------------------------------------------------
+			cards.Add("NEW1_004", new Power
+			{
+				PowerTask = new ReturnHandTask(EntityType.ALLMINIONS)
+			});
 		}
 
 		private static void RogueNonCollect(IDictionary<string, Power> cards)
@@ -471,6 +495,7 @@ namespace SabberStoneCore.CardSets
 		{
 			Mage(cards);
 			MageNonCollect(cards);
+			Priest(cards);
 			Rogue(cards);
 			RogueNonCollect(cards);
 			Warlock(cards);

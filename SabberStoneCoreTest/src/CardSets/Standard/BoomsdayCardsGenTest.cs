@@ -4596,10 +4596,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - MODULAR = 1
 		// - 853 = 48548
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ReplicatingMenace_BOT_312()
 		{
-			// TODO ReplicatingMenace_BOT_312 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4613,11 +4612,21 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
+
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Replicating Menace"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Replicating Menace"));
+
+			Minion testCard = game.ProcessCard<Minion>("Replicating Menace");
+			game.ProcessCard<Minion>("Replicating Menace", zonePosition: 0);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(2, testCard.BaseHealth);
+			Assert.Equal(6, testCard.AttackDamage);
+
+			// trigger deathrattle, should spawn 6 Microbots
+			game.ProcessCard<Minion>("Fireworks Tech", testCard, asZeroCost: true, zonePosition: 0);
+			Assert.Equal(7, game.CurrentPlayer.BoardZone.Count);
+			Assert.All(game.CurrentPlayer.BoardZone.Skip(2), m => m.Card.Name.Equals("Microbot"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

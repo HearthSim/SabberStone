@@ -394,6 +394,18 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
+			// [EX1_183e] Gift of the Wild (*) - COST:0 
+			// - Set: expert1, 
+			// --------------------------------------------------------
+			// Text: +2/+2 and <b>Taunt</b>.
+			// --------------------------------------------------------
+			cards.Add("EX1_183e", new Power
+			{
+				// TODO [EX1_183e] Gift of the Wild && Test: Gift of the Wild_EX1_183e
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_183e")
+			});
+
+			// ------------------------------------ ENCHANTMENT - DRUID
 			// [EX1_573ae] Demigod's Favor (*) - COST:0 
 			// - Fac: neutral, Set: expert1, 
 			// --------------------------------------------------------
@@ -1514,6 +1526,22 @@ namespace SabberStoneCore.CardSets.Standard
 						return diffHands > 0 ? diffHands : 0;
 					}),
 					new DrawNumberTask())
+			});
+
+			// ---------------------------------------- SPELL - PALADIN
+			// [EX1_184] Righteousness - COST:5 
+			// - Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: Give your minions <b>Divine Shield</b>.
+			// --------------------------------------------------------
+			// RefTag:
+			// - DIVINE_SHIELD = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_184", new Power
+			{
+				// TODO [EX1_184] Righteousness && Test: Righteousness_EX1_184
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -2665,6 +2693,25 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// --------------------------------------- MINION - WARLOCK
+			// [EX1_185] Siegebreaker - COST:7 [ATK:5/HP:8] 
+			// - Race: demon, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Taunt</b>
+			//       Your other Demons have +1 Attack.
+			// --------------------------------------------------------
+			// GameTag:
+			// - TAUNT = 1
+			// - AURA = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_185", new Power
+			{
+				// TODO [EX1_185] Siegebreaker && Test: Siegebreaker_EX1_185
+				InfoCardId = "EX1_185e",
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// --------------------------------------- MINION - WARLOCK
 			// [EX1_301] Felguard - COST:3 [ATK:3/HP:5] 
 			// - Race: demon, Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
@@ -2897,6 +2944,18 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_059o", new Power {
 				//Enchant = new OngoingEnchant(Effects.Health_N(1))
 				Enchant = new Enchant(Effects.Health_N(1))
+			});
+
+			// ---------------------------------- ENCHANTMENT - WARLOCK
+			// [EX1_185e] Siegebreaking (*) - COST:0 
+			// - Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Siegebreaker is granting this minion +1 Attack.
+			// --------------------------------------------------------
+			cards.Add("EX1_185e", new Power
+			{
+				// TODO [EX1_185e] Siegebreaking && Test: Siegebreaking_EX1_185e
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_185e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
@@ -4301,6 +4360,56 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_170", null);
 
 			// --------------------------------------- MINION - NEUTRAL
+			// [EX1_188] Barrens Stablehand - COST:7 [ATK:4/HP:4] 
+			// - Set: expert1, Rarity: epic
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Summon a random Beast.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_188", new Power
+			{
+				// TODO [EX1_188] Barrens Stablehand && Test: Barrens Stablehand_EX1_188
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [EX1_189] Brightwing - COST:3 [ATK:3/HP:2] 
+			// - Race: dragon, Set: expert1, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Add a random <b>Legendary</b> minion to your_hand.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_189", new Power
+			{
+				// TODO [EX1_189] Brightwing && Test: Brightwing_EX1_189
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [EX1_190] High Inquisitor Whitemane - COST:7 [ATK:6/HP:8] 
+			// - Set: expert1, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Summon all friendly minions that died_this turn.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_190", new Power
+			{
+				// TODO [EX1_190] High Inquisitor Whitemane && Test: High Inquisitor Whitemane_EX1_190
+				//PowerTask = null,
+				//Trigger = null,
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5] 
 			// - Race: elemental, Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
@@ -5271,6 +5380,23 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_561e", new Power {
 				Enchant = new Enchant(Effects.SetMaxHealth(15))
+			});
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_183] Gift of the Wild - COST:8 
+			// - Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: Give your minions +2/+2 and <b>Taunt</b>.
+			// --------------------------------------------------------
+			// RefTag:
+			// - TAUNT = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_183", new Power
+			{
+				// TODO [EX1_183] Gift of the Wild && Test: Gift of the Wild_EX1_183
+				InfoCardId = "EX1_183e",
+				//PowerTask = null,
+				//Trigger = null,
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

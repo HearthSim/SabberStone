@@ -382,6 +382,39 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		}
 
 		// ------------------------------------------ SPELL - DRUID
+		// [EX1_183] Gift of the Wild - COST:8 
+		// - Set: expert1, Rarity: common
+		// --------------------------------------------------------
+		// Text: Give your minions +2/+2 and <b>Taunt</b>.
+		// --------------------------------------------------------
+		// RefTag:
+		// - TAUNT = 1
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void GiftOfTheWild_EX1_183()
+		{
+			// TODO GiftOfTheWild_EX1_183 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.DRUID,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Gift of the Wild"),
+				},
+				Player2HeroClass = CardClass.DRUID,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Gift of the Wild"));
+			//Spell testCard = game.ProcessCard<Spell>("Gift of the Wild");
+		}
+
+		// ------------------------------------------ SPELL - DRUID
 		// [EX1_570] Bite - COST:4 
 		// - Fac: neutral, Set: expert1, Rarity: rare
 		// --------------------------------------------------------
@@ -2063,6 +2096,39 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			Assert.Equal(5, game.CurrentPlayer.Opponent.HandZone.Count);
+		}
+
+		// ---------------------------------------- SPELL - PALADIN
+		// [EX1_184] Righteousness - COST:5 
+		// - Set: expert1, Rarity: rare
+		// --------------------------------------------------------
+		// Text: Give your minions <b>Divine Shield</b>.
+		// --------------------------------------------------------
+		// RefTag:
+		// - DIVINE_SHIELD = 1
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void Righteousness_EX1_184()
+		{
+			// TODO Righteousness_EX1_184 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PALADIN,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Righteousness"),
+				},
+				Player2HeroClass = CardClass.PALADIN,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Righteousness"));
+			//Spell testCard = game.ProcessCard<Spell>("Righteousness");
 		}
 
 		// ---------------------------------------- SPELL - PALADIN
@@ -4417,6 +4483,41 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			Assert.Equal(3, ((ICharacter)minion2).Health);
+		}
+
+		// --------------------------------------- MINION - WARLOCK
+		// [EX1_185] Siegebreaker - COST:7 [ATK:5/HP:8] 
+		// - Race: demon, Set: expert1, Rarity: rare
+		// --------------------------------------------------------
+		// Text: <b>Taunt</b>
+		//       Your other Demons have +1 Attack.
+		// --------------------------------------------------------
+		// GameTag:
+		// - TAUNT = 1
+		// - AURA = 1
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void Siegebreaker_EX1_185()
+		{
+			// TODO Siegebreaker_EX1_185 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.WARLOCK,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Siegebreaker"),
+				},
+				Player2HeroClass = CardClass.WARLOCK,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Siegebreaker"));
+			//Minion testCard = game.ProcessCard<Minion>("Siegebreaker");
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -7241,6 +7342,173 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Emperor Cobra"));
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [EX1_186] SI:7 Infiltrator - COST:4 [ATK:5/HP:4] 
+		// - Set: expert1, Rarity: rare
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Destroy a random enemy <b>Secret</b>.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		// RefTag:
+		// - SECRET = 1
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void Si7Infiltrator_EX1_186()
+		{
+			// TODO Si7Infiltrator_EX1_186 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("SI:7 Infiltrator"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("SI:7 Infiltrator"));
+			//Minion testCard = game.ProcessCard<Minion>("SI:7 Infiltrator");
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [EX1_187] Arcane Devourer - COST:8 [ATK:5/HP:5] 
+		// - Race: elemental, Set: expert1, Rarity: rare
+		// --------------------------------------------------------
+		// Text: Whenever you cast a spell, gain +2/+2.
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void ArcaneDevourer_EX1_187()
+		{
+			// TODO ArcaneDevourer_EX1_187 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Arcane Devourer"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Devourer"));
+			//Minion testCard = game.ProcessCard<Minion>("Arcane Devourer");
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [EX1_188] Barrens Stablehand - COST:7 [ATK:4/HP:4] 
+		// - Set: expert1, Rarity: epic
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Summon a random Beast.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void BarrensStablehand_EX1_188()
+		{
+			// TODO BarrensStablehand_EX1_188 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Barrens Stablehand"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Barrens Stablehand"));
+			//Minion testCard = game.ProcessCard<Minion>("Barrens Stablehand");
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [EX1_189] Brightwing - COST:3 [ATK:3/HP:2] 
+		// - Race: dragon, Set: expert1, Rarity: legendary
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Add a random <b>Legendary</b> minion to your_hand.
+		// --------------------------------------------------------
+		// GameTag:
+		// - ELITE = 1
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void Brightwing_EX1_189()
+		{
+			// TODO Brightwing_EX1_189 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Brightwing"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Brightwing"));
+			//Minion testCard = game.ProcessCard<Minion>("Brightwing");
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [EX1_190] High Inquisitor Whitemane - COST:7 [ATK:6/HP:8] 
+		// - Set: expert1, Rarity: legendary
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Summon all friendly minions that died_this turn.
+		// --------------------------------------------------------
+		// GameTag:
+		// - ELITE = 1
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void HighInquisitorWhitemane_EX1_190()
+		{
+			// TODO HighInquisitorWhitemane_EX1_190 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("High Inquisitor Whitemane"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("High Inquisitor Whitemane"));
+			//Minion testCard = game.ProcessCard<Minion>("High Inquisitor Whitemane");
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

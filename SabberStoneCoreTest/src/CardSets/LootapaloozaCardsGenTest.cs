@@ -3168,7 +3168,7 @@ namespace SabberStoneCoreTest.CardSets
 			{
 					Cards.FromName("Dread Infernal"),
 					Cards.FromName("Voidwalker"),
-					Cards.FromName("Succubus"),
+					Cards.FromName("Felstalker"),
 					Cards.FromName("Blood Imp"),
 					Cards.FromName("Doomguard"),
 					Cards.FromName("Pit Lord"),
