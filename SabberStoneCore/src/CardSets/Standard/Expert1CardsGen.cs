@@ -401,8 +401,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_183e", new Power
 			{
-				// TODO [EX1_183e] Gift of the Wild && Test: Gift of the Wild_EX1_183e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_183e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_183e")
 			});
 
 			// ------------------------------------ ENCHANTMENT - DRUID
@@ -1539,9 +1538,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_184", new Power
 			{
-				// TODO [EX1_184] Righteousness && Test: Righteousness_EX1_184
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.DivineShield(EntityType.MINIONS)
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
@@ -2705,10 +2702,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_185", new Power
 			{
-				// TODO [EX1_185] Siegebreaker && Test: Siegebreaker_EX1_185
-				InfoCardId = "EX1_185e",
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.BOARD_EXCEPT_SOURCE, "EX1_185e")
+				{
+					Condition = SelfCondition.IsRace(Race.DEMON)
+				}
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -2954,8 +2951,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_185e", new Power
 			{
-				// TODO [EX1_185e] Siegebreaking && Test: Siegebreaking_EX1_185e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_185e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_185e")
 			});
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
@@ -4360,6 +4356,42 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_170", null);
 
 			// --------------------------------------- MINION - NEUTRAL
+			// [EX1_186] SI:7 Infiltrator - COST:4 [ATK:5/HP:4] 
+			// - Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Destroy a random enemy <b>Secret</b>.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - SECRET = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_186", new Power
+			{
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.OP_SECRETS),
+					new RandomTask(1, EntityType.STACK),
+					new MoveToGraveYard(EntityType.STACK))
+
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
+			// [EX1_187] Arcane Devourer - COST:8 [ATK:5/HP:5] 
+			// - Race: elemental, Set: expert1, Rarity: rare
+			// --------------------------------------------------------
+			// Text: Whenever you cast a spell, gain +2/+2.
+			// --------------------------------------------------------
+			cards.Add("EX1_187", new Power
+			{
+				Trigger = new Trigger(TriggerType.CAST_SPELL)
+				{
+					TriggerSource = TriggerSource.FRIENDLY,
+					SingleTask = new AddEnchantmentTask("EX1_187e", EntityType.SOURCE)
+				}
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
 			// [EX1_188] Barrens Stablehand - COST:7 [ATK:4/HP:4] 
 			// - Set: expert1, Rarity: epic
 			// --------------------------------------------------------
@@ -4370,9 +4402,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_188", new Power
 			{
-				// TODO [EX1_188] Barrens Stablehand && Test: Barrens Stablehand_EX1_188
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
+					new SummonTask())
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -4387,9 +4419,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_189", new Power
 			{
-				// TODO [EX1_189] Brightwing && Test: Brightwing_EX1_189
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new RandomCardTask(CardType.MINION, CardClass.INVALID, rarity: Rarity.LEGENDARY),
+					new AddStackTo(EntityType.HAND))
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -4404,9 +4436,28 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_190", new Power
 			{
-				// TODO [EX1_190] High Inquisitor Whitemane && Test: High Inquisitor Whitemane_EX1_190
-				//PowerTask = null,
-				//Trigger = null,
+				// copied from Revenge of the Wild
+				//    removed beast constraint
+				//    reverses order, so first minion to die, gets summoned first
+				// TODO make reusable and use with Kel'Thuzad
+				PowerTask = new CustomTask((g, c, s, t, stack) =>
+				{
+					if (c.BoardZone.IsFull) return;
+					int num = c.NumFriendlyMinionsThatDiedThisTurn;
+					for (int i = 0, k = 0; i < c.GraveyardZone.Count && k < num; i++)
+					{
+						if (c.GraveyardZone[i].ToBeDestroyed)
+						{
+							Card card = c.GraveyardZone[i].Card;
+							if (card.Type != CardType.MINION)
+								continue;
+							k++;
+							Entity.FromCard(in c, in card,
+								zone: c.BoardZone, creator: in s);
+							if (c.BoardZone.IsFull) return;
+						}
+					}
+				})
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -5301,6 +5352,17 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [EX1_187e] Arcane Gorged (*) - COST:0 
+			// - Set: expert1, 
+			// --------------------------------------------------------
+			// Text: Increased stats.
+			// --------------------------------------------------------
+			cards.Add("EX1_187e", new Power
+			{
+				Enchant = new Enchant(Effects.AttackHealth_N(2))
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_162o] Strength of the Pack (*) - COST:0 
 			// - Set: expert1, 
 			// --------------------------------------------------------
@@ -5393,10 +5455,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_183", new Power
 			{
-				// TODO [EX1_183] Gift of the Wild && Test: Gift of the Wild_EX1_183
-				InfoCardId = "EX1_183e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("EX1_183e", EntityType.ALLMINIONS)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

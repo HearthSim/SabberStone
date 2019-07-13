@@ -90,10 +90,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				else
 					cards = ClassAndMultiOnlyFlag ? controller.Wild : Cards.AllWild;
 
-				cardsList = cards.Where(p => p.Type == CardType.MINION
-				                             && (RelaSign == RelaSign.EQ && p[Tag] == Value
-				                                 || RelaSign == RelaSign.GEQ && p[Tag] >= Value
-				                                 || RelaSign == RelaSign.LEQ && p[Tag] <= Value)).ToList();
+				if (Tag == GameTag.CARDRACE && RelaSign == RelaSign.EQ)
+				{
+					cardsList = cards.Where(p => p.Type == CardType.MINION
+							 && p.IsRace((Race)Value)).ToList();;
+				}
+				else
+				{
+					cardsList = cards.Where(p => p.Type == CardType.MINION
+												 && (RelaSign == RelaSign.EQ && p[Tag] == Value
+													 || RelaSign == RelaSign.GEQ && p[Tag] >= Value
+													 || RelaSign == RelaSign.LEQ && p[Tag] <= Value)).ToList();
+				}
 
 				CachedCards.TryAdd(source.Card.AssetId, cardsList);
 			}
