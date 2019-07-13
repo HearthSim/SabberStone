@@ -431,7 +431,8 @@ namespace SabberStoneCore.Actions
 				game.ProcessTasks();
 				game.TaskQueue.EndEvent();
 
-				game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+				if (game.History)
+					game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
 				// equip new weapon here
 				game.TaskQueue.StartEvent();

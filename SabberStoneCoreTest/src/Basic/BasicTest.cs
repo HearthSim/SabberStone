@@ -11,6 +11,7 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System.Linq;
 using System.Collections.Generic;
 using Xunit;
 using SabberStoneCore.Conditions;
@@ -1056,6 +1057,27 @@ namespace SabberStoneCoreTest.Basic
 			Assert.True(target2.CantBeTargetedByHeroPowers);
 			Assert.False(game.CurrentPlayer.Hero.HeroPower.IsValidPlayTarget(target2));
 			Assert.False(spell.IsValidPlayTarget(target2));
+		}
+
+		[Fact]
+		public void DragonInHand()
+		{
+			Game game = new Game(new GameConfig
+			{
+				History = false,
+				Logging = false,
+				FillDecks = false
+			});
+			game.StartGame();
+
+			Minion testTarget = game.ProcessCard<Minion>("Wisp");
+			game.EndTurn();
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crowd Roaster"));
+			Assert.Equal(1, game.CurrentPlayer.HandZone.Count(p => p.Card.IsRace(Race.DRAGON)));
+			Assert.False(testCard.IsValidPlayTarget(testTarget));
+			Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crowd Roaster"));
+			Assert.True(testCard.IsValidPlayTarget(testTarget));
 		}
 	}
 }

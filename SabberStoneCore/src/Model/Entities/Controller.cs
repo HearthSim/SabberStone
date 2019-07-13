@@ -550,7 +550,7 @@ namespace SabberStoneCore.Model.Entities
 			Character[] GetTargets(Card card)
 			{
 				// Check it needs additional validation
-				if (!card.TargetingAvailabilityPredicate?.Invoke(this) ?? false)
+				if (!card.TargetingAvailabilityPredicate?.Invoke(this, card) ?? false)
 					return null;
 
 				Character[] targets;
@@ -644,7 +644,7 @@ namespace SabberStoneCore.Model.Entities
 					}
 					else
 					{
-						if (!card.TargetingAvailabilityPredicate?.Invoke(this) ?? false)
+						if (!card.TargetingAvailabilityPredicate?.Invoke(this, card) ?? false)
 							return null;
 
 						Character[] buffer = new Character[targets.Length];

@@ -763,19 +763,17 @@ namespace SabberStoneCore.Tasks
 				return 0;
 			});
 
-		public static ISimpleTask CastRandomSecret(CardClass cardClass)
-		{
-			return ComplexTask.Create(
-				new CustomTask((g,c,s,t,stack) =>
-				{
-					int[] activeSecrets = c.SecretZone.Select(secret => secret.Card.AssetId).ToArray();
-					Card[] cardsList = GetFormatTypeClassSecrets(g.FormatType, cardClass)
-						.Where(card => !activeSecrets.Contains(card.AssetId)).ToArray();
-					Spell spell = (Spell)Entity.FromCard(c, Util.Choose(cardsList.ToList()));
-					Generic.CastSpell(c, g, spell, null, 0);
-					g.OnRandomHappened(true);
-				}));
-		}
+		public static ISimpleTask CastRandomSecret(CardClass cardClass) =>
+			new CustomTask((g,c,s,t,stack) =>
+			{
+				//if (c.SecretZone.IsFull) return;
+				int[] activeSecrets = c.SecretZone.Select(secret => secret.Card.AssetId).ToArray();
+				Card[] cardsList = GetFormatTypeClassSecrets(g.FormatType, cardClass)
+					.Where(card => !activeSecrets.Contains(card.AssetId)).ToArray();
+				Spell spell = (Spell)Entity.FromCard(c, Util.Choose(cardsList.ToList()));
+				Generic.CastSpell(c, g, spell, null, 0);
+				g.OnRandomHappened(true);
+			});
 
 		private static Card[] GetFormatTypeClassSecrets(FormatType format, CardClass cardClass)
 		{
@@ -1011,23 +1009,29 @@ namespace SabberStoneCore.Tasks
 				Random rnd = Util.Random;
 				g.OnRandomHappened(true);
 
-				Spell spellToCast = spellsPlayedThisTurn.Count == 1
-					? (Spell) Entity.FromCard(in c, spellsPlayedThisTurn[0])
-					: (Spell) Entity.FromCard(in c,
-						spellsPlayedThisTurn[rnd.Next(spellsPlayedThisTurn.Count)]);
+				Card randSpellCard = spellsPlayedThisTurn.Count == 1
+					? spellsPlayedThisTurn[0]
+					: spellsPlayedThisTurn[rnd.Next(spellsPlayedThisTurn.Count)];
 
-				// TODO: RevealCard
-
-				if (spellToCast.IsSecret && c.SecretZone.IsFull)
+				// TODO: Reveal card for history
+				if (!randSpellCard.IsPlayableByCardReq(in c) ||
+				    randSpellCard.IsSecret && c.SecretZone.IsFull ||
+				    randSpellCard.IsQuest && c.SecretZone.Quest != null)
 				{
-					c.GraveyardZone.Add(spellToCast);
 					return;
 				}
 
-				ICharacter randTarget = spellToCast.GetRandomValidTarget();
-
-				if (spellToCast.Card.MustHaveTargetToPlay && randTarget == null)
+				ICharacter randTarget;
+				{
+					List<ICharacter> validTargets = randSpellCard.GetValidPlayTargets(in c);
+					randTarget = validTargets.Count == 0 ? null : validTargets[rnd.Next(validTargets.Count)];
+				}
+				if (randSpellCard.MustHaveTargetToPlay && randTarget == null)
+				{
 					return;
+				}
+
+				Spell spellToCast = (Spell)Entity.FromCard(in c, in randSpellCard);
 
 				int randChooseOne = rnd.Next(1, 3);
 

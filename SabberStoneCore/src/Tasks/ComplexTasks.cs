@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Enums;
@@ -18,6 +20,7 @@ using SabberStoneCore.Conditions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks
 {
@@ -444,6 +447,23 @@ namespace SabberStoneCore.Tasks
 					return new[] {list[minArg]};
 				}),
 				new DiscardTask(EntityType.STACK));
+
+		//public static ISimpleTask SummonAllFriendlyDiedThisTurn(SelfCondition condition)
+		//{
+		//	return new CustomTask((g, c, s, t, stack) =>
+		//	{
+		//		int count = c.BoardZone.Count;
+		//		if (count == Game.MAX_MINIONS_ON_BOARD) return;
+		//		int num = c.NumFriendlyMinionsThatDiedThisTurn;
+		//		Span<int> stk = stackalloc int[num];
+		//		Span<IPlayable> graveyard = c.GraveyardZone.GetSpan();
+		//		for (int i = c.GraveyardZone.Count - 1, k = 0; i >= 0 && k < num; --i)
+		//		{
+		//			if (!c.GraveyardZone[i].ToBeDestroyed) continue;
+		//			if (c.GraveyardZone[i].Card.Type != CardType.MINION)
+		//		}
+		//	})
+		//}
 
 		public static ISimpleTask RecursiveTask(ConditionTask repeatCondition, params ISimpleTask[] tasks)
 		{

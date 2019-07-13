@@ -179,28 +179,32 @@ namespace SabberStoneCore.Model.Zones
 	public abstract class UnlimitedZone : Zone<IPlayable>
 	{
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		private readonly List<IPlayable> _entities;
+		//private readonly List<IPlayable> _entities;
+		private IPlayable[] _entities;
+		private int _count;
 
-		public override int Count => _entities.Count;
+		public override int Count => _count;
 		public override bool IsFull => false;
 		public override int FreeSpace => int.MaxValue;
 
 		protected UnlimitedZone(Controller controller)
 		{
-			_entities = new List<IPlayable>();
+			_entities = new IPlayable[3];
 			Controller = controller;
 			Game = controller.Game;
 		}
 
 		protected UnlimitedZone(Controller c, UnlimitedZone zone) : base(c)
 		{
-			var entities = new List<IPlayable>(zone.Count);
-			IList<IPlayable> src = zone._entities;
-			for (int i = 0; i < src.Count; ++i)
+			//var entities = new List<IPlayable>(zone.Count);
+			IPlayable[] src = zone._entities;
+			var entities = new IPlayable[src.Length];
+			for (int i = 0; i < zone.Count; ++i)
 			{
 				IPlayable copy = src[i].Clone(c);
 				copy.Zone = this;
-				entities.Add(copy);
+				//entities.Add(copy);
+				entities[i] = copy;
 			}
 			_entities = entities;
 		}
@@ -216,6 +220,7 @@ namespace SabberStoneCore.Model.Zones
 		{
 			if (entity.Controller != Controller)
 				throw new ZoneException("Can't add an opponent's entity to own Zones");
+
 			MoveTo(entity, zonePosition);
 			Game.Log(LogLevel.DEBUG, BlockType.PLAY, "Zone", !Game.Logging ? "" : $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}'.");
 		}
@@ -225,14 +230,34 @@ namespace SabberStoneCore.Model.Zones
 			if (entity.Zone == null || entity.Zone.Type != Type)
 				throw new ZoneException("Couldn't remove entity from zone.");
 
-			_entities.Remove(entity);
+			//_entities.Remove(entity);
+			IPlayable[] entities = _entities;
+			int i = --_count;
+			for (; i >= 0; --i)
+				if (entities[i] == entity)
+					break;
+			if (i == _count)
+				entities[i] = default;
+			else if (i < 0)
+				throw new ZoneException($"Could not remove {entity} from {this}; the entity is not in the zone.");
+			else
+			{
+				Array.Copy(entities, i + 1, entities, i, _count - i);
+			}
+
+			entity.Zone = null;
 
 			return entity;
 		}
 
 		public override void MoveTo(IPlayable entity, int zonePosition = -1)
 		{
-			_entities.Add(entity);
+			if (_entities.Length == _count) Resize();
+
+			if (entity == null)
+				;
+
+			_entities[_count++] = entity;
 			entity.Zone = this;
 			if (Game.History)
 				entity[GameTag.ZONE] = (int) Type;
@@ -240,17 +265,30 @@ namespace SabberStoneCore.Model.Zones
 
 		public override bool Any(Func<IPlayable, bool> predicate)
 		{
-			List<IPlayable> entities = _entities;
-			for (int i = 0; i < entities.Count; i++)
+			//List<IPlayable> entities = _entities;
+			IPlayable[] entities = _entities;
+			for (int i = 0; i < _count; i++)
 				if (predicate(entities[i]))
 					return true;
 
 			return false;
 		}
 
+		public ReadOnlySpan<IPlayable> GetSpan()
+		{
+			return new ReadOnlySpan<IPlayable>(_entities, 0, _count);
+		}
+
 		public override IEnumerator<IPlayable> GetEnumerator()
 		{
-			return _entities.GetEnumerator();
+			return _entities.Take(_count).GetEnumerator();
+		}
+
+		private void Resize()
+		{
+			var newArray = new IPlayable[_count * 2];
+			Array.Copy(_entities, 0, newArray, 0, _count);
+			_entities = newArray;
 		}
 	}
 
@@ -380,6 +418,16 @@ namespace SabberStoneCore.Model.Zones
 				if (predicate(entities[i]))
 					return true;
 			return false;
+		}
+
+		public int CountOf(Predicate<T> predicate)
+		{
+			T[] entities = _entities;
+			int count = 0;
+			for (int i = 0; i < _count; i++)
+				if (predicate(entities[i]))
+					count++;
+			return count;
 		}
 
 		public virtual T[] GetAll()

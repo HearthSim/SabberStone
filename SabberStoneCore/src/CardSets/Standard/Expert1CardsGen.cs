@@ -4370,8 +4370,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_186", new Power
 			{
 				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.OP_SECRETS),
-					new RandomTask(1, EntityType.STACK),
+					new RandomTask(1, EntityType.OP_SECRETS),
 					new MoveToGraveYard(EntityType.STACK))
 
 			});
@@ -4440,24 +4439,26 @@ namespace SabberStoneCore.CardSets.Standard
 				//    removed beast constraint
 				//    reverses order, so first minion to die, gets summoned first
 				// TODO make reusable and use with Kel'Thuzad
-				PowerTask = new CustomTask((g, c, s, t, stack) =>
-				{
-					if (c.BoardZone.IsFull) return;
-					int num = c.NumFriendlyMinionsThatDiedThisTurn;
-					for (int i = 0, k = 0; i < c.GraveyardZone.Count && k < num; i++)
-					{
-						if (c.GraveyardZone[i].ToBeDestroyed)
-						{
-							Card card = c.GraveyardZone[i].Card;
-							if (card.Type != CardType.MINION)
-								continue;
-							k++;
-							Entity.FromCard(in c, in card,
-								zone: c.BoardZone, creator: in s);
-							if (c.BoardZone.IsFull) return;
-						}
-					}
-				})
+				//PowerTask = new CustomTask((g, c, s, t, stack) =>
+				//{
+				//	if (c.BoardZone.IsFull) return;
+				//	int num = c.NumFriendlyMinionsThatDiedThisTurn;
+				//	for (int i = 0, k = 0; i < c.GraveyardZone.Count && k < num; i++)
+				//	{
+				//		if (c.GraveyardZone[i].ToBeDestroyed)
+				//		{
+				//			Card card = c.GraveyardZone[i].Card;
+				//			if (card.Type != CardType.MINION)
+				//				continue;
+				//			k++;
+				//			Entity.FromCard(in c, in card,
+				//				zone: c.BoardZone, creator: in s);
+				//			if (c.BoardZone.IsFull) return;
+				//		}
+				//	}
+				//})
+				PowerTask = ComplexTask.Create(
+					)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -5359,7 +5360,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_187e", new Power
 			{
-				Enchant = new Enchant(Effects.AttackHealth_N(2))
+				//Enchant = new Enchant(Effects.AttackHealth_N(2))
+				Enchant = new OngoingEnchant(Effects.AttackHealth_N(2))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

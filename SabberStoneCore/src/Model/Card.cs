@@ -350,7 +350,7 @@ namespace SabberStoneCore.Model
 							TargetingPredicates.ReqFriendlyMinionOfRaceDiedThisTurn((Race) requirement.Value);
 						break;
 					case PlayReq.REQ_MUST_PLAY_OTHER_CARD_FIRST:
-						PlayAvailabilityPredicate += c => false;
+						PlayAvailabilityPredicate += (c, card) => false;
 						break;
 					//	REQ_STEADY_SHOT
 					//	REQ_MINION_OR_ENEMY_HERO	//	Steady Shot
@@ -615,10 +615,108 @@ namespace SabberStoneCore.Model
 
 				bool flag = true;
 				foreach (Delegate predicate in PlayAvailabilityPredicate.GetInvocationList())
-					flag &= ((AvailabilityPredicate) predicate).Invoke(c);
+					flag &= ((AvailabilityPredicate) predicate).Invoke(c, this);
 				return flag;
 			}
 			return true;
+		}
+
+		/// <summary>Calculates if a target is valid by testing the game state for each hardcoded requirement.
+		/// </summary>
+		/// <param name="c">The controller of the source.</param>
+		/// <param name="target">The proposed target.</param>
+		/// <returns><c>true</c> if the proposed target is valid, <c>false</c> otherwise.</returns>
+		public bool TargetingRequirements(in Controller c, in ICharacter target)
+		{
+			if (target.Card.Untouchable)
+				return false;
+
+			if ((target.HasStealth || target.IsImmune) && target.Controller != c)
+				return false;
+
+			if (!TargetingPredicate?.Invoke(target) ?? false)
+				return false;
+
+			return true;
+		}
+
+		public List<ICharacter> GetValidPlayTargets(in Controller c)
+		{
+			var output = new List<ICharacter>(2);
+
+			if (!TargetingAvailabilityPredicate?.Invoke(c, this) ?? false)
+				return output;
+
+			bool friendlyMinions = false;
+			bool enemyMinions = false;
+			bool hero = false;
+			bool enemyHero = false;
+			switch (TargetingType)
+			{
+				case TargetingType.None:
+					// If this is a non-targeting card, return an empty list
+					return output;
+				case TargetingType.All:
+					friendlyMinions = true;
+					enemyMinions = true;
+					hero = true;
+					enemyHero = true;
+					break;
+				case TargetingType.FriendlyCharacters:
+					friendlyMinions = true;
+					hero = true;
+					break;
+				case TargetingType.EnemyCharacters:
+					enemyMinions = true;
+					enemyHero = true;
+					break;
+				case TargetingType.AllMinions:
+					friendlyMinions = true;
+					enemyMinions = true;
+					break;
+				case TargetingType.FriendlyMinions:
+					friendlyMinions = true;
+					break;
+				case TargetingType.EnemyMinions:
+					enemyMinions = true;
+					break;
+				case TargetingType.Heroes:
+					hero = true;
+					enemyHero = true;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
+			}
+
+			if (friendlyMinions)
+			{
+				var span = c.BoardZone.GetSpan();
+				for (int i = 0; i < span.Length; i++)
+					if (TargetingRequirements(in c, span[i]))
+						output.Add(span[i]);
+			}
+
+			if (enemyMinions)
+			{
+				var span = c.Opponent.BoardZone.GetSpan();
+				for (int i = 0; i < span.Length; i++)
+					if (TargetingRequirements(in c, span[i]))
+						output.Add(span[i]);
+			}
+
+			if (hero)
+			{
+				if (TargetingRequirements(in c, c.Hero))
+					output.Add(c.Hero);
+			}
+
+			if (enemyHero)
+			{
+				if (TargetingRequirements(in c, c.Opponent.Hero))
+					output.Add(c.Opponent.Hero);
+			}
+
+			return output;
 		}
 
 
