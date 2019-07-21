@@ -117,12 +117,13 @@ namespace SabberStoneCore.Loader
 			return (c, card) =>
 			{
 				int num = c.NumFriendlyMinionsThatDiedThisTurn;
-				for (int i = c.GraveyardZone.Count - 1, k = 0; i >= 0 && k < num; --i)
+				ReadOnlySpan<IPlayable> span = c.GraveyardZone.GetSpan();
+				for (int i = span.Length - 1, k = 0; k < num; --i)
 				{
-					if (c.GraveyardZone[i].Card.Type != CardType.MINION || !c.GraveyardZone[i].ToBeDestroyed)
+					if (span[i].Card.Type != CardType.MINION || !span[i].ToBeDestroyed)
 						continue;
 					k++;
-					if (c.GraveyardZone[i].Card.IsRace(race))
+					if (span[i].Card.IsRace(race))
 						return true;
 				}
 

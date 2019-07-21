@@ -59,7 +59,7 @@ namespace SabberStoneCore.Model.Entities
 			IPlayable[] list = _list;
 			if (list.Length <= key)
 			{
-				var newlist = new IPlayable[list.Length * 2];
+				var newlist = new IPlayable[list.Length << 1];
 				Array.Copy(list, newlist, list.Length);
 				list = newlist;
 				_list = newlist;

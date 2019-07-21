@@ -1110,6 +1110,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
 
+			spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Multi-Shot"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
 
 			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);
@@ -4304,6 +4305,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Assert.Equal(2, game.CurrentOpponent.BoardZone.Count);
 
+			spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Cleave"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
 
 			Assert.Equal(0, game.CurrentOpponent.BoardZone.Count);

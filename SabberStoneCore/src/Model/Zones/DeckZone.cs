@@ -29,7 +29,7 @@ namespace SabberStoneCore.Model.Zones
 		public bool NoEvenCostCards { get; private set; } = true;
 		public bool NoOddCostCards { get; private set; } = true;
 
-		public DeckZone(Controller controller)
+		public DeckZone(Controller controller) : base(Zone.DECK, DeckMaximumCapcity)
 		{
 			Game = controller.Game;
 			Controller = controller;
@@ -43,27 +43,13 @@ namespace SabberStoneCore.Model.Zones
 
 		public override bool IsFull => _count == DeckMaximumCapcity;
 
-		public override int MaxSize => DeckMaximumCapcity;
-
-		public override Zone Type => Zone.DECK;
-
 		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
 			base.Add(entity, zonePosition);
 
 			entity.Power?.Trigger?.Activate(entity, TriggerActivation.DECK);
 
-			if (NoEvenCostCards || NoOddCostCards)
-			{
-				if (entity.Cost % 2 == 0)
-				{
-					NoEvenCostCards = false;
-				}
-				else if (NoOddCostCards)
-				{
-					NoOddCostCards = false;
-				}
-			}
+			CheckParity(entity.Cost);
 		}
 
 		public IPlayable TopCard => _entities[_count - 1];
@@ -122,6 +108,17 @@ namespace SabberStoneCore.Model.Zones
 		{
 			_entities[index] = newEntity;
 			newEntity.Zone = this;
+			CheckParity(newEntity.Cost);
+		}
+
+		private void CheckParity(int cost)
+		{
+			if (!NoEvenCostCards && !NoOddCostCards) return;
+
+			if ((cost & 1) == 0)
+				NoEvenCostCards = false;
+			else if (NoOddCostCards)
+				NoOddCostCards = false;
 		}
 	}
 }

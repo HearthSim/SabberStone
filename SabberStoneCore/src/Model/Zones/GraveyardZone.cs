@@ -19,7 +19,7 @@ namespace SabberStoneCore.Model.Zones
 {
 	public class GraveyardZone : UnlimitedZone
 	{
-		public GraveyardZone(Controller controller) : base(controller)
+		public GraveyardZone(Controller controller) : base(controller, Zone.GRAVEYARD)
 		{
 		}
 
@@ -27,8 +27,6 @@ namespace SabberStoneCore.Model.Zones
 		{
 			//Entities = new List<IPlayable>(zone.Entities);
 		}
-
-		public override Zone Type => Zone.GRAVEYARD;
 
 		public override void Add(IPlayable entity, int zonePosition = -1)
 		{

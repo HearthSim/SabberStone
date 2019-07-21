@@ -557,29 +557,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_566", new Power {
-				PowerTask = new CustomTask((g, c, s, t, stack) =>
-						{
-							if (c.BoardZone.IsFull) return;
-							int num = c.NumFriendlyMinionsThatDiedThisTurn;
-							for (int i = c.GraveyardZone.Count - 1, k = 0; i >= 0 && k < num; --i)
-							{
-								if (c.GraveyardZone[i].ToBeDestroyed)
-								{
-									Card card = c.GraveyardZone[i].Card;
-									if (card.Type != CardType.MINION)
-										continue;
-									k++;
-									if (card.IsRace(Race.BEAST))
-									{
-										Entity.FromCard(in c, in card,
-											zone: c.BoardZone, creator: in s);
-										if (c.BoardZone.IsFull) return;
-									}
-								}
-							}
-						})
+				PowerTask = ComplexTask.SummonAllFriendlyDiedThisTurn(SelfCondition.IsRace(Race.BEAST))
 			});
-
 			// ---------------------------------------- WEAPON - HUNTER
 			// [TRL_111] Headhunter's Hatchet - COST:2 [ATK:2/HP:0] 
 			// - Set: troll, Rarity: common

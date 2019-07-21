@@ -29,7 +29,7 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		public Spell Quest { get; set; }
 
-		public SecretZone(Controller controller)
+		public SecretZone(Controller controller) : base(Zone.SECRET, SecretZoneMaxSize)
 		{
 			Game = controller.Game;
 			Controller = controller;
@@ -40,11 +40,7 @@ namespace SabberStoneCore.Model.Zones
 			Quest = (Spell) zone.Quest?.Clone(c);
 		}
 
-		public override Zone Type => Zone.SECRET;
-
 		public override bool IsFull => _count == SecretZoneMaxSize;
-
-		public override int MaxSize => SecretZoneMaxSize;
 
 		public override void Add(Spell entity, int zonePosition = -1)
 		{

@@ -15,7 +15,7 @@ using System.Linq;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
-namespace SabberStoneCore.Tasks
+namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class AddLackeyTask : SimpleTask
 	{

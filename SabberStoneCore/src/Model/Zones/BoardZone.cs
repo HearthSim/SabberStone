@@ -26,7 +26,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public List<AdjacentAura> AdjacentAuras = new List<AdjacentAura>();
 
-		public BoardZone(Controller controller)
+		public BoardZone(Controller controller) : base(Zone.PLAY, Game.MAX_MINIONS_ON_BOARD)
 		{
 			Game = controller.Game;
 			Controller = controller;
@@ -35,11 +35,7 @@ namespace SabberStoneCore.Model.Zones
 		public int CountExceptUntouchables => _count - _untouchableCount;
 		public bool HasUntouchables => _hasUntouchables;
 
-		public override Zone Type => Zone.PLAY;
-
 		public override bool IsFull => _count == Game.MAX_MINIONS_ON_BOARD;
-
-		public override int MaxSize => Game.MAX_MINIONS_ON_BOARD;
 
 		public override void Add(Minion entity, int zonePosition = -1)
 		{

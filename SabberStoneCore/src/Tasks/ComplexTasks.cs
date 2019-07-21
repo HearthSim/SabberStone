@@ -448,22 +448,34 @@ namespace SabberStoneCore.Tasks
 				}),
 				new DiscardTask(EntityType.STACK));
 
-		//public static ISimpleTask SummonAllFriendlyDiedThisTurn(SelfCondition condition)
-		//{
-		//	return new CustomTask((g, c, s, t, stack) =>
-		//	{
-		//		int count = c.BoardZone.Count;
-		//		if (count == Game.MAX_MINIONS_ON_BOARD) return;
-		//		int num = c.NumFriendlyMinionsThatDiedThisTurn;
-		//		Span<int> stk = stackalloc int[num];
-		//		Span<IPlayable> graveyard = c.GraveyardZone.GetSpan();
-		//		for (int i = c.GraveyardZone.Count - 1, k = 0; i >= 0 && k < num; --i)
-		//		{
-		//			if (!c.GraveyardZone[i].ToBeDestroyed) continue;
-		//			if (c.GraveyardZone[i].Card.Type != CardType.MINION)
-		//		}
-		//	})
-		//}
+		public static ISimpleTask SummonAllFriendlyDiedThisTurn(SelfCondition condition = null)
+		{
+			return new CustomTask((g, c, s, t, stack) =>
+			{
+				BoardZone board = c.BoardZone;
+				if (board.IsFull) return;
+
+				int num = c.NumFriendlyMinionsThatDiedThisTurn;
+				ReadOnlySpan<IPlayable> graveyard = c.GraveyardZone.GetSpan();
+				Span<int> buffer = stackalloc int[num]; int k = 0;
+
+				for (int i = graveyard.Length - 1, j = 0; j < num; --i)
+				{
+					if (!graveyard[i].ToBeDestroyed) continue;
+					if (graveyard[i].Card.Type != CardType.MINION) continue;
+					j++;
+					if ((!condition?.Eval(graveyard[i]) ?? false)) continue;
+					buffer[k++] = i;
+				}
+
+				for (--k; k >= 0; --k)
+				{
+					Entity.FromCard(in c, graveyard[buffer[k]].Card,
+						zone: board, creator: in s);
+					if (board.IsFull) return;
+				}
+			});
+		}
 
 		public static ISimpleTask RecursiveTask(ConditionTask repeatCondition, params ISimpleTask[] tasks)
 		{

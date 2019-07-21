@@ -4435,30 +4435,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_190", new Power
 			{
-				// copied from Revenge of the Wild
-				//    removed beast constraint
-				//    reverses order, so first minion to die, gets summoned first
-				// TODO make reusable and use with Kel'Thuzad
-				//PowerTask = new CustomTask((g, c, s, t, stack) =>
-				//{
-				//	if (c.BoardZone.IsFull) return;
-				//	int num = c.NumFriendlyMinionsThatDiedThisTurn;
-				//	for (int i = 0, k = 0; i < c.GraveyardZone.Count && k < num; i++)
-				//	{
-				//		if (c.GraveyardZone[i].ToBeDestroyed)
-				//		{
-				//			Card card = c.GraveyardZone[i].Card;
-				//			if (card.Type != CardType.MINION)
-				//				continue;
-				//			k++;
-				//			Entity.FromCard(in c, in card,
-				//				zone: c.BoardZone, creator: in s);
-				//			if (c.BoardZone.IsFull) return;
-				//		}
-				//	}
-				//})
-				PowerTask = ComplexTask.Create(
-					)
+				PowerTask = ComplexTask.SummonAllFriendlyDiedThisTurn()
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
