@@ -76,15 +76,15 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (_task == null)
 			{
-				ISimpleTask task = source.Card.Power.PowerTask;
-				if (source.Card.HasOverload)
+				ISimpleTask task = target.Card.Power.PowerTask;
+				if (target.Card.HasOverload)
 					task = ComplexTask.Create(task, OverloadTask.Task);
 				foreach (IPlayable p in targets)
-					game.TaskQueue.EnqueuePendingTask(in task, in controller, in source, in p);
+					game.TaskQueue.EnqueuePendingTask(in task, in controller, target, in p);
 			}
 			else
 				foreach (IPlayable p in targets)
-					game.TaskQueue.EnqueuePendingTask(in _task, in controller, in source, in p);
+					game.TaskQueue.EnqueuePendingTask(in _task, in controller, target, in p);
 
 			return TaskState.COMPLETE;
 		}

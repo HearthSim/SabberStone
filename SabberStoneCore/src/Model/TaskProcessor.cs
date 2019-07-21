@@ -173,9 +173,6 @@ namespace SabberStoneCore.Model
 
 			queue.Enqueue(new TaskInstance(task, controller, source, target));
 
-			while (_pendingTasks.Count != 0)
-				queue.Enqueue(_pendingTasks.Dequeue());
-
 #if LOGEVENT
 			_game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "TaskQueue",
 				!_game.Logging ? "" : $"{task.GetType().Name} is Enqueued in {_eventStack.Count}th stack");
@@ -204,6 +201,18 @@ namespace SabberStoneCore.Model
 		public void EnqueuePendingTask(in ISimpleTask task, in Controller controller, in IEntity source, in IPlayable target)
 		{
 			_pendingTasks.Enqueue(new TaskInstance(in task, in controller, in source, in target));
+			_hasPendingTask = true;
+		}
+
+		private bool _hasPendingTask;
+
+		public void ResumePendingTasks()
+		{
+			if (!_hasPendingTask) return;
+			_hasPendingTask = false;
+
+			do CurrentQueue.Enqueue(_pendingTasks.Dequeue());
+			while (_pendingTasks.Count != 0);
 		}
 
 		public TaskState Process()

@@ -1550,13 +1550,13 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("TRL_085", new Power {
 				//Aura = new Aura(AuraType.HERO, "TRL_085e"),
 				// TODO
-				//Trigger = TriggerBuilder.Type(TriggerType.CAST_SPELL)
-				//	.SetTask(ComplexTask.Create(
-				//		new IncludeAdjacentTask(EntityType.EVENT_TARGET),
-				//		new EnqueuePendingTask(EntityType.STACK)))
-				//	.SetCondition(SelfCondition.IsSpellTargetingMinion)
-				//	.SetSource(TriggerSource.FRIENDLY)
-				//	.GetTrigger()
+				Trigger = TriggerBuilder.Type(TriggerType.TARGET)
+					.SetTask(ComplexTask.Create(
+						new IncludeAdjacentTask(EntityType.EVENT_TARGET),
+						new EnqueuePendingTask(EntityType.STACK)))
+					.SetCondition(SelfCondition.IsEventTargetIs(CardType.MINION))
+					.SetSource(TriggerSource.FRIENDLY)
+					.GetTrigger()
 			});
 
 			// ---------------------------------------- MINION - SHAMAN

@@ -1138,6 +1138,7 @@ namespace SabberStoneCore.Model
 		internal void ProcessTasks()
 		{
 			TaskQueue queue = TaskQueue;
+			queue.ResumePendingTasks();
 			while (!queue.IsEmpty)
 			{
 				if (queue.Process() != TaskState.COMPLETE)

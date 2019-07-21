@@ -5,6 +5,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Model.Zones;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -2519,7 +2520,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - ELITE = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Zentimo_TRL_085()
 		{
 			var game = new Game(new GameConfig
@@ -2547,8 +2548,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			game.ProcessCard("Lightning Bolt", target2);
 			Assert.True(target1.IsDead);
-			Assert.True(target1.IsDead);
-			Assert.True(target1.IsDead);
+			Assert.True(target2.IsDead);
+			Assert.True(target3.IsDead);
 			Assert.Equal(3, game.CurrentPlayer.OverloadOwed);
 		}
 
