@@ -365,6 +365,7 @@ namespace SabberStoneCore.Model.Entities
 
 				return value > 0;
 			}
+			set => this[GameTag.RUSH] = value ? 1 : 0;
 		}
 
 		public bool AttackableByRush

@@ -1301,28 +1301,57 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - DEATHRATTLE = 1
 		// - 542 = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ImmortalPrelate_TRL_306()
 		{
-			// TODO ImmortalPrelate_TRL_306 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Immortal Prelate"),
-				},
 				Player2HeroClass = CardClass.PALADIN,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Immortal Prelate"));
-			//var testCard = (Minion) game.ProcessCard<Minion>("Immortal Prelate");
+			
+			Minion testCard = game.ProcessCard<Minion>("Immortal Prelate");
+			game.ProcessCard("Blessing of Kings", testCard, asZeroCost: true);
+			Assert.Equal(5, testCard.AttackDamage);
+			Assert.Equal(7, testCard.Health);
+
+			testCard.Kill();
+			Assert.Single(game.CurrentPlayer.DeckZone);
+			Minion testCard2 = (Minion) Generic.Draw(game.CurrentPlayer);
+			game.ProcessCard(testCard2, asZeroCost: true);
+			Assert.Equal(5, testCard2.AttackDamage);
+			Assert.Equal(7, testCard2.Health);
+
+			game.ProcessCard("Sunfury Protector", asZeroCost: true);
+			Assert.True(testCard2.HasTaunt);
+			testCard2.Kill();
+			Assert.Single(game.CurrentPlayer.DeckZone);
+			Minion testCard3 = (Minion) Generic.Draw(game.CurrentPlayer);
+			game.ProcessCard(testCard3, asZeroCost: true);
+			Assert.Equal(5, testCard3.AttackDamage);
+			Assert.Equal(7, testCard3.Health);
+			Assert.True(testCard3.HasTaunt);
+
+			game.ProcessCard("Abusive Sergeant", testCard3, asZeroCost: true);
+			Assert.Equal(7, testCard3.AttackDamage);
+			testCard3.Kill();
+			game.EndTurn();
+			game.EndTurn();
+
+			Minion testCard4 = (Minion) game.CurrentPlayer.HandZone[0];
+			game.ProcessCard(testCard4, asZeroCost: true);
+			Assert.Equal(5, testCard4.AttackDamage);
+			Assert.Equal(7, testCard4.Health);
+			Assert.True(testCard4.HasTaunt);
+
+			// May need more complicated tests.
+			// Can't 100% sure about the implementation now.
 		}
 
 		// --------------------------------------- MINION - PALADIN

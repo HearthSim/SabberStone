@@ -828,8 +828,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("TRL_306", new Power {
 				// TODO [TRL_306] Immortal Prelate && Test: Immortal Prelate_TRL_306
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = SpecificTask.ImmortalPrelate
 			});
 
 			// --------------------------------------- MINION - PALADIN

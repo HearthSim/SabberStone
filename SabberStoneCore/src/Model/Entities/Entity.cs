@@ -332,13 +332,20 @@ namespace SabberStoneCore.Model.Entities
 					controller.Game.PowerHistory.Add(PowerHistoryBuilder.FullEntity(result));
 			}
 
-			// add entity to the appropriate zone if it was given
-			if (zone is BoardZone)
-				Generic.SummonBlock.Invoke(game, (Minion)result, zonePos, creator);
-			else if (zone is HandZone)
-				Generic.AddHandPhase.Invoke(controller, result);
-			else
-				zone?.Add(result, zonePos);
+			if (zone != null) // add entity to the appropriate zone if it was given
+				switch (zone.Type)
+				{
+
+					case Enums.Zone.PLAY:
+						Generic.SummonBlock.Invoke(game, (Minion) result, zonePos, creator);
+						break;
+					case Enums.Zone.HAND:
+						Generic.AddHandPhase.Invoke(controller, result);
+						break;
+					default:
+						zone?.Add(result, zonePos);
+						break;
+				}
 
 			if (result.ChooseOne)
 			{

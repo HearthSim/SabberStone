@@ -21,6 +21,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Actions;
+using SabberStoneCore.Enchants;
 using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks
@@ -1040,6 +1041,58 @@ namespace SabberStoneCore.Tasks
 
 				while (c.Choice != null)
 					Generic.ChoicePick(c, g, c.Choice.Choices[rnd.Next(c.Choice.Choices.Count)]);
+			});
+
+		public static readonly ISimpleTask ImmortalPrelate =
+			new CustomTask((g, c, s, t, stack) =>
+			{
+				Minion source = (Minion)s;
+
+				Minion newEntity = (Minion) Entity.FromCard(in c, source.Card,
+					zone: c.DeckZone, zonePos: Util.Random.Next(c.DeckZone.Count));
+				source.CopyInternalAttributes(newEntity);
+				newEntity.Damage = 0;
+
+				if (source.AppliedEnchantments != null)
+				{
+					foreach (Enchantment e in source.AppliedEnchantments)
+					{
+						Enchantment instance = Enchantment.GetInstance(in c, e.Creator, newEntity, e.Card);
+						if (e[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
+						{
+							instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
+							if (e[GameTag.TAG_SCRIPT_DATA_NUM_2] > 0)
+								instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = e[GameTag.TAG_SCRIPT_DATA_NUM_2];
+						}
+						instance.CapturedCard = e.CapturedCard;
+
+						if (e.IsOneTurnActive)
+							instance.Game.OneTurnEffectEnchantments.Add(instance);
+					}
+				}
+
+				if (source.HasDivineShield)
+					newEntity.HasDivineShield = true;
+				if (source.HasWindfury)
+					newEntity.HasWindfury = true;
+				if (source.HasLifeSteal)
+					newEntity.HasLifeSteal = true;
+				if (source.CantBeTargetedByOpponents)
+					newEntity.CantBeTargetedByOpponents = true;
+				if (source.Poisonous)
+					newEntity.Poisonous = true;
+				if (source.IsRush)
+					newEntity.IsRush = true;
+				if (source.SpellPower > 0)
+					newEntity.SpellPower = source.SpellPower;
+
+				List<(int entityId, IEffect effect)> oneTurnEffects = g.OneTurnEffects;
+				for (int i = oneTurnEffects.Count - 1; i >= 0; i--)
+				{
+					(int id, IEffect effect) = oneTurnEffects[i];
+					if (id == source.Id)
+						oneTurnEffects.Add((newEntity.Id, effect));
+				}
 			});
 
 		public class RenonunceDarkness : SimpleTask
