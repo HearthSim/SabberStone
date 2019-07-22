@@ -2556,10 +2556,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Zentimo"),
-				},
 				Player2HeroClass = CardClass.SHAMAN,
 				Shuffle = false,
 				FillDecks = true,
@@ -2568,8 +2564,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Zentimo"));
-			var testCard = (Minion) game.ProcessCard<Minion>("Zentimo");
+
+			game.ProcessCard<Minion>("Zentimo");
 
 			Minion target1 = game.ProcessCard<Minion>("Wisp");
 			Minion target2 = game.ProcessCard<Minion>("Wisp");
@@ -2580,6 +2576,30 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.True(target2.IsDead);
 			Assert.True(target3.IsDead);
 			Assert.Equal(3, game.CurrentPlayer.OverloadOwed);
+
+			target1 = game.ProcessCard<Minion>("Salty Dog", asZeroCost: true);
+			target2 = game.ProcessCard<Minion>("Salty Dog", asZeroCost: true);
+			target3 = game.ProcessCard<Minion>("Salty Dog", asZeroCost: true);
+
+			Minion fandral = game.ProcessCard<Minion>("Fandral Staghelm", asZeroCost: true);
+			Assert.True(game.CurrentPlayer.ChooseBoth);
+
+			game.ProcessCard("Wrath", target2);
+			Assert.True(target1.IsDead);
+			Assert.True(target2.IsDead);
+			Assert.True(target3.IsDead);
+			Assert.Equal(4, game.CurrentPlayer.NumCardsDrawnThisTurn);
+
+			game.EndTurn();
+			game.ProcessCard("Counterspell");
+			game.EndTurn();
+
+			target1 = game.ProcessCard<Minion>("Wisp");
+			target2 = game.ProcessCard<Minion>("Wisp");
+			target3 = game.ProcessCard<Minion>("Wisp");
+			Spell spell = game.ProcessCard<Spell>("Moonfire", target2);
+			Assert.True(spell.IsCountered);
+			fandral.Attack(game.CurrentOpponent.Hero);
 		}
 
 		// ---------------------------------------- MINION - SHAMAN

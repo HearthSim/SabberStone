@@ -358,8 +358,11 @@ namespace SabberStoneCore.Actions
 					if (target != null)
 					{
 						game.TaskQueue.StartEvent();
+						int temp = game.CurrentEventData.EventNumber;
+						game.CurrentEventData.EventNumber = chooseOne;
 						game.TriggerManager.OnTargetTrigger(spell);
 						game.ProcessTasks();
+						game.CurrentEventData.EventNumber = temp;
 						game.TaskQueue.EndEvent();
 						if (target.Id != spell.CardTarget)
 						{
@@ -398,7 +401,7 @@ namespace SabberStoneCore.Actions
 				if (game.History)
 					weapon[GameTag.ZONE] = (int) Zone.PLAY;
 
-
+				///
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
 				game.TaskQueue.StartEvent();

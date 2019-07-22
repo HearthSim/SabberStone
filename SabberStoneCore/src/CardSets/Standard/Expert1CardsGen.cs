@@ -1248,7 +1248,13 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_287", new Power {
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
-					SingleTask = ComplexTask.Secret(new SetGameTagTask(GameTag.CANT_PLAY, 1, EntityType.TARGET)),
+					SingleTask = ComplexTask.Secret(
+						new SetGameTagTask(GameTag.CANT_PLAY, 1, EntityType.TARGET),
+						new FuncNumberTask((IPlayable p) =>
+						{
+							Trigger.InvalidateAll(p.Game);
+							return 0;
+						})),
 					FastExecution = true,
 				}
 			});

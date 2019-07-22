@@ -321,9 +321,7 @@ namespace SabberStoneCore.Triggers
 						    p :
 						    null);
 		    }
-
-		    Validated = false;
-		}
+	    }
 
 		/// <summary>
 		/// Remove this object from the Game and unsubscribe from the related event.
@@ -516,6 +514,13 @@ namespace SabberStoneCore.Triggers
 
 			if (game.TaskQueue.IsEmpty) return;
 		    game.TaskQueue.ClearCurrentEvent();
+	    }
+
+	    public static void InvalidateAll(Game game)
+	    {
+			game.Triggers.ForEach(p => p.Validated = false);
+			if (game.TaskQueue.IsEmpty) return;
+			game.TaskQueue.ClearCurrentEvent();
 	    }
 
 	    private void Validate(IEntity source)

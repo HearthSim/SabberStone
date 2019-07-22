@@ -1013,25 +1013,6 @@ namespace SabberStoneCoreTest.Basic
 		}
 
 		[Fact]
-		public void FindBug()
-		{
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = true,
-				FillDecksPredictably = true
-			});
-			game.StartGame();
-
-			//game.ProcessCard("Grimscale Oracle");
-			//game.ProcessCard("Psychic Scream", asZeroCost: true);
-
-			game.ProcessCard("Rebuke", asZeroCost: true);
-		}
-
-		[Fact]
 		public void CantBeTargetedBy()
 		{
 			var game = new Game(new GameConfig

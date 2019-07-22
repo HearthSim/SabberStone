@@ -143,10 +143,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				cardsToDiscover = Discover(in game, controller, in _discoverType, out choiceAction);
 			else
 			{
-				cardsToDiscover = Discover(game.FormatType, in _discoverCriteria,
-					Criteria.CardClass == CardClass.OP_CLASS ?
-						controller.Opponent.HeroClass :
-						controller.HeroClass);
+				CardClass cls = Criteria.CardClass == CardClass.OP_CLASS
+					? controller.Opponent.HeroClass
+					: controller.HeroClass;
+
+				if (cls == CardClass.NEUTRAL)
+				{
+					if (source.Card.Class != CardClass.NEUTRAL)
+						cls = source.Card.Class;
+					else
+						cls = (CardClass) Random.Next(2, 11);
+				}
+
+				cardsToDiscover = Discover(game.FormatType, in _discoverCriteria, cls);
 				choiceAction = _choiceAction;
 			}
 

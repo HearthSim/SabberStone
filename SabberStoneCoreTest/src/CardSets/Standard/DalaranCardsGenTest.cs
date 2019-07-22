@@ -2826,18 +2826,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - TAUNT = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ArchVillainRafaam_DAL_422()
 		{
-			// TODO ArchVillainRafaam_DAL_422 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Arch-Villain Rafaam"),
-				},
 				Player2HeroClass = CardClass.WARLOCK,
 				Shuffle = false,
 				FillDecks = true,
@@ -2846,8 +2841,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arch-Villain Rafaam"));
-			//Minion testCard = game.ProcessCard<Minion>("Arch-Villain Rafaam");
+
+			game.ProcessCard<Minion>("Arch-Villain Rafaam");
+			ReadOnlySpan<IPlayable> span = game.CurrentPlayer.HandZone.GetSpan();
+			for (int i = 0; i < span.Length; i++)
+				Assert.True(span[i].Card.Rarity == Rarity.LEGENDARY && span[i].Card.Type == CardType.MINION,
+					$"Hand card {span[i]} is not a legendary minion!");
+			span = game.CurrentPlayer.DeckZone.GetSpan();
+			for (int i = 0; i < span.Length; i++)
+				Assert.True(span[i].Card.Rarity == Rarity.LEGENDARY && span[i].Card.Type == CardType.MINION,
+					$"Deck card {span[i]} is not a legendary minion!");
 		}
 
 		// --------------------------------------- MINION - WARLOCK

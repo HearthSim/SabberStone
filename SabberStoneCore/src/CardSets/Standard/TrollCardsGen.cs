@@ -1547,13 +1547,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_085", new Power {
-				//Aura = new Aura(AuraType.HERO, "TRL_085e"),
-				// TODO
 				Trigger = TriggerBuilder.Type(TriggerType.TARGET)
 					.SetTask(ComplexTask.Create(
 						new IncludeAdjacentTask(EntityType.EVENT_TARGET),
 						new EnqueuePendingTask(EntityType.STACK)))
-					.SetCondition(SelfCondition.IsEventTargetIs(CardType.MINION))
+					.SetCondition(SelfCondition.IsSpellTargetingMinion)
 					.SetSource(TriggerSource.FRIENDLY)
 					.GetTrigger()
 			});

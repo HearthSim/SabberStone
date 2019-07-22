@@ -110,6 +110,11 @@ namespace SabberStoneCore.Model.Zones
 		public T this[int zonePosition] => zonePosition >= _count ? throw new IndexOutOfRangeException() : _entities[zonePosition];
 
 		/// <summary>
+		/// Replaces an entity in the given position internally. (i.e. not create any history packets)
+		/// </summary>
+		public abstract void ChangeEntity(T oldEntity, T newEntity);
+
+		/// <summary>
 		/// Returns TRUE if at least one of entities
 		///	in this Zone satisfies the given predicate.
 		/// </summary>
@@ -393,13 +398,17 @@ namespace SabberStoneCore.Model.Zones
 		{
 			if (_entities.Length == _count) Resize();
 
-			if (entity == null)
-				;
-
 			_entities[_count++] = entity;
 			entity.Zone = this;
 			if (Game.History)
 				entity[GameTag.ZONE] = (int) Type;
+		}
+
+		public override void ChangeEntity(IPlayable oldEntity, IPlayable newEntity)
+		{
+			int pos = Array.FindIndex(_entities, p => p == oldEntity);
+			_entities[pos] = newEntity;
+			newEntity.Zone = this;
 		}
 
 		public override IEnumerator<IPlayable> GetEnumerator()
@@ -602,6 +611,14 @@ namespace SabberStoneCore.Model.Zones
 			return entity;
 		}
 
+		public override void ChangeEntity(T oldEntity, T newEntity)
+		{
+			int pos = oldEntity.ZonePosition;
+			_entities[pos] = newEntity;
+			newEntity.ZonePosition = pos;
+			newEntity.Zone = this;
+		}
+
 		/// <summary>
 		/// Swaps the positions of both entities in this zone.
 		/// Both entities must be contained by this zone.
@@ -619,17 +636,6 @@ namespace SabberStoneCore.Model.Zones
 			oldEntity.ZonePosition = newPos;
 			_entities[newPos] = oldEntity;
 			_entities[oldPos] = newEntity;
-		}
-
-		/// <summary>
-		/// Replaces an entity in the given position internally. (i.e. not create any history packets)
-		/// </summary>
-		internal virtual void ChangeEntity(T oldEntity, T newEntity)
-		{
-			int pos = oldEntity.ZonePosition;
-			_entities[pos] = newEntity;
-			newEntity.ZonePosition = pos;
-			newEntity.Zone = this;
 		}
 	}
 

@@ -373,11 +373,11 @@ namespace SabberStoneCore.Actions
 
 				// Detach the target from Auras
 				if (hand != null)
-					hand.Auras.ForEach(a => a.Detach(id));
+					hand.Auras.ForEach(a => a.DeApply(p));
 				else if
 					(board != null)
 				{
-					board.Auras.ForEach(a => a.Detach(id));
+					board.Auras.ForEach(a => a.DeApply(p));
 
 					if (p.Card.Untouchable)
 					{
@@ -391,10 +391,15 @@ namespace SabberStoneCore.Actions
 				// Tag.REAL_TIME_TRANSFORM = 0
 
 				if (p.Card.Type == newCard.Type)
+				{
 					p.Card = newCard;
+					Playable pp = (Playable)p;
+					if (pp._costManager != null)
+						pp._modifiedCost = pp._costManager.EntityChanged(newCard.Cost);
+				}
 				else
 				{
-					IPlayable entity;
+					Playable entity;
 					switch (newCard.Type)
 					{
 						case CardType.MINION:
@@ -419,9 +424,14 @@ namespace SabberStoneCore.Actions
 						(board != null)
 						board.ChangeEntity((Minion)p, (Minion)entity);
 					else if (p.Zone is DeckZone deck)
-						entity.Zone = deck;
+						deck.ChangeEntity(p, entity);
 
 					c.Game.IdEntityDic[id] = entity;
+
+					Playable pp = (Playable)p;
+					if (pp._costManager != null)
+						entity._modifiedCost = pp._costManager.EntityChanged(newCard.Cost);
+					entity._costManager = pp._costManager;
 					p = entity;
 				}
 
@@ -491,6 +501,9 @@ namespace SabberStoneCore.Actions
 		public static void OverloadBlock(Controller controller, IPlayable source, bool history)
 		{
 			if (!source.Card.HasOverload)
+				return;
+
+			if (source is Spell s && s.IsCountered)
 				return;
 
 			if (history)

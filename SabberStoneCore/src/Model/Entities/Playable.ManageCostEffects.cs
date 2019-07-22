@@ -11,11 +11,13 @@ namespace SabberStoneCore.Model.Entities
 	{
 		internal class CostManager
 		{
-			private int _cachedValue;
-			private bool _toBeUpdated;
-
 			private readonly List<(EffectOperator Operator, int Value)> _costEffects =
 				new List<(EffectOperator @operator, int value)>();
+			private readonly List<(EffectOperator Operator, int Value)> _costEnchantments =
+				new List<(EffectOperator Operator, int Value)>();
+
+			private int _cachedValue;
+			private bool _toBeUpdated;
 			private IAdaptiveCostEffect _adaptiveCostEffect;
 
 			public CostManager()
@@ -131,6 +133,8 @@ namespace SabberStoneCore.Model.Entities
 						_toBeUpdated = true;
 						break;
 				}
+
+				_costEnchantments.Add((@operator, value));
 			}
 
 			public int GetCost(int c)
@@ -143,6 +147,30 @@ namespace SabberStoneCore.Model.Entities
 			internal void QueueUpdate()
 			{
 				_toBeUpdated = true;
+			}
+
+			internal int EntityChanged(int newCardCost)
+			{
+				for (int i = 0; i < _costEnchantments.Count; i++)
+				{
+					(EffectOperator @operator, int value) = _costEnchantments[i];
+					switch (@operator)
+					{
+						case EffectOperator.SUB:
+							newCardCost -= value;
+							break;
+						case EffectOperator.ADD:
+							newCardCost += value;
+							break;
+						case EffectOperator.SET:
+							newCardCost = value;
+							break;
+					}
+				}
+
+				newCardCost = GetCostInternal(newCardCost);
+
+				return newCardCost > 0 ? newCardCost : 0;
 			}
 
 			private int GetCostInternal(int c)

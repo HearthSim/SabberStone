@@ -2485,11 +2485,7 @@ namespace SabberStoneCore.CardSets.Standard
 			//       Demon, Murloc, Dragon,
 			//       Beast, Pirate and Totem.</i>
 			// --------------------------------------------------------
-			cards.Add("GIL_681", new Power {
-				// TODO [GIL_681] Nightmare Amalgam && Test: Nightmare Amalgam_GIL_681
-				//PowerTask = null,
-				//Trigger = null,
-			});
+			cards.Add("GIL_681", null);
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [GIL_682] Muck Hunter - COST:5 [ATK:5/HP:8] 

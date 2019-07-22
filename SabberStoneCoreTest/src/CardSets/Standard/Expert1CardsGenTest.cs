@@ -1597,6 +1597,30 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+
+			// The spell card will still be consumed and its mana cost expended.
+			// However, any Overload will not be applied,
+			// since Overload is part of the card's text, not its cost.
+			game.ProcessCard("Counterspell");
+			game.EndTurn();
+			Spell s = game.ProcessCard<Spell>("Lightning Bolt", game.CurrentOpponent.Hero);
+			Assert.True(s.IsCountered);
+			Assert.Equal(0, game.CurrentPlayer.OverloadOwed);
+			game.EndTurn();
+
+			// Since patch 11.2.0, any effects which activate from the spell being cast
+			// or completed will not be triggered.
+			// This includes both 'whenever you cast a spell' as well as 'after you cast a spell' effects.
+			game.ProcessCard("Counterspell");
+			game.EndTurn();
+
+			game.ProcessCard("Archmage Antonidas", asZeroCost: true);
+			Minion pyromancer = game.ProcessCard<Minion>("Wild Pyromancer", asZeroCost: true);
+			int handCountBefore = game.CurrentPlayer.HandZone.Count;
+			game.ProcessCard("Moonfire", game.CurrentOpponent.Hero);
+			Assert.Equal(handCountBefore, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(0, pyromancer.Damage);
 		}
 
 		// ------------------------------------------- SPELL - MAGE

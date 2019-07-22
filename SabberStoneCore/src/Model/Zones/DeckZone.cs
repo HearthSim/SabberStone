@@ -16,6 +16,7 @@ using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
+using SabberStoneCore.Exceptions;
 
 
 namespace SabberStoneCore.Model.Zones
@@ -50,6 +51,21 @@ namespace SabberStoneCore.Model.Zones
 			entity.Power?.Trigger?.Activate(entity, TriggerActivation.DECK);
 
 			CheckParity(entity.Cost);
+		}
+
+		public override void ChangeEntity(IPlayable oldEntity, IPlayable newEntity)
+		{
+			Span<IPlayable> span = new Span<IPlayable>(_entities, 0, _count);
+			bool flag = false;
+			for (int i = 0; i < span.Length; i++)
+				if (span[i] == oldEntity)
+				{
+					span[i] = newEntity;
+					flag = true;
+					break;
+				}
+			if (!flag) throw new ZoneException($"ChangeEntity: Can't find {oldEntity} in {this}.");
+			newEntity.Zone = this;
 		}
 
 		public IPlayable TopCard => _entities[_count - 1];

@@ -38,7 +38,7 @@ namespace SabberStoneCoreTest.Cloning
 			};
 			bool flag = true;
 			string diff = null;
-			for (int i = 0; i < 100; i++)
+			for (int i = 0; i < 300; i++)
 			{
 				var game = new Game(new GameConfig
 				{
@@ -58,6 +58,9 @@ namespace SabberStoneCoreTest.Cloning
 					Game cloneGame = game.Clone();
 					string str1 = game.Hash();
 					string str2 = cloneGame.Hash();
+
+					if (str1 != str2)
+						;
 
 					Assert.Equal(str1, str2);
 

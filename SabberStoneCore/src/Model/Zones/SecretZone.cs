@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model.Entities;
@@ -65,6 +67,11 @@ namespace SabberStoneCore.Model.Zones
 				: $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'."); 
 
 			entity.OrderOfPlay = Game.NextOop;
+		}
+
+		public override void ChangeEntity(Spell oldEntity, Spell newEntity)
+		{
+			throw new NotImplementedException();
 		}
 
 		public override IEnumerator<Spell> GetEnumerator()
