@@ -1936,10 +1936,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - MODULAR = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void KangorsEndlessArmy_BOT_912()
 		{
-			// TODO KangorsEndlessArmy_BOT_912 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1958,6 +1957,56 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kangor's Endless Army"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Kangor's Endless Army"));
+
+			Minion mech1 = game.ProcessCard<Minion>("Glow-Tron", asZeroCost: true);
+			game.ProcessCard<Minion>("Glow-Tron", asZeroCost: true, zonePosition: 0);
+			game.ProcessCard<Minion>("Glow-Tron", asZeroCost: true, zonePosition: 0);
+			game.ProcessCard<Minion>("Glow-Tron", asZeroCost: true, zonePosition: 0);
+
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Assert.Equal(4 * mech1.Card.ATK, mech1.AttackDamage);
+			Assert.Equal(4 * mech1.Card.Health, mech1.Health);
+			Assert.Equal(3, mech1.AppliedEnchantments.Count);
+
+			Minion mech2 = game.ProcessCard<Minion>("Wargear", asZeroCost: true);
+			game.ProcessCard("Zilliax", asZeroCost: true, zonePosition: 1);
+
+			Minion mech3 = game.ProcessCard<Minion>("Upgradeable Framebot");
+			game.ProcessCard("Replicating Menace", asZeroCost: true, zonePosition: 2);
+
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+
+			mech1.Kill();
+			mech2.Kill();
+			mech3.Kill();
+
+			game.ProcessCard("Kangor's Endless Army");
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+			foreach (Minion mech in game.CurrentPlayer.BoardZone)
+			{
+				switch (mech.Card.Name)
+				{
+					case "Glow-Tron":
+						Assert.Equal(4 * mech.Card.ATK, mech.AttackDamage);
+						Assert.Equal(4 * mech.Card.Health, mech.Health);
+						break;
+					case "Wargear":
+						Assert.Equal(mech.Card.ATK + Cards.FromName("Zilliax").ATK, mech.AttackDamage);
+						Assert.Equal(mech.Card.Health + Cards.FromName("Zilliax").Health, mech.Health);
+						Assert.True(mech.HasDivineShield);
+						Assert.True(mech.HasTaunt);
+						Assert.True(mech.HasLifeSteal);
+						Assert.True(mech.AttackableByRush);
+						break;
+					case "Upgradeable Framebot":
+						Assert.Equal(mech.Card.ATK + Cards.FromName("Replicating Menace").ATK, mech.AttackDamage);
+						Assert.Equal(mech.Card.Health + Cards.FromName("Replicating Menace").Health, mech.Health);
+						Assert.True(mech.HasDeathrattle);
+						break;
+					default:
+						throw new System.Exception();
+				}
+			}
 		}
 
 	}

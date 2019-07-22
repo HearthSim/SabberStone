@@ -2700,7 +2700,7 @@ namespace SabberStoneCore.CardSets.Standard
 						IPlayable source = (IPlayable)s;
 
 						for (int i = 0; i < stack.Playables.Count; i++)
-							Generic.AddEnchantmentBlock(c, eCard, source, s, 0, 0, stack.Playables[i].Id);
+							Generic.AddEnchantmentBlock(g, eCard, source, s, 0, 0, stack.Playables[i].Id);
 					}))
 			});
 

@@ -269,75 +269,89 @@ namespace SabberStoneCore.Actions
 			};
 
 		/// <summary>
-		/// Controller, Card, Creator, Target, ScriptTag1, ScriptTag2, UseEntityId
+		/// Creates a new <see cref="Enchantment"/> and attaches it to the given target.
 		/// </summary>
-		public static Action<Controller, Card, IPlayable, IEntity, int, int, int> AddEnchantmentBlock
-			=> delegate (Controller c, Card enchantmentCard, IPlayable creator, IEntity target, int num1, int num2, int entityId)
-			{
-				Power power = enchantmentCard.Power;
+		/// <param name="g">The game context.</param>
+		/// <param name="enchantmentCard">The base Card for the enchantment.</param>
+		/// <param name="creator">The creator entity.</param>
+		/// <param name="target">The target entity.</param>
+		/// <param name="num1">ScriptTag1</param>
+		/// <param name="num2">ScriptTag2</param>
+		/// <param name="entityId">The entity ID to be stored in the enchantment. (e.g. carnivorous Cube)</param>
+		public static void AddEnchantmentBlock(in Game g, in Card enchantmentCard, in IPlayable creator, IEntity target, int num1 = 0, int num2 = 0, int entityId = 0)
+		{
+			Power power = enchantmentCard.Power;
 
-				if (power.Enchant is OngoingEnchant && target is IPlayable entity && entity.OngoingEffect is OngoingEnchant ongoingEnchant)
+			if (power.Enchant is OngoingEnchant && target is IPlayable entity && entity.OngoingEffect is OngoingEnchant ongoingEnchant)
+			{	// Increment the count of existing OngoingEnchant
+				ongoingEnchant.Count++;
+				return;
+			}
+
+			if (g.History)
+			{
+				Enchantment enchantment = Enchantment.GetInstance(creator.Controller, in creator, in target, in enchantmentCard);
+
+				if (num1 > 0)
 				{
-					ongoingEnchant.Count++;
-					return;
+					enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1] = num1;
+					if (num2 > 0)
+						enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] = num2;
 				}
 
-				if (c.Game.History)
-				{
-					Enchantment enchantment = Enchantment.GetInstance(in c, in creator, in target, in enchantmentCard);
+				power.Aura?.Activate(enchantment);
+				power.Trigger?.Activate(enchantment);
+				power.Enchant?.ActivateTo(target, enchantment);
 
+				if (power.Enchant?.RemoveWhenPlayed ?? false)
+					Enchant.RemoveWhenPlayedTrigger.Activate(enchantment);
+
+				if (power.DeathrattleTask != null)
+					((IPlayable)target).HasDeathrattle = true;
+
+				if (entityId > 0)
+				{
+					enchantment.CapturedCard = g.IdEntityDic[entityId].Card;
+					if (g.Logging)
+					{
+						g.Log(LogLevel.DEBUG, BlockType.POWER,
+							"AddEnchantmentBlock", $"{g.IdEntityDic[entityId]} is captured in {enchantment}.");
+					}
+				}
+			}
+			else
+			{
+				if (power.Aura != null || power.Trigger != null || power.DeathrattleTask != null || enchantmentCard.Modular)
+				{	// Create Enchantment instance Only when it is needed.
+					// As an owner entity for Auras, Triggers or Deathrattle tasks.
+					// We also maintain Modular (Magnetic) Enchantments for Kangor's Endless Army.
+					Enchantment instance = Enchantment.GetInstance(creator.Controller, in creator, in target, in enchantmentCard);
+
+					// Put ScriptTags here.
 					if (num1 > 0)
 					{
-						enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1] = num1;
+						instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = num1;
 						if (num2 > 0)
-							enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] = num2;
+							instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = num2;
 					}
 
-					power.Aura?.Activate(enchantment);
-					power.Trigger?.Activate(enchantment);
-					power.Enchant?.ActivateTo(target, enchantment);
+					// Activate OngoingEffects.
+					power.Aura?.Activate(instance);
+					power.Trigger?.Activate(instance);
 
+					// Activate RemoveWhenPlayed.
 					if (power.Enchant?.RemoveWhenPlayed ?? false)
-						Enchant.RemoveWhenPlayedTrigger.Activate(enchantment);
+						Enchant.RemoveWhenPlayedTrigger.Activate(instance);
 
-					if (power.DeathrattleTask != null)
-						((IPlayable)target).HasDeathrattle = true;
-
+					// Enchantments can capture card information.
 					if (entityId > 0)
-					{
-						enchantment.CapturedCard = c.Game.IdEntityDic[entityId].Card;
-						if (c.Game.Logging)
-						{
-							c.Game.Log(LogLevel.DEBUG, BlockType.POWER,
-								"AddEnchantmentBlock", $"{c.Game.IdEntityDic[entityId]} is captured in {enchantment}.");
-						}
-					}
+						instance.CapturedCard = g.IdEntityDic[entityId].Card;
 				}
-				else
-				{
-					if (power.Aura != null || power.Trigger != null || power.DeathrattleTask != null)
-					{
-						Enchantment instance = Enchantment.GetInstance(in c, in creator, in target, in enchantmentCard);
-						if (num1 > 0)
-						{
-							instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = num1;
-							if (num2 > 0)
-								instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = num2;
-						}
-						power.Aura?.Activate(instance);
-						power.Trigger?.Activate(instance);
 
-						if (power.Enchant?.RemoveWhenPlayed ?? false)
-							Enchant.RemoveWhenPlayedTrigger.Activate(instance);
-
-						if (entityId > 0)
-							instance.CapturedCard = c.Game.IdEntityDic[entityId].Card;
-					}
-
-					//	no indicator enchantment entities when History option is off
-					power.Enchant?.ActivateTo(target, null, num1, num2);
-				}
-			};
+				//	no indicator enchantment entities when History option is off
+				power.Enchant?.ActivateTo(target, null, num1, num2);
+			}
+		}
 
 		public static Func<Controller, IPlayable, Card, bool, IPlayable> ChangeEntityBlock
 			=> delegate(Controller c, IPlayable p, Card newCard, bool removeEnchantments)

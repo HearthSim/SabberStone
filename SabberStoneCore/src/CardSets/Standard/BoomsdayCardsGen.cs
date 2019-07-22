@@ -1050,9 +1050,23 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MODULAR = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_912", new Power {
-				// TODO [BOT_912] Kangor's Endless Army && Test: Kangor's Endless Army_BOT_912
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.GRAVEYARD),
+					new FilterStackTask(SelfCondition.IsRace(Race.MECHANICAL), SelfCondition.IsDead),
+					new RandomTask(3, EntityType.STACK),
+					new CustomTask((g, c, s, t, stack) =>
+					{
+						foreach (IPlayable deadMech in stack.Playables)
+						{	// copy and summon the base card
+							IPlayable copied = Generic.Copy(in c, in s, in deadMech, Zone.PLAY);
+							if (deadMech.AppliedEnchantments == null) continue;
+							foreach (Enchantment magneticUpgrade in deadMech.AppliedEnchantments)
+							{	// copy magnetic enchantments
+								Generic.AddEnchantmentBlock(in g, magneticUpgrade.Card, (IPlayable) s, copied,
+									magneticUpgrade.ScriptTag1, magneticUpgrade.ScriptTag2);
+							}
+						}
+					}))
 			});
 
 		}
@@ -3358,7 +3372,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_548e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_548e")
+				Enchant = new Enchant(
+					Effects.Attack_N(0),
+					Effects.Health_N(0),
+					new Effect(GameTag.DIVINE_SHIELD, EffectOperator.SET, 1),
+					Effects.TauntEff,
+					Effects.Lifesteal,
+					Effects.Rush)
+				{
+					UseScriptTag = true
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

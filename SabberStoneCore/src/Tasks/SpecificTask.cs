@@ -473,7 +473,7 @@ namespace SabberStoneCore.Tasks
 					if (newEntity[GameTag.DISPLAYED_CREATOR] == 0)
 						newEntity[GameTag.DISPLAYED_CREATOR] = e.Creator.Id;
 
-					Generic.AddEnchantmentBlock(e.Controller, e.Card, e, newEntity, 0, 0, 0);
+					Generic.AddEnchantmentBlock(e.Game, e.Card, e, newEntity, 0, 0, 0);
 
 					// TODO choose ones
 

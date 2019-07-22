@@ -46,7 +46,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (game.History)
 				s[GameTag.TAG_SCRIPT_DATA_NUM_1] = t.Id;
 
-			Generic.AddEnchantmentBlock.Invoke(controller, Cards.FromId(s.Card.Id + "e"), s, t, s.AttackDamage,
+			Generic.AddEnchantmentBlock(game, Cards.FromId(s.Card.Id + "e"), s, t, s.AttackDamage,
 				s.BaseHealth, 0);
 
 			// Aggregate triggers

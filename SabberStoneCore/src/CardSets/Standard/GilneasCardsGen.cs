@@ -935,16 +935,16 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					TriggerActivation = TriggerActivation.HAND,
-					SingleTask = new FuncNumberTask(p =>
+					SingleTask = new CustomTask((g, c, s, t, stack) =>
 					{
-						if (p.Zone?.Type != Zone.HAND)
-							return 0;
+						if (s.Zone?.Type != Zone.HAND)
+							return;
 
-						Card pick = p.Controller.Opponent.HandZone.Random?.Card;
-						if (pick == null) return 0;
-						IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick, true);
-						Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("GIL_142e"), p, result, 0, 0, 0);
-						return 0;
+						Card pick = c.Opponent.HandZone.Random?.Card;
+						if (pick == null) return;
+						IPlayable result = Generic.ChangeEntityBlock.Invoke(c, (IPlayable)s, pick, true);
+						Generic.AddEnchantmentBlock(g, Cards.FromId("GIL_142e"), (IPlayable)s, result, 0, 0, 0);
+						return;
 					}),
 					FastExecution = true
 				}
@@ -1046,10 +1046,10 @@ namespace SabberStoneCore.CardSets.Standard
 					new FuncPlayablesTask(list =>
 					{
 						IPlayable source = list[0];
-						Controller c = source.Controller;
+						Game g = source.Game;
 						Card enchantment = Cards.FromId("GIL_840e");
 						for (int i = 0; i < list.Count; i++)
-							Generic.AddEnchantmentBlock(c, enchantment, source, list[i], list[i].Card.Health, 0, 0);
+							Generic.AddEnchantmentBlock(g, enchantment, source, list[i], list[i].Card.Health, 0, 0);
 						return null;
 					}))
 			});
@@ -2712,7 +2712,7 @@ namespace SabberStoneCore.CardSets.Standard
 							Card pick = p.Controller.Opponent.HandZone.Random?.Card;
 							if (pick == null) return null;
 							IPlayable result = Generic.ChangeEntityBlock.Invoke(p.Controller, p, pick, true);
-							Generic.AddEnchantmentBlock(p.Controller, Cards.FromId("GIL_142e"), list[0], result, 0, 0, 0);
+							Generic.AddEnchantmentBlock(p.Game, Cards.FromId("GIL_142e"), list[0], result, 0, 0, 0);
 							return null;
 						}))
 				}

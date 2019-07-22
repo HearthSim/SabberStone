@@ -12,6 +12,7 @@
 // GNU Affero General Public License for more details.
 #endregion
 
+using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 
@@ -25,18 +26,22 @@ namespace SabberStoneCore.Model.Zones
 
 		private GraveyardZone(Controller c, GraveyardZone zone) : base(c, zone)
 		{
-			//Entities = new List<IPlayable>(zone.Entities);
 		}
 
 		public override void Add(IPlayable entity, int zonePosition = -1)
 		{
 			base.Add(entity, zonePosition);
 
-			if (entity.AppliedEnchantments != null)
-				for (int i = entity.AppliedEnchantments.Count - 1; i >= 0; i--)
-					entity.AppliedEnchantments[i].Remove();
-
-			//entity.Reset();
+			// Add enchantments here.
+			List<Enchantment> enchantments = entity.AppliedEnchantments;
+			if (enchantments == null) return;
+			for (int i = enchantments.Count - 1; i >= 0; i--)
+			{
+				Enchantment e = enchantments[i];
+				e.Remove();
+				if (e.Card.Modular)
+					enchantments.Add(e);
+			}
 		}
 
 		public GraveyardZone Clone(Controller c)
