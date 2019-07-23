@@ -32,7 +32,7 @@ namespace SabberStoneCore.Enchants
 			new Trigger(TriggerType.PLAY_CARD)
 			{
 				TriggerSource = TriggerSource.ENCHANTMENT_TARGET,
-				SingleTask = new RemoveEnchantmentTask(),
+				SingleTask = RemoveEnchantmentTask.Task,
 				RemoveAfterTriggered = true,
 				IsAncillaryTrigger = true,
 			};

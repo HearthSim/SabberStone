@@ -1064,10 +1064,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DaringFireEater_TRL_390()
 		{
-			// TODO DaringFireEater_TRL_390 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1085,7 +1084,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Daring Fire-Eater"));
-			//var testCard = (Minion) game.ProcessCard<Minion>("Daring Fire-Eater");
+			var testCard = (Minion) game.ProcessCard<Minion>("Daring Fire-Eater");
+			game.PlayHeroPower(game.CurrentOpponent.Hero, autoRefresh: true);
+			Assert.Equal(3, game.CurrentOpponent.Hero.Damage);
+			game.PlayHeroPower(game.CurrentOpponent.Hero, autoRefresh: true);
+			Assert.Equal(4, game.CurrentOpponent.Hero.Damage);
+			game.EndTurn();
+			game.ProcessCard<Minion>("Daring Fire-Eater");
+			game.EndTurn();
+			Assert.Equal(0, game.CurrentOpponent[GameTag.HEROPOWER_DAMAGE]);
 		}
 
 		// ------------------------------------------- SPELL - MAGE

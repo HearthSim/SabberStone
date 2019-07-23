@@ -867,7 +867,7 @@ namespace SabberStoneCore.CardSets.Standard
 				},
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
-					SingleTask = new RemoveEnchantmentTask()
+					SingleTask = RemoveEnchantmentTask.Task
 				}
 
 				//Enchant = new Enchant(new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, 2)),
@@ -1886,7 +1886,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.TARGET),
 						new PlayTask(PlayType.SPELL, EntityType.EVENT_TARGET),
-						new RemoveEnchantmentTask())
+						RemoveEnchantmentTask.Task)
 				}
 			});
 
@@ -1907,7 +1907,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
 				{
 					Condition = SelfCondition.IsSpell,
-					SingleTask = new RemoveEnchantmentTask()
+					SingleTask = RemoveEnchantmentTask.Task
 				}
             });
 

@@ -997,7 +997,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.HERO,
-					SingleTask = new RemoveEnchantmentTask()
+					SingleTask = RemoveEnchantmentTask.Task
 				}
 			});
 
@@ -2024,7 +2024,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					EitherTurn = true,
 					SingleTask = ComplexTask.Create(
-						new RemoveEnchantmentTask(),
+						RemoveEnchantmentTask.Task,
 						new ControlTask(EntityType.TARGET, true))
 				}
 			});
@@ -2646,7 +2646,7 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerSource = TriggerSource.ENCHANTMENT_TARGET,
 					RemoveAfterTriggered = true,
-					SingleTask = new RemoveEnchantmentTask()
+					SingleTask = RemoveEnchantmentTask.Task
 				}
 			});
 
@@ -3286,7 +3286,7 @@ namespace SabberStoneCore.CardSets.Standard
 					TriggerSource = TriggerSource.HERO,
 					FastExecution = true,
 					SingleTask = ComplexTask.Create(
-						new RemoveEnchantmentTask(),
+						RemoveEnchantmentTask.Task,
 						new AddEnchantmentTask("EX1_411e2", EntityType.WEAPON))
 				}
 			});

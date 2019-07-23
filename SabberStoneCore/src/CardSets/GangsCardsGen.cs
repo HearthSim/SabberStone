@@ -954,7 +954,7 @@ namespace SabberStoneCore.CardSets
 				{
 					EitherTurn = true,
 					SingleTask = ComplexTask.Create(
-						new RemoveEnchantmentTask(),
+						RemoveEnchantmentTask.Task,
 						new ControlTask(EntityType.TARGET, true))
 				}
 			});

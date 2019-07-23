@@ -694,10 +694,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_390", new Power {
-				// TODO [TRL_390] Daring Fire-Eater && Test: Daring Fire-Eater_TRL_390
-				InfoCardId = "TRL_390e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("TRL_390e2", EntityType.HERO)
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -988,7 +985,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("TRL_302e", new Power {
 				Enchant = new Enchant(Effects.Immune),
 				Trigger = TriggerBuilder.Type(TriggerType.TURN_START)
-					.SetTask(new RemoveEnchantmentTask())
+					.SetTask(RemoveEnchantmentTask.Task)
 					.GetTrigger()
 			});
 
@@ -3012,8 +3009,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_390e2", new Power {
-				// TODO [TRL_390e2] Flameweaving && Test: Flameweaving_TRL_390e2
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRL_390e2")
+				Enchant = new Enchant(GameTag.HEROPOWER_DAMAGE, EffectOperator.ADD, 2),
+				Trigger = TriggerBuilder
+					.Type(TriggerType.INSPIRE)
+					.SetTask(RemoveEnchantmentTask.Task)
+					.SetRemoveAfterTriggered()
+					.GetTrigger()
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

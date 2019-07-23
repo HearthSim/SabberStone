@@ -2933,7 +2933,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("AT_086e", new Power {
 				Enchant = new Enchant(Effects.AddCost(5)),
 				Trigger = TriggerBuilder.Type(TriggerType.TURN_START)
-					.SetTask(new RemoveEnchantmentTask())
+					.SetTask(RemoveEnchantmentTask.Task)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

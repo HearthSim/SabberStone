@@ -2821,7 +2821,7 @@ namespace SabberStoneCore.CardSets.Standard
 					UseScriptTag = true
 				},
 				Trigger = TriggerBuilder.Type(TriggerType.TURN_START)
-					.SetTask(new RemoveEnchantmentTask())
+					.SetTask(RemoveEnchantmentTask.Task)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2857,7 +2857,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_081e", new Power {
 				Enchant = new Enchant(Effects.CantBeTargetedBySpellsAndHeroPowers),
 				Trigger = TriggerBuilder.Type(TriggerType.TURN_START)
-					.SetTask(new RemoveEnchantmentTask())
+					.SetTask(RemoveEnchantmentTask.Task)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

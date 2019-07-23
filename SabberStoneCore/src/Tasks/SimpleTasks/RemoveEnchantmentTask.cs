@@ -21,6 +21,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class RemoveEnchantmentTask : SimpleTask
 	{
+		public static readonly RemoveEnchantmentTask Task = new RemoveEnchantmentTask();
+		private RemoveEnchantmentTask() {}
+
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
