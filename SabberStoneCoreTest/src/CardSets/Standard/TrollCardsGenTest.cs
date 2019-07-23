@@ -1031,10 +1031,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - STEALTH = 1
 		// - AURA = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SpiritOfTheDragonhawk_TRL_319()
 		{
-			// TODO SpiritOfTheDragonhawk_TRL_319 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1052,7 +1051,28 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spirit of the Dragonhawk"));
-			//var testCard = (Minion) game.ProcessCard<Minion>("Spirit of the Dragonhawk");
+
+			var testCard = (Minion) game.ProcessCard<Minion>("Spirit of the Dragonhawk");
+
+			Minion target1, target2, target3;
+			target1 = game.ProcessCard<Minion>("Wisp");
+			target2 = game.ProcessCard<Minion>("Wisp");
+			target3 = game.ProcessCard<Minion>("Wisp");
+
+			game.PlayHeroPower(target2, autoRefresh: true);
+			Assert.True(target1.IsDead);
+			Assert.True(target2.IsDead);
+			Assert.True(target3.IsDead);
+
+			game.ProcessCard("Daring Fire-Eater");
+			target1 = game.ProcessCard<Minion>("River Crocolisk", asZeroCost: true);
+			target2 = game.ProcessCard<Minion>("River Crocolisk", asZeroCost: true);
+			target3 = game.ProcessCard<Minion>("River Crocolisk", asZeroCost: true);
+
+			game.PlayHeroPower(target2, autoRefresh: true);
+			Assert.True(target1.IsDead);
+			Assert.True(target2.IsDead);
+			Assert.True(target3.IsDead);
 		}
 
 		// ------------------------------------------ MINION - MAGE

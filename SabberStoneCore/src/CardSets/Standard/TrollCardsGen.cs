@@ -676,12 +676,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - STEALTH = 1
 			// - AURA = 1
-			// --------------------------------------------------------
+			// -------------da-------------------------------------------
 			cards.Add("TRL_319", new Power {
-				// TODO [TRL_319] Spirit of the Dragonhawk && Test: Spirit of the Dragonhawk_TRL_319
+				// TODO [TRL_319] Spirit of the Dragonhawk
 				InfoCardId = "TRL_319e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = TriggerLibrary.SpiritTrigger(
+					TriggerBuilder.Type(TriggerType.TARGET)
+						.SetTask(ComplexTask.Create(
+							new IncludeAdjacentTask(EntityType.EVENT_TARGET),
+							new EnqueuePendingTask(EntityType.STACK)))
+						.SetCondition(SelfCondition.IsHeroPower)
+						.SetSource(TriggerSource.FRIENDLY))
 			});
 
 			// ------------------------------------------ MINION - MAGE
