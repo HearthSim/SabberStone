@@ -85,7 +85,6 @@ Join us on [Discord](https://discord.gg/my9WTwK)!
 - [TRL_318] Hex Lord Malacrass
 - [TRL_325] Sul'thraze
 - [TRL_345] Krag'wa, the Frog
-- [TRL_390] Daring Fire-Eater
 - [TRL_522] Wartbringer
 - [TRL_532] Mosh'Ogg Announcer
 - [TRL_535] Snapjaw Shellfighter
