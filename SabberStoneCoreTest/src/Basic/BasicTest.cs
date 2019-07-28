@@ -11,8 +11,11 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Config;
@@ -48,6 +51,71 @@ namespace SabberStoneCoreTest.Basic
 			Assert.True(dict["A"] > 300);
 			Assert.True(dict["B"] > 300);
 			Assert.True(dict["C"] > 300);
+		}
+
+		[Fact]
+		public void RandomSeedTest_SingleThread()
+		{
+			var globalRandom = new Random();
+			int seed = globalRandom.Next();
+
+			Util.ThreadLocalRandom.SetSeed(seed);
+			var rnd = Util.Random;
+			byte[] bytes = new byte[10000];
+			rnd.NextBytes(bytes);
+
+			Util.ThreadLocalRandom.SetSeed(seed);
+			rnd = Util.Random;
+			byte[] bytes2 = new byte[10000];
+			rnd.NextBytes(bytes2);
+
+			Assert.Equal(bytes, bytes2);
+		}
+
+		[Fact]
+		public void RandomSeedTest_MultiThread()
+		{
+			var globalRandom = new Random();
+
+			int[] seeds = Enumerable.Repeat(0, 32).Select(i => globalRandom.Next()).ToArray();
+			Task<byte[]>[] tasks = new Task<byte[]>[32];
+
+			for (int i = 0; i < tasks.Length; i++)
+			{
+				int index = i;
+				tasks[index] = new Task<byte[]>(() =>
+				{
+					int seed = seeds[index];
+					Util.ThreadLocalRandom.SetSeed(seed);
+					var rnd = Util.Random;
+					byte[] bytes = new byte[100];
+					rnd.NextBytes(bytes);
+
+					Util.ThreadLocalRandom.SetSeed(seed);
+					rnd = Util.Random;
+					byte[] bytes2 = new byte[100];
+					rnd.NextBytes(bytes2);
+
+					Assert.Equal(bytes, bytes2);
+
+					return bytes;
+				});
+			}
+
+			for (int i = 0; i < tasks.Length; i++)
+				tasks[i].Start();
+
+			Task.WaitAll(tasks);
+
+			byte[][] results = tasks.Select(t => t.Result).ToArray();
+
+			for (int i = 0; i < results.Length; i++)
+			{
+				for (int j = i + 1; j < results.Length; j++)
+				{
+					Assert.NotEqual(results[i], results[j]);
+				}
+			}
 		}
 
 		[Fact]

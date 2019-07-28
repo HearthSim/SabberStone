@@ -25,108 +25,290 @@ namespace SabberStoneCore.Model
 	/// </summary>
 	public static class Util
 	{
-		internal class PriorityQueue<TValue> where TValue : struct
+		/// <summary>The source of randomness.</summary>
+		public static Random Random => ThreadLocalRandom.Instance;
+
+		/// <summary>Returns a random element from the specified list.</summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="e">The e.</param>
+		/// <returns></returns>
+		public static T RandomElement<T>(IEnumerable<T> e)
 		{
-			[DebuggerDisplay("{DebuggerDisplay,nq}")]
-			private class Node
+			IList<T> arr = e as IList<T> ??
+			               e.ToArray();
+			return arr[Random.Next(arr.Count)];
+		}
+
+		/// <summary>Chooses a random element from the specified list. <seealso cref="RandomElement{T}(IEnumerable{T})"/></summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="list">The list.</param>
+		/// <returns></returns>
+		public static T Choose<T>(List<T> list) => list[Random.Next(list.Count)];
+		public static T Choose<T>(IReadOnlyList<T> readonlyList) => readonlyList[Random.Next(readonlyList.Count)];
+		public static T Choose<T>(T[] array) => array[Random.Next(array.Length)];
+
+		/// <summary>Gets the power set, a set of any subset of the provided set.. including the empty set and itself.</summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="list">The set of elements.</param>
+		/// <returns></returns>
+		public static IEnumerable<IEnumerable<T>> GetPowerSet<T>(List<T> list)
+			=> Enumerable.Range(0, 1 << list.Count)
+				.Select(m => (from i in Enumerable.Range(0, list.Count)
+							  where (m & (1 << i)) != 0
+							  select list[i]));
+
+		/// <summary>Returns all possible discover subsets of all cards. The invariant is that each discover subset
+		/// contains exactly 3 cards.</summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="list">The set of elements.</param>
+		/// <returns></returns>
+		public static IEnumerable<IEnumerable<T>> GetDiscoverSets<T>(List<T> list)
+		{
+			var result = new List<IEnumerable<T>>();
+			for (int i = 0; i < list.Count - 2; i++)
 			{
-				public readonly TValue Value;
-				public readonly int Key;
-				public Node Next { get; set; }
-
-				public Node() { }
-
-				public Node(in TValue value, int key)
+				T eleA = list[i];
+				for (int j = i + 1; j < list.Count - 1; j++)
 				{
-					Value = value;
-					Key = key;
+					T eleB = list[j];
+					for (int k = j + 1; k < list.Count; k++)
+					{
+						result.Add(new[] { eleA, eleB, list[k] });
+					}
 				}
-
-				private string DebuggerDisplay => $"({Value}, {Key})";
 			}
+			return result;
+		}
 
-			private readonly Node _head = new Node();
+		/// <summary>
+		/// This can be used for caching values ... ex. scoring
+		/// </summary>
+		/// <typeparam name="T"></typeparam>
+		/// <param name="getValue"></param>
+		/// <returns></returns>
+		public static Func<T> Remember<T>(Func<T> getValue)
+		{
+			bool isCached = false;
+			var cachedResult = default(T);
 
-			public int Count { get; set; }
-
-			public void Enqueue(in TValue value, int priority)
+			return () =>
 			{
-				Node cursor = _head;
+				if (isCached) return cachedResult;
+				cachedResult = getValue();
+				isCached = true;
+				return cachedResult;
+			};
+		}
 
-				while (cursor.Next != null)
+		/// <summary>
+		/// Gets N elements from a list of distinct elements by using the default equality comparer.
+		/// The source list must not have any repeated elements.
+		/// </summary>
+		public static T[] ChooseNElements<T>(this IReadOnlyList<T> list, int amount)
+		{
+			Random rnd = Random;
+			int c = list.Count;
+			if (amount > c)
+				amount = c;
+
+			T[] results = new T[amount];
+
+			Span<int> indices = stackalloc int[amount];
+			for (int k = 0; k < amount; k++)
+			{
+				int j;
+				bool flag;
+				do
 				{
-					if (cursor.Next.Key <= priority)
-						cursor = cursor.Next;
-					else
-						break;
-				}
+					j = rnd.Next(c);
 
-				Node temp = cursor.Next;
-				var newNode = new Node(in value, priority);
-				cursor.Next = newNode;
-				newNode.Next = temp;
+					flag = false;
+					for (int i = 0; i < k; i++)
+						if (indices[i] == j)
+						{
+							flag = true;
+							break;
+						}
+				} while (flag);
 
-				Count++;
+				results[k] = list[j];
+				indices[k] = j;
 			}
 
-			public TValue Dequeue()
+
+			return results;
+		}
+
+		/// <summary>
+		/// Randomise the order of elements in the given list.
+		/// </summary>
+		public static IList<T> Shuffle<T>(this IList<T> list, Random rnd = null)
+		{
+			if (rnd == null)
+				rnd = Random;
+			for (int i = 0; i < list.Count; i++)
 			{
-				Node node = _head.Next;
-
-				_head.Next = node.Next;
-
-				Count--;
-
-				return node.Value;
+				int r = rnd.Next(i, list.Count);
+				T temp = list[i];
+				list[i] = list[r];
+				list[r] = temp;
 			}
+			return list;
+		}
 
-			public void Clear()
+		public static Span<T> Shuffle<T>(this Span<T> list, Random rnd = null)
+		{
+			if (rnd == null)
+				rnd = Random;
+			for (int i = 0; i < list.Length; i++)
 			{
-				Count = 0;
-				_head.Next = null;
+				int r = rnd.Next(i, list.Length);
+				T temp = list[i];
+				list[i] = list[r];
+				list[r] = temp;
 			}
+			return list;
+		}
 
-			public bool Contains(in TValue value)
+		internal static void InsertionSort<T>(this IList<T> list, Func<T, int> intKeySelector)
+		{
+			for (int i = 1; i < list.Count; i++)
 			{
-				Node cursor = _head.Next;
-
-				while (cursor != null)
+				T temp = list[i];
+				int j = i - 1;
+				while (j >= 0 && intKeySelector(list[j]) > intKeySelector(temp))
 				{
-					if (cursor.Value.Equals(value))
-						return true;
-
-					cursor = cursor.Next;
+					list[j + 1] = list[j];
+					j--;
 				}
-
-				return false;
-			}
-
-			public bool Contains(in TValue value, IEqualityComparer<TValue> comparer)
-			{
-				Node cursor = _head.Next;
-				while (cursor != null)
-				{
-					if (comparer.Equals(cursor.Value, value))
-						return true;
-
-					cursor = cursor.Next;
-				}
-
-				return false;
-			}
-
-			public IEnumerator<TValue> GetEnumerator()
-			{
-				Node cursor = _head;
-				while (cursor.Next != null)
-				{
-					yield return cursor.Next.Value;
-					cursor = cursor.Next;
-				}
+				list[j + 1] = temp;
 			}
 		}
 
-		internal class SmallFastCollection : ICollection<int>
+		internal static void InsertionSort<T>(this IList<T> list, IList<int> keys)
+		{
+			if (list.Count != keys.Count)
+				throw new ArgumentException("The key list must have the same number of elements of the given list.",
+					nameof(keys));
+
+			for (int i = 0; i < list.Count; i++)
+			{
+				T temp = list[i];
+				int tempKey = keys[i];
+				int j = i - 1;
+				while (j >= 0 && keys[j] > tempKey)
+				{
+					list[j + 1] = list[j];
+					keys[j + 1] = keys[j];
+					j--;
+				}
+				list[j + 1] = temp;
+				keys[j + 1] = tempKey;
+			}
+		}
+
+			internal class PriorityQueue<TValue> where TValue : struct
+	{
+		[DebuggerDisplay("{DebuggerDisplay,nq}")]
+		private class Node
+		{
+			public readonly TValue Value;
+			public readonly int Key;
+			public Node Next { get; set; }
+
+			public Node() { }
+
+			public Node(in TValue value, int key)
+			{
+				Value = value;
+				Key = key;
+			}
+
+			private string DebuggerDisplay => $"({Value}, {Key})";
+		}
+
+		private readonly Node _head = new Node();
+
+		public int Count { get; set; }
+
+		public void Enqueue(in TValue value, int priority)
+		{
+			Node cursor = _head;
+
+			while (cursor.Next != null)
+			{
+				if (cursor.Next.Key <= priority)
+					cursor = cursor.Next;
+				else
+					break;
+			}
+
+			Node temp = cursor.Next;
+			var newNode = new Node(in value, priority);
+			cursor.Next = newNode;
+			newNode.Next = temp;
+
+			Count++;
+		}
+
+		public TValue Dequeue()
+		{
+			Node node = _head.Next;
+
+			_head.Next = node.Next;
+
+			Count--;
+
+			return node.Value;
+		}
+
+		public void Clear()
+		{
+			Count = 0;
+			_head.Next = null;
+		}
+
+		public bool Contains(in TValue value)
+		{
+			Node cursor = _head.Next;
+
+			while (cursor != null)
+			{
+				if (cursor.Value.Equals(value))
+					return true;
+
+				cursor = cursor.Next;
+			}
+
+			return false;
+		}
+
+		public bool Contains(in TValue value, IEqualityComparer<TValue> comparer)
+		{
+			Node cursor = _head.Next;
+			while (cursor != null)
+			{
+				if (comparer.Equals(cursor.Value, value))
+					return true;
+
+				cursor = cursor.Next;
+			}
+
+			return false;
+		}
+
+		public IEnumerator<TValue> GetEnumerator()
+		{
+			Node cursor = _head;
+			while (cursor.Next != null)
+			{
+				yield return cursor.Next.Value;
+				cursor = cursor.Next;
+			}
+		}
+	}
+
+	internal class SmallFastCollection : ICollection<int>
 		{
 			private const int InitSize = 6;
 
@@ -340,206 +522,23 @@ namespace SabberStoneCore.Model
 			}
 		}
 
-		/// <summary>The source of randomness.</summary>
-		public static Random Random => ThreadLocalRandom.Instance;
-
-		/// <summary>Returns a random element from the specified list.</summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="e">The e.</param>
-		/// <returns></returns>
-		public static T RandomElement<T>(IEnumerable<T> e)
-		{
-			IList<T> arr = e as IList<T> ??
-			               e.ToArray();
-			return arr[Random.Next(arr.Count)];
-		}
-
-		/// <summary>Chooses a random element from the specified list. <seealso cref="RandomElement{T}(IEnumerable{T})"/></summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="list">The list.</param>
-		/// <returns></returns>
-		public static T Choose<T>(List<T> list) => list[Random.Next(list.Count)];
-		public static T Choose<T>(IReadOnlyList<T> readonlyList) => readonlyList[Random.Next(readonlyList.Count)];
-		public static T Choose<T>(T[] array) => array[Random.Next(array.Length)];
-
-		/// <summary>Gets the power set, a set of any subset of the provided set.. including the empty set and itself.</summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="list">The set of elements.</param>
-		/// <returns></returns>
-		public static IEnumerable<IEnumerable<T>> GetPowerSet<T>(List<T> list)
-			=> Enumerable.Range(0, 1 << list.Count)
-				.Select(m => (from i in Enumerable.Range(0, list.Count)
-							  where (m & (1 << i)) != 0
-							  select list[i]));
-
-		/// <summary>Returns all possible discover subsets of all cards. The invariant is that each discover subset
-		/// contains exactly 3 cards.</summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="list">The set of elements.</param>
-		/// <returns></returns>
-		public static IEnumerable<IEnumerable<T>> GetDiscoverSets<T>(List<T> list)
-		{
-			var result = new List<IEnumerable<T>>();
-			for (int i = 0; i < list.Count - 2; i++)
-			{
-				T eleA = list[i];
-				for (int j = i + 1; j < list.Count - 1; j++)
-				{
-					T eleB = list[j];
-					for (int k = j + 1; k < list.Count; k++)
-					{
-						result.Add(new[] { eleA, eleB, list[k] });
-					}
-				}
-			}
-			return result;
-		}
-
 		/// <summary>
-		/// This can be used for caching values ... ex. scoring
+		/// Provides thread-safe random number generator
 		/// </summary>
-		/// <typeparam name="T"></typeparam>
-		/// <param name="getValue"></param>
-		/// <returns></returns>
-		public static Func<T> Remember<T>(Func<T> getValue)
-		{
-			bool isCached = false;
-			var cachedResult = default(T);
-
-			return () =>
-			{
-				if (isCached) return cachedResult;
-				cachedResult = getValue();
-				isCached = true;
-				return cachedResult;
-			};
-		}
-
-		/// <summary>
-		/// Gets N elements from a list of distinct elements by using the default equality comparer.
-		/// The source list must not have any repeated elements.
-		/// </summary>
-		public static T[] ChooseNElements<T>(this IReadOnlyList<T> list, int amount)
-		{
-			Random rnd = Random;
-			int c = list.Count;
-			if (amount > c)
-				amount = c;
-
-			T[] results = new T[amount];
-
-			Span<int> indices = stackalloc int[amount];
-			for (int k = 0; k < amount; k++)
-			{
-				int j;
-				bool flag;
-				do
-				{
-					j = rnd.Next(c);
-
-					flag = false;
-					for (int i = 0; i < k; i++)
-						if (indices[i] == j)
-						{
-							flag = true;
-							break;
-						}
-				} while (flag);
-
-				results[k] = list[j];
-				indices[k] = j;
-			}
-
-
-			return results;
-		}
-
-		/// <summary>
-		/// Randomise the order of elements in the given list.
-		/// </summary>
-		public static IList<T> Shuffle<T>(this IList<T> list, Random rnd = null)
-		{
-			if (rnd == null)
-				rnd = Random;
-			for (int i = 0; i < list.Count; i++)
-			{
-				int r = rnd.Next(i, list.Count);
-				T temp = list[i];
-				list[i] = list[r];
-				list[r] = temp;
-			}
-			return list;
-		}
-
-		public static Span<T> Shuffle<T>(this Span<T> list, Random rnd = null)
-		{
-			if (rnd == null)
-				rnd = Random;
-			for (int i = 0; i < list.Length; i++)
-			{
-				int r = rnd.Next(i, list.Length);
-				T temp = list[i];
-				list[i] = list[r];
-				list[r] = temp;
-			}
-			return list;
-		}
-
-		internal static void InsertionSort<T>(this IList<T> list, Func<T, int> intKeySelector)
-		{
-			for (int i = 1; i < list.Count; i++)
-			{
-				T temp = list[i];
-				int j = i - 1;
-				while (j >= 0 && intKeySelector(list[j]) > intKeySelector(temp))
-				{
-					list[j + 1] = list[j];
-					j--;
-				}
-				list[j + 1] = temp;
-			}
-		}
-
-		internal static void InsertionSort<T>(this IList<T> list, IList<int> keys)
-		{
-			if (list.Count != keys.Count)
-				throw new ArgumentException("The key list must have the same number of elements of the given list.",
-					nameof(keys));
-
-			for (int i = 0; i < list.Count; i++)
-			{
-				T temp = list[i];
-				int tempKey = keys[i];
-				int j = i - 1;
-				while (j >= 0 && keys[j] > tempKey)
-				{
-					list[j + 1] = list[j];
-					keys[j + 1] = keys[j];
-					j--;
-				}
-				list[j + 1] = temp;
-				keys[j + 1] = tempKey;
-			}
-		}
-	}
-
-	/// <summary>
-	/// Provides thread-safe random number generator
-	/// </summary>
-	public static class ThreadLocalRandom
+		public static class ThreadLocalRandom
 	{
 		/// <summary> 
 		/// Random number generator used to generate seeds, 
 		/// which are then used to create new random number 
 		/// generators on a per-thread basis. 
 		/// </summary> 
-		private static readonly Random globalRandom = new Random();
+		private static Random globalRandom = new Random();
 		private static readonly object globalLock = new object();
 
 		/// <summary> 
 		/// Random number generator 
 		/// </summary> 
-		private static readonly ThreadLocal<Random> threadRandom = new ThreadLocal<Random>(NewRandom);
+		private static ThreadLocal<Random> threadRandom = new ThreadLocal<Random>(NewRandom);
 
 		/// <summary> 
 		/// Creates a new instance of Random. The seed is derived 
@@ -558,7 +557,7 @@ namespace SabberStoneCore.Model
 		/// Returns an instance of Random which can be used freely 
 		/// within the current thread. 
 		/// </summary> 
-		public static Random Instance { get { return threadRandom.Value; } }
+		public static Random Instance => threadRandom.Value;
 
 		/// <summary>See <see cref="Random.Next()" /></summary> 
 		public static int Next()
@@ -589,5 +588,11 @@ namespace SabberStoneCore.Model
 		{
 			Instance.NextBytes(buffer);
 		}
+
+		public static void SetSeed(int seed)
+		{
+			threadRandom.Value = new Random(seed);
+		}
+	}
 	}
 }
