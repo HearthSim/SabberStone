@@ -1980,10 +1980,14 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			mech2.Kill();
 			mech3.Kill();
 
-			game.ProcessCard("Kangor's Endless Army");
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
-			foreach (Minion mech in game.CurrentPlayer.BoardZone)
+
+			game.ProcessCard("Kangor's Endless Army");
+			Assert.Equal(6, game.CurrentPlayer.BoardZone.Count);
+			for (int i = 3; i < 6; i++)
 			{
+				Minion mech = game.CurrentPlayer.BoardZone[i];
+
 				switch (mech.Card.Name)
 				{
 					case "Glow-Tron":

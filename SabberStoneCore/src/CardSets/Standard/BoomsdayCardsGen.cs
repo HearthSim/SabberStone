@@ -1815,22 +1815,25 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_245", new Power {
-				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.MINIONS),
-					new FuncPlayablesTask(minions =>
-					{
-						if (minions.Count == 0)
-							return null;
+				//PowerTask = ComplexTask.Create(
+				//	new IncludeTask(EntityType.MINIONS),
+				//	new FuncPlayablesTask(minions =>
+				//	{
+				//		if (minions.Count == 0)
+				//			return null;
 
-						IReadOnlyList<Card> legendaries = RandomCardTask.GetCardList(minions[0], CardType.MINION,
-							rarity: Rarity.LEGENDARY);
-						foreach (IPlayable p in minions)
-							Generic.TransformBlock.Invoke(p.Controller, Util.Choose(legendaries), (Minion)p);
+				//		IReadOnlyList<Card> legendaries = RandomCardTask.GetCardList(minions[0], CardType.MINION,
+				//			rarity: Rarity.LEGENDARY);
+				//		foreach (IPlayable p in minions)
+				//			Generic.TransformBlock.Invoke(p.Controller, Util.Choose(legendaries), (Minion)p);
 
-						minions[0].Game.OnRandomHappened(true);
+				//		minions[0].Game.OnRandomHappened(true);
 
-						return null;
-					}))
+				//		return null;
+				//	}))
+				PowerTask = new ChangeEntityTask(EntityType.MINIONS, CardType.MINION,
+					rarity: Rarity.LEGENDARY,
+					removeEnchantments: true)
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN

@@ -75,10 +75,13 @@ namespace SabberStoneCore.Model.Zones
 			IReadOnlyList<Card> cards = Game.FormatType == FormatType.FT_STANDARD ? Controller.Standard : Controller.Wild;
 			int cardsToAdd = StartingCards - _count;
 
-			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging ? "" : $"Deck[{Game.FormatType}] from {Controller.Name} filling up with {cardsToAdd} random cards.");
+			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging ? "" :
+				$"Deck[{Game.FormatType}] from {Controller.Name} filling up with {cardsToAdd} random cards.");
+
+			Util.DeepCloneableRandom rnd = Game.Random;
 			while (cardsToAdd > 0)
 			{
-				Card card = Util.Choose(cards);
+				Card card = cards.Choose(rnd);
 
 				// don't add cards that have to be excluded here.
 				if (excludeIds != null && excludeIds.Contains(card.Id))
@@ -101,7 +104,7 @@ namespace SabberStoneCore.Model.Zones
 		{
 			int n = _count;
 
-			Random rnd = Util.Random;
+			Util.DeepCloneableRandom rnd = Game.Random;
 
 			Game.Log(LogLevel.INFO, BlockType.PLAY, "Deck", !Game.Logging ? "" : $"{Controller.Name} shuffles its deck.");
 
@@ -113,6 +116,11 @@ namespace SabberStoneCore.Model.Zones
 				entities[i] = entities[r];
 				entities[r] = temp;
 			}
+		}
+
+		public void AddAtRandomPosition(IPlayable entity)
+		{
+			Add(entity, _count == 0 ? - 1 : Game.Random.Next(_count + 1));
 		}
 
 		public DeckZone Clone(Controller c)

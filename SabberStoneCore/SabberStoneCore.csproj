@@ -15,7 +15,7 @@
     <TreatSpecificWarningsAsErrors />
     <LangVersion>latest</LangVersion>
     <Optimize>false</Optimize>
-    <DefineConstants>NETSTANDARD2_0</DefineConstants>
+    <DefineConstants>DEBUG;NETSTANDARD2_0</DefineConstants>
     <OutputPath>bin\Debug\netstandard2.0\</OutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <PlatformTarget>AnyCPU</PlatformTarget>

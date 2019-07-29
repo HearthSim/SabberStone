@@ -676,7 +676,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - STEALTH = 1
 			// - AURA = 1
-			// -------------da-------------------------------------------
+			// --------------------------------------------------------
 			cards.Add("TRL_319", new Power {
 				// TODO [TRL_319] Spirit of the Dragonhawk
 				InfoCardId = "TRL_319e",
@@ -685,7 +685,7 @@ namespace SabberStoneCore.CardSets.Standard
 						.SetTask(ComplexTask.Create(
 							new IncludeAdjacentTask(EntityType.EVENT_TARGET),
 							new EnqueuePendingTask(EntityType.STACK)))
-						.SetCondition(SelfCondition.IsHeroPower)
+						.SetCondition(SelfCondition.IsHeroPowerTargetingMinion)
 						.SetSource(TriggerSource.FRIENDLY))
 			});
 
@@ -1177,7 +1177,7 @@ namespace SabberStoneCore.CardSets.Standard
 						return;
 					}
 
-					Random rnd = Util.Random;
+					Util.DeepCloneableRandom rnd = g.Random;
 					g.OnRandomHappened(true);
 					allMinions.Shuffle(rnd);
 
@@ -1531,7 +1531,7 @@ namespace SabberStoneCore.CardSets.Standard
 						}
 
 						g.OnRandomHappened(true);
-						Generic.Draw(c, deck[Util.Choose(indices)]);
+						Generic.Draw(c, deck[indices.Choose(g.Random)]);
 					}))
 					.SetSource(TriggerSource.FRIENDLY)
 					.GetTrigger())
@@ -2175,7 +2175,7 @@ namespace SabberStoneCore.CardSets.Standard
 						}
 
 						g.OnRandomHappened(true);
-						int pick = Util.Random.Next(2);
+						int pick = g.Random.Next(2);
 						IPlayable giveaway = stack.Playables[pick];
 						giveaway.Controller = c.Opponent;
 						giveaway[GameTag.CONTROLLER] = c.Opponent.PlayerId;

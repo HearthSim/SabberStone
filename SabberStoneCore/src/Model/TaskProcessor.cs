@@ -12,12 +12,14 @@
 // GNU Affero General Public License for more details.
 #endregion
 //#define LOGEVENT
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Exceptions;
 
 //using TaskInstance = System.ValueTuple<SabberStoneCore.Tasks.ISimpleTask, SabberStoneCore.Model.Entities.Controller, SabberStoneCore.Model.Entities.IEntity, SabberStoneCore.Model.Entities.IEntity>;
 
@@ -229,7 +231,20 @@ namespace SabberStoneCore.Model
 			if (_game.History)
 				_game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(task.IsTrigger ? BlockType.TRIGGER : BlockType.POWER, source.Id, "", -1, target?.Id ?? 0));
 
-			TaskState success = task.Process(in _game, in controller, in source, in target);
+			TaskState success;
+#if DEBUG
+			try
+			{
+#endif
+				success = task.Process(in _game, in controller, in source, in target);
+#if DEBUG
+			}
+			catch (Exception e)
+			{
+				throw new TaskException(
+					$"Exception occurs during processing a task.\nTask:{task}, Source:{source}, Target:{target}", e);
+			}
+#endif
 
 			if (_game.History)
 				_game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());

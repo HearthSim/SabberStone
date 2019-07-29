@@ -99,7 +99,7 @@ namespace SabberStoneCore.Model.Zones
 		/// Gets a random entity in this zone.
 		/// </summary>
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
-		public T Random => _count == 0 ? default : _entities[Util.Random.Next(_count)];
+		public T Random => _count == 0 ? default : _entities[Game.Random.Next(_count)];
 
 		/// <summary>
 		/// Gets the <see cref="IPlayable"/> with the specified zone position.

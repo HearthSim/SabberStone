@@ -152,7 +152,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					if (source.Card.Class != CardClass.NEUTRAL)
 						cls = source.Card.Class;
 					else
-						cls = (CardClass) Random.Next(2, 11);
+						cls = (CardClass) game.Random.Next(2, 11);
 				}
 
 				cardsToDiscover = Discover(game.FormatType, in _discoverCriteria, cls);
@@ -163,7 +163,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				cardsToDiscover[0] = cardsToDiscover[0].Distinct().ToArray();
 
 			// Gets cards to choose from the sets. 
-			Card[] result = GetChoices(cardsToDiscover, _numberOfChoices);
+			Card[] result = GetChoices(cardsToDiscover, _numberOfChoices, game.Random);
 
 			// TODO work on it ...
 			//if (game.Splitting)
@@ -665,7 +665,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Dictionary<CardClass, IReadOnlyList<Card>> cardSet = Cards.FormatTypeClassCards(formatType);
 			CardClass heroClass = controller.BaseClass != CardClass.NEUTRAL
 				? controller.BaseClass
-				: Util.RandomElement(Cards.HeroClasses);
+				: Util.Choose(Cards.HeroClasses, controller.Game.Random);
 			IEnumerable<Card> nonClassCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class != heroClass));
 			IEnumerable<Card> classCards =
 				filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.IsQuest));
@@ -793,10 +793,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		// 2 Sets means Class cards / Neutral cards.
 		// 3 Sets means Tri-Class discovers. (Gangs)
-		public static Card[] GetChoices(Card[][] cardsToDiscover, int numberOfChoices)
+		public static Card[] GetChoices(Card[][] cardsToDiscover, int numberOfChoices, Util.DeepCloneableRandom rnd)
 		{
 			Card[] result;
-			Random rnd;
 
 			switch (cardsToDiscover.Length)
 			{
@@ -806,7 +805,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						result = distinct;
 					else
 					{
-						rnd = Util.Random;
 						result = new Card[numberOfChoices];
 						Card pick;
 						for (int i = 0; i < result.Length; i++)
@@ -821,7 +819,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 					break;
 				case 2:
-					rnd = Util.Random;
 					int classCount = cardsToDiscover[1].Length;
 					int neutralCount = cardsToDiscover[0].Length;
 					result = new Card[numberOfChoices];
@@ -855,7 +852,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					break;
 				case 3:
 					result = new Card[3];
-					rnd = Util.Random;
 					for (int i = 0; i < result.Length; i++)
 					{
 						Card pick;

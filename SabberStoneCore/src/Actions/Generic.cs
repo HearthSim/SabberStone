@@ -153,11 +153,28 @@ namespace SabberStoneCore.Actions
 		public static Func<Controller, CardType, IPlayable> JoustBlock
 			=> delegate (Controller c, CardType type)
 			{
-				IPlayable[] stack = c.DeckZone.GetAll(p => p.Card.Type == type);
-				IPlayable[] opStack = c.Opponent.DeckZone.GetAll(p => p.Card.Type == type);
+				IPlayable card, cardOp;
+				{
+					var rnd = c.Game.Random;
+					var span = c.DeckZone.GetSpan();
+					Span<int> buffer = stackalloc int[Math.Max(c.DeckZone.Count, c.Opponent.DeckZone.Count)];
+					int k = 0;
+					for (int i = 0; i < span.Length; i++)
+					{
+						if (span[i].Card.Type != type) continue;
+						buffer[k++] = i;
+					}
+					card = k == 0 ? null : span[rnd.Next(k)];
 
-				IPlayable card = stack.Length > 0 ? Util.Choose(stack) : null;
-				IPlayable cardOp = opStack.Length > 0 ? Util.Choose(opStack) : null;
+					span = c.Opponent.DeckZone.GetSpan();
+					k = 0;
+					for (int i = 0; i < span.Length; i++)
+					{
+						if (span[i].Card.Type != type) continue;
+						buffer[k++] = i;
+					}
+					cardOp = k == 0 ? null : span[rnd.Next(k)];
+				}
 
 				if (c.Game.History)
 				{
@@ -223,7 +240,8 @@ namespace SabberStoneCore.Actions
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "ShuffleIntoDeck", !c.Game.Logging ? "" : $"adding to deck {playable}.");
 
 				// don't activate powers when shuffling cards back into the deck
-				c.DeckZone.Add(playable, c.DeckZone.Count == 0 ? -1 : Util.Random.Next(c.DeckZone.Count + 1));
+				//c.DeckZone.Add(playable, c.DeckZone.Count == 0 ? -1 : Util.Random.Next(c.DeckZone.Count + 1));
+				c.DeckZone.AddAtRandomPosition(playable);
 
 				if (sender is IPlayable p && c.Game.TriggerManager.HasShuffleIntoDeckTrigger)
 				{

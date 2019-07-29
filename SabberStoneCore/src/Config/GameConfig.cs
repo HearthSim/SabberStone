@@ -176,6 +176,12 @@ namespace SabberStoneCore.Config
 		public bool SkipMulligan { get; set; } = true;
 
 		/// <summary>
+		/// A random seed of the random number generator used for
+		/// all random interactions within <see cref="Game"/>.
+		/// </summary>
+		public long? RandomSeed { get; set; }
+
+		/// <summary>
 		/// Clones this instance.
 		/// </summary>
 		/// <returns></returns>

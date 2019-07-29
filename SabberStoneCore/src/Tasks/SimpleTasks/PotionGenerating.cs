@@ -103,7 +103,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			Card[] cards = GetCostCards(cost);
 
-			cards = cards.ChooseNElements(3);
+			cards = cards.ChooseNElements(3, c.Game.Random);
 
 			CreateChoices(in c, in cards);
 		}
@@ -114,7 +114,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			Card[] results = new Card[3];
 			#region Choose 3 random cards from not previously chosen ones
-			Random rnd = Util.Random;
+			Util.DeepCloneableRandom rnd = c.Game.Random;
 			Span<int> indices = stackalloc int[3];
 			for (int i = 0; i < 3; i++)
 			{

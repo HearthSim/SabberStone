@@ -26,26 +26,36 @@ namespace SabberStoneCore.Model
 	public static class Util
 	{
 		/// <summary>The source of randomness.</summary>
-		public static Random Random => ThreadLocalRandom.Instance;
+		//public static Random Random => ThreadLocalRandom.Instance;
 
 		/// <summary>Returns a random element from the specified list.</summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="e">The e.</param>
 		/// <returns></returns>
-		public static T RandomElement<T>(IEnumerable<T> e)
+		public static T RandomElement<T>(this IEnumerable<T> e, Random rnd)
 		{
 			IList<T> arr = e as IList<T> ??
 			               e.ToArray();
-			return arr[Random.Next(arr.Count)];
+			return arr[rnd.Next(arr.Count)];
+		}
+
+		public static T RandomElement<T>(this IEnumerable<T> e, DeepCloneableRandom rnd)
+		{
+			IList<T> arr = e as IList<T> ??
+			               e.ToArray();
+			return arr[rnd.Next(arr.Count)];
 		}
 
 		/// <summary>Chooses a random element from the specified list. <seealso cref="RandomElement{T}(IEnumerable{T})"/></summary>
 		/// <typeparam name="T"></typeparam>
 		/// <param name="list">The list.</param>
 		/// <returns></returns>
-		public static T Choose<T>(List<T> list) => list[Random.Next(list.Count)];
-		public static T Choose<T>(IReadOnlyList<T> readonlyList) => readonlyList[Random.Next(readonlyList.Count)];
-		public static T Choose<T>(T[] array) => array[Random.Next(array.Length)];
+		//public static T Choose<T>(List<T> list) => list[Random.Next(list.Count)];
+		public static T Choose<T>(this IReadOnlyList<T> list, Random rnd) => list[rnd.Next(list.Count)];
+		//public static T Choose<T>(this IList<T> list, Random rnd) => list[rnd.Next(list.Count)];
+		public static T Choose<T>(this IReadOnlyList<T> list, DeepCloneableRandom rnd) => list[rnd.Next(list.Count)];
+		//public static T Choose<T>(this IList<T> list, DeepCloneableRandom rnd) => list[rnd.Next(list.Count)];
+		//public static T Choose<T>(T[] array) => array[Random.Next(array.Length)];
 
 		/// <summary>Gets the power set, a set of any subset of the provided set.. including the empty set and itself.</summary>
 		/// <typeparam name="T"></typeparam>
@@ -104,9 +114,41 @@ namespace SabberStoneCore.Model
 		/// Gets N elements from a list of distinct elements by using the default equality comparer.
 		/// The source list must not have any repeated elements.
 		/// </summary>
-		public static T[] ChooseNElements<T>(this IReadOnlyList<T> list, int amount)
+		public static T[] ChooseNElements<T>(this IReadOnlyList<T> list, int amount, Random rnd)
 		{
-			Random rnd = Random;
+			int c = list.Count;
+			if (amount > c)
+				amount = c;
+
+			T[] results = new T[amount];
+
+			Span<int> indices = stackalloc int[amount];
+			for (int k = 0; k < amount; k++)
+			{
+				int j;
+				bool flag;
+				do
+				{
+					j = rnd.Next(c);
+
+					flag = false;
+					for (int i = 0; i < k; i++)
+						if (indices[i] == j)
+						{
+							flag = true;
+							break;
+						}
+				} while (flag);
+
+				results[k] = list[j];
+				indices[k] = j;
+			}
+
+
+			return results;
+		}
+		public static T[] ChooseNElements<T>(this IReadOnlyList<T> list, int amount, DeepCloneableRandom rnd)
+		{
 			int c = list.Count;
 			if (amount > c)
 				amount = c;
@@ -142,10 +184,8 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Randomise the order of elements in the given list.
 		/// </summary>
-		public static IList<T> Shuffle<T>(this IList<T> list, Random rnd = null)
+		public static IList<T> Shuffle<T>(this IList<T> list, Random rnd)
 		{
-			if (rnd == null)
-				rnd = Random;
 			for (int i = 0; i < list.Count; i++)
 			{
 				int r = rnd.Next(i, list.Count);
@@ -156,10 +196,32 @@ namespace SabberStoneCore.Model
 			return list;
 		}
 
-		public static Span<T> Shuffle<T>(this Span<T> list, Random rnd = null)
+		public static IList<T> Shuffle<T>(this IList<T> list, DeepCloneableRandom rnd)
 		{
-			if (rnd == null)
-				rnd = Random;
+			for (int i = 0; i < list.Count; i++)
+			{
+				int r = rnd.Next(i, list.Count);
+				T temp = list[i];
+				list[i] = list[r];
+				list[r] = temp;
+			}
+			return list;
+		}
+
+		public static Span<T> Shuffle<T>(this Span<T> list, Random rnd)
+		{
+			for (int i = 0; i < list.Length; i++)
+			{
+				int r = rnd.Next(i, list.Length);
+				T temp = list[i];
+				list[i] = list[r];
+				list[r] = temp;
+			}
+			return list;
+		}
+
+		public static Span<T> Shuffle<T>(this Span<T> list, DeepCloneableRandom rnd)
+		{
 			for (int i = 0; i < list.Length; i++)
 			{
 				int r = rnd.Next(i, list.Length);
@@ -207,108 +269,108 @@ namespace SabberStoneCore.Model
 			}
 		}
 
-			internal class PriorityQueue<TValue> where TValue : struct
-	{
-		[DebuggerDisplay("{DebuggerDisplay,nq}")]
-		private class Node
+		internal class PriorityQueue<TValue> where TValue : struct
 		{
-			public readonly TValue Value;
-			public readonly int Key;
-			public Node Next { get; set; }
-
-			public Node() { }
-
-			public Node(in TValue value, int key)
+			[DebuggerDisplay("{DebuggerDisplay,nq}")]
+			private class Node
 			{
-				Value = value;
-				Key = key;
+				public readonly TValue Value;
+				public readonly int Key;
+				public Node Next { get; set; }
+
+				public Node() { }
+
+				public Node(in TValue value, int key)
+				{
+					Value = value;
+					Key = key;
+				}
+
+				private string DebuggerDisplay => $"({Value}, {Key})";
 			}
 
-			private string DebuggerDisplay => $"({Value}, {Key})";
-		}
+			private readonly Node _head = new Node();
 
-		private readonly Node _head = new Node();
+			public int Count { get; set; }
 
-		public int Count { get; set; }
-
-		public void Enqueue(in TValue value, int priority)
-		{
-			Node cursor = _head;
-
-			while (cursor.Next != null)
+			public void Enqueue(in TValue value, int priority)
 			{
-				if (cursor.Next.Key <= priority)
+				Node cursor = _head;
+
+				while (cursor.Next != null)
+				{
+					if (cursor.Next.Key <= priority)
+						cursor = cursor.Next;
+					else
+						break;
+				}
+
+				Node temp = cursor.Next;
+				var newNode = new Node(in value, priority);
+				cursor.Next = newNode;
+				newNode.Next = temp;
+
+				Count++;
+			}
+
+			public TValue Dequeue()
+			{
+				Node node = _head.Next;
+
+				_head.Next = node.Next;
+
+				Count--;
+
+				return node.Value;
+			}
+
+			public void Clear()
+			{
+				Count = 0;
+				_head.Next = null;
+			}
+
+			public bool Contains(in TValue value)
+			{
+				Node cursor = _head.Next;
+
+				while (cursor != null)
+				{
+					if (cursor.Value.Equals(value))
+						return true;
+
 					cursor = cursor.Next;
-				else
-					break;
+				}
+
+				return false;
 			}
 
-			Node temp = cursor.Next;
-			var newNode = new Node(in value, priority);
-			cursor.Next = newNode;
-			newNode.Next = temp;
-
-			Count++;
-		}
-
-		public TValue Dequeue()
-		{
-			Node node = _head.Next;
-
-			_head.Next = node.Next;
-
-			Count--;
-
-			return node.Value;
-		}
-
-		public void Clear()
-		{
-			Count = 0;
-			_head.Next = null;
-		}
-
-		public bool Contains(in TValue value)
-		{
-			Node cursor = _head.Next;
-
-			while (cursor != null)
+			public bool Contains(in TValue value, IEqualityComparer<TValue> comparer)
 			{
-				if (cursor.Value.Equals(value))
-					return true;
+				Node cursor = _head.Next;
+				while (cursor != null)
+				{
+					if (comparer.Equals(cursor.Value, value))
+						return true;
 
-				cursor = cursor.Next;
+					cursor = cursor.Next;
+				}
+
+				return false;
 			}
 
-			return false;
-		}
-
-		public bool Contains(in TValue value, IEqualityComparer<TValue> comparer)
-		{
-			Node cursor = _head.Next;
-			while (cursor != null)
+			public IEnumerator<TValue> GetEnumerator()
 			{
-				if (comparer.Equals(cursor.Value, value))
-					return true;
-
-				cursor = cursor.Next;
-			}
-
-			return false;
-		}
-
-		public IEnumerator<TValue> GetEnumerator()
-		{
-			Node cursor = _head;
-			while (cursor.Next != null)
-			{
-				yield return cursor.Next.Value;
-				cursor = cursor.Next;
+				Node cursor = _head;
+				while (cursor.Next != null)
+				{
+					yield return cursor.Next.Value;
+					cursor = cursor.Next;
+				}
 			}
 		}
-	}
 
-	internal class SmallFastCollection : ICollection<int>
+		internal class SmallFastCollection : ICollection<int>
 		{
 			private const int InitSize = 6;
 
@@ -526,73 +588,300 @@ namespace SabberStoneCore.Model
 		/// Provides thread-safe random number generator
 		/// </summary>
 		public static class ThreadLocalRandom
-	{
-		/// <summary> 
-		/// Random number generator used to generate seeds, 
-		/// which are then used to create new random number 
-		/// generators on a per-thread basis. 
-		/// </summary> 
-		private static Random globalRandom = new Random();
-		private static readonly object globalLock = new object();
-
-		/// <summary> 
-		/// Random number generator 
-		/// </summary> 
-		private static ThreadLocal<Random> threadRandom = new ThreadLocal<Random>(NewRandom);
-
-		/// <summary> 
-		/// Creates a new instance of Random. The seed is derived 
-		/// from a global (static) instance of Random, rather 
-		/// than time. 
-		/// </summary> 
-		public static Random NewRandom()
 		{
-			lock (globalLock)
+			/// <summary> 
+			/// Random number generator used to generate seeds, 
+			/// which are then used to create new random number 
+			/// generators on a per-thread basis. 
+			/// </summary> 
+			private static Random globalRandom = new Random();
+			private static readonly object globalLock = new object();
+
+			/// <summary> 
+			/// Random number generator 
+			/// </summary> 
+			private static ThreadLocal<Random> threadRandom = new ThreadLocal<Random>(NewRandom);
+
+			/// <summary> 
+			/// Creates a new instance of Random. The seed is derived 
+			/// from a global (static) instance of Random, rather 
+			/// than time. 
+			/// </summary> 
+			public static Random NewRandom()
 			{
-				return new Random(globalRandom.Next());
+				lock (globalLock)
+				{
+					return new Random(globalRandom.Next());
+				}
+			}
+
+			/// <summary> 
+			/// Returns an instance of Random which can be used freely 
+			/// within the current thread. 
+			/// </summary> 
+			public static Random Instance => threadRandom.Value;
+
+			/// <summary>See <see cref="Random.Next()" /></summary> 
+			public static int Next()
+			{
+				return Instance.Next();
+			}
+
+			/// <summary>See <see cref="Random.Next(Int32)" /></summary> 
+			public static int Next(int maxValue)
+			{
+				return Instance.Next(maxValue);
+			}
+
+			/// <summary>See <see cref="Random.Next(Int32, Int32)" /></summary> 
+			public static int Next(int minValue, int maxValue)
+			{
+				return Instance.Next(minValue, maxValue);
+			}
+
+			/// <summary>See <see cref="Random.NextDouble()" /></summary> 
+			public static double NextDouble()
+			{
+				return Instance.NextDouble();
+			}
+
+			/// <summary>See <see cref="Random.NextBytes(Byte[])" /></summary> 
+			public static void NextBytes(byte[] buffer)
+			{
+				Instance.NextBytes(buffer);
+			}
+
+			public static void SetSeed(int seed)
+			{
+				threadRandom.Value = new Random(seed);
 			}
 		}
 
-		/// <summary> 
-		/// Returns an instance of Random which can be used freely 
-		/// within the current thread. 
-		/// </summary> 
-		public static Random Instance => threadRandom.Value;
+		/*  Written in 2016 by David Blackman and Sebastiano Vigna (vigna@acm.org)
+		To the extent possible under law, the author has dedicated all copyright
+		and related and neighboring rights to this software to the public domain
+		worldwide. This software is distributed without any warranty.
+		See <http://creativecommons.org/publicdomain/zero/1.0/>. */
 
-		/// <summary>See <see cref="Random.Next()" /></summary> 
-		public static int Next()
-		{
-			return Instance.Next();
-		}
+		/*
+		 * A port of Blackman and Vigna's xoroshiro128+ generator to C# for Unity Development.
+		 * This is a direct rewrite from the JAVA implementation by SquidPony.
+		 * <br>
+		 * <a href="https://github.com/SquidPony/SquidLib">SquidLib SquidPony</a>
+		 * <br>
+		 * <br>
+		 * <a href="http://xoroshiro.di.unimi.it/xoroshiro128plus.c">Original version here.</a>
+		 * <br>
+		 * Written in 2016 by David Blackman and Sebastiano Vigna (vigna@acm.org)
+		 *
+		 * @author Kaustav Das
+		 */
 
-		/// <summary>See <see cref="Random.Next(Int32)" /></summary> 
-		public static int Next(int maxValue)
+		// Modified by rnilva
+		public class DeepCloneableRandom
 		{
-			return Instance.Next(maxValue);
-		}
+			private const long DOUBLE_MASK = (1L << 53) - 1;
+		    private const double NORM_53 = 1.0 / (1L << 53);
+		    private const long FLOAT_MASK = (1L << 24) - 1;
+		    private const double NORM_24 = 1.0 / (1L << 24);
 
-		/// <summary>See <see cref="Random.Next(Int32, Int32)" /></summary> 
-		public static int Next(int minValue, int maxValue)
-		{
-			return Instance.Next(minValue, maxValue);
-		}
+		    private long _state0;
+		    private long _state1;
 
-		/// <summary>See <see cref="Random.NextDouble()" /></summary> 
-		public static double NextDouble()
-		{
-			return Instance.NextDouble();
-		}
+		    /// <summary>
+		    /// Creates a generator seeded using four calls to System.Random
+		    /// </summary>
+		    public DeepCloneableRandom()
+		    {
+		        var rand = new Random();
+		        _state0 = (long)((rand.NextDouble() - 0.5) * 4503599627370496) ^ (long)(((rand.NextDouble() - 0.5) * 2.0) * -9223372036854775808);
+		        _state1 = (long)((rand.NextDouble() - 0.5) * 4503599627370496) ^ (long)(((rand.NextDouble() - 0.5) * 2.0) * -9223372036854775808);
+		        if ((_state0 | _state1) == 0L)
+		            _state0 = 1L;
+		    }
 
-		/// <summary>See <see cref="Random.NextBytes(Byte[])" /></summary> 
-		public static void NextBytes(byte[] buffer)
-		{
-			Instance.NextBytes(buffer);
-		}
+		    /// <summary>
+		    /// Creates a generator seeded using LightRNG for both the states
+		    /// </summary>
+		    /// <param name="seed">Parameter name expalins it!!!</param>
+		    public DeepCloneableRandom(long seed)
+		    {
+		        SetSeed(seed);
+		    }
 
-		public static void SetSeed(int seed)
-		{
-			threadRandom.Value = new Random(seed);
+		    /// <summary>
+		    /// Creates a generator seeded using the two given states as parameter. The states are left unchanged unless they both are 0. If both are 0, stateA is changed to 1
+		    /// </summary>
+		    /// <param name="stateA">State0</param>
+		    /// <param name="stateB">State1</param>
+		    public DeepCloneableRandom(long stateA, long stateB)
+		    {
+		        SetSeed(stateA, stateB);
+		    }
+
+			// The copy constructor.
+		    private DeepCloneableRandom(DeepCloneableRandom other)
+		    {
+			    _state0 = other._state0;
+				_state1 = other._state1;
+		    }
+
+		    /// <summary>
+		    /// A Random Integer after typecasting the result from NextLong to int
+		    /// </summary>
+		    /// <returns>Obviously a Random Integer!!!</returns>
+		    public int Next()
+		    {
+		        return (int)NextLong();
+		    }
+
+		    /// <summary>
+		    /// A Random Integer between inclusive 0 and exclusive bound. The bound can be negative, which will give non-negative integer
+		    /// </summary>
+		    /// <param name="bound">Exclusive bound; can be negative</param>
+		    /// <returns>Random Integer between 0(inclusive) and bound(exclusive)</returns>
+		    public int Next(int bound)
+		    {
+		        return (int)((bound * UnsignedRightShift(NextLong(), 33)) >> 31);
+		    }
+
+		    /// <summary>
+		    /// A Random Integer between inclusive inner and exclusive bound.
+		    /// </summary>
+		    /// <param name="inner">Inclusive inner bound; Can be positive or negative</param>
+		    /// <param name="outer">Exclusive outer bound; Should be positive and greater or equal to inner bound</param>
+		    /// <returns>Random Integer between inner(inclusive) and outer(exclusive)</returns>
+		    public int Next(int inner, int outer)
+		    {
+		        return inner + Next(outer - inner);
+		    }
+
+		    /// <summary>
+		    /// Returns a Random Long
+		    /// </summary>
+		    /// <returns>A Random Long, duh!!!</returns>
+		    public long NextLong()
+		    {
+		        long s0 = _state0;
+		        long s1 = _state1;
+		        long result = s0 + s1;
+
+		        s1 ^= s0;
+		        _state0 = (s0 << 55 | UnsignedRightShift(s0, 9)) ^ s1 ^ (s1 << 14);
+		        _state1 = (s1 << 36 | UnsignedRightShift(s1, 28));
+		        return result;
+		    }
+
+		    /// <summary>
+		    /// A Random Long between inclusive 0 and exclusive bound. The bound can be negative, which will give non-negative long
+		    /// </summary>
+		    /// <param name="bound">Exclusive bound; can be negative</param>
+		    /// <returns>Random Long between 0(inclusive) and bound(exclusive)</returns>
+		    public long NextLong(long bound)
+		    {
+		        long rand = NextLong();
+		        long randLow = rand & 4294967295;
+		        long boundLow = bound & 4294967295;
+		        rand = UnsignedRightShift(rand, 32);
+		        bound >>= 32;
+		        long z = (randLow * boundLow >> 32);
+		        long t = rand * boundLow + z;
+		        long tLow = t & 4294967295;
+		        t = UnsignedRightShift(t, 32);
+		        return rand * bound + t + (tLow + randLow * bound >> 32) - (z >> 63) - (bound >> 63);
+		    }
+
+		    /// <summary>
+		    /// A Random Long between inclusive inner and exclusive bound.
+		    /// </summary>
+		    /// <param name="inner">Inclusive inner bound; Can be positive or negative</param>
+		    /// <param name="outer">Exclusive outer bound; Should be positive and greater or equal to inner bound</param>
+		    /// <returns></returns>
+		    public long NextLong(long inner, long outer)
+		    {
+		        return inner + NextLong(outer - inner);
+		    }
+
+		    public double NextDouble()
+		    {
+		        return (NextLong() & DOUBLE_MASK) * NORM_53;
+		    }
+
+		    public float NextFloat()
+		    {
+		        return (float)((NextLong() & FLOAT_MASK) * NORM_24);
+		    }
+
+		    public bool NextBoolean()
+		    {
+		        return NextLong() < 0L;
+		    }
+
+		    public void NextBytes(sbyte[] bytes)
+		    {
+		        int i = bytes.Length, n = 0;
+		        while (i != 0)
+		        {
+		            n = Math.Min(i, 8);
+		            for (long bits = NextLong(); n-- != 0; bits = UnsignedRightShift(bits, 8))
+		            {
+		                Console.WriteLine((sbyte)bits);
+		                bytes[--i] = (sbyte)bits;
+		            }
+		        }
+		    }
+
+		    /// <summary>
+		    /// Generates the two states based on the seed provided by running LightRNG's algorithm
+		    /// </summary>
+		    /// <param name="seed"></param>
+		    public void SetSeed(long seed)
+		    {
+		        long state = seed + -7046029254386353131,
+		                z = state;
+		        z = (z ^ UnsignedRightShift(z, 30)) * -4658895280553007687;
+		        z = (z ^ UnsignedRightShift(z, 27)) * -7723592293110705685;
+		        _state0 = z ^ UnsignedRightShift(z, 31);
+		        state += -7046029254386353131;
+		        z = state;
+		        z = (z ^ UnsignedRightShift(z, 30)) * -4658895280553007687;
+		        z = (z ^ UnsignedRightShift(z, 27)) * -7723592293110705685;
+		        _state1 = z ^ UnsignedRightShift(z, 31);
+		    }
+
+		    public void SetSeed(long stateA, long stateB)
+		    {
+		        _state0 = stateA;
+		        _state1 = stateB;
+		        if ((stateA | stateB) == 0L)
+		            _state0 = 1L;
+		    }
+
+		    /// <summary>
+		    /// Produces a copy of this DeepCloneableRandom instance, such that next generated numbers by the returned instance is 
+		    /// same as the current instance's next generated numbers. This just copies the states to the new instance 
+		    /// and, usually, produce new value with the same exact states.
+		    /// </summary>
+		    /// <returns></returns>
+		    public DeepCloneableRandom Clone()
+		    {
+			    return new DeepCloneableRandom(this);
+		    }
+
+		    public int HashCode()
+		    {
+		        return (int)(31L * (_state0 ^ UnsignedRightShift(_state0, 32)) + (_state1 ^ UnsignedRightShift(_state1, 32)));
+		    }
+
+		    private long UnsignedRightShift(long value, int shiftBits)
+		    {
+		        return (long)((ulong)value >> shiftBits);
+		    }
+
+		    private int UnsignedRightShift(int value, int shiftBits)
+		    {
+		        return (int)((uint)value >> shiftBits);
+		    }
 		}
-	}
 	}
 }

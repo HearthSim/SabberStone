@@ -77,7 +77,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (entities.Count < 1) return TaskState.STOP;
 
 			// shuffle list randomly if needed
-			entities = _randomFlag ? entities.Shuffle() : entities;
+			entities = _randomFlag ? entities.Shuffle(game.Random) : entities;
 
 			if (_randomFlag)
 				game.OnRandomHappened(true);

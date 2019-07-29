@@ -11,7 +11,9 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
 using System.Linq;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -20,7 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	public class AddLackeyTask : SimpleTask
 	{
 		public static readonly Card[]
-			Lackeys = Cards.All.Where(card => card[Enums.GameTag.MARK_OF_EVIL] == 1).ToArray();
+			Lackeys = Cards.All.Where(card => card[GameTag.MARK_OF_EVIL] == 1).ToArray();
 
 		private readonly int _amount;
 		public AddLackeyTask(int amount)
@@ -34,7 +36,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			game.OnRandomHappened(true);
 
 			for (int i = 0; i < _amount && !controller.HandZone.IsFull; i++)
-				Entity.FromCard(in controller, Util.Choose(Lackeys), zone: controller.HandZone);
+				Entity.FromCard(in controller, Lackeys.Choose(game.Random), zone: controller.HandZone);
 
 			return TaskState.COMPLETE;
 		}

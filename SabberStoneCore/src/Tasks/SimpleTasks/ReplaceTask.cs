@@ -56,7 +56,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				IZone zone = p.Zone;
 				controller.SetasideZone.Add(zone.Remove(p));
-				zone.Add(Entity.FromCard(in controller, cards.Count > 1 ? Util.Choose(cards) : cards.First()));
+				zone.Add(Entity.FromCard(in controller, cards.Count > 1 ? cards.Choose(game.Random) : cards.First()));
 			}
 
 			return TaskState.COMPLETE;

@@ -36,9 +36,10 @@ namespace SabberStoneCoreTest.Basic
 		{
 			var enumarable = new List<string>() { "A", "B", "C" };
 			var dict = new Dictionary<string, int>();
+			var rnd = new Util.DeepCloneableRandom();
 			for (int i = 0; i < 1000; i++)
 			{
-				string str = Util.RandomElement(enumarable);
+				string str = enumarable.RandomElement(rnd);
 				if (dict.ContainsKey(str))
 				{
 					dict[str] = dict[str] + 1;
@@ -54,66 +55,64 @@ namespace SabberStoneCoreTest.Basic
 		}
 
 		[Fact]
-		public void RandomSeedTest_SingleThread()
+		public void RandomSeedTest()
 		{
 			var globalRandom = new Random();
 			int seed = globalRandom.Next();
 
-			Util.ThreadLocalRandom.SetSeed(seed);
-			var rnd = Util.Random;
-			byte[] bytes = new byte[10000];
+			var rnd = new Util.DeepCloneableRandom(seed);
+			sbyte[] bytes = new sbyte[10000];
 			rnd.NextBytes(bytes);
 
 			Util.ThreadLocalRandom.SetSeed(seed);
-			rnd = Util.Random;
-			byte[] bytes2 = new byte[10000];
+			rnd = new Util.DeepCloneableRandom(seed);
+			sbyte[] bytes2 = new sbyte[10000];
 			rnd.NextBytes(bytes2);
 
 			Assert.Equal(bytes, bytes2);
 		}
 
 		[Fact]
-		public void RandomSeedTest_MultiThread()
+		public void DeepClonableRandomTest()
 		{
-			var globalRandom = new Random();
+			var rnd1 = new Util.DeepCloneableRandom();
+			rnd1.Next();
+			Util.DeepCloneableRandom rnd2 = rnd1.Clone();
 
-			int[] seeds = Enumerable.Repeat(0, 32).Select(i => globalRandom.Next()).ToArray();
-			Task<byte[]>[] tasks = new Task<byte[]>[32];
+			for (int i = 0; i < 1000; i++)
+				Assert.Equal( rnd1.Next(), rnd2.Next());
+		}
 
-			for (int i = 0; i < tasks.Length; i++)
+		[Fact]
+		public void SeededGameTest()
+		{
+			var game = new Game(new GameConfig
 			{
-				int index = i;
-				tasks[index] = new Task<byte[]>(() =>
-				{
-					int seed = seeds[index];
-					Util.ThreadLocalRandom.SetSeed(seed);
-					var rnd = Util.Random;
-					byte[] bytes = new byte[100];
-					rnd.NextBytes(bytes);
+				RandomSeed = 1,
+				FillDecks = true,
+				FillDecksPredictably = true,
+				History = false,
+				Logging = false
+			});
 
-					Util.ThreadLocalRandom.SetSeed(seed);
-					rnd = Util.Random;
-					byte[] bytes2 = new byte[100];
-					rnd.NextBytes(bytes2);
-
-					Assert.Equal(bytes, bytes2);
-
-					return bytes;
-				});
+			const int count = 5;
+			var hashes = new string[count];
+			for (int i = 0; i < count; i++)
+			{
+				var clone = game.Clone();
+				clone.StartGame();
+				var rnd = new Random(10);
+				while (clone.State != State.COMPLETE)
+					clone.Process(clone.CurrentPlayer.Options().Choose(rnd));
+				hashes[i] = clone.Hash();
 			}
 
-			for (int i = 0; i < tasks.Length; i++)
-				tasks[i].Start();
-
-			Task.WaitAll(tasks);
-
-			byte[][] results = tasks.Select(t => t.Result).ToArray();
-
-			for (int i = 0; i < results.Length; i++)
+			for (int i = 0; i < count; i++)
 			{
-				for (int j = i + 1; j < results.Length; j++)
+				string hash = hashes[i];
+				for (int j = i + 1; j < count; j++)
 				{
-					Assert.NotEqual(results[i], results[j]);
+					Assert.Equal(hash, hashes[j]);
 				}
 			}
 		}

@@ -114,7 +114,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				var list = new List<Card>(cardsList);
 				while (randomMinions.Count < Amount && cardsList.Count > 0)
 				{
-					Card card = Util.Choose(list);
+					Card card = list.Choose(game.Random);
 					list.Remove(card);
 
 					// check for deck rules
@@ -127,7 +127,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			else
 			{
 				randomMinions.Add(Entity.FromCard(_opponent ? controller.Opponent : controller,
-					Util.Choose(cardsList)));
+					cardsList.Choose(game.Random)));
 			}
 
 

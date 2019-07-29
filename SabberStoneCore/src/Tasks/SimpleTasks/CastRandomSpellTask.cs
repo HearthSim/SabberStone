@@ -54,11 +54,12 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			}
 
 			Controller c = source.Controller;
+			Util.DeepCloneableRandom rnd = game.Random;
 
 			Card randCard;
 			do
 			{
-				randCard = cards[Random.Next(cards.Length)];
+				randCard = cards[rnd.Next(cards.Length)];
 			} while (!randCard.Implemented || randCard.HideStat);
 
 			game.OnRandomHappened(true);
@@ -76,7 +77,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			ICharacter randTarget = spellToCast.GetRandomValidTarget();
 
-			int randChooseOne = Random.Next(1, 3);
+			int randChooseOne = rnd.Next(1, 3);
 
 			Choice choiceTemp = c.Choice;
 			c.Choice = null;
@@ -96,7 +97,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			while (c.Choice != null)
 			{
 				game.TaskQueue.StartEvent();
-				Generic.ChoicePick.Invoke(c, game, Util.Choose(c.Choice.Choices));
+				Generic.ChoicePick.Invoke(c, game, c.Choice.Choices.Choose(game.Random));
 				game.ProcessTasks();
 				game.TaskQueue.EndEvent();
 				game.DeathProcessingAndAuraUpdate();

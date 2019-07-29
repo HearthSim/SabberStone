@@ -54,19 +54,19 @@ namespace SabberStoneCore.Model
 	/// <seealso cref="Entity" />
 	public partial class Game : Entity
 	{
-		private readonly GameConfig _gameConfig;
-
-		private Controller _currentPlayer;
-
 		/// <summary>
 		/// The entityID of the game itself is always 1.
 		/// </summary>
-		internal const int GAME_ENTITYID = 1;
+		public const int GAME_ENTITYID = 1;
 
 		/// <summary>
 		/// The maximum minions that are allowed on the board.
 		/// </summary>
 		public const int MAX_MINIONS_ON_BOARD = 7;
+
+		private readonly GameConfig _gameConfig;
+
+		private Controller _currentPlayer;
 
 		/// <summary>
 		/// List of activated auras.
@@ -116,6 +116,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		/// <value>The index of the next clone.</value>
 		public int NextCloneIndex { get; set; } = 1;
+		internal Util.DeepCloneableRandom Random { get; set; }
 
 		///// <summary>
 		///// Gets or sets the list of splitted (and fully resolved) games, derived from this game.
@@ -270,7 +271,9 @@ namespace SabberStoneCore.Model
 				[GameTag.CARDTYPE] = (int)CardType.GAME
 			})
 		{
-			//IdEntityDic = new Dictionary<int, IPlayable>(75);
+			Random = gameConfig.RandomSeed is null ?
+				new Util.DeepCloneableRandom() :
+				new Util.DeepCloneableRandom(gameConfig.RandomSeed.Value);
 			IdEntityDic = new EntityList(75);
 			_gameConfig = gameConfig;
 			Game = this;
@@ -397,6 +400,8 @@ namespace SabberStoneCore.Model
 			_gameConfig.Logging = logging;
 
 			CloneIndex = game.CloneIndex + $"[{game.NextCloneIndex++}]";
+
+			Random = game.Random.Clone();
 
 			Player1 = game.Player1.Clone(this);
 			Player2 = game.Player2.Clone(this);
@@ -553,7 +558,12 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Part of the state machine.
 		/// Runs when STATE = RUNNING.
+		/// First player is determined here.
+		/// For true <paramref name="stopBeforeShuffling"/> the order of cards in decks
+		/// and the first hands of both players are determined too.
 		/// </summary>
+		/// <param name="stopBeforeShuffling">true if you want to start shuffling
+		/// and drawing cards later.</param>
 		public void StartGame(bool stopBeforeShuffling = false)
 		{
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : "Starting new game now!");
@@ -568,7 +578,7 @@ namespace SabberStoneCore.Model
 
 			// getting first player
 			FirstPlayer = _gameConfig.StartPlayer < 0
-				? _players[Util.Random.Next(0, 2)]
+				? _players[Random.Next(0, 2)]
 				: _players[_gameConfig.StartPlayer - 1];
 			CurrentPlayer = FirstPlayer;
 

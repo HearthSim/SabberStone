@@ -793,19 +793,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("GIL_694", new Power {
-				PowerTask = new FuncNumberTask(p =>
+				PowerTask = new CustomTask((g, c, s, t, stack) =>
 				{
-					IReadOnlyList<Card> legendaries = RandomCardTask.GetCardList(p, CardType.MINION, rarity: Rarity.LEGENDARY);
-					//p.Controller.DeckZone.ForEach((q, c, ls) =>
-					//{
-					//	if (q.Cost != 1) return;
+					IReadOnlyList<Card> legendaries = RandomCardTask.GetCardList(s, CardType.MINION, rarity: Rarity.LEGENDARY);
 
-					//	Generic.ChangeEntityBlock.Invoke(c, q, Util.Choose(ls));
-					//}, p.Controller, legendaries);
-					Random rnd = Util.Random;
-					Controller c = p.Controller;
+					Util.DeepCloneableRandom rnd = g.Random;
 					DeckZone deck = c.DeckZone;
-
 					for (int i = 0; i < deck.Count; i++)
 					{
 						if (deck[i].Cost != 1) continue;
@@ -813,8 +806,6 @@ namespace SabberStoneCore.CardSets.Standard
 						deck.SetEntity(i,
 							Generic.ChangeEntityBlock.Invoke(c, deck[i], legendaries[rnd.Next(legendaries.Count)], false));
 					}
-
-					return 0;
 				})
 			});
 

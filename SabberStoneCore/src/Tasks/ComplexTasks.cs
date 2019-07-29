@@ -257,7 +257,7 @@ namespace SabberStoneCore.Tasks
 						Controller c = stack[0].Controller;
 						do
 						{
-							IPlayable pick = Util.Choose((List<IPlayable>)stack);
+							IPlayable pick = ((List<IPlayable>)stack).Choose(c.Game.Random);
 							if (c.SecretZone.Any(p => p.Card.AssetId == pick.Card.AssetId))
 							{
 								stack.Remove(pick);
@@ -292,35 +292,10 @@ namespace SabberStoneCore.Tasks
 				new FuncPlayablesTask(list =>
 				{
 					list[0].Game.OnRandomHappened(true);
-					switch (Util.Random.Next(0, 4))
+					return new[]
 					{
-						case 0:
-							return new List<IPlayable>
-							{
-								Entity.FromCard(list[0].Controller,
-									Cards.FromId("NEW1_009"))
-							};
-						case 1:
-							return new List<IPlayable>
-							{
-								Entity.FromCard(list[0].Controller,
-									Cards.FromId("CS2_050"))
-							};
-						case 2:
-							return new List<IPlayable>
-							{
-								Entity.FromCard(list[0].Controller,
-									Cards.FromId("CS2_051"))
-							};
-						case 3:
-							return new List<IPlayable>
-							{
-								Entity.FromCard(list[0].Controller,
-									Cards.FromId("CS2_052"))
-							};
-						default:
-							return null;
-					}
+						Entity.FromCard(list[0].Controller, Cards.BasicTotems[list[0].Game.Random.Next(4)])
+					};
 				}),
 				new SummonTask());
 
@@ -431,7 +406,7 @@ namespace SabberStoneCore.Tasks
 					if (list.Count == 0)
 						return list;
 					list[0].Game.OnRandomHappened(true);
-					list.Shuffle();
+					list.Shuffle(list[0].Game.Random);
 					int min = int.MaxValue;
 					int minArg = -1;
 					for (int i = 0; i < list.Count; i++)

@@ -122,8 +122,8 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//}
 
 			stack.Playables = _amount == 1 ?
-				new[] {entities[Util.Random.Next(entities.Count)]} :
-				Util.ChooseNElements((IReadOnlyList<IPlayable>)entities, _amount);
+				new[] {entities[game.Random.Next(entities.Count)]} :
+				((IReadOnlyList<IPlayable>)entities).ChooseNElements(_amount, game.Random);
 
 			game.OnRandomHappened(true);
 

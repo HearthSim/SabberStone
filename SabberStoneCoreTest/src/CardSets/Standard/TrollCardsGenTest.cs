@@ -1073,6 +1073,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.True(target1.IsDead);
 			Assert.True(target2.IsDead);
 			Assert.True(target3.IsDead);
+
+			game.PlayHeroPower(game.CurrentOpponent.Hero);
 		}
 
 		// ------------------------------------------ MINION - MAGE

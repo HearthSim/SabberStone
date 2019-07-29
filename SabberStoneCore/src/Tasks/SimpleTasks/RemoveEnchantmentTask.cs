@@ -46,7 +46,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//		}
 
 			if (!e.IsOneTurnActive || game.Step != Step.MAIN_CLEANUP)
-				e.Power.Enchant?.RemoveEffect(target);
+				e.Power.Enchant?.RemoveEffect(e.Target);
 
 			e.Remove();
 
