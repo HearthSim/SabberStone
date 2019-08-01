@@ -1310,7 +1310,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shirvallah, the Tiger"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shirvallah, the Tiger"));
 			//var testCard = (Minion) game.ProcessCard<Minion>("Shirvallah, the Tiger");
 
 			Assert.Equal(25, testCard.Cost);

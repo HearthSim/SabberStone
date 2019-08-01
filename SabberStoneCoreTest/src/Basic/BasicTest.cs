@@ -96,10 +96,10 @@ namespace SabberStoneCoreTest.Basic
 			});
 
 			const int count = 5;
-			var hashes = new string[count];
+			string[] hashes = new string[count];
 			for (int i = 0; i < count; i++)
 			{
-				var clone = game.Clone();
+				Game clone = game.Clone();
 				clone.StartGame();
 				var rnd = new Random(10);
 				while (clone.State != State.COMPLETE)
