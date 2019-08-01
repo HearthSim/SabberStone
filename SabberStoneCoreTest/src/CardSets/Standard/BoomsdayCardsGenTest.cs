@@ -449,7 +449,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			foreach (IPlayable item in game.CurrentOpponent.HandZone)
 			{
 				if (item.Card.Type != CardType.MINION || (item.Card.Cost != 0 && item.Cost >= item.Card.Cost) ||
-				    item.OngoingEffect is IAdaptiveCostEffect) continue;
+				    item.OngoingEffect is AdaptiveCostEffect) continue;
 
 				int expected = item.Card.Cost - 7;
 				if (expected < 0)

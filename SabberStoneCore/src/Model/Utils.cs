@@ -693,7 +693,7 @@ namespace SabberStoneCore.Model
 		    /// </summary>
 		    public DeepCloneableRandom()
 		    {
-		        var rand = new Random();
+		        Random rand = ThreadLocalRandom.Instance;
 		        _state0 = (long)((rand.NextDouble() - 0.5) * 4503599627370496) ^ (long)(((rand.NextDouble() - 0.5) * 2.0) * -9223372036854775808);
 		        _state1 = (long)((rand.NextDouble() - 0.5) * 4503599627370496) ^ (long)(((rand.NextDouble() - 0.5) * 2.0) * -9223372036854775808);
 		        if ((_state0 | _state1) == 0L)

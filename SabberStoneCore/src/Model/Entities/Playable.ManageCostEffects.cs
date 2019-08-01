@@ -18,14 +18,14 @@ namespace SabberStoneCore.Model.Entities
 
 			private int _cachedValue;
 			private bool _toBeUpdated;
-			private IAdaptiveCostEffect _adaptiveCostEffect;
+			private AdaptiveCostEffect _adaptiveCostEffect;
 
 			public CostManager()
 			{
 				_toBeUpdated = true;
 			}
 
-			public CostManager(IAdaptiveCostEffect adaptiveEffect)
+			public CostManager(AdaptiveCostEffect adaptiveEffect)
 			{
 				_adaptiveCostEffect = adaptiveEffect;
 			}
@@ -91,9 +91,9 @@ namespace SabberStoneCore.Model.Entities
 			}
 
 			/// <summary>
-			/// Activate <see cref="IAdaptiveCostEffect"/> to calculate and reflect its result.
+			/// Activate <see cref="AdaptiveCostEffect"/> to calculate and reflect its result.
 			/// </summary>
-			public void ActivateAdaptiveEffect(IAdaptiveCostEffect adaptiveCostEffect)
+			public void ActivateAdaptiveEffect(AdaptiveCostEffect adaptiveCostEffect)
 			{
 				_adaptiveCostEffect = adaptiveCostEffect;
 			}
@@ -236,7 +236,7 @@ namespace SabberStoneCore.Model.Entities
 		{
 			_costManager = null;
 			_modifiedCost = null;
-			if (OngoingEffect is IAdaptiveCostEffect ace)
+			if (OngoingEffect is AdaptiveCostEffect ace)
 				ace.Remove();
 
 			if (_history)

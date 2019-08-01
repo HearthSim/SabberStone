@@ -727,7 +727,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("TRL_313", new Power {
 				PowerTask = new DamageTask(4, EntityType.TARGET),
-				Aura = new AdaptiveCostEffect(p=>1, EffectOperator.SET, triggerCondition: SelfCondition.ElementalPlayedLastTurn)
+				Aura = new AdaptiveCostEffect(1, TriggerType.TURN_START, triggerCondition: SelfCondition.ElementalPlayedLastTurn)
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -802,7 +802,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_300", new Power {
-				Aura = new AdaptiveCostEffectObsolete(
+				Aura = new AdaptiveCostEffect(
 					initialisationFunction: p =>
 					{
 						int sum = 0;
@@ -1032,7 +1032,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("TRL_259", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
-					new FilterStackTask(SelfCondition.IsTagValue(GameTag.ENTITY_ID, 68, RelaSign.GEQ)),
+					new FilterStackTask(SelfCondition.IsTagValue(GameTag.ENTITY_ID, 68, RelaSign.GEQ), SelfCondition.IsMinion),
 					new SummonStackTask(true))
 			});
 
@@ -1076,13 +1076,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_408", new Power {
-				// TODO: Possible performance overhead
-				Aura = new AdaptiveCostEffect(p => p.Controller.PlayHistory.Count(h => h.SourceCard.Type == CardType.SPELL))
-				//Aura = new AdaptiveCostEffectObsolete(
-				//	initialisationFunction: p => p.Card.Cost - p.Controller.PlayHistory.Count(h => h.SourceCard.Type == CardType.SPELL),
-				//	triggerValueFunction: p => -1,
-				//	trigger: TriggerType.AFTER_CAST,
-				//	triggerSource: TriggerSource.FRIENDLY)
+				Aura = new AdaptiveCostEffect(
+					initialisationFunction: p => p.Card.Cost - p.Controller.PlayHistory.Count(h => h.SourceCard.Type == CardType.SPELL),
+					triggerValueFunction: p => -1,
+					trigger: TriggerType.AFTER_CAST,
+					triggerSource: TriggerSource.FRIENDLY)
 			});
 
 			// ---------------------------------------- MINION - PRIEST

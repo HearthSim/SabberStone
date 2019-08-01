@@ -1057,7 +1057,11 @@ namespace SabberStoneCore.CardSets.Standard
 					new CustomTask((g, c, s, t, stack) =>
 					{
 						foreach (IPlayable deadMech in stack.Playables)
-						{	// copy and summon the base card
+						{
+							if (c.BoardZone.IsFull)
+								break;
+
+							// copy and summon the base card
 							IPlayable copied = Generic.Copy(in c, in s, in deadMech, Zone.PLAY);
 							if (deadMech.AppliedEnchantments == null) continue;
 							foreach (Enchantment magneticUpgrade in deadMech.AppliedEnchantments)

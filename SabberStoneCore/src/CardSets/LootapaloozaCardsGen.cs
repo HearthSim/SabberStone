@@ -2786,7 +2786,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Costs (0) if you've cast a spell that costs (5) or more this turn.
 			// --------------------------------------------------------
 			cards.Add("LOOT_130", new Power {
-				Aura = new AdaptiveCostEffectObsolete(0, TriggerType.CAST_SPELL, TriggerSource.FRIENDLY,
+				Aura = new AdaptiveCostEffect(0, TriggerType.CAST_SPELL, TriggerSource.FRIENDLY,
 					SelfCondition.IsCost(5, RelaSign.GEQ))
 			});
 

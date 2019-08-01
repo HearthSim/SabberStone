@@ -48,7 +48,8 @@ namespace SabberStoneCoreTest.Basic
 			{
 				game = new Game(new GameConfig
 				{
-					FillDecks = true
+					FillDecks = true,
+					History = false,
 				});
 				game.StartGame();
 				game.ProcessCard("Knife Juggler", null, true);
@@ -76,7 +77,7 @@ namespace SabberStoneCoreTest.Basic
 			bool flag = false;
 			for (int i = 0; i < 12; i++)
 			{
-				Game clone = game.Clone();
+				Game clone = game.Clone(true);
 				Minion target = clone.ProcessCard<Minion>("Twilight Drake", null, true);
 				flag = flag || target.IsDead;
 			}
@@ -516,7 +517,7 @@ namespace SabberStoneCoreTest.Basic
 
 			// Play Golden Kobold to ChangeEntity the whole hand.
 			//game.ProcessCard("Golden Kobold", asZeroCost: true);
-			var kobold = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("LOOT_998k"));
+			IPlayable kobold = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("LOOT_998k"));
 			kobold.Cost = 0;
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, kobold));
 			Assert.True(game.CurrentPlayer.HandZone.ToList()

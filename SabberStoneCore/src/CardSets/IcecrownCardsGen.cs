@@ -2903,7 +2903,7 @@ namespace SabberStoneCore.CardSets
 			// Text: Costs (0) if your hero was healed this turn.
 			// --------------------------------------------------------
 			cards.Add("ICC_700", new Power {
-				Aura = new AdaptiveCostEffectObsolete(0, TriggerType.HEAL, TriggerSource.FRIENDLY, SelfCondition.IsHero)
+				Aura = new AdaptiveCostEffect(0, TriggerType.HEAL, TriggerSource.FRIENDLY, SelfCondition.IsHero)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

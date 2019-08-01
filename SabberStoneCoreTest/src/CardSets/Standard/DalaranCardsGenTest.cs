@@ -4954,7 +4954,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Minion[] drawnMinions = drawnCards.Cast<Minion>().ToArray();
 			Assert.True(Array.TrueForAll(drawnMinions, p => p.AttackDamage == 1));
 			Assert.True(Array.TrueForAll(drawnMinions, p => p.Health == 1));
-			Assert.True(Array.TrueForAll(drawnMinions, p => p.Cost == 1 || p.OngoingEffect is IAdaptiveCostEffect));
+			Assert.True(Array.TrueForAll(drawnMinions, p => p.Cost == 1 || p.OngoingEffect is AdaptiveCostEffect));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

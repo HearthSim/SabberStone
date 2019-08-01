@@ -372,7 +372,7 @@ namespace SabberStoneCore.Model
 		}
 
 		/// <summary> A copy constructor. </summary>
-		private Game(Game game, bool logging = false) : base(null, game)
+		private Game(Game game, bool logging, bool resetRandomSeed) : base(null, game)
 		{
 			//IdEntityDic = new Dictionary<int, IPlayable>(game.IdEntityDic.Count);
 			IdEntityDic = new EntityList(game.IdEntityDic.Count);
@@ -401,7 +401,7 @@ namespace SabberStoneCore.Model
 
 			CloneIndex = game.CloneIndex + $"[{game.NextCloneIndex++}]";
 
-			Random = game.Random.Clone();
+			Random = resetRandomSeed ? new Util.DeepCloneableRandom() : game.Random.Clone();
 
 			Player1 = game.Player1.Clone(this);
 			Player2 = game.Player2.Clone(this);
@@ -1199,9 +1199,9 @@ namespace SabberStoneCore.Model
 		/// Performs a deep copy of this game instance and returns the result.
 		/// </summary>
 		/// <returns></returns>
-		public Game Clone(bool logging = false)
+		public Game Clone(bool logging = false, bool resetRandomSeed = true)
 		{
-			return new Game(this, logging);
+			return new Game(this, logging, resetRandomSeed);
 		}
 
 		/// <summary>Builds and stores a logentry, from the specified log message.</summary>
