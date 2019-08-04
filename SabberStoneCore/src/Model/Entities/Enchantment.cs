@@ -37,6 +37,9 @@ namespace SabberStoneCore.Model.Entities
 
 		private Enchantment(in Controller controller, in Card card, in EntityData tags, in int id)
 		{
+			_history = controller.Game.History;
+			_logging = controller.Game.Logging;
+
 			Game = controller.Game;
 			Controller = controller;
 			Card = card;
@@ -46,6 +49,9 @@ namespace SabberStoneCore.Model.Entities
 
 		private Enchantment(in Controller c, in Enchantment e)
 		{
+			_history = c.Game.History;
+			_logging = c.Game.Logging;
+
 			Game = c.Game;
 			Card = e.Card;
 			Id = e.Id;
@@ -81,7 +87,13 @@ namespace SabberStoneCore.Model.Entities
 		public int this[GameTag t]
 		{
 			get => _tags.TryGetValue(t, out int value) ? value : 0;
-			set => _tags[t] = value;
+			set
+			{
+				if (_history && (int)t < 1000)
+					if (value != this[t])
+						Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, t, value));
+				_tags[t] = value;
+			}
 		}
 
 		/// <summary>
@@ -286,6 +298,9 @@ namespace SabberStoneCore.Model.Entities
 
 	public partial class Enchantment
 	{
+		protected readonly bool _history;
+		protected readonly bool _logging;
+
 		public int Id { get; }
 		public int OrderOfPlay { get; set; }
 		public Game Game { get; set; }
