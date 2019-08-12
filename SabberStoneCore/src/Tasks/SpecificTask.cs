@@ -1141,6 +1141,8 @@ namespace SabberStoneCore.Tasks
 				for (int i = controller.DeckZone.Count - 1; i >= 0; i--)
 				{
 					IPlayable entity = controller.DeckZone[i];
+					controller.DeckZone.Remove(entity);
+					controller.SetasideZone.Add(entity);
 					if (entity.Card.Class != CardClass.WARLOCK) continue;
 
 					Card randCard = cards.Choose(rnd);
@@ -1149,8 +1151,6 @@ namespace SabberStoneCore.Tasks
 
 					//Enchantment.GetInstance(Controller, (IPlayable) Source, newEntity, EnchantmentCard);
 
-					controller.DeckZone.Remove(entity);
-					controller.SetasideZone.Add(entity);
 
 					newEntity.Cost = newEntity.Card.Cost - 1;
 				}

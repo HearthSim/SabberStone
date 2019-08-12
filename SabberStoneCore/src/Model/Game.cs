@@ -283,7 +283,18 @@ namespace SabberStoneCore.Model
 
 			bool history = gameConfig.History;
 			if (gameConfig.Logging)
+			{
+				_logging = true;
 				Logs = new Queue<LogEntry>();
+			}
+
+			if (history)
+			{
+				_history = true;
+				EntityChoicesMap = new Dictionary<int, PowerEntityChoices>();
+				AllOptionsMap = new Dictionary<int, PowerAllOptions>();
+				PowerHistory = new PowerHistory();
+			}
 
 			EntityData p1Dict = history
 				? new EntityData(64)
@@ -325,13 +336,7 @@ namespace SabberStoneCore.Model
 			_players[1] = new Controller(this, gameConfig.Player2Name, 2, 3, p2Dict);
 
 			// add power history create game
-			if (history)
-			{
-				EntityChoicesMap = new Dictionary<int, PowerEntityChoices>();
-				AllOptionsMap = new Dictionary<int, PowerAllOptions>();
-				PowerHistory = new PowerHistory();
-				PowerHistory.Add(PowerHistoryBuilder.CreateGame(this, _players));
-			}
+			if (history) PowerHistory.Add(PowerHistoryBuilder.CreateGame(this, _players));
 
 			if (setupHeroes)
 			{
@@ -372,16 +377,21 @@ namespace SabberStoneCore.Model
 		}
 
 		/// <summary> A copy constructor. </summary>
-		private Game(Game game, bool logging, bool resetRandomSeed) : base(null, game)
+		private Game(Game game, bool logging, bool resetRandomSeed, bool history) : base(null, game)
 		{
 			//IdEntityDic = new Dictionary<int, IPlayable>(game.IdEntityDic.Count);
 			IdEntityDic = new EntityList(game.IdEntityDic.Count);
 			Game = this;
 
 			if (logging)
-				Logs = new Queue<LogEntry>();	// Logs are not cloned.
-			if (game.History)
 			{
+				_logging = true;
+				Logs = new Queue<LogEntry>();	// Logs are not cloned.
+			}
+
+			if (history)
+			{
+				_history = true;
 				PowerHistory = new PowerHistory();
 				EntityChoicesMap = new Dictionary<int, PowerEntityChoices>();
 				AllOptionsMap = new Dictionary<int, PowerAllOptions>();
@@ -398,6 +408,7 @@ namespace SabberStoneCore.Model
 
 			_gameConfig = game._gameConfig.Clone();
 			_gameConfig.Logging = logging;
+			_gameConfig.History = history;
 
 			CloneIndex = game.CloneIndex + $"[{game.NextCloneIndex++}]";
 
@@ -989,7 +1000,7 @@ namespace SabberStoneCore.Model
 			}
 
 			// count next turn
-			Turn++;
+			Turn += 1;
 
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"CurentPlayer {CurrentPlayer.Name}.");
 
@@ -1199,9 +1210,9 @@ namespace SabberStoneCore.Model
 		/// Performs a deep copy of this game instance and returns the result.
 		/// </summary>
 		/// <returns></returns>
-		public Game Clone(bool logging = false, bool resetRandomSeed = true)
+		public Game Clone(bool logging = false, bool resetRandomSeed = true, bool history = false)
 		{
-			return new Game(this, logging, resetRandomSeed);
+			return new Game(this, logging, resetRandomSeed, history);
 		}
 
 		/// <summary>Builds and stores a logentry, from the specified log message.</summary>
@@ -1312,7 +1323,7 @@ namespace SabberStoneCore.Model
 		public Controller CurrentPlayer
 		{
 			get => _currentPlayer;
-			private set
+			set
 			{
 				_currentPlayer = value;
 				if (!History) return;

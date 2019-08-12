@@ -34,6 +34,17 @@ namespace SabberStoneCoreConsole
 
 		static void Main(string[] args)
 		{
+			unsafe
+			{
+				int* ptr = stackalloc int[10];
+				for (int i = 0; i < 10; i++)
+					ptr[i] = 1;
+				*ptr = (long) 0;
+
+			}
+
+
+
 			//SimpleTest();
 
 			Console.WriteLine("Start Test!");
@@ -43,8 +54,12 @@ namespace SabberStoneCoreConsole
 			//AugmentedElekk();
 
 			Console.WriteLine(Cards.Statistics());
+
+			//SabberStoneCoreConsole.PowerHistoryTest.EqualTest();
+			SabberStoneCoreConsole.PowerHistoryTest.Run();
+
 			//StabilityTest.CloneStabilityTest();
-			StabilityTest.TestRun();
+			//StabilityTest.TestRun();
 			//for (int i = 0; i < 10000; i++)
 			//	StabilityTest.ThreadSafetyTest();
 			//EntityChangeTest();

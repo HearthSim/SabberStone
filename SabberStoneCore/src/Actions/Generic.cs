@@ -418,12 +418,28 @@ namespace SabberStoneCore.Actions
 				}
 
 
-				// TODO: PowerHistoryChangeEntity
-				// send tag variations and the id of the new Card
-				// Tag.REAL_TIME_TRANSFORM = 0
-
 				if (p.Card.Type == newCard.Type)
 				{
+					if (c.Game.History)
+					{
+						EntityData differTags = new EntityData
+						{
+							{GameTag.CARDTYPE, (int)newCard.Type}
+						};
+						Dictionary<GameTag, int> newTags = newCard.Tags;
+						foreach (KeyValuePair<GameTag, int> item in c.Card.Tags)
+							differTags.Add(item.Key,
+								newTags.TryGetValue(item.Key, out int value)
+									? value
+									: 0);
+						foreach (KeyValuePair<GameTag, int> item in newTags)
+							if (!differTags.ContainsKey(item.Key))
+								differTags.Add(item);
+
+						c.Game.PowerHistory.Add(new PowerHistoryChangeEntity(p.Id, differTags, newCard.Id));
+					}
+
+
 					p.Card = newCard;
 					Playable pp = (Playable)p;
 					if (pp._costManager != null)
@@ -450,6 +466,22 @@ namespace SabberStoneCore.Actions
 							throw new ArgumentNullException();
 					}
 
+					if (c.Game.History)
+					{
+						EntityData differTags = new EntityData();
+						Dictionary<GameTag, int> newTags = newCard.Tags;
+						foreach (KeyValuePair<GameTag, int> item in c.Card.Tags)
+							differTags.Add(item.Key,
+								newTags.TryGetValue(item.Key, out int value)
+									? value
+									: 0);
+						foreach (KeyValuePair<GameTag, int> item in newTags)
+							if (!differTags.ContainsKey(item.Key))
+								differTags.Add(item);
+
+						c.Game.PowerHistory.Add(new PowerHistoryChangeEntity(p.Id, differTags, newCard.Id));
+					}
+
 					if (hand != null)
 						hand.ChangeEntity(p, entity);
 					else if
@@ -467,10 +499,8 @@ namespace SabberStoneCore.Actions
 					p = entity;
 				}
 
-
 				if (newCard.ChooseOne)
 				{
-
 					EntityData tags = null;
 					if (c.Game.History)
 					{
