@@ -27,7 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		{
 			var s = (Minion) source;
 
-			if (s == null || s[GameTag.MODULAR] == 0)
+			if (s == null || !s.Card.Modular)
 			{
 				game.Log(LogLevel.ERROR, BlockType.POWER, "Magnetic", $"{source}'s not a Magnetic Minion");
 				return TaskState.STOP;
@@ -40,13 +40,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			else
 				return TaskState.STOP;
 
-			if (t.Race != Race.MECHANICAL)
+			if (!t.IsRace(Race.MECHANICAL))
 				return TaskState.STOP;
 
 			if (game.History)
 				s[GameTag.TAG_SCRIPT_DATA_NUM_1] = t.Id;
 
-			Generic.AddEnchantmentBlock.Invoke(controller, Cards.FromId(s.Card.Id + "e"), s, t, s.AttackDamage,
+			Generic.AddEnchantmentBlock(game, Cards.FromId(s.Card.Id + "e"), s, t, s.AttackDamage,
 				s.BaseHealth, 0);
 
 			// Aggregate triggers

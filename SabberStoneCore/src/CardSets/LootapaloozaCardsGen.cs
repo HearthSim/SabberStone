@@ -3688,7 +3688,7 @@ namespace SabberStoneCore.CardSets
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
 				{
 					Condition = new SelfCondition(p => p.Card.Id != "LOOT_517" && p.Card[GameTag.BATTLECRY] == 1),
-					SingleTask = new RemoveEnchantmentTask()
+					SingleTask = RemoveEnchantmentTask.Task
 				}
 			});
 
@@ -3706,7 +3706,7 @@ namespace SabberStoneCore.CardSets
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
 				{
 					Condition = new SelfCondition(p => p.Card.Id != "LOOT_517" && p.Card[GameTag.BATTLECRY] == 1),
-					SingleTask = new RemoveEnchantmentTask()
+					SingleTask = RemoveEnchantmentTask.Task
 				}
 			});
 

@@ -1008,7 +1008,7 @@ namespace SabberStoneCoreTest.CardSets
 		// GameTag:
 		// - DURABILITY = 3
 		// --------------------------------------------------------
-		[Fact]
+		[Fact(Skip = "ignore")]
 		public void CursedBlade_LOE_118()
 		{
 			var game = new Game(new GameConfig
@@ -1454,7 +1454,8 @@ namespace SabberStoneCoreTest.CardSets
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elise Starseeker"));
+			//IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Elise Starseeker"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("LOE_079"));
 			Assert.Equal(0, game.CurrentPlayer.DeckZone.Count);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);

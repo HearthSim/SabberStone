@@ -2639,7 +2639,7 @@ namespace SabberStoneCore.CardSets
 				},
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
-					SingleTask = new RemoveEnchantmentTask()
+					SingleTask = RemoveEnchantmentTask.Task
 				}
 			});
 

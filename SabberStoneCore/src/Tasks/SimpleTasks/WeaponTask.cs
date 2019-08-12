@@ -38,14 +38,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			Controller c = _op ? controller.Opponent : controller;
 
-			if (c.Hero.Weapon != null)
-				c.Hero.Weapon.ToBeDestroyed = true;
-
 			Weapon weapon = _card != null
 				? Entity.FromCard(c, _card) as Weapon
 				: stack?.Playables[0] as Weapon;
 
-			Generic.PlayWeapon.Invoke(c, game, weapon, null, 0);
+			if (weapon == null)
+				return TaskState.STOP;
+
+			weapon.Card.Power?.Aura?.Activate(weapon);
+			weapon.Card.Power?.Trigger?.Activate(weapon);
+			c.Hero.AddWeapon(weapon);
 
 			return TaskState.COMPLETE;
 		}

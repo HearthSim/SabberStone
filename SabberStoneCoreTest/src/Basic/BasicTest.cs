@@ -11,7 +11,11 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Config;
@@ -32,9 +36,10 @@ namespace SabberStoneCoreTest.Basic
 		{
 			var enumarable = new List<string>() { "A", "B", "C" };
 			var dict = new Dictionary<string, int>();
+			var rnd = new Util.DeepCloneableRandom();
 			for (int i = 0; i < 1000; i++)
 			{
-				string str = Util.RandomElement(enumarable);
+				string str = enumarable.RandomElement(rnd);
 				if (dict.ContainsKey(str))
 				{
 					dict[str] = dict[str] + 1;
@@ -47,6 +52,69 @@ namespace SabberStoneCoreTest.Basic
 			Assert.True(dict["A"] > 300);
 			Assert.True(dict["B"] > 300);
 			Assert.True(dict["C"] > 300);
+		}
+
+		[Fact]
+		public void RandomSeedTest()
+		{
+			var globalRandom = new Random();
+			int seed = globalRandom.Next();
+
+			var rnd = new Util.DeepCloneableRandom(seed);
+			sbyte[] bytes = new sbyte[10000];
+			rnd.NextBytes(bytes);
+
+			Util.ThreadLocalRandom.SetSeed(seed);
+			rnd = new Util.DeepCloneableRandom(seed);
+			sbyte[] bytes2 = new sbyte[10000];
+			rnd.NextBytes(bytes2);
+
+			Assert.Equal(bytes, bytes2);
+		}
+
+		[Fact]
+		public void DeepClonableRandomTest()
+		{
+			var rnd1 = new Util.DeepCloneableRandom();
+			rnd1.Next();
+			Util.DeepCloneableRandom rnd2 = rnd1.Clone();
+
+			for (int i = 0; i < 1000; i++)
+				Assert.Equal( rnd1.Next(), rnd2.Next());
+		}
+
+		[Fact]
+		public void SeededGameTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				RandomSeed = 1,
+				FillDecks = true,
+				FillDecksPredictably = true,
+				History = false,
+				Logging = false
+			});
+
+			const int count = 5;
+			string[] hashes = new string[count];
+			for (int i = 0; i < count; i++)
+			{
+				Game clone = game.Clone();
+				clone.StartGame();
+				var rnd = new Random(10);
+				while (clone.State != State.COMPLETE)
+					clone.Process(clone.CurrentPlayer.Options().Choose(rnd));
+				hashes[i] = clone.Hash();
+			}
+
+			for (int i = 0; i < count; i++)
+			{
+				string hash = hashes[i];
+				for (int j = i + 1; j < count; j++)
+				{
+					Assert.Equal(hash, hashes[j]);
+				}
+			}
 		}
 
 		[Fact]
@@ -867,7 +935,6 @@ namespace SabberStoneCoreTest.Basic
 				StartPlayer = 1,
 				Shuffle = false,
 				FillDecks = false,
-				History = false,
 				Logging = false,
 			});
 
@@ -1013,25 +1080,6 @@ namespace SabberStoneCoreTest.Basic
 		}
 
 		[Fact]
-		public void FindBug()
-		{
-			var game = new Game(new GameConfig
-			{
-				StartPlayer = 1,
-				Player1HeroClass = CardClass.PRIEST,
-				Player2HeroClass = CardClass.PRIEST,
-				FillDecks = true,
-				FillDecksPredictably = true
-			});
-			game.StartGame();
-
-			//game.ProcessCard("Grimscale Oracle");
-			//game.ProcessCard("Psychic Scream", asZeroCost: true);
-
-			game.ProcessCard("Rebuke", asZeroCost: true);
-		}
-
-		[Fact]
 		public void CantBeTargetedBy()
 		{
 			var game = new Game(new GameConfig
@@ -1057,6 +1105,27 @@ namespace SabberStoneCoreTest.Basic
 			Assert.True(target2.CantBeTargetedByHeroPowers);
 			Assert.False(game.CurrentPlayer.Hero.HeroPower.IsValidPlayTarget(target2));
 			Assert.False(spell.IsValidPlayTarget(target2));
+		}
+
+		[Fact]
+		public void DragonInHand()
+		{
+			Game game = new Game(new GameConfig
+			{
+				History = false,
+				Logging = false,
+				FillDecks = false
+			});
+			game.StartGame();
+
+			Minion testTarget = game.ProcessCard<Minion>("Wisp");
+			game.EndTurn();
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crowd Roaster"));
+			Assert.Equal(1, game.CurrentPlayer.HandZone.Count(p => p.Card.IsRace(Race.DRAGON)));
+			Assert.False(testCard.IsValidPlayTarget(testTarget));
+			Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crowd Roaster"));
+			Assert.True(testCard.IsValidPlayTarget(testTarget));
 		}
 	}
 }

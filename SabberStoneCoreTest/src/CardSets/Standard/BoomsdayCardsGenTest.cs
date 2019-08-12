@@ -429,6 +429,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		[Fact]
 		public void DreampetalFlorist_BOT_423()
 		{
+			start:
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -457,8 +458,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Assert.Equal(expected, item.Cost);
 				return;
 			}
-
-			Assert.False(game.CurrentPlayer.HandZone.Any(p => p.Card.Type == CardType.MINION));
+			goto start;
 		}
 
 		// ----------------------------------------- MINION - DRUID
@@ -1185,7 +1185,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.ProcessCard("Whirlwind");
 			Assert.Equal(8, game.CurrentPlayer.HandZone.Count);
 			Assert.True(game.CurrentPlayer.HandZone.Skip(4).Take(4).ToList()
-				.TrueForAll(p => p is Minion m && m.Race == Race.MECHANICAL));
+				.TrueForAll(p => p is Minion m && m.IsRace(Race.MECHANICAL)));
 		}
 
 	}
@@ -1455,21 +1455,41 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Unexpected Results"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Unexpected Results"));
 
 			BoardZone board = game.CurrentPlayer.BoardZone;
 
 			Assert.Equal(2, board.Count);
 			Assert.True(board.ToList().TrueForAll(p => p is Minion m && m.Cost == 2));
+		}
 
-			game.ProcessCard("Twisting Nether", asZeroCost: true);
+		[Fact]
+		public void UnexpectedResults_BOT_254_withSpellPower()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Unexpected Results"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			game.ProcessCard("Bloodmage Thalnos", asZeroCost: true);
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Unexpected Results"));
 
-			game.ProcessCard("Dalaran Mage", asZeroCost: true);
+			BoardZone board = game.CurrentPlayer.BoardZone;
 
-			game.ProcessCard("Unexpected Results");
-
-			Assert.Equal(4, board.Count);
+			Assert.Equal(3, board.Count);
+			Assert.Equal(3, board[1].Card.Cost);
+			Assert.Equal(3, board[2].Card.Cost);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -1916,10 +1936,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - MODULAR = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void KangorsEndlessArmy_BOT_912()
 		{
-			// TODO KangorsEndlessArmy_BOT_912 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1938,6 +1957,60 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kangor's Endless Army"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Kangor's Endless Army"));
+
+			Minion mech1 = game.ProcessCard<Minion>("Glow-Tron", asZeroCost: true);
+			game.ProcessCard<Minion>("Glow-Tron", asZeroCost: true, zonePosition: 0);
+			game.ProcessCard<Minion>("Glow-Tron", asZeroCost: true, zonePosition: 0);
+			game.ProcessCard<Minion>("Glow-Tron", asZeroCost: true, zonePosition: 0);
+
+			Assert.Single(game.CurrentPlayer.BoardZone);
+			Assert.Equal(4 * mech1.Card.ATK, mech1.AttackDamage);
+			Assert.Equal(4 * mech1.Card.Health, mech1.Health);
+			Assert.Equal(3, mech1.AppliedEnchantments.Count);
+
+			Minion mech2 = game.ProcessCard<Minion>("Wargear", asZeroCost: true);
+			game.ProcessCard("Zilliax", asZeroCost: true, zonePosition: 1);
+
+			Minion mech3 = game.ProcessCard<Minion>("Upgradeable Framebot");
+			game.ProcessCard("Replicating Menace", asZeroCost: true, zonePosition: 2);
+
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+
+			mech1.Kill();
+			mech2.Kill();
+			mech3.Kill();
+
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+
+			game.ProcessCard("Kangor's Endless Army");
+			Assert.Equal(6, game.CurrentPlayer.BoardZone.Count);
+			for (int i = 3; i < 6; i++)
+			{
+				Minion mech = game.CurrentPlayer.BoardZone[i];
+
+				switch (mech.Card.Name)
+				{
+					case "Glow-Tron":
+						Assert.Equal(4 * mech.Card.ATK, mech.AttackDamage);
+						Assert.Equal(4 * mech.Card.Health, mech.Health);
+						break;
+					case "Wargear":
+						Assert.Equal(mech.Card.ATK + Cards.FromName("Zilliax").ATK, mech.AttackDamage);
+						Assert.Equal(mech.Card.Health + Cards.FromName("Zilliax").Health, mech.Health);
+						Assert.True(mech.HasDivineShield);
+						Assert.True(mech.HasTaunt);
+						Assert.True(mech.HasLifeSteal);
+						Assert.True(mech.AttackableByRush);
+						break;
+					case "Upgradeable Framebot":
+						Assert.Equal(mech.Card.ATK + Cards.FromName("Replicating Menace").ATK, mech.AttackDamage);
+						Assert.Equal(mech.Card.Health + Cards.FromName("Replicating Menace").Health, mech.Health);
+						Assert.True(mech.HasDeathrattle);
+						break;
+					default:
+						throw new System.Exception();
+				}
+			}
 		}
 
 	}
@@ -2671,11 +2744,27 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Academic Espionage"));
+			game.ProcessCard("Academic Espionage");
 
 			Assert.Equal(10, game.CurrentPlayer.DeckZone.Count);
-			Assert.True(game.CurrentPlayer.DeckZone.ToList()
-				.TrueForAll(p => p.Cost == 1 && p.Card.Class == CardClass.PALADIN));
+			IEnumerable<IPlayable> unexpectedCards = game.CurrentPlayer.DeckZone.Where(
+										p => p.Cost != 1 || p.Card.Class != CardClass.PALADIN);
+			foreach (Playable p in unexpectedCards)
+			{
+				Assert.Equal("Unexpected Card", p.Card.Name);
+			}
+
+			// now test it again from the opponents side, to verify we're not cacheing wrong
+			game.EndTurn();
+			game.ProcessCard("Academic Espionage");
+
+			Assert.Equal(10, game.CurrentPlayer.DeckZone.Count);
+			IEnumerable<IPlayable> unexpectedCards2 = game.CurrentPlayer.DeckZone.Where(
+										p => p.Cost != 1 || p.Card.Class != CardClass.ROGUE);
+			foreach (Playable p in unexpectedCards2)
+			{
+				Assert.Equal("Unexpected Card", p.Card.Name);
+			}
 		}
 
 		// ------------------------------------------ SPELL - ROGUE
@@ -3568,8 +3657,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Demonic Project"));
 
-			Assert.Equal(Race.DEMON, game.CurrentPlayer.HandZone.Last().Card.Race);
-			Assert.Equal(Race.DEMON, game.CurrentOpponent.HandZone.First().Card.Race);
+			Assert.True(game.CurrentPlayer.HandZone.Last().Card.IsRace(Race.DEMON));
+			Assert.True(game.CurrentOpponent.HandZone.First().Card.IsRace(Race.DEMON));
 		}
 
 	}
@@ -3871,7 +3960,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, "Omega Assembly"));
 
 			Assert.NotNull(game.CurrentPlayer.Choice);
-			Assert.True(game.CurrentPlayer.SetasideZone.All(p => p.Card.Race == Race.MECHANICAL));
+			Assert.True(game.CurrentPlayer.SetasideZone.All(p => p.Card.IsRace(Race.MECHANICAL)));
 			game.ChooseNthChoice(1);
 
 			game.CurrentPlayer.BaseMana = 10;
@@ -3881,7 +3970,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Null(game.CurrentPlayer.Choice);
 			for (int i = 0; i < 3; i++)
 				Assert.True(game.CurrentPlayer.HandZone
-					[game.CurrentPlayer.HandZone.Count - 1 - i].Card.Race == Race.MECHANICAL);
+					[game.CurrentPlayer.HandZone.Count - 1 - i].Card.IsRace(Race.MECHANICAL));
 		}
 
 		// --------------------------------------- WEAPON - WARRIOR
@@ -4303,6 +4392,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Assert.Single(game.CurrentPlayer.BoardZone);
 			Minion test = game.CurrentPlayer.BoardZone[0];
+			Assert.Equal(5, test.AttackDamage);
 			Assert.NotNull(test.ActivatedTrigger);
 
 			game.EndTurn();
@@ -4559,10 +4649,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - MODULAR = 1
 		// - 853 = 48548
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ReplicatingMenace_BOT_312()
 		{
-			// TODO ReplicatingMenace_BOT_312 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -4576,11 +4665,21 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				FillDecks = true,
 				FillDecksPredictably = true
 			});
+
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Replicating Menace"));
-			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Replicating Menace"));
+
+			Minion testCard = game.ProcessCard<Minion>("Replicating Menace");
+			game.ProcessCard<Minion>("Replicating Menace", zonePosition: 0);
+			Assert.Equal(1, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal(2, testCard.BaseHealth);
+			Assert.Equal(6, testCard.AttackDamage);
+
+			// trigger deathrattle, should spawn 6 Microbots
+			game.ProcessCard<Minion>("Fireworks Tech", testCard, asZeroCost: true, zonePosition: 0);
+			Assert.Equal(7, game.CurrentPlayer.BoardZone.Count);
+			Assert.All(game.CurrentPlayer.BoardZone.Skip(2), m => m.Card.Name.Equals("Microbot"));
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -5436,8 +5535,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				},
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
@@ -5518,6 +5616,53 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kaboom Bot"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Kaboom Bot"));
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [BOT_700] SN1P-SN4P - COST:3 [ATK:2/HP:3] 
+		// - Race: mechanical, Set: boomsday, Rarity: legendary
+		// --------------------------------------------------------
+		// Text: <b>Magnetic</b>, <b>Echo</b>
+		//       <b>Deathrattle:</b> Summon two 1/1 Microbots.
+		// --------------------------------------------------------
+		// GameTag:
+		// - ELITE = 1
+		// - DEATHRATTLE = 1
+		// - ECHO = 1
+		// - MODULAR = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void Sn1pSn4p_BOT_700()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = false,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			Minion testCard = game.ProcessCard<Minion>("SN1P-SN4P");
+			Minion test = game.CurrentPlayer.BoardZone[0];
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last(), null, zonePosition:0); // play echo copy
+			game.ProcessCard(game.CurrentPlayer.HandZone.Last(), null, zonePosition: 0); // play echo copy
+
+			Assert.Equal(9, test.BaseHealth);
+			Assert.Equal(6, test.AttackDamage);
+
+			game.ProcessCard<Minion>("E.M.P. Operative", test, asZeroCost:true, zonePosition: 0);
+
+			Assert.Equal(7, game.CurrentPlayer.BoardZone.Count);
+			int microbotCount = game.CurrentPlayer.BoardZone.Where(m => m.Card.Name.Equals("Microbot")).Count();
+			Assert.Equal(6, microbotCount);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

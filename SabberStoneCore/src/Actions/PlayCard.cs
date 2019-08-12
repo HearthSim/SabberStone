@@ -317,15 +317,10 @@ namespace SabberStoneCore.Actions
 
 				game.DeathProcessingAndAuraUpdate();
 
-				switch (minion.Race)
-				{
-					case Race.ELEMENTAL:
-						c.NumElementalsPlayedThisTurn++;
-						break;
-					case Race.MURLOC:
-						c.NumMurlocsPlayedThisGame++;
-						break;
-				}
+				if (minion.IsRace(Race.ELEMENTAL))
+					c.NumElementalsPlayedThisTurn++;
+				if (minion.IsRace(Race.MURLOC))
+					c.NumMurlocsPlayedThisGame++;
 
 				return true;
 			};
@@ -363,8 +358,11 @@ namespace SabberStoneCore.Actions
 					if (target != null)
 					{
 						game.TaskQueue.StartEvent();
+						int temp = game.CurrentEventData.EventNumber;
+						game.CurrentEventData.EventNumber = chooseOne;
 						game.TriggerManager.OnTargetTrigger(spell);
 						game.ProcessTasks();
+						game.CurrentEventData.EventNumber = temp;
 						game.TaskQueue.EndEvent();
 						if (target.Id != spell.CardTarget)
 						{
@@ -403,7 +401,7 @@ namespace SabberStoneCore.Actions
 				if (game.History)
 					weapon[GameTag.ZONE] = (int) Zone.PLAY;
 
-
+				///
 				// - OnPlay Phase --> OnPlay Trigger (Illidan)
 				//   (death processing, aura updates)
 				game.TaskQueue.StartEvent();
@@ -436,7 +434,8 @@ namespace SabberStoneCore.Actions
 				game.ProcessTasks();
 				game.TaskQueue.EndEvent();
 
-				game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
+				if (game.History)
+					game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());
 
 				// equip new weapon here
 				game.TaskQueue.StartEvent();

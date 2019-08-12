@@ -22,6 +22,8 @@ namespace SabberStoneCore.Auras
 		HANDS,
 		/// <summary> This type of aura only affects the controller of the source of the aura. </summary>
 		CONTROLLER,
+		/// <summary> This type of aura only affects the opponent of the source of the aura. </summary>
+		OPPONENT,
 		/// <summary> This type of aura affects the both controllers. </summary>
 		CONTROLLERS,
 		/// <summary> This type of aura affects the weapon of the source's controller. </summary>
@@ -32,6 +34,8 @@ namespace SabberStoneCore.Auras
 		HERO,
 
 		HEROPOWER,
+
+		OP_HEROPOWER,
 
 		HAND_AND_BOARD,
 

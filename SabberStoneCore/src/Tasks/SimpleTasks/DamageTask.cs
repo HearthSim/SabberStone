@@ -59,7 +59,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				int randAmount = 0;
 				if (RandAmount > 0)
 				{
-					randAmount = Random.Next(0, RandAmount + 1);
+					randAmount = game.Random.Next(0, RandAmount + 1);
 					game.OnRandomHappened(true);
 				}
 

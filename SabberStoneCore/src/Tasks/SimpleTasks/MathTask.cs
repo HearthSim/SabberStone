@@ -125,7 +125,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			stack.Number = Util.Random.Next(Min, Max + 1);
+			stack.Number = game.Random.Next(Min, Max + 1);
 			return TaskState.COMPLETE;
 		}
 	}

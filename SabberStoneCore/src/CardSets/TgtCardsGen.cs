@@ -305,13 +305,23 @@ namespace SabberStoneCore.CardSets
 			// - 890 = 10
 			// --------------------------------------------------------
 			cards.Add("AT_043", new Power {
-				// TODO [AT_043] Astral Communion && Test: Astral Communion_AT_043
-				//PowerTask = null,
-				//Trigger = null,
 				PowerTask = ComplexTask.Create(
-				new DiscardTask(EntityType.HAND),
-						  ComplexTask.ExcessManaCheck,
-						  new ManaCrystalFullTask(10))
+			new DiscardTask(EntityType.HAND),
+			new CustomTask((g,c,s,t,stack) =>
+				{
+					if (c.BaseMana == 10 || c.RemainingMana == 10)
+					{
+						stack.Flag = true;
+						return;
+					}
+
+					c.BaseMana = 10;
+					c.OverloadLocked = 0;
+					c.OverloadOwed = 0;
+					c.UsedMana = 0;
+					c.TemporaryMana = 0;
+				}),
+			new FlagTask(true, new AddCardTo("CS2_013t", EntityType.HAND)))
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -667,8 +677,7 @@ namespace SabberStoneCore.CardSets
 			// - HEROPOWER_DAMAGE = 1
 			// --------------------------------------------------------
 			cards.Add("AT_003", new Power {
-				// TODO [AT_003] Fallen Hero && Test: Fallen Hero_AT_003
-				//Aura = new Aura(AuraType.HERO, new Effect(GameTag.HEROPOWER_DAMAGE, EffectOperator.ADD, 1))
+				Aura = new Aura(AuraType.HERO, new Effect(GameTag.HEROPOWER_DAMAGE, EffectOperator.ADD, 1))
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -786,9 +795,9 @@ namespace SabberStoneCore.CardSets
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
 			cards.Add("AT_004", new Power {
-				// TODO [AT_004] Arcane Blast && Test: Arcane Blast_AT_004
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new FuncNumberTask(p => 2 + p.Controller.CurrentSpellPower * 2),
+					new DamageNumberTask(EntityType.TARGET, false))
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -2013,7 +2022,7 @@ namespace SabberStoneCore.CardSets
 					int count = 0;
 					ReadOnlySpan<Minion> board = p.Controller.BoardZone.GetSpan();
 					for (int i = 0; i < board.Length; i++)
-						if (board[i].Race == Race.PIRATE)
+						if (board[i].IsRace(Race.PIRATE))
 							count++;
 
 					return count;
@@ -2109,8 +2118,7 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("AT_086", new Power {
-				// TODO [AT_086] Saboteur && Test: Saboteur_AT_086
-				//PowerTask = new AddEnchantmentTask("AT_086e", EntityType.OP_HERO_POWER)
+				PowerTask = new AddEnchantmentTask("AT_086e", EntityType.OP_HERO_POWER)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
@@ -2923,10 +2931,9 @@ namespace SabberStoneCore.CardSets
 			// Text: Your Hero Power costs (5) more this turn.
 			// --------------------------------------------------------
 			cards.Add("AT_086e", new Power {
-				// TODO [AT_086e] Villainy && Test: Villainy_AT_086e
-				//PowerTask = null,
-				//Trigger = null,
-
+				Enchant = new Enchant(Effects.AddCost(5)),
+				Trigger = TriggerBuilder.Type(TriggerType.TURN_START)
+					.SetTask(RemoveEnchantmentTask.Task)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

@@ -12,12 +12,14 @@
 // GNU Affero General Public License for more details.
 #endregion
 //#define LOGEVENT
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
+using SabberStoneCore.Exceptions;
 
 //using TaskInstance = System.ValueTuple<SabberStoneCore.Tasks.ISimpleTask, SabberStoneCore.Model.Entities.Controller, SabberStoneCore.Model.Entities.IEntity, SabberStoneCore.Model.Entities.IEntity>;
 
@@ -173,9 +175,6 @@ namespace SabberStoneCore.Model
 
 			queue.Enqueue(new TaskInstance(task, controller, source, target));
 
-			while (_pendingTasks.Count != 0)
-				queue.Enqueue(_pendingTasks.Dequeue());
-
 #if LOGEVENT
 			_game.Log(LogLevel.DEBUG, BlockType.TRIGGER, "TaskQueue",
 				!_game.Logging ? "" : $"{task.GetType().Name} is Enqueued in {_eventStack.Count}th stack");
@@ -204,6 +203,18 @@ namespace SabberStoneCore.Model
 		public void EnqueuePendingTask(in ISimpleTask task, in Controller controller, in IEntity source, in IPlayable target)
 		{
 			_pendingTasks.Enqueue(new TaskInstance(in task, in controller, in source, in target));
+			_hasPendingTask = true;
+		}
+
+		private bool _hasPendingTask;
+
+		public void ResumePendingTasks()
+		{
+			if (!_hasPendingTask) return;
+			_hasPendingTask = false;
+
+			do CurrentQueue.Enqueue(_pendingTasks.Dequeue());
+			while (_pendingTasks.Count != 0);
 		}
 
 		public TaskState Process()
@@ -220,7 +231,20 @@ namespace SabberStoneCore.Model
 			if (_game.History)
 				_game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(task.IsTrigger ? BlockType.TRIGGER : BlockType.POWER, source.Id, "", -1, target?.Id ?? 0));
 
-			TaskState success = task.Process(in _game, in controller, in source, in target);
+			TaskState success;
+#if DEBUG
+			try
+			{
+#endif
+				success = task.Process(in _game, in controller, in source, in target);
+#if DEBUG
+			}
+			catch (Exception e)
+			{
+				throw new TaskException(
+					$"Exception occurs during processing a task.\nTask:{task}, Source:{source}, Target:{target}", e);
+			}
+#endif
 
 			if (_game.History)
 				_game.PowerHistory.Add(PowerHistoryBuilder.BlockEnd());

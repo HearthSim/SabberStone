@@ -2433,7 +2433,7 @@ namespace SabberStoneCoreTest.CardSets
 			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			Assert.Equal(5, game.CurrentOpponent.HandZone.Count);
-			Assert.Equal(Race.DEMON, game.CurrentOpponent.HandZone[4].Card.Race);
+			Assert.True(game.CurrentOpponent.HandZone[4].Card.IsRace(Race.DEMON));
 		}
 
 		// --------------------------------------- MINION - WARLOCK

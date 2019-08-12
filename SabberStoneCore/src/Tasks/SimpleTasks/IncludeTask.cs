@@ -260,7 +260,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				case EntityType.MINIONS:
 					return c.BoardZone.GetAll();
 				case EntityType.GRAVEYARD:
-					return c.GraveyardZone.ToArray();
+					return c.GraveyardZone.GetSpan().ToArray();
 				case EntityType.OP_HAND:
 					return c.Opponent.HandZone.GetAll();
 				case EntityType.OP_DECK:

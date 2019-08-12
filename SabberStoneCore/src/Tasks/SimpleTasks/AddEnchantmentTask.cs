@@ -58,13 +58,13 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			//	Controller Auras (OTEs)
 			if (_entityType == EntityType.CONTROLLER)
 			{
-				Generic.AddEnchantmentBlock.Invoke(controller, _enchantmentCard, (IPlayable) source, controller, n1, n2, entityId);
+				Generic.AddEnchantmentBlock(game, _enchantmentCard, (IPlayable) source, controller, n1, n2, entityId);
 				return TaskState.COMPLETE;
 			}
 
 			if (_entityType == EntityType.OP_CONTROLLER)
 			{
-				Generic.AddEnchantmentBlock.Invoke(controller, _enchantmentCard, (IPlayable) source,
+				Generic.AddEnchantmentBlock(game, _enchantmentCard, (IPlayable) source,
 					controller.Opponent, n1, n2, entityId);
 				return TaskState.COMPLETE;
 			}
@@ -72,7 +72,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			foreach (IPlayable p in IncludeTask.GetEntities(_entityType, in controller, source, target,
 				stack?.Playables))
-				Generic.AddEnchantmentBlock.Invoke(controller, _enchantmentCard, (IPlayable) source, p, n1, n2, entityId);
+				Generic.AddEnchantmentBlock(game, _enchantmentCard, (IPlayable) source, p, n1, n2, entityId);
 
 			return TaskState.COMPLETE;
 		}

@@ -84,7 +84,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					RandomCardTask.GetCardList(source, _cardType, _cardClass, race: _race, rarity: _rarity);
 				foreach (IPlayable p in IncludeTask.GetEntities(_type, in controller, source, target, stack?.Playables))
 				{
-					Card pick = Util.Choose(randCards);
+					Card pick = randCards.Choose(game.Random);
 
 					Generic.ChangeEntityBlock.Invoke(controller, p, pick, _removeEnchantments);
 

@@ -80,7 +80,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				Race race = _race;
 				for (int i = 0; i < deck.Length; i++)
 				{
-					if (deck[i].Card.Race == race)
+					if (deck[i].Card.IsRace(race))
 						indices.Add(i);
 				}
 			}
@@ -102,7 +102,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 			else if (_amount == 1)
 			{
-				int pick = indices[Random.Next(indices.Count)];
+				int pick = indices[game.Random.Next(indices.Count)];
 				if (addToStack)
 					stack.Playables.Add(deck[pick]);
 				Generic.Draw(controller, pick);
@@ -111,7 +111,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			{
 				int amountLeft = _amount;
 				int total = indices.Count;
-				Random rnd = Util.Random;
+				Util.DeepCloneableRandom rnd = game.Random;
 				game.OnRandomHappened(true);
 
 				for (int i = indices.Count - 1; i >= 0; i--)

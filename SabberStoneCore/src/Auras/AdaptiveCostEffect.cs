@@ -1,4 +1,17 @@
-﻿using System;
+﻿#region copyright
+// SabberStone, Hearthstone Simulator in C# .NET Core
+// Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
+//
+// SabberStone is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Affero General Public License as
+// published by the Free Software Foundation, either version 3 of the
+// License.
+// SabberStone is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Affero General Public License for more details.
+#endregion
+using System;
 using System.Text;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
@@ -16,6 +29,9 @@ namespace SabberStoneCore.Auras
 	/// </summary>
 	public class AdaptiveCostEffect : IAura
 	{
+		// Consider make these subclasses
+		private readonly Type _type;
+
 		private readonly Playable _owner;
 		private readonly int _value;
 		private readonly EffectOperator _operator;
@@ -33,8 +49,6 @@ namespace SabberStoneCore.Auras
 		private bool _isTriggered;
 		private bool _isAppliedThisTurn;
 
-		//public (TriggerType Type, TriggerSource Source, SelfCondition Condition) UpdateTrigger;
-
 		/// <summary>
 		/// Creates an Adaptive Cost Effect that varies the owner's cost.
 		/// (e.g. Giants needs subtraction. They costs less for the calculated value from the given cost function.)
@@ -42,10 +56,14 @@ namespace SabberStoneCore.Auras
 		/// </summary>
 		/// <param name="costFunc">The cost function to calculate the amount the owner costs varies.</param>
 		/// <param name="operator">This determines how cost varies.</param>
-		public AdaptiveCostEffect(Func<IPlayable, int> costFunc, EffectOperator @operator = EffectOperator.SUB)
+		/// <param name="condition">The necessary condition for this effect.</param>
+		public AdaptiveCostEffect(Func<IPlayable, int> costFunc, EffectOperator @operator = EffectOperator.SUB,
+			SelfCondition condition = null)
 		{
+			_type = Type.Variable;
 			_costFunction = costFunc;
 			_operator = @operator;
+			_condition = condition;
 		}
 
 		/// <summary>
@@ -59,6 +77,7 @@ namespace SabberStoneCore.Auras
 		public AdaptiveCostEffect(int value, TriggerType trigger,
 			TriggerSource triggerSource = TriggerSource.ALL, SelfCondition triggerCondition = null)
 		{
+			_type = Type.Triggered;
 			_value = value;
 			_triggerType = trigger;
 			_triggerSource = triggerSource;
@@ -68,6 +87,7 @@ namespace SabberStoneCore.Auras
 		public AdaptiveCostEffect(Func<Playable, int> initialisationFunction, Func<IPlayable, int> triggerValueFunction, TriggerType trigger,
 			TriggerSource triggerSource = TriggerSource.ALL, SelfCondition triggerCondition = null)
 		{
+			_type = Type.TriggeredWithInitialisation;
 			_initialisationFunction = initialisationFunction;
 			_costFunction = triggerValueFunction;
 			_triggerType = trigger;
@@ -81,34 +101,36 @@ namespace SabberStoneCore.Auras
 				throw new Exception($"Can't activate {this} to non-playable {owner}");
 
 			_owner = p;
-
-			if (prototype._triggerType != TriggerType.NONE)
+			_type = prototype._type;
+			switch (_type)
 			{
-				_costFunction = prototype._costFunction;
-				_value = prototype._value;
-				_triggerType = prototype._triggerType;
-				_triggerSource = prototype._triggerSource;
-				_condition = prototype._condition;
-				_updateHandler = Trigger;
-				_removedHandler = RemoveAtEnd;
-				_isTriggered = prototype._isTriggered;
-				_isAppliedThisTurn = prototype._isAppliedThisTurn;
-
-				if (prototype._initialisationFunction != null)
-				{
+				case Type.Variable:
+					_costFunction = prototype._costFunction;
+					_operator = prototype._operator;
+					_condition = prototype._condition;
+					return;
+				case Type.Triggered:
+					_value = prototype._value;
+					_triggerType = prototype._triggerType;
+					_triggerSource = prototype._triggerSource;
+					_condition = prototype._condition;
+					break;
+				case Type.TriggeredWithInitialisation:
 					_initialisationFunction = prototype._initialisationFunction;
-					_cachedValue = prototype._initialisationFunction.Invoke(p);
-				}
+					_cachedValue = _initialisationFunction(p);
+					_costFunction = prototype._costFunction;
+					_triggerType = prototype._triggerType;
+					_triggerSource = prototype._triggerSource;
+					_condition = prototype._condition;
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
-			else if (prototype._condition != null)
-			{
-				_condition = prototype._condition;
-			}
-			else
-			{
-				_costFunction = prototype._costFunction;
-				_operator = prototype._operator;
-			}
+
+			_updateHandler = Trigger;
+			_removedHandler = RemoveAtEnd;
+			_isTriggered = prototype._isTriggered;
+			_isAppliedThisTurn = prototype._isAppliedThisTurn;
 		}
 
 		public IPlayable Owner => _owner;
@@ -138,8 +160,14 @@ namespace SabberStoneCore.Auras
 				case TriggerType.CAST_SPELL:
 					owner.Game.TriggerManager.CastSpellTrigger += instance._updateHandler;
 					break;
+				case TriggerType.AFTER_CAST:
+					owner.Game.TriggerManager.AfterCastTrigger += instance._updateHandler;
+					break;
 				case TriggerType.TURN_START:
 					owner.Game.TriggerManager.TurnStartTrigger += instance._updateHandler;
+					break;
+				case TriggerType.ZONE:
+					owner.Game.TriggerManager.ZoneTrigger += instance._updateHandler;
 					break;
 				default:
 					throw new NotImplementedException();
@@ -153,7 +181,7 @@ namespace SabberStoneCore.Auras
 			if (_initialisationFunction != null)
 				return _cachedValue;
 
-			if (_costFunction != null)
+			if (_costFunction != null && (_condition == null || _condition.Eval(_owner)))
 			{
 				if (_operator == EffectOperator.SUB)
 					return value - _costFunction.Invoke(_owner);
@@ -164,7 +192,6 @@ namespace SabberStoneCore.Auras
 				if (_operator == EffectOperator.MUL)
 					return value * _costFunction.Invoke(_owner);
 			}
-				
 
 			if (_isAppliedThisTurn)
 				return _value;
@@ -190,6 +217,9 @@ namespace SabberStoneCore.Auras
 					break;
 				case TriggerType.CAST_SPELL:
 					_owner.Game.TriggerManager.CastSpellTrigger -= _updateHandler;
+					break;
+				case TriggerType.AFTER_CAST:
+					_owner.Game.TriggerManager.AfterCastTrigger -= _updateHandler;
 					break;
 				case TriggerType.TURN_START:
 					_owner.Game.TriggerManager.TurnStartTrigger -= _updateHandler;
@@ -223,11 +253,25 @@ namespace SabberStoneCore.Auras
 				_isAppliedThisTurn = true;
 			}
 			else
-			{
 				_owner._costManager.UpdateAdaptiveEffect();
-			}
-			// TODO History
 		}
+
+		public void Clone(IPlayable clone)
+		{
+			Activate((Playable)clone, true);
+		}
+
+		public override string ToString()
+		{
+			var sb = new StringBuilder("[ACE:");
+			sb.Append(Owner.Card.Name);
+			sb.Append("]");
+			return sb.ToString();
+		}
+
+		public static readonly AdaptiveCostEffect NumEachMinionDiedThisTurn
+			= new AdaptiveCostEffect(p => p.Controller.NumFriendlyMinionsThatDiedThisTurn
+			                              + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn);
 
 		private void Trigger(IEntity sender)
 		{
@@ -236,11 +280,10 @@ namespace SabberStoneCore.Auras
 
 			switch (_triggerSource)
 			{
+				case TriggerSource.FRIENDLY when sender.Controller != Owner.Controller:
+					return;
 				case TriggerSource.ALL:
-					break;
 				case TriggerSource.FRIENDLY:
-					if (sender.Controller != Owner.Controller)
-						return;
 					break;
 				default:
 					throw new NotImplementedException();
@@ -250,7 +293,7 @@ namespace SabberStoneCore.Auras
 			{
 				if (!(sender is IPlayable p)) p = _owner;
 
-				if (!(_condition.Eval(p))) return;
+				if (!_condition.Eval(p)) return;
 			}
 
 			if (_initialisationFunction != null)
@@ -271,21 +314,11 @@ namespace SabberStoneCore.Auras
 			_owner.Game.TriggerManager.EndTurnTrigger -= _removedHandler;
 		}
 
-		public void Clone(IPlayable clone)
+		private enum Type
 		{
-			Activate((Playable)clone, true);
+			Variable,
+			Triggered,
+			TriggeredWithInitialisation
 		}
-
-		public override string ToString()
-		{
-			var sb = new StringBuilder("[ACE:");
-			sb.Append(Owner.Card.Name);
-			sb.Append("]");
-			return sb.ToString();
-		}
-
-		public static readonly AdaptiveCostEffect NumEachMinionDiedThisTurn
-			= new AdaptiveCostEffect(p => p.Controller.NumFriendlyMinionsThatDiedThisTurn
-			                              + p.Controller.Opponent.NumFriendlyMinionsThatDiedThisTurn);
 	}
 }

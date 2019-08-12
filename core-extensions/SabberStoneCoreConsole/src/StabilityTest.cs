@@ -167,7 +167,7 @@ namespace SabberStoneCoreConsole
 	    public static void TestRun()
 	    {
 		    Console.WriteLine("Test started");
-
+		    Console.Write("Count: 0");
 		    Stack<PlayerTask> history = new Stack<PlayerTask>();
 		    for (int i = 0; i < TESTCOUNT; i++)
 		    {
@@ -180,7 +180,7 @@ namespace SabberStoneCoreConsole
 				    Shuffle = false,
 				    SkipMulligan = true,
 				    History = false,
-				    Logging = false,
+				    Logging = true,
 			    };
 			    var clone = new Game(config);
 			    clone.StartGame();
@@ -198,8 +198,12 @@ namespace SabberStoneCoreConsole
 
 			    history.Clear();
 
-			    if (i % (TESTCOUNT / 10) == 0)
-				    Console.WriteLine($"{((double)i / TESTCOUNT) * 100}% done");
+			    //if (i % (TESTCOUNT / 10) == 0)
+				   // Console.WriteLine($"{((double)i / TESTCOUNT) * 100}% done");
+
+				for (int j = 0; j < i.ToString().Length; j++)
+				   Console.Write("\b");
+				Console.Write(i + 1);
 		    }
 		}
 

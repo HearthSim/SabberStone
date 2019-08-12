@@ -340,28 +340,52 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - DISCOVER = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void CrystalsongPortal_DAL_352()
 		{
-			// TODO CrystalsongPortal_DAL_352 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.DRUID,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Crystalsong Portal"),
+					Cards.FromName("Wisp"),
 				},
 				Player2HeroClass = CardClass.DRUID,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crystalsong Portal"));
-			//Spell testCard = game.ProcessCard<Spell>("Crystalsong Portal");
+			Spell testCard = game.ProcessCard<Spell>("Crystalsong Portal");
+			IPlayable chosen = game.ChooseNthChoice(1);
+			Assert.Equal(CardType.MINION, chosen.Card.Type);
+			Assert.Equal(CardClass.DRUID, chosen.Card.Class);
+			Assert.Equal(2, game.Player1.HandZone.Count);
+		}
+
+		[Fact]
+		public void CrystalsongPortal_DAL_352_keepall3()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.DRUID,
+				Player1Deck = new List<Card>()
+				{
+				},
+				Player2HeroClass = CardClass.DRUID,
+				Shuffle = false,
+				FillDecks = false,
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			Spell testCard = game.ProcessCard<Spell>("Crystalsong Portal");
+			Assert.Equal(3, game.Player1.HandZone.Count);
+			Assert.All(game.Player1.HandZone, playable => playable.Card.Type.Equals(CardType.MINION));
+			Assert.All(game.Player1.HandZone, playable => playable.Card.Class.Equals(CardClass.DRUID));
 		}
 
 		// ------------------------------------------ SPELL - DRUID
@@ -2017,7 +2041,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				{
 					Cards.FromName("Hench-Clan Burglar"),
 				},
-				Player2HeroClass = CardClass.ROGUE,
+				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
 				FillDecks = true,
 				FillDecksPredictably = true
@@ -2029,8 +2053,29 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Minion testCard = game.ProcessCard<Minion>("Hench-Clan Burglar");
 			Assert.NotNull(game.CurrentPlayer.Choice);
 			Card[] choiceCards = game.GetChoiceCards();
+			IEnumerable<Card> unexpectedChoices = choiceCards.Where(
+										c => c.Class == CardClass.ROGUE || c.Type != CardType.SPELL);
+			foreach (Card c in unexpectedChoices)
+			{
+				Assert.Equal("Unexpected Card", c.Name);
+			}
 
 			Assert.True(Array.TrueForAll(choiceCards, c => c.Class != CardClass.ROGUE));
+			Assert.True(Array.TrueForAll(choiceCards, c => c.Type == CardType.SPELL));
+
+			// turn the tables to verify we're not using bad cache
+			game.EndTurn();
+			testCard = game.ProcessCard<Minion>("Hench-Clan Burglar");
+			Assert.NotNull(game.CurrentPlayer.Choice);
+			choiceCards = game.GetChoiceCards();
+			unexpectedChoices = choiceCards.Where(
+										c => c.Class == CardClass.MAGE || c.Type != CardType.SPELL);
+			foreach (Card c in unexpectedChoices)
+			{
+				Assert.Equal("Unexpected Card", c.Name);
+			}
+
+			Assert.True(Array.TrueForAll(choiceCards, c => c.Class != CardClass.MAGE));
 			Assert.True(Array.TrueForAll(choiceCards, c => c.Type == CardType.SPELL));
 		}
 
@@ -2050,8 +2095,39 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - MARK_OF_EVIL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void HeistbaronTogwaggle_DAL_417()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.ROGUE,
+				Player1Deck = new List<Card>()
+				{
+				},
+				Player2HeroClass = CardClass.ROGUE,
+				Shuffle = false,
+				FillDecks = false,
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			IPlayable lackey = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("DAL_615"));  // Goblin Lackey
+			game.ProcessCard(lackey);
+
+			Minion testCard = game.ProcessCard<Minion>("Heistbaron Togwaggle");
+			var expectTreasures = new HashSet<string> { "Tolin's Goblet", "Zarog's Crown", "Wondrous Wand", "Golden Kobold" };
+			Card[] choiceCards = game.GetChoiceCards();
+			var choiceNameSet = choiceCards.Select(card => card.Name).ToHashSet();
+			Assert.Equal(expectTreasures, choiceNameSet);
+			int choiceNum = Array.FindIndex(choiceCards, card => card.Name.Equals("Wondrous Wand"));
+			game.ChooseNthChoice(choiceNum + 1);
+			Assert.Single(game.Player1.HandZone);
+			Assert.Equal("Wondrous Wand", game.Player1.HandZone[0].Card.Name);
+		}
+
+		[Fact]
+		public void HeistbaronTogwaggle_DAL_417_failed_battlecry()
 		{
 			// TODO HeistbaronTogwaggle_DAL_417 test
 			var game = new Game(new GameConfig
@@ -2060,18 +2136,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1HeroClass = CardClass.ROGUE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Heistbaron Togwaggle"),
 				},
 				Player2HeroClass = CardClass.ROGUE,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Heistbaron Togwaggle"));
-			//Minion testCard = game.ProcessCard<Minion>("Heistbaron Togwaggle");
+			Minion testCard = game.ProcessCard<Minion>("Heistbaron Togwaggle");
+			Assert.Empty(game.CurrentPlayer.HandZone);
 		}
 
 		// ----------------------------------------- MINION - ROGUE
@@ -2235,26 +2309,35 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - REQ_TARGET_TO_PLAY = 0
 		// - REQ_MINION_TARGET = 0
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Vendetta_DAL_716()
 		{
-			// TODO Vendetta_DAL_716 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.ROGUE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("Vendetta"),
 				},
-				Player2HeroClass = CardClass.ROGUE,
+				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
+
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vendetta"));
+			Assert.Equal(4, testCard.Cost);
+			Minion blinkFox = game.ProcessCard<Minion>("Blink Fox", asZeroCost: true);
+			Assert.True(game.Player1.HandZone.Last().Card.Class != CardClass.ROGUE);
+			Assert.Equal(0, testCard.Cost);
+			Assert.False(testCard.IsValidPlayTarget(game.Player2.Hero));
+			Assert.Equal(10, game.Player1.RemainingMana);
+			game.ProcessCard(testCard, blinkFox);
+			Assert.Equal(10, game.Player1.RemainingMana);
+			Assert.True(blinkFox.IsDead);
+
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vendetta"));
 			//Spell testCard = game.ProcessCard<Spell>("Vendetta");
 		}
@@ -2743,18 +2826,13 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - TAUNT = 1
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ArchVillainRafaam_DAL_422()
 		{
-			// TODO ArchVillainRafaam_DAL_422 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.WARLOCK,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Arch-Villain Rafaam"),
-				},
 				Player2HeroClass = CardClass.WARLOCK,
 				Shuffle = false,
 				FillDecks = true,
@@ -2763,8 +2841,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arch-Villain Rafaam"));
-			//Minion testCard = game.ProcessCard<Minion>("Arch-Villain Rafaam");
+
+			game.ProcessCard<Minion>("Arch-Villain Rafaam");
+			ReadOnlySpan<IPlayable> span = game.CurrentPlayer.HandZone.GetSpan();
+			for (int i = 0; i < span.Length; i++)
+				Assert.True(span[i].Card.Rarity == Rarity.LEGENDARY && span[i].Card.Type == CardType.MINION,
+					$"Hand card {span[i]} is not a legendary minion!");
+			span = game.CurrentPlayer.DeckZone.GetSpan();
+			for (int i = 0; i < span.Length; i++)
+				Assert.True(span[i].Card.Rarity == Rarity.LEGENDARY && span[i].Card.Type == CardType.MINION,
+					$"Deck card {span[i]} is not a legendary minion!");
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -3657,7 +3743,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void HenchClanHag_DAL_087()
 		{
 			// TODO HenchClanHag_DAL_087 test
@@ -3677,8 +3763,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Hench-Clan Hag"));
-			//Minion testCard = game.ProcessCard<Minion>("Hench-Clan Hag");
+			Minion testCard = game.ProcessCard<Minion>("Hench-Clan Hag");
+			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
+			Assert.Equal("Amalgam", game.CurrentPlayer.BoardZone[0].Card.Name);
+			Assert.Equal("Hench-Clan Hag", game.CurrentPlayer.BoardZone[1].Card.Name);
+			Assert.Equal("Amalgam", game.CurrentPlayer.BoardZone[2].Card.Name);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -3895,7 +3984,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// RefTag:
 		// - MARK_OF_EVIL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void EvilCableRat_DAL_400()
 		{
 			// TODO EvilCableRat_DAL_400 test
@@ -3905,18 +3994,21 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1HeroClass = CardClass.MAGE,
 				Player1Deck = new List<Card>()
 				{
-					Cards.FromName("EVIL Cable Rat"),
 				},
 				Player2HeroClass = CardClass.MAGE,
 				Shuffle = false,
-				FillDecks = true,
+				FillDecks = false,
 				FillDecksPredictably = true
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("EVIL Cable Rat"));
-			//Minion testCard = game.ProcessCard<Minion>("EVIL Cable Rat");
+			Minion testCard = game.ProcessCard<Minion>("EVIL Cable Rat");
+
+			List<string> lackeyList = new List<string>() {
+				"Ethereal Lackey", "Faceless Lackey", "Goblin Lackey","Kobold Lackey","Witchy Lackey",};
+			Assert.Single(game.Player1.HandZone);
+			Assert.Contains(game.Player1.HandZone[0].Card.Name, lackeyList);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

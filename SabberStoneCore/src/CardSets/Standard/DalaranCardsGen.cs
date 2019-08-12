@@ -161,9 +161,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("DAL_352", new Power {
-				// TODO [DAL_352] Crystalsong Portal && Test: Crystalsong Portal_DAL_352
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Conditional(SelfCondition.HasMinionInHand,
+					new DiscoverTask(CardType.MINION, CardClass.DRUID),
+					new DiscoverTask(CardType.MINION, CardClass.DRUID, keepAllCondition: c => true))
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -1289,9 +1289,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
 			cards.Add("DAL_417", new Power {
-				// TODO [DAL_417] Heistbaron Togwaggle && Test: Heistbaron Togwaggle_DAL_417
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new ConditionTask(EntityType.SOURCE,
+						SelfCondition.IsControllingLackey),
+					new FlagTask(true, new DiscoverTask(DiscoverType.HEISTBARON_TOGWAGGLE, numberOfChoices: 4)))
 			});
 
 			// ----------------------------------------- MINION - ROGUE
@@ -1377,10 +1378,11 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("DAL_716", new Power {
-				// TODO [DAL_716] Vendetta && Test: Vendetta_DAL_716
-				//PowerTask = null,
-				//Trigger = null,
-				//PowerTask = new DamageTask(4, EntityType.TARGET, true),
+				PowerTask = new DamageTask(4, EntityType.TARGET),
+				Aura = new AdaptiveCostEffect(
+					p => 0,
+					@operator: EffectOperator.SET,
+					condition: SelfCondition.HoldingAnotherClassCard)
 			});
 
 			// ------------------------------------------ SPELL - ROGUE
@@ -2822,7 +2824,7 @@ namespace SabberStoneCore.CardSets.Standard
 					UseScriptTag = true
 				},
 				Trigger = TriggerBuilder.Type(TriggerType.TURN_START)
-					.SetTask(new RemoveEnchantmentTask())
+					.SetTask(RemoveEnchantmentTask.Task)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -2858,7 +2860,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_081e", new Power {
 				Enchant = new Enchant(Effects.CantBeTargetedBySpellsAndHeroPowers),
 				Trigger = TriggerBuilder.Type(TriggerType.TURN_START)
-					.SetTask(new RemoveEnchantmentTask())
+					.SetTask(RemoveEnchantmentTask.Task)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

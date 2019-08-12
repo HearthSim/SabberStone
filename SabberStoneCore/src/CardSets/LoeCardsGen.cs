@@ -52,9 +52,7 @@ namespace SabberStoneCore.CardSets
 			// - SPELLPOWER = 2
 			// --------------------------------------------------------
 			cards.Add("LOE_051", new Power {
-				// TODO [LOE_051] Jungle Moonkin && Test: Jungle Moonkin_LOE_051
-				//PowerTask = null,
-				//Trigger = null,
+				Aura = new Aura(AuraType.OPPONENT, new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, 2))
 			});
 
 			// ------------------------------------------ SPELL - DRUID
@@ -482,7 +480,7 @@ namespace SabberStoneCore.CardSets
 			//       Costs (1) less for each Murloc you control.
 			// --------------------------------------------------------
 			cards.Add("LOE_113", new Power {
-				Aura = new AdaptiveCostEffect(p => p.Controller.BoardZone.GetAll(q => q.Race == Race.MURLOC).Length),
+				Aura = new AdaptiveCostEffect(p => p.Controller.BoardZone.GetAll(q => q.IsRace(Race.MURLOC)).Length),
 				PowerTask = new AddEnchantmentTask("LOE_113e", EntityType.ALLMINIONS)
 			});
 
@@ -730,7 +728,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("LOE_039", new Power {
 				PowerTask = ComplexTask.Create(
-					new ConditionTask(EntityType.SOURCE, new SelfCondition(p => p.Controller.BoardZone.Any(q => q != p && q.Race == Race.MECHANICAL))),
+					new ConditionTask(EntityType.SOURCE, new SelfCondition(p => p.Controller.BoardZone.Any(q => q != p && q.IsRace(Race.MECHANICAL)))),
 					new FlagTask(true, new DiscoverTask(DiscoverType.MECHANICAL)))
 			});
 

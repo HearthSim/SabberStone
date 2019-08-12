@@ -62,6 +62,15 @@ namespace SabberStoneCore.Tasks
 			return new StateTaskList(list);
 		}
 
+		public override string ToString()
+		{
+			var sb = new StringBuilder();
+			for (int i = 0; i < _tasks.Length; i++)
+				sb.Append($"[{_tasks[i].GetType().Name}]");
+
+			return sb.ToString();
+		}
+
 		private string DebuggerDisplay
 		{
 			get

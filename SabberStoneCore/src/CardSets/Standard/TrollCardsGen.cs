@@ -557,29 +557,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_566", new Power {
-				PowerTask = new CustomTask((g, c, s, t, stack) =>
-						{
-							if (c.BoardZone.IsFull) return;
-							int num = c.NumFriendlyMinionsThatDiedThisTurn;
-							for (int i = c.GraveyardZone.Count - 1, k = 0; i >= 0 && k < num; --i)
-							{
-								if (c.GraveyardZone[i].ToBeDestroyed)
-								{
-									Card card = c.GraveyardZone[i].Card;
-									if (card.Type != CardType.MINION)
-										continue;
-									k++;
-									if (card.Race == Race.BEAST)
-									{
-										Entity.FromCard(in c, in card,
-											zone: c.BoardZone, creator: in s);
-										if (c.BoardZone.IsFull) return;
-									}
-								}
-							}
-						})
+				PowerTask = ComplexTask.SummonAllFriendlyDiedThisTurn(SelfCondition.IsRace(Race.BEAST))
 			});
-
 			// ---------------------------------------- WEAPON - HUNTER
 			// [TRL_111] Headhunter's Hatchet - COST:2 [ATK:2/HP:0] 
 			// - Set: troll, Rarity: common
@@ -699,10 +678,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_319", new Power {
-				// TODO [TRL_319] Spirit of the Dragonhawk && Test: Spirit of the Dragonhawk_TRL_319
+				// TODO [TRL_319] Spirit of the Dragonhawk
 				InfoCardId = "TRL_319e",
-				//PowerTask = null,
-				//Trigger = null,
+				Trigger = TriggerLibrary.SpiritTrigger(
+					TriggerBuilder.Type(TriggerType.TARGET)
+						.SetTask(ComplexTask.Create(
+							new IncludeAdjacentTask(EntityType.EVENT_TARGET),
+							new EnqueuePendingTask(EntityType.STACK)))
+						.SetCondition(SelfCondition.IsHeroPowerTargetingMinion)
+						.SetSource(TriggerSource.FRIENDLY))
 			});
 
 			// ------------------------------------------ MINION - MAGE
@@ -715,10 +699,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_390", new Power {
-				// TODO [TRL_390] Daring Fire-Eater && Test: Daring Fire-Eater_TRL_390
-				InfoCardId = "TRL_390e",
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = new AddEnchantmentTask("TRL_390e2", EntityType.HERO)
 			});
 
 			// ------------------------------------------- SPELL - MAGE
@@ -849,8 +830,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("TRL_306", new Power {
 				// TODO [TRL_306] Immortal Prelate && Test: Immortal Prelate_TRL_306
-				//PowerTask = null,
-				//Trigger = null,
+				DeathrattleTask = SpecificTask.ImmortalPrelate
 			});
 
 			// --------------------------------------- MINION - PALADIN
@@ -1010,7 +990,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("TRL_302e", new Power {
 				Enchant = new Enchant(Effects.Immune),
 				Trigger = TriggerBuilder.Type(TriggerType.TURN_START)
-					.SetTask(new RemoveEnchantmentTask())
+					.SetTask(RemoveEnchantmentTask.Task)
 					.GetTrigger()
 			});
 
@@ -1052,7 +1032,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("TRL_259", new Power {
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
-					new FilterStackTask(SelfCondition.IsTagValue(GameTag.ENTITY_ID, 68, RelaSign.GEQ)),
+					new FilterStackTask(SelfCondition.IsTagValue(GameTag.ENTITY_ID, 68, RelaSign.GEQ), SelfCondition.IsMinion),
 					new SummonStackTask(true))
 			});
 
@@ -1096,8 +1076,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_408", new Power {
-				// TODO: Possible performance overhead
-				//Aura = new AdaptiveCostEffect(p => p.Controller.PlayHistory.Count(h => h.SourceCard.Type == CardType.SPELL))
 				Aura = new AdaptiveCostEffect(
 					initialisationFunction: p => p.Card.Cost - p.Controller.PlayHistory.Count(h => h.SourceCard.Type == CardType.SPELL),
 					triggerValueFunction: p => -1,
@@ -1197,7 +1175,7 @@ namespace SabberStoneCore.CardSets.Standard
 						return;
 					}
 
-					Random rnd = Util.Random;
+					Util.DeepCloneableRandom rnd = g.Random;
 					g.OnRandomHappened(true);
 					allMinions.Shuffle(rnd);
 
@@ -1551,7 +1529,7 @@ namespace SabberStoneCore.CardSets.Standard
 						}
 
 						g.OnRandomHappened(true);
-						Generic.Draw(c, deck[Util.Choose(indices)]);
+						Generic.Draw(c, deck[indices.Choose(g.Random)]);
 					}))
 					.SetSource(TriggerSource.FRIENDLY)
 					.GetTrigger())
@@ -1569,15 +1547,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_085", new Power {
-				//Aura = new Aura(AuraType.HERO, "TRL_085e"),
-				// TODO
-				//Trigger = TriggerBuilder.Type(TriggerType.CAST_SPELL)
-				//	.SetTask(ComplexTask.Create(
-				//		new IncludeAdjacentTask(EntityType.EVENT_TARGET),
-				//		new EnqueuePendingTask(EntityType.STACK)))
-				//	.SetCondition(SelfCondition.IsSpellTargetingMinion)
-				//	.SetSource(TriggerSource.FRIENDLY)
-				//	.GetTrigger()
+				Trigger = TriggerBuilder.Type(TriggerType.TARGET)
+					.SetTask(ComplexTask.Create(
+						new IncludeAdjacentTask(EntityType.EVENT_TARGET),
+						new EnqueuePendingTask(EntityType.STACK)))
+					.SetCondition(SelfCondition.IsSpellTargetingMinion)
+					.SetSource(TriggerSource.FRIENDLY)
+					.GetTrigger()
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -2197,7 +2173,7 @@ namespace SabberStoneCore.CardSets.Standard
 						}
 
 						g.OnRandomHappened(true);
-						int pick = Util.Random.Next(2);
+						int pick = g.Random.Next(2);
 						IPlayable giveaway = stack.Playables[pick];
 						giveaway.Controller = c.Opponent;
 						giveaway[GameTag.CONTROLLER] = c.Opponent.PlayerId;
@@ -2724,7 +2700,7 @@ namespace SabberStoneCore.CardSets.Standard
 						IPlayable source = (IPlayable)s;
 
 						for (int i = 0; i < stack.Playables.Count; i++)
-							Generic.AddEnchantmentBlock(c, eCard, source, s, 0, 0, stack.Playables[i].Id);
+							Generic.AddEnchantmentBlock(g, eCard, source, s, 0, 0, stack.Playables[i].Id);
 					}))
 			});
 
@@ -3036,8 +3012,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_390e2", new Power {
-				// TODO [TRL_390e2] Flameweaving && Test: Flameweaving_TRL_390e2
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRL_390e2")
+				Enchant = new Enchant(GameTag.HEROPOWER_DAMAGE, EffectOperator.ADD, 2),
+				Trigger = TriggerBuilder
+					.Type(TriggerType.INSPIRE)
+					.SetTask(RemoveEnchantmentTask.Task)
+					.SetRemoveAfterTriggered()
+					.GetTrigger()
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

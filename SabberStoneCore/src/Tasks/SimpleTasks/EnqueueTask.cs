@@ -76,15 +76,47 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			if (_task == null)
 			{
-				ISimpleTask task = source.Card.Power.PowerTask;
-				if (source.Card.HasOverload)
+				ISimpleTask task;
+				if (target.Card.ChooseOne)
+				{
+					int chooseOne = game.CurrentEventData.EventNumber;
+
+					string id = target.Card.Id;
+					if (controller.ChooseBoth
+					    && !id.Equals("EX1_165")	// OG_044a, using choose one 0 option
+					    && !id.Equals("BRM_010")	// OG_044b, using choose one 0 option
+					    && !id.Equals("AT_042")		// OG_044c, using choose one 0 option
+					    && !id.Equals("UNG_101")	// UNG_101t3
+					    && !id.Equals("ICC_051")	// ICC_051t3
+					    && !id.Equals("ICC_047"))	// using choose one 0 option
+					{
+						foreach (IPlayable p in targets)
+						{
+							game.TaskQueue.EnqueuePendingTask(target.ChooseOnePlayables[0].Card.Power.PowerTask,
+								in controller, target, in p);
+							game.TaskQueue.EnqueuePendingTask(target.ChooseOnePlayables[1].Card.Power.PowerTask,
+								in controller, target, in p);
+						}
+
+						return TaskState.COMPLETE;
+					}
+
+					if (!controller.ChooseBoth && chooseOne > 0)
+						task = target.ChooseOnePlayables[chooseOne - 1].Card.Power.PowerTask;
+					else
+						return TaskState.STOP;
+				}
+				else
+					task = target.Card.Power.PowerTask;
+
+				if (target.Card.HasOverload)
 					task = ComplexTask.Create(task, OverloadTask.Task);
 				foreach (IPlayable p in targets)
-					game.TaskQueue.EnqueuePendingTask(in task, in controller, in source, in p);
+					game.TaskQueue.EnqueuePendingTask(in task, in controller, target, in p);
 			}
 			else
 				foreach (IPlayable p in targets)
-					game.TaskQueue.EnqueuePendingTask(in _task, in controller, in source, in p);
+					game.TaskQueue.EnqueuePendingTask(in _task, in controller, target, in p);
 
 			return TaskState.COMPLETE;
 		}

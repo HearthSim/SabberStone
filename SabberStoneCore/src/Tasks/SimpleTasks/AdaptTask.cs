@@ -75,7 +75,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (targets.Count == 0)
 				return TaskState.STOP;
 
-			Card[] results = TotalAdaptCards.ChooseNElements(3);
+			Card[] results = TotalAdaptCards.ChooseNElements(3, game.Random);
 
 			Generic.CreateChoiceCards.Invoke(controller, source, targets, ChoiceType.GENERAL, ChoiceAction.ADAPT,
 				results, null);

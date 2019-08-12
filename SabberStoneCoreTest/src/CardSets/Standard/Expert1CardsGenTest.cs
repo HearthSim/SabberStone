@@ -382,6 +382,44 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		}
 
 		// ------------------------------------------ SPELL - DRUID
+		// [EX1_183] Gift of the Wild - COST:8 
+		// - Set: expert1, Rarity: common
+		// --------------------------------------------------------
+		// Text: Give your minions +2/+2 and <b>Taunt</b>.
+		// --------------------------------------------------------
+		// RefTag:
+		// - TAUNT = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void GiftOfTheWild_EX1_183()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.DRUID,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Gift of the Wild"),
+				},
+				Player2HeroClass = CardClass.DRUID,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			Minion m1 = game.ProcessCard<Minion>("Wisp");
+			Minion m2 = game.ProcessCard<Minion>("Wisp");
+			Minion m3 = game.ProcessCard<Minion>("Wisp");
+			Spell testCard = game.ProcessCard<Spell>("Gift of the Wild");
+
+			Assert.All(game.Player1.BoardZone, m => Assert.Equal(3, m1.Health));
+			Assert.All(game.Player1.BoardZone, m => Assert.True(m.HasTaunt));
+		}
+
+		// ------------------------------------------ SPELL - DRUID
 		// [EX1_570] Bite - COST:4 
 		// - Fac: neutral, Set: expert1, Rarity: rare
 		// --------------------------------------------------------
@@ -1559,6 +1597,30 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+
+			// The spell card will still be consumed and its mana cost expended.
+			// However, any Overload will not be applied,
+			// since Overload is part of the card's text, not its cost.
+			game.ProcessCard("Counterspell");
+			game.EndTurn();
+			Spell s = game.ProcessCard<Spell>("Lightning Bolt", game.CurrentOpponent.Hero);
+			Assert.True(s.IsCountered);
+			Assert.Equal(0, game.CurrentPlayer.OverloadOwed);
+			game.EndTurn();
+
+			// Since patch 11.2.0, any effects which activate from the spell being cast
+			// or completed will not be triggered.
+			// This includes both 'whenever you cast a spell' as well as 'after you cast a spell' effects.
+			game.ProcessCard("Counterspell");
+			game.EndTurn();
+
+			game.ProcessCard("Archmage Antonidas", asZeroCost: true);
+			Minion pyromancer = game.ProcessCard<Minion>("Wild Pyromancer", asZeroCost: true);
+			int handCountBefore = game.CurrentPlayer.HandZone.Count;
+			game.ProcessCard("Moonfire", game.CurrentOpponent.Hero);
+			Assert.Equal(handCountBefore, game.CurrentPlayer.HandZone.Count);
+			Assert.Equal(0, pyromancer.Damage);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -1875,7 +1937,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				},
 				Player2HeroClass = CardClass.MAGE,
 				FillDecks = false,
-				History = false,
+				History = false
 			});
 			game2.StartGame();
 			game2.Player1.BaseMana = 3;
@@ -2063,6 +2125,44 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			Assert.Equal(5, game.CurrentPlayer.Opponent.HandZone.Count);
+		}
+
+		// ---------------------------------------- SPELL - PALADIN
+		// [EX1_184] Righteousness - COST:5 
+		// - Set: expert1, Rarity: rare
+		// --------------------------------------------------------
+		// Text: Give your minions <b>Divine Shield</b>.
+		// --------------------------------------------------------
+		// RefTag:
+		// - DIVINE_SHIELD = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void Righteousness_EX1_184()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PALADIN,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Righteousness"),
+				},
+				Player2HeroClass = CardClass.PALADIN,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			Minion m1 = game.ProcessCard<Minion>("Wisp");
+			Minion m2 = game.ProcessCard<Minion>("Wisp");
+			Minion m3 = game.ProcessCard<Minion>("Wisp");
+
+			Spell testCard = game.ProcessCard<Spell>("Righteousness");
+
+			Assert.All(game.Player1.BoardZone, m => Assert.True(m.HasDivineShield));
 		}
 
 		// ---------------------------------------- SPELL - PALADIN
@@ -4302,8 +4402,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
 			Assert.Equal(6, game.CurrentPlayer.HandZone.Count);
-			Assert.Equal(Race.DEMON, game.CurrentPlayer.HandZone[5].Card.Race);
-			Assert.Equal(Race.DEMON, game.CurrentPlayer.HandZone[4].Card.Race);
+			Assert.True(game.CurrentPlayer.HandZone[5].Card.IsRace(Race.DEMON));
+			Assert.True(game.CurrentPlayer.HandZone[4].Card.IsRace(Race.DEMON));
 		}
 
 		// ---------------------------------------- SPELL - WARLOCK
@@ -4417,6 +4517,48 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
 			Assert.Equal(3, ((ICharacter)minion2).Health);
+		}
+
+		// --------------------------------------- MINION - WARLOCK
+		// [EX1_185] Siegebreaker - COST:7 [ATK:5/HP:8] 
+		// - Race: demon, Set: expert1, Rarity: rare
+		// --------------------------------------------------------
+		// Text: <b>Taunt</b>
+		//       Your other Demons have +1 Attack.
+		// --------------------------------------------------------
+		// GameTag:
+		// - TAUNT = 1
+		// - AURA = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void Siegebreaker_EX1_185()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.WARLOCK,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Siegebreaker"),
+				},
+				Player2HeroClass = CardClass.WARLOCK,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			Minion demon1 = game.ProcessCard<Minion>("Flame Imp");
+			Minion wisp = game.ProcessCard<Minion>("Wisp");
+			Assert.Equal(3, demon1.AttackDamage);
+			Assert.Equal(1, wisp.AttackDamage);
+
+			Minion testCard = game.ProcessCard<Minion>("Siegebreaker");
+			Assert.Equal(4, demon1.AttackDamage);
+			Assert.Equal(1, wisp.AttackDamage);
+			Assert.Equal(5, testCard.AttackDamage);  // does not buff itself
 		}
 
 		// --------------------------------------- MINION - WARLOCK
@@ -5558,7 +5700,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Venture Co. Mercenary"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
-
+			
 			Assert.Equal(costA + 3, game.CurrentPlayer.HandZone[0].Cost);
 
 			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ironbeak Owl"));
@@ -7241,6 +7383,200 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Emperor Cobra"));
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [EX1_186] SI:7 Infiltrator - COST:4 [ATK:5/HP:4] 
+		// - Set: expert1, Rarity: rare
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Destroy a random enemy <b>Secret</b>.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		// RefTag:
+		// - SECRET = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void Si7Infiltrator_EX1_186()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("SI:7 Infiltrator"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			game.ProcessCard<Spell>("Counterspell");
+			game.ProcessCard<Spell>("Vaporize");
+			game.ProcessCard<Spell>("Ice Barrier");
+			game.EndTurn();
+
+			Assert.Equal(3, game.Player1.SecretZone.Count);
+			Minion testCard = game.ProcessCard<Minion>("SI:7 Infiltrator");
+			Assert.Equal(2, game.Player1.SecretZone.Count);
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [EX1_187] Arcane Devourer - COST:8 [ATK:5/HP:5] 
+		// - Race: elemental, Set: expert1, Rarity: rare
+		// --------------------------------------------------------
+		// Text: Whenever you cast a spell, gain +2/+2.
+		// --------------------------------------------------------
+		[Fact]
+		public void ArcaneDevourer_EX1_187()
+		{
+			// TODO ArcaneDevourer_EX1_187 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Arcane Devourer"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			Minion testCard = game.ProcessCard<Minion>("Arcane Devourer");
+			Assert.Equal(5, testCard.Health);
+			Assert.Equal(5, testCard.AttackDamage);
+
+			game.ProcessCard<Spell>("Counterfeit Coin");
+			game.ProcessCard<Spell>("Counterfeit Coin");
+			Assert.Equal(9, testCard.Health);
+			Assert.Equal(9, testCard.AttackDamage);
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [EX1_188] Barrens Stablehand - COST:7 [ATK:4/HP:4] 
+		// - Set: expert1, Rarity: epic
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Summon a random Beast.
+		// --------------------------------------------------------
+		// GameTag:
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void BarrensStablehand_EX1_188()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Barrens Stablehand"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			Minion testCard = game.ProcessCard<Minion>("Barrens Stablehand");
+			Assert.Equal(2, game.Player1.BoardZone.Count);
+			Assert.True(game.Player1.BoardZone[1].IsRace(Race.BEAST));
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [EX1_189] Brightwing - COST:3 [ATK:3/HP:2] 
+		// - Race: dragon, Set: expert1, Rarity: legendary
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Add a random <b>Legendary</b> minion to your_hand.
+		// --------------------------------------------------------
+		// GameTag:
+		// - ELITE = 1
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void Brightwing_EX1_189()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			Assert.Equal(4, game.Player1.HandZone.Count);
+			Minion testCard = game.ProcessCard<Minion>("Brightwing");
+			Assert.Equal(5, game.Player1.HandZone.Count);
+			Assert.Equal(Rarity.LEGENDARY, game.Player1.HandZone[4].Card.Rarity);
+		}
+
+		// --------------------------------------- MINION - NEUTRAL
+		// [EX1_190] High Inquisitor Whitemane - COST:7 [ATK:6/HP:8] 
+		// - Set: expert1, Rarity: legendary
+		// --------------------------------------------------------
+		// Text: <b>Battlecry:</b> Summon all friendly minions that died_this turn.
+		// --------------------------------------------------------
+		// GameTag:
+		// - ELITE = 1
+		// - BATTLECRY = 1
+		// --------------------------------------------------------
+		[Fact]
+		public void HighInquisitorWhitemane_EX1_190()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.MAGE,
+				Player1Deck = new List<Card>()
+				{
+					Cards.FromName("High Inquisitor Whitemane"),
+				},
+				Player2HeroClass = CardClass.MAGE,
+				Shuffle = false,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			var testMinions = new List<string> { "Wisp", "Goldshire Footman", "River Crocolisk", "Spider Tank",
+				"Chillwind Yeti", "Fen Creeper", "Boulderfist Ogre" };
+
+			testMinions.ForEach(s => game.ProcessCard<Minion>(s, asZeroCost: true));
+			game.ProcessCard<Spell>("Twisting Nether", asZeroCost:true);
+			Assert.Equal(0, game.Player1.BoardZone.Count);
+
+			game.ProcessCard<Minion>("High Inquisitor Whitemane");  // will resurect all except Boulderfist Ogre (board space limit)
+			Assert.Equal(7, game.Player1.BoardZone.Count);
+			var resurrectedMinionNames = game.Player1.BoardZone.Skip(1).Select(m => m.Card.Name).ToList();
+			Assert.Equal(testMinions.Take(6), resurrectedMinionNames);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

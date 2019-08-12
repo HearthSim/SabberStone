@@ -54,19 +54,19 @@ namespace SabberStoneCore.Model
 	/// <seealso cref="Entity" />
 	public partial class Game : Entity
 	{
-		private readonly GameConfig _gameConfig;
-
-		private Controller _currentPlayer;
-
 		/// <summary>
 		/// The entityID of the game itself is always 1.
 		/// </summary>
-		internal const int GAME_ENTITYID = 1;
+		public const int GAME_ENTITYID = 1;
 
 		/// <summary>
 		/// The maximum minions that are allowed on the board.
 		/// </summary>
 		public const int MAX_MINIONS_ON_BOARD = 7;
+
+		private readonly GameConfig _gameConfig;
+
+		private Controller _currentPlayer;
 
 		/// <summary>
 		/// List of activated auras.
@@ -116,6 +116,7 @@ namespace SabberStoneCore.Model
 		/// </summary>
 		/// <value>The index of the next clone.</value>
 		public int NextCloneIndex { get; set; } = 1;
+		internal Util.DeepCloneableRandom Random { get; set; }
 
 		///// <summary>
 		///// Gets or sets the list of splitted (and fully resolved) games, derived from this game.
@@ -270,7 +271,9 @@ namespace SabberStoneCore.Model
 				[GameTag.CARDTYPE] = (int)CardType.GAME
 			})
 		{
-			//IdEntityDic = new Dictionary<int, IPlayable>(75);
+			Random = gameConfig.RandomSeed is null ?
+				new Util.DeepCloneableRandom() :
+				new Util.DeepCloneableRandom(gameConfig.RandomSeed.Value);
 			IdEntityDic = new EntityList(75);
 			_gameConfig = gameConfig;
 			Game = this;
@@ -280,7 +283,18 @@ namespace SabberStoneCore.Model
 
 			bool history = gameConfig.History;
 			if (gameConfig.Logging)
+			{
+				_logging = true;
 				Logs = new Queue<LogEntry>();
+			}
+
+			if (history)
+			{
+				_history = true;
+				EntityChoicesMap = new Dictionary<int, PowerEntityChoices>();
+				AllOptionsMap = new Dictionary<int, PowerAllOptions>();
+				PowerHistory = new PowerHistory();
+			}
 
 			EntityData p1Dict = history
 				? new EntityData(64)
@@ -322,13 +336,7 @@ namespace SabberStoneCore.Model
 			_players[1] = new Controller(this, gameConfig.Player2Name, 2, 3, p2Dict);
 
 			// add power history create game
-			if (history)
-			{
-				EntityChoicesMap = new Dictionary<int, PowerEntityChoices>();
-				AllOptionsMap = new Dictionary<int, PowerAllOptions>();
-				PowerHistory = new PowerHistory();
-				PowerHistory.Add(PowerHistoryBuilder.CreateGame(this, _players));
-			}
+			if (history) PowerHistory.Add(PowerHistoryBuilder.CreateGame(this, _players));
 
 			if (setupHeroes)
 			{
@@ -369,16 +377,21 @@ namespace SabberStoneCore.Model
 		}
 
 		/// <summary> A copy constructor. </summary>
-		private Game(Game game, bool logging = false) : base(null, game)
+		private Game(Game game, bool logging, bool resetRandomSeed, bool history) : base(null, game)
 		{
 			//IdEntityDic = new Dictionary<int, IPlayable>(game.IdEntityDic.Count);
 			IdEntityDic = new EntityList(game.IdEntityDic.Count);
 			Game = this;
 
 			if (logging)
-				Logs = new Queue<LogEntry>();	// Logs are not cloned.
-			if (game.History)
 			{
+				_logging = true;
+				Logs = new Queue<LogEntry>();	// Logs are not cloned.
+			}
+
+			if (history)
+			{
+				_history = true;
 				PowerHistory = new PowerHistory();
 				EntityChoicesMap = new Dictionary<int, PowerEntityChoices>();
 				AllOptionsMap = new Dictionary<int, PowerAllOptions>();
@@ -395,8 +408,11 @@ namespace SabberStoneCore.Model
 
 			_gameConfig = game._gameConfig.Clone();
 			_gameConfig.Logging = logging;
+			_gameConfig.History = history;
 
 			CloneIndex = game.CloneIndex + $"[{game.NextCloneIndex++}]";
+
+			Random = resetRandomSeed ? new Util.DeepCloneableRandom() : game.Random.Clone();
 
 			Player1 = game.Player1.Clone(this);
 			Player2 = game.Player2.Clone(this);
@@ -461,7 +477,7 @@ namespace SabberStoneCore.Model
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : gameTask.FullPrint());
 
 			// clear last power history
-			PowerHistory.Last.Clear();
+			PowerHistory?.Last.Clear();
 
 			// make sure that we only use task for this game ...
 			if (gameTask.Game != this)
@@ -553,7 +569,12 @@ namespace SabberStoneCore.Model
 		/// <summary>
 		/// Part of the state machine.
 		/// Runs when STATE = RUNNING.
+		/// First player is determined here.
+		/// For true <paramref name="stopBeforeShuffling"/> the order of cards in decks
+		/// and the first hands of both players are determined too.
 		/// </summary>
+		/// <param name="stopBeforeShuffling">true if you want to start shuffling
+		/// and drawing cards later.</param>
 		public void StartGame(bool stopBeforeShuffling = false)
 		{
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : "Starting new game now!");
@@ -568,7 +589,7 @@ namespace SabberStoneCore.Model
 
 			// getting first player
 			FirstPlayer = _gameConfig.StartPlayer < 0
-				? _players[Util.Random.Next(0, 2)]
+				? _players[Random.Next(0, 2)]
 				: _players[_gameConfig.StartPlayer - 1];
 			CurrentPlayer = FirstPlayer;
 
@@ -979,7 +1000,7 @@ namespace SabberStoneCore.Model
 			}
 
 			// count next turn
-			Turn++;
+			Turn += 1;
 
 			Log(LogLevel.INFO, BlockType.PLAY, "Game", !Logging ? "" : $"CurentPlayer {CurrentPlayer.Name}.");
 
@@ -1138,6 +1159,7 @@ namespace SabberStoneCore.Model
 		internal void ProcessTasks()
 		{
 			TaskQueue queue = TaskQueue;
+			queue.ResumePendingTasks();
 			while (!queue.IsEmpty)
 			{
 				if (queue.Process() != TaskState.COMPLETE)
@@ -1188,9 +1210,9 @@ namespace SabberStoneCore.Model
 		/// Performs a deep copy of this game instance and returns the result.
 		/// </summary>
 		/// <returns></returns>
-		public Game Clone(bool logging = false)
+		public Game Clone(bool logging = false, bool resetRandomSeed = true, bool history = false)
 		{
-			return new Game(this, logging);
+			return new Game(this, logging, resetRandomSeed, history);
 		}
 
 		/// <summary>Builds and stores a logentry, from the specified log message.</summary>
@@ -1301,7 +1323,7 @@ namespace SabberStoneCore.Model
 		public Controller CurrentPlayer
 		{
 			get => _currentPlayer;
-			private set
+			set
 			{
 				_currentPlayer = value;
 				if (!History) return;

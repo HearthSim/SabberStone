@@ -112,7 +112,7 @@ namespace SabberStoneKettle
 		}
 
 		public int EntityId;
-		public Dictionary<int, int> Tags;
+		public IDictionary<int, int> Tags;
 	}
 
 	public class KettlePlayer
@@ -539,7 +539,7 @@ namespace SabberStoneKettle
 			return packet;
 		}
 
-		public static Dictionary<int, int> TagsToKettleTags(Dictionary<GameTag, int> tags)
+		public static IDictionary<int, int> TagsToKettleTags(IDictionary<GameTag, int> tags)
 		{
 			return tags.OrderBy(p => p.Key).ToDictionary(p => (int)p.Key, p => p.Value);
 		}

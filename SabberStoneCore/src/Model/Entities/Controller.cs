@@ -130,7 +130,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <summary>
 		/// Returns true if this player has a dragon in his hand.
 		/// </summary>
-		public bool DragonInHand => HandZone.Any(p => p.Card.Race == Race.DRAGON);
+		public bool DragonInHand => HandZone.Any(p => p.Card.IsRace(Race.DRAGON));
 
 		public int NumTotemSummonedThisGame { get; set; }
 
@@ -189,7 +189,7 @@ namespace SabberStoneCore.Model.Entities
 
 			ControlledZones = new ControlledZones(this);
 
-			ControllerAuraEffects = new ControllerAuraEffects();
+			ControllerAuraEffects = new ControllerAuraEffects(in game, this);
 
 			DiscardedEntities = new List<int>();
 			CardsPlayedThisTurn = new List<Card>(10);
@@ -233,7 +233,7 @@ namespace SabberStoneCore.Model.Entities
 			BaseClass = controller.BaseClass;
 
 			ControlledZones = new ControlledZones(this);
-			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();
+			ControllerAuraEffects = controller.ControllerAuraEffects.Clone(this);
 
 			PlayHistory = new List<PlayHistoryEntry>(controller.PlayHistory);
 			DiscardedEntities = new List<int>(controller.DiscardedEntities);
@@ -255,7 +255,6 @@ namespace SabberStoneCore.Model.Entities
 
 			// non-tag attributes
 			_playerId = controller._playerId;
-			_currentSpellPower = controller._currentSpellPower;
 			NumTotemSummonedThisGame = controller.NumTotemSummonedThisGame;
 			TemporusFlag = controller.TemporusFlag;
 		}
@@ -551,7 +550,7 @@ namespace SabberStoneCore.Model.Entities
 			Character[] GetTargets(Card card)
 			{
 				// Check it needs additional validation
-				if (!card.TargetingAvailabilityPredicate?.Invoke(this) ?? false)
+				if (!card.TargetingAvailabilityPredicate?.Invoke(this, card) ?? false)
 					return null;
 
 				Character[] targets;
@@ -645,7 +644,7 @@ namespace SabberStoneCore.Model.Entities
 					}
 					else
 					{
-						if (!card.TargetingAvailabilityPredicate?.Invoke(this) ?? false)
+						if (!card.TargetingAvailabilityPredicate?.Invoke(this, card) ?? false)
 							return null;
 
 						Character[] buffer = new Character[targets.Length];
@@ -1227,13 +1226,10 @@ namespace SabberStoneCore.Model.Entities
 		/// </summary>
 		public int CurrentSpellPower
 		{
-			get => _currentSpellPower;
-			set
-			{
-				_currentSpellPower = value;
-				if (Game.History)
-					this[GameTag.CURRENT_SPELLPOWER] = value;
-			}
+			get => BoardZone.Sum(m => m.SpellPower)
+				+ (Hero.NativeTags.ContainsKey(GameTag.SPELLPOWER) ? Hero.NativeTags[GameTag.SPELLPOWER] : 0)
+				+ (NativeTags.ContainsKey(GameTag.SPELLPOWER) ? NativeTags [GameTag.SPELLPOWER] : 0)
+				+ ControllerAuraEffects[GameTag.SPELLPOWER];
 		}
 
 		public int AmountHealedThisGame
@@ -1248,7 +1244,6 @@ namespace SabberStoneCore.Model.Entities
 			set => this[GameTag.NUM_HERO_POWER_DAMAGE_THIS_GAME] = value;
 		}
 
-		private int _currentSpellPower;
 		private Controller _opponent;
 	}
 }

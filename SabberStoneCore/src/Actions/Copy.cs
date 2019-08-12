@@ -73,8 +73,8 @@ namespace SabberStoneCore.Actions
 					
 				}
 
-				var kvps = new KeyValuePair<GameTag, int>[source.NativeTags.Count];
-				source.NativeTags.CopyTo(kvps, 0);
+				//var kvps = new KeyValuePair<GameTag, int>[source.NativeTags.Count];
+				//source.NativeTags.CopyTo(kvps, 0);
 
 				//for (int i = 0; i < kvps.Length; i++)
 				//{

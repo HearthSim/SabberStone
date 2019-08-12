@@ -29,7 +29,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			int random = Util.Random.Next(0, 2);
+			int random = game.Random.Next(0, 2);
 
 			if (!UseFlag) return random == 0 ? TaskState.COMPLETE : TaskState.STOP;
 

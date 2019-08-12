@@ -5,6 +5,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using System.Collections.Generic;
 using System.Linq;
+using SabberStoneCore.Model.Zones;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -398,7 +399,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			var testCard = (Spell)game.ProcessCard<Spell>("Predatory Instincts");
 			IPlayable drawn = game.IdEntityDic[game.CurrentPlayer.LastCardDrawn];
 
-			Assert.Equal(Race.BEAST, drawn.Card.Race);
+			Assert.True(drawn.Card.IsRace(Race.BEAST));
 			Assert.Equal(drawn.Card.Health * 2, ((Minion)drawn).Health);
 		}
 
@@ -1030,10 +1031,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - STEALTH = 1
 		// - AURA = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void SpiritOfTheDragonhawk_TRL_319()
 		{
-			// TODO SpiritOfTheDragonhawk_TRL_319 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1051,7 +1051,30 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Spirit of the Dragonhawk"));
-			//var testCard = (Minion) game.ProcessCard<Minion>("Spirit of the Dragonhawk");
+
+			var testCard = (Minion) game.ProcessCard<Minion>("Spirit of the Dragonhawk");
+
+			Minion target1, target2, target3;
+			target1 = game.ProcessCard<Minion>("Wisp");
+			target2 = game.ProcessCard<Minion>("Wisp");
+			target3 = game.ProcessCard<Minion>("Wisp");
+
+			game.PlayHeroPower(target2, autoRefresh: true);
+			Assert.True(target1.IsDead);
+			Assert.True(target2.IsDead);
+			Assert.True(target3.IsDead);
+
+			game.ProcessCard("Daring Fire-Eater");
+			target1 = game.ProcessCard<Minion>("River Crocolisk", asZeroCost: true);
+			target2 = game.ProcessCard<Minion>("River Crocolisk", asZeroCost: true);
+			target3 = game.ProcessCard<Minion>("River Crocolisk", asZeroCost: true);
+
+			game.PlayHeroPower(target2, autoRefresh: true);
+			Assert.True(target1.IsDead);
+			Assert.True(target2.IsDead);
+			Assert.True(target3.IsDead);
+
+			game.PlayHeroPower(game.CurrentOpponent.Hero);
 		}
 
 		// ------------------------------------------ MINION - MAGE
@@ -1063,10 +1086,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - BATTLECRY = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void DaringFireEater_TRL_390()
 		{
-			// TODO DaringFireEater_TRL_390 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -1084,7 +1106,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Daring Fire-Eater"));
-			//var testCard = (Minion) game.ProcessCard<Minion>("Daring Fire-Eater");
+			var testCard = (Minion) game.ProcessCard<Minion>("Daring Fire-Eater");
+			game.PlayHeroPower(game.CurrentOpponent.Hero, autoRefresh: true);
+			Assert.Equal(3, game.CurrentOpponent.Hero.Damage);
+			game.PlayHeroPower(game.CurrentOpponent.Hero, autoRefresh: true);
+			Assert.Equal(4, game.CurrentOpponent.Hero.Damage);
+			game.EndTurn();
+			game.ProcessCard<Minion>("Daring Fire-Eater");
+			game.EndTurn();
+			Assert.Equal(0, game.CurrentOpponent[GameTag.HEROPOWER_DAMAGE]);
 		}
 
 		// ------------------------------------------- SPELL - MAGE
@@ -1280,7 +1310,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shirvallah, the Tiger"));
+			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shirvallah, the Tiger"));
 			//var testCard = (Minion) game.ProcessCard<Minion>("Shirvallah, the Tiger");
 
 			Assert.Equal(25, testCard.Cost);
@@ -1300,28 +1330,57 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - DEATHRATTLE = 1
 		// - 542 = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void ImmortalPrelate_TRL_306()
 		{
-			// TODO ImmortalPrelate_TRL_306 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.PALADIN,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Immortal Prelate"),
-				},
 				Player2HeroClass = CardClass.PALADIN,
 				Shuffle = false,
-				FillDecks = true,
-				FillDecksPredictably = true
+				FillDecks = false,
 			});
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Immortal Prelate"));
-			//var testCard = (Minion) game.ProcessCard<Minion>("Immortal Prelate");
+			
+			Minion testCard = game.ProcessCard<Minion>("Immortal Prelate");
+			game.ProcessCard("Blessing of Kings", testCard, asZeroCost: true);
+			Assert.Equal(5, testCard.AttackDamage);
+			Assert.Equal(7, testCard.Health);
+
+			testCard.Kill();
+			Assert.Single(game.CurrentPlayer.DeckZone);
+			Minion testCard2 = (Minion) Generic.Draw(game.CurrentPlayer);
+			game.ProcessCard(testCard2, asZeroCost: true);
+			Assert.Equal(5, testCard2.AttackDamage);
+			Assert.Equal(7, testCard2.Health);
+
+			game.ProcessCard("Sunfury Protector", asZeroCost: true);
+			Assert.True(testCard2.HasTaunt);
+			testCard2.Kill();
+			Assert.Single(game.CurrentPlayer.DeckZone);
+			Minion testCard3 = (Minion) Generic.Draw(game.CurrentPlayer);
+			game.ProcessCard(testCard3, asZeroCost: true);
+			Assert.Equal(5, testCard3.AttackDamage);
+			Assert.Equal(7, testCard3.Health);
+			Assert.True(testCard3.HasTaunt);
+
+			game.ProcessCard("Abusive Sergeant", testCard3, asZeroCost: true);
+			Assert.Equal(7, testCard3.AttackDamage);
+			testCard3.Kill();
+			game.EndTurn();
+			game.EndTurn();
+
+			Minion testCard4 = (Minion) game.CurrentPlayer.HandZone[0];
+			game.ProcessCard(testCard4, asZeroCost: true);
+			Assert.Equal(5, testCard4.AttackDamage);
+			Assert.Equal(7, testCard4.Health);
+			Assert.True(testCard4.HasTaunt);
+
+			// May need more complicated tests.
+			// Can't 100% sure about the implementation now.
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -1767,7 +1826,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// GameTag:
 		// - TAUNT = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void GraveHorror_TRL_408()
 		{
 			// TODO GraveHorror_TRL_408 test
@@ -2192,7 +2251,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			Assert.Equal(4, game.CurrentPlayer.BoardZone.Count);
 			List<Minion> summoned = game.CurrentPlayer.BoardZone.Skip(1).ToList();
-			Assert.True(summoned.TrueForAll(m => m.Card.Race == Race.PIRATE));
+			Assert.True(summoned.TrueForAll(m => m.Card.IsRace(Race.PIRATE)));
 			Assert.True(summoned.TrueForAll(m => m.AttackableByRush));
 		}
 
@@ -2526,10 +2585,6 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			{
 				StartPlayer = 1,
 				Player1HeroClass = CardClass.SHAMAN,
-				Player1Deck = new List<Card>()
-				{
-					Cards.FromName("Zentimo"),
-				},
 				Player2HeroClass = CardClass.SHAMAN,
 				Shuffle = false,
 				FillDecks = true,
@@ -2538,8 +2593,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Zentimo"));
-			var testCard = (Minion) game.ProcessCard<Minion>("Zentimo");
+
+			game.ProcessCard<Minion>("Zentimo");
 
 			Minion target1 = game.ProcessCard<Minion>("Wisp");
 			Minion target2 = game.ProcessCard<Minion>("Wisp");
@@ -2547,9 +2602,33 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			game.ProcessCard("Lightning Bolt", target2);
 			Assert.True(target1.IsDead);
-			Assert.True(target1.IsDead);
-			Assert.True(target1.IsDead);
+			Assert.True(target2.IsDead);
+			Assert.True(target3.IsDead);
 			Assert.Equal(3, game.CurrentPlayer.OverloadOwed);
+
+			target1 = game.ProcessCard<Minion>("Salty Dog", asZeroCost: true);
+			target2 = game.ProcessCard<Minion>("Salty Dog", asZeroCost: true);
+			target3 = game.ProcessCard<Minion>("Salty Dog", asZeroCost: true);
+
+			Minion fandral = game.ProcessCard<Minion>("Fandral Staghelm", asZeroCost: true);
+			Assert.True(game.CurrentPlayer.ChooseBoth);
+
+			game.ProcessCard("Wrath", target2);
+			Assert.True(target1.IsDead);
+			Assert.True(target2.IsDead);
+			Assert.True(target3.IsDead);
+			Assert.Equal(4, game.CurrentPlayer.NumCardsDrawnThisTurn);
+
+			game.EndTurn();
+			game.ProcessCard("Counterspell");
+			game.EndTurn();
+
+			target1 = game.ProcessCard<Minion>("Wisp");
+			target2 = game.ProcessCard<Minion>("Wisp");
+			target3 = game.ProcessCard<Minion>("Wisp");
+			Spell spell = game.ProcessCard<Spell>("Moonfire", target2);
+			Assert.True(spell.IsCountered);
+			fandral.Attack(game.CurrentOpponent.Hero);
 		}
 
 		// ---------------------------------------- MINION - SHAMAN

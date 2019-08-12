@@ -60,6 +60,8 @@ namespace SabberStoneCore.Triggers
 		/// <value> true means this trigger will be immediately disposed after triggered.</value>
 	    public bool RemoveAfterTriggered;
 
+		public TriggerType Type => _triggerType;
+
 	    public Trigger(TriggerType type)
 	    {
 			_triggerType = type;
@@ -321,9 +323,7 @@ namespace SabberStoneCore.Triggers
 						    p :
 						    null);
 		    }
-
-		    Validated = false;
-		}
+	    }
 
 		/// <summary>
 		/// Remove this object from the Game and unsubscribe from the related event.
@@ -516,6 +516,13 @@ namespace SabberStoneCore.Triggers
 
 			if (game.TaskQueue.IsEmpty) return;
 		    game.TaskQueue.ClearCurrentEvent();
+	    }
+
+	    public static void InvalidateAll(Game game)
+	    {
+			game.Triggers.ForEach(p => p.Validated = false);
+			if (game.TaskQueue.IsEmpty) return;
+			game.TaskQueue.ClearCurrentEvent();
 	    }
 
 	    private void Validate(IEntity source)

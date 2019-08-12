@@ -2920,12 +2920,12 @@ namespace SabberStoneCoreTest.CardSets
 
 			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
 
-			game.ProcessCard("Succubus");
+			game.ProcessCard("Felstalker");
 			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
 			Assert.Equal(4, ((Minion)game.CurrentPlayer.HandZone[0]).AttackDamage);
 			Assert.Equal(4, ((Minion)game.CurrentPlayer.HandZone[0]).Health);
 
-			game.ProcessCard("Succubus");
+			game.ProcessCard("Felstalker");
 			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
 			Assert.Equal(6, ((Minion)game.CurrentPlayer.HandZone[0]).AttackDamage);
 			Assert.Equal(6, ((Minion)game.CurrentPlayer.HandZone[0]).Health);

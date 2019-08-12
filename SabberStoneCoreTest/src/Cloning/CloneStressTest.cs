@@ -20,6 +20,7 @@ using SabberStoneCore.Tasks.PlayerTasks;
 
 using Generic = SabberStoneCore.Actions.Generic;
 using System.Collections.Generic;
+using System.Text;
 
 namespace SabberStoneCoreTest.Cloning
 {
@@ -35,8 +36,8 @@ namespace SabberStoneCoreTest.Cloning
 				CardClass.DRUID, CardClass.HUNTER, CardClass.MAGE, CardClass.PALADIN, CardClass.PRIEST,
 				CardClass.ROGUE, CardClass.SHAMAN, CardClass.WARLOCK, CardClass.WARRIOR
 			};
-			bool flag = true;
-			for (int i = 0; i < 100; i++)
+
+			for (int i = 0; i < 300; i++)
 			{
 				var game = new Game(new GameConfig
 				{
@@ -57,14 +58,12 @@ namespace SabberStoneCoreTest.Cloning
 					string str1 = game.Hash();
 					string str2 = cloneGame.Hash();
 
-					flag &= str1.Equals(str2);
 
-					if (!flag)
-						break;
+					Assert.Equal(str1, str2);
 				}
 			}
 
-			Assert.True(flag);
+			//Assert.True(flag, diff);
 		}
 
 		[Fact]

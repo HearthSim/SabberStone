@@ -90,10 +90,18 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				else
 					cards = ClassAndMultiOnlyFlag ? controller.Wild : Cards.AllWild;
 
-				cardsList = cards.Where(p => p.Type == CardType.MINION
-				                             && (RelaSign == RelaSign.EQ && p[Tag] == Value
-				                                 || RelaSign == RelaSign.GEQ && p[Tag] >= Value
-				                                 || RelaSign == RelaSign.LEQ && p[Tag] <= Value)).ToList();
+				if (Tag == GameTag.CARDRACE && RelaSign == RelaSign.EQ)
+				{
+					cardsList = cards.Where(p => p.Type == CardType.MINION
+							 && p.IsRace((Race)Value)).ToList();;
+				}
+				else
+				{
+					cardsList = cards.Where(p => p.Type == CardType.MINION
+												 && (RelaSign == RelaSign.EQ && p[Tag] == Value
+													 || RelaSign == RelaSign.GEQ && p[Tag] >= Value
+													 || RelaSign == RelaSign.LEQ && p[Tag] <= Value)).ToList();
+				}
 
 				CachedCards.TryAdd(source.Card.AssetId, cardsList);
 			}
@@ -106,7 +114,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				var list = new List<Card>(cardsList);
 				while (randomMinions.Count < Amount && cardsList.Count > 0)
 				{
-					Card card = Util.Choose(list);
+					Card card = list.Choose(game.Random);
 					list.Remove(card);
 
 					// check for deck rules
@@ -119,7 +127,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			else
 			{
 				randomMinions.Add(Entity.FromCard(_opponent ? controller.Opponent : controller,
-					Util.Choose(cardsList)));
+					cardsList.Choose(game.Random)));
 			}
 
 

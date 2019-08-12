@@ -1892,7 +1892,7 @@ namespace SabberStoneCore.CardSets
 								minions.Add(m);
 						});
 						return minions.Count > 0
-							? new List<IPlayable>{Entity.FromCard(c, Util.Choose(list: minions).Card)}
+							? new List<IPlayable>{Entity.FromCard(c, minions.Choose(c.Game.Random).Card)}
 							: new List<IPlayable>(0);
 					}),
 					new SummonTask())
@@ -1957,7 +1957,7 @@ namespace SabberStoneCore.CardSets
 							var newEntity = (Minion) Entity.FromCard(p.Controller, p.Card);
 							p[GameTag.TAG_SCRIPT_DATA_ENT_1] = newEntity.Id;
 							newEntity[GameTag.TAG_SCRIPT_DATA_ENT_1] = newEntity.Id;
-							Generic.AddEnchantmentBlock.Invoke(p.Controller, Cards.FromId("UNG_836e"), newEntity, newEntity, 0, 0, 0);
+							Generic.AddEnchantmentBlock(newEntity.Game, Cards.FromId("UNG_836e"), newEntity, newEntity, 0, 0, 0);
 							//newEntity[GameTag.ATK] = p[GameTag.ATK] + 2;
 							//newEntity[GameTag.HEALTH] = p[GameTag.HEALTH] + 2;
 							newEntity.AttackDamage = p.AttackDamage + 2;
@@ -3195,7 +3195,7 @@ namespace SabberStoneCore.CardSets
 				},
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
-					SingleTask = new RemoveEnchantmentTask()
+					SingleTask = RemoveEnchantmentTask.Task
 				}
 			});
 

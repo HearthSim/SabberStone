@@ -29,8 +29,6 @@ namespace SabberStoneCore.Tasks
 
 	public abstract class SimpleTask : ISimpleTask
 	{
-		internal static Random Random => Util.Random;
-
 		public TaskState State { get; set; } = TaskState.READY;
 
 		public abstract TaskState Process(in Game game, in Controller controller, in IEntity source,

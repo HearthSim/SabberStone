@@ -1,30 +1,31 @@
 ﻿using System;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Loader
 {
-	public delegate bool AvailabilityPredicate(Controller controller);
+	public delegate bool AvailabilityPredicate(Controller controller, Card card);
 	public delegate bool TargetingPredicate(ICharacter target);
 
 	public static class TargetingPredicates
 	{
 		private static readonly TargetingPredicate ReqMurlocTarget
-			= t => t.Race == Race.MURLOC;
+			= t => t.IsRace(Race.MURLOC);
 		private static readonly TargetingPredicate ReqDemonTarget
-			= t => t.Race == Race.DEMON;
+			= t => t.IsRace(Race.DEMON);
 		private static readonly TargetingPredicate ReqMechTarget
-			= t => t.Race == Race.MECHANICAL;
+			= t => t.IsRace(Race.MECHANICAL);
 		private static readonly TargetingPredicate ReqElementalTarget
-			= t => t.Race == Race.ELEMENTAL;
+			= t => t.IsRace(Race.ELEMENTAL);
 		private static readonly TargetingPredicate ReqBeastTarget
-			= t => t.Race == Race.BEAST;
+			= t => t.IsRace(Race.BEAST);
 		private static readonly TargetingPredicate ReqTotemTarget
-			= t => t.Race == Race.TOTEM;
+			= t => t.IsRace(Race.TOTEM);
 		private static readonly TargetingPredicate ReqPirateTarget
-			= t => t.Race == Race.PIRATE;
+			= t => t.IsRace(Race.PIRATE);
 		private static readonly TargetingPredicate ReqDragonTarget
-			= t => t.Race == Race.DRAGON;
+			= t => t.IsRace(Race.DRAGON);
 
 		public static readonly TargetingPredicate ReqFrozenTarget
 			= t => t.IsFrozen;
@@ -82,44 +83,47 @@ namespace SabberStoneCore.Loader
 		}
 
 		private static readonly AvailabilityPredicate ReqMin1EnemyMinion
-			= c => c.Opponent.BoardZone.Count >= 1;
+			= (c, card) => c.Opponent.BoardZone.Count >= 1;
 		private static readonly AvailabilityPredicate ReqMin2EnemyMinions
-			= c => c.Opponent.BoardZone.Count >= 2;
+			= (c, card) => c.Opponent.BoardZone.Count >= 2;
 		private static readonly AvailabilityPredicate ReqMin1TotalMinion
-			= c => c.BoardZone.Count + c.Opponent.BoardZone.Count > 0;
+			= (c, card) => c.BoardZone.Count + c.Opponent.BoardZone.Count > 0;
 
 		public static readonly AvailabilityPredicate ReqTargetForCombo
-			= c => c.IsComboActive;
+			= (c, card) => c.IsComboActive;
 
 		public static readonly AvailabilityPredicate ElementalPlayedLastTurn
-			= c => c.NumElementalsPlayedLastTurn > 0;
+			= (c, card) => c.NumElementalsPlayedLastTurn > 0;
 
 		public static readonly AvailabilityPredicate DragonInHand
-			= c => c.DragonInHand;
+			= (c, card) => card.IsRace(Race.DRAGON)
+				? c.HandZone.CountOf(p => p.Card.IsRace(Race.DRAGON)) > 1
+				: c.DragonInHand;
 
 		public static readonly AvailabilityPredicate ReqNumMinionSlots
-			= c => !c.BoardZone.IsFull;
+			= (c, card) => !c.BoardZone.IsFull;
 
 		public static readonly AvailabilityPredicate ReqHandNotFull
-			= c => !c.HandZone.IsFull;
+			= (c, card) => !c.HandZone.IsFull;
 
 		public static readonly AvailabilityPredicate ReqWeaponEquipped
-			= c => c.Hero.Weapon != null;
+			= (c, card) => c.Hero.Weapon != null;
 
 		public static readonly AvailabilityPredicate ReqFriendlyMinionDiedThisGame
-			= c => c.GraveyardZone.Any(q => q is Minion m && m.ToBeDestroyed);
+			= (c, card) => c.GraveyardZone.Any(q => q is Minion m && m.ToBeDestroyed);
 
 		public static AvailabilityPredicate ReqFriendlyMinionOfRaceDiedThisTurn(Race race)
 		{
-			return c =>
+			return (c, card) =>
 			{
 				int num = c.NumFriendlyMinionsThatDiedThisTurn;
-				for (int i = c.GraveyardZone.Count - 1, k = 0; i >= 0 && k < num; --i)
+				ReadOnlySpan<IPlayable> span = c.GraveyardZone.GetSpan();
+				for (int i = span.Length - 1, k = 0; k < num; --i)
 				{
-					if (c.GraveyardZone[i].Card.Type != CardType.MINION || !c.GraveyardZone[i].ToBeDestroyed)
+					if (span[i].Card.Type != CardType.MINION || !span[i].ToBeDestroyed)
 						continue;
 					k++;
-					if (c.GraveyardZone[i].Card.Race == race)
+					if (span[i].Card.IsRace(race))
 						return true;
 				}
 
@@ -128,17 +132,17 @@ namespace SabberStoneCore.Loader
 		}
 
 		public static readonly AvailabilityPredicate ReqSecretZoneCapForNonSecret
-			= c => !c.SecretZone.IsFull;
+			= (c, card) => !c.SecretZone.IsFull;
 
 		public static readonly AvailabilityPredicate ReqHeroHasAttack
-			= c => c.Hero.AttackDamage > 0;
+			= (c, card) => c.Hero.AttackDamage > 0;
 
 		public static AvailabilityPredicate MinimumFriendlyMinions(int value)
 		{
 			if (value == 1)
-				return c => c.BoardZone.Count > 0;
+				return (c, card) => c.BoardZone.Count > 0;
 			if (value == 4)
-				return c => c.BoardZone.Count >= 4;
+				return (c, card) => c.BoardZone.Count >= 4;
 
 			throw new NotImplementedException(
 				$@"REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS = {value} is not implemented. Please Check \Loader\TargetingPredicates.cs");
@@ -147,7 +151,7 @@ namespace SabberStoneCore.Loader
 		public static AvailabilityPredicate MinimumFriendlySecrets(int value)
 		{
 			if (value == 1)
-				return c => c.SecretZone.Count > 0;
+				return (c, card) => c.SecretZone.Count > 0;
 			throw new NotImplementedException(
 				$@"REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS = {value} is not implemented. Please Check \Loader\TargetingPredicates.cs");
 		}
@@ -159,7 +163,7 @@ namespace SabberStoneCore.Loader
 			if (value == 2)
 				return ReqMin2EnemyMinions;
 			if (value == 0)
-				return c => true;
+				return (c, card) => true;
 			throw new NotImplementedException(
 				$@"REQ_MINIMUM_ENEMY_MINIONS = {value} is not implemented. Please Check \Loader\TargetingPredicates.cs");
 		}
@@ -168,7 +172,7 @@ namespace SabberStoneCore.Loader
 		{
 			if (value == 1)
 				return ReqMin1TotalMinion;
-			return c => c.BoardZone.Count + c.Opponent.BoardZone.Count >= value;
+			return (c, card) => c.BoardZone.Count + c.Opponent.BoardZone.Count >= value;
 		}
 
 		public static AvailabilityPredicate ReqEntireEntourageNotInPlay(int assetId)
@@ -179,6 +183,7 @@ namespace SabberStoneCore.Loader
 				case 687:
 				case 40247:
 				case 53238:
+				case 55964:
 					return ReqTotemicCall;
 				// True Love
 				case 39563:
@@ -190,11 +195,11 @@ namespace SabberStoneCore.Loader
 			}
 		}
 
-		private static unsafe bool ReqTotemicCall(Controller c)
+		private static unsafe bool ReqTotemicCall(Controller c, Card card)
 		{
 			int count = c.BoardZone.Count;
 
-			if (count == 7)
+			if (count == Model.Game.MAX_MINIONS_ON_BOARD)
 				return false;
 			if (count < 4)
 				return true;
@@ -208,7 +213,7 @@ namespace SabberStoneCore.Loader
 			return CheckEntourages(c, ent, 4);
 		}
 
-		private static unsafe bool ReqTrueLove(Controller c)
+		private static unsafe bool ReqTrueLove(Controller c, Card card)
 		{
 			int* ent = stackalloc int[1];
 			ent[0] = 39561;
@@ -218,8 +223,8 @@ namespace SabberStoneCore.Loader
 
 		private static unsafe bool CheckEntourages(Controller c, int* ent, int count)
 		{
-			int[] indices = new int[count];
-			var span = c.BoardZone.GetSpan();
+			int* indices = stackalloc int[count];
+			ReadOnlySpan<Minion> span = c.BoardZone.GetSpan();
 			for (int i = 0, j = span.Length, k = 0; i < span.Length; i++)
 			{
 				int index = -1;

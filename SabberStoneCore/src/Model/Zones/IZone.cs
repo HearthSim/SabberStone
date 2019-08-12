@@ -62,6 +62,16 @@ namespace SabberStoneCore.Model.Zones
 		void Add(IPlayable entity, int zonePosition = -1);
 
 		/// <summary>
+		/// Includes the given entity at the given position 
+		/// without causing any other side effects.
+		/// Only use this method only when you need to manipulate
+		/// entities and tags directly.
+		/// </summary>
+		/// <param name="entity"></param>
+		/// <param name="zonePosition"></param>
+		void MoveTo(IPlayable entity, int zonePosition);
+
+		/// <summary>
 		/// Removes the specified entity from this zone.
 		/// </summary>
 		/// <param name="entity">The entity.</param>

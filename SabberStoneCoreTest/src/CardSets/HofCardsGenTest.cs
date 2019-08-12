@@ -141,6 +141,33 @@ namespace SabberStoneCoreTest.CardSets
 		}
 	}
 
+	public class PriestHofTest
+	{
+		// ----------------------------------------- SPELL - PRIEST
+		// [DS1_233] Mind Blast - COST:2 
+		// - Fac: neutral, Set: core, Rarity: free
+		// --------------------------------------------------------
+		// Text: Deal $5 damage to the enemy hero. *spelldmg
+		// --------------------------------------------------------
+		[Fact(Skip = "ignore")]
+		public void MindBlast_DS1_233()
+		{
+			// TODO MindBlast_DS1_233 test
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.PRIEST,
+				Player2HeroClass = CardClass.PRIEST,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Mind Blast"));
+		}
+	}
+
 
 	public class RogueHofTest
 	{
@@ -169,6 +196,51 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Conceal"));
+		}
+
+		// ------------------------------------------ SPELL - ROGUE
+		// [NEW1_004] Vanish - COST:6 
+		// - Set: core, Rarity: common
+		// --------------------------------------------------------
+		// Text: Return all minions to their owner's hand.
+		// --------------------------------------------------------
+		[Fact]
+		public void Vanish_NEW1_004()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.ROGUE,
+				Player2HeroClass = CardClass.ROGUE,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			int player1HandCount = game.CurrentPlayer.HandZone.Count;
+
+			Assert.Equal(0, game.CurrentPlayer.BoardZone.Count);
+
+			// player 1 plays 7 minions
+			for (int i = 0; i < 7; i++)
+			{
+				IPlayable minion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Wisp"));
+				game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
+			}
+
+			Assert.Equal(7, game.CurrentPlayer.BoardZone.Count);
+
+			// end turn
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+
+			// player 2 plays vanish
+			IPlayable spell = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Vanish"));
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell));
+
+			Assert.Equal(0, game.CurrentPlayer.Opponent.BoardZone.Count);
+			Assert.Equal(10, game.CurrentPlayer.Opponent.HandZone.Count);
 		}
 
 	}

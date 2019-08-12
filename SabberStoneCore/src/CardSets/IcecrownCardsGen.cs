@@ -1939,7 +1939,7 @@ namespace SabberStoneCore.CardSets
 					new Trigger(TriggerType.TURN_END)
 					{
 						SingleTask = ComplexTask.Create(
-							new RemoveEnchantmentTask(),
+							RemoveEnchantmentTask.Task,
 							new MoveToSetaside(EntityType.TARGET))
 					})
 
@@ -3561,7 +3561,7 @@ namespace SabberStoneCore.CardSets
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					SingleTask = ComplexTask.Create(
-						new RemoveEnchantmentTask(),
+						RemoveEnchantmentTask.Task,
 						new ControlTask(EntityType.TARGET))
 				}
 			});

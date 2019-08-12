@@ -72,6 +72,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		_s_WEAPON_ANOTHERCLASS,
 		_wl_WEAPON_ANOTHERCLASS,
 		_wr_WEAPON_ANOTHERCLASS,
+		HEISTBARON_TOGWAGGLE,
 	}
 
 	public class DiscoverTask : SimpleTask
@@ -97,13 +98,14 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		public DiscoverTask(CardType cardType = CardType.INVALID, CardClass cardClass = CardClass.INVALID,
 			(GameTag tag, RelaSign relaSign, int value) tagValueCriteria = default, ChoiceAction choiceAction = ChoiceAction.HAND,
-			ISimpleTask afterDiscoverTask = null, int repeat = 1)
+			ISimpleTask afterDiscoverTask = null, int repeat = 1, Predicate<Card[]> keepAllCondition = null)
 		{
 			_discoverCriteria =
 				new DiscoverCriteria(cardType, cardClass, tagValueCriteria);
 			_choiceAction = choiceAction;
 			_repeat = repeat;
 			_taskTodo = afterDiscoverTask;
+			_keepAllCondition = keepAllCondition;
 		}
 
 		public DiscoverTask(DiscoverType discoverType, int numberOfChoices = 3)
@@ -141,10 +143,19 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				cardsToDiscover = Discover(in game, controller, in _discoverType, out choiceAction);
 			else
 			{
-				cardsToDiscover = Discover(game.FormatType, _discoverCriteria,
-					Criteria.CardClass == CardClass.OP_CLASS ?
-						controller.Opponent.HeroClass :
-						controller.HeroClass);
+				CardClass cls = Criteria.CardClass == CardClass.OP_CLASS
+					? controller.Opponent.HeroClass
+					: controller.HeroClass;
+
+				if (cls == CardClass.NEUTRAL)
+				{
+					if (source.Card.Class != CardClass.NEUTRAL)
+						cls = source.Card.Class;
+					else
+						cls = (CardClass) game.Random.Next(2, 11);
+				}
+
+				cardsToDiscover = Discover(game.FormatType, in _discoverCriteria, cls);
 				choiceAction = _choiceAction;
 			}
 
@@ -152,7 +163,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				cardsToDiscover[0] = cardsToDiscover[0].Distinct().ToArray();
 
 			// Gets cards to choose from the sets. 
-			Card[] result = GetChoices(cardsToDiscover, _numberOfChoices);
+			Card[] result = GetChoices(cardsToDiscover, _numberOfChoices, game.Random);
 
 			// TODO work on it ...
 			//if (game.Splitting)
@@ -287,7 +298,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.DRAGON));
+							list => list.Where(p => p.IsRace(Race.DRAGON)));
 
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;
@@ -329,7 +340,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.BEAST));
+							list => list.Where(p => p.IsRace(Race.BEAST)));
 						
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;
@@ -338,7 +349,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.MURLOC));
+							list => list.Where(p => p.IsRace(Race.MURLOC)));
 						
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;
@@ -347,7 +358,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.ELEMENTAL));
+							list => list.Where(p => p.IsRace(Race.ELEMENTAL)));
 						
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;
@@ -356,7 +367,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.MECHANICAL));
+							list => list.Where(p => p.IsRace(Race.MECHANICAL)));
 						
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;
@@ -365,7 +376,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					{
 						choiceAction = ChoiceAction.HAND;
 						Card[][] cardSets = GetFilter(in format, in controller,
-							list => list.Where(p => p.Race == Race.DEMON));
+							list => list.Where(p => p.IsRace(Race.DEMON)));
 						
 						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
 						return cardSets;
@@ -603,6 +614,22 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						choiceAction = ChoiceAction.HAND;
 						return GetAnotherClassWeapons(controller.HeroClass, format);
 					}
+					case DiscoverType.HEISTBARON_TOGWAGGLE:
+					{
+						choiceAction = ChoiceAction.HAND;
+						Card[][] cardSets =
+						{
+							new []
+							{
+								Cards.FromId("LOOT_998h"), // Tolin's Goblet
+								Cards.FromId("LOOT_998j"), // Zarog's Crown
+								Cards.FromId("LOOT_998l"), // Wondrous Wand
+								Cards.FromId("LOOT_998k"), // Golden Kobold
+							}
+						};
+						CachedDiscoverySets.TryAdd(discoverType, (cardSets, choiceAction));
+						return cardSets;
+					}
 					default:
 						throw new ArgumentOutOfRangeException(nameof(discoverType), discoverType, null);
 				}
@@ -638,7 +665,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			Dictionary<CardClass, IReadOnlyList<Card>> cardSet = Cards.FormatTypeClassCards(formatType);
 			CardClass heroClass = controller.BaseClass != CardClass.NEUTRAL
 				? controller.BaseClass
-				: Util.RandomElement(Cards.HeroClasses);
+				: Util.Choose(Cards.HeroClasses, controller.Game.Random);
 			IEnumerable<Card> nonClassCards = filter.Invoke(cardSet[heroClass].Where(p => p.Class != heroClass));
 			IEnumerable<Card> classCards =
 				filter.Invoke(cardSet[heroClass].Where(p => p.Class == heroClass && !p.IsQuest));
@@ -696,10 +723,10 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return cardSets;
 		}
 
-		private Card[][] Discover(FormatType format, DiscoverCriteria criteria, CardClass cls)
+		private Card[][] Discover(FormatType format, in DiscoverCriteria criteria, CardClass cls)
 		{
 			Card[][] cards;
-			if (criteria.CardClass != CardClass.INVALID)
+			if (criteria.CardClass != CardClass.INVALID && criteria.CardClass != CardClass.ANOTHER_CLASS)
 				cls = CardClass.INVALID;
 
 			if (CachedDiscoverySetsByCriteria.TryGetValue((criteria, cls), out cards))
@@ -743,7 +770,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				cards = new[] {matching.ToArray(), new Card[0]};
 			}
 			else
-			{ // Use the given class criterion
+			{	// Use the given class criterion
 				IReadOnlyList<Card> allCards = Cards.FormatTypeClassCards(format)[criteria.CardClass];
 
 				List<Card> classCards = new List<Card>();
@@ -766,10 +793,9 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 		// 2 Sets means Class cards / Neutral cards.
 		// 3 Sets means Tri-Class discovers. (Gangs)
-		public static Card[] GetChoices(Card[][] cardsToDiscover, int numberOfChoices)
+		public static Card[] GetChoices(Card[][] cardsToDiscover, int numberOfChoices, Util.DeepCloneableRandom rnd)
 		{
 			Card[] result;
-			Random rnd;
 
 			switch (cardsToDiscover.Length)
 			{
@@ -779,7 +805,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						result = distinct;
 					else
 					{
-						rnd = Util.Random;
 						result = new Card[numberOfChoices];
 						Card pick;
 						for (int i = 0; i < result.Length; i++)
@@ -794,7 +819,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					}
 					break;
 				case 2:
-					rnd = Util.Random;
 					int classCount = cardsToDiscover[1].Length;
 					int neutralCount = cardsToDiscover[0].Length;
 					result = new Card[numberOfChoices];
@@ -828,7 +852,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					break;
 				case 3:
 					result = new Card[3];
-					rnd = Util.Random;
 					for (int i = 0; i < result.Length; i++)
 					{
 						Card pick;

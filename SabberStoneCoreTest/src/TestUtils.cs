@@ -137,7 +137,7 @@ namespace SabberStoneCoreTest
 
 			if (asZeroCost)
 			{
-				Generic.AddEnchantmentBlock(game.CurrentPlayer, Cards.FromId("TRL_407e"), game.CurrentPlayer.Hero, game.CurrentPlayer,
+				Generic.AddEnchantmentBlock(game, Cards.FromId("TRL_407e"), game.CurrentPlayer.Hero, game.CurrentPlayer,
 					0, 0, 0);
 				game.AuraUpdate();
 			}

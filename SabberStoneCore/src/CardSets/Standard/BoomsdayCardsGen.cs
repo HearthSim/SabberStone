@@ -784,14 +784,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_254", new Power {
-				PowerTask = ComplexTask.Create(
-					new GetGameTagControllerTask(GameTag.CURRENT_SPELLPOWER),
-					new MathAddTask(2),
-					new EnqueueNumberTask(
-						ComplexTask.Create(
-							new RandomMinionTask(GameTag.COST, 2),
-							new SummonTask())))
-			});
+				PowerTask = new EnqueueTask(2,
+					ComplexTask.Create(
+						new FuncNumberTask(p => 2 + p.Controller.CurrentSpellPower),
+						new RandomMinionNumberTask(GameTag.COST),
+						new SummonTask()))
+				});
 
 			// ------------------------------------------- SPELL - MAGE
 			// [BOT_257] Luna's Pocket Galaxy - COST:7 
@@ -862,12 +860,24 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_531e", new Power {
-				Enchant = new Enchant(new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, 2)),
-				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
+				// Seems like there are some problems with Enchant SPELLPOWER effects not being removed
+				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, 2))
 				{
-					Condition = SelfCondition.IsSpell,
-					SingleTask = new RemoveEnchantmentTask()
+					RemoveTrigger = (TriggerType.TURN_END, null),
+				},
+				Trigger = new Trigger(TriggerType.AFTER_CAST)
+				{
+					SingleTask = RemoveEnchantmentTask.Task
 				}
+
+				//Enchant = new Enchant(new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, 2)),
+				//{
+				//	IsOneTurnEffect = true
+				//},
+				//Trigger = new Trigger(TriggerType.AFTER_CAST)
+				//{
+				//	SingleTask = new RemoveEnchantmentTask()
+				//}
 			});
 
 			// ------------------------------------- ENCHANTMENT - MAGE
@@ -1040,9 +1050,27 @@ namespace SabberStoneCore.CardSets.Standard
 			// - MODULAR = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_912", new Power {
-				// TODO [BOT_912] Kangor's Endless Army && Test: Kangor's Endless Army_BOT_912
-				//PowerTask = null,
-				//Trigger = null,
+				PowerTask = ComplexTask.Create(
+					new IncludeTask(EntityType.GRAVEYARD),
+					new FilterStackTask(SelfCondition.IsRace(Race.MECHANICAL), SelfCondition.IsDead),
+					new RandomTask(3, EntityType.STACK),
+					new CustomTask((g, c, s, t, stack) =>
+					{
+						foreach (IPlayable deadMech in stack.Playables)
+						{
+							if (c.BoardZone.IsFull)
+								break;
+
+							// copy and summon the base card
+							IPlayable copied = Generic.Copy(in c, in s, in deadMech, Zone.PLAY);
+							if (deadMech.AppliedEnchantments == null) continue;
+							foreach (Enchantment magneticUpgrade in deadMech.AppliedEnchantments)
+							{	// copy magnetic enchantments
+								Generic.AddEnchantmentBlock(in g, magneticUpgrade.Card, (IPlayable) s, copied,
+									magneticUpgrade.ScriptTag1, magneticUpgrade.ScriptTag2);
+							}
+						}
+					}))
 			});
 
 		}
@@ -1791,22 +1819,25 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_245", new Power {
-				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.MINIONS),
-					new FuncPlayablesTask(minions =>
-					{
-						if (minions.Count == 0)
-							return null;
+				//PowerTask = ComplexTask.Create(
+				//	new IncludeTask(EntityType.MINIONS),
+				//	new FuncPlayablesTask(minions =>
+				//	{
+				//		if (minions.Count == 0)
+				//			return null;
 
-						IReadOnlyList<Card> legendaries = RandomCardTask.GetCardList(minions[0], CardType.MINION,
-							rarity: Rarity.LEGENDARY);
-						foreach (IPlayable p in minions)
-							Generic.TransformBlock.Invoke(p.Controller, Util.Choose(legendaries), (Minion)p);
+				//		IReadOnlyList<Card> legendaries = RandomCardTask.GetCardList(minions[0], CardType.MINION,
+				//			rarity: Rarity.LEGENDARY);
+				//		foreach (IPlayable p in minions)
+				//			Generic.TransformBlock.Invoke(p.Controller, Util.Choose(legendaries), (Minion)p);
 
-						minions[0].Game.OnRandomHappened(true);
+				//		minions[0].Game.OnRandomHappened(true);
 
-						return null;
-					}))
+				//		return null;
+				//	}))
+				PowerTask = new ChangeEntityTask(EntityType.MINIONS, CardType.MINION,
+					rarity: Rarity.LEGENDARY,
+					removeEnchantments: true)
 			});
 
 			// ----------------------------------------- SPELL - SHAMAN
@@ -1862,7 +1893,7 @@ namespace SabberStoneCore.CardSets.Standard
 					SingleTask = ComplexTask.Create(
 						new IncludeTask(EntityType.TARGET),
 						new PlayTask(PlayType.SPELL, EntityType.EVENT_TARGET),
-						new RemoveEnchantmentTask())
+						RemoveEnchantmentTask.Task)
 				}
 			});
 
@@ -1883,7 +1914,7 @@ namespace SabberStoneCore.CardSets.Standard
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
 				{
 					Condition = SelfCondition.IsSpell,
-					SingleTask = new RemoveEnchantmentTask()
+					SingleTask = RemoveEnchantmentTask.Task
 				}
             });
 
@@ -3024,6 +3055,40 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
+			// [BOT_700] SN1P-SN4P - COST:3 [ATK:2/HP:3] 
+			// - Race: mechanical, Set: boomsday, Rarity: legendary
+			// --------------------------------------------------------
+			// Text: <b>Magnetic</b>, <b>Echo</b>
+			//       <b>Deathrattle:</b> Summon two 1/1 Microbots.
+			// --------------------------------------------------------
+			// GameTag:
+			// - ELITE = 1
+			// - DEATHRATTLE = 1
+			// - ECHO = 1
+			// - MODULAR = 1
+			// --------------------------------------------------------
+			cards.Add("BOT_700", new Power
+			{
+				PowerTask = new MagneticTask(),
+				DeathrattleTask = new SummonTask("BOT_312t", 2)
+			});
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [BOT_700e] SN1P-SN4P (*) - COST:0 
+			// - Set: boomsday, 
+			// --------------------------------------------------------
+			// Text: <b>Deathrattle:</b> Summon two 1/1 Microbots.
+			// --------------------------------------------------------
+			// GameTag:
+			// - MODULAR = 1
+			// --------------------------------------------------------
+			cards.Add("BOT_700e", new Power
+			{
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_700e"),
+				DeathrattleTask = new SummonTask("BOT_312t", 3, SummonSide.DEATHRATTLE)
+			});
+
+			// --------------------------------------- MINION - NEUTRAL
 			// [BOT_907] Galvanizer - COST:2 [ATK:1/HP:2] 
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
@@ -3239,7 +3304,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_312e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_312e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_312e"),
+				DeathrattleTask = new SummonTask("BOT_312t", 3, SummonSide.DEATHRATTLE)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3313,7 +3379,16 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 871 = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_548e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_548e")
+				Enchant = new Enchant(
+					Effects.Attack_N(0),
+					Effects.Health_N(0),
+					new Effect(GameTag.DIVINE_SHIELD, EffectOperator.SET, 1),
+					Effects.TauntEff,
+					Effects.Lifesteal,
+					Effects.Rush)
+				{
+					UseScriptTag = true
+				}
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

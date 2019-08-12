@@ -26,7 +26,7 @@ namespace SabberStoneCore.Model.Zones
 
 		public List<AdjacentAura> AdjacentAuras = new List<AdjacentAura>();
 
-		public BoardZone(Controller controller)
+		public BoardZone(Controller controller) : base(Zone.PLAY, Game.MAX_MINIONS_ON_BOARD)
 		{
 			Game = controller.Game;
 			Controller = controller;
@@ -35,11 +35,7 @@ namespace SabberStoneCore.Model.Zones
 		public int CountExceptUntouchables => _count - _untouchableCount;
 		public bool HasUntouchables => _hasUntouchables;
 
-		public override Zone Type => Zone.PLAY;
-
 		public override bool IsFull => _count == Game.MAX_MINIONS_ON_BOARD;
-
-		public override int MaxSize => Game.MAX_MINIONS_ON_BOARD;
 
 		public override void Add(Minion entity, int zonePosition = -1)
 		{
@@ -73,6 +69,19 @@ namespace SabberStoneCore.Model.Zones
 				++_untouchableCount;
 				_hasUntouchables = true;
 			}
+		}
+
+		internal static void InitialiseMinion(Minion entity)
+		{
+			if (entity.Game.CurrentPlayer != entity.Controller) return;
+			if (entity.HasCharge) return;
+			if (entity.IsRush)
+			{
+				entity.AttackableByRush = true;
+				entity.Game.RushMinions.Add(entity.Id);
+			}
+			else
+				entity.IsExhausted = true;
 		}
 
 		public override Minion Remove(Minion entity)
@@ -141,21 +150,11 @@ namespace SabberStoneCore.Model.Zones
 		{
 			entity.Power?.Trigger?.Activate(entity);
 			entity.Power?.Aura?.Activate(entity);
-
-			if (entity.Card.SpellPower > 0)
-				entity.Controller.CurrentSpellPower += entity.Card.SpellPower;
 		}
 
 		private static void RemoveAura(Minion entity)
 		{
 			entity.OngoingEffect?.Remove();
-			int csp = entity.Controller.CurrentSpellPower;
-			if (csp > 0)
-			{
-				int sp = entity.SpellPower;
-				if (sp > 0)
-					entity.Controller.CurrentSpellPower = csp - sp;
-			}
 		}
 
 		/// <summary>

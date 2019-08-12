@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Actions;
@@ -46,7 +48,8 @@ namespace SabberStoneCoreTest.Basic
 			{
 				game = new Game(new GameConfig
 				{
-					FillDecks = true
+					FillDecks = true,
+					History = false,
 				});
 				game.StartGame();
 				game.ProcessCard("Knife Juggler", null, true);
@@ -74,7 +77,7 @@ namespace SabberStoneCoreTest.Basic
 			bool flag = false;
 			for (int i = 0; i < 12; i++)
 			{
-				Game clone = game.Clone();
+				Game clone = game.Clone(true);
 				Minion target = clone.ProcessCard<Minion>("Twilight Drake", null, true);
 				flag = flag || target.IsDead;
 			}
@@ -374,7 +377,7 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(zerus.Cost, zerus.Card.Cost);
 		}
 
-		[Fact(Skip="should be fixed")]
+		[Fact]
 		public static void MurmuringKazakus()
 		{
 			var game = new Game(new GameConfig());
@@ -416,6 +419,145 @@ namespace SabberStoneCoreTest.Basic
 
 			game.ProcessCard("Spiritsinger Umbra", asZeroCost: true);
 			game.ProcessCard("Dr. Morrigan", asZeroCost: true);
+		}
+
+		[Fact]
+		public static void DrawMechanicsTest()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1Deck = new List<Card>
+				{
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Chillwind Yeti"),
+					Cards.FromId("BOT_511t"), // Bomb
+					Cards.FromName("River Crocolisk"),
+					Cards.FromId("BOT_511t"), // Bomb
+					Cards.FromId("BOT_511t"), // Bomb
+					Cards.FromId("BOT_511t"), // Bomb
+					Cards.FromId("BOT_511t"), // Bomb
+				},
+				Shuffle = false,
+				FillDecks = false,
+			});
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+			game.Player2.BaseMana = 10;
+
+			// draw up to 8 wisps in hand
+			game.ProcessCard("Arcane Intellect", asZeroCost: true);
+			game.ProcessCard("Arcane Intellect", asZeroCost: true);
+			Assert.Equal(8, game.Player1.HandZone.Count);
+			Assert.All(game.Player1.HandZone, hz => hz.Card.Name.Equals("Wisp"));
+
+			IPlayable wondrousWand = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("LOOT_998l"));
+			// expect:
+			//   draw Chillwind Yeti for cost 0
+			//   draw Bomb and take 5 damage
+			//      draw River Crocolisk from bomb (no cost reduction)
+			//   overdraw bomb
+			game.ProcessCard(wondrousWand);
+			Assert.True(game.Player1.HandZone.IsFull);
+			Assert.Equal("Chillwind Yeti", game.Player1.HandZone[8].Card.Name);
+			Assert.Equal("River Crocolisk", game.Player1.HandZone[9].Card.Name);
+			int mana = game.Player1.RemainingMana;
+			game.ProcessCard(game.Player1.HandZone[8]); // 0 cost Chillwind Yeta
+			Assert.Equal(mana, game.Player1.RemainingMana);
+			game.ProcessCard(game.Player1.HandZone[8]); // 2 cost River Crocolisk
+			Assert.Equal(mana - 2, game.Player1.RemainingMana);
+
+			Assert.Equal(25, game.Player1.Hero.Health);
+
+			// The bomb after the River Crocolisk was discarded, leaving 3 bombs let in deck
+			Assert.Equal(3, game.Player1.DeckZone.Count);
+		}
+
+		[Fact]
+		public static void ChangeEntityCostEnchantment()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.ROGUE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true
+			});
+
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+
+			Assert.Equal(4, game.CurrentPlayer.HandZone.Count);
+			game.ProcessCard("Swashburglar");
+			game.ProcessCard("Swashburglar");
+			game.ProcessCard("Swashburglar");
+			game.ProcessCard("Swashburglar");
+			game.ProcessCard("Swashburglar");
+
+			int[] costs = game.CurrentPlayer.HandZone.Skip(4).Select(p => p.Cost).ToArray();
+
+			game.ProcessCard("Ethereal Peddler", asZeroCost: true);
+			for (int i = 0; i < costs.Length; i++)
+			{
+				if (costs[i] > 2)
+					costs[i] -= 2;
+				else
+					costs[i] = 0;
+			}
+
+			// Cost -2 enchantments are applied to all the opponent-class cards in the hand.
+			Assert.Equal(costs, game.CurrentPlayer.HandZone.Skip(4).Select(p => p.Cost));
+
+			// Play Golden Kobold to ChangeEntity the whole hand.
+			//game.ProcessCard("Golden Kobold", asZeroCost: true);
+			IPlayable kobold = Generic.DrawCard(game.CurrentPlayer, Cards.FromId("LOOT_998k"));
+			kobold.Cost = 0;
+			game.Process(PlayCardTask.Any(game.CurrentPlayer, kobold));
+			Assert.True(game.CurrentPlayer.HandZone.ToList()
+				.TrueForAll(p => p.Card.Rarity == Rarity.LEGENDARY && p.Card.Type == CardType.MINION));
+
+			// Test if the cost enchantment remains as it is.
+			Assert.True(game.CurrentPlayer.HandZone.Skip(4).ToList()
+				.TrueForAll(p => p.Cost == (p.Card.Cost - 2 > 0 ? p.Card.Cost - 2 : 0)));
+		}
+
+		[Fact]
+		public static void ChangeEntityCostAura()
+		{
+			var game = new Game(new GameConfig
+			{
+				StartPlayer = 1,
+				Player1HeroClass = CardClass.ROGUE,
+				Player2HeroClass = CardClass.MAGE,
+				FillDecks = true,
+				Logging = true
+			});
+
+			game.StartGame();
+			game.Player1.BaseMana = 10;
+
+			Minion worgen = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Swift Messenger"));
+
+			// Cost+3 Aura
+			Minion auraGenerator = game.ProcessCard<Minion>("Venture Co. Mercenary");
+			Assert.Equal(worgen.Card.Cost + 3, worgen.Cost);
+
+			game.EndTurn();
+			game.EndTurn();
+
+			Assert.Equal(worgen.Card.ATK, worgen.AttackDamage);
+			Assert.Equal(worgen.Card.Health, worgen.Health);
+
+			Assert.Equal(worgen.Card.Cost + 3, worgen.Cost);
+			auraGenerator.Kill();
+			Assert.Equal(worgen.Card.Cost, worgen.Cost);
 		}
 	}
 }

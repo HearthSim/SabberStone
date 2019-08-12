@@ -11,11 +11,13 @@ namespace SabberStoneCore.Model.Entities
 	{
 		internal class CostManager
 		{
-			private int _cachedValue;
-			private bool _toBeUpdated;
-
 			private readonly List<(EffectOperator Operator, int Value)> _costEffects =
 				new List<(EffectOperator @operator, int value)>();
+			private readonly List<(EffectOperator Operator, int Value)> _costEnchantments =
+				new List<(EffectOperator Operator, int Value)>();
+
+			private int _cachedValue;
+			private bool _toBeUpdated;
 			private AdaptiveCostEffect _adaptiveCostEffect;
 
 			public CostManager()
@@ -96,6 +98,9 @@ namespace SabberStoneCore.Model.Entities
 				_adaptiveCostEffect = adaptiveCostEffect;
 			}
 
+			/// <summary>
+			/// Tie in for <see cref="AdaptiveCostEffectObsolete"/> to calculate and reflect its result.
+			/// </summary>
 			public void UpdateAdaptiveEffect(int setValue = -1)
 			{
 				if (setValue > 0)
@@ -128,6 +133,8 @@ namespace SabberStoneCore.Model.Entities
 						_toBeUpdated = true;
 						break;
 				}
+
+				_costEnchantments.Add((@operator, value));
 			}
 
 			public int GetCost(int c)
@@ -140,6 +147,35 @@ namespace SabberStoneCore.Model.Entities
 			internal void QueueUpdate()
 			{
 				_toBeUpdated = true;
+			}
+
+			/// <summary>
+			/// Applies older entity's cost enchantments to the new one.
+			/// </summary>
+			/// <param name="newCardCost"></param>
+			/// <returns></returns>
+			internal int EntityChanged(int newCardCost)
+			{
+				for (int i = 0; i < _costEnchantments.Count; i++)
+				{
+					(EffectOperator @operator, int value) = _costEnchantments[i];
+					switch (@operator)
+					{
+						case EffectOperator.SUB:
+							newCardCost -= value;
+							break;
+						case EffectOperator.ADD:
+							newCardCost += value;
+							break;
+						case EffectOperator.SET:
+							newCardCost = value;
+							break;
+					}
+				}
+
+				newCardCost = GetCostInternal(newCardCost);
+
+				return newCardCost > 0 ? newCardCost : 0;
 			}
 
 			private int GetCostInternal(int c)

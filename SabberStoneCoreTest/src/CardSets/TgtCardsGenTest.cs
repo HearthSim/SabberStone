@@ -354,18 +354,19 @@ namespace SabberStoneCoreTest.CardSets
 				FillDecksPredictably = true
 			});
 			game.StartGame();
-			game.Player1.BaseMana = 9;
-			game.Player2.BaseMana = 9;
+			game.Player1.BaseMana = 4;
+			game.Player2.BaseMana = 4;
 			IPlayable testCard1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Astral Communion"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard1));
 			Assert.Equal(10, game.CurrentPlayer.BaseMana);
 			Assert.Equal(10, game.CurrentPlayer.RemainingMana);
 			Assert.Equal(0, game.CurrentPlayer.HandZone.Count);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			IPlayable testCard2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Astral Communion"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard2));
 			Assert.Equal(10, game.CurrentPlayer.BaseMana);
-			Assert.Equal(10, game.CurrentPlayer.RemainingMana);
+			Assert.Equal(6, game.CurrentPlayer.RemainingMana);
 			Assert.Equal(1, game.CurrentPlayer.HandZone.Count);
 		}
 
@@ -1097,7 +1098,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.CurrentPlayer.UsedMana = 0;
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard1, minion2));
 			Assert.Equal(6, ((Minion)minion2).Health);
-			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Mage"));
+			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Dalaran Mage"));  // +1 Spell Damage
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, minion1));
 			game.CurrentPlayer.UsedMana = 0;
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, testCard2, minion2));
@@ -1465,7 +1466,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			game.Process(HeroPowerTask.Any(game.CurrentPlayer));
 			Assert.Equal(3, game.CurrentPlayer.BoardZone.Count);
-			Assert.Equal(Race.MURLOC, game.CurrentPlayer.BoardZone[2].Card.Race);
+			Assert.True(game.CurrentPlayer.BoardZone[2].Card.IsRace(Race.MURLOC));
 		}
 
 		// --------------------------------------- MINION - PALADIN
@@ -2625,7 +2626,7 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player2.BaseMana = 10;
 			var testCard = Generic.DrawCard(game.CurrentPlayer,Cards.FromName("Fist of Jaraxxus"));
 
-			game.ProcessCard("Succubus");
+			game.ProcessCard("Felstalker");
 
 			Assert.Empty(game.CurrentPlayer.HandZone);
 

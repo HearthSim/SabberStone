@@ -34,6 +34,7 @@ namespace SabberStoneCoreConsole
 
 		static void Main(string[] args)
 		{
+
 			//SimpleTest();
 
 			Console.WriteLine("Start Test!");
@@ -43,6 +44,10 @@ namespace SabberStoneCoreConsole
 			//AugmentedElekk();
 
 			Console.WriteLine(Cards.Statistics());
+
+			//SabberStoneCoreConsole.PowerHistoryTest.EqualTest();
+			SabberStoneCoreConsole.PowerHistoryTest.Run();
+
 			//StabilityTest.CloneStabilityTest();
 			//StabilityTest.TestRun();
 			//for (int i = 0; i < 10000; i++)
@@ -62,7 +67,7 @@ namespace SabberStoneCoreConsole
 			//GameSplitTest();
 			//Console.WriteLine(Cards.Statistics());
 			//KabalCourierDiscover();
-			PowerHistoryTest();
+			//PowerHistoryTest();
 			//ChooseOneTest();
 			//Kazakus();
 			//BrainDeadTest();
@@ -79,7 +84,7 @@ namespace SabberStoneCoreConsole
 
 			//GatherTagsUsedByEnchantsOrTriggers();
 
-			//Console.WriteLine(Cards.AllStandard.Where(p => p.Race == Race.BEAST && p.Collectible).Count());
+			//Console.WriteLine(Cards.AllStandard.Where(p => p.IsRace(Race.BEAST) && p.Collectible).Count());
 
 			//Cards.Standard[CardClass.PALADIN].ForEach(p => Console.WriteLine($" {p.Id} {p.Type} {p}"));
 
@@ -445,12 +450,13 @@ namespace SabberStoneCoreConsole
 		private static string RandomUntilTerminal2(Game g)
 		{
 			int simcount = 0;
+			var rnd = new Random();
 			while (simcount < 1000)
 			{
 
 				// try
 				// {
-				g.Process(g.CurrentPlayer.Options()[Util.Random.Next(g.CurrentPlayer.Options().Count)]);
+				g.Process(g.CurrentPlayer.Options()[rnd.Next(g.CurrentPlayer.Options().Count)]);
 				//}
 				//catch (Exception ex)
 				//{
@@ -1145,7 +1151,12 @@ namespace SabberStoneCoreConsole
 				game.Player1.BaseMana = 10;
 				game.Player2.BaseMana = 10;
 
-				Card[] randomCards = Cards.Standard[CardClass.MAGE].Where(p => p.Class != CardClass.NEUTRAL).ToArray().ChooseNElements(20);
+				var rnd = new Random();
+
+				Card[] randomCards = Cards.Standard[CardClass.MAGE]
+					.Where(p => p.Class != CardClass.NEUTRAL)
+					.ToArray()
+					.ChooseNElements(20, rnd);
 
 				foreach (Card card in randomCards)
 				{
@@ -1177,10 +1188,12 @@ namespace SabberStoneCoreConsole
 				game.Player1.BaseMana = 10;
 				game.Player2.BaseMana = 10;
 
+				var rnd = new Random();
+
 				Card[] randomCards = Cards.AllStandard
 					.Where(p => p.Collectible && p[GameTag.BATTLECRY] == 1)
 					.ToArray()
-					.ChooseNElements(10);
+					.ChooseNElements(10, rnd);
 
 				foreach (Card card in randomCards)
 				{

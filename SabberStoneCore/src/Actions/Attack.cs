@@ -139,6 +139,9 @@ namespace SabberStoneCore.Actions
 				if (source.ToBeDestroyed || target.ToBeDestroyed || (source.Zone != null && source.Zone.Type != Zone.PLAY) ||
 				    (target.Zone != null && target.Zone.Type != Zone.PLAY))
 				{
+					source.IsAttacking = false;
+					target.IsDefending = false;
+
 					g.Log(LogLevel.INFO, BlockType.ATTACK, "OnAttackTrigger",
 						!g.Logging ? "" : "Oh shizzle, something died to the shizzeling of triggering ...");
 					return false;

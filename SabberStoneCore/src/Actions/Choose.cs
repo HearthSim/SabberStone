@@ -149,22 +149,27 @@ namespace SabberStoneCore.Actions
 						c.Choice.AddToStack(choice);
 						break;
 					case ChoiceAction.KAZAKUS:
-						c.Choice.Choices.Where(p => p != choice).ToList().ForEach(p =>
-						{
-							g.IdEntityDic[p][GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
-						});
-						//c.Setaside.Add(playable);
-						var kazakusPotions =
-							c.SetasideZone.Where(p => p.Card.Id.StartsWith("CFM_621"))
-								.Where(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
-								.Select(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1])
-								.ToList();
-						if (kazakusPotions.Any())
-						{
-							g.TaskQueue.Enqueue(new PotionGenerating(kazakusPotions), in c, playable, null);
-						}
-						break;
+						//c.Choice.Choices.Where(p => p != choice).ToList().ForEach(p =>
+						//{
+						//	g.IdEntityDic[p][GameTag.TAG_SCRIPT_DATA_NUM_1] = 0;
+						//});
+						////c.Setaside.Add(playable);
+						//var kazakusPotions =
+						//	c.SetasideZone.Where(p => p.Card.Id.StartsWith("CFM_621"))
+						//		.Where(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
+						//		.Select(p => p[GameTag.TAG_SCRIPT_DATA_NUM_1])
+						//		.ToList();
+						//if (kazakusPotions.Any())
+						//{
+						//	g.TaskQueue.Enqueue(new PotionGenerating(kazakusPotions), in c, playable, null);
+						//}
+						if (playable.Power == null)
+							c.Choice.EntityStack = new List<int> {playable.Id};
+						else
+							c.Choice.AddToStack(playable.Id);
 
+						KazakusPower.Action(in g, in c, c.Choice.EntityStack);
+						break;
 					case ChoiceAction.GLIMMERROOT:
 						if (c.Opponent.DeckCards.Select(p => p.Id).Contains(playable.Card.Id))
 						{
@@ -328,8 +333,7 @@ namespace SabberStoneCore.Actions
 						{
 							{GameTag.CREATOR, source.Id},
 							{GameTag.DISPLAYED_CREATOR, source.Id }
-						});
-					c.SetasideZone.Add(choiceEntity);
+						}, c.SetasideZone);
 					choicesIds.Add(choiceEntity.Id);
 				}
 

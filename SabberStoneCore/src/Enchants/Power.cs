@@ -46,7 +46,7 @@ namespace SabberStoneCore.Enchants
 				Enchant = new Enchant(Effects.StealthEff),
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
-					SingleTask = new RemoveEnchantmentTask(),
+					SingleTask = RemoveEnchantmentTask.Task,
 					RemoveAfterTriggered = true,
 				}
 			};

@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Exceptions;
 using SabberStoneCore.Model.Entities;
@@ -29,7 +31,7 @@ namespace SabberStoneCore.Model.Zones
 		/// </summary>
 		public Spell Quest { get; set; }
 
-		public SecretZone(Controller controller)
+		public SecretZone(Controller controller) : base(Zone.SECRET, SecretZoneMaxSize)
 		{
 			Game = controller.Game;
 			Controller = controller;
@@ -40,11 +42,7 @@ namespace SabberStoneCore.Model.Zones
 			Quest = (Spell) zone.Quest?.Clone(c);
 		}
 
-		public override Zone Type => Zone.SECRET;
-
 		public override bool IsFull => _count == SecretZoneMaxSize;
-
-		public override int MaxSize => SecretZoneMaxSize;
 
 		public override void Add(Spell entity, int zonePosition = -1)
 		{
@@ -69,6 +67,11 @@ namespace SabberStoneCore.Model.Zones
 				: $"Entity '{entity} ({entity.Card.Type})' has been added to zone '{Type}' in position '{entity.ZonePosition}'."); 
 
 			entity.OrderOfPlay = Game.NextOop;
+		}
+
+		public override void ChangeEntity(Spell oldEntity, Spell newEntity)
+		{
+			throw new NotImplementedException();
 		}
 
 		public override IEnumerator<Spell> GetEnumerator()

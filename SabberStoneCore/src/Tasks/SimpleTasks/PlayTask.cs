@@ -98,7 +98,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						}
 
 						while (c.Choice != null)
-							Generic.ChoicePick(c, game, Util.Choose(c.Choice.Choices));
+							Generic.ChoicePick(c, game, c.Choice.Choices.Choose(game.Random));
 					}
 
 					return TaskState.COMPLETE;

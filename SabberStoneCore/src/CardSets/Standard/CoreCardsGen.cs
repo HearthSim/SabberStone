@@ -1162,13 +1162,14 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [DS1_233] Mind Blast - COST:2 
-			// - Fac: neutral, Set: core, Rarity: free
+			// [EX1_192] Radiance - COST:1 
+			// - Set: core, Rarity: free
 			// --------------------------------------------------------
-			// Text: Deal $5 damage to the enemy hero. @spelldmg
+			// Text: Restore #5 Health to your hero.
 			// --------------------------------------------------------
-			cards.Add("DS1_233", new Power {
-				PowerTask = new DamageTask(5, EntityType.OP_HERO, true)
+			cards.Add("EX1_192", new Power
+			{
+				PowerTask = new HealTask(5, EntityType.HERO)
 			});
 
 			// ----------------------------------------- SPELL - PRIEST
@@ -1224,6 +1225,28 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void Rogue(IDictionary<string, Power> cards)
 		{
+			// ----------------------------------------- MINION - ROGUE
+			// [EX1_191] Plaguebringer - COST:4 [ATK:3/HP:3] 
+			// - Set: core, Rarity: free
+			// --------------------------------------------------------
+			// Text: <b>Battlecry:</b> Give a friendly minion <b>Poisonous</b>.
+			// --------------------------------------------------------
+			// GameTag:
+			// - BATTLECRY = 1
+			// --------------------------------------------------------
+			// PlayReq:
+			// - REQ_MINION_TARGET = 0
+			// - REQ_FRIENDLY_TARGET = 0
+			// - REQ_TARGET_IF_AVAILABLE = 0
+			// --------------------------------------------------------
+			// RefTag:
+			// - POISONOUS = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_191", new Power
+			{
+				PowerTask = new AddEnchantmentTask("EX1_191e", EntityType.TARGET)
+			});
+
 			// ------------------------------------------ SPELL - ROGUE
 			// [CS2_072] Backstab - COST:0 
 			// - Fac: neutral, Set: core, Rarity: free
@@ -1330,16 +1353,6 @@ namespace SabberStoneCore.CardSets.Standard
 				PowerTask = new ReturnHandTask(EntityType.TARGET)
 			});
 
-			// ------------------------------------------ SPELL - ROGUE
-			// [NEW1_004] Vanish - COST:6 
-			// - Set: core, Rarity: free
-			// --------------------------------------------------------
-			// Text: Return all minions to their owner's hand.
-			// --------------------------------------------------------
-			cards.Add("NEW1_004", new Power {
-				PowerTask = new ReturnHandTask(EntityType.ALLMINIONS)
-			});
-
 			// ----------------------------------------- WEAPON - ROGUE
 			// [CS2_080] Assassin's Blade - COST:5 [ATK:3/HP:0] 
 			// - Fac: neutral, Set: core, Rarity: free
@@ -1363,6 +1376,20 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_083e", null);
+
+			// ------------------------------------ ENCHANTMENT - ROGUE
+			// [EX1_191e] Plaguetouched (*) - COST:0 
+			// - Set: core, 
+			// --------------------------------------------------------
+			// Text: <b>Poisonous</b>
+			// --------------------------------------------------------
+			// RefTag:
+			// - POISONOUS = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_191e", new Power
+			{			
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_191e")
+			});
 
 			// ----------------------------------------- WEAPON - ROGUE
 			// [CS2_082] Wicked Knife (*) - COST:1 [ATK:1/HP:0] 
@@ -1683,8 +1710,9 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_065", null);
 
 			// --------------------------------------- MINION - WARLOCK
-			// [EX1_306] Succubus - COST:2 [ATK:4/HP:3] 
+			// [EX1_306] Felstalker - COST:2 [ATK:4/HP:3] 
 			// - Race: demon, Fac: neutral, Set: core, Rarity: free
+			// Renamed from Succubus 2019-07-01
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Discard a random card.
 			// --------------------------------------------------------
@@ -1913,7 +1941,7 @@ namespace SabberStoneCore.CardSets.Standard
 			//       minions. @spelldmg
 			// --------------------------------------------------------
 			// PlayReq:
-			// - REQ_MINIMUM_ENEMY_MINIONS = 2
+			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
 			cards.Add("CS2_114", new Power
 			{

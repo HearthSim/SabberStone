@@ -422,27 +422,7 @@ namespace SabberStoneCore.CardSets
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
 					EitherTurn = true,
-					SingleTask = new FuncNumberTask(src =>
-					{
-						Controller c = src.Controller;
-						int num = c.NumFriendlyMinionsThatDiedThisTurn;
-						GraveyardZone graveyard = c.GraveyardZone;
-						if (graveyard.Count == 0) return 0;
-						int i = graveyard.Count - 1;
-						int j = 0;
-						do
-						{
-							if (graveyard[i] is Minion m && m.ToBeDestroyed)
-							{
-								if (c.BoardZone.IsFull) return 0;
-								Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, m.Card), -1, src);
-								j++;
-							}
-							i--;
-						} while (j < num && i >= 0);
-
-						return 0;
-					})
+					SingleTask = ComplexTask.SummonAllFriendlyDiedThisTurn()
 				}
 			});
 

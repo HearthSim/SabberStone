@@ -23,7 +23,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			Generic.ChangeEntityBlock(controller, (IPlayable) source, Cards.FromId(Util.Choose(source.Card.Entourage)), false);
+			Generic.ChangeEntityBlock(controller, (IPlayable) source, Cards.FromId(source.Card.Entourage.Choose(game.Random)), false);
 			return TaskState.COMPLETE;
 		}
 	}
