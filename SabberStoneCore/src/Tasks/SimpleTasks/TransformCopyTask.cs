@@ -12,11 +12,13 @@
 // GNU Affero General Public License for more details.
 #endregion
 using System.Collections.Generic;
+using SabberStoneCore.Actions;
 using SabberStoneCore.Auras;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
+using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
@@ -37,33 +39,44 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			if (minionTarget == null)
 				return TaskState.STOP;
 
-			var sourceTarget = (Minion) source;
-			if (sourceTarget.Zone?.Type != Zone.PLAY)
+			var minionSource = (Minion) source;
+			if (minionSource.Zone?.Type != Zone.PLAY)
 				return TaskState.STOP;
 
-			var tags = new EntityData
-			{
-				{GameTag.CREATOR, sourceTarget.Id}
-			};
-			if (game.History)
-				tags.Add(GameTag.PREMIUM, minionTarget[GameTag.PREMIUM]);
 
-			var copy = (Minion) Entity.FromCard(in controller, minionTarget.Card, tags);
-			minionTarget.CopyInternalAttributes(copy);
+			//if (game.History)
+			//	tags.Add(GameTag.PREMIUM, minionTarget[GameTag.PREMIUM]);
+
+			//var copy = (Minion) Entity.FromCard(in controller, minionTarget.Card, tags);
+
+			// Copy tags
+			{
+				EntityData sourceTags = minionSource._data;
+				sourceTags.CopyFrom(in minionTarget._data);
+				if (game.History)
+				{
+					sourceTags[GameTag.ENTITY_ID] = minionSource.Id;
+					sourceTags[GameTag.CONTROLLER] = minionSource.Controller.PlayerId;
+					sourceTags[GameTag.ZONE_POSITION] = minionSource.ZonePosition + 1;
+				}
+			}
+
+			
+			minionSource = (Minion) Generic.ChangeEntityBlock(controller, minionSource, minionTarget.Card, true);
+
+			minionTarget.CopyInternalAttributes(minionSource);
 
 			//Trigger trigger = minionTarget.ActivatedTrigger;
 			IAura aura = minionTarget.OngoingEffect;
 
-			// LINKED_ENTITY
-			if (sourceTarget == game.CurrentEventData.EventSource)
-				game.CurrentEventData.EventSource = copy;
-			sourceTarget.Controller.BoardZone.Replace(sourceTarget, copy);
+			if (minionSource == game.CurrentEventData.EventSource)
+				game.CurrentEventData.EventSource = minionSource;
 
 			// Copy Enchantments
 			if (minionTarget.AppliedEnchantments != null)
 				foreach (Enchantment e in minionTarget.AppliedEnchantments)
 				{
-					Enchantment instance = Enchantment.GetInstance(in controller, copy, copy, e.Card);
+					Enchantment instance = Enchantment.GetInstance(in controller, minionSource, minionSource, e.Card);
 					if (e[GameTag.TAG_SCRIPT_DATA_NUM_1] > 0)
 					{
 						instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = e[GameTag.TAG_SCRIPT_DATA_NUM_1];
@@ -75,40 +88,45 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						game.OneTurnEffectEnchantments.Add(instance);
 				}
 
-			foreach (KeyValuePair<GameTag, int> kvp in minionTarget._data)
-				switch (kvp.Key)
-				{
-					case GameTag.ENTITY_ID:
-					case GameTag.CONTROLLER:
-					case GameTag.ZONE:
-					case GameTag.ZONE_POSITION:
-					case GameTag.CREATOR:
-					case GameTag.PREMIUM:
-					case GameTag.EXHAUSTED:
-					case GameTag.DEATHRATTLE:
-						continue;
-					default:
-						copy._data[kvp.Key] = kvp.Value;
-						break;
-				}
+			//foreach (KeyValuePair<GameTag, int> kvp in minionTarget._data)
+			//	switch (kvp.Key)
+			//	{
+			//		case GameTag.ENTITY_ID:
+			//		case GameTag.CONTROLLER:
+			//		case GameTag.ZONE:
+			//		case GameTag.ZONE_POSITION:
+			//		case GameTag.CREATOR:
+			//		case GameTag.PREMIUM:
+			//		case GameTag.EXHAUSTED:
+			//		case GameTag.DEATHRATTLE:
+			//			continue;
+			//		default:
+			//			copy._data.Add(kvp.Key, kvp.Value);
+			//			break;
+			//	}
 
-			if (aura != null && copy.OngoingEffect == null)
-				aura.Clone(copy);
+			if (aura != null && minionSource.OngoingEffect == null)
+				aura.Clone(minionSource);
 
-			List<(int entityId, IEffect effect)> oneTurnEffects = controller.Game.OneTurnEffects;
-			for (int i = oneTurnEffects.Count - 1; i >= 0; i--)
+			//List<(int entityId, IEffect effect)> oneTurnEffects = controller.Game.OneTurnEffects;
+			//for (int i = oneTurnEffects.Count - 1; i >= 0; i--)
+			//{
+			//	(int id, IEffect effect) = oneTurnEffects[i];
+
+			//	if (id == target.Id)
+			//		oneTurnEffects.Add((.Id, effect));
+			//}
+
+			if (minionTarget.HasCharge)
+				minionSource.IsExhausted = false;
+			else if (minionTarget.IsRush)
 			{
-				(int id, IEffect effect) = oneTurnEffects[i];
-
-				if (id == target.Id)
-					oneTurnEffects.Add((copy.Id, effect));
+				minionSource.AttackableByRush = true;
+				game.RushMinions.Add(minionSource.Id);
 			}
 
-			if (!minionTarget.HasCharge)
-				copy.IsExhausted = true;
-
 			if (_addToStack)
-				stack.Playables = new []{copy};
+				stack.Playables = new IPlayable[] {minionSource};
 
 			return TaskState.COMPLETE;
 		}

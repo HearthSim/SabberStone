@@ -67,7 +67,10 @@ namespace SabberStoneCore.Model.Entities
 			//Game.IdEntityDic.Add(Id, this);
 			Game.IdEntityDic[Id] = this;
 			if (e.IsOneTurnActive)
+			{
 				c.Game.OneTurnEffectEnchantments.Add(this);
+				IsOneTurnActive = true;
+			}
 
 			//if (c.Game.History)
 			//{

@@ -354,7 +354,7 @@ namespace SabberStoneCore.Enchants
 	/// A collecton of controller Tag increments from Auras.
 	/// These tags tends to be checked when a player plays any cards.
 	/// </summary>
-	public class ControllerAuraEffects
+	public class ControllerAuraEffects : IEquatable<ControllerAuraEffects>
 	{
 		private Action<IPowerHistoryEntry> _sendHistory;
 		private int _controllerEntityId;

@@ -149,6 +149,11 @@ namespace SabberStoneCore.Model.Entities
 				_toBeUpdated = true;
 			}
 
+			/// <summary>
+			/// Applies older entity's cost enchantments to the new one.
+			/// </summary>
+			/// <param name="newCardCost"></param>
+			/// <returns></returns>
 			internal int EntityChanged(int newCardCost)
 			{
 				for (int i = 0; i < _costEnchantments.Count; i++)

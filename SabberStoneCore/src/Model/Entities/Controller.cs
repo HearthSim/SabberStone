@@ -189,7 +189,7 @@ namespace SabberStoneCore.Model.Entities
 
 			ControlledZones = new ControlledZones(this);
 
-			ControllerAuraEffects = new ControllerAuraEffects();
+			ControllerAuraEffects = new ControllerAuraEffects(in game, this);
 
 			DiscardedEntities = new List<int>();
 			CardsPlayedThisTurn = new List<Card>(10);

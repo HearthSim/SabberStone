@@ -168,7 +168,6 @@ namespace SabberStoneCore.Kettle
 		{
 			return new PowerHistoryBlockEnd();
 		}
-
 	}
 
 	//message PowerHistory
@@ -347,6 +346,11 @@ namespace SabberStoneCore.Kettle
 				: $"{PowerType} Entity = [{EntityId}] Tag={Tag} Value={Value}");
 			return str.ToString();
 		}
+
+		public override string ToString()
+		{
+			return $"[{EntityId}][{Tag}][{Value}]";
+		}
 	}
 
 	//message PowerHistoryMetaData
@@ -370,6 +374,43 @@ namespace SabberStoneCore.Kettle
 		}
 	}
 
+	public readonly struct PowerHistoryChangeEntity : IPowerHistoryEntry
+	{
+		#region Implementation of IPowerHistoryEntry
+
+		public PowerType PowerType => PowerType.CHANGE_ENTITY;
+
+		public readonly string CardId;
+		public readonly PowerHistoryEntity Entity;
+
+		public PowerHistoryChangeEntity(int id, IDictionary<GameTag, int> tags, string cardId)
+		{
+			CardId = cardId;
+			Entity = new PowerHistoryEntity
+			{
+				Id = id,
+				Name = "",
+				Tags = tags
+				// tag=0 value=0
+				// tag=CARDTYPE
+				// (optionals)
+				//	Changed values are here
+				// tag=PREMIUM
+				// tag=ELITE
+				// tag=RARITY
+				// tag=HIDE_STATS
+				// tag=REAL_TIME_TRANSFORM
+			};
+		}
+
+		public string Print()
+		{
+			throw new NotImplementedException();
+		}
+
+		#endregion
+	}
+
 	//message PowerHistoryEntity
 	//{
 	//    required int32 entity = 1;
@@ -385,7 +426,7 @@ namespace SabberStoneCore.Kettle
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public Dictionary<GameTag, int> Tags { get; set; } = new Dictionary<GameTag, int>();
+		public IDictionary<GameTag, int> Tags { get; set; } = new Dictionary<GameTag, int>();
 		public string Print()
 		{
 			var str = new StringBuilder();
