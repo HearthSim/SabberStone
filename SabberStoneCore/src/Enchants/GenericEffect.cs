@@ -1,4 +1,5 @@
 ﻿using System;
+using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
@@ -76,6 +77,10 @@ namespace SabberStoneCore.Enchants
 			return new GenericEffect<TAttr, T>(_attr, _operator, newValue);
 		}
 
+		GameTag IEffect.Tag => _attr.Tag;
+		EffectOperator IEffect.Operator => _operator;
+		int IEffect.Value => _value;
+
 		public override string ToString()
 		{
 			return $"{_operator} {_attr} {_value}";
@@ -88,6 +93,7 @@ namespace SabberStoneCore.Enchants
 		public abstract void ApplyAura(T entity, EffectOperator @operator, int value);
 		public abstract void Remove(T entity, EffectOperator @operator, int value);
 		public abstract void RemoveAura(T entity, EffectOperator @operator, int value);
+		public abstract GameTag Tag { get; }
 
 		protected abstract ref int GetAuraRef(AuraEffects auraEffects);
 	}
@@ -261,6 +267,8 @@ namespace SabberStoneCore.Enchants
 
 	internal class Cost : SelfContainedIntAttr<Cost, Playable>
 	{
+		public override GameTag Tag => GameTag.COST;
+
 		protected override ref int? GetRef(Playable entity)
 		{
 			return ref entity._modifiedCost;
@@ -303,6 +311,8 @@ namespace SabberStoneCore.Enchants
 
 	internal class ATK : SelfContainedIntAttr<ATK, Playable>
 	{
+		public override GameTag Tag => GameTag.ATK;
+
 		protected override ref int? GetRef(Playable entity)
 		{
 			if (entity is Character c)
@@ -357,6 +367,8 @@ namespace SabberStoneCore.Enchants
 
 	internal class Health : SelfContainedIntAttr<Health, Character>
 	{
+		public override GameTag Tag => GameTag.HEALTH;
+
 		protected override ref int? GetRef(Character entity)
 		{
 			return ref entity._modifiedHealth;
@@ -407,6 +419,8 @@ namespace SabberStoneCore.Enchants
 
 	internal class Stealth : SelfContainedBoolAttr<Stealth, Character>
 	{
+		public override GameTag Tag => GameTag.STEALTH;
+
 		protected override ref bool? GetRef(Character entity)
 		{
 			return ref entity._modifiedStealth;
@@ -420,6 +434,8 @@ namespace SabberStoneCore.Enchants
 
 	internal class Taunt : SelfContainedBoolAttr<Taunt, Minion>
 	{
+		public override GameTag Tag => GameTag.TAUNT;
+
 		protected override ref bool? GetRef(Minion entity)
 		{
 			return ref entity._modifiedTaunt;
@@ -433,6 +449,8 @@ namespace SabberStoneCore.Enchants
 
 	internal class CantBeTargetedBySpells : SelfContainedBoolAttr<CantBeTargetedBySpells, Character>
 	{
+		public override GameTag Tag => GameTag.CANT_BE_TARGETED_BY_SPELLS;
+
 		protected override ref int GetAuraRef(AuraEffects auraEffects)
 		{
 			return ref auraEffects._data[2];

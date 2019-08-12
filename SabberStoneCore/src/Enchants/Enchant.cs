@@ -16,6 +16,7 @@ using System;
 using System.Text;
 using SabberStoneCore.Auras;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -116,6 +117,11 @@ namespace SabberStoneCore.Enchants
 				for (int i = 2; i < effects.Length; i++)
 					effects[i].ApplyTo(entity, IsOneTurnEffect);
 			}
+
+			if (entity.Game.History)
+				for (int i = 0; i < effects.Length; i++)
+					entity.Game.PowerHistory.Add(
+						PowerHistoryBuilder.TagChange(entity.Id, effects[i].Tag, effects[i].Value));
 		}
 
 		public void RemoveEffect(in IEntity target)
