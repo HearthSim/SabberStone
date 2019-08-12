@@ -34,16 +34,6 @@ namespace SabberStoneCoreConsole
 
 		static void Main(string[] args)
 		{
-			unsafe
-			{
-				int* ptr = stackalloc int[10];
-				for (int i = 0; i < 10; i++)
-					ptr[i] = 1;
-				*ptr = (long) 0;
-
-			}
-
-
 
 			//SimpleTest();
 
