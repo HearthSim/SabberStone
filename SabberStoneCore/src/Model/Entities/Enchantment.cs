@@ -220,7 +220,7 @@ namespace SabberStoneCore.Model.Entities
 						Entity = new PowerHistoryEntity
 						{
 							Id = instance.Id,
-							Name = instance.Card.Name,
+							Name = instance.Card.Id,
 							Tags = gameTags
 						}
 					});
