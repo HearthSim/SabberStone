@@ -196,6 +196,7 @@ namespace SabberStoneCore.Model.Entities
 					Entity = new PowerHistoryEntity
 					{
 						Id = instance.Id,
+						Name = "",
 						Tags = tags.ToDictionary(k => k.Key, k => k.Value)
 					}
 				});
