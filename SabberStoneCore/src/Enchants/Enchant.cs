@@ -93,7 +93,7 @@ namespace SabberStoneCore.Enchants
 			if (entity.Game.History)
 				for (int i = 0; i < effects.Length; i++)
 					entity.Game.PowerHistory.Add(
-						PowerHistoryBuilder.TagChange(entity.Id, effects[i].Tag, effects[i].Value));
+						PowerHistoryBuilder.TagChange(entity.Id, effects[i].Tag, entity[effects[i].Tag]));
 		}
 
 		public void RemoveEffect(in IEntity target)

@@ -528,7 +528,7 @@ namespace SabberStoneCore.Auras
 			{
 				for (int i = 0; i < Effects.Length; i++)
 					Game.PowerHistory.Add(
-						PowerHistoryBuilder.TagChange(entity.Id, Effects[i].Tag, Effects[i].Value));
+						PowerHistoryBuilder.TagChange(entity.Id, Effects[i].Tag, entity[Effects[i].Tag]));
 			}
 
 			if (EnchantmentCard != null && (Game.History || EnchantmentCard.Power.Trigger != null))
@@ -569,7 +569,7 @@ namespace SabberStoneCore.Auras
 			{
 				for (int i = 0; i < effects.Length; i++)
 					Game.PowerHistory.Add(
-						PowerHistoryBuilder.TagChange(entity.Id, effects[i].Tag, effects[i].Value));
+						PowerHistoryBuilder.TagChange(entity.Id, effects[i].Tag, entity[effects[i].Tag]));
 			}
 			
 
