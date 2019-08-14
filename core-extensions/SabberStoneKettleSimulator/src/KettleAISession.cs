@@ -19,8 +19,8 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
-using SabberStoneCoreAi.Nodes;
-using SabberStoneCoreAi.Score;
+using SabberStoneBasicAI.Nodes;
+using SabberStoneBasicAI.Score;
 using SabberStoneKettle;
 
 namespace SabberStoneKettleSimulator
