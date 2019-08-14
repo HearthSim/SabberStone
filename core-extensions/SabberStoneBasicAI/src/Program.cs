@@ -19,11 +19,11 @@ using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
-using SabberStoneCoreAi.Meta;
-using SabberStoneCoreAi.Nodes;
-using SabberStoneCoreAi.Score;
+using SabberStoneBasicAI.Meta;
+using SabberStoneBasicAI.Nodes;
+using SabberStoneBasicAI.Score;
 
-namespace SabberStoneCoreAi
+namespace SabberStoneBasicAI
 {
 	internal class Program
 	{

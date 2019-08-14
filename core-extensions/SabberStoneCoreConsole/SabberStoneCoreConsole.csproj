@@ -13,7 +13,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SabberStoneBasicAI\SabberStoneBasicAI.csproj" />
     <ProjectReference Include="..\..\SabberStoneCore\SabberStoneCore.csproj" />
+    <ProjectReference Include="..\SabberStoneBasicAI\SabberStoneBasicAI.csproj" />
   </ItemGroup>
 </Project>

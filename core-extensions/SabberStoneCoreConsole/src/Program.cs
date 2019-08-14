@@ -25,8 +25,8 @@ using System.Threading.Tasks;
 using SabberStoneCore.Model.Entities;
 using System.Text;
 using System.IO;
-using SabberStoneCoreAi.Score;
-using SabberStoneCoreAi.Nodes;
+using SabberStoneBasicAI.Score;
+using SabberStoneBasicAI.Nodes;
 
 namespace SabberStoneCoreConsole
 {
@@ -1525,10 +1525,10 @@ namespace SabberStoneCoreConsole
 					StartPlayer = 1,
 					Player1Name = "FitzVonGerald",
 					Player1HeroClass = CardClass.WARRIOR,
-					Player1Deck = SabberStoneCoreAi.Meta.Decks.AggroPirateWarrior,
+					Player1Deck = SabberStoneBasicAI.Meta.Decks.AggroPirateWarrior,
 					Player2Name = "RehHausZuckFuchs",
 					Player2HeroClass = CardClass.SHAMAN,
-					Player2Deck = SabberStoneCoreAi.Meta.Decks.MidrangeJadeShaman,
+					Player2Deck = SabberStoneBasicAI.Meta.Decks.MidrangeJadeShaman,
 					FillDecks = false,
 					Shuffle = false,
 					SkipMulligan = false
@@ -1575,10 +1575,10 @@ namespace SabberStoneCoreConsole
 					StartPlayer = 1,
 					Player1Name = "FitzVonGerald",
 					Player1HeroClass = CardClass.WARRIOR,
-					Player1Deck = SabberStoneCoreAi.Meta.Decks.AggroPirateWarrior,
+					Player1Deck = SabberStoneBasicAI.Meta.Decks.AggroPirateWarrior,
 					Player2Name = "RehHausZuckFuchs",
 					Player2HeroClass = CardClass.WARRIOR,
-					Player2Deck = SabberStoneCoreAi.Meta.Decks.AggroPirateWarrior,
+					Player2Deck = SabberStoneBasicAI.Meta.Decks.AggroPirateWarrior,
 					FillDecks = false,
 					Shuffle = true,
 					SkipMulligan = false

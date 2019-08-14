@@ -17,9 +17,9 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.PlayerTasks;
-using SabberStoneCoreAi.Score;
+using SabberStoneBasicAI.Score;
 
-namespace SabberStoneCoreAi.Nodes
+namespace SabberStoneBasicAI.Nodes
 {
 	public class OptionNode
 	{
