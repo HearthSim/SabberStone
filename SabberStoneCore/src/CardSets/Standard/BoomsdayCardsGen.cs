@@ -2204,6 +2204,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_218", new Power {
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
+					TriggerSource = TriggerSource.SELF,
 					SingleTask = new SummonTask("BOT_218t", 1)
 				}
 			});
