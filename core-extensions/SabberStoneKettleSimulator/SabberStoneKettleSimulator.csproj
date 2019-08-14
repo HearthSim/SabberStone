@@ -13,7 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\SabberStoneCore\SabberStoneCore.csproj" />
-    <ProjectReference Include="..\SabberStoneCoreAi\SabberStoneCoreAi.csproj" />
+    <ProjectReference Include="..\SabberStoneBasicAI\SabberStoneBasicAI.csproj" />
     <ProjectReference Include="..\SabberStoneKettle\SabberStoneKettle.csproj" />
   </ItemGroup>
 
