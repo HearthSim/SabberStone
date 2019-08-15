@@ -16,6 +16,7 @@ using System.Text;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
@@ -257,21 +258,24 @@ namespace SabberStoneCore.Auras
 			if (_triggerType != TriggerType.NONE)
 			{
 				if (_initialisationFunction != null)
-				{
 					_owner._costManager.UpdateAdaptiveEffect(_cachedValue);
-					return;
+				else
+				{
+					if (!_isTriggered) return;
+
+					if (_isAppliedThisTurn) return;
+
+					_owner._costManager.UpdateAdaptiveEffect(_value);
+
+					_isAppliedThisTurn = true;
 				}
-
-				if (!_isTriggered) return;
-
-				if (_isAppliedThisTurn) return;
-
-				_owner._costManager.UpdateAdaptiveEffect(_value);
-
-				_isAppliedThisTurn = true;
 			}
 			else
 				_owner._costManager.UpdateAdaptiveEffect();
+
+			if (_owner.Game.History)
+				_owner.Game.PowerHistory.Add(PowerHistoryBuilder
+					.TagChange(_owner.Id, GameTag.COST, _owner.Cost));
 		}
 
 		public void Clone(IPlayable clone)
