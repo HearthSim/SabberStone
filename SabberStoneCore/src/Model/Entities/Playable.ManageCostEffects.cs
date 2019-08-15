@@ -247,5 +247,17 @@ namespace SabberStoneCore.Model.Entities
 			if (_history)
 				Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.COST, Card.Cost));
 		}
+
+		public override int this[GameTag t]
+		{
+			get => t == GameTag.COST ? Cost : base[t];
+			set
+			{
+				if (t == GameTag.COST)
+					Cost = value;
+				else
+					base[t] = value;
+			}
+		}
 	}
 }
