@@ -141,10 +141,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("TRL_241", new Power {
 				Trigger = TriggerBuilder.Type(TriggerType.AFTER_ATTACK)
-					.SetTask(ComplexTask.Create(
-						new GetGameTagTask(GameTag.EXTRA_ATTACKS_THIS_TURN, EntityType.HERO),
-						new MathAddTask(1),
-						new SetGameTagNumberTask(GameTag.EXTRA_ATTACKS_THIS_TURN, EntityType.HERO)))
+					.SetTask(ComplexTask.ExtraAttacksThisTurn(EntityType.HERO))
 					.SetCondition(SelfCondition.IsDefenderDead)
 					.SetSource(TriggerSource.HERO)
 					.GetTrigger()
@@ -2054,8 +2051,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("TRL_325", new Power {
 				// TODO [TRL_325] Sul'thraze && Test: Sul'thraze_TRL_325
-				//PowerTask = null,
-				//Trigger = null,
+				OverkillTask = ComplexTask.ExtraAttacksThisTurn(EntityType.HERO)
 			});
 
 			// --------------------------------------- WEAPON - WARRIOR

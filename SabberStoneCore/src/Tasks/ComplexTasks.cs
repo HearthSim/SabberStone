@@ -94,6 +94,12 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask Stealth(EntityType entityType)
 			=> new SetGameTagTask(GameTag.STEALTH, 1, entityType);
 
+		public static ISimpleTask ExtraAttacksThisTurn(EntityType type) =>
+			Create(
+				new GetGameTagTask(GameTag.EXTRA_ATTACKS_THIS_TURN, type),
+				new MathAddTask(1),
+				new SetGameTagNumberTask(GameTag.EXTRA_ATTACKS_THIS_TURN, type));
+
 		public static ISimpleTask DiscardRandomCard(int amount)
 			=> Create(
 				new RandomTask(amount, EntityType.HAND),

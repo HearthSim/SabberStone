@@ -84,6 +84,8 @@ namespace SabberStoneCore.Model.Entities
 			set => base.IsImmune = value;
 		}
 
+		public override bool HasOverkill => Weapon?.HasOverkill ?? false;
+
 		public void AddWeapon(Weapon weapon)
 		{
 			RemoveWeapon();

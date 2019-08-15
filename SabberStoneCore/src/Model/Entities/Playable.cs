@@ -695,7 +695,7 @@ namespace SabberStoneCore.Model.Entities
 			}
 		}
 
-		public bool HasOverkill => Card.Overkill;
+		public virtual bool HasOverkill => Card.Overkill;
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }

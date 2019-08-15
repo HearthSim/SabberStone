@@ -3570,10 +3570,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 		// - DURABILITY = 4
 		// - OVERKILL = 1
 		// --------------------------------------------------------
-		[Fact(Skip = "ignore")]
+		[Fact]
 		public void Sulthraze_TRL_325()
 		{
-			// TODO Sulthraze_TRL_325 test
 			var game = new Game(new GameConfig
 			{
 				StartPlayer = 1,
@@ -3591,7 +3590,20 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Sul'thraze"));
-			//var testCard = (Weapon) game.ProcessCard<Weapon>("Sul'thraze");
+
+			Minion target1 = game.ProcessCard<Minion>("Wisp");
+			Minion target2 = game.ProcessCard<Minion>("Wisp");
+			game.EndTurn();
+
+			var testCard = (Weapon) game.ProcessCard<Weapon>("Sul'thraze");
+			game.CurrentPlayer.Hero.Attack(target1);
+			Assert.True(target1.IsDead);
+			Assert.True(game.CurrentPlayer.Hero.CanAttack);
+			game.CurrentPlayer.Hero.Attack(target2);
+			Assert.True(target2.IsDead);
+			Assert.True(game.CurrentPlayer.Hero.CanAttack);
+			game.CurrentPlayer.Hero.Attack(game.CurrentOpponent.Hero);
+			Assert.False(game.CurrentPlayer.Hero.CanAttack);
 		}
 
 		// --------------------------------------- WEAPON - WARRIOR
