@@ -2888,9 +2888,18 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("GIL_614e2", new Power {
 				DeathrattleTask = ComplexTask.Create(
-					new IncludeTask(EntityType.TARGET),
-					new FuncPlayablesTask(p => new List<IPlayable>{p[0].Game.IdEntityDic[p[0][GameTag.TAG_SCRIPT_DATA_NUM_1]]}),
-					new DestroyTask(EntityType.STACK))
+					new CustomTask((g,c,s,t,stack)=>
+						{
+							if (!(g.IdEntityDic[t[GameTag.TAG_SCRIPT_DATA_NUM_1]] is Minion m))
+								return;
+							if (m.IsSilenced ||
+							    m.NativeTags[GameTag.VOODOO_LINK] == 0 ||
+							    m.Zone.Type != Zone.PLAY) return;
+							stack.Flag = true;
+							stack.Playables = new IPlayable[] {m};
+						}),
+					new FlagTask(true,
+					new DestroyTask(EntityType.STACK)))
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL

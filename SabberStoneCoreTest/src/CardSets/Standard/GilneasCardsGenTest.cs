@@ -4605,6 +4605,25 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			test.Kill();
 
 			Assert.True(target.ToBeDestroyed);
+
+			// https://playhearthstone.com/en-us/blog/21965466/
+			// The impact on Voodoo Doll is a little different with the update.
+			// If you transform the minion that’s already been cursed by Voodoo Doll,
+			// the curse will be broken, and the transformed (and formerly cursed) minion
+			// will not be killed when Voodoo Doll dies.
+			// Silencing the cursed minion will also break the curse,
+			// in addition to silencing the Voodoo Doll.
+			test = game.ProcessCard<Minion>("Wisp");
+
+			Minion silenceTest = game.ProcessCard<Minion>("Voodoo Doll", test, asZeroCost: true);
+			test.Silence();
+			silenceTest.Kill();
+			Assert.False(test.ToBeDestroyed);
+
+			Minion transformTest = game.ProcessCard<Minion>("Voodoo Doll", test, asZeroCost: true);
+			game.ProcessCard<Minion>("Master of Evolution", test, asZeroCost: true);
+			transformTest.Kill();
+			Assert.False(game.IdEntityDic[test.Id].ToBeDestroyed);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
