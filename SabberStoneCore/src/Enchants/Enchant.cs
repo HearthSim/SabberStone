@@ -143,6 +143,12 @@ namespace SabberStoneCore.Enchants
 				for (int i = 2; i < Effects.Length; i++)
 					Effects[i].RemoveFrom(target);
 			}
+
+			if (target.Game.History)
+				for (int i = 0; i < Effects.Length; i++)
+					target.Game.PowerHistory.Add(
+						PowerHistoryBuilder.TagChange(
+							target.Id, Effects[i].Tag, target[Effects[i].Tag]));
 		}
     }
 

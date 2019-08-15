@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
@@ -166,7 +167,12 @@ namespace SabberStoneCore.Auras
 				_effects[i].ApplyAuraTo(m);
 
 			if (EnchantmentCard != null && _history)
+			{
 				Enchantment.GetInstance(m.Controller, _owner, m, in EnchantmentCard);
+				for (int i = 0; i < _effects.Length; i++)
+					_owner.Game.PowerHistory.Add(
+						PowerHistoryBuilder.TagChange(_owner.Id, _effects[i].Tag, _owner[_effects[i].Tag]));
+			}
 		}
 
 		private void DeApply(Minion m)
@@ -184,6 +190,11 @@ namespace SabberStoneCore.Auras
 						enchantments.RemoveAt(i);
 						break;
 					}
+
+				if (_history)
+					for (int i = 0; i < _effects.Length; i++)
+						_owner.Game.PowerHistory.Add(
+							PowerHistoryBuilder.TagChange(_owner.Id, _effects[i].Tag, _owner[_effects[i].Tag]));
 			}
 		}
 
