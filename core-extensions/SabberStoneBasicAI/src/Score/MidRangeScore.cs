@@ -16,9 +16,9 @@ using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Model.Entities;
 
-namespace SabberStoneCoreAi.Score
+namespace SabberStoneBasicAI.Score
 {
-	public class FatigueScore : Score
+	public class MidRangeScore : Score
 	{
 		public override int Rate()
 		{
@@ -31,23 +31,20 @@ namespace SabberStoneCoreAi.Score
 			int result = 0;
 
 			if (OpBoardZone.Count == 0 && BoardZone.Count > 0)
-				result += 1000;
+				result += 5000;
 
-			if (OpHandCnt > 9)
-				result += 1000;
+			result += (BoardZone.Count - OpBoardZone.Count) * 5;
 
-			if (OpDeckCnt == 0)
-				result += 10000;
-
-			result += (DeckCnt - OpDeckCnt) * 50;
-
-			result += (BoardZone.Count - OpBoardZone.Count) * 10;
-
-			result += (MinionTotHealthTaunt - OpMinionTotHealthTaunt) * 10;
+			if (OpMinionTotHealthTaunt > 0)
+				result += OpMinionTotHealthTaunt * -1000;
 
 			result += MinionTotAtk;
 
-			result += (HeroHp - OpHeroHp) * 5;
+			result += (HeroHp - OpHeroHp) * 10;
+
+			result += (MinionTotHealth - OpMinionTotHealth) * 10;
+
+			result += (MinionTotAtk - OpMinionTotAtk) * 10;
 
 			return result;
 		}

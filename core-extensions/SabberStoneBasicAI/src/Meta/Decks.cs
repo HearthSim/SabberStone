@@ -14,7 +14,7 @@
 using System.Collections.Generic;
 using SabberStoneCore.Model;
 
-namespace SabberStoneCoreAi.Meta
+namespace SabberStoneBasicAI.Meta
 {
 	public class Decks
 	{

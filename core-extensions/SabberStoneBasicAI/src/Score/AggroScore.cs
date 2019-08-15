@@ -16,35 +16,29 @@ using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Model.Entities;
 
-namespace SabberStoneCoreAi.Score
+namespace SabberStoneBasicAI.Score
 {
-	public class MidRangeScore : Score
+	public class AggroScore : Score
 	{
 		public override int Rate()
 		{
 			if (OpHeroHp < 1)
-				return int.MaxValue;
+				return Int32.MaxValue;
 
 			if (HeroHp < 1)
-				return int.MinValue;
+				return Int32.MinValue;
 
 			int result = 0;
 
 			if (OpBoardZone.Count == 0 && BoardZone.Count > 0)
-				result += 5000;
-
-			result += (BoardZone.Count - OpBoardZone.Count) * 5;
+				result += 1000;
 
 			if (OpMinionTotHealthTaunt > 0)
 				result += OpMinionTotHealthTaunt * -1000;
 
 			result += MinionTotAtk;
 
-			result += (HeroHp - OpHeroHp) * 10;
-
-			result += (MinionTotHealth - OpMinionTotHealth) * 10;
-
-			result += (MinionTotAtk - OpMinionTotAtk) * 10;
+			result += (HeroHp - OpHeroHp) * 1000;
 
 			return result;
 		}
