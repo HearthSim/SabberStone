@@ -722,8 +722,8 @@ namespace SabberStoneCore.Model.Entities
 				{
 					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.HEALTH, value));
 					_data[GameTag.HEALTH] = value;
-					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.DAMAGE, value));
-					_data[GameTag.DAMAGE] = value;
+					Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.DAMAGE, 0));
+					_data[GameTag.DAMAGE] = 0;
 				}
 			}
 		}
