@@ -1127,5 +1127,104 @@ namespace SabberStoneCoreTest.Basic
 			Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Crowd Roaster"));
 			Assert.True(testCard.IsValidPlayTarget(testTarget));
 		}
+
+		[Fact]
+		public void DeckSerializer()
+		{
+			/**
+			The MIT License(MIT)
+
+			Copyright(c) 2016 HearthSim
+
+			Permission is hereby granted, free of charge, to any person obtaining a copy
+			of this software and associated documentation files (the "Software"), to deal
+			in the Software without restriction, including without limitation the rights
+			to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+			copies of the Software, and to permit persons to whom the Software is
+			furnished to do so, subject to the following conditions:
+
+			The above copyright notice and this permission notice shall be included in all
+			copies or substantial portions of the Software.
+
+			THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+			IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+			FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+			AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+			LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+			OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+			SOFTWARE.
+
+			https://github.com/HearthSim/HearthDb
+			*/
+
+			string DeckString = "AAECAQcCrwSRvAIOHLACkQP/A44FqAXUBaQG7gbnB+8HgrACiLACub8CAA==";
+			string FullDeckString =
+				  @"### Warrior123
+					# Class: Warrior
+					# Format: Standard
+					# Year of the Mammoth
+					#
+					# 2x (1) Upgrade!
+					# 1x (1) Patches the Pirate
+					# 2x (1) N'Zoth's First Mate
+					# 2x (1) Southsea Deckhand
+					# 2x (2) Heroic Strike
+					# 2x (2) Bloodsail Raider
+					# 2x (2) Fiery War Axe
+					# 2x (3) Frothing Berserker
+					# 2x (3) Southsea Captain
+					# 2x (3) Bloodsail Cultist
+					# 2x (4) Kor'kron Elite
+					# 2x (4) Mortal Strike
+					# 2x (4) Naga Corsair
+					# 2x (4) Dread Corsair
+					# 2x (5) Arcanite Reaper
+					# 1x (5) Leeroy Jenkins
+					#
+					AAECAQcCrwSRvAIOHLACkQP/A44FqAXUBaQG7gbnB+8HgrACiLACub8CAA==
+					#
+					# To use this deck, copy it to your clipboard and create a new deck in Hearthstone";
+			Deck deck;
+
+			// TestDeckStrings
+			deck = SabberStoneCore.Config.DeckSerializer.Deserialize(DeckString);
+			Assert.Equal(Cards.FromId("HERO_01").Id, deck.GetHero().Id);
+			Dictionary<Card, int> cards = deck.GetCards();
+			Assert.Equal(30, cards.Values.Sum());
+			KeyValuePair<Card, int> heroicStroke = cards.FirstOrDefault(c => c.Key.Id == Cards.FromId("CS2_105").Id);
+			Assert.NotNull(heroicStroke.Key);
+			Assert.Equal(2, heroicStroke.Value);
+
+			// TestReserialize
+			deck = SabberStoneCore.Config.DeckSerializer.Deserialize(DeckString);
+			string reserialized = SabberStoneCore.Config.DeckSerializer.Serialize(deck, false);
+			Assert.Equal(DeckString, reserialized);
+
+			// TestSerializerComments
+			deck = SabberStoneCore.Config.DeckSerializer.Deserialize(DeckString);
+			deck.Name = "Warrior123";
+			deck.ZodiacYear = ZodiacYear.MAMMOTH;
+			string commented = SabberStoneCore.Config.DeckSerializer.Serialize(deck, true);
+			string[] lines = commented.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+			Assert.Equal("### Warrior123", lines[0]);
+			Assert.Equal("# Class: Warrior", lines[1]);
+			Assert.Equal("# Format: Standard", lines[2]);
+			Assert.Equal("# Year of the Mammoth", lines[3]);
+
+			// TestSerializerCommentsDefaults
+			deck = SabberStoneCore.Config.DeckSerializer.Deserialize(DeckString);
+			string commentedDef = SabberStoneCore.Config.DeckSerializer.Serialize(deck, true);
+			string[] linesDef = commentedDef.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+			Assert.Equal("### Warrior Deck", linesDef[0]);
+			Assert.Equal("# Class: Warrior", linesDef[1]);
+			Assert.Equal("# Format: Standard", linesDef[2]);
+
+			// DeserializeWithComments
+			deck = SabberStoneCore.Config.DeckSerializer.Deserialize(FullDeckString);
+			Assert.Equal("Warrior123", deck.Name);
+			Assert.Equal(30, deck.GetCards().Values.Sum());
+			string serialized = SabberStoneCore.Config.DeckSerializer.Serialize(deck, false);
+			Assert.Equal(DeckString, serialized);
+		}
 	}
 }
