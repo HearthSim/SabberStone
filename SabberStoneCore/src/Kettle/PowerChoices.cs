@@ -54,6 +54,13 @@ namespace SabberStoneCore.Kettle
 			game.EntityChoicesMap.Add(Index, this);
 		}
 
+		public PowerEntityChoices(int index, ChoiceType choiceType, List<int> entities)
+		{
+			Index = index;
+			ChoiceType = choiceType;
+			Entities = entities;
+		}
+
 		public string Print()
 		{
 			var str = new StringBuilder();
