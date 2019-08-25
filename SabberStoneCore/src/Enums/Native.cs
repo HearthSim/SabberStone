@@ -133,7 +133,7 @@ namespace SabberStoneCore.Enums
 	{
 		// Custom enums for easy syntax.
 		ANOTHER_CLASS = -2,
-		OP_CLASS = -1,	
+		OP_CLASS = -1,
 
 		INVALID = 0,
 		DEATHKNIGHT = 1,
@@ -1214,4 +1214,17 @@ namespace SabberStoneCore.Enums
 	}
 #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 
+	/// <summary>
+	/// </summary>
+	public enum ZodiacYear
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+	{
+		INVALID = -1,
+		PRE_STANDARD = 0,
+		KRAKEN = 1,
+		MAMMOTH = 2,
+		RAVEN = 3,
+		DRAGON = 4
+	}
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
 }
