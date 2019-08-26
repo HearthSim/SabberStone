@@ -200,4 +200,153 @@ namespace SabberStoneCore.Config
 		}
 
 	}
+
+	public sealed class GameConfigBuilder
+	{
+		private int startPlayer = GameConfig.START_PLAYER_DEFAULT;
+		private string player1Name = String.Format(GameConfig.PLAYER_NAME_DEFAULT, 1);
+		private string player2Name = String.Format(GameConfig.PLAYER_NAME_DEFAULT, 2);
+		private CardClass player1HeroClass = CardClass.HUNTER;
+		private CardClass player2HeroClass = CardClass.MAGE;
+		private Card player1HeroCard;
+		private Card player2HeroCard;
+		private FormatType formatType = FormatType.FT_STANDARD;
+		private List<Card> player1Deck = null;
+		private List<Card> player2Deck = null;
+		private bool fillDecks = false;
+		private bool fillDecksPredictably = false;
+		private bool drawPool = false;
+		private bool shuffle = true;
+		private bool splitting = false;
+		private bool logging = true;
+		private bool history = true;
+		private bool skipMulligan = true;
+		private long? randomSeed = null;
+
+		private GameConfigBuilder() { }
+
+		public static GameConfigBuilder Create()
+		{
+			return new GameConfigBuilder()
+			{
+				//player1HeroClass =
+			};
+		}
+		public GameConfigBuilder StartPlayer(int startPlayer)
+		{
+			this.startPlayer = startPlayer;
+			return this;
+		}
+		public GameConfigBuilder SetPlayer1(string playerName, string deckString)
+		{
+			player1Name = playerName;
+			Deck deck = DeckSerializer.Deserialize(deckString);
+			Card heroCard = deck.GetHero();
+			player1HeroCard = heroCard;
+			player1HeroClass = heroCard.Class;
+			player1Deck = GetCardList(deck.CardDbfIds);
+			formatType = deck.Format;
+			return this;
+		}
+		public GameConfigBuilder SetPlayer1(string playerName, Card playerHeroCard, CardClass playerHeroClass, List<Card> cards, FormatType formatType)
+		{
+			player1Name = playerName;
+			player1HeroCard = playerHeroCard;
+			player1HeroClass = playerHeroClass;
+			player1Deck = cards;
+			this.formatType = formatType;
+			return this;
+		}
+		public GameConfigBuilder SetPlayer2(string playerName, string deckString)
+		{
+			player2Name = playerName;
+			Deck deck = DeckSerializer.Deserialize(deckString);
+			Card heroCard = deck.GetHero();
+			player2HeroCard = heroCard;
+			player2HeroClass = heroCard.Class;
+			player2Deck = GetCardList(deck.CardDbfIds);
+			formatType = deck.Format;
+
+			return this;
+		}
+		public GameConfigBuilder SetPlayer2(string playerName, Card playerHeroCard, CardClass playerHeroClass, List<Card> cards, FormatType formatType)
+		{
+			player2Name = playerName;
+			player2HeroCard = playerHeroCard;
+			player2HeroClass = playerHeroClass;
+			player2Deck = cards;
+			this.formatType = formatType;
+			return this;
+		}
+		public GameConfigBuilder FillDecks(bool fillDecks)
+		{
+			this.fillDecks = fillDecks;
+			return this;
+		}
+		public GameConfigBuilder Shuffle(bool shuffle)
+		{
+			this.shuffle = shuffle;
+			return this;
+		}
+		public GameConfigBuilder Logging(bool logging)
+		{
+			this.logging = logging;
+			return this;
+		}
+		public GameConfigBuilder History(bool history)
+		{
+			this.history = history;
+			return this;
+		}
+		public GameConfigBuilder SkipMulligan(bool skipMulligan)
+		{
+			this.skipMulligan = skipMulligan;
+			return this;
+		}
+		public GameConfigBuilder RandomSeed(int randomSeed)
+		{
+			this.randomSeed = randomSeed;
+			return this;
+		}
+		public GameConfig Build()
+		{
+			return new GameConfig()
+			{
+				StartPlayer = startPlayer,
+				Player1Name = player1Name,
+				Player2Name = player2Name,
+				Player1HeroClass = player1HeroClass,
+				Player2HeroClass = player2HeroClass,
+				Player1HeroCard = player1HeroCard,
+				Player2HeroCard = player2HeroCard,
+				FormatType = formatType,
+				Player1Deck = player1Deck,
+				Player2Deck = player2Deck,
+				FillDecks = fillDecks,
+				FillDecksPredictably = fillDecksPredictably,
+				DrawPool = drawPool,
+				Shuffle = shuffle,
+				Splitting = splitting,
+				Logging = logging,
+				History = history,
+				SkipMulligan = skipMulligan,
+				RandomSeed = randomSeed
+			};
+		}
+		private List<Card> GetCardList(Dictionary<int, int> cardDbfIds)
+		{
+			var result = new List<Card>();
+			foreach (int key in cardDbfIds.Keys)
+			{
+				int times = cardDbfIds[key];
+				Card card = Cards.FromAssetId(key);
+				for(int i = 0; i < times; i++)
+				{
+					result.Add(card); ;
+				}
+			}
+			return result;
+		}
+
+	}
 }
