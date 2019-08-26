@@ -142,6 +142,9 @@ namespace SabberStoneCore.Enchants
 							}
 							break;
 						}
+						case GameTag.DAMAGE:
+							((Character)entity).Damage = Value;
+							break;
 					}
 
 					if (oneTurnEffect && entity.NativeTags[Tag] == Value)

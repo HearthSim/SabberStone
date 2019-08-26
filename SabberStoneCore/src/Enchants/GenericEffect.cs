@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 
@@ -461,4 +462,14 @@ namespace SabberStoneCore.Enchants
 			return ref entity._modifiedCantBeTargetedBySpells;
 		}
 	}
+
+	//internal class Exhausted : SelfContainedBoolAttr<Exhausted, Playable>
+	//{
+	//	public override GameTag Tag => GameTag.EXHAUSTED;
+
+	//	public override void Apply(Playable entity, EffectOperator @operator, int value)
+	//	{
+	//		entity._exhausted = 
+	//	}
+	//}
 }

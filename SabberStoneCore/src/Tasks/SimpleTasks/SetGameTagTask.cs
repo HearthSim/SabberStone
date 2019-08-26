@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -20,70 +22,64 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 {
 	public class SetGameTagTask : SimpleTask
 	{
+		private readonly IEffect _effect;
+		private readonly EntityType _type;
+
 		public SetGameTagTask(GameTag tag, int amount, EntityType entityType)
 		{
-			Tag = tag;
-			Amount = amount;
-			Type = entityType;
+			switch (tag)
+			{
+				case GameTag.ATK:
+					_effect = ATK.Effect(EffectOperator.SET, amount);
+					break;
+				case GameTag.HEALTH:
+					_effect = Health.Effect(EffectOperator.SET, amount);
+					break;
+				case GameTag.STEALTH:
+					_effect = Stealth.Effect(amount > 0);
+					break;
+				case GameTag.TAUNT:
+					_effect = Taunt.Effect(amount > 0);
+					break;
+				case GameTag.CANT_BE_TARGETED_BY_SPELLS:
+				case GameTag.CANT_BE_TARGETED_BY_HERO_POWERS:
+					_effect = CantBeTargetedBySpells.Effect(amount > 0);
+					break;
+				default:
+					_effect = new Effect(tag, EffectOperator.SET, amount);
+					break;
+			}
+			_type = entityType;
 		}
-
-		public GameTag Tag { get; set; }
-
-		public EntityType Type { get; set; }
-
-		public int Amount { get; set; }
 
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,
 			in IPlayable target,
 			in TaskStack stack = null)
 		{
-			//System.Collections.Generic.List<Model.Entities.IPlayable> entities = IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables);
-			//entities.ForEach(p =>
-			GameTag t = Tag;
-			int a = Amount;
-			foreach (IPlayable p in IncludeTask.GetEntities(Type, in controller, source, target, stack?.Playables))
+			IEffect effect = _effect;
+
+			IList<IPlayable> entities =
+				IncludeTask.GetEntities(in _type, in controller, source, target, stack?.Playables);
+			if (effect.Tag == GameTag.EXHAUSTED)
 			{
-				if (t == GameTag.EXHAUSTED)
-				{
-					p.IsExhausted = a > 0;
-					continue;
-				}
-
-				if (p is Character c)
-					switch (t)
-					{
-						case GameTag.ATK:
-							ATK.Effect(EffectOperator.SET, a).ApplyTo(c);
-							break;
-						case GameTag.HEALTH:
-							Health.Effect(EffectOperator.SET, a).ApplyTo(c);
-							break;
-						case GameTag.DAMAGE:
-							c.Damage = a;
-							break;
-						case GameTag.STEALTH:
-							c.HasStealth = a > 0;
-							break;
-						case GameTag.TAUNT:
-							c.HasTaunt = a > 0;
-							break;
-						case GameTag.IMMUNE:
-							c.IsImmune = a > 0;
-							break;
-						default:
-							c[t] = a;
-							break;
-					}
-				else
-					p[Tag] = Amount;
-
-				if (Tag == GameTag.DIVINE_SHIELD && Amount == 0 && p[GameTag.DIVINE_SHIELD] != 0)
-					game.TriggerManager.OnLoseDivineShield(p);
-				else if
-					(Tag == GameTag.FROZEN && Amount == 1)
-					game.TriggerManager.OnFreezeTrigger(p);
+				bool value = effect.Value > 0;
+				for (int i = 0; i < entities.Count; i++)
+					entities[i].IsExhausted = value;
+				return TaskState.COMPLETE;
 			}
 
+			for (int i = 0; i < entities.Count; i++)
+			{
+				if (effect.Tag == GameTag.DIVINE_SHIELD && effect.Value == 0 &&
+				    entities[i][GameTag.DIVINE_SHIELD] != 0)
+					game.TriggerManager.OnLoseDivineShield(entities[i]);
+				else if
+				(effect.Tag == GameTag.FROZEN && effect.Value == 1 &&
+				 entities[i][GameTag.FROZEN] != 0)
+					game.TriggerManager.OnFreezeTrigger(entities[i]);
+
+				effect.ApplyTo(entities[i]);
+			}
 			return TaskState.COMPLETE;
 		}
 	}
