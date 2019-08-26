@@ -1239,6 +1239,9 @@ namespace SabberStoneCoreTest.Basic
 
 			Assert.Equal("Player1XX", gameConfig.Player1Name);
 			Assert.Equal("Player2XX", gameConfig.Player2Name);
+			Assert.Equal("Leeroy Jenkins", gameConfig.Player1Deck[0].Name);
+			Assert.Equal("Patches the Pirate", gameConfig.Player1Deck[1].Name);
+			Assert.Equal(gameConfig.Player2Deck[2].Name, gameConfig.Player1Deck[2].Name);
 			Assert.Equal(FormatType.FT_STANDARD, gameConfig.FormatType);
 		}
 	}
