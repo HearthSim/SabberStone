@@ -80,7 +80,7 @@ namespace SabberStoneCoreTest.Basic
 			Util.DeepCloneableRandom rnd2 = rnd1.Clone();
 
 			for (int i = 0; i < 1000; i++)
-				Assert.Equal( rnd1.Next(), rnd2.Next());
+				Assert.Equal(rnd1.Next(), rnd2.Next());
 		}
 
 		[Fact]
@@ -470,7 +470,7 @@ namespace SabberStoneCoreTest.Basic
 			game.Player2.BaseMana = 10;
 			game.StartGame();
 
-			var minion1 = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+			var minion1 = (ICharacter)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Inner Rage"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion1));
@@ -499,7 +499,7 @@ namespace SabberStoneCoreTest.Basic
 			game.Player2.BaseMana = 10;
 			game.StartGame();
 
-			var minion = (ICharacter) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
+			var minion = (ICharacter)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion));
 			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Power Word: Shield"));
 			game.Process(PlayCardTask.SpellTarget(game.CurrentPlayer, spell1, minion));
@@ -527,14 +527,14 @@ namespace SabberStoneCoreTest.Basic
 
 			game.StartGame();
 
-			var minion1 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
-			var minion2 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
-			var minion3 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shattered Sun Cleric"));
+			var minion1 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
+			var minion2 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
+			var minion3 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Shattered Sun Cleric"));
 
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));	// 6/6
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1)); // 6/6
 			game.CurrentPlayer.UsedMana = 0;
 
-			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2));	// 7/7
+			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion2)); // 7/7
 			game.CurrentPlayer.UsedMana = 0;
 
 			game.Process(PlayCardTask.MinionTarget(game.CurrentPlayer, minion3, minion2));
@@ -546,10 +546,10 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(5, minion3.AttackDamage);
 			Assert.Equal(4, minion3.Health);
 
-			game.Process(EndTurnTask.Any(game.CurrentPlayer));	// (7/7), (8/8), (5/4)
+			game.Process(EndTurnTask.Any(game.CurrentPlayer));  // (7/7), (8/8), (5/4)
 
 			IPlayable spell1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Flamestrike"));
-			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));	// (7/3), (8/4)
+			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell1));   // (7/3), (8/4)
 			game.CurrentPlayer.UsedMana = 0;
 
 			IPlayable spell2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Explosion"));
@@ -559,12 +559,12 @@ namespace SabberStoneCoreTest.Basic
 			IPlayable spell3 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Explosion"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell3));
 
-			Assert.Equal(2, ((ICharacter)minion2).Health);	// (7/1), (8/2)
+			Assert.Equal(2, ((ICharacter)minion2).Health);  // (7/1), (8/2)
 
 			IPlayable spell4 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Arcane Explosion"));
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, spell4));
 
-			Assert.Equal(1, ((ICharacter)minion2).Health);	// (7/1)
+			Assert.Equal(1, ((ICharacter)minion2).Health);  // (7/1)
 			Assert.Equal(Zone.PLAY, ((ICharacter)minion2).Zone.Type);
 		}
 
@@ -580,7 +580,7 @@ namespace SabberStoneCoreTest.Basic
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 
-			var minion1 = (ICharacter) Generic.DrawCard(game.Player1, Cards.FromName("Murloc Raider"));
+			var minion1 = (ICharacter)Generic.DrawCard(game.Player1, Cards.FromName("Murloc Raider"));
 			IPlayable minion2 = Generic.DrawCard(game.Player1, Cards.FromName("Ironbeak Owl"));
 			IPlayable spell1 = Generic.DrawCard(game.Player1, Cards.FromName("Power Word: Shield"));
 
@@ -597,7 +597,7 @@ namespace SabberStoneCoreTest.Basic
 
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 
-			var minion3 = (ICharacter) Generic.DrawCard(game.Player1, Cards.FromName("Bloodfen Raptor"));
+			var minion3 = (ICharacter)Generic.DrawCard(game.Player1, Cards.FromName("Bloodfen Raptor"));
 			IPlayable minion4 = Generic.DrawCard(game.Player1, Cards.FromName("Ironbeak Owl"));
 			IPlayable spell2 = Generic.DrawCard(game.Player1, Cards.FromName("Power Word: Shield"));
 
@@ -629,8 +629,8 @@ namespace SabberStoneCoreTest.Basic
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			var minion1 = (ICharacter) Generic.DrawCard(game.Player1, Cards.FromName("Murloc Raider"));
-			var minion2 = (ICharacter) Generic.DrawCard(game.Player1, Cards.FromName("Murloc Warleader"));
+			var minion1 = (ICharacter)Generic.DrawCard(game.Player1, Cards.FromName("Murloc Raider"));
+			var minion2 = (ICharacter)Generic.DrawCard(game.Player1, Cards.FromName("Murloc Warleader"));
 			IPlayable minion3 = Generic.DrawCard(game.Player1, Cards.FromName("Stormwind Champion"));
 			IPlayable minion4 = Generic.DrawCard(game.Player1, Cards.FromName("Ironbeak Owl"));
 			IPlayable spell1 = Generic.DrawCard(game.Player1, Cards.FromName("Power Word: Shield"));
@@ -698,7 +698,7 @@ namespace SabberStoneCoreTest.Basic
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 
-			var minion1 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Knife Juggler"));
+			var minion1 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Knife Juggler"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Snake Trap")); // Spawns 3
 			game.Process(PlayCardTask.Spell(game.CurrentPlayer, testCard));
@@ -878,8 +878,8 @@ namespace SabberStoneCoreTest.Basic
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 
-			var minion1 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
-			var minion2 = (Minion) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
+			var minion1 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
+			var minion2 = (Minion)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Stormwind Champion"));
 			game.Process(PlayCardTask.Any(game.CurrentPlayer, minion1));
 
 			Assert.Equal(6, minion1.BaseHealth);
@@ -1093,7 +1093,7 @@ namespace SabberStoneCoreTest.Basic
 
 			Assert.False(game.CurrentPlayer.Hero.HeroPower.IsValidPlayTarget(target));
 
-			var spell = (Spell) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
+			var spell = (Spell)Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
 
 			Assert.False(spell.IsValidPlayTarget(target));
 
@@ -1129,7 +1129,7 @@ namespace SabberStoneCoreTest.Basic
 		}
 
 		[Fact]
-		public void DeckSerializer()
+		public void DeckSerializerTest()
 		{
 			/**
 			The MIT License(MIT)
@@ -1225,6 +1225,21 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(30, deck.GetCards().Values.Sum());
 			string serialized = SabberStoneCore.Config.DeckSerializer.Serialize(deck, false);
 			Assert.Equal(DeckString, serialized);
+		}
+
+		[Fact]
+		public void GameConfigBuilderTest()
+		{
+			GameConfig gameConfig = GameConfigBuilder.Create()
+				.StartPlayer(1)
+				.SetPlayer1("Player1XX", "AAECAQcCrwSRvAIOHLACkQP/A44FqAXUBaQG7gbnB+8HgrACiLACub8CAA==")
+				.SetPlayer2("Player2XX", "AAECAQcCrwSRvAIOHLACkQP/A44FqAXUBaQG7gbnB+8HgrACiLACub8CAA==")
+				.SkipMulligan(true)
+				.Build();
+
+			Assert.Equal("Player1XX", gameConfig.Player1Name);
+			Assert.Equal("Player2XX", gameConfig.Player2Name);
+			Assert.Equal(FormatType.FT_STANDARD, gameConfig.FormatType);
 		}
 	}
 }
