@@ -61,16 +61,18 @@ namespace SabberStoneCore.Actions
 				    else
 					    spell.ActivateTask(PowerActivation.POWER, target, chooseOne);
 
+				    if (spell.IsTwinSpell)
+				    {
+					    Entity.FromCard(in c, Cards.FromAssetId(spell.Card[GameTag.TWINSPELL_COPY]), zone: c.HandZone);
+				    }
+
+				    // process power tasks
+				    game.ProcessTasks();
+
+				    OverloadBlock(c, spell, game.History);
+
 				    c.GraveyardZone.Add(spell);
 			    }
-
-			    if (spell.IsTwinSpell)
-			    {
-				    Entity.FromCard(in c, Cards.FromAssetId(spell.Card[GameTag.TWINSPELL_COPY]), zone: c.HandZone);
-			    }
-
-			    // process power tasks
-			    game.ProcessTasks();
 			    game.TaskQueue.EndEvent();
 		    };
     }

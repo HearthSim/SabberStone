@@ -114,14 +114,14 @@ namespace SabberStoneCore.CardSets
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
 					new FlagTask(true, ComplexTask.Create(
 						new IncludeTask(EntityType.DECK),
-						new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 1)),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 1), SelfCondition.IsMinion),
 						new RandomTask(1, EntityType.STACK),
 						new RemoveFromDeck(EntityType.STACK),
 						new SummonTask())),
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpNotBoardFull),
 					new FlagTask(true, ComplexTask.Create(
 						new IncludeTask(EntityType.OP_DECK),
-						new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 1)),
+						new FilterStackTask(SelfCondition.IsTagValue(GameTag.COST, 1), SelfCondition.IsMinion),
 						new RandomTask(1, EntityType.STACK),
 						new RemoveFromDeck(EntityType.STACK),
 						new SummonOpTask())))

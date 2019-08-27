@@ -67,7 +67,6 @@ namespace SabberStoneCore.Actions
 					case ChoiceAction.CAST:
 						RemoveFromZone(c, playable);
 						CastSpell.Invoke(c, g, playable as Spell, null, 0);
-						OverloadBlock(c, playable, g.History);
 						break;
 
 					case ChoiceAction.SPELL_RANDOM:
@@ -77,7 +76,6 @@ namespace SabberStoneCore.Actions
 
 							g.TaskQueue.StartEvent();
 							CastSpell.Invoke(c, g, (Spell)playable, randTarget, 0);
-							OverloadBlock(c, playable, g.History);
 							g.TaskQueue.EndEvent();
 						}
 						break;

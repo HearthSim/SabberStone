@@ -84,6 +84,15 @@ namespace SabberStoneCore.Auras
 			_condition = triggerCondition;
 		}
 
+		/// <summary>
+		/// Creates an Adaptive Cost Effect that reduces cost by
+		/// a criterion estimated during the entire game.
+		/// </summary>
+		/// <param name="initialisationFunction">A function to estimate the accumulated value before activation in hand.</param>
+		/// <param name="triggerValueFunction">A function to calculate the value increment when triggered. Argument is the source of the trigger.</param>
+		/// <param name="trigger">A type of trigger that affects this effect.</param>
+		/// <param name="triggerSource">The source constraint for the trigger.</param>
+		/// <param name="triggerCondition">An additional condition for the trigger.</param>
 		public AdaptiveCostEffect(Func<Playable, int> initialisationFunction, Func<IPlayable, int> triggerValueFunction, TriggerType trigger,
 			TriggerSource triggerSource = TriggerSource.ALL, SelfCondition triggerCondition = null)
 		{
@@ -169,6 +178,9 @@ namespace SabberStoneCore.Auras
 				case TriggerType.ZONE:
 					owner.Game.TriggerManager.ZoneTrigger += instance._updateHandler;
 					break;
+				case TriggerType.OVERLOAD:
+					owner.Game.TriggerManager.OverloadTrigger += instance._updateHandler;
+					break;
 				default:
 					throw new NotImplementedException();
 			}
@@ -179,7 +191,7 @@ namespace SabberStoneCore.Auras
 		public int Apply(int value)
 		{
 			if (_initialisationFunction != null)
-				return _cachedValue;
+				return value + _cachedValue;
 
 			if (_costFunction != null && (_condition == null || _condition.Eval(_owner)))
 			{
@@ -223,6 +235,12 @@ namespace SabberStoneCore.Auras
 					break;
 				case TriggerType.TURN_START:
 					_owner.Game.TriggerManager.TurnStartTrigger -= _updateHandler;
+					break;
+				case TriggerType.ZONE:
+					_owner.Game.TriggerManager.ZoneTrigger -= _updateHandler;
+					break;
+				case TriggerType.OVERLOAD:
+					_owner.Game.TriggerManager.OverloadTrigger -= _updateHandler;
 					break;
 				default:
 					throw new NotImplementedException();

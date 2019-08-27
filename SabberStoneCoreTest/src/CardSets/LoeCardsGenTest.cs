@@ -262,20 +262,9 @@ namespace SabberStoneCoreTest.CardSets
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Desert Camel"));
-
-			//int id = testCard.Id;
-			//while (true)
-			//{
-			//	var clone = game.Clone();
-
-			//	clone.Process(PlayCardTask.Minion(clone.CurrentPlayer, clone.IdEntityDic[id]));
-
-			//	if (clone.CurrentPlayer.BoardZone.Count != 2 || clone.CurrentOpponent.BoardZone.Count != 1)
-			//		;
-			//}
-
-
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
+
+
 			Assert.Equal(2, game.CurrentPlayer.BoardZone.Count);
 			Assert.Equal(1, game.CurrentOpponent.BoardZone.Count);
 		}
