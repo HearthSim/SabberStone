@@ -4475,7 +4475,6 @@ namespace SabberStoneCoreTest.CardSets
 					spellToCast.CardTarget = source.Id;
 
 					Generic.CastSpell.Invoke(source.Controller, game, spellToCast, (ICharacter)source, 0);
-					Generic.OverloadBlock(source.Controller, spellToCast, game.History);
 					game.DeathProcessingAndAuraUpdate();
 
 					NumSpellCasted++;

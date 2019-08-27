@@ -121,7 +121,16 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 				}
 
 				if (summonEntity == null)
+				{
+					if (game.Logging)
+					{
+						object cause = Card != null ? (object)Card : stack?.Playables.Count > 0 ? stack.Playables[0] : null;
+						game.Log(LogLevel.WARNING, BlockType.POWER, "SummonTask",
+							$"Cannot summon {cause}. Please Check the implementation of {source}.");
+					}
+
 					return TaskState.STOP;
+				}
 
 				int summonPosition = GetPosition(in source, Side, stack?.Number ?? 0, ref alternateCount);
 

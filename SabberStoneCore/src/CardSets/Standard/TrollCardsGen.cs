@@ -811,7 +811,7 @@ namespace SabberStoneCore.CardSets.Standard
 								sum += p.Game.IdEntityDic[p.Controller.PlayHistory[i].SourceId][
 									GameTag.TAG_LAST_KNOWN_COST_IN_HAND];
 
-						return p.Card.Cost - sum;
+						return -sum;
 					},
 					triggerValueFunction: p => -p[GameTag.TAG_LAST_KNOWN_COST_IN_HAND],
 					trigger: TriggerType.CAST_SPELL,
@@ -1077,7 +1077,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("TRL_408", new Power {
 				Aura = new AdaptiveCostEffect(
-					initialisationFunction: p => p.Card.Cost - p.Controller.PlayHistory.Count(h => h.SourceCard.Type == CardType.SPELL),
+					initialisationFunction: p => -p.Controller.PlayHistory.Count(h => h.SourceCard.Type == CardType.SPELL),
 					triggerValueFunction: p => -1,
 					trigger: TriggerType.AFTER_CAST,
 					triggerSource: TriggerSource.FRIENDLY)

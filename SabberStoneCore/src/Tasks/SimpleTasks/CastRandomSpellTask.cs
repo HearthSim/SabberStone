@@ -84,7 +84,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 
 			game.TaskQueue.StartEvent();
 			Generic.CastSpell.Invoke(c, game, spellToCast, randTarget, randChooseOne);
-			Generic.OverloadBlock(c, spellToCast, game.History);
 			// forced death processing & AA (Yogg)
 			if (_phaseShift)
 				game.DeathProcessingAndAuraUpdate();

@@ -94,7 +94,6 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 						if (spell.Zone == null || Generic.RemoveFromZone(c, p))
 						{
 							Generic.CastSpell.Invoke(c, game, spell, cardTarget, 0);
-							Generic.OverloadBlock(c, spell, game.History);
 						}
 
 						while (c.Choice != null)

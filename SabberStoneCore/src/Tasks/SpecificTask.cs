@@ -558,7 +558,6 @@ namespace SabberStoneCore.Tasks
 				{
 					IPlayable spell = Entity.FromCard(c, spellCards[i].SourceCard);
 					Generic.CastSpell(c, g, (Spell)spell, (ICharacter)p, spellCards[i].SubOption);
-					Generic.OverloadBlock(c, spell, c.Game.History);
 					while (c.Choice != null)
 						Generic.ChoicePick(c, g, c.Choice.Choices.Choose(g.Random));
 					if (p.Zone?.Type != Zone.PLAY)
@@ -643,7 +642,6 @@ namespace SabberStoneCore.Tasks
 							throw new NotImplementedException();
 					}
 
-					Generic.OverloadBlock(c, entity, g.History);
 					g.TaskQueue.EndEvent();
 
 					while (c.Choice != null)
@@ -1002,7 +1000,6 @@ namespace SabberStoneCore.Tasks
 				int randChooseOne = rnd.Next(1, 3);
 
 				Generic.CastSpell(c, g, spellToCast, randTarget, randChooseOne);
-				Generic.OverloadBlock(c, spellToCast, g.History);
 
 				while (c.Choice != null)
 					Generic.ChoicePick(c, g, c.Choice.Choices[rnd.Next(c.Choice.Choices.Count)]);

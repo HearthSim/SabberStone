@@ -2044,10 +2044,11 @@ namespace SabberStoneCore.CardSets
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
 			cards.Add("ICC_090", new Power {
-				Aura = new AdaptiveCostEffect(p => p.Controller.OverloadThisGame)
-				//{
-				//	UpdateTrigger = (TriggerType.PLAY_CARD, TriggerSource.FRIENDLY, SelfCondition.IsCurrentEventNumber(1, RelaSign.GEQ))
-				//}
+				Aura = new AdaptiveCostEffect(
+					initialisationFunction: p => -p.Controller.OverloadThisGame,
+					triggerValueFunction: p => -p.Card.Overload,
+					trigger: TriggerType.OVERLOAD,
+					triggerSource: TriggerSource.FRIENDLY)
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
