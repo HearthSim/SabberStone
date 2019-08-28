@@ -2249,7 +2249,6 @@ namespace SabberStoneCoreTest.CardSets
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(MinionAttackTask.Any(game.CurrentPlayer, testCard, game.CurrentOpponent.Hero));
-			Assert.NotEqual(testCard.Card.Id, game.CurrentPlayer.BoardZone[0].Card.Id);
 			Assert.Equal(6, game.CurrentPlayer.BoardZone[0].Cost);
 		}
 

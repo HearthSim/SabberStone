@@ -4623,7 +4623,15 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Minion transformTest = game.ProcessCard<Minion>("Voodoo Doll", test, asZeroCost: true);
 			game.ProcessCard<Minion>("Master of Evolution", test, asZeroCost: true);
 			transformTest.Kill();
-			Assert.False(game.IdEntityDic[test.Id].ToBeDestroyed);
+			test = (Minion) game.IdEntityDic[test.Id];
+			Assert.False(test.ToBeDestroyed);
+
+			Minion returnToHandTest = game.ProcessCard<Minion>("Voodoo Doll", test, asZeroCost: true);
+			game.ProcessCard("Shadowstep", test);
+			Assert.Equal(Zone.HAND, test.Zone.Type);
+			game.ProcessCard(test);
+			returnToHandTest.Kill();
+			Assert.False(test.ToBeDestroyed);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

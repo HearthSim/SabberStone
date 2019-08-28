@@ -14,6 +14,9 @@
 using System;
 using System.Text;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
+using SabberStoneCore.Model;
+using SabberStoneCore.Model.Entities;
 
 // ReSharper disable InconsistentNaming
 
@@ -22,10 +25,8 @@ namespace SabberStoneCore.Enchants
 	/// <summary>
 	/// A simple container for saving tag value perturbations from external Auras. Call indexer to get value for a particular Tag.
 	/// </summary>
-	public class AuraEffects
+	public class AuraEffects : IEquatable<AuraEffects>
 	{
-		private static readonly int _int32Size = sizeof(int);
-
 		private const int PlayableLength = 2;
 		private const int WeaponLength = PlayableLength + 1;
 		private const int CharacterLength = PlayableLength + 2;
@@ -79,7 +80,7 @@ namespace SabberStoneCore.Enchants
 
 		private AuraEffects(AuraEffects original) : this (original.Type)
 		{
-			Buffer.BlockCopy(original._data, 0, _data, 0, _data.Length * _int32Size);
+			Buffer.BlockCopy(original._data, 0, _data, 0, _data.Length * sizeof(int));
 		}
 
 		public readonly CardType Type;
@@ -305,13 +306,59 @@ namespace SabberStoneCore.Enchants
 			hash.Append("]");
 			return hash.ToString();
 		}
+
+		#region Equality members
+
+		public bool Equals(AuraEffects other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			return Type == other.Type &&
+			       System.Linq.Enumerable.SequenceEqual(_data, other._data);
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != this.GetType()) return false;
+			return Equals((AuraEffects) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				int hashCode = (int) Type;
+				int[] data = _data;
+				for (int i = 0; i < data.Length; i++)
+					hashCode = (hashCode * 397) ^ data[i];
+				return hashCode;
+			}
+		}
+
+		public static bool operator ==(AuraEffects left, AuraEffects right)
+		{
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(AuraEffects left, AuraEffects right)
+		{
+			return !Equals(left, right);
+		}
+
+		#endregion
 	}
 
 	/// <summary>
-	/// A collecton of controller Tag increments from Auras. These tags tends to be checked when a player plays any cards.
+	/// A collecton of controller Tag increments from Auras.
+	/// These tags tends to be checked when a player plays any cards.
 	/// </summary>
 	public class ControllerAuraEffects
 	{
+		private Action<IPowerHistoryEntry> _sendHistory;
+		private int _controllerEntityId;
+
 		private int _timeOut;
 		private int _spellPowerDouble;
 		private int _heroPowerDouble;
@@ -324,6 +371,17 @@ namespace SabberStoneCore.Enchants
 		private int _allHealingDouble;
 		private int _extraBattlecryAndCombo;
 		private int _spellPower;
+
+		public ControllerAuraEffects() { }
+
+		public ControllerAuraEffects(in Game g, in Controller c)
+		{
+			if (g.History)
+			{
+				_sendHistory = g.PowerHistory.Add;
+				_controllerEntityId = c.Id;
+			}
+		}
 
 		public int this[GameTag t]
 		{
@@ -362,6 +420,7 @@ namespace SabberStoneCore.Enchants
 			}
 			set
 			{
+				_sendHistory?.Invoke(PowerHistoryBuilder.TagChange(_controllerEntityId, t, value));
 				switch (t)
 				{
 					case GameTag.TIMEOUT:
@@ -410,6 +469,11 @@ namespace SabberStoneCore.Enchants
 		public ControllerAuraEffects Clone()
 		{
 			return (ControllerAuraEffects)MemberwiseClone();
+			var cae = (ControllerAuraEffects)MemberwiseClone();
+			cae._sendHistory = c.Game.History
+				? (Action<IPowerHistoryEntry>) c.Game.PowerHistory.Add
+				: null;
+			return cae;
 		}
 
 		public string Hash()
@@ -430,5 +494,59 @@ namespace SabberStoneCore.Enchants
 			sb.Append("]");
 			return sb.ToString();
 		}
+
+		#region Equality members
+
+		public bool Equals(ControllerAuraEffects other)
+		{
+			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(this, other)) return true;
+			return _timeOut == other._timeOut && _spellPowerDouble == other._spellPowerDouble &&
+			       _heroPowerDouble == other._heroPowerDouble && _restoreToDamage == other._restoreToDamage &&
+			       _extraBattecry == other._extraBattecry && _chooseBoth == other._chooseBoth &&
+			       _spellsCostHealth == other._spellsCostHealth && _extraEndTurnEffect == other._extraEndTurnEffect &&
+			       _heroPowerDisabled == other._heroPowerDisabled && _allHealingDouble == other._allHealingDouble &&
+			       _extraBattlecryAndCombo == other._extraBattlecryAndCombo && _spellPower == other._spellPower;
+		}
+
+		public override bool Equals(object obj)
+		{
+			if (ReferenceEquals(null, obj)) return false;
+			if (ReferenceEquals(this, obj)) return true;
+			if (obj.GetType() != this.GetType()) return false;
+			return Equals((ControllerAuraEffects) obj);
+		}
+
+		public override int GetHashCode()
+		{
+			unchecked
+			{
+				int hashCode = _timeOut;
+				hashCode = (hashCode * 397) ^ _spellPowerDouble;
+				hashCode = (hashCode * 397) ^ _heroPowerDouble;
+				hashCode = (hashCode * 397) ^ _restoreToDamage;
+				hashCode = (hashCode * 397) ^ _extraBattecry;
+				hashCode = (hashCode * 397) ^ _chooseBoth;
+				hashCode = (hashCode * 397) ^ _spellsCostHealth;
+				hashCode = (hashCode * 397) ^ _extraEndTurnEffect;
+				hashCode = (hashCode * 397) ^ _heroPowerDisabled;
+				hashCode = (hashCode * 397) ^ _allHealingDouble;
+				hashCode = (hashCode * 397) ^ _extraBattlecryAndCombo;
+				hashCode = (hashCode * 397) ^ _spellPower;
+				return hashCode;
+			}
+		}
+
+		public static bool operator ==(ControllerAuraEffects left, ControllerAuraEffects right)
+		{
+			return Equals(left, right);
+		}
+
+		public static bool operator !=(ControllerAuraEffects left, ControllerAuraEffects right)
+		{
+			return !Equals(left, right);
+		}
+
+		#endregion
 	}
 }

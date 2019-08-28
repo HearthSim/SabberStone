@@ -3718,13 +3718,14 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					Condition = SelfCondition.HasMinionInHand,
 					SingleTask = ComplexTask.Create(
+						new GetGameTagTask(GameTag.ZONE_POSITION, EntityType.SOURCE),
+						new MoveToSetaside(EntityType.SOURCE),
 						new IncludeTask(EntityType.HAND),
 						new FilterStackTask(SelfCondition.IsMinion),
 						new RandomTask(1, EntityType.STACK),
 						new RemoveFromHand(EntityType.STACK),
-						new GetGameTagTask(GameTag.ZONE_POSITION, EntityType.SOURCE),
-						new ReturnHandTask(EntityType.SOURCE),
-						new SummonTask(SummonSide.NUMBER))
+						new SummonTask(SummonSide.NUMBER),
+						new ReturnHandTask(EntityType.SOURCE))
 				}
 			});
 

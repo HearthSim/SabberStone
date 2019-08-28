@@ -32,9 +32,9 @@ namespace SabberStoneCore.Model.Entities
 				IPlayable[] list = _list;
 				if (id >= list.Length)
 				{
-					double newLength = list.Length * 1.5;
+					int newLength = list.Length << 1;
 					while (id >= newLength)
-						newLength *= 1.5;
+						newLength <<= 1;
 
 					var newList = new IPlayable[(int)newLength];
 					Array.Copy(list, newList, list.Length);
@@ -79,7 +79,7 @@ namespace SabberStoneCore.Model.Entities
 		#region IDictionary
 		public bool ContainsKey(int key)
 		{
-			return _list[key] != null;
+			return _list.Length > key && _list[key] != null;
 		}
 
 		public bool Remove(int key)

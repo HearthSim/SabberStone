@@ -1857,7 +1857,10 @@ namespace SabberStoneCore.CardSets
 				PowerTask = ComplexTask.Create(
 					new GetGameTagControllerTask(GameTag.NUM_SPELLS_PLAYED_THIS_GAME),
 					new EnqueueNumberTask(ComplexTask.Create(
-						new ConditionTask(EntityType.SOURCE, SelfCondition.IsInZone(Zone.PLAY), SelfCondition.IsNotSilenced),
+						new ConditionTask(EntityType.SOURCE,
+							SelfCondition.IsInZone(Zone.PLAY),
+							SelfCondition.IsNotSilenced,
+							SelfCondition.IsCardId("OG_134")),	// TODO: find a better way
 						new FlagTask(true, new CastRandomSpellTask()))))
 			});
 

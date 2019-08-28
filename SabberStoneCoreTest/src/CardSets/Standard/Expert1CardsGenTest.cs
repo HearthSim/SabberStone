@@ -6922,7 +6922,8 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable minion1 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
-			Assert.NotEqual(minion1.Card.Id, game.CurrentPlayer.BoardZone[0].Card.Id);
+			//Assert.NotEqual(minion1.Card.Id, game.CurrentPlayer.BoardZone[0].Card.Id);
+			Assert.Contains(minion1.Card.Name, new[] {"Devilsaur", "Squirrel"});
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

@@ -279,8 +279,6 @@ namespace SabberStoneCore.Actions
 					c.Game.CurrentEventData.EventSource = newMinion;
 
 				c.BoardZone.Replace(oldMinion, newMinion);
-				if (!newMinion.HasCharge)
-					newMinion.IsExhausted = true;
 
 				c.Game.Log(LogLevel.INFO, BlockType.PLAY, "TransformBlock", !c.Game.Logging ? "" : $"{oldMinion} got transformed into {newMinion}.");
 				return true;
@@ -388,12 +386,9 @@ namespace SabberStoneCore.Actions
 							p.AppliedEnchantments[i].Remove();
 
 					if (p is Minion m)
-					{
-						m._modifiedATK = m.Card.ATK;
-						m._modifiedHealth = m.Card.Health;
-					}
-
-					((Playable)p).ResetCost();
+						m.ResetAttributes();
+					else
+						((Playable) p).ResetCost();
 				}
 
 				p.ActivatedTrigger?.Remove();
@@ -502,28 +497,52 @@ namespace SabberStoneCore.Actions
 					}
 				}
 
-				switch (p.Zone.Type)
-				{
-					case Zone.HAND:
-						p.Power?.Trigger?.Activate(p, TriggerActivation.HAND);
-						if (p.Power?.Aura is AdaptiveCostEffect e)
-							e.Activate((Playable)p);
-						break;
-					case Zone.DECK:
-						p.Power?.Trigger?.Activate(p, TriggerActivation.DECK);
-						break;
-					case Zone.PLAY:
-						BoardZone.ActivateAura((Minion) p);
-						break;
-				}
+				//switch (p.Zone.Type)
+				//{
+				//	case Zone.HAND:
+				//		p.Power?.Trigger?.Activate(p, TriggerActivation.HAND);
+				//		if (p.Power?.Aura is AdaptiveCostEffect e)
+				//			e.Activate((Playable)p);
+				//		break;
+				//	case Zone.DECK:
+				//		p.Power?.Trigger?.Activate(p, TriggerActivation.DECK);
+				//		break;
+				//	case Zone.PLAY:
+				//		BoardZone.ActivateAura((Minion) p);
+				//		break;
+				//}
 
 
 				// Reapply auras
 				if (hand != null)
+				{
+					p.Power?.Trigger?.Activate(p, TriggerActivation.HAND);
+					if (p.Power?.Aura is AdaptiveCostEffect e)
+						e.Activate((Playable) p);
 					hand.Auras.ForEach(a => a.EntityAdded(p));
-				else if
-					(board != null)
+				}
+				else if (board != null)
+				{
+					Minion m = (Minion)p;
+					if (m.Controller == c.Game.CurrentPlayer)
+					{
+						if (m.HasCharge)
+							m.IsExhausted = false;
+						else if (m.IsRush)
+						{
+							m.IsExhausted = false;
+							m.AttackableByRush = true;
+							c.Game.RushMinions.Add(m.Id);
+						}
+					}
+					BoardZone.ActivateAura(m);
 					board.Auras.ForEach(a => a.EntityAdded(p));
+					board.AdjacentAuras.ForEach(a => a.BoardChanged = true);
+				}
+				else if (p.Zone.Type == Zone.DECK)
+				{
+					p.Power?.Trigger?.Activate(p, TriggerActivation.DECK);
+				}
 
 				// Not sure C'Thun from Shifter Zerus will have Proxy's buffs
 

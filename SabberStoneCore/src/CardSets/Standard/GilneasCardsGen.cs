@@ -2893,7 +2893,8 @@ namespace SabberStoneCore.CardSets.Standard
 							if (!(g.IdEntityDic[t[GameTag.TAG_SCRIPT_DATA_NUM_1]] is Minion m))
 								return;
 							if (m.IsSilenced ||
-							    m.NativeTags[GameTag.VOODOO_LINK] == 0 ||
+							    !m.NativeTags.TryGetValue(GameTag.VOODOO_LINK, out int v) ||
+								v == 0 ||
 							    m.Zone.Type != Zone.PLAY) return;
 							stack.Flag = true;
 							stack.Playables = new IPlayable[] {m};

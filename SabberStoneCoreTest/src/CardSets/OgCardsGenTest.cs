@@ -4467,7 +4467,7 @@ namespace SabberStoneCoreTest.CardSets
 					in IPlayable target,
 					in TaskStack stack = null)
 				{
-					if (!(source.Zone is BoardZone) || source[GameTag.SILENCED] == 1)
+					if (!(source.Zone is BoardZone) || source[GameTag.SILENCED] == 1 || (source.Card.AssetId != 38505))
 						return TaskState.STOP;
 
 					var spellToCast = (Spell) Entity.FromCard(source.Controller, _spellCard);

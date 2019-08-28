@@ -216,6 +216,18 @@ namespace SabberStoneCore.Model.Entities
 		{
 			return new Minion(in controller, this);
 		}
+
+		internal void ResetAttributes()
+		{
+			_numAttackThisTurn = 0;
+			_damage = 0;
+			_modifiedATK = null;
+			_modifiedHealth = null;
+			_modifiedCost = null;
+			_modifiedStealth = null;
+			_modifiedTaunt = null;
+			_modifiedCantBeTargetedBySpells = null;
+		}
 	}
 
 	public partial class Minion

@@ -544,6 +544,7 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask LynessaSunsorrow
 			=> new FuncNumberTask(p =>
 			{
+				int original = p.Card.AssetId;
 				Controller c = p.Controller;
 				Game g = c.Game;
 				List<PlayHistoryEntry> history = c.PlayHistory;
@@ -560,7 +561,7 @@ namespace SabberStoneCore.Tasks
 					Generic.CastSpell(c, g, (Spell)spell, (ICharacter)p, spellCards[i].SubOption);
 					while (c.Choice != null)
 						Generic.ChoicePick(c, g, c.Choice.Choices.Choose(g.Random));
-					if (p.Zone?.Type != Zone.PLAY)
+					if (p.Zone?.Type != Zone.PLAY || p.Card.AssetId != original)
 						break;
 				}
 
@@ -659,6 +660,7 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask Shudderwock
 			=> new FuncNumberTask(p =>
 			{
+				int original = p.Card.AssetId;
 				Game game = p.Game;
 				Controller c = p.Controller;
 
@@ -694,7 +696,7 @@ namespace SabberStoneCore.Tasks
 
 					if (++count == 30) break;
 
-					if (p.ToBeDestroyed || p.Zone.Type != Zone.PLAY)
+					if (p.ToBeDestroyed || p.Zone.Type != Zone.PLAY || p.Card.AssetId != original)
 						break;
 				}
 

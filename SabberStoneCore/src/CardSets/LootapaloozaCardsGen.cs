@@ -3298,7 +3298,7 @@ namespace SabberStoneCore.CardSets
 				PowerTask = new EnqueueTask(3, new AddCardTo("LOOT_526t", EntityType.OP_DECK)),
 				Trigger = new Trigger(TriggerType.ZONE)
 				{
-					SingleTask = new TransformTask("LOOT_526d", EntityType.SOURCE)
+					SingleTask = new TransformTask("LOOT_526d", EntityType.SOURCE, true)
 					//SingleTask = ComplexTask.Create(
 					//	new TransformTask("LOOT_526d", EntityType.SOURCE),
 					//	new AddEnchantmentTask("LOOT_526et", EntityType.CONTROLLER))
