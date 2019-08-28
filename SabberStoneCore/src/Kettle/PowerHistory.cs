@@ -405,7 +405,9 @@ namespace SabberStoneCore.Kettle
 
 		public string Print()
 		{
-			throw new NotImplementedException();
+			var str = new StringBuilder();
+			str.AppendLine($"{PowerType} Type={CardId} - Change Entity = [{Entity.Print()}]");
+			return str.ToString();
 		}
 
 		#endregion
