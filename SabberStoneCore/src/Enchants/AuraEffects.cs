@@ -466,7 +466,7 @@ namespace SabberStoneCore.Enchants
 			}
 		}
 
-		public ControllerAuraEffects Clone()
+		public ControllerAuraEffects Clone(Controller c)
 		{
 			return (ControllerAuraEffects)MemberwiseClone();
 			var cae = (ControllerAuraEffects)MemberwiseClone();

@@ -233,7 +233,7 @@ namespace SabberStoneCore.Model.Entities
 			BaseClass = controller.BaseClass;
 
 			ControlledZones = new ControlledZones(this);
-			ControllerAuraEffects = controller.ControllerAuraEffects.Clone();
+			ControllerAuraEffects = controller.ControllerAuraEffects.Clone(this);
 
 			PlayHistory = new List<PlayHistoryEntry>(controller.PlayHistory);
 			DiscardedEntities = new List<int>(controller.DiscardedEntities);
