@@ -19,7 +19,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Kettle
-	#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 {
 	public class PowerHistoryBuilder
 	{
@@ -374,34 +374,11 @@ namespace SabberStoneCore.Kettle
 		}
 	}
 
-	public readonly struct PowerHistoryChangeEntity : IPowerHistoryEntry
+	public class PowerHistoryChangeEntity : IPowerHistoryEntry
 	{
-		#region Implementation of IPowerHistoryEntry
-
 		public PowerType PowerType => PowerType.CHANGE_ENTITY;
-
-		public readonly string CardId;
-		public readonly PowerHistoryEntity Entity;
-
-		public PowerHistoryChangeEntity(int id, IDictionary<GameTag, int> tags, string cardId)
-		{
-			CardId = cardId;
-			Entity = new PowerHistoryEntity
-			{
-				Id = id,
-				Name = "",
-				Tags = tags
-				// tag=0 value=0
-				// tag=CARDTYPE
-				// (optionals)
-				//	Changed values are here
-				// tag=PREMIUM
-				// tag=ELITE
-				// tag=RARITY
-				// tag=HIDE_STATS
-				// tag=REAL_TIME_TRANSFORM
-			};
-		}
+		public string CardId { get; set; }
+		public PowerHistoryEntity Entity { get; set; }
 
 		public string Print()
 		{
@@ -409,8 +386,6 @@ namespace SabberStoneCore.Kettle
 			str.AppendLine($"{PowerType} Type={CardId} - Change Entity = [{Entity.Print()}]");
 			return str.ToString();
 		}
-
-		#endregion
 	}
 
 	//message PowerHistoryEntity
