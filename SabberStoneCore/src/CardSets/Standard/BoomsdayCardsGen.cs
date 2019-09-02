@@ -1,4 +1,4 @@
-﻿#region copyright
+#region copyright
 // SabberStone, Hearthstone Simulator in C# .NET Core
 // Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 //
@@ -2465,10 +2465,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
 			cards.Add("BOT_079", new Power {
-				PowerTask = ComplexTask.Create(
-					new IncludeTask(EntityType.MINIONS),
-					new FilterStackTask(SelfCondition.IsRace(Race.MECHANICAL)),
-					new AddEnchantmentTask("BOT_079e", EntityType.STACK))
+				PowerTask = new AddEnchantmentTask("BOT_079e", EntityType.TARGET)
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
