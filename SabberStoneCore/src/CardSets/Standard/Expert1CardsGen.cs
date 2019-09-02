@@ -5440,7 +5440,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("EX1_183", new Power
 			{
-				PowerTask = new AddEnchantmentTask("EX1_183e", EntityType.ALLMINIONS)
+				PowerTask = new AddEnchantmentTask("EX1_183e", EntityType.MINIONS)
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
