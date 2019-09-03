@@ -26,6 +26,8 @@ namespace SabberStoneCore.Model.Zones
 		public const int StartingCards = 30;
 		public const int DeckMaximumCapcity = 60;
 
+		public bool DrawWithRandom { get; set; }
+
 		// TODO: Barnabus the Stomper
 		public bool NoEvenCostCards { get; private set; } = true;
 		public bool NoOddCostCards { get; private set; } = true;
@@ -40,6 +42,18 @@ namespace SabberStoneCore.Model.Zones
 		{
 			NoEvenCostCards = zone.NoEvenCostCards;
 			NoOddCostCards = zone.NoOddCostCards;
+			DrawWithRandom = zone.DrawWithRandom;
+		}
+
+		public IPlayable Draw(IPlayable cardToDraw = null)
+		{
+			if (cardToDraw != null)
+				return Remove(cardToDraw);
+
+			if (DrawWithRandom)
+				return Remove(Game.Random.Next(Count));
+
+			return Remove(Count - 1);
 		}
 
 		public override bool IsFull => _count == DeckMaximumCapcity;

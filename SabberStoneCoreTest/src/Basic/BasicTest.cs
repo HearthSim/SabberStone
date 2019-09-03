@@ -118,6 +118,50 @@ namespace SabberStoneCoreTest.Basic
 		}
 
 		[Fact]
+		public void DrawWithRandom()
+		{
+			Game game = new Game(new GameConfig
+			{
+				DrawWithRandom = true,
+				RandomSeed = 33,
+				FillDecks = true,
+				FillDecksPredictably = true
+			});
+			game.StartGame();
+
+			Game clone = game.Clone(resetRandomSeed: false);
+
+			Assert.Equal(Generic.Draw(game.CurrentPlayer).Id, Generic.Draw(clone.CurrentPlayer).Id);
+			Assert.Equal(Generic.Draw(game.CurrentPlayer).Id, Generic.Draw(clone.CurrentPlayer).Id);
+			Assert.Equal(Generic.Draw(game.CurrentPlayer).Id, Generic.Draw(clone.CurrentPlayer).Id);
+			Assert.Equal(Generic.Draw(game.CurrentPlayer).Id, Generic.Draw(clone.CurrentPlayer).Id);
+			Assert.Equal(Generic.Draw(game.CurrentPlayer).Id, Generic.Draw(clone.CurrentPlayer).Id);
+			Assert.Equal(Generic.Draw(game.CurrentPlayer).Id, Generic.Draw(clone.CurrentPlayer).Id);
+			Assert.Equal(Generic.Draw(game.CurrentPlayer).Id, Generic.Draw(clone.CurrentPlayer).Id);
+			Assert.Equal(Generic.Draw(game.CurrentPlayer).Id, Generic.Draw(clone.CurrentPlayer).Id);
+			Assert.Equal(Generic.Draw(game.CurrentPlayer).Id, Generic.Draw(clone.CurrentPlayer).Id);
+			Assert.Equal(Generic.Draw(game.CurrentPlayer).Id, Generic.Draw(clone.CurrentPlayer).Id);
+
+			game.SetRandomSeed(55);
+
+			int[] gameSequence = {
+				Generic.Draw(game.CurrentPlayer).Id,
+				Generic.Draw(game.CurrentPlayer).Id,
+				Generic.Draw(game.CurrentPlayer).Id,
+				Generic.Draw(game.CurrentPlayer).Id,
+				Generic.Draw(game.CurrentPlayer).Id,
+			};
+			int[] cloneSequence = {
+				Generic.Draw(clone.CurrentPlayer).Id,
+				Generic.Draw(clone.CurrentPlayer).Id,
+				Generic.Draw(clone.CurrentPlayer).Id,
+				Generic.Draw(clone.CurrentPlayer).Id,
+				Generic.Draw(clone.CurrentPlayer).Id
+			};
+			Assert.False(gameSequence.SequenceEqual(cloneSequence));
+		}
+
+		[Fact]
 		public void GameTest()
 		{
 			var game = new Game(new GameConfig());

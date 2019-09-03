@@ -118,6 +118,8 @@ namespace SabberStoneCore.Model
 		public int NextCloneIndex { get; set; } = 1;
 		internal Util.DeepCloneableRandom Random { get; set; }
 
+		public void SetRandomSeed(long seed) => Random.SetSeed(seed);
+
 		///// <summary>
 		///// Gets or sets the list of splitted (and fully resolved) games, derived from this game.
 		///// The values hold the derived game instances and split meta information.
@@ -352,27 +354,34 @@ namespace SabberStoneCore.Model
 			OneTurnEffects = new List<(int, IEffect)>();
 			OneTurnEffectEnchantments = new List<Enchantment>();
 
-			if (!_gameConfig.Shuffle)
+			if (!gameConfig.Shuffle && !gameConfig.DrawWithRandom)
 			{
-				_gameConfig.Player1Deck?.Reverse();
-				_gameConfig.Player2Deck?.Reverse();
+				gameConfig.Player1Deck?.Reverse();
+				gameConfig.Player2Deck?.Reverse();
 			}
 
 			// setting up the decks ...
-			_gameConfig.Player1Deck?.ForEach(p =>
+			gameConfig.Player1Deck?.ForEach(p =>
 			{
 				Player1.DeckCards.Add(p);
 				FromCard(Player1, p, null, Player1.DeckZone);
 			});
-			_gameConfig.Player2Deck?.ForEach(p =>
+			gameConfig.Player2Deck?.ForEach(p =>
 			{
 				Player2.DeckCards.Add(p);
 				FromCard(Player2, p, null, Player2.DeckZone);
 			});
-			if (_gameConfig.FillDecks)
+			if (gameConfig.FillDecks)
 			{
 				Player1.DeckZone.Fill(_gameConfig.FillDecksPredictably ? GameConfig.UnPredictableCardIDs : null);
 				Player2.DeckZone.Fill(_gameConfig.FillDecksPredictably ? GameConfig.UnPredictableCardIDs : null);
+			}
+
+			if (gameConfig.DrawWithRandom)
+			{
+				gameConfig.Shuffle = false;
+				_players[0].DeckZone.DrawWithRandom = true;
+				_players[1].DeckZone.DrawWithRandom = true;
 			}
 		}
 
