@@ -135,7 +135,7 @@ namespace SabberStoneCore.Config
 		/// This option is only applicable when <see cref="FillDecks"/> is set to true.
 		/// </summary>
 		/// <value><c>true</c> if decks need to be filled PREDICTABLY; otherwise, <c>false</c>.</value>
-		public bool FillDecksPredictably {get; set; } = false;
+		public bool FillDecksPredictably { get; set; } = false;
 
 		/// <summary>
 		/// Unimplemented feature, the intention was to have all possible allowed cards for a draw in
@@ -180,6 +180,15 @@ namespace SabberStoneCore.Config
 		/// all random interactions within <see cref="Game"/>.
 		/// </summary>
 		public long? RandomSeed { get; set; }
+
+		/// <summary>
+		/// Instead of shuffling deck and drawing the top card,
+		/// players draw a card using random access to the deck.
+		/// This allows drawing process to be fully controlled by
+		/// the random seed.
+		/// Automatically disables <see cref="Shuffle"/>.
+		/// </summary>
+		public bool DrawWithRandom { get; set; } = false;
 
 		/// <summary>
 		/// Clones this instance.
