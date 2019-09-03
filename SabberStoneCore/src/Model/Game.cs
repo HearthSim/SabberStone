@@ -939,13 +939,20 @@ namespace SabberStoneCore.Model
 			}
 
 			// Removing one-turn-effects
-			foreach ((int id, IEffect eff) in OneTurnEffects)
-				eff.RemoveFrom(IdEntityDic[id]);
-			OneTurnEffects.Clear();
-			List<Enchantment> enchantments = OneTurnEffectEnchantments;
-			for (int i = enchantments.Count - 1; i >= 0; --i)
-				enchantments[i].Remove();
-			
+			if (OneTurnEffects.Count > 0)
+			{
+				foreach ((int id, IEffect eff) in OneTurnEffects)
+					eff.RemoveFrom(IdEntityDic[id]);
+				
+				if (History)
+					foreach ((int id, IEffect eff) in OneTurnEffects)
+						PowerHistory.Add(PowerHistoryBuilder.TagChange(id, eff.Tag, IdEntityDic[id][eff.Tag]));
+				
+				OneTurnEffects.Clear();
+				List<Enchantment> enchantments = OneTurnEffectEnchantments;
+				for (int i = enchantments.Count - 1; i >= 0; --i)
+					enchantments[i].Remove();	
+			}
 
 			// After a player ends their turn (just before the next player's Start of
 			// Turn Phase), un-Freeze all characters they control that are Frozen, 
