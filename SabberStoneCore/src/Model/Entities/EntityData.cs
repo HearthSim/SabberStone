@@ -193,8 +193,8 @@ namespace SabberStoneCore.Model.Entities
 			{
 				if (buckets[i] > 0)
 				{
-					//if (buckets[i] == k)
-					//	;
+					if (buckets[i] == k)
+						throw new Exceptions.EntityException($"Tag {t} has already been added.");
 					continue;
 				}
 				buckets[i] = k;
@@ -207,8 +207,8 @@ namespace SabberStoneCore.Model.Entities
 			{
 				if (buckets[i] > 0)
 				{
-					//if (buckets[i] == k)
-					//	;
+					if (buckets[i] == k)
+						throw new Exceptions.EntityException($"Tag {t} has already been added.");
 					continue;
 				}
 				buckets[i] = k;
@@ -469,48 +469,31 @@ namespace SabberStoneCore.Model.Entities
 		#endregion
 
 		/// <summary>Resets all tags from the container.</summary>
-		public void Reset(/*Dictionary<GameTag, int> tags = null*/)
+		public void Reset()
 		{
-			// Remove except entity_id and controller
+			// Remove except entity_id, zone and controller
 			int[] buckets = _buckets;
+			int k = 0;
+			Span<int> buffer = stackalloc int[6];
 			for (int i = 0; i < buckets.Length; i += 2)
 			{
-				if (buckets[i] == (int)GameTag.ENTITY_ID || buckets[i] == (int)GameTag.CONTROLLER)
-					continue;
+				GameTag key = (GameTag) buckets[i];
+				if (key == GameTag.ENTITY_ID ||
+				    key == GameTag.CONTROLLER ||
+				    key == GameTag.ZONE)
+				{
+					buffer[k++] = (int)key;
+					buffer[k++] = buckets[i + 1];
+				}
 
-				buckets[i] = 0;
+
+				buckets[i] = -1;
 			}
 
-			_count = 2;
+			_count = 0;
 
-
-
-			////Tags = tags ?? new Dictionary<GameTag, int>(Enum.GetNames(typeof(GameTag)).Length);
-			////Remove(GameTag.DAMAGE);
-			//Remove(GameTag.PREDAMAGE);
-			//Remove(GameTag.ZONE_POSITION);
-			//Remove(GameTag.EXHAUSTED);
-			////Remove(GameTag.JUST_PLAYED);
-			////Remove(GameTag.SUMMONED);
-			////Remove(GameTag.ATTACKING);
-			////Remove(GameTag.DEFENDING);
-			////Remove(GameTag.ATK);
-			////Remove(GameTag.HEALTH);
-			//Remove(GameTag.COST);
-			//Remove(GameTag.TAUNT);
-			//Remove(GameTag.FROZEN);
-			//Remove(GameTag.ENRAGED);
-			//Remove(GameTag.CHARGE);
-			//Remove(GameTag.WINDFURY);
-			//Remove(GameTag.DIVINE_SHIELD);
-			//Remove(GameTag.STEALTH);
-			//Remove(GameTag.DEATHRATTLE);
-			//Remove(GameTag.BATTLECRY);
-			//Remove(GameTag.SILENCED);
-			//Remove(GameTag.NUM_ATTACKS_THIS_TURN);
-			//Remove(GameTag.NUM_TURNS_IN_PLAY);
-			//Remove(GameTag.ATTACKABLE_BY_RUSH);
-			//Remove(GameTag.GHOSTLY);
+			for (int i = 0; i < k; i += 2)
+				Insert((GameTag) buffer[i], buffer[i + 1]);
 		}
 
 		/// <summary>
