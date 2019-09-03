@@ -222,6 +222,7 @@ namespace SabberStoneCore.Config
 		private bool history = true;
 		private bool skipMulligan = true;
 		private long? randomSeed = null;
+		private bool drawWithRandom = false;
 
 		private GameConfigBuilder() { }
 
@@ -308,6 +309,12 @@ namespace SabberStoneCore.Config
 			this.randomSeed = randomSeed;
 			return this;
 		}
+
+		public GameConfigBuilder DrawWithRandom(bool drawWithRandom)
+		{
+			this.drawWithRandom = drawWithRandom;
+			return this;
+		}
 		public GameConfig Build()
 		{
 			return new GameConfig()
@@ -330,7 +337,8 @@ namespace SabberStoneCore.Config
 				Logging = logging,
 				History = history,
 				SkipMulligan = skipMulligan,
-				RandomSeed = randomSeed
+				RandomSeed = randomSeed,
+				DrawWithRandom = drawWithRandom
 			};
 		}
 		private List<Card> GetCardList(Dictionary<int, int> cardDbfIds)
