@@ -468,7 +468,7 @@ namespace SabberStoneCore.Enchants
 
 		public ControllerAuraEffects Clone(Controller c)
 		{
-			return (ControllerAuraEffects)MemberwiseClone();
+
 			var cae = (ControllerAuraEffects)MemberwiseClone();
 			cae._sendHistory = c.Game.History
 				? (Action<IPowerHistoryEntry>) c.Game.PowerHistory.Add

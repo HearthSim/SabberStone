@@ -1474,6 +1474,10 @@ namespace SabberStoneCoreTest.CardSets.Standard
 				Player1Deck = new List<Card>()
 				{
 					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
+					Cards.FromName("Wisp"),
 				},
 				Player2HeroClass = CardClass.PALADIN,
 				Shuffle = true,
@@ -1488,6 +1492,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 
 			IPlayable drawnP = game.IdEntityDic[game.CurrentPlayer.LastCardDrawn];
 			Minion drawn = Assert.IsType<Minion>(drawnP);
+
 			Assert.Equal(0, drawn.Cost);
 			Assert.Equal(drawn.Card.ATK + 2, drawn.AttackDamage);
 			Assert.Equal(drawn.Card.Health + 2, drawn.Health);
