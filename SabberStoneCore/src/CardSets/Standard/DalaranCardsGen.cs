@@ -667,7 +667,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			cards.Add("DAL_609", new Power {
 				Aura = new SwitchingAura(AuraType.HAND, SelfCondition.SpellsPlayedThisTurn(0),
-					TriggerType.CAST_SPELL, Effects.SetCost(0)),
+					TriggerType.CAST_SPELL, Effects.SetCost(0))
+				{
+					Condition = SelfCondition.IsSpell
+				},
 				PowerTask = new DiscoverTask(CardType.SPELL)
 			});
 
@@ -1530,8 +1533,8 @@ namespace SabberStoneCore.CardSets.Standard
 					new IncludeTask(EntityType.DECK),
 					new FilterStackTask(SelfCondition.IsMinion),
 					new RandomTask(1, EntityType.STACK),
-					new AddEnchantmentTask("DAL_052e", EntityType.STACK),
-					new ChangeEntityTask(EntityType.SOURCE, EntityType.STACK))
+					new ChangeEntityTask(EntityType.SOURCE, EntityType.STACK),
+					new AddEnchantmentTask("DAL_052e", EntityType.SOURCE))
 			});
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -2602,7 +2605,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_736", new Power {
 				PowerTask = new DiscoverTask(choiceAction: ChoiceAction.STACK,
 					afterDiscoverTask: ComplexTask.Create(
-						new RemoveFromDeck(EntityType.DECK, false),
+						new MoveToSetaside(EntityType.DECK),
 						new CopyTask(EntityType.STACK, Zone.DECK, 2)),
 					repeat: 5)
 			});

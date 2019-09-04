@@ -1021,7 +1021,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.StartGame();
 			game.Player1.BaseMana = 10;
 			game.Player2.BaseMana = 10;
-			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kalecgos"));
+			var testMinion = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Kalecgos"));
 			Minion testCard = game.ProcessCard<Minion>("Kalecgos");
 			Spell testSpell = (Spell) Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Fireball"));
 
@@ -1029,6 +1029,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			Assert.Equal(CardType.SPELL, chosen.Card.Type);
 			Assert.Equal(0, chosen.Cost);
 			Assert.Equal(0, testSpell.Cost);
+			Assert.NotEqual(0, testMinion.Cost);
 			game.ProcessCard(testSpell, game.CurrentOpponent.Hero);
 			Assert.Equal(chosen.Card.Cost, chosen.Cost);
 			testCard.Kill();
