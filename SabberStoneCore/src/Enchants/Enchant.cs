@@ -41,8 +41,6 @@ namespace SabberStoneCore.Enchants
 		public bool UseScriptTag;
 		public bool IsOneTurnEffect;
 		public bool RemoveWhenPlayed;
-		public int ScriptTagValue1;
-		public int ScriptTagValue2;
 
 		public Enchant(GameTag tag, EffectOperator @operator, int value)
 	    {
@@ -79,7 +77,6 @@ namespace SabberStoneCore.Enchants
 			else if (enchantment != null)
 			{
 				int val1 = enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1];
-				ScriptTagValue1 = val1;
 
 				effects[0].ChangeValue(val1).ApplyTo(entity, IsOneTurnEffect);
 
@@ -87,13 +84,12 @@ namespace SabberStoneCore.Enchants
 
 				int val2 = enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2];
 
-				if (val2 > 0)
-				{
-					effects[1].ChangeValue(val2).ApplyTo(entity, IsOneTurnEffect);
-					ScriptTagValue2 = val2;
-				}
-				else
-					effects[1].ChangeValue(val1).ApplyTo(entity, IsOneTurnEffect);
+					if (val2 > 0)
+					{
+						effects[1].ChangeValue(val2).ApplyTo(entity, IsOneTurnEffect);
+					}
+					else
+						effects[1].ChangeValue(val1).ApplyTo(entity, IsOneTurnEffect);
 
 				for (int i = 2; i < effects.Length; i++)
 					effects[i].ApplyTo(entity, IsOneTurnEffect);
@@ -101,17 +97,13 @@ namespace SabberStoneCore.Enchants
 			else
 			{
 				effects[0].ChangeValue(num1).ApplyTo(entity, IsOneTurnEffect);
-				ScriptTagValue1 = num1;
 
-				if (effects.Length < 2) return;
-
-				if (num2 > 0)
+				if (effects.Length >= 2)
 				{
-					effects[1].ChangeValue(num2).ApplyTo(entity, IsOneTurnEffect);
-					ScriptTagValue2 = num2;
-				}
-				else
-					effects[1].ChangeValue(num1).ApplyTo(entity, IsOneTurnEffect);
+					if (num2 > 0)
+						effects[1].ChangeValue(num2).ApplyTo(entity, IsOneTurnEffect);
+					else
+						effects[1].ChangeValue(num1).ApplyTo(entity, IsOneTurnEffect);
 
 				for (int i = 2; i < effects.Length; i++)
 					effects[i].ApplyTo(entity, IsOneTurnEffect);
@@ -120,17 +112,23 @@ namespace SabberStoneCore.Enchants
 
 		public void RemoveEffect(in IEntity target)
 		{
-			if (!UseScriptTag)
+			for (int i = 0; i < Effects.Length; i++)
+				Effects[i].RemoveFrom(target);
+
 				for (int i = 0; i < Effects.Length; i++)
-					Effects[i].RemoveFrom(target);
+					target.Game.PowerHistory.Add(
+						PowerHistoryBuilder.TagChange(
+							target.Id, Effects[i].Tag, target[Effects[i].Tag]));
+		}
+
+		public void RemoveEffect(in IEntity target, int num1, int num2)
+		{
+			Effects[0].ChangeValue(num1).RemoveFrom(target);
+			if (Effects.Length == 1) return;
+			if (num2 > 0)
+				Effects[1].ChangeValue(num2).RemoveFrom(target);
 			else
-			{
-				Effects[0].ChangeValue(ScriptTagValue1).RemoveFrom(target);
-				if (Effects.Length == 1) return;
-				if (ScriptTagValue2 > 0)
-					Effects[1].ChangeValue(ScriptTagValue2).RemoveFrom(target);
-				else
-					Effects[1].ChangeValue(ScriptTagValue1).RemoveFrom(target);
+				Effects[1].ChangeValue(num1).RemoveFrom(target);
 
 				for (int i = 2; i < Effects.Length; i++)
 					Effects[i].RemoveFrom(target);

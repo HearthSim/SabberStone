@@ -3008,7 +3008,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
 			cards.Add("TRL_390e2", new Power {
-				Enchant = new Enchant(GameTag.HEROPOWER_DAMAGE, EffectOperator.ADD, 2),
+				Enchant = new Enchant(GameTag.HEROPOWER_DAMAGE, EffectOperator.ADD, 2)
+				{
+					IsOneTurnEffect = true
+				},
 				Trigger = TriggerBuilder
 					.Type(TriggerType.INSPIRE)
 					.SetTask(RemoveEnchantmentTask.Task)

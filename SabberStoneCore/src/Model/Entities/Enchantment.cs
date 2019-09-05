@@ -150,7 +150,7 @@ namespace SabberStoneCore.Model.Entities
 		/// <param name="target">The entity who is subjected to the enchantment.</param>
 		/// <param name="card">The card from which the enchantment must be derived.</param>
 		/// <returns>The resulting enchantment entity.</returns>
-		public static Enchantment GetInstance(in Controller controller, in IPlayable creator, in IEntity target, in Card card)
+		public static Enchantment GetInstance(in Controller controller, in IPlayable creator, in IEntity target, in Card card, int num1 = 0, int num2 = 0)
 		{
 			int id = controller.Game.NextId;
 
@@ -233,6 +233,13 @@ namespace SabberStoneCore.Model.Entities
 
 			controller.Game.Log(LogLevel.VERBOSE, BlockType.ACTION, "Enchantment",
 				!controller.Game.Logging ? "" : $"Enchantment {card} created by {creator} is added to {target}.");
+
+			if (num1 > 0)
+			{
+				tags.Add(GameTag.TAG_SCRIPT_DATA_NUM_1, num1);
+				if (num2 > 0)
+					tags.Add(GameTag.TAG_SCRIPT_DATA_NUM_2, num2);
+			}
 
 			return instance;
 		}

@@ -1114,7 +1114,7 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.EndTurn();
 			game.ProcessCard<Minion>("Daring Fire-Eater");
 			game.EndTurn();
-			Assert.Equal(0, game.CurrentOpponent[GameTag.HEROPOWER_DAMAGE]);
+			Assert.Equal(0, game.CurrentOpponent.Hero[GameTag.HEROPOWER_DAMAGE]);
 		}
 
 		// ------------------------------------------- SPELL - MAGE

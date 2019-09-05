@@ -306,14 +306,7 @@ namespace SabberStoneCore.Actions
 
 			if (g.History)
 			{
-				Enchantment enchantment = Enchantment.GetInstance(creator.Controller, in creator, in target, in enchantmentCard);
-
-				if (num1 > 0)
-				{
-					enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1] = num1;
-					if (num2 > 0)
-						enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2] = num2;
-				}
+				Enchantment enchantment = Enchantment.GetInstance(creator.Controller, in creator, in target, in enchantmentCard, num1, num2);
 
 				power.Aura?.Activate(enchantment);
 				power.Trigger?.Activate(enchantment);
@@ -341,15 +334,7 @@ namespace SabberStoneCore.Actions
 				{	// Create Enchantment instance Only when it is needed.
 					// As an owner entity for Auras, Triggers or Deathrattle tasks.
 					// We also maintain Modular (Magnetic) Enchantments for Kangor's Endless Army.
-					Enchantment instance = Enchantment.GetInstance(creator.Controller, in creator, in target, in enchantmentCard);
-
-					// Put ScriptTags here.
-					if (num1 > 0)
-					{
-						instance[GameTag.TAG_SCRIPT_DATA_NUM_1] = num1;
-						if (num2 > 0)
-							instance[GameTag.TAG_SCRIPT_DATA_NUM_2] = num2;
-					}
+					Enchantment instance = Enchantment.GetInstance(creator.Controller, in creator, in target, in enchantmentCard, num1, num2);
 
 					// Activate OngoingEffects.
 					power.Aura?.Activate(instance);
