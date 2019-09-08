@@ -1857,11 +1857,22 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.EndTurn();
 			// 7
 
+			Game clone = game.Clone();
+
 			game.ProcessCard(testCard, target);
 			Assert.Equal(2, target.AttackDamage);
 			game.EndTurn();
 			Assert.Equal(2, target.AttackDamage);
 			game.EndTurn();
+			Assert.Equal(9, target.AttackDamage);
+
+			// Test with History = false
+			target = (Minion) clone.IdEntityDic[target.Id];
+			clone.ProcessCard(clone.IdEntityDic[testCard.Id], target);
+			Assert.Equal(2, target.AttackDamage);
+			clone.EndTurn();
+			Assert.Equal(2, target.AttackDamage);
+			clone.EndTurn();
 			Assert.Equal(9, target.AttackDamage);
 		}
 

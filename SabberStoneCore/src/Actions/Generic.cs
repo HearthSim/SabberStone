@@ -294,64 +294,41 @@ namespace SabberStoneCore.Actions
 		/// <param name="num1">ScriptTag1</param>
 		/// <param name="num2">ScriptTag2</param>
 		/// <param name="entityId">The entity ID to be stored in the enchantment. (e.g. carnivorous Cube)</param>
-		public static void AddEnchantmentBlock(in Game g, in Card enchantmentCard, in IPlayable creator, IEntity target, int num1 = 0, int num2 = 0, int entityId = 0)
+		public static void AddEnchantmentBlock(in Game g, in Card enchantmentCard, in IPlayable creator, IEntity target, int num1 = -1, int num2 = -1, int entityId = 0)
 		{
 			Power power = enchantmentCard.Power;
 
-			if (power.Enchant is OngoingEnchant && target is IPlayable entity && entity.OngoingEffect is OngoingEnchant ongoingEnchant)
+			if (power.Enchant is OngoingEnchant &&
+			    target is IPlayable entity &&
+			    entity.OngoingEffect is OngoingEnchant ongoingEnchant)
 			{	// Increment the count of existing OngoingEnchant
 				ongoingEnchant.Count++;
 				return;
 			}
 
-			if (g.History)
-			{
+			if (g.History || power.Aura != null || power.Trigger != null || power.DeathrattleTask != null || enchantmentCard.Modular)
+			{	// Create Enchantment instance Only when it is needed.
+				// As an owner entity for Auras, Triggers or Deathrattle tasks.
+				// We also maintain Modular (Magnetic) Enchantments for Kangor's Endless Army.
 				Enchantment enchantment = Enchantment.GetInstance(creator.Controller, in creator, in target, in enchantmentCard, num1, num2);
 
 				power.Aura?.Activate(enchantment);
 				power.Trigger?.Activate(enchantment);
-				power.Enchant?.ActivateTo(target, enchantment);
 
 				if (power.Enchant?.RemoveWhenPlayed ?? false)
 					Enchant.RemoveWhenPlayedTrigger.Activate(enchantment);
-
-				if (power.DeathrattleTask != null)
-					((IPlayable)target).HasDeathrattle = true;
 
 				if (entityId > 0)
 				{
 					enchantment.CapturedCard = g.IdEntityDic[entityId].Card;
 					if (g.Logging)
-					{
 						g.Log(LogLevel.DEBUG, BlockType.POWER,
 							"AddEnchantmentBlock", $"{g.IdEntityDic[entityId]} is captured in {enchantment}.");
-					}
 				}
 			}
-			else
-			{
-				if (power.Aura != null || power.Trigger != null || power.DeathrattleTask != null || enchantmentCard.Modular)
-				{	// Create Enchantment instance Only when it is needed.
-					// As an owner entity for Auras, Triggers or Deathrattle tasks.
-					// We also maintain Modular (Magnetic) Enchantments for Kangor's Endless Army.
-					Enchantment instance = Enchantment.GetInstance(creator.Controller, in creator, in target, in enchantmentCard, num1, num2);
 
-					// Activate OngoingEffects.
-					power.Aura?.Activate(instance);
-					power.Trigger?.Activate(instance);
-
-					// Activate RemoveWhenPlayed.
-					if (power.Enchant?.RemoveWhenPlayed ?? false)
-						Enchant.RemoveWhenPlayedTrigger.Activate(instance);
-
-					// Enchantments can capture card information.
-					if (entityId > 0)
-						instance.CapturedCard = g.IdEntityDic[entityId].Card;
-				}
-
-				//	no indicator enchantment entities when History option is off
-				power.Enchant?.ActivateTo(target, null, num1, num2);
-			}
+			//	no indicator enchantment entities when History option is off
+			power.Enchant?.ActivateTo(target, num1, num2);
 		}
 
 		public static Func<Controller, IPlayable, Card, bool, IPlayable> ChangeEntityBlock

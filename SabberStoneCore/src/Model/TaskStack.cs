@@ -21,8 +21,8 @@ namespace SabberStoneCore.Model
 	{
 		public IList<IPlayable> Playables { get; set; }
 		public bool Flag { get; set; }
-		public int Number { get; set; }
-		public int Number1 { get; set; }
+		public int Number { get; set; } = -1;
+		public int Number1 { get; set; } = -1;
 		public int Number2 { get; set; }
 		public int Number3 { get; set; }
 		public int Number4 { get; set; }

@@ -65,48 +65,28 @@ namespace SabberStoneCore.Enchants
 		/// Apply this Enchant's <see cref="Effect"/>s to the given entity.
 		/// </summary>
 		/// <param name="entity">The target entity.</param>
-		/// <param name="enchantment">The indicator <see cref="Enchantment"/> entity. Can be null.</param>
 		/// <param name="num1">Integer value for GameTag.TAG_SCRIPT_DATA_NUM_1.</param>
 		/// <param name="num2">Integer value for GameTag.TAG_SCRIPT_DATA_NUM_2.</param>
-		public virtual void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
+		public virtual void ActivateTo(IEntity entity, int num1 = -1, int num2 = -1)
 		{
 			IEffect[] effects = Effects;
 			if (!UseScriptTag)
 				for (int i = 0; i < effects.Length; i++)
 					effects[i].ApplyTo(entity, IsOneTurnEffect);
-			else if (enchantment != null)
-			{
-				int val1 = enchantment[GameTag.TAG_SCRIPT_DATA_NUM_1];
-
-				effects[0].ChangeValue(val1).ApplyTo(entity, IsOneTurnEffect);
-
-				if (effects.Length < 2) return;
-
-				int val2 = enchantment[GameTag.TAG_SCRIPT_DATA_NUM_2];
-
-					if (val2 > 0)
-					{
-						effects[1].ChangeValue(val2).ApplyTo(entity, IsOneTurnEffect);
-					}
-					else
-						effects[1].ChangeValue(val1).ApplyTo(entity, IsOneTurnEffect);
-
-				for (int i = 2; i < effects.Length; i++)
-					effects[i].ApplyTo(entity, IsOneTurnEffect);
-			}
 			else
 			{
 				effects[0].ChangeValue(num1).ApplyTo(entity, IsOneTurnEffect);
 
 				if (effects.Length >= 2)
 				{
-					if (num2 > 0)
+					if (num2 >= 0)
 						effects[1].ChangeValue(num2).ApplyTo(entity, IsOneTurnEffect);
 					else
 						effects[1].ChangeValue(num1).ApplyTo(entity, IsOneTurnEffect);
 
-				for (int i = 2; i < effects.Length; i++)
-					effects[i].ApplyTo(entity, IsOneTurnEffect);
+					for (int i = 2; i < effects.Length; i++)
+						effects[i].ApplyTo(entity, IsOneTurnEffect);
+				}
 			}
 		}
 
@@ -114,11 +94,6 @@ namespace SabberStoneCore.Enchants
 		{
 			for (int i = 0; i < Effects.Length; i++)
 				Effects[i].RemoveFrom(target);
-
-				for (int i = 0; i < Effects.Length; i++)
-					target.Game.PowerHistory.Add(
-						PowerHistoryBuilder.TagChange(
-							target.Id, Effects[i].Tag, target[Effects[i].Tag]));
 		}
 
 		public void RemoveEffect(in IEntity target, int num1, int num2)
@@ -130,9 +105,8 @@ namespace SabberStoneCore.Enchants
 			else
 				Effects[1].ChangeValue(num1).RemoveFrom(target);
 
-				for (int i = 2; i < Effects.Length; i++)
-					Effects[i].RemoveFrom(target);
-			}
+			for (int i = 2; i < Effects.Length; i++)
+				Effects[i].RemoveFrom(target);
 		}
     }
 
@@ -174,11 +148,11 @@ namespace SabberStoneCore.Enchants
 		//}
 		public IPlayable Target { get; set; }
 
-		public override void ActivateTo(IEntity entity, Enchantment enchantment, int num1 = 0, int num2 = -1)
+		public override void ActivateTo(IEntity entity, int num1 = 0, int num2 = -1)
 		{
 			Clone((IPlayable) entity);
 
-			base.ActivateTo(entity, enchantment, num1, num2);
+			base.ActivateTo(entity, num1, num2);
 		}
 
 		public void Update()
@@ -188,7 +162,7 @@ namespace SabberStoneCore.Enchants
 			int delta = _count - _lastCount;
 
 			for (int i = 0 ; i < delta; i++)
-				base.ActivateTo(Target, null);
+				base.ActivateTo(Target);
 
 			_lastCount = _count;
 

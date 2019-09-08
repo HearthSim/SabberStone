@@ -2726,15 +2726,9 @@ namespace SabberStoneCore.CardSets
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsWeapon),
-					new FuncNumberTask(p =>
-					{
-						return p.Sum(w => w[GameTag.DURABILITY]);
-					}),
+					new FuncNumberTask(p => p.Sum(w => w[GameTag.DURABILITY]) + 1),
 					new MathNumberIndexTask(1, 0, MathOperation.ADD, 1),
-					new FuncNumberTask(p =>
-					{
-						return p.Sum(w => w[GameTag.ATK]);
-					}),
+					new FuncNumberTask(p => p.Sum(w => w[GameTag.ATK])),
 					new DiscardTask(EntityType.STACK),
 					new AddEnchantmentTask("ICC_096e", EntityType.SOURCE, true))
 			});

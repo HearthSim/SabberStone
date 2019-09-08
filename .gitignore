@@ -261,3 +261,6 @@ __pycache__/
 *.pyc
 /core-extensions/SabberStoneCoreGui/SabberStoneCoreGui.csproj
 /core-extensions/SabberStoneCoreGui
+/core-extensions/SabberStoneCoreConsole/src/PowerHistory/UnitTests.cs
+/core-extensions/SabberStoneCoreConsole/src/PowerHistory/PowerHistoryTest.cs
+/core-extensions/SabberStoneCoreConsole/src/PowerHistory/PowerHistoryStateTransition.cs

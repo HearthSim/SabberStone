@@ -939,10 +939,6 @@ namespace SabberStoneCore.Model
 				foreach ((int id, IEffect eff) in OneTurnEffects)
 					eff.RemoveFrom(IdEntityDic[id]);
 				
-				if (History)
-					foreach ((int id, IEffect eff) in OneTurnEffects)
-						PowerHistory.Add(PowerHistoryBuilder.TagChange(id, eff.Tag, IdEntityDic[id][eff.Tag]));
-				
 				OneTurnEffects.Clear();
 			}
 

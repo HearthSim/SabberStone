@@ -88,7 +88,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 					case GameTag.DEATHRATTLE:
 						continue;
 					default:
-						copy._data.Add(kvp.Key, kvp.Value);
+						copy._data[kvp.Key] = kvp.Value;
 						break;
 				}
 
