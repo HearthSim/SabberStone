@@ -379,12 +379,9 @@ namespace SabberStoneCore.Actions
 				{
 					if (c.Game.History)
 					{
-						EntityData differTags = new EntityData
-						{
-							{GameTag.CARDTYPE, (int)newCard.Type}
-						};
+						EntityData differTags = new EntityData();
 						Dictionary<GameTag, int> newTags = newCard.Tags;
-						foreach (KeyValuePair<GameTag, int> item in c.Card.Tags)
+						foreach (KeyValuePair<GameTag, int> item in p.Card.Tags)
 							differTags.Add(item.Key,
 								newTags.TryGetValue(item.Key, out int value)
 									? value
@@ -536,15 +533,22 @@ namespace SabberStoneCore.Actions
 					Minion m = (Minion)p;
 					if (m.Controller == c.Game.CurrentPlayer)
 					{
-						if (m.HasCharge)
-							m.IsExhausted = false;
-						else if (m.IsRush)
+						if (!m.HasCharge)
 						{
-							m.IsExhausted = false;
-							m.AttackableByRush = true;
-							c.Game.RushMinions.Add(m.Id);
+							if (m.IsRush)
+							{
+								m.IsExhausted = false;
+								m.AttackableByRush = true;
+								c.Game.RushMinions.Add(m.Id);
+							}
+							else
+								m.IsExhausted = true;
 						}
+						else
+							m.IsExhausted = false;
 					}
+					else
+						m.IsExhausted = true;
 					BoardZone.ActivateAura(m);
 					board.Auras.ForEach(a => a.EntityAdded(p));
 					board.AdjacentAuras.ForEach(a => a.BoardChanged = true);
