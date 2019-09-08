@@ -3601,6 +3601,11 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			game.ProcessCard("Flametongue Totem", zonePosition: 0);  // (T)(5)(T)(7)(T)
 			Assert.Equal(5, m1.AttackDamage);
 			Assert.Equal(7, m2.AttackDamage);
+
+			game.EndTurn();
+																	// (T)(T)(7)(T)
+			game.ProcessCard("Mind Control", m1, asZeroCost: true); // (1)
+			Assert.Equal(1, m1.AttackDamage);
 		}
 
 		// ---------------------------------------- MINION - SHAMAN

@@ -141,9 +141,6 @@ namespace SabberStoneCore.Auras
 
 		private void DeApply(Minion m)
 		{
-			if (m.Zone == null || m.Zone.Type == Zone.GRAVEYARD || m.Zone.Type == Zone.SETASIDE)
-				return;
-
 			for (int i = 0; i < _effects.Length; i++)
 				_effects[i].RemoveAuraFrom(m);
 

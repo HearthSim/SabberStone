@@ -480,7 +480,7 @@ namespace SabberStoneCoreTest.Basic
 			Assert.Equal(3, game.Player1.DeckZone.Count);
 		}
 
-		[Fact]
+		[Fact(Skip="Outdated")]
 		public static void ChangeEntityCostEnchantment()
 		{
 			var game = new Game(new GameConfig

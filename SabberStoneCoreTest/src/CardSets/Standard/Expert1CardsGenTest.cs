@@ -6796,11 +6796,16 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable minion2 = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Bloodfen Raptor"));
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, testCard));
 			Assert.Equal(2, minion1.Cost);
+			Assert.Equal(2, minion2.Cost);
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			game.Process(EndTurnTask.Any(game.CurrentPlayer));
 			Assert.Equal(1, minion1.Cost);
+			Assert.Equal(1, minion2.Cost);
 			game.Process(PlayCardTask.Minion(game.CurrentPlayer, minion1));
 			Assert.Equal(2, minion2.Cost);
+			game.EndTurn();
+			game.EndTurn();
+			Assert.Equal(1, minion2.Cost);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL
@@ -7269,6 +7274,9 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			IPlayable testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Mountain Giant"));
 			Assert.Equal(5, game.CurrentPlayer.HandZone.Count);
 			Assert.Equal(8, testCard.Cost);
+
+			Game clone = game.Clone();
+			Assert.Equal(8, clone.IdEntityDic[testCard.Id].Cost);
 		}
 
 		// --------------------------------------- MINION - NEUTRAL

@@ -2944,12 +2944,17 @@ namespace SabberStoneCoreTest.CardSets.Standard
 			//var testCard = Generic.DrawCard(game.CurrentPlayer, Cards.FromName("Ratcatcher"));
 			//game.Process(PlayCardTask.Any(game.CurrentPlayer, "Ratcatcher"));
 
+			IPlayable target2 = game.ProcessCard("Summoning Portal");
 			IPlayable target = game.ProcessCard("Chillwind Yeti");
 			Minion test = game.ProcessCard<Minion>("Ratcatcher", target);
+			Minion test2 = game.ProcessCard<Minion>("Ratcatcher", target2);
 
 			Assert.Equal(6, test.AttackDamage);
 			Assert.Equal(7, test.Health);
 			Assert.True(target.ToBeDestroyed);
+
+			Assert.Equal(2, test2.AttackDamage);
+			Assert.Equal(6, test2.Health);
 		}
 
 		// --------------------------------------- MINION - WARLOCK
