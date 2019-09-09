@@ -13,7 +13,6 @@
 #endregion
 using System;
 using System.Collections.Generic;
-using System.Text;
 using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model.Entities
@@ -39,7 +38,7 @@ namespace SabberStoneCore.Model.Entities
 
 		public override IPlayable Clone(in Controller controller)
 		{
-			throw new NotImplementedException();
+			return new Unknown(in controller, this);
 		}
 
 		#endregion
