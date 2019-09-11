@@ -20,8 +20,8 @@ By now this is a one man show, but there is still a lot of work to do, so any he
 
 Join us on [Discord](https://discord.gg/my9WTwK)!
 
-**Sabberstone Simulator can be connected to the real Hearthstone client!**
-![Preview SabberStone connected to the Stove project](docs/readme/stove.PNG)
+**Sabberstone Simulator has an own visualisation and client/server architecture for AI research!**
+![Preview SabberStone connected to the Stove project](docs/readme/clientserver.PNG)
 
 ### Project Structure ###
 
