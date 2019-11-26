@@ -40,7 +40,7 @@ build_script:
 
     dotnet build %APPVEYOR_BUILD_FOLDER%/SabberStoneCore -p:Version=%APPVEYOR_BUILD_VERSION% --configuration %TARGET_CONFIGURATION%
     
-    appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%/SabberStone/bin/Release/SabberStone.%APPVEYOR_BUILD_VERSION%.nupkg -FileName SabberStone.%APPVEYOR_BUILD_VERSION%.nupkg -DeploymentName SabberStone
+    appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%/SabberStoneCore/bin/Release/SabberStoneCore.%APPVEYOR_BUILD_VERSION%.nupkg -FileName SabberStoneCore.%APPVEYOR_BUILD_VERSION%.nupkg -DeploymentName SabberStoneCore
 
 # All script lines are by default interpreted as batch
 test_script:
