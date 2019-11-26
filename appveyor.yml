@@ -1,38 +1,27 @@
-﻿version: 1.0.{build}
+version: 1.0.{build}
 image: Visual Studio 2017
-configuration: Release
-pull_requests:
-  do_not_increment_build_number: true
-
-# Can't change default email notifications without providing
-# e-mail addresses.
-
-cache:
-- './packages'
-
-# Only build when the following files were changed
-only_commits:
-  files:
-  - '**/*.cs'
-
-# All script lines are by default interpreted as batch
-before_build:
-  - REM Restore packages for all projects within solution
-  - nuget.exe restore
-
-build:
-  project: SabberStone.sln
-  parallel: true
-  verbosity: minimal
-
-# All script lines are by default interpreted as batch
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+environment:
+  TARGET_CONFIGURATION: Release
+build_script:
+- cmd: >-
+    dotnet build -p:Version=%APPVEYOR_BUILD_VERSION% --configuration %TARGET_CONFIGURATION%
+    
+    appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%/SabberStone/bin/Release/SabberStone.%APPVEYOR_BUILD_VERSION%.nupkg -FileName SabberStone.%APPVEYOR_BUILD_VERSION%.nupkg -DeploymentName SabberStone
+ 
 test_script:
-  - REM Run the test project (.NET Core)
-  - cd ./SabberStoneCoreTest
-  - dotnet xunit -fxversion 2.0.5
-
-artifacts:
-- path: SabberStoneCore\bin\**\Release\**\SabberStoneCore.xml
-  name: SabberStoneCore doc
-- path: SabberStoneCore\bin\**\Release\**\*.dll
-  name: SabberStoneCore libs
+- cmd: >-
+    dotnet test --configuration Release ./SabberStoneCoreTest
+    
+deploy:
+- provider: NuGet
+  api_key:
+    secure: qR9SWQUPkiYwFQKvljIajuoDvjS4rDAHkYVY1QaFP3yRqRoEp+LF/Um2v2Y4LqcN
+  artifact: /.*.nupkg/
