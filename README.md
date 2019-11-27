@@ -5,6 +5,7 @@
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![Build status](https://ci.appveyor.com/api/projects/status/051e59v5u9hm10qr?svg=true)](https://ci.appveyor.com/project/darkfriend77/sabberstonecore)
 [![Build status master](https://ci.appveyor.com/api/projects/status/051e59v5u9hm10qr/branch/master?svg=true)](https://ci.appveyor.com/project/darkfriend77/sabberstonecore/branch/master)
+[![nuget](https://img.shields.io/nuget/v/SabberStoneCore)](https://img.shields.io/nuget/v/SabberStoneCore)
 [![license](https://img.shields.io/github/license/HearthSim/SabberStone)](https://img.shields.io/github/license/HearthSim/SabberStone)
 [![contributors](https://img.shields.io/github/contributors/HearthSim/SabberStone)](https://img.shields.io/github/contributors/HearthSim/SabberStone)
 # SabberStone 2.1
@@ -55,11 +56,11 @@ Join us on [Discord](https://discord.gg/my9WTwK)!
 **Adventures**
 * **100% Blackrock Mountain (31 Cards)**
 * **100% One Night in Karazhan (45 Cards)**
-* *93% The League of Explorers (45 Cards) (needs to be upgraded to new system)*
+* *68% The League of Explorers (45 Cards) (needs to be upgraded to new system)*
 
 **Expensions**
 * *94% Rise of Shadows (136 Cards)*
-* *95% Rastakhan's Rumble (135 Cards)*
+* *96% Rastakhan's Rumble (135 Cards)*
 * *98% The Boomsday Project (136 Cards)*
 * *99% The Witchwood (129 Cards)*
 
@@ -73,42 +74,30 @@ Join us on [Discord](https://discord.gg/my9WTwK)!
 * **100% Curse of Naxxramas (30 cards)**
 
 **Not Implemented Standard Cards**
-##### Rise of Shadows
+#### Rise of Shadows
 - [DAL_377] Nine Lives
 - [DAL_431] Swampqueen Hagatha
 - [DAL_573] Commander Rhyssa
 - [DAL_729] Madame Lazul
 - [DAL_731] Duel!
 - [DAL_742] Whirlwind Tempest
-- ~~[DAL_800] Zayle, Shadow Cloak~~
+- [DAL_800] Zayle, Shadow Cloak
 
-##### Rastakhan's Rumble
+#### Rastakhan's Rumble
 - [TRL_318] Hex Lord Malacrass
-- [TRL_325] Sul'thraze
 - [TRL_345] Krag'wa, the Frog
 - [TRL_522] Wartbringer
 - [TRL_532] Mosh'Ogg Announcer
 - [TRL_535] Snapjaw Shellfighter
 
-##### The Boomsday Project
+#### The Boomsday Project
 - [BOT_436] Prismatic Lens
-- ~~[BOT_914] Whizbang the Wonderful~~
+- [BOT_914] Whizbang the Wonderful
 
 ##### The Witchwood
 - [GIL_655] Festeroot Hulk
 
 *(Standard is beeing prioritized.)*
-
-### ToDo List ###
-
-- [x] move SabberStone to Github
-- [x] start Wiki for SabberStone
-- [x] moved from .NET Framework to .NET Core
-- [x] make tasksystem stateful
-- [ ] create a sync with a current game (hook on the power.log)
-- [ ] integrate inter phases split.
-- [ ] implement caching for performance opt.
-- [ ] fill wiki for SabberStone
 
 ### Requirements
 
@@ -123,8 +112,8 @@ Join us on [Discord](https://discord.gg/my9WTwK)!
 ### Documentation
 
 * Wiki [Link](https://github.com/HearthSim/SabberStone/wiki)
-* SabberStoneCoreAi [Link](https://github.com/HearthSim/SabberStone/tree/master/SabberStoneCoreAi)
-* SabberStoneCoreGui [Link](https://github.com/HearthSim/SabberStone/wiki/SabberStoneGui)
+* SabberStoneBasicAI [Link](https://github.com/HearthSim/SabberStone/tree/master/core-extensions/SabberStoneBasicAI)
+* Unity3D GUI Client & GameServer  [Link](https://github.com/darkfriend77/SabberStone-gRPC)
 
 ### License
 
