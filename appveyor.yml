@@ -1,5 +1,15 @@
-﻿version: 1.0.{build}
+version: 2.1.0.{build}
 image: Visual Studio 2017
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+  assembly_version: '{version}'
+  file_version: '{version}'
+  informational_version: '{version}'
+environment:
+  TARGET_CONFIGURATION: Release
 configuration: Release
 pull_requests:
   do_not_increment_build_number: true
@@ -25,11 +35,24 @@ build:
   parallel: true
   verbosity: minimal
 
+build_script:
+- cmd: >-
+
+    dotnet build %APPVEYOR_BUILD_FOLDER%/SabberStoneCore -p:Version=%APPVEYOR_BUILD_VERSION% --configuration %TARGET_CONFIGURATION%
+    
+    appveyor PushArtifact %APPVEYOR_BUILD_FOLDER%/SabberStoneCore/bin/Release/SabberStoneCore.%APPVEYOR_BUILD_VERSION%.nupkg -FileName SabberStoneCore.%APPVEYOR_BUILD_VERSION%.nupkg -DeploymentName SabberStoneCore
+
 # All script lines are by default interpreted as batch
 test_script:
   - REM Run the test project (.NET Core)
   - cd ./SabberStoneCoreTest
   - dotnet xunit -fxversion 2.0.5
+
+deploy:
+- provider: NuGet
+  api_key:
+    secure: qR9SWQUPkiYwFQKvljIajuoDvjS4rDAHkYVY1QaFP3yRqRoEp+LF/Um2v2Y4LqcN
+  artifact: /.*.nupkg/
 
 artifacts:
 - path: SabberStoneCore\bin\**\Release\**\SabberStoneCore.xml

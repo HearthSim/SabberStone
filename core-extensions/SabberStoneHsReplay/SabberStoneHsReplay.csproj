@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <LangVersion>7.2</LangVersion>
+		<LangVersion>latest</LangVersion>
     <Configurations>Debug;Release;NoSpan</Configurations>
   </PropertyGroup>
 

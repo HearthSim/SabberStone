@@ -13,7 +13,7 @@
 #endregion
 namespace HSGrammar
 {
-    partial class HSGrammarLexer
-    {
+	partial class HSGrammarLexer
+	{
     }
 }

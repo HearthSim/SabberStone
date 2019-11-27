@@ -2,8 +2,8 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-    <LangVersion>default</LangVersion>
-    <Configurations>Debug;Release;NoSpan</Configurations>
+		<LangVersion>latest</LangVersion>
+		<Configurations>Debug;Release;NoSpan</Configurations>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>false</Optimize>
