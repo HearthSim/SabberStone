@@ -39,11 +39,11 @@ Join us on [Discord](https://discord.gg/my9WTwK)!
 
   A test project to run simple codeline based games to test outcome.
 
-* **SabberStoneCoreAi** *(.NET Core)*
+* **SabberStoneBasicAI** *(.NET Core)*
 
   A test project to run A.I. simulations with predefinied decks and strategys.
 
-* **SabberStoneGui** *(.NET Framework)*
+* **(deprectated)SabberStoneGui** *(.NET Framework)* (This is currently reworked in a Unity3D GUI Client with a GameServer)
 
   A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at. There is a simple GUI which allows different decks to play against each other with different strategys. Check out the Wiki [Link](https://github.com/HearthSim/SabberStone/wiki/SabberStoneGui) for informations about the use of SimpleUi.
 
