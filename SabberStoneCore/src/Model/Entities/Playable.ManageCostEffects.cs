@@ -149,6 +149,11 @@ namespace SabberStoneCore.Model.Entities
 				_toBeUpdated = true;
 			}
 
+			/// <summary>
+			/// Applies older entity's cost enchantments to the new one.
+			/// </summary>
+			/// <param name="newCardCost"></param>
+			/// <returns></returns>
 			internal int EntityChanged(int newCardCost)
 			{
 				for (int i = 0; i < _costEnchantments.Count; i++)
@@ -241,6 +246,18 @@ namespace SabberStoneCore.Model.Entities
 
 			if (_history)
 				Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, GameTag.COST, Card.Cost));
+		}
+
+		public override int this[GameTag t]
+		{
+			get => t == GameTag.COST ? Cost : base[t];
+			set
+			{
+				if (t == GameTag.COST)
+					Cost = value;
+				else
+					base[t] = value;
+			}
 		}
 	}
 }

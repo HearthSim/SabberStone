@@ -60,6 +60,8 @@ namespace SabberStoneCore.Triggers
 		/// <value> true means this trigger will be immediately disposed after triggered.</value>
 	    public bool RemoveAfterTriggered;
 
+		public TriggerType Type => _triggerType;
+
 	    public Trigger(TriggerType type)
 	    {
 			_triggerType = type;

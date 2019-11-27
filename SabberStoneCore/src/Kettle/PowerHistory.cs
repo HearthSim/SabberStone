@@ -19,7 +19,7 @@ using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Kettle
-	#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 {
 	public class PowerHistoryBuilder
 	{
@@ -168,7 +168,6 @@ namespace SabberStoneCore.Kettle
 		{
 			return new PowerHistoryBlockEnd();
 		}
-
 	}
 
 	//message PowerHistory
@@ -347,6 +346,11 @@ namespace SabberStoneCore.Kettle
 				: $"{PowerType} Entity = [{EntityId}] Tag={Tag} Value={Value}");
 			return str.ToString();
 		}
+
+		public override string ToString()
+		{
+			return $"[{EntityId}][{Tag}][{Value}]";
+		}
 	}
 
 	//message PowerHistoryMetaData
@@ -370,6 +374,20 @@ namespace SabberStoneCore.Kettle
 		}
 	}
 
+	public class PowerHistoryChangeEntity : IPowerHistoryEntry
+	{
+		public PowerType PowerType => PowerType.CHANGE_ENTITY;
+		public string CardId { get; set; }
+		public PowerHistoryEntity Entity { get; set; }
+
+		public string Print()
+		{
+			var str = new StringBuilder();
+			str.AppendLine($"{PowerType} Type={CardId} - Change Entity = [{Entity.Print()}]");
+			return str.ToString();
+		}
+	}
+
 	//message PowerHistoryEntity
 	//{
 	//    required int32 entity = 1;
@@ -385,7 +403,7 @@ namespace SabberStoneCore.Kettle
 	{
 		public int Id { get; set; }
 		public string Name { get; set; }
-		public Dictionary<GameTag, int> Tags { get; set; } = new Dictionary<GameTag, int>();
+		public IDictionary<GameTag, int> Tags { get; set; } = new Dictionary<GameTag, int>();
 		public string Print()
 		{
 			var str = new StringBuilder();

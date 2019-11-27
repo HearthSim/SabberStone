@@ -19,11 +19,11 @@ using SabberStoneCore.Config;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Tasks.PlayerTasks;
-using SabberStoneCoreAi.Meta;
-using SabberStoneCoreAi.Nodes;
-using SabberStoneCoreAi.Score;
+using SabberStoneBasicAI.Meta;
+using SabberStoneBasicAI.Nodes;
+using SabberStoneBasicAI.Score;
 
-namespace SabberStoneCoreAi
+namespace SabberStoneBasicAI
 {
 	internal class Program
 	{
@@ -33,9 +33,11 @@ namespace SabberStoneCoreAi
 		{
 			Console.WriteLine("Starting test setup.");
 
+			// TEST BASIC AI
+
 			//OneTurn();
 			//FullGame();
-			RandomGames();
+			//RandomGames();
 			//TestFullGames();
 
 			Console.WriteLine("Test end!");
@@ -44,7 +46,7 @@ namespace SabberStoneCoreAi
 
 		public static void RandomGames()
 		{
-			int total = 1000;
+			int total = 10000;
 			var watch = Stopwatch.StartNew();
 
 			var gameConfig = new GameConfig()

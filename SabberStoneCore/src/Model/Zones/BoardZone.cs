@@ -71,6 +71,19 @@ namespace SabberStoneCore.Model.Zones
 			}
 		}
 
+		internal static void InitialiseMinion(Minion entity)
+		{
+			if (entity.Game.CurrentPlayer != entity.Controller) return;
+			if (entity.HasCharge) return;
+			if (entity.IsRush)
+			{
+				entity.AttackableByRush = true;
+				entity.Game.RushMinions.Add(entity.Id);
+			}
+			else
+				entity.IsExhausted = true;
+		}
+
 		public override Minion Remove(Minion entity)
 		{
 			RemoveAura(entity);

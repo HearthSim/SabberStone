@@ -16,6 +16,7 @@ using System;
 using System.Text;
 using SabberStoneCore.Auras;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks.SimpleTasks;
@@ -88,12 +89,23 @@ namespace SabberStoneCore.Enchants
 						effects[i].ApplyTo(entity, IsOneTurnEffect);
 				}
 			}
+
+			if (entity.Game.History)
+				for (int i = 0; i < effects.Length; i++)
+					entity.Game.PowerHistory.Add(
+						PowerHistoryBuilder.TagChange(entity.Id, effects[i].Tag, entity[effects[i].Tag]));
 		}
 
 		public void RemoveEffect(in IEntity target)
 		{
 			for (int i = 0; i < Effects.Length; i++)
 				Effects[i].RemoveFrom(target);
+
+            if (target.Game.History)
+                for (int i = 0; i < Effects.Length; i++)
+                    target.Game.PowerHistory.Add(
+                        PowerHistoryBuilder.TagChange(
+                            target.Id, Effects[i].Tag, target[Effects[i].Tag]));
 		}
 
 		public void RemoveEffect(in IEntity target, int num1, int num2)
@@ -107,6 +119,13 @@ namespace SabberStoneCore.Enchants
 
 			for (int i = 2; i < Effects.Length; i++)
 				Effects[i].RemoveFrom(target);
+			
+
+			if (target.Game.History)
+				for (int i = 0; i < Effects.Length; i++)
+					target.Game.PowerHistory.Add(
+						PowerHistoryBuilder.TagChange(
+							target.Id, Effects[i].Tag, target[Effects[i].Tag]));
 		}
     }
 

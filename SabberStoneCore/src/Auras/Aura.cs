@@ -6,6 +6,7 @@ using System.Text;
 using SabberStoneCore.Conditions;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Model.Zones;
@@ -523,6 +524,13 @@ namespace SabberStoneCore.Auras
 				Effects[i].RemoveAuraFrom(entity);
 			}
 
+			if (Game.History)
+			{
+				for (int i = 0; i < Effects.Length; i++)
+					Game.PowerHistory.Add(
+						PowerHistoryBuilder.TagChange(entity.Id, Effects[i].Tag, entity[Effects[i].Tag]));
+			}
+
 			if (EnchantmentCard != null && (Game.History || EnchantmentCard.Power.Trigger != null))
 			{
 				int cardId = EnchantmentCard.AssetId;
@@ -556,6 +564,14 @@ namespace SabberStoneCore.Auras
 
 			for (int i = 0; i < effects.Length; i++)
 				effects[i].ApplyAuraTo(entity);
+
+			if (Game.History)
+			{
+				for (int i = 0; i < effects.Length; i++)
+					Game.PowerHistory.Add(
+						PowerHistoryBuilder.TagChange(entity.Id, effects[i].Tag, entity[effects[i].Tag]));
+			}
+			
 
 			if (EnchantmentCard != null && ((Game.History /*&& _tempList == null*/) || EnchantmentCard.Power.Trigger != null))
 			{

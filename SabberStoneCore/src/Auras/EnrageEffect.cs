@@ -2,6 +2,7 @@
 using System.Text;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Kettle;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Auras
@@ -76,7 +77,13 @@ namespace SabberStoneCore.Auras
 				{
 					eff.RemoveFrom(_target);
 				}
-				_currentInstance?.Remove();
+				if (_currentInstance != null)
+				{
+					_currentInstance.Remove();
+					foreach (IEffect eff in EnchantmentCard.Power.Enchant.Effects)
+						Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(
+							m.Id, eff.Tag, m[eff.Tag]));
+				}
 				//if (_target != null)
 				//	for (int i = 0; i < Effects.Length; i++)
 				//		Effects[i].RemoveFrom(_target.AuraEffects);
@@ -115,7 +122,13 @@ namespace SabberStoneCore.Auras
 				for (int i = 0; i < EnchantmentCard.Power.Enchant.Effects.Length; i++)
 					EnchantmentCard.Power.Enchant.Effects[i].RemoveFrom(m);
 
-				_currentInstance?.Remove();
+				if (_currentInstance != null)
+				{
+					_currentInstance.Remove();
+					foreach (IEffect eff in EnchantmentCard.Power.Enchant.Effects)
+						Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(
+							_target.Id, eff.Tag, _target[eff.Tag]));
+				}
 				_enraged = false;
 			}
 		}

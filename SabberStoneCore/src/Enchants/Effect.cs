@@ -27,6 +27,11 @@ namespace SabberStoneCore.Enchants
 	/// </summary>
 	public interface IEffect
 	{
+		GameTag Tag { get; }
+		EffectOperator Operator { get; }
+		int Value { get; }
+
+
 		void ApplyTo(IEntity entity, bool isOneTurnEffect = false);
 		void ApplyAuraTo(IPlayable playable);
 		//void ApplyTo(AuraEffects auraEffects);
@@ -309,6 +314,9 @@ namespace SabberStoneCore.Enchants
 			return new Effect(Tag, Operator, newValue);
 		}
 
+		GameTag IEffect.Tag => Tag;
+		EffectOperator IEffect.Operator => Operator;
+		int IEffect.Value => Value;
 
 		public bool Equals(Effect other)
 		{

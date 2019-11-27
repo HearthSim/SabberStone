@@ -45,7 +45,7 @@ namespace SabberStoneCore.Actions
 				else if (source is HeroPower)
 				{
 					// TODO: Consider this part only when TGT or Rumble is loaded
-					amount += source.Controller.Hero.HeroPowerDamage; 
+					amount += source.Controller.Hero.HeroPowerDamage;
 					if (source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE] > 0)
 						amount *= (int)Math.Pow(2, source.Controller.ControllerAuraEffects[GameTag.HERO_POWER_DOUBLE]);
 				}
@@ -332,7 +332,7 @@ namespace SabberStoneCore.Actions
 		}
 
 		public static Func<Controller, IPlayable, Card, bool, IPlayable> ChangeEntityBlock
-			=> delegate(Controller c, IPlayable p, Card newCard, bool removeEnchantments)
+			=> delegate (Controller c, IPlayable p, Card newCard, bool removeEnchantments)
 			{
 				c.Game.Log(LogLevel.VERBOSE, BlockType.TRIGGER, "ChangeEntityBlock",
 					!c.Game.Logging ? "" : $"{p} is changed into {newCard}.");
@@ -375,12 +375,34 @@ namespace SabberStoneCore.Actions
 				}
 
 
-				// TODO: PowerHistoryChangeEntity
-				// send tag variations and the id of the new Card
-				// Tag.REAL_TIME_TRANSFORM = 0
-
 				if (p.Card.Type == newCard.Type)
 				{
+					if (c.Game.History)
+					{
+						EntityData differTags = new EntityData();
+						Dictionary<GameTag, int> newTags = newCard.Tags;
+						foreach (KeyValuePair<GameTag, int> item in p.Card.Tags)
+							differTags.Add(item.Key,
+								newTags.TryGetValue(item.Key, out int value)
+									? value
+									: 0);
+						foreach (KeyValuePair<GameTag, int> item in newTags)
+							if (!differTags.ContainsKey(item.Key))
+								differTags.Add(item);
+
+						c.Game.PowerHistory.Add(new PowerHistoryChangeEntity()
+						{
+							CardId = newCard.Id,
+							Entity = new PowerHistoryEntity()
+							{
+								Id = p.Id,
+								Name = "",
+								Tags = differTags
+							}
+						});
+					}
+
+
 					p.Card = newCard;
 					Playable pp = (Playable)p;
 					if (pp._costManager != null)
@@ -407,6 +429,31 @@ namespace SabberStoneCore.Actions
 							throw new ArgumentNullException();
 					}
 
+					if (c.Game.History)
+					{
+						EntityData differTags = new EntityData();
+						Dictionary<GameTag, int> newTags = newCard.Tags;
+						foreach (KeyValuePair<GameTag, int> item in c.Card.Tags)
+							differTags.Add(item.Key,
+								newTags.TryGetValue(item.Key, out int value)
+									? value
+									: 0);
+						foreach (KeyValuePair<GameTag, int> item in newTags)
+							if (!differTags.ContainsKey(item.Key))
+								differTags.Add(item);
+
+						c.Game.PowerHistory.Add(new PowerHistoryChangeEntity()
+						{
+							CardId = newCard.Id,
+							Entity = new PowerHistoryEntity()
+							{
+								Id = p.Id,
+								Name = "",
+								Tags = differTags
+							}
+						});
+					}
+
 					if (hand != null)
 						hand.ChangeEntity(p, entity);
 					else if
@@ -424,10 +471,8 @@ namespace SabberStoneCore.Actions
 					p = entity;
 				}
 
-
 				if (newCard.ChooseOne)
 				{
-
 					EntityData tags = null;
 					if (c.Game.History)
 					{
@@ -488,15 +533,22 @@ namespace SabberStoneCore.Actions
 					Minion m = (Minion)p;
 					if (m.Controller == c.Game.CurrentPlayer)
 					{
-						if (m.HasCharge)
-							m.IsExhausted = false;
-						else if (m.IsRush)
+						if (!m.HasCharge)
 						{
-							m.IsExhausted = false;
-							m.AttackableByRush = true;
-							c.Game.RushMinions.Add(m.Id);
+							if (m.IsRush)
+							{
+								m.IsExhausted = false;
+								m.AttackableByRush = true;
+								c.Game.RushMinions.Add(m.Id);
+							}
+							else
+								m.IsExhausted = true;
 						}
+						else
+							m.IsExhausted = false;
 					}
+					else
+						m.IsExhausted = true;
 					BoardZone.ActivateAura(m);
 					board.Auras.ForEach(a => a.EntityAdded(p));
 					board.AdjacentAuras.ForEach(a => a.BoardChanged = true);
@@ -550,7 +602,7 @@ namespace SabberStoneCore.Actions
 
 		// TODO: Posionous Block
 		public static Func<bool, ICharacter, ICharacter, bool> PoisonousBlock
-			=> delegate(bool history, ICharacter source, ICharacter target)
+			=> delegate (bool history, ICharacter source, ICharacter target)
 			{
 				if (source[GameTag.POISONOUS] != 1)
 					return false;
@@ -559,8 +611,8 @@ namespace SabberStoneCore.Actions
 				{
 					source.Game.PowerHistory.Add(PowerHistoryBuilder.BlockStart(BlockType.TRIGGER, source.Id, "", -1,
 						0)); //	SubOption = -1, TriggerKeyWord = POISONOUS
-					//[DebugPrintPower] META_DATA - Meta=TARGET Data = 0 Info=1
-					//[DebugPrintPower] Info[0] = [entityName=Goldshire Footman id=47 zone=PLAY zonePos=1 cardId=CS1_042 player=2]
+							 //[DebugPrintPower] META_DATA - Meta=TARGET Data = 0 Info=1
+							 //[DebugPrintPower] Info[0] = [entityName=Goldshire Footman id=47 zone=PLAY zonePos=1 cardId=CS1_042 player=2]
 				}
 
 				target.ToBeDestroyed = true;

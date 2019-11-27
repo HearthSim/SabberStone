@@ -17,7 +17,7 @@ using System.Linq;
 using SabberStoneCore.Model.Zones;
 using SabberStoneCore.Model.Entities;
 
-namespace SabberStoneCoreAi.Score
+namespace SabberStoneBasicAI.Score
 {
 	public interface IScore
 	{
