@@ -86,7 +86,7 @@ namespace SabberStoneCore.Model.Entities
 	/// <summary>
 	/// The base class of all data-holding/action-performing/visible or invisible objects in a SabberStone game.
 	/// An entity is defined as a collection of properties, called Tags.
-	/// 
+	///
 	/// <seealso cref="HeroPower"/>
 	/// <seealso cref="Hero"/>
 	/// <seealso cref="Minion"/>
@@ -96,7 +96,7 @@ namespace SabberStoneCore.Model.Entities
 	public partial class Entity : IEntity
 	{
 		/// <summary>
-		/// This object holds the original tag values, defined through the constructor 
+		/// This object holds the original tag values, defined through the constructor
 		/// of this instance.
 		/// These tags are usefull when values are needed without any buffs/debuffs applied.
 		/// </summary>
@@ -224,7 +224,6 @@ namespace SabberStoneCore.Model.Entities
 				if (_history && (int)t < 1000)
 					if (value + (AuraEffects?[t] ?? 0) != this[t])
 						Game.PowerHistory.Add(PowerHistoryBuilder.TagChange(Id, t, value));
-					else ;
 
 				_data[t] = value;
 			}
@@ -314,7 +313,7 @@ namespace SabberStoneCore.Model.Entities
 			// add entity to the game dic
 			game.IdEntityDic[result.Id] = result;
 
-			// add power history full entity 
+			// add power history full entity
 			if (game.History)
 			{
 				if (zone != null)
