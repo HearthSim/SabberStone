@@ -56,13 +56,12 @@ namespace SabberStoneCore.Enchants
 			CoreCardsGen.AddAll(_powerDic);
 			Expert1CardsGen.AddAll(_powerDic);
 
-			UngoroCardsGen.AddAll(_powerDic);
-			IcecrownCardsGen.AddAll(_powerDic);
-			LootapaloozaCardsGen.AddAll(_powerDic);
 			GilneasCardsGen.AddAll(_powerDic);
 			BoomsdayCardsGen.AddAll(_powerDic);
 			TrollCardsGen.AddAll(_powerDic);
 			DalaranCardsGen.AddAll(_powerDic);
+			UldumCardsGen.AddAll(_powerDic);
+			DragonsCardsGen.AddAll(_powerDic);
 
 			// Rest
 			NaxxCardsGen.AddAll(_powerDic);
@@ -73,6 +72,9 @@ namespace SabberStoneCore.Enchants
 			GangsCardsGen.AddAll(_powerDic);
 			KaraCardsGen.AddAll(_powerDic);
 			OgCardsGen.AddAll(_powerDic);
+			UngoroCardsGen.AddAll(_powerDic);
+			IcecrownCardsGen.AddAll(_powerDic);
+			LootapaloozaCardsGen.AddAll(_powerDic);
 
 			HofCardsGen.AddAll(_powerDic);
 

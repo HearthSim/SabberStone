@@ -44,7 +44,9 @@ namespace SabberStoneCore.Model
 			CardSet.BOOMSDAY, // 2018 The Boomsday Project
 			CardSet.TROLL, // 2018 Rastakhan’s Rumble
 
-			CardSet.DALARAN // 2019 Rise of Shadows
+			CardSet.DALARAN, // 2019 Rise of Shadows
+			CardSet.ULDUM, // 2019 Saviors of Uldum
+			CardSet.DRAGONS // 2019 Descent of Dragons
 		};
 
 		/// <summary>
@@ -56,13 +58,12 @@ namespace SabberStoneCore.Model
 			CardSet.CORE,
 			CardSet.EXPERT1,
 
-			CardSet.UNGORO,
-			CardSet.ICECROWN,
-			CardSet.LOOTAPALOOZA,
 			CardSet.GILNEAS,
 			CardSet.BOOMSDAY,
 			CardSet.TROLL,
 			CardSet.DALARAN,
+			CardSet.ULDUM,
+			CardSet.DRAGONS,
 
 			// wild
 			CardSet.BRM,
@@ -73,6 +74,9 @@ namespace SabberStoneCore.Model
 			CardSet.OG,
 			CardSet.KARA,
 			CardSet.GANGS,
+			CardSet.UNGORO,
+			CardSet.ICECROWN,
+			CardSet.LOOTAPALOOZA,
 
 			// hall of fame
 			CardSet.HOF
@@ -392,6 +396,10 @@ namespace SabberStoneCore.Model
 					return "Rastakhan\'s Rumble";
 				case CardSet.DALARAN:
 					return "Rise of Shadows";
+				case CardSet.ULDUM:
+					return "Saviors of Uldum";
+				case CardSet.DRAGONS:
+					return "Descent of Dragons";
 				default:
 					throw new ArgumentOutOfRangeException(nameof(cardSet), cardSet, null);
 			}
