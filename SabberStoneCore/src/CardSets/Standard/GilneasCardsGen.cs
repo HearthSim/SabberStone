@@ -77,23 +77,6 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Druid(IDictionary<string, Power> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [GIL_130] Gloom Stag - COST:5 [ATK:2/HP:6] 
-			// - Race: beast, Set: gilneas, Rarity: epic
-			// --------------------------------------------------------
-			// Text: <b>Taunt</b>
-			//       <b>Battlecry:</b> If your deck has only odd-Cost cards, gain +2/+2.
-			// --------------------------------------------------------
-			// GameTag:
-			// - TAUNT = 1
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("GIL_130", new Power {
-				PowerTask = ComplexTask.Create(
-					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoEvenCostInDeck),
-					new FlagTask(true, new AddEnchantmentTask("GIL_130e", EntityType.SOURCE)))
-			});
-
-			// ----------------------------------------- MINION - DRUID
 			// [GIL_188] Druid of the Scythe - COST:3 [ATK:2/HP:2] 
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
@@ -638,24 +621,6 @@ namespace SabberStoneCore.CardSets.Standard
 				}
 			});
 
-			// ------------------------------------------ MINION - MAGE
-			// [GIL_838] Black Cat - COST:3 [ATK:3/HP:3] 
-			// - Race: beast, Set: gilneas, Rarity: common
-			// --------------------------------------------------------
-			// Text: <b>Spell Damage +1</b>
-			//        <b>Battlecry:</b> If your deck has only odd-Cost cards, draw a card.
-			// --------------------------------------------------------
-			// GameTag:
-			// - SPELLPOWER = 1
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("GIL_838", new Power {
-				// TODO Test: Black Cat_GIL_838
-				PowerTask = ComplexTask.Create(
-					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoEvenCostInDeck),
-					new FlagTask(true, new DrawTask()))
-			});
-
 			// ------------------------------------------- SPELL - MAGE
 			// [GIL_147] Cinderstorm - COST:3 
 			// - Set: gilneas, Rarity: rare
@@ -1002,22 +967,6 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// ---------------------------------------- MINION - PRIEST
-			// [GIL_837] Glitter Moth - COST:5 [ATK:4/HP:4] 
-			// - Race: beast, Set: gilneas, Rarity: epic
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> If your deck has only odd-Cost cards, double the Health of your other minions.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			cards.Add("GIL_837", new Power {
-				// TODO Test: Glitter Moth_GIL_837
-				PowerTask = ComplexTask.Create(
-					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoEvenCostInDeck),
-					new AddEnchantmentTask("GIL_837e", EntityType.MINIONS_NOSOURCE))
-			});
-
-			// ---------------------------------------- MINION - PRIEST
 			// [GIL_840] Lady in White - COST:6 [ATK:5/HP:5] 
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
@@ -1348,26 +1297,6 @@ namespace SabberStoneCore.CardSets.Standard
 
 		private static void Shaman(IDictionary<string, Power> cards)
 		{
-			// ---------------------------------------- MINION - SHAMAN
-			// [GIL_530] Murkspark Eel - COST:2 [ATK:2/HP:3] 
-			// - Race: beast, Set: gilneas, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> If your deck has only even-Cost cards, deal_2 damage.
-			// --------------------------------------------------------
-			// GameTag:
-			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_DRAG_TO_PLAY = 0
-			// --------------------------------------------------------
-			cards.Add("GIL_530", new Power {
-				// TODO Test: Murkspark Eel_GIL_530
-				// play requirement?
-				PowerTask = ComplexTask.Create(
-					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoOddCostInDeck),
-					new FlagTask(true, new DamageTask(2, EntityType.TARGET)))
-			});
-
 			// ---------------------------------------- MINION - SHAMAN
 			// [GIL_531] Witch's Apprentice - COST:1 [ATK:0/HP:1] 
 			// - Race: beast, Set: gilneas, Rarity: common
@@ -2510,30 +2439,6 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_692] Genn Greymane - COST:6 [ATK:6/HP:5] 
-			// - Set: gilneas, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: [x]<b>Start of Game:</b>
-			//       If your deck has only even-
-			//       Cost cards, your starting
-			//       Hero Power costs (1).
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// - COLLECTIONMANAGER_FILTER_MANA_EVEN = 1
-			// - START_OF_GAME = 1
-			// --------------------------------------------------------
-			cards.Add("GIL_692", new Power {
-				Trigger = new Trigger(TriggerType.GAME_START)
-				{
-					TriggerActivation = TriggerActivation.DECK,
-					Condition = SelfCondition.HasNoOddCostInDeck,
-					SingleTask = new AddEnchantmentTask("GIL_692e", EntityType.HERO_POWER),
-					RemoveAfterTriggered = true
-				}
-			});
-
-			// --------------------------------------- MINION - NEUTRAL
 			// [GIL_809] Unpowered Steambot - COST:4 [ATK:0/HP:9] 
 			// - Race: mechanical, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
@@ -2588,30 +2493,6 @@ namespace SabberStoneCore.CardSets.Standard
 				{
 					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = ComplexTask.AddRandomShamanSpell
-				}
-			});
-
-			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_826] Baku the Mooneater - COST:9 [ATK:7/HP:8] 
-			// - Race: beast, Set: gilneas, Rarity: legendary
-			// --------------------------------------------------------
-			// Text: [x]<b>Start of Game:</b>
-			//       If your deck has only odd-
-			//       Cost cards, upgrade
-			//       your Hero Power.
-			// --------------------------------------------------------
-			// GameTag:
-			// - ELITE = 1
-			// - COLLECTIONMANAGER_FILTER_MANA_ODD = 1
-			// - START_OF_GAME = 1
-			// --------------------------------------------------------
-			cards.Add("GIL_826", new Power {
-				Trigger = new Trigger(TriggerType.GAME_START)
-				{
-					TriggerActivation = TriggerActivation.DECK,
-					Condition = SelfCondition.HasNoEvenCostInDeck,
-					SingleTask = SpecificTask.JusticarTrueheart,
-					RemoveAfterTriggered = true
 				}
 			});
 

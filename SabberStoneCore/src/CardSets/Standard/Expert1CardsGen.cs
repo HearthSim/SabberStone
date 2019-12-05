@@ -240,23 +240,6 @@ namespace SabberStoneCore.CardSets.Standard
 				null);
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_161] Naturalize - COST:1 
-			// - Fac: neutral, Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: Destroy a minion.
-			//       Your opponent draws 2_cards.
-			// --------------------------------------------------------
-			// PlayReq:
-			// - REQ_TARGET_TO_PLAY = 0
-			// - REQ_MINION_TARGET = 0
-			// --------------------------------------------------------
-			cards.Add("EX1_161", new Power {
-				PowerTask = ComplexTask.Create(
-					new DestroyTask(EntityType.TARGET),
-					new EnqueueTask(2, new DrawOpTask()))
-			});
-
-			// ------------------------------------------ SPELL - DRUID
 			// [EX1_164] Nourish - COST:5 
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
@@ -1517,23 +1500,6 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [EX1_349] Divine Favor - COST:3 
-			// - Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: Draw cards until you have as many in hand as your opponent.
-			// --------------------------------------------------------
-			cards.Add("EX1_349", new Power {
-				PowerTask = ComplexTask.Create(
-					new FuncNumberTask(p =>
-					{
-						Controller controller = p.Controller;
-						int diffHands = controller.Opponent.HandZone.Count - controller.HandZone.Count;
-						return diffHands > 0 ? diffHands : 0;
-					}),
-					new DrawNumberTask())
-			});
-
-			// ---------------------------------------- SPELL - PALADIN
 			// [EX1_184] Righteousness - COST:5 
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
@@ -2751,21 +2717,6 @@ namespace SabberStoneCore.CardSets.Standard
 					new MathNumberIndexTask(3, 4, MathOperation.ADD, 1),
 					new DestroyTask(EntityType.STACK),
 					new AddEnchantmentTask("EX1_304e", EntityType.SOURCE, true))
-			});
-
-			// --------------------------------------- MINION - WARLOCK
-			// [EX1_310] Doomguard - COST:5 [ATK:5/HP:7] 
-			// - Race: demon, Fac: neutral, Set: expert1, Rarity: rare
-			// --------------------------------------------------------
-			// Text: <b>Charge</b>. <b>Battlecry:</b> Discard two random cards.
-			// --------------------------------------------------------
-			// GameTag:
-			// - CHARGE = 1
-			// - BATTLECRY = 1
-			// - 890 = 2
-			// --------------------------------------------------------
-			cards.Add("EX1_310", new Power {
-				PowerTask = ComplexTask.DiscardRandomCard(2)
 			});
 
 			// --------------------------------------- MINION - WARLOCK
@@ -5401,16 +5352,6 @@ namespace SabberStoneCore.CardSets.Standard
 			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_507e] Mrgglaargl! (*) - COST:0 
-			// - Set: expert1, 
-			// --------------------------------------------------------
-			// Text: +2 Attack from Murloc Warleader.
-			// --------------------------------------------------------
-			cards.Add("EX1_507e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_507e")
-			});
-
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [EX1_509e] Blarghghl (*) - COST:0 
 			// - Set: expert1, 
 			// --------------------------------------------------------
@@ -5529,16 +5470,6 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Increased Health.
 			// --------------------------------------------------------
 			cards.Add("NEW1_025e", null);
-
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NEW1_027e] Yarrr! (*) - COST:0 
-			// - Set: expert1, 
-			// --------------------------------------------------------
-			// Text: Southsea Captain is granting +1/+1.
-			// --------------------------------------------------------
-			cards.Add("NEW1_027e", new Power {
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("NEW1_027e")
-			});
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [NEW1_029t] Kill Millhouse! (*) - COST:0 
