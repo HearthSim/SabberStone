@@ -5100,7 +5100,10 @@ namespace SabberStoneCoreTest.CardSets
 						break;
 					case "LOOT_998j":
 						Assert.NotNull(clone.CurrentPlayer.Choice);
-						clone.ChooseNthChoice(1);
+						if (clone.IdEntityDic[clone.CurrentPlayer.Choice.Choices[0]].Card.Name == "Khadgar")
+							clone.ChooseNthChoice(2);	// Don't Choose Khadgar as it would create 3 copies rather than 2.
+						else
+							clone.ChooseNthChoice(1);
 						Assert.Equal(3, clone.CurrentPlayer.BoardZone.Count);
 						Assert.Equal(Rarity.LEGENDARY, clone.CurrentPlayer.BoardZone[1].Card.Rarity);
 						Assert.Equal(Rarity.LEGENDARY, clone.CurrentPlayer.BoardZone[2].Card.Rarity);
