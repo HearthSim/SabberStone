@@ -1,4 +1,4 @@
-#region copyright
+﻿#region copyright
 // SabberStone, Hearthstone Simulator in C# .NET Core
 // Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
 //
@@ -39,7 +39,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Heroes(IDictionary<string, Power> cards)
 		{
 			// ----------------------------------------- HERO - WARRIOR
-			// [BOT_238] Dr. Boom, Mad Genius - COST:7 [ATK:0/HP:30] 
+			// [BOT_238] Dr. Boom, Mad Genius - COST:9 [ATK:0/HP:30] 
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> For the rest of the game, your Mechs have <b>Rush</b>.

@@ -98,7 +98,11 @@ namespace SabberStoneCoreTest
 		    if (asZeroCost)
 			    entity.Cost = 0;
 			game.DeathProcessingAndAuraUpdate();
-		    game.Process(PlayCardTask.Any(game.CurrentPlayer, t, (ICharacter) target, zonePosition, chooseOne));
+			var option = PlayCardTask.Any(game.CurrentPlayer, t, (ICharacter) target, zonePosition, chooseOne);
+
+		    if (!game.Process(option))
+			    throw new Exception($"{option} is not a valid task.");
+
 		    return t;
 		}
 

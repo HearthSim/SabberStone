@@ -53,6 +53,15 @@ namespace SabberStoneCore.Config
 			"UNG_940",
 			"UNG_942",
 			"UNG_954",
+			"ULD_131",
+			"ULD_155",
+			"ULD_433",
+			"ULD_431",
+			"ULD_724",
+			"ULD_326",
+			"ULD_291",
+			"ULD_140",
+			"ULD_711",
 
 			"LOOT_149", // Corridor Creeper (trigger on board)
 			"CFM_064", // Blubber Baron (trigger on board)
