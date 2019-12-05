@@ -170,6 +170,9 @@ namespace SabberStoneCore.Model
 				FromId("CS2_051"),	// Stoneclaw Totem
 				FromId("CS2_052")	// Wraith of Air Totem
 			};
+
+			// filtered out cards ... cosmetic purpose
+			Data.Cards.Remove("HERO_01c"); // HERO Deathwing
 		}
 
 		#endregion
