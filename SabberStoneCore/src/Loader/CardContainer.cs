@@ -42,7 +42,7 @@ namespace SabberStoneCore.Loader
 			// Add Powers
 			foreach (Card c in Cards.Values)
 			{
-				if (Powers.Instance.Get.TryGetValue(c.Id, out Power power))
+				if (CardDefs.Instance.Get.TryGetValue(c.Id, out Power power))
 				{
 					c.Power = power;
 					c.Implemented = power == null ||

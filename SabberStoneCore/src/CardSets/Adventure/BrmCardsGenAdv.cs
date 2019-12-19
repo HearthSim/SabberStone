@@ -40,7 +40,7 @@
 //				// TODO [BRMA01_1] Coren Direbrew && Test: Coren Direbrew_BRMA01_1
 //				//Activation = null,
 //				//SingleTask = null,
-				
+
 //			});
 
 //			// ----------------------------------------- HERO - NEUTRAL

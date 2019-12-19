@@ -27,7 +27,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_354", new Power {
+			cards.Add("DAL_354", new Power
+			{
 				DeathrattleTask = new AddCardTo("DAL_354t", EntityType.HAND, 2)
 			});
 
@@ -37,7 +38,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Whenever you restore Health, add a random Druid spell to your hand.
 			// --------------------------------------------------------
-			cards.Add("DAL_355", new Power {
+			cards.Add("DAL_355", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.HEAL)
 					.SetTask(ComplexTask.Create(
 						new RandomCardTask(CardType.SPELL, CardClass.DRUID),
@@ -58,7 +60,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_357", new Power {
+			cards.Add("DAL_357", new Power
+			{
 				DeathrattleTask = new SummonTask("DAL_357t", SummonSide.DEATHRATTLE)
 			});
 
@@ -71,7 +74,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:f
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_732", new Power {
+			cards.Add("DAL_732", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.AFTER_CAST)
 					.SetTask(new CustomTask((g, c, s, t, stack) =>
 					{
@@ -99,7 +103,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - PLAYER_TAG_THRESHOLD_TAG_ID = 958
 			// - PLAYER_TAG_THRESHOLD_VALUE = 5
 			// --------------------------------------------------------
-			cards.Add("DAL_799", new Power {
+			cards.Add("DAL_799", new Power
+			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.CheckThreshold(RelaSign.GEQ),
 					new SummonCopyTask(EntityType.SOURCE, side: SummonSide.RIGHT))
 			});
@@ -115,7 +120,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TWINSPELL_COPY = 52821
 			// - TWINSPELL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_256", new Power {
+			cards.Add("DAL_256", new Power
+			{
 				PowerTask = new SummonTask("DAL_256t2", 5)
 			});
 
@@ -147,7 +153,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_351", new Power {
+			cards.Add("DAL_351", new Power
+			{
 				PowerTask = new AddEnchantmentTask("DAL_351e", EntityType.MINIONS)
 			});
 
@@ -160,7 +167,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_352", new Power {
+			cards.Add("DAL_352", new Power
+			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.HasMinionInHand,
 					new DiscoverTask(CardType.MINION, CardClass.DRUID),
 					new DiscoverTask(CardType.MINION, CardClass.DRUID, keepAllCondition: c => true))
@@ -178,7 +186,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_733", new Power {
+			cards.Add("DAL_733", new Power
+			{
 				PowerTask = new SummonTask("DAL_733t", 2)
 			});
 
@@ -211,7 +220,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - UNTOUCHABLE = 1
 			// - SCORE_VALUE_1 = 5
 			// --------------------------------------------------------
-			cards.Add("DAL_357t", new Power {
+			cards.Add("DAL_357t", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.HEAL)
 						.SetTask(ComplexTask.Create(
 							new GetEventNumberTask(),
@@ -241,7 +251,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Summon five 2/2 Treants.
 			// --------------------------------------------------------
-			cards.Add("DAL_256ts", new Power {
+			cards.Add("DAL_256ts", new Power
+			{
 				PowerTask = new SummonTask("DAL_256t2", 5)
 			});
 
@@ -255,7 +266,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_350a", new Power {
+			cards.Add("DAL_350a", new Power
+			{
 				PowerTask = new DamageTask(2, EntityType.TARGET, true)
 			});
 
@@ -268,7 +280,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_350b", new Power {
+			cards.Add("DAL_350b", new Power
+			{
 				PowerTask = new HealTask(5, EntityType.TARGET)
 			});
 
@@ -281,7 +294,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_351ts", new Power {
+			cards.Add("DAL_351ts", new Power
+			{
 				PowerTask = new AddEnchantmentTask("DAL_351e", EntityType.MINIONS)
 			});
 
@@ -297,7 +311,8 @@ namespace SabberStoneCore.CardSets.Standard
 			//       1-Cost minion, draw a
 			//       spell from your deck.
 			// --------------------------------------------------------
-			cards.Add("DAL_372", new Power {
+			cards.Add("DAL_372", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.PLAY_MINION)
 					.SetTask(ComplexTask.Create(
 						new IncludeTask(EntityType.DECK),
@@ -321,7 +336,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_376", new Power {
+			cards.Add("DAL_376", new Power
+			{
 				DeathrattleTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsRace(Race.MECHANICAL)),
@@ -340,7 +356,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_379", new Power {
+			cards.Add("DAL_379", new Power
+			{
 				PowerTask = new WeaponTask("DAL_379t")
 			});
 
@@ -355,7 +372,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_587", new Power {
+			cards.Add("DAL_587", new Power
+			{
 				DeathrattleTask = ComplexTask.Create(
 					new RandomCardTask(CardType.SPELL, CardClass.HUNTER),
 					new AddStackTo(EntityType.HAND))
@@ -370,7 +388,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_604", new Power {
+			cards.Add("DAL_604", new Power
+			{
 				DeathrattleTask = ComplexTask.Create(
 					new IncludeTask(EntityType.DECK),
 					new FilterStackTask(SelfCondition.IsRace(Race.MECHANICAL)),
@@ -391,7 +410,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_371", new Power {
+			cards.Add("DAL_371", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(4, EntityType.TARGET),
 					new DiscoverTask(DiscoverType.SPELL))
@@ -411,7 +431,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_373", new Power {
+			cards.Add("DAL_373", new Power
+			{
 				PowerTask = new DamageTask(1, EntityType.TARGET, true)
 			});
 
@@ -428,7 +449,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_377", new Power {
+			cards.Add("DAL_377", new Power
+			{
 				// TODO [DAL_377] Nine Lives && Test: Nine Lives_DAL_377
 				//PowerTask = null,
 				//Trigger = null,
@@ -451,7 +473,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_378", new Power {
+			cards.Add("DAL_378", new Power
+			{
 				PowerTask = new SummonTask("DAL_378t1")
 			});
 
@@ -461,7 +484,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Copy all Beasts in your_hand.
 			// --------------------------------------------------------
-			cards.Add("DAL_589", new Power {
+			cards.Add("DAL_589", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsRace(Race.BEAST)),
@@ -481,7 +505,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_379e", new Power {
+			cards.Add("DAL_379e", new Power
+			{
 				Enchant = new Enchant(new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, 2))
 				{
 					IsOneTurnEffect = true
@@ -508,7 +533,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_373ts", new Power {
+			cards.Add("DAL_373ts", new Power
+			{
 				PowerTask = new DamageTask(1, EntityType.TARGET, true)
 			});
 
@@ -527,7 +553,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_378ts", new Power {
+			cards.Add("DAL_378ts", new Power
+			{
 				PowerTask = new SummonTask("DAL_378t1")
 			});
 
@@ -544,7 +571,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_379t", new Power {
+			cards.Add("DAL_379t", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.AFTER_ATTACK)
 					.SetTask(new AddEnchantmentTask("DAL_379e", EntityType.HERO))
 					.SetSource(TriggerSource.HERO)
@@ -567,7 +595,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_163", new Power {
+			cards.Add("DAL_163", new Power
+			{
 				PowerTask = new DiscoverTask(CardType.MINION, CardClass.MAGE)
 			});
 
@@ -577,7 +606,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: After you cast a spell, deal 1 damage to a random enemy minion.
 			// --------------------------------------------------------
-			cards.Add("DAL_182", new Power {
+			cards.Add("DAL_182", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.AFTER_CAST)
 					.SetTask(ComplexTask.DamageRandomTargets(1, EntityType.OP_MINIONS, 1))
 					.SetSource(TriggerSource.FRIENDLY)
@@ -592,18 +622,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_575", new Power {
+			cards.Add("DAL_575", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.AFTER_SUMMON)
 					.SetTask(new CustomTask((g, c, s, t, stack) =>
 						{
 							if (t.Controller.BoardZone.IsFull) return;
 
 							Entity.FromCard(t.Controller, t.Card,
-								new EntityData {{GameTag.COPIED_BY_KHADGAR, 1}},
+								new EntityData { { GameTag.COPIED_BY_KHADGAR, 1 } },
 								c.BoardZone, zonePos: t.ZonePosition + 1, creator: in s);
 						}))
 					.SetCondition(new SelfCondition(p => p.Game.CurrentEventData.EventSource != p
-					                                     && p[GameTag.COPIED_BY_KHADGAR] != 1))
+														 && p[GameTag.COPIED_BY_KHADGAR] != 1))
 					.SetSource(TriggerSource.FRIENDLY_EVENT_SOURCE)
 			});
 
@@ -618,7 +649,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - SPELLPOWER = 3
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_576", new Power {
+			cards.Add("DAL_576", new Power
+			{
 				Aura = new Aura(AuraType.HAND, "DAL_576e")
 				{
 					Condition = SelfCondition.IsSpell
@@ -637,7 +669,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_603", new Power {
+			cards.Add("DAL_603", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new FuncNumberTask(p =>
 					{
@@ -665,7 +698,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_609", new Power {
+			cards.Add("DAL_609", new Power
+			{
 				Aura = new SwitchingAura(AuraType.HAND, SelfCondition.SpellsPlayedThisTurn(0),
 					TriggerType.CAST_SPELL, Effects.SetCost(0))
 				{
@@ -689,7 +723,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_177", new Power {
+			cards.Add("DAL_177", new Power
+			{
 				// TODO Position
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.COST, EntityType.TARGET),
@@ -719,7 +754,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_577", new Power {
+			cards.Add("DAL_577", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
 					new FlagTask(true, new DamageTask(2, EntityType.TARGET, true)),
@@ -738,7 +774,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_578", new Power {
+			cards.Add("DAL_578", new Power
+			{
 				PowerTask = new DiscoverTask(DiscoverType.SIX_COST_SUMMON,
 					new CopyTask(EntityType.TARGET, Zone.PLAY))
 			});
@@ -752,7 +789,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_608", new Power {
+			cards.Add("DAL_608", new Power
+			{
 				PowerTask = new DiscoverTask(CardType.SPELL, tagValueCriteria: (GameTag.COST, RelaSign.LEQ, 3))
 			});
 
@@ -770,7 +808,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_177ts", new Power {
+			cards.Add("DAL_177ts", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.COST, EntityType.TARGET),
 					new DestroyTask(EntityType.TARGET, true),
@@ -794,7 +833,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_577ts", new Power {
+			cards.Add("DAL_577ts", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
 					new FlagTask(true, new DamageTask(2, EntityType.TARGET, true)),
@@ -814,7 +854,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_146", new Power {
+			cards.Add("DAL_146", new Power
+			{
 				DeathrattleTask = new AddCardTo("DAL_146t", EntityType.HAND, 2)
 			});
 
@@ -827,7 +868,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_147", new Power {
+			cards.Add("DAL_147", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsRace(Race.DRAGON)),
@@ -847,7 +889,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_573", new Power {
+			cards.Add("DAL_573", new Power
+			{
 				// TODO [DAL_573] Commander Rhyssa && Test: Commander Rhyssa_DAL_573
 				//PowerTask = null,
 				//Trigger = null,
@@ -864,7 +907,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// - AFFECTED_BY_HEALING_DOES_DAMAGE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_581", new Power {
+			cards.Add("DAL_581", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new HealFullTask(EntityType.HERO),
 					new HealFullTask(EntityType.OP_HERO))
@@ -887,7 +931,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_141", new Power {
+			cards.Add("DAL_141", new Power
+			{
 				PowerTask = SpecificTask.CastRandomSecret(CardClass.PALADIN)
 			});
 
@@ -910,7 +955,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_568", new Power {
+			cards.Add("DAL_568", new Power
+			{
 				PowerTask = new AddEnchantmentTask("DAL_568e", EntityType.TARGET)
 			});
 
@@ -923,7 +969,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_570", new Power {
+			cards.Add("DAL_570", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.CAST_SPELL)
 					.SetSecretTasks(new AddEnchantmentTask("DAL_570e", EntityType.MINIONS))
 			});
@@ -934,7 +981,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Draw the lowest Cost minion from your deck. Give it +2/+2.
 			// --------------------------------------------------------
-			cards.Add("DAL_727", new Power {
+			cards.Add("DAL_727", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new DrawMinionTask(true, 1, true),
 					new AddEnchantmentTask("DAL_727e", EntityType.STACK))
@@ -947,7 +995,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Summon a minion from each player's deck.
 			//       They fight!
 			// --------------------------------------------------------
-			cards.Add("DAL_731", new Power {
+			cards.Add("DAL_731", new Power
+			{
 				// TODO [DAL_731] Duel! && Test: Duel!_DAL_731
 				//PowerTask = null,
 				//Trigger = null,
@@ -968,7 +1017,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_571", new Power {
+			cards.Add("DAL_571", new Power
+			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.IsControllingSecret,
 					new AddEnchantmentTask("DAL_571e", EntityType.SOURCE))
 			});
@@ -983,7 +1033,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
 			// --------------------------------------------------------
-			cards.Add("DAL_568e", new Power {
+			cards.Add("DAL_568e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_568e")
 			});
 
@@ -993,7 +1044,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("DAL_571e", new Power {
+			cards.Add("DAL_571e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_571e")
 			});
 
@@ -1015,7 +1067,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_141ts", new Power {
+			cards.Add("DAL_141ts", new Power
+			{
 				PowerTask = SpecificTask.CastRandomSecret(CardClass.PALADIN)
 			});
 
@@ -1033,7 +1086,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_568ts", new Power {
+			cards.Add("DAL_568ts", new Power
+			{
 				PowerTask = new AddEnchantmentTask("DAL_568e", EntityType.TARGET)
 			});
 
@@ -1059,7 +1113,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_030", new Power {
+			cards.Add("DAL_030", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new TransformCopyTask(true),
 					new AddEnchantmentTask("DAL_030e", EntityType.STACK))
@@ -1077,7 +1132,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_039", new Power {
+			cards.Add("DAL_039", new Power
+			{
 				DeathrattleTask = ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS)
 			});
 
@@ -1091,7 +1147,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// - AFFECTED_BY_HEALING_DOES_DAMAGE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_040", new Power {
+			cards.Add("DAL_040", new Power
+			{
 				DeathrattleTask = new HealTask(5, EntityType.OP_HERO)
 			});
 
@@ -1107,7 +1164,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_413", new Power {
+			cards.Add("DAL_413", new Power
+			{
 				DeathrattleTask = new AddLackeyTask(1)
 			});
 
@@ -1122,7 +1180,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_721", new Power {
+			cards.Add("DAL_721", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.TURN_END)
 					.SetTask(ComplexTask.SummonRandomMinionThatDied())
 			});
@@ -1142,7 +1201,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_729", new Power {
+			cards.Add("DAL_729", new Power
+			{
 				// TODO [DAL_729] Madame Lazul && Test: Madame Lazul_DAL_729
 				//PowerTask = null,
 				//Trigger = null,
@@ -1163,7 +1223,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_011", new Power {
+			cards.Add("DAL_011", new Power
+			{
 				PowerTask = ComplexTask.Scheme(
 					new AddEnchantmentTask("DAL_011e", EntityType.TARGET, true)),
 				Trigger = TriggerLibrary.UpgradeEachTurn
@@ -1183,7 +1244,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_065", new Power {
+			cards.Add("DAL_065", new Power
+			{
 				// TODO SummonSide
 				PowerTask = ComplexTask.Create(
 					new SilenceTask(EntityType.TARGET),
@@ -1203,7 +1265,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 85 = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_723", new Power {
+			cards.Add("DAL_723", new Power
+			{
 				PowerTask = ComplexTask.SpendAllManaTask(ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.TARGET, 0, 1),
 					new NumberConditionTask(RelaSign.GEQ),
@@ -1221,7 +1284,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_724", new Power {
+			cards.Add("DAL_724", new Power
+			{
 				PowerTask = ComplexTask.SummonRandomMinionThatDied(amount: 3)
 			});
 
@@ -1235,7 +1299,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: 2/2.
 			// --------------------------------------------------------
-			cards.Add("DAL_030e", new Power {
+			cards.Add("DAL_030e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_030e")
 			});
 
@@ -1255,7 +1320,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_415", new Power {
+			cards.Add("DAL_415", new Power
+			{
 				ComboTask = new AddLackeyTask(2)
 			});
 
@@ -1271,7 +1337,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_416", new Power {
+			cards.Add("DAL_416", new Power
+			{
 				PowerTask = new DiscoverTask(CardType.SPELL, CardClass.ANOTHER_CLASS)
 			});
 
@@ -1291,7 +1358,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_417", new Power {
+			cards.Add("DAL_417", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE,
 						SelfCondition.IsControllingLackey),
@@ -1312,7 +1380,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_714", new Power {
+			cards.Add("DAL_714", new Power
+			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.HoldingAnotherClassCard,
 					new AddEnchantmentTask("DAL_714e", EntityType.SOURCE))
 			});
@@ -1328,7 +1397,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_719", new Power {
+			cards.Add("DAL_719", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.SHUFFLE_INTO_DECK)
 					.SetTask(new CopyTask(EntityType.TARGET, Zone.HAND))
 			});
@@ -1347,7 +1417,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_010", new Power {
+			cards.Add("DAL_010", new Power
+			{
 				PowerTask = ComplexTask.Scheme(
 					new EnqueueNumberTask(new CopyTask(EntityType.TARGET, Zone.DECK))),
 				Trigger = TriggerLibrary.UpgradeEachTurn
@@ -1365,7 +1436,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_366", new Power {
+			cards.Add("DAL_366", new Power
+			{
 				PowerTask = new DestroyTask(EntityType.TARGET),
 				Trigger = TriggerLibrary.RevealUnidentifiedItem
 			});
@@ -1380,7 +1452,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_716", new Power {
+			cards.Add("DAL_716", new Power
+			{
 				PowerTask = new DamageTask(4, EntityType.TARGET),
 				Aura = new AdaptiveCostEffect(
 					p => 0,
@@ -1394,7 +1467,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Return all friendly minions to your hand.
 			// --------------------------------------------------------
-			cards.Add("DAL_728", new Power {
+			cards.Add("DAL_728", new Power
+			{
 				PowerTask = new ReturnHandTask(EntityType.MINIONS)
 			});
 
@@ -1411,7 +1485,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 2
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_720", new Power {
+			cards.Add("DAL_720", new Power
+			{
 				DeathrattleTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.MINIONS),
 					new ReturnHandTask(EntityType.STACK),
@@ -1432,7 +1507,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_366t1", new Power {
+			cards.Add("DAL_366t1", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
 					new SummonTask("EX1_522"))
@@ -1448,7 +1524,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_366t2", new Power {
+			cards.Add("DAL_366t2", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
 					new CopyTask(EntityType.TARGET, Zone.HAND))
@@ -1464,7 +1541,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_366t3", new Power {
+			cards.Add("DAL_366t3", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
 					new AddCardTo("GAME_005", EntityType.HAND, 2))
@@ -1480,7 +1558,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_366t4", new Power {
+			cards.Add("DAL_366t4", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
 					SpecificTask.Betrayal)
@@ -1509,7 +1588,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: After you play a Murloc, add a random Murloc to your hand.
 			// --------------------------------------------------------
-			cards.Add("DAL_049", new Power {
+			cards.Add("DAL_049", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.AFTER_PLAY_MINION)
 					.SetTask(ComplexTask.Create(
 						new RandomCardTask(CardType.MINION, CardClass.INVALID, Race.MURLOC),
@@ -1528,7 +1608,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_052", new Power {
+			cards.Add("DAL_052", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.DECK),
 					new FilterStackTask(SelfCondition.IsMinion),
@@ -1551,7 +1632,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_431", new Power {
+			cards.Add("DAL_431", new Power
+			{
 				// TODO [DAL_431] Swampqueen Hagatha && Test: Swampqueen Hagatha_DAL_431
 				//PowerTask = null,
 				//Trigger = null,
@@ -1570,7 +1652,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_433", new Power {
+			cards.Add("DAL_433", new Power
+			{
 				PowerTask = new AddLackeyTask(1)
 			});
 
@@ -1584,7 +1667,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_726", new Power {
+			cards.Add("DAL_726", new Power
+			{
 				Aura = new Aura(AuraType.HAND, "DAL_726e")
 				{
 					Condition = SelfCondition.IsRace(Race.MURLOC)
@@ -1602,7 +1686,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_009", new Power {
+			cards.Add("DAL_009", new Power
+			{
 				PowerTask = ComplexTask.Scheme(new DamageNumberTask(EntityType.ALLMINIONS)),
 				Trigger = TriggerLibrary.UpgradeEachTurn
 			});
@@ -1618,7 +1703,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_071", new Power {
+			cards.Add("DAL_071", new Power
+			{
 				PowerTask = new TransformMinionTask(EntityType.TARGET, 1)
 			});
 
@@ -1634,7 +1720,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_432", new Power {
+			cards.Add("DAL_432", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new HealTask(4, EntityType.TARGET),
 					new CustomTask((g, c, s, t, stack) =>
@@ -1659,7 +1746,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_710", new Power {
+			cards.Add("DAL_710", new Power
+			{
 				PowerTask = new AddEnchantmentTask("DAL_710e", EntityType.MINIONS)
 			});
 
@@ -1673,7 +1761,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a 1/1 Murloc.
 			// --------------------------------------------------------
-			cards.Add("DAL_710e", new Power {
+			cards.Add("DAL_710e", new Power
+			{
 				DeathrattleTask = new SummonTask("EX1_506a", side: SummonSide.DEATHRATTLE)
 			});
 
@@ -1686,7 +1775,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_431t", new Power {
+			cards.Add("DAL_431t", new Power
+			{
 				// TODO [DAL_431t] Drustvar Horror && Test: Drustvar Horror_DAL_431t
 				//PowerTask = null,
 				//Trigger = null,
@@ -1708,7 +1798,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - TOPDECK = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_185", new Power {
+			cards.Add("DAL_185", new Power
+			{
 				TopdeckTask = new HealTask(4, EntityType.HERO)
 			});
 
@@ -1724,7 +1815,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_422", new Power {
+			cards.Add("DAL_422", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new IncludeTask(EntityType.DECK, addFlag: true),
@@ -1737,7 +1829,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Costs (1) less whenever a friendly Demon dies while this is in your hand.
 			// --------------------------------------------------------
-			cards.Add("DAL_561", new Power {
+			cards.Add("DAL_561", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.DEATH)
 					.SetTask(new AddEnchantmentTask("DAL_561e", EntityType.SOURCE))
 					.SetCondition(SelfCondition.IsRace(Race.DEMON))
@@ -1754,7 +1847,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_563", new Power {
+			cards.Add("DAL_563", new Power
+			{
 				DeathrattleTask = ComplexTask.Create(
 					new RandomTask(2, EntityType.MINIONS),
 					new AddEnchantmentTask("DAL_563e", EntityType.STACK))
@@ -1777,7 +1871,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_606", new Power {
+			cards.Add("DAL_606", new Power
+			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.HasTarget, ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
 					new AddLackeyTask(2)))
@@ -1799,7 +1894,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_607", new Power {
+			cards.Add("DAL_607", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.DRAW)
 					.SetTask(ComplexTask.Create(
 						new CopyTask(EntityType.TARGET, Zone.PLAY, addToStack: true),
@@ -1816,7 +1912,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_007", new Power {
+			cards.Add("DAL_007", new Power
+			{
 				PowerTask = ComplexTask.Scheme(new SummonNumberTask("DAL_751t", false)),
 				Trigger = TriggerLibrary.UpgradeEachTurn
 			});
@@ -1827,7 +1924,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Destroy all friendly minions. For each one, summon a random minion from your deck.
 			// --------------------------------------------------------
-			cards.Add("DAL_173", new Power {
+			cards.Add("DAL_173", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
 					new CountTask(EntityType.STACK),
@@ -1847,7 +1945,8 @@ namespace SabberStoneCore.CardSets.Standard
 			//       into your deck.
 			//       Draw that many cards.
 			// --------------------------------------------------------
-			cards.Add("DAL_602", new Power {
+			cards.Add("DAL_602", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new CountTask(EntityType.STACK),
@@ -1865,7 +1964,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_WITH_RACE = 15
 			// --------------------------------------------------------
-			cards.Add("DAL_605", new Power {
+			cards.Add("DAL_605", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
 					new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
@@ -1883,7 +1983,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("DAL_605e", new Power {
+			cards.Add("DAL_605e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_605e")
 			});
 
@@ -1903,7 +2004,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_060", new Power {
+			cards.Add("DAL_060", new Power
+			{
 				PowerTask = new AddCardTo("BOT_511t", EntityType.OP_DECK)
 			});
 
@@ -1919,14 +2021,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_064", new Power {
+			cards.Add("DAL_064", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.OP_DECK),
 					new FilterStackTask(SelfCondition.IsCardId("BOT_511t")),
 					new CountTask(EntityType.STACK),
 					new NumberConditionTask(4, RelaSign.GEQ),
 					new FlagTask(true, new FuncNumberTask((IPlayable p) => 3)),
-					new EnqueueNumberTask(new SummonTask("GVG_110t", 2, side:SummonSide.ALTERNATE)))
+					new EnqueueNumberTask(new SummonTask("GVG_110t", 2, side: SummonSide.ALTERNATE)))
 			});
 
 			// --------------------------------------- MINION - WARRIOR
@@ -1942,7 +2045,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_070", new Power {
+			cards.Add("DAL_070", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.DECK),
 					new FilterStackTask(SelfCondition.IsMinion),
@@ -1958,7 +2062,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever this minion
 			//       deals damage, gain that much Armor.
 			// --------------------------------------------------------
-			cards.Add("DAL_759", new Power {
+			cards.Add("DAL_759", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.DEAL_DAMAGE)
 					.SetTask(ComplexTask.Create(
 						new GetEventNumberTask(),
@@ -1981,7 +2086,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - 84 = 10
 			// --------------------------------------------------------
-			cards.Add("DAL_770", new Power {
+			cards.Add("DAL_770", new Power
+			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.IsManaCrystalFull, new DamageTask(10, EntityType.TARGET))
 			});
 
@@ -1995,7 +2101,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_008", new Power {
+			cards.Add("DAL_008", new Power
+			{
 				PowerTask = ComplexTask.Scheme(new ArmorTask()),
 				Trigger = TriggerLibrary.UpgradeEachTurn
 			});
@@ -2006,7 +2113,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Summon 2 copies of a minion in your deck.
 			// --------------------------------------------------------
-			cards.Add("DAL_059", new Power {
+			cards.Add("DAL_059", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.DECK),
 					new FilterStackTask(SelfCondition.IsMinion),
@@ -2024,7 +2132,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_062", new Power {
+			cards.Add("DAL_062", new Power
+			{
 				PowerTask = new AddEnchantmentTask("DAL_062e", EntityType.TARGET)
 			});
 
@@ -2044,7 +2153,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_769", new Power {
+			cards.Add("DAL_769", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(1, EntityType.TARGET, true),
 					new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
@@ -2060,7 +2170,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DURABILITY = 2
 			// --------------------------------------------------------
-			cards.Add("DAL_063", new Power {
+			cards.Add("DAL_063", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.AFTER_ATTACK)
 					.SetTask(new AddCardTo("BOT_511t", EntityType.OP_DECK))
 					.SetSource(TriggerSource.HERO)
@@ -2076,7 +2187,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Damages minions adjacent to defender.
 			// --------------------------------------------------------
-			cards.Add("DAL_062e", new Power {
+			cards.Add("DAL_062e", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.AFTER_ATTACK)
 					.SetTask(ComplexTask.Create(
 						new IncludeAdjacentTask(EntityType.EVENT_TARGET),
@@ -2092,7 +2204,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Has <b>Rush</b>.
 			// --------------------------------------------------------
-			cards.Add("DAL_070e", new Power {
+			cards.Add("DAL_070e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_070e")
 			});
 
@@ -2102,7 +2215,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Mega-Windfury</b>
 			// --------------------------------------------------------
-			cards.Add("DAL_742e", new Power {
+			cards.Add("DAL_742e", new Power
+			{
 				// TODO [DAL_742e] Whirling && Test: Whirling_DAL_742e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_742e")
 			});
@@ -2122,7 +2236,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_058", new Power {
+			cards.Add("DAL_058", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.OP_DECK),
 					new FilterStackTask(SelfCondition.IsMinion),
@@ -2148,7 +2263,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_077", new Power {
+			cards.Add("DAL_077", new Power
+			{
 				PowerTask = new AddEnchantmentTask("DAL_077e", EntityType.TARGET)
 			});
 
@@ -2166,7 +2282,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_078", new Power {
+			cards.Add("DAL_078", new Power
+			{
 				PowerTask = new HealTask(3, EntityType.TARGET)
 			});
 
@@ -2182,7 +2299,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_081", new Power {
+			cards.Add("DAL_081", new Power
+			{
 				PowerTask = new AddEnchantmentTask("DAL_081e", EntityType.HERO)
 			});
 
@@ -2209,7 +2327,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_086", new Power {
+			cards.Add("DAL_086", new Power
+			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.IsControllingSecret,
 					new AddEnchantmentTask("DAL_086e", EntityType.SOURCE))
 			});
@@ -2223,7 +2342,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_087", new Power {
+			cards.Add("DAL_087", new Power
+			{
 				PowerTask = new SummonTask("DAL_087t", 2, SummonSide.ALTERNATE)
 			});
 
@@ -2239,7 +2359,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_088", new Power {
+			cards.Add("DAL_088", new Power
+			{
 				DeathrattleTask = new SummonTask("DAL_088t2", SummonSide.DEATHRATTLE)
 			});
 
@@ -2255,7 +2376,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_089", new Power {
+			cards.Add("DAL_089", new Power
+			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.IsSpellDmgOnHero, new DrawTask())
 			});
 
@@ -2286,7 +2408,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_095", new Power {
+			cards.Add("DAL_095", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsSpell),
@@ -2319,7 +2442,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_400", new Power {
+			cards.Add("DAL_400", new Power
+			{
 				PowerTask = new AddLackeyTask(1)
 			});
 
@@ -2332,7 +2456,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_434", new Power {
+			cards.Add("DAL_434", new Power
+			{
 				Aura = new AdaptiveEffect(SelfCondition.IsntSpellDmgOnHero, GameTag.CANT_ATTACK)
 			});
 
@@ -2345,7 +2470,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_538", new Power {
+			cards.Add("DAL_538", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.OP_HAND),
 					new FilterStackTask(SelfCondition.IsSpell),
@@ -2365,7 +2491,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_DRAG_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_539", new Power {
+			cards.Add("DAL_539", new Power
+			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.Has5PlusCostSpellInHand,
 					new DamageTask(4, EntityType.TARGET))
 			});
@@ -2379,7 +2506,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_544", new Power {
+			cards.Add("DAL_544", new Power
+			{
 				PowerTask = new HealTask(2, EntityType.FRIENDS)
 			});
 
@@ -2393,7 +2521,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_546", new Power {
+			cards.Add("DAL_546", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS_NOSOURCE),
 					new FilterStackTask(SelfCondition.IsBattleCryCard),
@@ -2409,7 +2538,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_548", new Power {
+			cards.Add("DAL_548", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.TURN_START)
 					.SetTask(new AddEnchantmentTask("DAL_548e", EntityType.SOURCE))
 			});
@@ -2420,7 +2550,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: After this minion survives damage, summon a copy_of it.
 			// --------------------------------------------------------
-			cards.Add("DAL_550", new Power {
+			cards.Add("DAL_550", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.TAKE_DAMAGE)
 					.SetTask(new CopyTask(EntityType.SOURCE, Zone.PLAY))
 					.SetSource(TriggerSource.SELF)
@@ -2437,7 +2568,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_551", new Power {
+			cards.Add("DAL_551", new Power
+			{
 				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD,
 					p => p.Controller.BoardZone.Count == 1 ? 2 : 0)
 			});
@@ -2449,7 +2581,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: At the end of your turn, summon a random
 			//       6-Cost minion.
 			// --------------------------------------------------------
-			cards.Add("DAL_553", new Power {
+			cards.Add("DAL_553", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.TURN_END)
 					.SetTask(ComplexTask.SummonRandomMinion(GameTag.COST, 6))
 			});
@@ -2464,7 +2597,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_554", new Power {
+			cards.Add("DAL_554", new Power
+			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.IsHandEmpty,
 					new SummonTask("DAL_554t", 6, SummonSide.ALTERNATE))
 			});
@@ -2480,7 +2614,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_558", new Power {
+			cards.Add("DAL_558", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.TURN_END)
 					.SetTask(SpecificTask.ArchmageVargoth)
 			});
@@ -2495,7 +2630,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_560", new Power {
+			cards.Add("DAL_560", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new FuncNumberTask(p => 2 * (p.Controller.BoardZone.Count - 1)),
 					new AddEnchantmentTask("DAL_560e2", EntityType.SOURCE, true))
@@ -2516,7 +2652,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_565", new Power {
+			cards.Add("DAL_565", new Power
+			{
 				PowerTask = new AddCardTo("DAL_582t", EntityType.DECK, 3)
 			});
 
@@ -2530,7 +2667,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_566", new Power {
+			cards.Add("DAL_566", new Power
+			{
 				DeathrattleTask = new SummonTask("DAL_566t", 4, SummonSide.DEATHRATTLE)
 			});
 
@@ -2549,7 +2687,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_582", new Power {
+			cards.Add("DAL_582", new Power
+			{
 				PowerTask = new AddCardTo("DAL_582t", EntityType.DECK, 3)
 			});
 
@@ -2562,7 +2701,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_592", new Power {
+			cards.Add("DAL_592", new Power
+			{
 				// TODO: Extra_Attacks_This_Turn
 				Trigger = TriggerBuilder.Type(TriggerType.AFTER_ATTACK)
 					.SetTask(new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.SOURCE))
@@ -2583,7 +2723,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_735", new Power {
+			cards.Add("DAL_735", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeAdjacentTask(EntityType.SOURCE),
 					new SilenceTask(EntityType.STACK))
@@ -2602,7 +2743,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_736", new Power {
+			cards.Add("DAL_736", new Power
+			{
 				PowerTask = new DiscoverTask(choiceAction: ChoiceAction.STACK,
 					afterDiscoverTask: ComplexTask.Create(
 						new MoveToSetaside(EntityType.DECK),
@@ -2623,7 +2765,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - WINDFURY = 1
 			// - MEGA_WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_742", new Power {
+			cards.Add("DAL_742", new Power
+			{
 				// TODO [DAL_742] Whirlwind Tempest && Test: Whirlwind Tempest_DAL_742
 				InfoCardId = "DAL_742e",
 				//PowerTask = null,
@@ -2641,7 +2784,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_743", new Power {
+			cards.Add("DAL_743", new Power
+			{
 				DeathrattleTask = new SummonTask("DAL_743t", SummonSide.DEATHRATTLE)
 			});
 
@@ -2659,7 +2803,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_744", new Power {
+			cards.Add("DAL_744", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
 					new GetGameTagTask(GameTag.DAMAGE, EntityType.TARGET, 0, 1),
@@ -2676,7 +2821,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_747", new Power {
+			cards.Add("DAL_747", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new SummonTask("DAL_747t"),
 					new SummonOpTask("DAL_747t"))
@@ -2702,7 +2848,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_749", new Power {
+			cards.Add("DAL_749", new Power
+			{
 				DeathrattleTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsTagValue(GameTag.ATK, 4, RelaSign.GEQ)),
 					new FlagTask(true, new SummonTask("DAL_749", 1, SummonSide.DEATHRATTLE)))
@@ -2718,7 +2865,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_751", new Power {
+			cards.Add("DAL_751", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new CountTask(Zone.PLAY, true, false),
 					new SummonNumberTask("DAL_751t", false),
@@ -2736,7 +2884,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_752", new Power {
+			cards.Add("DAL_752", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new DrawMinionTask(false, 2, true),
 					new AddEnchantmentTask("DAL_752e", EntityType.STACK),
@@ -2760,7 +2909,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Whenever this minion attacks, give your opponent a Coin.
 			// --------------------------------------------------------
-			cards.Add("DAL_771", new Power {
+			cards.Add("DAL_771", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.ATTACK)
 					.SetTask(new AddCardTo("GAME_005", EntityType.OP_HAND, 2))
 					.SetSource(TriggerSource.SELF)
@@ -2775,7 +2925,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_773", new Power {
+			cards.Add("DAL_773", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.AFTER_PLAY_MINION)
 					.SetTask(new AddEnchantmentTask("DAL_773e", EntityType.TARGET))
 					.SetCondition(SelfCondition.IsTagValue(GameTag.TAG_LAST_KNOWN_COST_IN_HAND, 1))
@@ -2789,7 +2940,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: Whenever you cast a spell, summon a random
 			//       3-Cost Beast.
 			// --------------------------------------------------------
-			cards.Add("DAL_774", new Power {
+			cards.Add("DAL_774", new Power
+			{
 				Trigger = TriggerBuilder.Type(TriggerType.CAST_SPELL)
 					.SetTask(ComplexTask.SummonRandomMinion(GameTag.COST, 3))
 					.SetSource(TriggerSource.FRIENDLY)
@@ -2807,7 +2959,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_775", new Power {
+			cards.Add("DAL_775", new Power
+			{
 				DeathrattleTask = new DamageTask(3, EntityType.ALLMINIONS)
 			});
 
@@ -2821,7 +2974,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Reduced Attack.
 			// --------------------------------------------------------
-			cards.Add("DAL_011e", new Power {
+			cards.Add("DAL_011e", new Power
+			{
 				Enchant = new Enchant(ATK.Effect(EffectOperator.SUB, 0))
 				{
 					UseScriptTag = true
@@ -2836,7 +2990,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: 4/4.
 			// --------------------------------------------------------
-			cards.Add("DAL_052e", new Power {
+			cards.Add("DAL_052e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_052e")
 			});
 
@@ -2846,7 +3001,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
 			// --------------------------------------------------------
-			cards.Add("DAL_077e", new Power {
+			cards.Add("DAL_077e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_077e")
 			});
 
@@ -2860,7 +3016,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CANT_BE_TARGETED_BY_SPELLS = 1
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_081e", new Power {
+			cards.Add("DAL_081e", new Power
+			{
 				Enchant = new Enchant(Effects.CantBeTargetedBySpellsAndHeroPowers),
 				Trigger = TriggerBuilder.Type(TriggerType.TURN_START)
 					.SetTask(RemoveEnchantmentTask.Task)
@@ -2872,7 +3029,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1/+1
 			// --------------------------------------------------------
-			cards.Add("DAL_086e", new Power {
+			cards.Add("DAL_086e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_086e")
 			});
 
@@ -2882,7 +3040,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("DAL_095e", new Power {
+			cards.Add("DAL_095e", new Power
+			{
 				Enchant = Enchants.Enchants.AddAttackScriptTag
 			});
 
@@ -2892,7 +3051,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
-			cards.Add("DAL_147e", new Power {
+			cards.Add("DAL_147e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_147e")
 			});
 
@@ -2902,7 +3062,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("DAL_351e", new Power {
+			cards.Add("DAL_351e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_351e")
 			});
 
@@ -2912,7 +3073,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased <b>Spell Damage</b>.
 			// --------------------------------------------------------
-			cards.Add("DAL_548e", new Power {
+			cards.Add("DAL_548e", new Power
+			{
 				Enchant = new OngoingEnchant(new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, 2))
 			});
 
@@ -2922,7 +3084,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("DAL_560e2", new Power {
+			cards.Add("DAL_560e2", new Power
+			{
 				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
 			});
 
@@ -2932,7 +3095,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Costs (1) less.
 			// --------------------------------------------------------
-			cards.Add("DAL_561e", new Power {
+			cards.Add("DAL_561e", new Power
+			{
 				Enchant = new OngoingEnchant(Effects.ReduceCost(1))
 			});
 
@@ -2942,7 +3106,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("DAL_563e", new Power {
+			cards.Add("DAL_563e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_563e")
 			});
 
@@ -2952,7 +3117,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
-			cards.Add("DAL_570e", new Power {
+			cards.Add("DAL_570e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_570e")
 			});
 
@@ -2962,7 +3128,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Costs (1) more.
 			// --------------------------------------------------------
-			cards.Add("DAL_576e", new Power {
+			cards.Add("DAL_576e", new Power
+			{
 				Enchant = new Enchant(Effects.AddCost(1))
 			});
 
@@ -2972,7 +3139,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
-			cards.Add("DAL_589e", new Power {
+			cards.Add("DAL_589e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_589e")
 			});
 
@@ -2982,7 +3150,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>. Dies at end of turn.
 			// --------------------------------------------------------
-			cards.Add("DAL_607e", new Power {
+			cards.Add("DAL_607e", new Power
+			{
 				Enchant = new Enchant(Effects.Rush),
 				Trigger = TriggerBuilder.Type(TriggerType.TURN_END)
 					.SetTask(new DestroyTask(EntityType.TARGET))
@@ -2994,7 +3163,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("DAL_714e", new Power {
+			cards.Add("DAL_714e", new Power
+			{
 				Enchant = new Enchant(
 					Effects.Attack_N(1),
 					Effects.Health_N(1),
@@ -3007,7 +3177,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Costs (1).
 			// --------------------------------------------------------
-			cards.Add("DAL_726e", new Power {
+			cards.Add("DAL_726e", new Power
+			{
 				Enchant = new Enchant(Effects.SetCost(1))
 			});
 
@@ -3017,7 +3188,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("DAL_727e", new Power {
+			cards.Add("DAL_727e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_727e")
 			});
 
@@ -3027,7 +3199,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1 Attack and <b>Rush</b>.
 			// --------------------------------------------------------
-			cards.Add("DAL_739e", new Power {
+			cards.Add("DAL_739e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_739e")
 			});
 
@@ -3037,7 +3210,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Copied health.
 			// --------------------------------------------------------
-			cards.Add("DAL_744e", new Power {
+			cards.Add("DAL_744e", new Power
+			{
 				Enchant = Enchants.Enchants.SetHealthScriptTag
 			});
 
@@ -3047,7 +3221,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Jepetto Joybuzz made this 1/1.
 			// --------------------------------------------------------
-			cards.Add("DAL_752e", new Power {
+			cards.Add("DAL_752e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_752e")
 			});
 
@@ -3057,7 +3232,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Costs (1).
 			// --------------------------------------------------------
-			cards.Add("DAL_752e2", new Power {
+			cards.Add("DAL_752e2", new Power
+			{
 				Enchant = new Enchant(Effects.SetCost(1))
 			});
 
@@ -3067,7 +3243,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +1 Attack and <b>Rush</b>.
 			// --------------------------------------------------------
-			cards.Add("DAL_773e", new Power {
+			cards.Add("DAL_773e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DAL_773e")
 			});
 
@@ -3125,7 +3302,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_613", new Power {
+			cards.Add("DAL_613", new Power
+			{
 				PowerTask = ComplexTask.SummonRandomMinionNumberTag(GameTag.COST)
 			});
 
@@ -3142,7 +3320,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_614", new Power {
+			cards.Add("DAL_614", new Power
+			{
 				PowerTask = new DamageTask(2, EntityType.TARGET)
 			});
 
@@ -3161,7 +3340,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_615", new Power {
+			cards.Add("DAL_615", new Power
+			{
 				PowerTask = new TransformMinionTask(EntityType.TARGET, 1)
 			});
 
@@ -3183,7 +3363,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_739", new Power {
+			cards.Add("DAL_739", new Power
+			{
 				PowerTask = new AddEnchantmentTask("DAL_739e", EntityType.TARGET)
 			});
 
@@ -3200,7 +3381,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_741", new Power {
+			cards.Add("DAL_741", new Power
+			{
 				PowerTask = new DiscoverTask(DiscoverType.SPELL)
 			});
 
@@ -3236,7 +3418,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// - CASTSWHENDRAWN = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_582t", new Power {
+			cards.Add("DAL_582t", new Power
+			{
 				TopdeckTask = new SummonTask("DAL_582t2"),
 				PowerTask = new SummonTask("DAL_582t2")
 			});

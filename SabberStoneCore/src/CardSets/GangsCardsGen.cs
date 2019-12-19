@@ -1590,7 +1590,7 @@ namespace SabberStoneCore.CardSets
 					new FilterStackTask(SelfCondition.IsWeapon),
 					new RandomTask(1, EntityType.STACK),
 					new AddEnchantmentTask("CFM_755e", EntityType.STACK))
-		});
+			});
 
 			// --------------------------------------- MINION - WARRIOR
 			// [CFM_756] Alley Armorsmith - COST:5 [ATK:2/HP:7] 
@@ -1725,7 +1725,7 @@ namespace SabberStoneCore.CardSets
 					TriggerSource = TriggerSource.SELF,
 					Condition = new SelfCondition(
 						p => !p.ToBeDestroyed
-						     && p.Game.CurrentEventData.EventTarget is Minion),
+							 && p.Game.CurrentEventData.EventTarget is Minion),
 					SingleTask = new DrawTask()
 				}
 			});
@@ -1785,7 +1785,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_064", new Power
 			{
-				Trigger = new Trigger(TriggerType.AFTER_SUMMON)	// PRESUMMON
+				Trigger = new Trigger(TriggerType.AFTER_SUMMON) // PRESUMMON
 				{
 					TriggerActivation = TriggerActivation.HAND,
 					TriggerSource = TriggerSource.FRIENDLY,
@@ -2261,7 +2261,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("CFM_668", new Power
 			{
 				PowerTask = SpecificTask.Doppelgangster
-					
+
 			});
 
 			// --------------------------------------- MINION - NEUTRAL

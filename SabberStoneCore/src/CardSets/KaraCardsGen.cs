@@ -45,7 +45,8 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_WITH_RACE = 20
 			// --------------------------------------------------------
-			cards.Add("KAR_065", new Power {
+			cards.Add("KAR_065", new Power
+			{
 				PowerTask = new CopyTask(EntityType.TARGET, Zone.PLAY)
 			});
 
@@ -65,7 +66,8 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("KAR_075", new Power {
+			cards.Add("KAR_075", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new HealTask(6, EntityType.TARGET),
 					ComplexTask.SummonRandomMinion(GameTag.COST, 6))
@@ -84,7 +86,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_005", new Power {
+			cards.Add("KAR_005", new Power
+			{
 				DeathrattleTask = new SummonTask("KAR_005a", SummonSide.DEATHRATTLE)
 			});
 
@@ -97,7 +100,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_006", new Power {
+			cards.Add("KAR_006", new Power
+			{
 				Aura = new Aura(AuraType.HAND, Effects.SetCost(0))
 				{
 					Condition = SelfCondition.IsSecret
@@ -116,7 +120,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_004", new Power {
+			cards.Add("KAR_004", new Power
+			{
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
 					TriggerSource = TriggerSource.ENEMY,
@@ -159,7 +164,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_009", new Power {
+			cards.Add("KAR_009", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new RandomCardTask(CardType.SPELL, CardClass.MAGE),
 					new AddStackTo(EntityType.HAND))
@@ -180,7 +186,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_092", new Power {
+			cards.Add("KAR_092", new Power
+			{
 				PowerTask = new DamageTask(3, EntityType.TARGET)
 			});
 
@@ -194,7 +201,8 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("KAR_076", new Power {
+			cards.Add("KAR_076", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(5, EntityType.TARGET),
 					ComplexTask.SummonRandomMinion(GameTag.COST, 5)),
@@ -213,7 +221,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_010", new Power {
+			cards.Add("KAR_010", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 					new FlagTask(true, ComplexTask.Create(
@@ -235,7 +244,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_057", new Power {
+			cards.Add("KAR_057", new Power
+			{
 				PowerTask = new DiscoverTask(DiscoverType.SPELL,
 					ComplexTask.Create(
 						new GetGameTagTask(GameTag.COST, EntityType.TARGET),
@@ -253,7 +263,8 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("KAR_077", new Power {
+			cards.Add("KAR_077", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("KAR_077e", EntityType.TARGET),
 					ComplexTask.SummonRandomMinion(GameTag.COST, 2))
@@ -280,7 +291,8 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever you cast a spell, restore 3 Health to
 			//       your hero.
 			// --------------------------------------------------------
-			cards.Add("KAR_035", new Power {
+			cards.Add("KAR_035", new Power
+			{
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
@@ -297,7 +309,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_204", new Power {
+			cards.Add("KAR_204", new Power
+			{
 				PowerTask = ComplexTask.SummonRandomMinionThatDied()
 			});
 
@@ -315,7 +328,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_013", new Power {
+			cards.Add("KAR_013", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new SilenceTask(EntityType.TARGET),
 					new DrawTask()),
@@ -334,7 +348,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_069", new Power {
+			cards.Add("KAR_069", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new RandomCardTask(EntityType.OP_HERO),
 					new AddStackTo(EntityType.HAND))
@@ -351,7 +366,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_070", new Power {
+			cards.Add("KAR_070", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.AnyNonClassCardInHand(CardClass.ROGUE)),
 					new FlagTask(true, ComplexTask.Create(
@@ -369,7 +385,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_094", new Power {
+			cards.Add("KAR_094", new Power
+			{
 				DeathrattleTask = new AddCardTo("KAR_094a", EntityType.HAND)
 			});
 
@@ -396,7 +413,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, summon a random basic_Totem.
 			// --------------------------------------------------------
-			cards.Add("KAR_021", new Power {
+			cards.Add("KAR_021", new Power
+			{
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
@@ -422,7 +440,8 @@ namespace SabberStoneCore.CardSets
 			// Text: Deal_$1_damage to_all_enemy_minions. Summon_a_random
 			//       1-Cost minion. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("KAR_073", new Power {
+			cards.Add("KAR_073", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(1, EntityType.OP_MINIONS, true),
 					ComplexTask.SummonRandomMinion(GameTag.COST, 1))
@@ -441,7 +460,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_063", new Power {
+			cards.Add("KAR_063", new Power
+			{
 				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p => p.Controller.CurrentSpellPower > 0 ? 2 : 0)
 			});
 
@@ -455,7 +475,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever you discard a card, draw a card.
 			// --------------------------------------------------------
-			cards.Add("KAR_089", new Power {
+			cards.Add("KAR_089", new Power
+			{
 				Trigger = new Trigger(TriggerType.DISCARD)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
@@ -472,7 +493,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - InvisibleDeathrattle = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_205", new Power {
+			cards.Add("KAR_205", new Power
+			{
 				Trigger = new Trigger(TriggerType.DISCARD)
 				{
 					TriggerActivation = TriggerActivation.HAND,
@@ -490,7 +512,8 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_025", new Power {
+			cards.Add("KAR_025", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new SummonTask("KAR_025a", SummonSide.SPELL),
 					new SummonTask("KAR_025b", SummonSide.SPELL),
@@ -536,7 +559,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_026", new Power {
+			cards.Add("KAR_026", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new CountTask(EntityType.OP_MINIONS),
 					new EnqueueNumberTask(new SummonTask("KAR_026t", SummonSide.SPELL)))
@@ -550,7 +574,8 @@ namespace SabberStoneCore.CardSets
 			//       Summon a random
 			//       4-Cost minion.
 			// --------------------------------------------------------
-			cards.Add("KAR_091", new Power {
+			cards.Add("KAR_091", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ArmorTask(4),
 					ComplexTask.SummonRandomMinion(GameTag.COST, 4))
@@ -565,7 +590,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DURABILITY = 4
 			// --------------------------------------------------------
-			cards.Add("KAR_028", new Power {
+			cards.Add("KAR_028", new Power
+			{
 				Aura = new Aura(AuraType.HERO, new Effect(GameTag.CANNOT_ATTACK_HEROES, EffectOperator.SET, 1)),
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
@@ -613,7 +639,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_029", new Power {
+			cards.Add("KAR_029", new Power
+			{
 				DeathrattleTask = new DrawTask()
 			});
 
@@ -627,7 +654,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_030a", new Power {
+			cards.Add("KAR_030a", new Power
+			{
 				PowerTask = new SummonTask("KAR_030", SummonSide.RIGHT)
 			});
 
@@ -647,7 +675,8 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_MAX_ATTACK = 3
 			// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
 			// --------------------------------------------------------
-			cards.Add("KAR_033", new Power {
+			cards.Add("KAR_033", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 					new FlagTask(true, new DestroyTask(EntityType.TARGET)))
@@ -660,7 +689,8 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever you cast a spell, give this minion
 			//       +1 Health.
 			// --------------------------------------------------------
-			cards.Add("KAR_036", new Power {
+			cards.Add("KAR_036", new Power
+			{
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
@@ -682,7 +712,8 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_037", new Power {
+			cards.Add("KAR_037", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingSecret),
 					new FlagTask(true, ComplexTask.Create(
@@ -704,7 +735,8 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("KAR_041", new Power {
+			cards.Add("KAR_041", new Power
+			{
 				InfoCardId = "KAR_041e",
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
@@ -740,7 +772,8 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_044", new Power {
+			cards.Add("KAR_044", new Power
+			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
 					SingleTask = new SummonTask("KAR_044a", SummonSide.RIGHT)
@@ -759,7 +792,8 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_061", new Power {
+			cards.Add("KAR_061", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					ComplexTask.DrawFromDeck(1, SelfCondition.IsRace(Race.BEAST)),
 					ComplexTask.DrawFromDeck(1, SelfCondition.IsRace(Race.DRAGON)),
@@ -779,7 +813,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_062", new Power {
+			cards.Add("KAR_062", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 					new FlagTask(true, new DiscoverTask(DiscoverType.DRAGON)))
@@ -794,7 +829,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_095", new Power {
+			cards.Add("KAR_095", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
 					new FilterStackTask(SelfCondition.IsRace(Race.BEAST)),
@@ -821,13 +857,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_096", new Power {
+			cards.Add("KAR_096", new Power
+			{
 				Trigger = new Trigger(TriggerType.GAME_START)
 				{
 					TriggerActivation = TriggerActivation.DECK,
 					RemoveAfterTriggered = true,
 					SingleTask = ComplexTask.Create(
-						new RandomMinionTask(GameTag.RARITY, (int) Rarity.LEGENDARY, 5, RelaSign.EQ, true, true),
+						new RandomMinionTask(GameTag.RARITY, (int)Rarity.LEGENDARY, 5, RelaSign.EQ, true, true),
 						new AddStackTo(EntityType.DECK))
 				}
 			});
@@ -842,7 +879,8 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_097", new Power {
+			cards.Add("KAR_097", new Power
+			{
 				PowerTask = new WeaponTask("KAR_097t")
 			});
 
@@ -856,7 +894,8 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_114", new Power {
+			cards.Add("KAR_114", new Power
+			{
 				InfoCardId = "KAR_114e",
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
@@ -877,7 +916,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_702", new Power {
+			cards.Add("KAR_702", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
 					new FilterStackTask(SelfCondition.IsRace(Race.BEAST)),
@@ -905,7 +945,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_710", new Power {
+			cards.Add("KAR_710", new Power
+			{
 				PowerTask = new SummonTask("KAR_710m", SummonSide.RIGHT)
 			});
 
@@ -916,7 +957,8 @@ namespace SabberStoneCore.CardSets
 			// Text: [x]Costs (1) less for each spell
 			//       you've cast this game.
 			// --------------------------------------------------------
-			cards.Add("KAR_711", new Power {
+			cards.Add("KAR_711", new Power
+			{
 				Aura = new AdaptiveCostEffect(p => p.Controller.NumSpellsPlayedThisGame)
 			});
 
@@ -932,7 +974,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_712", new Power {
+			cards.Add("KAR_712", new Power
+			{
 				Aura = new Aura(AuraType.HERO, Effects.Immune)
 				{
 					Condition = SelfCondition.IsMyTurn,
@@ -950,7 +993,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
-			cards.Add("KAR_036e", new Power {
+			cards.Add("KAR_036e", new Power
+			{
 				Enchant = new OngoingEnchant(Effects.Health_N(1))
 			});
 
@@ -960,7 +1004,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1 and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("KAR_037t", new Power {
+			cards.Add("KAR_037t", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KAR_037t")
 			});
 
@@ -970,7 +1015,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Destroyed {0}.
 			// --------------------------------------------------------
-			cards.Add("KAR_041e", new Power {
+			cards.Add("KAR_041e", new Power
+			{
 				// TODO [KAR_041e] Moat Lurker && Test: Moat Lurker_KAR_041e
 				//PowerTask = null,
 				//Trigger = null,
@@ -982,7 +1028,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("KAR_077e", new Power {
+			cards.Add("KAR_077e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KAR_077e")
 			});
 
@@ -992,7 +1039,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("KAR_095e", new Power {
+			cards.Add("KAR_095e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KAR_095e")
 			});
 
@@ -1002,7 +1050,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Attack and Health set to 1.
 			// --------------------------------------------------------
-			cards.Add("KAR_114e", new Power {
+			cards.Add("KAR_114e", new Power
+			{
 				Enchant = new Enchant(Effects.SetAttackHealth(1))
 			});
 
@@ -1012,7 +1061,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("KAR_702e", new Power {
+			cards.Add("KAR_702e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KAR_702e")
 			});
 
@@ -1052,7 +1102,8 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DURABILITY = 3
 			// --------------------------------------------------------
-			cards.Add("KAR_097t", new Power {
+			cards.Add("KAR_097t", new Power
+			{
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,

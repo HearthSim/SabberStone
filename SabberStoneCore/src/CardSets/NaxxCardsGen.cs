@@ -36,7 +36,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Destroy all minions and summon 2/2 Treants to replace them.
 			// --------------------------------------------------------
-			cards.Add("FP1_019", new Power {
+			cards.Add("FP1_019", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new CountTask(EntityType.MINIONS),
 					new CountTask(EntityType.OP_MINIONS, 1),
@@ -70,7 +71,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_011", new Power {
+			cards.Add("FP1_011", new Power
+			{
 				DeathrattleTask = ComplexTask.Create(
 					new RandomMinionTask(GameTag.CARDRACE, (int)Race.BEAST),
 					new AddStackTo(EntityType.HAND))
@@ -89,7 +91,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_018", new Power {
+			cards.Add("FP1_018", new Power
+			{
 				Trigger = new Trigger(TriggerType.DEATH)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
@@ -113,7 +116,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_020", new Power {
+			cards.Add("FP1_020", new Power
+			{
 				InfoCardId = "FP1_020e",
 				Trigger = new Trigger(TriggerType.DEATH)
 				{
@@ -136,7 +140,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3/+2.
 			// --------------------------------------------------------
-			cards.Add("FP1_020e", new Power {
+			cards.Add("FP1_020e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("FP1_020e")
 			});
 
@@ -153,7 +158,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_023", new Power {
+			cards.Add("FP1_023", new Power
+			{
 				DeathrattleTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.MINIONS),
 					new AddEnchantmentTask("FP1_023e", EntityType.TARGET))
@@ -169,7 +175,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3 Health.
 			// --------------------------------------------------------
-			cards.Add("FP1_023e", new Power {
+			cards.Add("FP1_023e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("FP1_023e")
 			});
 
@@ -186,7 +193,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_026", new Power {
+			cards.Add("FP1_026", new Power
+			{
 				// TODO AnubarAmbusher_FP1_026 test
 				DeathrattleTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.MINIONS),
@@ -207,7 +215,8 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("FP1_025", new Power {
+			cards.Add("FP1_025", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET, true),
 					new CopyTask(EntityType.TARGET, Zone.PLAY))
@@ -226,7 +235,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_022", new Power {
+			cards.Add("FP1_022", new Power
+			{
 				DeathrattleTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
@@ -248,7 +258,8 @@ namespace SabberStoneCore.CardSets
 			// - DURABILITY = 2
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_021", new Power {
+			cards.Add("FP1_021", new Power
+			{
 				DeathrattleTask = new DamageTask(1, EntityType.ALLMINIONS)
 			});
 
@@ -265,7 +276,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_001", new Power {
+			cards.Add("FP1_001", new Power
+			{
 				DeathrattleTask = new HealTask(5, EntityType.OP_HERO)
 			});
 
@@ -278,7 +290,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_002", new Power {
+			cards.Add("FP1_002", new Power
+			{
 				DeathrattleTask = new EnqueueTask(2, new SummonTask("FP1_002t", SummonSide.DEATHRATTLE))
 			});
 
@@ -291,7 +304,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_003", new Power {
+			cards.Add("FP1_003", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new SetGameTagTask(GameTag.CUSTOM_KEYWORD_EFFECT, 1, EntityType.SOURCE),
 					new SetGameTagTask(GameTag.TAG_SCRIPT_DATA_NUM_1, 1, EntityType.SOURCE),
@@ -319,7 +333,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_004", new Power {
+			cards.Add("FP1_004", new Power
+			{
 				DeathrattleTask = ComplexTask.PutSecretFromDeck
 			});
 
@@ -332,7 +347,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_005", new Power {
+			cards.Add("FP1_005", new Power
+			{
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					SingleTask = new AddEnchantmentTask("FP1_005e", EntityType.SOURCE)
@@ -348,7 +364,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_007", new Power {
+			cards.Add("FP1_007", new Power
+			{
 				DeathrattleTask = new SummonTask("FP1_007t", SummonSide.DEATHRATTLE)
 			});
 
@@ -374,7 +391,8 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_009", new Power {
+			cards.Add("FP1_009", new Power
+			{
 				DeathrattleTask = ComplexTask.Create(
 					new IncludeTask(EntityType.OP_DECK),
 					new FilterStackTask(SelfCondition.IsMinion),
@@ -405,7 +423,8 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_012", new Power {
+			cards.Add("FP1_012", new Power
+			{
 				DeathrattleTask = new SummonTask("FP1_012t", SummonSide.DEATHRATTLE)
 			});
 
@@ -418,7 +437,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_013", new Power {
+			cards.Add("FP1_013", new Power
+			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
 					EitherTurn = true,
@@ -436,14 +456,15 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_014", new Power {
+			cards.Add("FP1_014", new Power
+			{
 				DeathrattleTask = new FuncNumberTask(src =>
 				{
 					Controller c = src.Controller;
 					if ((c.GraveyardZone.Any(p => p.Card.AssetId == 1797 && p.ToBeDestroyed) ||
-					     c.Opponent.GraveyardZone.Any(p => p.Card.AssetId == 1797 && p.ToBeDestroyed)) &&
-					    !c.BoardZone.IsFull)
-						Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1, src);
+						 c.Opponent.GraveyardZone.Any(p => p.Card.AssetId == 1797 && p.ToBeDestroyed)) &&
+						!c.BoardZone.IsFull)
+						Generic.SummonBlock.Invoke(c.Game, (Minion)Entity.FromCard(c, Cards.FromId("FP1_014t")), -1, src);
 
 					return 0;
 				})
@@ -459,14 +480,15 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_015", new Power {
+			cards.Add("FP1_015", new Power
+			{
 				DeathrattleTask = new FuncNumberTask(src =>
 				{
 					Controller c = src.Controller;
 					if ((c.GraveyardZone.Any(p => p.Card.AssetId == 1796 && p.ToBeDestroyed) ||
-					     c.Opponent.GraveyardZone.Any(p => p.Card.AssetId == 1796 && p.ToBeDestroyed)) &&
-					    !c.BoardZone.IsFull)
-						Generic.SummonBlock.Invoke(c.Game, (Minion) Entity.FromCard(c, Cards.FromId("FP1_014t")), -1, src);
+						 c.Opponent.GraveyardZone.Any(p => p.Card.AssetId == 1796 && p.ToBeDestroyed)) &&
+						!c.BoardZone.IsFull)
+						Generic.SummonBlock.Invoke(c.Game, (Minion)Entity.FromCard(c, Cards.FromId("FP1_014t")), -1, src);
 
 					return 0;
 				})
@@ -484,7 +506,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_016", new Power {
+			cards.Add("FP1_016", new Power
+			{
 				PowerTask = new SilenceTask(EntityType.MINIONS_NOSOURCE)
 			});
 
@@ -500,7 +523,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_017", new Power {
+			cards.Add("FP1_017", new Power
+			{
 				Aura = new Aura(AuraType.HANDS, Effects.AddCost(2))
 				{
 					Condition = SelfCondition.IsBattlecryMinion
@@ -517,7 +541,8 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_024", new Power {
+			cards.Add("FP1_024", new Power
+			{
 				DeathrattleTask = new DamageTask(1, EntityType.ALLMINIONS)
 			});
 
@@ -527,7 +552,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the start of your turn, restore this minion to full Health.
 			// --------------------------------------------------------
-			cards.Add("FP1_027", new Power {
+			cards.Add("FP1_027", new Power
+			{
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					SingleTask = new HealFullTask(EntityType.SOURCE)
@@ -543,7 +569,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_028", new Power {
+			cards.Add("FP1_028", new Power
+			{
 				Trigger = new Trigger(TriggerType.SUMMON)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
@@ -561,7 +588,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_029", new Power {
+			cards.Add("FP1_029", new Power
+			{
 				DeathrattleTask = new DrawOpTask()
 			});
 
@@ -575,7 +603,8 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_030", new Power {
+			cards.Add("FP1_030", new Power
+			{
 				PowerTask = new AddEnchantmentTask("FP1_030e", EntityType.OP_CONTROLLER)
 			});
 
@@ -592,7 +621,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_031", new Power {
+			cards.Add("FP1_031", new Power
+			{
 				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.EXTRA_MINION_DEATHRATTLES_BASE, EffectOperator.SET, 1))
 			});
 
@@ -606,7 +636,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("FP1_005e", new Power {
+			cards.Add("FP1_005e", new Power
+			{
 				Enchant = new OngoingEnchant(Effects.AttackHealth_N(1))
 			});
 
@@ -616,7 +647,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("FP1_028e", new Power {
+			cards.Add("FP1_028e", new Power
+			{
 				Enchant = new OngoingEnchant(Effects.Attack_N(1))
 			});
 
@@ -626,7 +658,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Your spells cost (5) more this turn.
 			// --------------------------------------------------------
-			cards.Add("FP1_030e", new Power {
+			cards.Add("FP1_030e", new Power
+			{
 				Aura = new Aura(AuraType.OP_HAND, Effects.AddCost(5))
 				{
 					Condition = SelfCondition.IsSpell,
@@ -650,7 +683,8 @@ namespace SabberStoneCore.CardSets
 			// - CHARGE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("FP1_006", new Power {
+			cards.Add("FP1_006", new Power
+			{
 				DeathrattleTask = new DamageTask(3, EntityType.HERO)
 			});
 

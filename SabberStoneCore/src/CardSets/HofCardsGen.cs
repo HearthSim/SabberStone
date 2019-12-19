@@ -48,7 +48,8 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GIL_130", new Power {
+			cards.Add("GIL_130", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoEvenCostInDeck),
 					new FlagTask(true, new AddEnchantmentTask("GIL_130e", EntityType.SOURCE)))
@@ -65,7 +66,8 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_161", new Power {
+			cards.Add("EX1_161", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
 					new EnqueueTask(2, new DrawOpTask()))
@@ -85,7 +87,8 @@ namespace SabberStoneCore.CardSets
 			// - SPELLPOWER = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GIL_838", new Power {
+			cards.Add("GIL_838", new Power
+			{
 				// TODO Test: Black Cat_GIL_838
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoEvenCostInDeck),
@@ -104,7 +107,8 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("CS2_031", new Power {
+			cards.Add("CS2_031", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
 					ComplexTask.True(new DamageTask(4, EntityType.TARGET, true)),
@@ -123,7 +127,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_295", new Power {
+			cards.Add("EX1_295", new Power
+			{
 				Trigger = new Trigger(TriggerType.PREDAMAGE)
 				{
 					TriggerSource = TriggerSource.HERO,
@@ -162,7 +167,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Draw cards until you have as many in hand as your opponent.
 			// --------------------------------------------------------
-			cards.Add("EX1_349", new Power {
+			cards.Add("EX1_349", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new FuncNumberTask(p =>
 					{
@@ -185,7 +191,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("GIL_837", new Power {
+			cards.Add("GIL_837", new Power
+			{
 				// TODO Test: Glitter Moth_GIL_837
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoEvenCostInDeck),
@@ -214,7 +221,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_128", new Power {
+			cards.Add("EX1_128", new Power
+			{
 				PowerTask = new AddEnchantmentTask("EX1_128e", EntityType.MINIONS)
 			});
 
@@ -256,7 +264,8 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_DRAG_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_530", new Power {
+			cards.Add("GIL_530", new Power
+			{
 				// TODO Test: Murkspark Eel_GIL_530
 				// play requirement?
 				PowerTask = ComplexTask.Create(
@@ -279,7 +288,8 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// - 890 = 2
 			// --------------------------------------------------------
-			cards.Add("EX1_310", new Power {
+			cards.Add("EX1_310", new Power
+			{
 				PowerTask = ComplexTask.DiscardRandomCard(2)
 			});
 			// ---------------------------------------- SPELL - WARLOCK
@@ -293,7 +303,8 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_316", new Power {
+			cards.Add("EX1_316", new Power
+			{
 				PowerTask = new AddEnchantmentTask("EX1_316e", EntityType.TARGET)
 			});
 
@@ -307,7 +318,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: This minion has +4/+4, but will die a horrible death at the end of the turn.
 			// --------------------------------------------------------
-			cards.Add("EX1_316e", new Power {
+			cards.Add("EX1_316e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_316e"),
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
@@ -332,7 +344,8 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_016", new Power {
+			cards.Add("EX1_016", new Power
+			{
 				DeathrattleTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.OP_MINIONS),
 					new ControlTask(EntityType.STACK))
@@ -347,7 +360,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_050", new Power {
+			cards.Add("EX1_050", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new EnqueueTask(2, new DrawTask()),
 					new EnqueueTask(2, new DrawOpTask()))
@@ -363,7 +377,8 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_062", new Power {
+			cards.Add("EX1_062", new Power
+			{
 				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p =>
 				{
 					int count = 0;
@@ -387,7 +402,8 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_112", new Power {
+			cards.Add("EX1_112", new Power
+			{
 				// TODO [EX1_112] Gelbin Mekkatorque && Test: Gelbin Mekkatorque_EX1_112
 				//PowerTask = null,
 				//Trigger = null,
@@ -404,7 +420,8 @@ namespace SabberStoneCore.CardSets
 			// - SPELLPOWER = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_284", new Power {
+			cards.Add("EX1_284", new Power
+			{
 				PowerTask = new DrawTask()
 			});
 
@@ -418,7 +435,8 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - CANT_ATTACK = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_298", new Power {
+			cards.Add("EX1_298", new Power
+			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
 					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8)
@@ -431,7 +449,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Costs (1) less for each damage your hero has taken.
 			// --------------------------------------------------------
-			cards.Add("EX1_620", new Power {
+			cards.Add("EX1_620", new Power
+			{
 				Aura = new AdaptiveCostEffect(p => p.Controller.Hero.Damage)
 			});
 			// --------------------------------------- MINION - NEUTRAL
@@ -448,7 +467,8 @@ namespace SabberStoneCore.CardSets
 			// - COLLECTIONMANAGER_FILTER_MANA_EVEN = 1
 			// - START_OF_GAME = 1
 			// --------------------------------------------------------
-			cards.Add("GIL_692", new Power {
+			cards.Add("GIL_692", new Power
+			{
 				Trigger = new Trigger(TriggerType.GAME_START)
 				{
 					TriggerActivation = TriggerActivation.DECK,
@@ -473,7 +493,8 @@ namespace SabberStoneCore.CardSets
 			// - COLLECTIONMANAGER_FILTER_MANA_ODD = 1
 			// - START_OF_GAME = 1
 			// --------------------------------------------------------
-			cards.Add("GIL_826", new Power {
+			cards.Add("GIL_826", new Power
+			{
 				Trigger = new Trigger(TriggerType.GAME_START)
 				{
 					TriggerActivation = TriggerActivation.DECK,
@@ -493,7 +514,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("NEW1_016", new Power {
+			cards.Add("NEW1_016", new Power
+			{
 				// TODO [NEW1_016] Captain's Parrot && Test: Captain's Parrot_NEW1_016
 				//PowerTask = null,
 				//Trigger = null,
@@ -511,7 +533,8 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("PRO_001", new Power {
+			cards.Add("PRO_001", new Power
+			{
 				// TODO [PRO_001] Elite Tauren Chieftain && Test: Elite Tauren Chieftain_PRO_001
 				//PowerTask = null,
 				//Trigger = null,
@@ -527,7 +550,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2 Attack from Murloc Warleader.
 			// --------------------------------------------------------
-			cards.Add("EX1_507e", new Power {
+			cards.Add("EX1_507e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("EX1_507e")
 			});
 
@@ -538,7 +562,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Stats.
 			// --------------------------------------------------------
-			cards.Add("Mekka3e", new Power {
+			cards.Add("Mekka3e", new Power
+			{
 				// TODO [Mekka3e] Emboldened! && Test: Emboldened!_Mekka3e
 				//PowerTask = null,
 				//Trigger = null,
@@ -553,7 +578,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - MORPH = 1
 			// --------------------------------------------------------
-			cards.Add("Mekka4e", new Power {
+			cards.Add("Mekka4e", new Power
+			{
 				// TODO [Mekka4e] Transformed && Test: Transformed_Mekka4e
 				//PowerTask = null,
 				//Trigger = null,
@@ -565,7 +591,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Southsea Captain is granting +1/+1.
 			// --------------------------------------------------------
-			cards.Add("NEW1_027e", new Power {
+			cards.Add("NEW1_027e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("NEW1_027e")
 			});
 
@@ -576,7 +603,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the start of your turn, destroy this minion and draw 3 cards.
 			// --------------------------------------------------------
-			cards.Add("Mekka1", new Power {
+			cards.Add("Mekka1", new Power
+			{
 				// TODO [Mekka1] Homing Chicken && Test: Homing Chicken_Mekka1
 				//PowerTask = null,
 				//Trigger = null,
@@ -588,7 +616,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, restore 6 Health to a damaged character.
 			// --------------------------------------------------------
-			cards.Add("Mekka2", new Power {
+			cards.Add("Mekka2", new Power
+			{
 				// TODO [Mekka2] Repair Bot && Test: Repair Bot_Mekka2
 				//PowerTask = null,
 				//Trigger = null,
@@ -600,7 +629,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, give a random minion +1/+1.
 			// --------------------------------------------------------
-			cards.Add("Mekka3", new Power {
+			cards.Add("Mekka3", new Power
+			{
 				// TODO [Mekka3] Emboldener 3000 && Test: Emboldener 3000_Mekka3
 				InfoCardId = "Mekka3e",
 				//PowerTask = null,
@@ -613,7 +643,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the start of your turn, transform a random minion into a 1/1 Chicken.
 			// --------------------------------------------------------
-			cards.Add("Mekka4", new Power {
+			cards.Add("Mekka4", new Power
+			{
 				// TODO [Mekka4] Poultryizer && Test: Poultryizer_Mekka4
 				InfoCardId = "Mekka4e",
 				//PowerTask = null,
@@ -626,7 +657,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <i>Hey Chicken!</i>
 			// --------------------------------------------------------
-			cards.Add("Mekka4t", new Power {
+			cards.Add("Mekka4t", new Power
+			{
 				// TODO [Mekka4t] Chicken && Test: Chicken_Mekka4t
 				//PowerTask = null,
 				//Trigger = null,
@@ -636,7 +668,8 @@ namespace SabberStoneCore.CardSets
 			// [PRO_001at] Murloc (*) - COST:0 [ATK:1/HP:1]
 			// - Race: murloc, Set: hof,
 			// --------------------------------------------------------
-			cards.Add("PRO_001at", new Power {
+			cards.Add("PRO_001at", new Power
+			{
 				// TODO [PRO_001at] Murloc && Test: Murloc_PRO_001at
 				//PowerTask = null,
 				//Trigger = null,
@@ -651,7 +684,8 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("PRO_001a", new Power {
+			cards.Add("PRO_001a", new Power
+			{
 				// TODO [PRO_001a] I Am Murloc && Test: I Am Murloc_PRO_001a
 				//PowerTask = null,
 				//Trigger = null,
@@ -666,7 +700,8 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("PRO_001b", new Power {
+			cards.Add("PRO_001b", new Power
+			{
 				// TODO [PRO_001b] Rogues Do It... && Test: Rogues Do It..._PRO_001b
 				//PowerTask = null,
 				//Trigger = null,
@@ -683,7 +718,8 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("PRO_001c", new Power {
+			cards.Add("PRO_001c", new Power
+			{
 				// TODO [PRO_001c] Power of the Horde && Test: Power of the Horde_PRO_001c
 				//PowerTask = null,
 				//Trigger = null,

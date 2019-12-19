@@ -30,7 +30,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 725
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_200h", new Power {
+			cards.Add("TRLA_200h", new Power
+			{
 				// TODO [TRLA_200h] War Master Voone && Test: War Master Voone_TRLA_200h
 				//PowerTask = null,
 				//Trigger = null,
@@ -46,7 +47,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 687
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_201h", new Power {
+			cards.Add("TRLA_201h", new Power
+			{
 				// TODO [TRLA_201h] Zentimo && Test: Zentimo_TRLA_201h
 				//PowerTask = null,
 				//Trigger = null,
@@ -62,7 +64,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 730
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_202h", new Power {
+			cards.Add("TRLA_202h", new Power
+			{
 				// TODO [TRLA_202h] Captain Hooktusk && Test: Captain Hooktusk_TRLA_202h
 				//PowerTask = null,
 				//Trigger = null,
@@ -78,7 +81,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 472
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_203h", new Power {
+			cards.Add("TRLA_203h", new Power
+			{
 				// TODO [TRLA_203h] High Priest Thekal && Test: High Priest Thekal_TRLA_203h
 				//PowerTask = null,
 				//Trigger = null,
@@ -94,7 +98,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 53943
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_204h", new Power {
+			cards.Add("TRLA_204h", new Power
+			{
 				// TODO [TRLA_204h] Zul'jin && Test: Zul'jin_TRLA_204h
 				//PowerTask = null,
 				//Trigger = null,
@@ -110,7 +115,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 1123
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_205h", new Power {
+			cards.Add("TRLA_205h", new Power
+			{
 				// TODO [TRLA_205h] Wardruid Loti && Test: Wardruid Loti_TRLA_205h
 				//PowerTask = null,
 				//Trigger = null,
@@ -126,7 +132,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 300
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_206h", new Power {
+			cards.Add("TRLA_206h", new Power
+			{
 				// TODO [TRLA_206h] High Priestess Jeklik && Test: High Priestess Jeklik_TRLA_206h
 				//PowerTask = null,
 				//Trigger = null,
@@ -142,7 +149,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 807
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_207h", new Power {
+			cards.Add("TRLA_207h", new Power
+			{
 				// TODO [TRLA_207h] Hex Lord Malacrass && Test: Hex Lord Malacrass_TRLA_207h
 				//PowerTask = null,
 				//Trigger = null,
@@ -158,7 +166,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 479
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_208h", new Power {
+			cards.Add("TRLA_208h", new Power
+			{
 				// TODO [TRLA_208h] Princess Talanji && Test: Princess Talanji_TRLA_208h
 				//PowerTask = null,
 				//Trigger = null,
@@ -172,7 +181,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 479
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_209h", new Power {
+			cards.Add("TRLA_209h", new Power
+			{
 				// TODO [TRLA_209h] Rikkar && Test: Rikkar_TRLA_209h
 				//PowerTask = null,
 				//Trigger = null,
@@ -186,7 +196,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 1123
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_209h_Druid", new Power {
+			cards.Add("TRLA_209h_Druid", new Power
+			{
 				// TODO [TRLA_209h_Druid] Rikkar && Test: Rikkar_TRLA_209h_Druid
 				//PowerTask = null,
 				//Trigger = null,
@@ -200,7 +211,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_209h_Hunter", new Power {
+			cards.Add("TRLA_209h_Hunter", new Power
+			{
 				// TODO [TRLA_209h_Hunter] Rikkar && Test: Rikkar_TRLA_209h_Hunter
 				//PowerTask = null,
 				//Trigger = null,
@@ -214,7 +226,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 807
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_209h_Mage", new Power {
+			cards.Add("TRLA_209h_Mage", new Power
+			{
 				// TODO [TRLA_209h_Mage] Rikkar && Test: Rikkar_TRLA_209h_Mage
 				//PowerTask = null,
 				//Trigger = null,
@@ -228,7 +241,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 472
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_209h_Paladin", new Power {
+			cards.Add("TRLA_209h_Paladin", new Power
+			{
 				// TODO [TRLA_209h_Paladin] Rikkar && Test: Rikkar_TRLA_209h_Paladin
 				//PowerTask = null,
 				//Trigger = null,
@@ -242,7 +256,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 479
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_209h_Priest", new Power {
+			cards.Add("TRLA_209h_Priest", new Power
+			{
 				// TODO [TRLA_209h_Priest] Rikkar && Test: Rikkar_TRLA_209h_Priest
 				//PowerTask = null,
 				//Trigger = null,
@@ -256,7 +271,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 730
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_209h_Rogue", new Power {
+			cards.Add("TRLA_209h_Rogue", new Power
+			{
 				// TODO [TRLA_209h_Rogue] Rikkar && Test: Rikkar_TRLA_209h_Rogue
 				//PowerTask = null,
 				//Trigger = null,
@@ -270,7 +286,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 687
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_209h_Shaman", new Power {
+			cards.Add("TRLA_209h_Shaman", new Power
+			{
 				// TODO [TRLA_209h_Shaman] Rikkar && Test: Rikkar_TRLA_209h_Shaman
 				//PowerTask = null,
 				//Trigger = null,
@@ -284,7 +301,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 300
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_209h_Warlock", new Power {
+			cards.Add("TRLA_209h_Warlock", new Power
+			{
 				// TODO [TRLA_209h_Warlock] Rikkar && Test: Rikkar_TRLA_209h_Warlock
 				//PowerTask = null,
 				//Trigger = null,
@@ -298,7 +316,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 725
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_209h_Warrior", new Power {
+			cards.Add("TRLA_209h_Warrior", new Power
+			{
 				// TODO [TRLA_209h_Warrior] Rikkar && Test: Rikkar_TRLA_209h_Warrior
 				//PowerTask = null,
 				//Trigger = null,
@@ -324,7 +343,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_STEADY_SHOT = 0
 			// - REQ_MINION_OR_ENEMY_HERO = 0
 			// --------------------------------------------------------
-			cards.Add("TRLA_065p", new Power {
+			cards.Add("TRLA_065p", new Power
+			{
 				// TODO [TRLA_065p] Steady Throw && Test: Steady Throw_TRLA_065p
 				//PowerTask = null,
 				//Trigger = null,
@@ -343,7 +363,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_115e", new Power {
+			cards.Add("TRLA_115e", new Power
+			{
 				// TODO [TRLA_115e] Gonk's Mark && Test: Gonk's Mark_TRLA_115e
 				//PowerTask = null,
 				//Trigger = null,
@@ -358,7 +379,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_124e", new Power {
+			cards.Add("TRLA_124e", new Power
+			{
 				// TODO [TRLA_124e] Empowered && Test: Empowered_TRLA_124e
 				//PowerTask = null,
 				//Trigger = null,
@@ -374,7 +396,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - TAG_ONE_TURN_EFFECT = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_125e", new Power {
+			cards.Add("TRLA_125e", new Power
+			{
 				// TODO [TRLA_125e] The Fan Favorite && Test: The Fan Favorite_TRLA_125e
 				//PowerTask = null,
 				//Trigger = null,
@@ -399,7 +422,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_112", new Power {
+			cards.Add("TRLA_112", new Power
+			{
 				// TODO [TRLA_112] Gonk's Armament && Test: Gonk's Armament_TRLA_112
 				//PowerTask = null,
 				//Trigger = null,
@@ -421,7 +445,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_112t", new Power {
+			cards.Add("TRLA_112t", new Power
+			{
 				// TODO [TRLA_112t] Gonk's Armament && Test: Gonk's Armament_TRLA_112t
 				//PowerTask = null,
 				//Trigger = null,
@@ -445,7 +470,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_115", new Power {
+			cards.Add("TRLA_115", new Power
+			{
 				// TODO [TRLA_115] Gonk's Mark && Test: Gonk's Mark_TRLA_115
 				InfoCardId = "TRLA_115e",
 				//PowerTask = null,
@@ -468,7 +494,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_115t", new Power {
+			cards.Add("TRLA_115t", new Power
+			{
 				// TODO [TRLA_115t] Gonk's Mark && Test: Gonk's Mark_TRLA_115t
 				//PowerTask = null,
 				//Trigger = null,
@@ -493,7 +520,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_116", new Power {
+			cards.Add("TRLA_116", new Power
+			{
 				// TODO [TRLA_116] Bonds of Balance && Test: Bonds of Balance_TRLA_116
 				InfoCardId = "TRLA_116e",
 				//PowerTask = null,
@@ -516,7 +544,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_116t", new Power {
+			cards.Add("TRLA_116t", new Power
+			{
 				// TODO [TRLA_116t] Bonds of Balance && Test: Bonds of Balance_TRLA_116t
 				//PowerTask = null,
 				//Trigger = null,
@@ -535,7 +564,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_121", new Power {
+			cards.Add("TRLA_121", new Power
+			{
 				// TODO [TRLA_121] Water Spirit && Test: Water Spirit_TRLA_121
 				//PowerTask = null,
 				//Trigger = null,
@@ -554,7 +584,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_122", new Power {
+			cards.Add("TRLA_122", new Power
+			{
 				// TODO [TRLA_122] Direhorn Stomper && Test: Direhorn Stomper_TRLA_122
 				//PowerTask = null,
 				//Trigger = null,
@@ -572,7 +603,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_123", new Power {
+			cards.Add("TRLA_123", new Power
+			{
 				// TODO [TRLA_123] Succoring Skyscreamer && Test: Succoring Skyscreamer_TRLA_123
 				//PowerTask = null,
 				//Trigger = null,
@@ -589,7 +621,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_124", new Power {
+			cards.Add("TRLA_124", new Power
+			{
 				// TODO [TRLA_124] Zandalari Striker && Test: Zandalari Striker_TRLA_124
 				InfoCardId = "TRLA_124e",
 				//PowerTask = null,
@@ -607,7 +640,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_125", new Power {
+			cards.Add("TRLA_125", new Power
+			{
 				// TODO [TRLA_125] The Fan Favorite && Test: The Fan Favorite_TRLA_125
 				InfoCardId = "TRLA_125e",
 				//PowerTask = null,
@@ -627,7 +661,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_127", new Power {
+			cards.Add("TRLA_127", new Power
+			{
 				// TODO [TRLA_127] Astral Raptor && Test: Astral Raptor_TRLA_127
 				//PowerTask = null,
 				//Trigger = null,
@@ -642,7 +677,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_01", new Power {
+			cards.Add("TRLA_Druid_01", new Power
+			{
 				// TODO [TRLA_Druid_01] Natural Defense && Test: Natural Defense_TRLA_Druid_01
 				//PowerTask = null,
 				//Trigger = null,
@@ -657,7 +693,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_02", new Power {
+			cards.Add("TRLA_Druid_02", new Power
+			{
 				// TODO [TRLA_Druid_02] Feral && Test: Feral_TRLA_Druid_02
 				//PowerTask = null,
 				//Trigger = null,
@@ -672,7 +709,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_03", new Power {
+			cards.Add("TRLA_Druid_03", new Power
+			{
 				// TODO [TRLA_Druid_03] Nature's Blessing && Test: Nature's Blessing_TRLA_Druid_03
 				//PowerTask = null,
 				//Trigger = null,
@@ -687,7 +725,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_04", new Power {
+			cards.Add("TRLA_Druid_04", new Power
+			{
 				// TODO [TRLA_Druid_04] Saplings && Test: Saplings_TRLA_Druid_04
 				//PowerTask = null,
 				//Trigger = null,
@@ -702,7 +741,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_05", new Power {
+			cards.Add("TRLA_Druid_05", new Power
+			{
 				// TODO [TRLA_Druid_05] Big Draws && Test: Big Draws_TRLA_Druid_05
 				//PowerTask = null,
 				//Trigger = null,
@@ -717,7 +757,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_06", new Power {
+			cards.Add("TRLA_Druid_06", new Power
+			{
 				// TODO [TRLA_Druid_06] Wise Decisions && Test: Wise Decisions_TRLA_Druid_06
 				//PowerTask = null,
 				//Trigger = null,
@@ -732,7 +773,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_07", new Power {
+			cards.Add("TRLA_Druid_07", new Power
+			{
 				// TODO [TRLA_Druid_07] Beasts && Test: Beasts_TRLA_Druid_07
 				//PowerTask = null,
 				//Trigger = null,
@@ -747,7 +789,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_10", new Power {
+			cards.Add("TRLA_Druid_10", new Power
+			{
 				// TODO [TRLA_Druid_10] Nature's Wrath && Test: Nature's Wrath_TRLA_Druid_10
 				//PowerTask = null,
 				//Trigger = null,
@@ -762,7 +805,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_13", new Power {
+			cards.Add("TRLA_Druid_13", new Power
+			{
 				// TODO [TRLA_Druid_13] Rumble Kings && Test: Rumble Kings_TRLA_Druid_13
 				//PowerTask = null,
 				//Trigger = null,
@@ -777,7 +821,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_14", new Power {
+			cards.Add("TRLA_Druid_14", new Power
+			{
 				// TODO [TRLA_Druid_14] Going Wild && Test: Going Wild_TRLA_Druid_14
 				//PowerTask = null,
 				//Trigger = null,
@@ -799,7 +844,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - OVERKILL = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_162e", new Power {
+			cards.Add("TRLA_162e", new Power
+			{
 				// TODO [TRLA_162e] Halazzi's Hunt && Test: Halazzi's Hunt_TRLA_162e
 				InfoCardId = "TRLA_162e2",
 				//PowerTask = null,
@@ -813,7 +859,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_162e2", new Power {
+			cards.Add("TRLA_162e2", new Power
+			{
 				// TODO [TRLA_162e2] Halazzi's Hunt Enchantment && Test: Halazzi's Hunt Enchantment_TRLA_162e2
 				//PowerTask = null,
 				//Trigger = null,
@@ -828,7 +875,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_163e", new Power {
+			cards.Add("TRLA_163e", new Power
+			{
 				// TODO [TRLA_163e] Halazzi's Haste && Test: Halazzi's Haste_TRLA_163e
 				InfoCardId = "TRLA_163e3",
 				//PowerTask = null,
@@ -844,7 +892,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_163e3", new Power {
+			cards.Add("TRLA_163e3", new Power
+			{
 				// TODO [TRLA_163e3] Halazzi's Protector && Test: Halazzi's Protector_TRLA_163e3
 				//PowerTask = null,
 				//Trigger = null,
@@ -860,7 +909,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - POISONOUS = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_163e4", new Power {
+			cards.Add("TRLA_163e4", new Power
+			{
 				// TODO [TRLA_163e4] Halazzi's Wrath && Test: Halazzi's Wrath_TRLA_163e4
 				//PowerTask = null,
 				//Trigger = null,
@@ -875,7 +925,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_169e", new Power {
+			cards.Add("TRLA_169e", new Power
+			{
 				// TODO [TRLA_169e] Slamm'd N Jamm'd && Test: Slamm'd N Jamm'd_TRLA_169e
 				//PowerTask = null,
 				//Trigger = null,
@@ -900,7 +951,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_110", new Power {
+			cards.Add("TRLA_110", new Power
+			{
 				// TODO [TRLA_110] Halazzi's Trap && Test: Halazzi's Trap_TRLA_110
 				//PowerTask = null,
 				//Trigger = null,
@@ -922,7 +974,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_110t", new Power {
+			cards.Add("TRLA_110t", new Power
+			{
 				// TODO [TRLA_110t] Halazzi's Trap && Test: Halazzi's Trap_TRLA_110t
 				//PowerTask = null,
 				//Trigger = null,
@@ -950,7 +1003,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - OVERKILL = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_162", new Power {
+			cards.Add("TRLA_162", new Power
+			{
 				// TODO [TRLA_162] Halazzi's Hunt && Test: Halazzi's Hunt_TRLA_162
 				InfoCardId = "TRLA_162e",
 				//PowerTask = null,
@@ -973,7 +1027,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_162t", new Power {
+			cards.Add("TRLA_162t", new Power
+			{
 				// TODO [TRLA_162t] Halazzi's Hunt && Test: Halazzi's Hunt_TRLA_162t
 				//PowerTask = null,
 				//Trigger = null,
@@ -1003,7 +1058,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - POISONOUS = 1
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_163", new Power {
+			cards.Add("TRLA_163", new Power
+			{
 				// TODO [TRLA_163] Halazzi's Guise && Test: Halazzi's Guise_TRLA_163
 				InfoCardId = "TRLA_163e",
 				//PowerTask = null,
@@ -1026,7 +1082,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_163t", new Power {
+			cards.Add("TRLA_163t", new Power
+			{
 				// TODO [TRLA_163t] Halazzi's Guise && Test: Halazzi's Guise_TRLA_163t
 				//PowerTask = null,
 				//Trigger = null,
@@ -1047,7 +1104,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_164", new Power {
+			cards.Add("TRLA_164", new Power
+			{
 				// TODO [TRLA_164] Shadowmaw Panther && Test: Shadowmaw Panther_TRLA_164
 				InfoCardId = "TRLA_164e",
 				//PowerTask = null,
@@ -1065,7 +1123,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_165", new Power {
+			cards.Add("TRLA_165", new Power
+			{
 				// TODO [TRLA_165] Battlestarved Lynx && Test: Battlestarved Lynx_TRLA_165
 				//PowerTask = null,
 				//Trigger = null,
@@ -1083,7 +1142,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_166", new Power {
+			cards.Add("TRLA_166", new Power
+			{
 				// TODO [TRLA_166] Troll Harbinger && Test: Troll Harbinger_TRLA_166
 				//PowerTask = null,
 				//Trigger = null,
@@ -1102,7 +1162,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_167", new Power {
+			cards.Add("TRLA_167", new Power
+			{
 				// TODO [TRLA_167] Rabid Saurolisk && Test: Rabid Saurolisk_TRLA_167
 				//PowerTask = null,
 				//Trigger = null,
@@ -1118,7 +1179,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_168", new Power {
+			cards.Add("TRLA_168", new Power
+			{
 				// TODO [TRLA_168] Streetsmuggler && Test: Streetsmuggler_TRLA_168
 				//PowerTask = null,
 				//Trigger = null,
@@ -1135,7 +1197,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_169", new Power {
+			cards.Add("TRLA_169", new Power
+			{
 				// TODO [TRLA_169] Slamma Jamma && Test: Slamma Jamma_TRLA_169
 				InfoCardId = "TRLA_169e",
 				//PowerTask = null,
@@ -1152,7 +1215,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_01", new Power {
+			cards.Add("TRLA_Hunter_01", new Power
+			{
 				// TODO [TRLA_Hunter_01] Fresh Meat && Test: Fresh Meat_TRLA_Hunter_01
 				//PowerTask = null,
 				//Trigger = null,
@@ -1168,7 +1232,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_02", new Power {
+			cards.Add("TRLA_Hunter_02", new Power
+			{
 				// TODO [TRLA_Hunter_02] Big Beasts && Test: Big Beasts_TRLA_Hunter_02
 				//PowerTask = null,
 				//Trigger = null,
@@ -1184,7 +1249,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_03", new Power {
+			cards.Add("TRLA_Hunter_03", new Power
+			{
 				// TODO [TRLA_Hunter_03] Trick Shots && Test: Trick Shots_TRLA_Hunter_03
 				//PowerTask = null,
 				//Trigger = null,
@@ -1200,7 +1266,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_04", new Power {
+			cards.Add("TRLA_Hunter_04", new Power
+			{
 				// TODO [TRLA_Hunter_04] Beast Caller && Test: Beast Caller_TRLA_Hunter_04
 				//PowerTask = null,
 				//Trigger = null,
@@ -1216,7 +1283,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_05", new Power {
+			cards.Add("TRLA_Hunter_05", new Power
+			{
 				// TODO [TRLA_Hunter_05] Secrets && Test: Secrets_TRLA_Hunter_05
 				//PowerTask = null,
 				//Trigger = null,
@@ -1232,7 +1300,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_06", new Power {
+			cards.Add("TRLA_Hunter_06", new Power
+			{
 				// TODO [TRLA_Hunter_06] Beast Training && Test: Beast Training_TRLA_Hunter_06
 				//PowerTask = null,
 				//Trigger = null,
@@ -1248,7 +1317,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_09", new Power {
+			cards.Add("TRLA_Hunter_09", new Power
+			{
 				// TODO [TRLA_Hunter_09] Deathrattle && Test: Deathrattle_TRLA_Hunter_09
 				//PowerTask = null,
 				//Trigger = null,
@@ -1264,7 +1334,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_10", new Power {
+			cards.Add("TRLA_Hunter_10", new Power
+			{
 				// TODO [TRLA_Hunter_10] Legendary && Test: Legendary_TRLA_Hunter_10
 				//PowerTask = null,
 				//Trigger = null,
@@ -1280,7 +1351,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_11", new Power {
+			cards.Add("TRLA_Hunter_11", new Power
+			{
 				// TODO [TRLA_Hunter_11] Survival Tactics && Test: Survival Tactics_TRLA_Hunter_11
 				//PowerTask = null,
 				//Trigger = null,
@@ -1296,7 +1368,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_12", new Power {
+			cards.Add("TRLA_Hunter_12", new Power
+			{
 				// TODO [TRLA_Hunter_12] Scrapyard && Test: Scrapyard_TRLA_Hunter_12
 				//PowerTask = null,
 				//Trigger = null,
@@ -1325,7 +1398,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_108", new Power {
+			cards.Add("TRLA_108", new Power
+			{
 				// TODO [TRLA_108] Jan'alai's Mantle && Test: Jan'alai's Mantle_TRLA_108
 				//PowerTask = null,
 				//Trigger = null,
@@ -1346,7 +1420,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_108t", new Power {
+			cards.Add("TRLA_108t", new Power
+			{
 				// TODO [TRLA_108t] Jan'alai's Mantle && Test: Jan'alai's Mantle_TRLA_108t
 				//PowerTask = null,
 				//Trigger = null,
@@ -1372,7 +1447,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_128", new Power {
+			cards.Add("TRLA_128", new Power
+			{
 				// TODO [TRLA_128] Jan'alai's Flame && Test: Jan'alai's Flame_TRLA_128
 				InfoCardId = "TRLA_128e",
 				//PowerTask = null,
@@ -1395,7 +1471,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_128t", new Power {
+			cards.Add("TRLA_128t", new Power
+			{
 				// TODO [TRLA_128t] Jan'alai's Flame && Test: Jan'alai's Flame_TRLA_128t
 				//PowerTask = null,
 				//Trigger = null,
@@ -1420,7 +1497,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_129", new Power {
+			cards.Add("TRLA_129", new Power
+			{
 				// TODO [TRLA_129] Jan'alai's Progeny && Test: Jan'alai's Progeny_TRLA_129
 				//PowerTask = null,
 				//Trigger = null,
@@ -1442,7 +1520,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_129t", new Power {
+			cards.Add("TRLA_129t", new Power
+			{
 				// TODO [TRLA_129t] Jan'alai's Progeny && Test: Jan'alai's Progeny_TRLA_129t
 				//PowerTask = null,
 				//Trigger = null,
@@ -1461,7 +1540,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_130", new Power {
+			cards.Add("TRLA_130", new Power
+			{
 				// TODO [TRLA_130] Razzle Dazzler && Test: Razzle Dazzler_TRLA_130
 				//PowerTask = null,
 				//Trigger = null,
@@ -1481,7 +1561,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - SPELLPOWER = 1
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_131", new Power {
+			cards.Add("TRLA_131", new Power
+			{
 				// TODO [TRLA_131] Glyph Guardian && Test: Glyph Guardian_TRLA_131
 				InfoCardId = "TRLA_131e",
 				//PowerTask = null,
@@ -1502,7 +1583,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_132", new Power {
+			cards.Add("TRLA_132", new Power
+			{
 				// TODO [TRLA_132] Frostweaver && Test: Frostweaver_TRLA_132
 				//PowerTask = null,
 				//Trigger = null,
@@ -1519,7 +1601,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_133", new Power {
+			cards.Add("TRLA_133", new Power
+			{
 				// TODO [TRLA_133] Fireslinger && Test: Fireslinger_TRLA_133
 				//PowerTask = null,
 				//Trigger = null,
@@ -1538,7 +1621,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_134", new Power {
+			cards.Add("TRLA_134", new Power
+			{
 				// TODO [TRLA_134] Showstopping Conjurer && Test: Showstopping Conjurer_TRLA_134
 				//PowerTask = null,
 				//Trigger = null,
@@ -1557,7 +1641,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_135", new Power {
+			cards.Add("TRLA_135", new Power
+			{
 				// TODO [TRLA_135] Fan of Flames && Test: Fan of Flames_TRLA_135
 				//PowerTask = null,
 				//Trigger = null,
@@ -1575,7 +1660,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TRLA_129s", new Power {
+			cards.Add("TRLA_129s", new Power
+			{
 				// TODO [TRLA_129s] Frostfire && Test: Frostfire_TRLA_129s
 				//PowerTask = null,
 				//Trigger = null,
@@ -1590,7 +1676,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_01", new Power {
+			cards.Add("TRLA_Mage_01", new Power
+			{
 				// TODO [TRLA_Mage_01] Heroic Power && Test: Heroic Power_TRLA_Mage_01
 				//PowerTask = null,
 				//Trigger = null,
@@ -1605,7 +1692,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_02", new Power {
+			cards.Add("TRLA_Mage_02", new Power
+			{
 				// TODO [TRLA_Mage_02] Elementals && Test: Elementals_TRLA_Mage_02
 				//PowerTask = null,
 				//Trigger = null,
@@ -1620,7 +1708,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_03", new Power {
+			cards.Add("TRLA_Mage_03", new Power
+			{
 				// TODO [TRLA_Mage_03] Big Spells && Test: Big Spells_TRLA_Mage_03
 				//PowerTask = null,
 				//Trigger = null,
@@ -1635,7 +1724,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_04", new Power {
+			cards.Add("TRLA_Mage_04", new Power
+			{
 				// TODO [TRLA_Mage_04] Fire && Test: Fire_TRLA_Mage_04
 				//PowerTask = null,
 				//Trigger = null,
@@ -1650,7 +1740,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_05", new Power {
+			cards.Add("TRLA_Mage_05", new Power
+			{
 				// TODO [TRLA_Mage_05] Frost && Test: Frost_TRLA_Mage_05
 				//PowerTask = null,
 				//Trigger = null,
@@ -1665,7 +1756,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_06", new Power {
+			cards.Add("TRLA_Mage_06", new Power
+			{
 				// TODO [TRLA_Mage_06] Magical Friends && Test: Magical Friends_TRLA_Mage_06
 				//PowerTask = null,
 				//Trigger = null,
@@ -1680,7 +1772,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_07", new Power {
+			cards.Add("TRLA_Mage_07", new Power
+			{
 				// TODO [TRLA_Mage_07] Spell Power && Test: Spell Power_TRLA_Mage_07
 				//PowerTask = null,
 				//Trigger = null,
@@ -1695,7 +1788,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_08", new Power {
+			cards.Add("TRLA_Mage_08", new Power
+			{
 				// TODO [TRLA_Mage_08] Hand Power && Test: Hand Power_TRLA_Mage_08
 				//PowerTask = null,
 				//Trigger = null,
@@ -1710,7 +1804,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_09", new Power {
+			cards.Add("TRLA_Mage_09", new Power
+			{
 				// TODO [TRLA_Mage_09] Gurubashi Legends && Test: Gurubashi Legends_TRLA_Mage_09
 				//PowerTask = null,
 				//Trigger = null,
@@ -1725,7 +1820,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_10", new Power {
+			cards.Add("TRLA_Mage_10", new Power
+			{
 				// TODO [TRLA_Mage_10] Chaos && Test: Chaos_TRLA_Mage_10
 				//PowerTask = null,
 				//Trigger = null,
@@ -1757,7 +1853,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_105", new Power {
+			cards.Add("TRLA_105", new Power
+			{
 				// TODO [TRLA_105] Shirvallah's Protection && Test: Shirvallah's Protection_TRLA_105
 				//PowerTask = null,
 				//Trigger = null,
@@ -1779,7 +1876,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_105t", new Power {
+			cards.Add("TRLA_105t", new Power
+			{
 				// TODO [TRLA_105t] Shirvallah's Protection && Test: Shirvallah's Protection_TRLA_105t
 				//PowerTask = null,
 				//Trigger = null,
@@ -1805,7 +1903,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - 1176 = 1
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_137", new Power {
+			cards.Add("TRLA_137", new Power
+			{
 				// TODO [TRLA_137] Shirvallah's Vengeance && Test: Shirvallah's Vengeance_TRLA_137
 				//PowerTask = null,
 				//Trigger = null,
@@ -1827,7 +1926,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_137t", new Power {
+			cards.Add("TRLA_137t", new Power
+			{
 				// TODO [TRLA_137t] Shirvallah's Vengeance && Test: Shirvallah's Vengeance_TRLA_137t
 				//PowerTask = null,
 				//Trigger = null,
@@ -1853,7 +1953,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_138", new Power {
+			cards.Add("TRLA_138", new Power
+			{
 				// TODO [TRLA_138] Shirvallah's Grace && Test: Shirvallah's Grace_TRLA_138
 				//PowerTask = null,
 				//Trigger = null,
@@ -1875,7 +1976,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_138t", new Power {
+			cards.Add("TRLA_138t", new Power
+			{
 				// TODO [TRLA_138t] Shirvallah's Grace && Test: Shirvallah's Grace_TRLA_138t
 				//PowerTask = null,
 				//Trigger = null,
@@ -1894,7 +1996,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_139", new Power {
+			cards.Add("TRLA_139", new Power
+			{
 				// TODO [TRLA_139] Parading Marshal && Test: Parading Marshal_TRLA_139
 				//PowerTask = null,
 				//Trigger = null,
@@ -1911,7 +2014,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_140", new Power {
+			cards.Add("TRLA_140", new Power
+			{
 				// TODO [TRLA_140] Blessed One && Test: Blessed One_TRLA_140
 				//PowerTask = null,
 				//Trigger = null,
@@ -1928,7 +2032,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_141", new Power {
+			cards.Add("TRLA_141", new Power
+			{
 				// TODO [TRLA_141] Lightchucker && Test: Lightchucker_TRLA_141
 				//PowerTask = null,
 				//Trigger = null,
@@ -1947,7 +2052,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_142", new Power {
+			cards.Add("TRLA_142", new Power
+			{
 				// TODO [TRLA_142] The Walking Fort && Test: The Walking Fort_TRLA_142
 				//PowerTask = null,
 				//Trigger = null,
@@ -1963,7 +2069,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_143", new Power {
+			cards.Add("TRLA_143", new Power
+			{
 				// TODO [TRLA_143] Gloryseeker && Test: Gloryseeker_TRLA_143
 				//PowerTask = null,
 				//Trigger = null,
@@ -1982,7 +2089,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_144", new Power {
+			cards.Add("TRLA_144", new Power
+			{
 				// TODO [TRLA_144] Exactor of Justice && Test: Exactor of Justice_TRLA_144
 				//PowerTask = null,
 				//Trigger = null,
@@ -1997,7 +2105,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_01", new Power {
+			cards.Add("TRLA_Paladin_01", new Power
+			{
 				// TODO [TRLA_Paladin_01] Magnetic && Test: Magnetic_TRLA_Paladin_01
 				//PowerTask = null,
 				//Trigger = null,
@@ -2012,7 +2121,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_02", new Power {
+			cards.Add("TRLA_Paladin_02", new Power
+			{
 				// TODO [TRLA_Paladin_02] Healing && Test: Healing_TRLA_Paladin_02
 				//PowerTask = null,
 				//Trigger = null,
@@ -2027,7 +2137,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_03", new Power {
+			cards.Add("TRLA_Paladin_03", new Power
+			{
 				// TODO [TRLA_Paladin_03] Recruits && Test: Recruits_TRLA_Paladin_03
 				//PowerTask = null,
 				//Trigger = null,
@@ -2042,7 +2153,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_04", new Power {
+			cards.Add("TRLA_Paladin_04", new Power
+			{
 				// TODO [TRLA_Paladin_04] Self-Sacrifice && Test: Self-Sacrifice_TRLA_Paladin_04
 				//PowerTask = null,
 				//Trigger = null,
@@ -2057,7 +2169,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_05", new Power {
+			cards.Add("TRLA_Paladin_05", new Power
+			{
 				// TODO [TRLA_Paladin_05] Teambuilding && Test: Teambuilding_TRLA_Paladin_05
 				//PowerTask = null,
 				//Trigger = null,
@@ -2072,7 +2185,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_06", new Power {
+			cards.Add("TRLA_Paladin_06", new Power
+			{
 				// TODO [TRLA_Paladin_06] Reinforce && Test: Reinforce_TRLA_Paladin_06
 				//PowerTask = null,
 				//Trigger = null,
@@ -2087,7 +2201,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_07", new Power {
+			cards.Add("TRLA_Paladin_07", new Power
+			{
 				// TODO [TRLA_Paladin_07] Holy Arsenal && Test: Holy Arsenal_TRLA_Paladin_07
 				//PowerTask = null,
 				//Trigger = null,
@@ -2102,7 +2217,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_08", new Power {
+			cards.Add("TRLA_Paladin_08", new Power
+			{
 				// TODO [TRLA_Paladin_08] Secrets && Test: Secrets_TRLA_Paladin_08
 				//PowerTask = null,
 				//Trigger = null,
@@ -2117,7 +2233,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_09", new Power {
+			cards.Add("TRLA_Paladin_09", new Power
+			{
 				// TODO [TRLA_Paladin_09] Dragons && Test: Dragons_TRLA_Paladin_09
 				//PowerTask = null,
 				//Trigger = null,
@@ -2132,7 +2249,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_10", new Power {
+			cards.Add("TRLA_Paladin_10", new Power
+			{
 				// TODO [TRLA_Paladin_10] Divine Legends && Test: Divine Legends_TRLA_Paladin_10
 				//PowerTask = null,
 				//Trigger = null,
@@ -2149,7 +2267,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_114e", new Power {
+			cards.Add("TRLA_114e", new Power
+			{
 				// TODO [TRLA_114e] Bwonsamdi's Sanctum Player Enchant && Test: Bwonsamdi's Sanctum Player Enchant_TRLA_114e
 				//PowerTask = null,
 				//Trigger = null,
@@ -2164,7 +2283,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_148e", new Power {
+			cards.Add("TRLA_148e", new Power
+			{
 				// TODO [TRLA_148e] Repurposed Steel && Test: Repurposed Steel_TRLA_148e
 				//PowerTask = null,
 				//Trigger = null,
@@ -2179,7 +2299,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_153e", new Power {
+			cards.Add("TRLA_153e", new Power
+			{
 				// TODO [TRLA_153e] Attentive Conjuring && Test: Attentive Conjuring_TRLA_153e
 				//PowerTask = null,
 				//Trigger = null,
@@ -2206,7 +2327,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_114", new Power {
+			cards.Add("TRLA_114", new Power
+			{
 				// TODO [TRLA_114] Bwonsamdi's Sanctum && Test: Bwonsamdi's Sanctum_TRLA_114
 				InfoCardId = "TRLA_114e",
 				//PowerTask = null,
@@ -2229,7 +2351,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_114t", new Power {
+			cards.Add("TRLA_114t", new Power
+			{
 				// TODO [TRLA_114t] Bwonsamdi's Sanctum && Test: Bwonsamdi's Sanctum_TRLA_114t
 				//PowerTask = null,
 				//Trigger = null,
@@ -2254,7 +2377,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_146", new Power {
+			cards.Add("TRLA_146", new Power
+			{
 				// TODO [TRLA_146] Bwonsamdi's Tome && Test: Bwonsamdi's Tome_TRLA_146
 				//PowerTask = null,
 				//Trigger = null,
@@ -2276,7 +2400,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_146t", new Power {
+			cards.Add("TRLA_146t", new Power
+			{
 				// TODO [TRLA_146t] Bwonsamdi's Tome && Test: Bwonsamdi's Tome_TRLA_146t
 				//PowerTask = null,
 				//Trigger = null,
@@ -2300,7 +2425,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_147", new Power {
+			cards.Add("TRLA_147", new Power
+			{
 				// TODO [TRLA_147] Bwonsamdi's Covenant && Test: Bwonsamdi's Covenant_TRLA_147
 				//PowerTask = null,
 				//Trigger = null,
@@ -2322,7 +2448,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_147t", new Power {
+			cards.Add("TRLA_147t", new Power
+			{
 				// TODO [TRLA_147t] Bwonsamdi's Covenant && Test: Bwonsamdi's Covenant_TRLA_147t
 				//PowerTask = null,
 				//Trigger = null,
@@ -2341,7 +2468,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_148", new Power {
+			cards.Add("TRLA_148", new Power
+			{
 				// TODO [TRLA_148] Weaponized Zombie && Test: Weaponized Zombie_TRLA_148
 				InfoCardId = "TRLA_148e",
 				//PowerTask = null,
@@ -2360,7 +2488,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_149", new Power {
+			cards.Add("TRLA_149", new Power
+			{
 				// TODO [TRLA_149] Ghastcoiler && Test: Ghastcoiler_TRLA_149
 				//PowerTask = null,
 				//Trigger = null,
@@ -2381,7 +2510,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_150", new Power {
+			cards.Add("TRLA_150", new Power
+			{
 				// TODO [TRLA_150] Bloodwash Medic && Test: Bloodwash Medic_TRLA_150
 				//PowerTask = null,
 				//Trigger = null,
@@ -2398,7 +2528,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_151", new Power {
+			cards.Add("TRLA_151", new Power
+			{
 				// TODO [TRLA_151] Bwonsamdi's Keeper && Test: Bwonsamdi's Keeper_TRLA_151
 				//PowerTask = null,
 				//Trigger = null,
@@ -2415,7 +2546,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_152", new Power {
+			cards.Add("TRLA_152", new Power
+			{
 				// TODO [TRLA_152] Soulsapper && Test: Soulsapper_TRLA_152
 				//PowerTask = null,
 				//Trigger = null,
@@ -2432,7 +2564,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_153", new Power {
+			cards.Add("TRLA_153", new Power
+			{
 				// TODO [TRLA_153] Conjuring Attendant && Test: Conjuring Attendant_TRLA_153
 				InfoCardId = "TRLA_153e",
 				//PowerTask = null,
@@ -2448,7 +2581,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_01", new Power {
+			cards.Add("TRLA_Priest_01", new Power
+			{
 				// TODO [TRLA_Priest_01] Dying Words && Test: Dying Words_TRLA_Priest_01
 				//PowerTask = null,
 				//Trigger = null,
@@ -2463,7 +2597,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_02", new Power {
+			cards.Add("TRLA_Priest_02", new Power
+			{
 				// TODO [TRLA_Priest_02] Healing && Test: Healing_TRLA_Priest_02
 				//PowerTask = null,
 				//Trigger = null,
@@ -2478,7 +2613,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_03", new Power {
+			cards.Add("TRLA_Priest_03", new Power
+			{
 				// TODO [TRLA_Priest_03] Inspired by the Light && Test: Inspired by the Light_TRLA_Priest_03
 				//PowerTask = null,
 				//Trigger = null,
@@ -2493,7 +2629,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_04", new Power {
+			cards.Add("TRLA_Priest_04", new Power
+			{
 				// TODO [TRLA_Priest_04] Double Down && Test: Double Down_TRLA_Priest_04
 				//PowerTask = null,
 				//Trigger = null,
@@ -2508,7 +2645,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_05", new Power {
+			cards.Add("TRLA_Priest_05", new Power
+			{
 				// TODO [TRLA_Priest_05] Elementals && Test: Elementals_TRLA_Priest_05
 				//PowerTask = null,
 				//Trigger = null,
@@ -2523,7 +2661,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_06", new Power {
+			cards.Add("TRLA_Priest_06", new Power
+			{
 				// TODO [TRLA_Priest_06] Inner Strength && Test: Inner Strength_TRLA_Priest_06
 				//PowerTask = null,
 				//Trigger = null,
@@ -2538,7 +2677,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_07", new Power {
+			cards.Add("TRLA_Priest_07", new Power
+			{
 				// TODO [TRLA_Priest_07] Resilient && Test: Resilient_TRLA_Priest_07
 				//PowerTask = null,
 				//Trigger = null,
@@ -2553,7 +2693,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_08", new Power {
+			cards.Add("TRLA_Priest_08", new Power
+			{
 				// TODO [TRLA_Priest_08] Army of the Dead && Test: Army of the Dead_TRLA_Priest_08
 				//PowerTask = null,
 				//Trigger = null,
@@ -2568,7 +2709,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_09", new Power {
+			cards.Add("TRLA_Priest_09", new Power
+			{
 				// TODO [TRLA_Priest_09] Wrath && Test: Wrath_TRLA_Priest_09
 				//PowerTask = null,
 				//Trigger = null,
@@ -2583,7 +2725,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_10", new Power {
+			cards.Add("TRLA_Priest_10", new Power
+			{
 				// TODO [TRLA_Priest_10] Legends of the Light && Test: Legends of the Light_TRLA_Priest_10
 				//PowerTask = null,
 				//Trigger = null,
@@ -2602,7 +2745,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_106e", new Power {
+			cards.Add("TRLA_106e", new Power
+			{
 				// TODO [TRLA_106e] Bottled Terror && Test: Bottled Terror_TRLA_106e
 				//PowerTask = null,
 				//Trigger = null,
@@ -2631,7 +2775,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_106", new Power {
+			cards.Add("TRLA_106", new Power
+			{
 				// TODO [TRLA_106] Bottled Terror && Test: Bottled Terror_TRLA_106
 				InfoCardId = "TRLA_106e",
 				//PowerTask = null,
@@ -2654,7 +2799,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_106t", new Power {
+			cards.Add("TRLA_106t", new Power
+			{
 				// TODO [TRLA_106t] Bottled Terror && Test: Bottled Terror_TRLA_106t
 				//PowerTask = null,
 				//Trigger = null,
@@ -2679,7 +2825,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_186", new Power {
+			cards.Add("TRLA_186", new Power
+			{
 				// TODO [TRLA_186] Treasure from Below && Test: Treasure from Below_TRLA_186
 				//PowerTask = null,
 				//Trigger = null,
@@ -2701,7 +2848,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_186t", new Power {
+			cards.Add("TRLA_186t", new Power
+			{
 				// TODO [TRLA_186t] Treasure from Below && Test: Treasure from Below_TRLA_186t
 				//PowerTask = null,
 				//Trigger = null,
@@ -2726,7 +2874,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_187", new Power {
+			cards.Add("TRLA_187", new Power
+			{
 				// TODO [TRLA_187] Pirate's Mark && Test: Pirate's Mark_TRLA_187
 				//PowerTask = null,
 				//Trigger = null,
@@ -2748,7 +2897,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_187t", new Power {
+			cards.Add("TRLA_187t", new Power
+			{
 				// TODO [TRLA_187t] Pirate's Mark && Test: Pirate's Mark_TRLA_187t
 				//PowerTask = null,
 				//Trigger = null,
@@ -2770,7 +2920,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_188", new Power {
+			cards.Add("TRLA_188", new Power
+			{
 				// TODO [TRLA_188] Pesky Rascal && Test: Pesky Rascal_TRLA_188
 				//PowerTask = null,
 				//Trigger = null,
@@ -2789,7 +2940,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_189", new Power {
+			cards.Add("TRLA_189", new Power
+			{
 				// TODO [TRLA_189] Parrot Mascot && Test: Parrot Mascot_TRLA_189
 				//PowerTask = null,
 				//Trigger = null,
@@ -2807,7 +2959,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_190", new Power {
+			cards.Add("TRLA_190", new Power
+			{
 				// TODO [TRLA_190] Salty Looter && Test: Salty Looter_TRLA_190
 				//PowerTask = null,
 				//Trigger = null,
@@ -2824,7 +2977,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_191", new Power {
+			cards.Add("TRLA_191", new Power
+			{
 				// TODO [TRLA_191] Sharktoothed Harpooner && Test: Sharktoothed Harpooner_TRLA_191
 				//PowerTask = null,
 				//Trigger = null,
@@ -2842,7 +2996,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_192", new Power {
+			cards.Add("TRLA_192", new Power
+			{
 				// TODO [TRLA_192] Lobstrok Tastetester && Test: Lobstrok Tastetester_TRLA_192
 				//PowerTask = null,
 				//Trigger = null,
@@ -2861,7 +3016,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_193", new Power {
+			cards.Add("TRLA_193", new Power
+			{
 				// TODO [TRLA_193] Raging Contender && Test: Raging Contender_TRLA_193
 				//PowerTask = null,
 				//Trigger = null,
@@ -2876,7 +3032,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_01", new Power {
+			cards.Add("TRLA_Rogue_01", new Power
+			{
 				// TODO [TRLA_Rogue_01] Burgle && Test: Burgle_TRLA_Rogue_01
 				//PowerTask = null,
 				//Trigger = null,
@@ -2891,7 +3048,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_02", new Power {
+			cards.Add("TRLA_Rogue_02", new Power
+			{
 				// TODO [TRLA_Rogue_02] Pirates && Test: Pirates_TRLA_Rogue_02
 				//PowerTask = null,
 				//Trigger = null,
@@ -2906,7 +3064,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_03", new Power {
+			cards.Add("TRLA_Rogue_03", new Power
+			{
 				// TODO [TRLA_Rogue_03] Battlecry && Test: Battlecry_TRLA_Rogue_03
 				//PowerTask = null,
 				//Trigger = null,
@@ -2921,7 +3080,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_04", new Power {
+			cards.Add("TRLA_Rogue_04", new Power
+			{
 				// TODO [TRLA_Rogue_04] Aggressive Tactics && Test: Aggressive Tactics_TRLA_Rogue_04
 				//PowerTask = null,
 				//Trigger = null,
@@ -2936,7 +3096,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_05", new Power {
+			cards.Add("TRLA_Rogue_05", new Power
+			{
 				// TODO [TRLA_Rogue_05] Tricks of the Trade && Test: Tricks of the Trade_TRLA_Rogue_05
 				//PowerTask = null,
 				//Trigger = null,
@@ -2951,7 +3112,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_06", new Power {
+			cards.Add("TRLA_Rogue_06", new Power
+			{
 				// TODO [TRLA_Rogue_06] Weapons && Test: Weapons_TRLA_Rogue_06
 				//PowerTask = null,
 				//Trigger = null,
@@ -2966,7 +3128,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_07", new Power {
+			cards.Add("TRLA_Rogue_07", new Power
+			{
 				// TODO [TRLA_Rogue_07] Deathrattle && Test: Deathrattle_TRLA_Rogue_07
 				//PowerTask = null,
 				//Trigger = null,
@@ -2981,7 +3144,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_08", new Power {
+			cards.Add("TRLA_Rogue_08", new Power
+			{
 				// TODO [TRLA_Rogue_08] For the Money && Test: For the Money_TRLA_Rogue_08
 				//PowerTask = null,
 				//Trigger = null,
@@ -2996,7 +3160,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_09", new Power {
+			cards.Add("TRLA_Rogue_09", new Power
+			{
 				// TODO [TRLA_Rogue_09] Bounce && Test: Bounce_TRLA_Rogue_09
 				//PowerTask = null,
 				//Trigger = null,
@@ -3011,7 +3176,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_10", new Power {
+			cards.Add("TRLA_Rogue_10", new Power
+			{
 				// TODO [TRLA_Rogue_10] Misfits && Test: Misfits_TRLA_Rogue_10
 				//PowerTask = null,
 				//Trigger = null,
@@ -3032,7 +3198,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - 858 = 48510
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_109e", new Power {
+			cards.Add("TRLA_109e", new Power
+			{
 				// TODO [TRLA_109e] Overcharged && Test: Overcharged_TRLA_109e
 				//PowerTask = null,
 				//Trigger = null,
@@ -3060,7 +3227,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_109", new Power {
+			cards.Add("TRLA_109", new Power
+			{
 				// TODO [TRLA_109] Krag'wa's Lure && Test: Krag'wa's Lure_TRLA_109
 				InfoCardId = "TRLA_109e",
 				//PowerTask = null,
@@ -3083,7 +3251,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_109t", new Power {
+			cards.Add("TRLA_109t", new Power
+			{
 				// TODO [TRLA_109t] Krag'wa's Lure && Test: Krag'wa's Lure_TRLA_109t
 				//PowerTask = null,
 				//Trigger = null,
@@ -3110,7 +3279,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_154", new Power {
+			cards.Add("TRLA_154", new Power
+			{
 				// TODO [TRLA_154] Tribute from the Tides && Test: Tribute from the Tides_TRLA_154
 				//PowerTask = null,
 				//Trigger = null,
@@ -3132,7 +3302,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_154t", new Power {
+			cards.Add("TRLA_154t", new Power
+			{
 				// TODO [TRLA_154t] Tribute from the Tides && Test: Tribute from the Tides_TRLA_154t
 				//PowerTask = null,
 				//Trigger = null,
@@ -3155,7 +3326,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_155", new Power {
+			cards.Add("TRLA_155", new Power
+			{
 				// TODO [TRLA_155] Krag'wa's Grace && Test: Krag'wa's Grace_TRLA_155
 				//PowerTask = null,
 				//Trigger = null,
@@ -3177,7 +3349,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_155t", new Power {
+			cards.Add("TRLA_155t", new Power
+			{
 				// TODO [TRLA_155t] Krag'wa's Grace && Test: Krag'wa's Grace_TRLA_155t
 				//PowerTask = null,
 				//Trigger = null,
@@ -3200,7 +3373,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_156", new Power {
+			cards.Add("TRLA_156", new Power
+			{
 				// TODO [TRLA_156] Deepsea Diver && Test: Deepsea Diver_TRLA_156
 				//PowerTask = null,
 				//Trigger = null,
@@ -3219,7 +3393,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_157", new Power {
+			cards.Add("TRLA_157", new Power
+			{
 				// TODO [TRLA_157] Leap Frog && Test: Leap Frog_TRLA_157
 				//PowerTask = null,
 				//Trigger = null,
@@ -3239,7 +3414,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_158", new Power {
+			cards.Add("TRLA_158", new Power
+			{
 				// TODO [TRLA_158] Overcharged Totem && Test: Overcharged Totem_TRLA_158
 				//PowerTask = null,
 				//Trigger = null,
@@ -3262,7 +3438,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - OVERLOAD = 1
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_159", new Power {
+			cards.Add("TRLA_159", new Power
+			{
 				// TODO [TRLA_159] Croak Jouster && Test: Croak Jouster_TRLA_159
 				//PowerTask = null,
 				//Trigger = null,
@@ -3282,7 +3459,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_160", new Power {
+			cards.Add("TRLA_160", new Power
+			{
 				// TODO [TRLA_160] Naga Tonguelasher && Test: Naga Tonguelasher_TRLA_160
 				//PowerTask = null,
 				//Trigger = null,
@@ -3301,7 +3479,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_161", new Power {
+			cards.Add("TRLA_161", new Power
+			{
 				// TODO [TRLA_161] War Heralder && Test: War Heralder_TRLA_161
 				//PowerTask = null,
 				//Trigger = null,
@@ -3316,7 +3495,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_01", new Power {
+			cards.Add("TRLA_Shaman_01", new Power
+			{
 				// TODO [TRLA_Shaman_01] Elemental Fury && Test: Elemental Fury_TRLA_Shaman_01
 				//PowerTask = null,
 				//Trigger = null,
@@ -3331,7 +3511,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_02", new Power {
+			cards.Add("TRLA_Shaman_02", new Power
+			{
 				// TODO [TRLA_Shaman_02] Spellchasers && Test: Spellchasers_TRLA_Shaman_02
 				//PowerTask = null,
 				//Trigger = null,
@@ -3346,7 +3527,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_03", new Power {
+			cards.Add("TRLA_Shaman_03", new Power
+			{
 				// TODO [TRLA_Shaman_03] Blessings && Test: Blessings_TRLA_Shaman_03
 				//PowerTask = null,
 				//Trigger = null,
@@ -3361,7 +3543,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_04", new Power {
+			cards.Add("TRLA_Shaman_04", new Power
+			{
 				// TODO [TRLA_Shaman_04] Mutations && Test: Mutations_TRLA_Shaman_04
 				//PowerTask = null,
 				//Trigger = null,
@@ -3376,7 +3559,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_05", new Power {
+			cards.Add("TRLA_Shaman_05", new Power
+			{
 				// TODO [TRLA_Shaman_05] Battlecrier && Test: Battlecrier_TRLA_Shaman_05
 				//PowerTask = null,
 				//Trigger = null,
@@ -3391,7 +3575,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_06", new Power {
+			cards.Add("TRLA_Shaman_06", new Power
+			{
 				// TODO [TRLA_Shaman_06] Elementals && Test: Elementals_TRLA_Shaman_06
 				//PowerTask = null,
 				//Trigger = null,
@@ -3406,7 +3591,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_07", new Power {
+			cards.Add("TRLA_Shaman_07", new Power
+			{
 				// TODO [TRLA_Shaman_07] Murlocs && Test: Murlocs_TRLA_Shaman_07
 				//PowerTask = null,
 				//Trigger = null,
@@ -3421,7 +3607,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_08", new Power {
+			cards.Add("TRLA_Shaman_08", new Power
+			{
 				// TODO [TRLA_Shaman_08] Overload && Test: Overload_TRLA_Shaman_08
 				//PowerTask = null,
 				//Trigger = null,
@@ -3436,7 +3623,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_09", new Power {
+			cards.Add("TRLA_Shaman_09", new Power
+			{
 				// TODO [TRLA_Shaman_09] Totems && Test: Totems_TRLA_Shaman_09
 				//PowerTask = null,
 				//Trigger = null,
@@ -3451,7 +3639,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_11", new Power {
+			cards.Add("TRLA_Shaman_11", new Power
+			{
 				// TODO [TRLA_Shaman_11] Jade Lotus && Test: Jade Lotus_TRLA_Shaman_11
 				//PowerTask = null,
 				//Trigger = null,
@@ -3467,7 +3656,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_12", new Power {
+			cards.Add("TRLA_Shaman_12", new Power
+			{
 				// TODO [TRLA_Shaman_12] Farseer && Test: Farseer_TRLA_Shaman_12
 				//PowerTask = null,
 				//Trigger = null,
@@ -3482,7 +3672,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_13", new Power {
+			cards.Add("TRLA_Shaman_13", new Power
+			{
 				// TODO [TRLA_Shaman_13] Mechanized && Test: Mechanized_TRLA_Shaman_13
 				//PowerTask = null,
 				//Trigger = null,
@@ -3501,7 +3692,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_113e", new Power {
+			cards.Add("TRLA_113e", new Power
+			{
 				// TODO [TRLA_113e] Blood Pact Player Enchantment && Test: Blood Pact Player Enchantment_TRLA_113e
 				//PowerTask = null,
 				//Trigger = null,
@@ -3526,7 +3718,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_113", new Power {
+			cards.Add("TRLA_113", new Power
+			{
 				// TODO [TRLA_113] Blood Pact && Test: Blood Pact_TRLA_113
 				InfoCardId = "TRLA_113e",
 				//PowerTask = null,
@@ -3549,7 +3742,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_113t", new Power {
+			cards.Add("TRLA_113t", new Power
+			{
 				// TODO [TRLA_113t] Blood Pact && Test: Blood Pact_TRLA_113t
 				//PowerTask = null,
 				//Trigger = null,
@@ -3574,7 +3768,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_178", new Power {
+			cards.Add("TRLA_178", new Power
+			{
 				// TODO [TRLA_178] Dark Reliquary && Test: Dark Reliquary_TRLA_178
 				//PowerTask = null,
 				//Trigger = null,
@@ -3596,7 +3791,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_178t", new Power {
+			cards.Add("TRLA_178t", new Power
+			{
 				// TODO [TRLA_178t] Dark Reliquary && Test: Dark Reliquary_TRLA_178t
 				//PowerTask = null,
 				//Trigger = null,
@@ -3621,7 +3817,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_179", new Power {
+			cards.Add("TRLA_179", new Power
+			{
 				// TODO [TRLA_179] Hir'eek's Hunger && Test: Hir'eek's Hunger_TRLA_179
 				//PowerTask = null,
 				//Trigger = null,
@@ -3643,7 +3840,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_179t", new Power {
+			cards.Add("TRLA_179t", new Power
+			{
 				// TODO [TRLA_179t] Hir'eek's Hunger && Test: Hir'eek's Hunger_TRLA_179t
 				//PowerTask = null,
 				//Trigger = null,
@@ -3665,7 +3863,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_180", new Power {
+			cards.Add("TRLA_180", new Power
+			{
 				// TODO [TRLA_180] Leering Bat && Test: Leering Bat_TRLA_180
 				InfoCardId = "TRLA_180e",
 				//PowerTask = null,
@@ -3688,7 +3887,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_181", new Power {
+			cards.Add("TRLA_181", new Power
+			{
 				// TODO [TRLA_181] Ravenous Familiar && Test: Ravenous Familiar_TRLA_181
 				//PowerTask = null,
 				//Trigger = null,
@@ -3707,7 +3907,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_182", new Power {
+			cards.Add("TRLA_182", new Power
+			{
 				// TODO [TRLA_182] Vile Necrodoctor && Test: Vile Necrodoctor_TRLA_182
 				//PowerTask = null,
 				//Trigger = null,
@@ -3726,7 +3927,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_183", new Power {
+			cards.Add("TRLA_183", new Power
+			{
 				// TODO [TRLA_183] Warp Stalker && Test: Warp Stalker_TRLA_183
 				//PowerTask = null,
 				//Trigger = null,
@@ -3743,7 +3945,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_184", new Power {
+			cards.Add("TRLA_184", new Power
+			{
 				// TODO [TRLA_184] Dark Diviner && Test: Dark Diviner_TRLA_184
 				//PowerTask = null,
 				//Trigger = null,
@@ -3760,7 +3963,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_185", new Power {
+			cards.Add("TRLA_185", new Power
+			{
 				// TODO [TRLA_185] Blood Portal && Test: Blood Portal_TRLA_185
 				//PowerTask = null,
 				//Trigger = null,
@@ -3776,7 +3980,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_01", new Power {
+			cards.Add("TRLA_Warlock_01", new Power
+			{
 				// TODO [TRLA_Warlock_01] Hir'eek's Legion && Test: Hir'eek's Legion_TRLA_Warlock_01
 				//PowerTask = null,
 				//Trigger = null,
@@ -3792,7 +3997,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_02", new Power {
+			cards.Add("TRLA_Warlock_02", new Power
+			{
 				// TODO [TRLA_Warlock_02] Discard && Test: Discard_TRLA_Warlock_02
 				//PowerTask = null,
 				//Trigger = null,
@@ -3808,7 +4014,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_03", new Power {
+			cards.Add("TRLA_Warlock_03", new Power
+			{
 				// TODO [TRLA_Warlock_03] Life Takers && Test: Life Takers_TRLA_Warlock_03
 				//PowerTask = null,
 				//Trigger = null,
@@ -3824,7 +4031,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_04", new Power {
+			cards.Add("TRLA_Warlock_04", new Power
+			{
 				// TODO [TRLA_Warlock_04] Taunt && Test: Taunt_TRLA_Warlock_04
 				//PowerTask = null,
 				//Trigger = null,
@@ -3840,7 +4048,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_06", new Power {
+			cards.Add("TRLA_Warlock_06", new Power
+			{
 				// TODO [TRLA_Warlock_06] Wrath && Test: Wrath_TRLA_Warlock_06
 				//PowerTask = null,
 				//Trigger = null,
@@ -3856,7 +4065,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_07", new Power {
+			cards.Add("TRLA_Warlock_07", new Power
+			{
 				// TODO [TRLA_Warlock_07] Sacrifice && Test: Sacrifice_TRLA_Warlock_07
 				//PowerTask = null,
 				//Trigger = null,
@@ -3872,7 +4082,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_08", new Power {
+			cards.Add("TRLA_Warlock_08", new Power
+			{
 				// TODO [TRLA_Warlock_08] Blood && Test: Blood_TRLA_Warlock_08
 				//PowerTask = null,
 				//Trigger = null,
@@ -3888,7 +4099,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_09", new Power {
+			cards.Add("TRLA_Warlock_09", new Power
+			{
 				// TODO [TRLA_Warlock_09] Dire Demons && Test: Dire Demons_TRLA_Warlock_09
 				//PowerTask = null,
 				//Trigger = null,
@@ -3904,7 +4116,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_10", new Power {
+			cards.Add("TRLA_Warlock_10", new Power
+			{
 				// TODO [TRLA_Warlock_10] A Dark Hand && Test: A Dark Hand_TRLA_Warlock_10
 				//PowerTask = null,
 				//Trigger = null,
@@ -3920,7 +4133,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_11", new Power {
+			cards.Add("TRLA_Warlock_11", new Power
+			{
 				// TODO [TRLA_Warlock_11] Jinx && Test: Jinx_TRLA_Warlock_11
 				//PowerTask = null,
 				//Trigger = null,
@@ -3940,7 +4154,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - OVERKILL = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_171e", new Power {
+			cards.Add("TRLA_171e", new Power
+			{
 				// TODO [TRLA_171e] Fury of the Rhino && Test: Fury of the Rhino_TRLA_171e
 				//PowerTask = null,
 				//Trigger = null,
@@ -3955,7 +4170,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_172e", new Power {
+			cards.Add("TRLA_172e", new Power
+			{
 				// TODO [TRLA_172e] Quilboar Rally && Test: Quilboar Rally_TRLA_172e
 				//PowerTask = null,
 				//Trigger = null,
@@ -3970,7 +4186,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_174e", new Power {
+			cards.Add("TRLA_174e", new Power
+			{
 				// TODO [TRLA_174e] Rocking Out && Test: Rocking Out_TRLA_174e
 				//PowerTask = null,
 				//Trigger = null,
@@ -3985,7 +4202,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_176e", new Power {
+			cards.Add("TRLA_176e", new Power
+			{
 				// TODO [TRLA_176e] Flamed && Test: Flamed_TRLA_176e
 				//PowerTask = null,
 				//Trigger = null,
@@ -4010,7 +4228,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_104", new Power {
+			cards.Add("TRLA_104", new Power
+			{
 				// TODO [TRLA_104] Akali's Champion && Test: Akali's Champion_TRLA_104
 				//PowerTask = null,
 				//Trigger = null,
@@ -4032,7 +4251,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_104t", new Power {
+			cards.Add("TRLA_104t", new Power
+			{
 				// TODO [TRLA_104t] Akali's Champion && Test: Akali's Champion_TRLA_104t
 				//PowerTask = null,
 				//Trigger = null,
@@ -4057,7 +4277,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_170", new Power {
+			cards.Add("TRLA_170", new Power
+			{
 				// TODO [TRLA_170] Akali's War Drum && Test: Akali's War Drum_TRLA_170
 				//PowerTask = null,
 				//Trigger = null,
@@ -4079,7 +4300,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_170t", new Power {
+			cards.Add("TRLA_170t", new Power
+			{
 				// TODO [TRLA_170t] Akali's War Drum && Test: Akali's War Drum_TRLA_170t
 				//PowerTask = null,
 				//Trigger = null,
@@ -4107,7 +4329,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - OVERKILL = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_171", new Power {
+			cards.Add("TRLA_171", new Power
+			{
 				// TODO [TRLA_171] Akali's Horn && Test: Akali's Horn_TRLA_171
 				InfoCardId = "TRLA_171e",
 				//PowerTask = null,
@@ -4130,7 +4353,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_171t", new Power {
+			cards.Add("TRLA_171t", new Power
+			{
 				// TODO [TRLA_171t] Akali's Horn && Test: Akali's Horn_TRLA_171t
 				//PowerTask = null,
 				//Trigger = null,
@@ -4151,7 +4375,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_172", new Power {
+			cards.Add("TRLA_172", new Power
+			{
 				// TODO [TRLA_172] Rallying Quilboar && Test: Rallying Quilboar_TRLA_172
 				InfoCardId = "TRLA_172e",
 				//PowerTask = null,
@@ -4175,7 +4400,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_173", new Power {
+			cards.Add("TRLA_173", new Power
+			{
 				// TODO [TRLA_173] Redcrest Rocker && Test: Redcrest Rocker_TRLA_173
 				//PowerTask = null,
 				//Trigger = null,
@@ -4190,7 +4416,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_174", new Power {
+			cards.Add("TRLA_174", new Power
+			{
 				// TODO [TRLA_174] Ironhorn Drummer && Test: Ironhorn Drummer_TRLA_174
 				InfoCardId = "TRLA_174e",
 				//PowerTask = null,
@@ -4206,7 +4433,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_175", new Power {
+			cards.Add("TRLA_175", new Power
+			{
 				// TODO [TRLA_175] Seasoned Pitbrawler && Test: Seasoned Pitbrawler_TRLA_175
 				//PowerTask = null,
 				//Trigger = null,
@@ -4224,7 +4452,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_176", new Power {
+			cards.Add("TRLA_176", new Power
+			{
 				// TODO [TRLA_176] Herald of Flame && Test: Herald of Flame_TRLA_176
 				InfoCardId = "TRLA_176e",
 				//PowerTask = null,
@@ -4248,7 +4477,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_DAMAGED_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRLA_177", new Power {
+			cards.Add("TRLA_177", new Power
+			{
 				// TODO [TRLA_177] Unbound Punisher && Test: Unbound Punisher_TRLA_177
 				//PowerTask = null,
 				//Trigger = null,
@@ -4263,7 +4493,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_01", new Power {
+			cards.Add("TRLA_Warrior_01", new Power
+			{
 				// TODO [TRLA_Warrior_01] Tank Up! && Test: Tank Up!_TRLA_Warrior_01
 				//PowerTask = null,
 				//Trigger = null,
@@ -4278,7 +4509,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_02", new Power {
+			cards.Add("TRLA_Warrior_02", new Power
+			{
 				// TODO [TRLA_Warrior_02] Berserker && Test: Berserker_TRLA_Warrior_02
 				//PowerTask = null,
 				//Trigger = null,
@@ -4293,7 +4525,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_03", new Power {
+			cards.Add("TRLA_Warrior_03", new Power
+			{
 				// TODO [TRLA_Warrior_03] Legendary && Test: Legendary_TRLA_Warrior_03
 				//PowerTask = null,
 				//Trigger = null,
@@ -4308,7 +4541,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_04", new Power {
+			cards.Add("TRLA_Warrior_04", new Power
+			{
 				// TODO [TRLA_Warrior_04] Smash && Test: Smash_TRLA_Warrior_04
 				//PowerTask = null,
 				//Trigger = null,
@@ -4323,7 +4557,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_05", new Power {
+			cards.Add("TRLA_Warrior_05", new Power
+			{
 				// TODO [TRLA_Warrior_05] Metalhead && Test: Metalhead_TRLA_Warrior_05
 				//PowerTask = null,
 				//Trigger = null,
@@ -4338,7 +4573,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_06", new Power {
+			cards.Add("TRLA_Warrior_06", new Power
+			{
 				// TODO [TRLA_Warrior_06] Rush && Test: Rush_TRLA_Warrior_06
 				//PowerTask = null,
 				//Trigger = null,
@@ -4353,7 +4589,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_07", new Power {
+			cards.Add("TRLA_Warrior_07", new Power
+			{
 				// TODO [TRLA_Warrior_07] Fervent Fans && Test: Fervent Fans_TRLA_Warrior_07
 				//PowerTask = null,
 				//Trigger = null,
@@ -4368,7 +4605,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_08", new Power {
+			cards.Add("TRLA_Warrior_08", new Power
+			{
 				// TODO [TRLA_Warrior_08] Protection && Test: Protection_TRLA_Warrior_08
 				//PowerTask = null,
 				//Trigger = null,
@@ -4383,7 +4621,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_09", new Power {
+			cards.Add("TRLA_Warrior_09", new Power
+			{
 				// TODO [TRLA_Warrior_09] Dragon Heart && Test: Dragon Heart_TRLA_Warrior_09
 				//PowerTask = null,
 				//Trigger = null,
@@ -4398,7 +4637,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_10", new Power {
+			cards.Add("TRLA_Warrior_10", new Power
+			{
 				// TODO [TRLA_Warrior_10] Overkill && Test: Overkill_TRLA_Warrior_10
 				//PowerTask = null,
 				//Trigger = null,
@@ -4417,7 +4657,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_116e", new Power {
+			cards.Add("TRLA_116e", new Power
+			{
 				// TODO [TRLA_116e] Gonk's Bond && Test: Gonk's Bond_TRLA_116e
 				//PowerTask = null,
 				//Trigger = null,
@@ -4432,7 +4673,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_128e", new Power {
+			cards.Add("TRLA_128e", new Power
+			{
 				// TODO [TRLA_128e] Jan'alai's Flame Player Enchant && Test: Jan'alai's Flame Player Enchant_TRLA_128e
 				//PowerTask = null,
 				//Trigger = null,
@@ -4447,7 +4689,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_131e", new Power {
+			cards.Add("TRLA_131e", new Power
+			{
 				// TODO [TRLA_131e] Empowered Glyph && Test: Empowered Glyph_TRLA_131e
 				//PowerTask = null,
 				//Trigger = null,
@@ -4462,7 +4705,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_164e", new Power {
+			cards.Add("TRLA_164e", new Power
+			{
 				// TODO [TRLA_164e] Panther's Lead && Test: Panther's Lead_TRLA_164e
 				//PowerTask = null,
 				//Trigger = null,
@@ -4477,7 +4721,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_180e", new Power {
+			cards.Add("TRLA_180e", new Power
+			{
 				// TODO [TRLA_180e] Leering && Test: Leering_TRLA_180e
 				//PowerTask = null,
 				//Trigger = null,
@@ -4492,7 +4737,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_801e", new Power {
+			cards.Add("TRLA_801e", new Power
+			{
 				// TODO [TRLA_801e] Sacred && Test: Sacred_TRLA_801e
 				InfoCardId = "TRLA_801e2",
 				//PowerTask = null,
@@ -4509,7 +4755,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_801e2", new Power {
+			cards.Add("TRLA_801e2", new Power
+			{
 				// TODO [TRLA_801e2] Sacred Ritual Player Enchant && Test: Sacred Ritual Player Enchant_TRLA_801e2
 				//PowerTask = null,
 				//Trigger = null,
@@ -4524,7 +4771,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_802e", new Power {
+			cards.Add("TRLA_802e", new Power
+			{
 				// TODO [TRLA_802e] Favored && Test: Favored_TRLA_802e
 				InfoCardId = "TRLA_802e2",
 				//PowerTask = null,
@@ -4540,7 +4788,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_802e2", new Power {
+			cards.Add("TRLA_802e2", new Power
+			{
 				// TODO [TRLA_802e2] Favor of the Gods Player Enchant && Test: Favor of the Gods Player Enchant_TRLA_802e2
 				//PowerTask = null,
 				//Trigger = null,
@@ -4555,7 +4804,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_803e", new Power {
+			cards.Add("TRLA_803e", new Power
+			{
 				// TODO [TRLA_803e] Fortified && Test: Fortified_TRLA_803e
 				InfoCardId = "TRLA_803e2",
 				//PowerTask = null,
@@ -4571,7 +4821,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_803e2", new Power {
+			cards.Add("TRLA_803e2", new Power
+			{
 				// TODO [TRLA_803e2] Fortified Spirit Player Enchant && Test: Fortified Spirit Player Enchant_TRLA_803e2
 				//PowerTask = null,
 				//Trigger = null,
@@ -4586,7 +4837,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_805e", new Power {
+			cards.Add("TRLA_805e", new Power
+			{
 				// TODO [TRLA_805e] Pact with the Loa Player Enchant && Test: Pact with the Loa Player Enchant_TRLA_805e
 				//PowerTask = null,
 				//Trigger = null,
@@ -4601,7 +4853,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_806e", new Power {
+			cards.Add("TRLA_806e", new Power
+			{
 				// TODO [TRLA_806e] Wrath of the Loa Player Enchant && Test: Wrath of the Loa Player Enchant_TRLA_806e
 				InfoCardId = "TRLA_806e2",
 				//PowerTask = null,
@@ -4619,7 +4872,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_806e2", new Power {
+			cards.Add("TRLA_806e2", new Power
+			{
 				// TODO [TRLA_806e2] Wrath of the Loas && Test: Wrath of the Loas_TRLA_806e2
 				//PowerTask = null,
 				//Trigger = null,
@@ -4634,7 +4888,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_807e", new Power {
+			cards.Add("TRLA_807e", new Power
+			{
 				// TODO [TRLA_807e] Boon Reaper Player Enchant && Test: Boon Reaper Player Enchant_TRLA_807e
 				InfoCardId = "TRLA_807e2",
 				//PowerTask = null,
@@ -4652,7 +4907,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_807e2", new Power {
+			cards.Add("TRLA_807e2", new Power
+			{
 				// TODO [TRLA_807e2] Boon Reaper && Test: Boon Reaper_TRLA_807e2
 				//PowerTask = null,
 				//Trigger = null,
@@ -4667,7 +4923,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_808e", new Power {
+			cards.Add("TRLA_808e", new Power
+			{
 				// TODO [TRLA_808e] Roaring Edifice Player Enchant && Test: Roaring Edifice Player Enchant_TRLA_808e
 				InfoCardId = "TRLA_808e2",
 				//PowerTask = null,
@@ -4685,7 +4942,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_808e2", new Power {
+			cards.Add("TRLA_808e2", new Power
+			{
 				// TODO [TRLA_808e2] Roaring Edifice && Test: Roaring Edifice_TRLA_808e2
 				//PowerTask = null,
 				//Trigger = null,
@@ -4700,7 +4958,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_809e", new Power {
+			cards.Add("TRLA_809e", new Power
+			{
 				// TODO [TRLA_809e] Windfall Blessing Player Enchant && Test: Windfall Blessing Player Enchant_TRLA_809e
 				InfoCardId = "TRLA_809e2",
 				//PowerTask = null,
@@ -4718,7 +4977,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_809e2", new Power {
+			cards.Add("TRLA_809e2", new Power
+			{
 				// TODO [TRLA_809e2] Windfall Glyph && Test: Windfall Glyph_TRLA_809e2
 				//PowerTask = null,
 				//Trigger = null,
@@ -4733,7 +4993,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_809e3", new Power {
+			cards.Add("TRLA_809e3", new Power
+			{
 				// TODO [TRLA_809e3] Windfall Blessing && Test: Windfall Blessing_TRLA_809e3
 				//PowerTask = null,
 				//Trigger = null,
@@ -4756,7 +5017,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_107", new Power {
+			cards.Add("TRLA_107", new Power
+			{
 				// TODO [TRLA_107] Tribal Shrine && Test: Tribal Shrine_TRLA_107
 				//PowerTask = null,
 				//Trigger = null,
@@ -4778,7 +5040,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - ENCHANTMENT_BANNER_TEXT = 3
 			// - MOUSE_OVER_CARD_APPEARANCE = 4
 			// --------------------------------------------------------
-			cards.Add("TRLA_107t", new Power {
+			cards.Add("TRLA_107t", new Power
+			{
 				// TODO [TRLA_107t] Tribal Shrine && Test: Tribal Shrine_TRLA_107t
 				//PowerTask = null,
 				//Trigger = null,
@@ -4800,7 +5063,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - SHRINE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_801", new Power {
+			cards.Add("TRLA_801", new Power
+			{
 				// TODO [TRLA_801] Sacred Ritual && Test: Sacred Ritual_TRLA_801
 				InfoCardId = "TRLA_801e",
 				//PowerTask = null,
@@ -4824,7 +5088,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - TAUNT = 1
 			// - SHRINE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_802", new Power {
+			cards.Add("TRLA_802", new Power
+			{
 				// TODO [TRLA_802] Favor of the Gods && Test: Favor of the Gods_TRLA_802
 				InfoCardId = "TRLA_802e",
 				//PowerTask = null,
@@ -4848,7 +5113,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - SHRINE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_803", new Power {
+			cards.Add("TRLA_803", new Power
+			{
 				// TODO [TRLA_803] Fortified Spirit && Test: Fortified Spirit_TRLA_803
 				InfoCardId = "TRLA_803e",
 				//PowerTask = null,
@@ -4871,7 +5137,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - SHRINE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_804", new Power {
+			cards.Add("TRLA_804", new Power
+			{
 				// TODO [TRLA_804] Everlasting Devotion && Test: Everlasting Devotion_TRLA_804
 				//PowerTask = null,
 				//Trigger = null,
@@ -4894,7 +5161,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - SHRINE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_805", new Power {
+			cards.Add("TRLA_805", new Power
+			{
 				// TODO [TRLA_805] Pact with the Loa && Test: Pact with the Loa_TRLA_805
 				InfoCardId = "TRLA_805e",
 				//PowerTask = null,
@@ -4919,7 +5187,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DEATHRATTLE = 1
 			// - SHRINE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_806", new Power {
+			cards.Add("TRLA_806", new Power
+			{
 				// TODO [TRLA_806] Wrath of the Loas && Test: Wrath of the Loas_TRLA_806
 				InfoCardId = "TRLA_806e",
 				//PowerTask = null,
@@ -4943,7 +5212,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DEATHRATTLE = 1
 			// - SHRINE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_807", new Power {
+			cards.Add("TRLA_807", new Power
+			{
 				// TODO [TRLA_807] Boon Reaper && Test: Boon Reaper_TRLA_807
 				InfoCardId = "TRLA_807e",
 				//PowerTask = null,
@@ -4969,7 +5239,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DEATHRATTLE = 1
 			// - SHRINE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_808", new Power {
+			cards.Add("TRLA_808", new Power
+			{
 				// TODO [TRLA_808] Roaring Edifice && Test: Roaring Edifice_TRLA_808
 				InfoCardId = "TRLA_808e",
 				//PowerTask = null,
@@ -4993,7 +5264,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DEATHRATTLE = 1
 			// - SHRINE = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_809", new Power {
+			cards.Add("TRLA_809", new Power
+			{
 				// TODO [TRLA_809] Windfall Blessing && Test: Windfall Blessing_TRLA_809
 				InfoCardId = "TRLA_809e",
 				//PowerTask = null,

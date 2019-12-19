@@ -46,7 +46,8 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Hero Power</b>
 			//       Deal $8 damage to a random enemy. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("BRM_027p", new Power {
+			cards.Add("BRM_027p", new Power
+			{
 				PowerTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8)
 			});
 
@@ -57,7 +58,8 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Hero Power</b>
 			//       Deal $8 damage to a random enemy. TWICE. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("BRM_027pH", new Power {
+			cards.Add("BRM_027pH", new Power
+			{
 				PowerTask = new EnqueueTask(2, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 8))
 			});
 
@@ -75,7 +77,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_009", new Power {
+			cards.Add("BRM_009", new Power
+			{
 				Aura = AdaptiveCostEffect.NumEachMinionDiedThisTurn
 			});
 
@@ -88,7 +91,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_010", new Power {
+			cards.Add("BRM_010", new Power
+			{
 				PowerTask = new TransformTask("OG_044b", EntityType.SOURCE)
 			});
 
@@ -120,7 +124,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Transform into a 5/2 minion.
 			// --------------------------------------------------------
-			cards.Add("BRM_010a", new Power {
+			cards.Add("BRM_010a", new Power
+			{
 				PowerTask = new TransformTask("BRM_010t", EntityType.SOURCE)
 			});
 
@@ -130,7 +135,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Transform into a 2/5 minion.
 			// --------------------------------------------------------
-			cards.Add("BRM_010b", new Power {
+			cards.Add("BRM_010b", new Power
+			{
 				PowerTask = new TransformTask("BRM_010t2", EntityType.SOURCE)
 			});
 
@@ -147,7 +153,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_014", new Power {
+			cards.Add("BRM_014", new Power
+			{
 				PowerTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
 						new FlagTask(true, new AddEnchantmentTask("BRM_014e", EntityType.SOURCE))),
@@ -166,7 +173,8 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_013", new Power {
+			cards.Add("BRM_013", new Power
+			{
 				PowerTask = ComplexTask.Create(
 						new DamageTask(3, EntityType.TARGET, true),
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsHandEmpty),
@@ -183,7 +191,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3/+3
 			// --------------------------------------------------------
-			cards.Add("BRM_014e", new Power {
+			cards.Add("BRM_014e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BRM_014e")
 			});
 
@@ -197,7 +206,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: After you cast a spell, deal 2 damage randomly split among all enemies.
 			// --------------------------------------------------------
-			cards.Add("BRM_002", new Power {
+			cards.Add("BRM_002", new Power
+			{
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
@@ -214,7 +224,8 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_003", new Power {
+			cards.Add("BRM_003", new Power
+			{
 				Aura = AdaptiveCostEffect.NumEachMinionDiedThisTurn,
 				PowerTask = ComplexTask.Create(
 					new DamageTask(4, EntityType.TARGET, true))
@@ -238,7 +249,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_018", new Power {
+			cards.Add("BRM_018", new Power
+			{
 				PowerTask = new AddEnchantmentTask("BRM_018e", EntityType.SOURCE)
 			});
 
@@ -248,7 +260,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Draw 2 cards. Costs (1) less for each minion that died this turn.
 			// --------------------------------------------------------
-			cards.Add("BRM_001", new Power {
+			cards.Add("BRM_001", new Power
+			{
 				Aura = AdaptiveCostEffect.NumEachMinionDiedThisTurn,
 				PowerTask = new EnqueueTask(2, new DrawTask())
 			});
@@ -263,7 +276,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Your next Dragon costs (2) less.
 			// --------------------------------------------------------
-			cards.Add("BRM_018e", new Power {
+			cards.Add("BRM_018e", new Power
+			{
 				Aura = new Aura(AuraType.HAND, Effects.ReduceCost(2))
 				{
 					Condition = SelfCondition.IsRace(Race.DRAGON),
@@ -283,7 +297,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_004", new Power {
+			cards.Add("BRM_004", new Power
+			{
 				PowerTask = ComplexTask.Create(
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 						new FlagTask(true, new AddEnchantmentTask("BRM_004e", EntityType.SOURCE)))
@@ -299,7 +314,8 @@ namespace SabberStoneCore.CardSets
 			// - REQ_NUM_MINION_SLOTS = 1
 			// - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_017", new Power {
+			cards.Add("BRM_017", new Power
+			{
 				PowerTask = ComplexTask.SummonRandomMinionThatDied()
 			});
 
@@ -320,7 +336,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_008", new Power {
+			cards.Add("BRM_008", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.OP_MINIONS),
 					new FilterStackTask(SelfCondition.IsUndamaged),
@@ -337,7 +354,8 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_007", new Power {
+			cards.Add("BRM_007", new Power
+			{
 				PowerTask = new CopyTask(EntityType.TARGET, Zone.DECK, 3)
 			});
 		}
@@ -355,9 +373,10 @@ namespace SabberStoneCore.CardSets
 			// - BATTLECRY = 1
 			// - OVERLOAD_OWED = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_012", new Power {
+			cards.Add("BRM_012", new Power
+			{
 				PowerTask = ComplexTask.Create(
-					new MathRandTask(1,4),
+					new MathRandTask(1, 4),
 					new AddEnchantmentTask("BRM_012e", EntityType.SOURCE, true))
 			});
 
@@ -374,7 +393,8 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_011", new Power {
+			cards.Add("BRM_011", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(2, EntityType.TARGET),
 					new SetControllerGameTagTask(GameTag.OVERLOAD_LOCKED, 0),
@@ -396,7 +416,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, summon a 1/1 Imp.
 			// --------------------------------------------------------
-			cards.Add("BRM_006", new Power {
+			cards.Add("BRM_006", new Power
+			{
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
@@ -414,7 +435,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AFFECTED_BY_SPELL_POWER = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_005", new Power {
+			cards.Add("BRM_005", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.ALLMINIONS),
 					new FilterStackTask(SelfCondition.IsNotRace(Race.DEMON)),
@@ -440,7 +462,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, deal 2 damage to the enemy hero.
 			// --------------------------------------------------------
-			cards.Add("BRM_016", new Power {
+			cards.Add("BRM_016", new Power
+			{
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
@@ -454,7 +477,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to all minions. If you have 12 or less Health, deal $3 damage instead. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("BRM_015", new Power {
+			cards.Add("BRM_015", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ)),
 					new FlagTask(true, new DamageTask(3, EntityType.ALLMINIONS, true)),
@@ -471,7 +495,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: After this minion survives damage, summon another Grim Patron.
 			// --------------------------------------------------------
-			cards.Add("BRM_019", new Power {
+			cards.Add("BRM_019", new Power
+			{
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
@@ -486,7 +511,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever <b>you</b> target this minion with a spell, gain +1/+1.
 			// --------------------------------------------------------
-			cards.Add("BRM_020", new Power {
+			cards.Add("BRM_020", new Power
+			{
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
 					TriggerSource = TriggerSource.FRIENDLY_SPELL_CASTED_ON_THE_OWNER,
@@ -500,7 +526,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, summon a 2/1 Whelp.
 			// --------------------------------------------------------
-			cards.Add("BRM_022", new Power {
+			cards.Add("BRM_022", new Power
+			{
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
@@ -517,7 +544,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_024", new Power {
+			cards.Add("BRM_024", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.OP_HERO, SelfCondition.IsHealth(15, RelaSign.LEQ)),
 					new FlagTask(true, new AddEnchantmentTask("BRM_024e", EntityType.SOURCE))),
@@ -529,7 +557,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Costs (1) less for each minion that died this turn.
 			// --------------------------------------------------------
-			cards.Add("BRM_025", new Power {
+			cards.Add("BRM_025", new Power
+			{
 				Aura = AdaptiveCostEffect.NumEachMinionDiedThisTurn,
 			});
 
@@ -542,7 +571,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_026", new Power {
+			cards.Add("BRM_026", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new RandomMinionTask(GameTag.COST, 1, opponent: true),
 					new SummonOpTask()),
@@ -558,7 +588,8 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_027", new Power {
+			cards.Add("BRM_027", new Power
+			{
 				PowerTask = new ReplaceHeroTask("BRM_027h", "BRM_027p"),
 			});
 
@@ -571,7 +602,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_028", new Power {
+			cards.Add("BRM_028", new Power
+			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
 					SingleTask = new AddEnchantmentTask("BRM_028e", EntityType.HAND)
@@ -593,7 +625,8 @@ namespace SabberStoneCore.CardSets
 			// - REQ_LEGENDARY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_029", new Power {
+			cards.Add("BRM_029", new Power
+			{
 				PowerTask = new DestroyTask(EntityType.TARGET)
 			});
 
@@ -607,7 +640,8 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_030", new Power {
+			cards.Add("BRM_030", new Power
+			{
 				PowerTask = new EnqueueTask(2, ComplexTask.Create(
 					new RandomCardTask(EntityType.OP_HERO),
 					new AddStackTo(EntityType.HAND))),
@@ -622,7 +656,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_031", new Power {
+			cards.Add("BRM_031", new Power
+			{
 				Trigger = new Trigger(TriggerType.DRAW)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
@@ -639,7 +674,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_033", new Power {
+			cards.Add("BRM_033", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 					new FlagTask(true, new AddEnchantmentTask("BRM_033e", EntityType.SOURCE)))
@@ -657,7 +693,8 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_034", new Power {
+			cards.Add("BRM_034", new Power
+			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 					new FlagTask(true, new DamageTask(3, EntityType.TARGET)))
@@ -673,7 +710,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
-			cards.Add("BRM_004e", new Power {
+			cards.Add("BRM_004e", new Power
+			{
 				Enchant = new Enchant(Effects.Health_N(2))
 			});
 
@@ -683,7 +721,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("BRM_012e", new Power {
+			cards.Add("BRM_012e", new Power
+			{
 				Enchant = Enchants.Enchants.AddAttackScriptTag
 			});
 
@@ -693,7 +732,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("BRM_020e", new Power {
+			cards.Add("BRM_020e", new Power
+			{
 				Enchant = new Enchant(Effects.AttackHealth_N(1))
 			});
 
@@ -703,7 +743,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
-			cards.Add("BRM_024e", new Power {
+			cards.Add("BRM_024e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BRM_024e")
 			});
 
@@ -713,7 +754,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Costs (1) less.
 			// --------------------------------------------------------
-			cards.Add("BRM_028e", new Power {
+			cards.Add("BRM_028e", new Power
+			{
 				Enchant = new Enchant(Effects.ReduceCost(1))
 			});
 
@@ -723,7 +765,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1
 			// --------------------------------------------------------
-			cards.Add("BRM_033e", new Power {
+			cards.Add("BRM_033e", new Power
+			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BRM_033e")
 			});
 
@@ -748,7 +791,8 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_030t", new Power {
+			cards.Add("BRM_030t", new Power
+			{
 				PowerTask = new DamageTask(4, EntityType.TARGET, true)
 			});
 

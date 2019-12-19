@@ -28,7 +28,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_131p", new Power {
+			cards.Add("ULD_131p", new Power
+			{
 				// TODO [ULD_131p] Ossirian Tear && Test: Ossirian Tear_ULD_131p
 				//PowerTask = null,
 				//Trigger = null,
@@ -42,7 +43,8 @@ namespace SabberStoneCore.CardSets.Standard
 			//       Draw a card.
 			//       It costs (0).
 			// --------------------------------------------------------
-			cards.Add("ULD_140p", new Power {
+			cards.Add("ULD_140p", new Power
+			{
 				// TODO [ULD_140p] Tome of Origination && Test: Tome of Origination_ULD_140p
 				//PowerTask = null,
 				//Trigger = null,
@@ -55,7 +57,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: <b>Hero Power</b>
 			//       Give your minions +2_Attack.
 			// --------------------------------------------------------
-			cards.Add("ULD_155p", new Power {
+			cards.Add("ULD_155p", new Power
+			{
 				// TODO [ULD_155p] Ramkahen Roar && Test: Ramkahen Roar_ULD_155p
 				//PowerTask = null,
 				//Trigger = null,
@@ -71,7 +74,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_291p", new Power {
+			cards.Add("ULD_291p", new Power
+			{
 				// TODO [ULD_291p] Heart of Vir'naal && Test: Heart of Vir'naal_ULD_291p
 				InfoCardId = "ULD_291pe",
 				//PowerTask = null,
@@ -89,7 +93,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_326p", new Power {
+			cards.Add("ULD_326p", new Power
+			{
 				// TODO [ULD_326p] Ancient Blades && Test: Ancient Blades_ULD_326p
 				//PowerTask = null,
 				//Trigger = null,
@@ -109,7 +114,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_431p", new Power {
+			cards.Add("ULD_431p", new Power
+			{
 				// TODO [ULD_431p] Emperor Wraps && Test: Emperor Wraps_ULD_431p
 				//PowerTask = null,
 				//Trigger = null,
@@ -127,7 +133,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_HAND_NOT_FULL = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_433p", new Power {
+			cards.Add("ULD_433p", new Power
+			{
 				// TODO [ULD_433p] Ascendant Scroll && Test: Ascendant Scroll_ULD_433p
 				//PowerTask = null,
 				//Trigger = null,
@@ -145,7 +152,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_711p3", new Power {
+			cards.Add("ULD_711p3", new Power
+			{
 				// TODO [ULD_711p3] Anraphet's Core && Test: Anraphet's Core_ULD_711p3
 				//PowerTask = null,
 				//Trigger = null,
@@ -162,7 +170,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_724p", new Power {
+			cards.Add("ULD_724p", new Power
+			{
 				// TODO [ULD_724p] Obelisk's Eye && Test: Obelisk's Eye_ULD_724p
 				//PowerTask = null,
 				//Trigger = null,
@@ -178,7 +187,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: If you have any unspent Mana at the end of your turn, draw a card.
 			// --------------------------------------------------------
-			cards.Add("ULD_133", new Power {
+			cards.Add("ULD_133", new Power
+			{
 				// TODO [ULD_133] Crystal Merchant && Test: Crystal Merchant_ULD_133
 				//PowerTask = null,
 				//Trigger = null,
@@ -195,7 +205,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_137", new Power {
+			cards.Add("ULD_137", new Power
+			{
 				// TODO [ULD_137] Garden Gnome && Test: Garden Gnome_ULD_137
 				//PowerTask = null,
 				//Trigger = null,
@@ -210,7 +221,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_138", new Power {
+			cards.Add("ULD_138", new Power
+			{
 				// TODO [ULD_138] Anubisath Defender && Test: Anubisath Defender_ULD_138
 				//PowerTask = null,
 				//Trigger = null,
@@ -226,7 +238,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_139", new Power {
+			cards.Add("ULD_139", new Power
+			{
 				// TODO [ULD_139] Elise the Enlightened && Test: Elise the Enlightened_ULD_139
 				//PowerTask = null,
 				//Trigger = null,
@@ -243,7 +256,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - CHOOSE_ONE = 1
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_292", new Power {
+			cards.Add("ULD_292", new Power
+			{
 				// TODO [ULD_292] Oasis Surger && Test: Oasis Surger_ULD_292
 				InfoCardId = "ULD_292ae",
 				//PowerTask = null,
@@ -266,7 +280,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 839 = 1
 			// - QUEST_REWARD_DATABASE_ID = 53499
 			// --------------------------------------------------------
-			cards.Add("ULD_131", new Power {
+			cards.Add("ULD_131", new Power
+			{
 				// TODO [ULD_131] Untapped Potential && Test: Untapped Potential_ULD_131
 				//PowerTask = null,
 				//Trigger = null,
@@ -285,7 +300,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_134", new Power {
+			cards.Add("ULD_134", new Power
+			{
 				// TODO [ULD_134] BEEEES!!! && Test: BEEEES!!!_ULD_134
 				//PowerTask = null,
 				//Trigger = null,
@@ -306,7 +322,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_135", new Power {
+			cards.Add("ULD_135", new Power
+			{
 				// TODO [ULD_135] Hidden Oasis && Test: Hidden Oasis_ULD_135
 				//PowerTask = null,
 				//Trigger = null,
@@ -322,7 +339,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_136", new Power {
+			cards.Add("ULD_136", new Power
+			{
 				// TODO [ULD_136] Worthy Expedition && Test: Worthy Expedition_ULD_136
 				//PowerTask = null,
 				//Trigger = null,
@@ -336,7 +354,8 @@ namespace SabberStoneCore.CardSets.Standard
 			//       to all characters.
 			//       Draw 5 cards.
 			// --------------------------------------------------------
-			cards.Add("ULD_273", new Power {
+			cards.Add("ULD_273", new Power
+			{
 				// TODO [ULD_273] Overflow && Test: Overflow_ULD_273
 				//PowerTask = null,
 				//Trigger = null,
@@ -352,7 +371,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Anka, the Buried made this 1/1.
 			// --------------------------------------------------------
-			cards.Add("ULD_288e", new Power {
+			cards.Add("ULD_288e", new Power
+			{
 				// TODO [ULD_288e] Buried && Test: Buried_ULD_288e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_288e")
 			});
@@ -363,7 +383,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("ULD_292ae", new Power {
+			cards.Add("ULD_292ae", new Power
+			{
 				// TODO [ULD_292ae] Focused && Test: Focused_ULD_292ae
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_292ae")
 			});
@@ -372,7 +393,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ULD_134t] Bee (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: beast, Set: uldum, 
 			// --------------------------------------------------------
-			cards.Add("ULD_134t", new Power {
+			cards.Add("ULD_134t", new Power
+			{
 				// TODO [ULD_134t] Bee && Test: Bee_ULD_134t
 				//PowerTask = null,
 				//Trigger = null,
@@ -387,7 +409,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_135at", new Power {
+			cards.Add("ULD_135at", new Power
+			{
 				// TODO [ULD_135at] Vir'naal Ancient && Test: Vir'naal Ancient_ULD_135at
 				//PowerTask = null,
 				//Trigger = null,
@@ -397,7 +420,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ULD_137t] Treant (*) - COST:2 [ATK:2/HP:2] 
 			// - Set: uldum, 
 			// --------------------------------------------------------
-			cards.Add("ULD_137t", new Power {
+			cards.Add("ULD_137t", new Power
+			{
 				// TODO [ULD_137t] Treant && Test: Treant_ULD_137t
 				//PowerTask = null,
 				//Trigger = null,
@@ -415,7 +439,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_135a", new Power {
+			cards.Add("ULD_135a", new Power
+			{
 				// TODO [ULD_135a] Befriend the Ancient && Test: Befriend the Ancient_ULD_135a
 				//PowerTask = null,
 				//Trigger = null,
@@ -430,7 +455,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_135b", new Power {
+			cards.Add("ULD_135b", new Power
+			{
 				// TODO [ULD_135b] Drink the Water && Test: Drink the Water_ULD_135b
 				//PowerTask = null,
 				//Trigger = null,
@@ -442,7 +468,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Gain +2/+2.
 			// --------------------------------------------------------
-			cards.Add("ULD_292a", new Power {
+			cards.Add("ULD_292a", new Power
+			{
 				// TODO [ULD_292a] Focused Burst && Test: Focused Burst_ULD_292a
 				InfoCardId = "ULD_292ae",
 				//PowerTask = null,
@@ -458,7 +485,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 2
 			// --------------------------------------------------------
-			cards.Add("ULD_292b", new Power {
+			cards.Add("ULD_292b", new Power
+			{
 				// TODO [ULD_292b] Divide and Conquer && Test: Divide and Conquer_ULD_292b
 				//PowerTask = null,
 				//Trigger = null,
@@ -477,7 +505,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_151", new Power {
+			cards.Add("ULD_151", new Power
+			{
 				// TODO [ULD_151] Ramkahen Wildtamer && Test: Ramkahen Wildtamer_ULD_151
 				//PowerTask = null,
 				//Trigger = null,
@@ -497,7 +526,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_154", new Power {
+			cards.Add("ULD_154", new Power
+			{
 				// TODO [ULD_154] Hyena Alpha && Test: Hyena Alpha_ULD_154
 				//PowerTask = null,
 				//Trigger = null,
@@ -513,7 +543,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_156", new Power {
+			cards.Add("ULD_156", new Power
+			{
 				// TODO [ULD_156] Dinotamer Brann && Test: Dinotamer Brann_ULD_156
 				//PowerTask = null,
 				//Trigger = null,
@@ -528,7 +559,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_212", new Power {
+			cards.Add("ULD_212", new Power
+			{
 				// TODO [ULD_212] Wild Bloodstinger && Test: Wild Bloodstinger_ULD_212
 				//PowerTask = null,
 				//Trigger = null,
@@ -543,7 +575,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_410", new Power {
+			cards.Add("ULD_410", new Power
+			{
 				// TODO [ULD_410] Scarlet Webweaver && Test: Scarlet Webweaver_ULD_410
 				InfoCardId = "ULD_410e",
 				//PowerTask = null,
@@ -559,7 +592,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_152", new Power {
+			cards.Add("ULD_152", new Power
+			{
 				// TODO [ULD_152] Pressure Plate && Test: Pressure Plate_ULD_152
 				//PowerTask = null,
 				//Trigger = null,
@@ -580,7 +614,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 839 = 1
 			// - QUEST_REWARD_DATABASE_ID = 53925
 			// --------------------------------------------------------
-			cards.Add("ULD_155", new Power {
+			cards.Add("ULD_155", new Power
+			{
 				// TODO [ULD_155] Unseal the Vault && Test: Unseal the Vault_ULD_155
 				InfoCardId = "ULD_155e",
 				//PowerTask = null,
@@ -596,7 +631,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_429", new Power {
+			cards.Add("ULD_429", new Power
+			{
 				// TODO [ULD_429] Hunter's Pack && Test: Hunter's Pack_ULD_429
 				//PowerTask = null,
 				//Trigger = null,
@@ -614,7 +650,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_713", new Power {
+			cards.Add("ULD_713", new Power
+			{
 				// TODO [ULD_713] Swarm of Locusts && Test: Swarm of Locusts_ULD_713
 				//PowerTask = null,
 				//Trigger = null,
@@ -632,7 +669,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_430", new Power {
+			cards.Add("ULD_430", new Power
+			{
 				// TODO [ULD_430] Desert Spear && Test: Desert Spear_ULD_430
 				//PowerTask = null,
 				//Trigger = null,
@@ -648,7 +686,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("ULD_155e", new Power {
+			cards.Add("ULD_155e", new Power
+			{
 				// TODO [ULD_155e] Roar! && Test: Roar!_ULD_155e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_155e")
 			});
@@ -659,7 +698,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Costs (5) less.
 			// --------------------------------------------------------
-			cards.Add("ULD_410e", new Power {
+			cards.Add("ULD_410e", new Power
+			{
 				// TODO [ULD_410e] Weaved && Test: Weaved_ULD_410e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_410e")
 			});
@@ -668,7 +708,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ULD_154t] Hyena (*) - COST:2 [ATK:2/HP:2] 
 			// - Race: beast, Set: uldum, 
 			// --------------------------------------------------------
-			cards.Add("ULD_154t", new Power {
+			cards.Add("ULD_154t", new Power
+			{
 				// TODO [ULD_154t] Hyena && Test: Hyena_ULD_154t
 				//PowerTask = null,
 				//Trigger = null,
@@ -683,7 +724,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_156t", new Power {
+			cards.Add("ULD_156t", new Power
+			{
 				// TODO [ULD_156t] Duke && Test: Duke_ULD_156t
 				//PowerTask = null,
 				//Trigger = null,
@@ -698,7 +740,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_156t2", new Power {
+			cards.Add("ULD_156t2", new Power
+			{
 				// TODO [ULD_156t2] Duchess && Test: Duchess_ULD_156t2
 				//PowerTask = null,
 				//Trigger = null,
@@ -714,7 +757,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_156t3", new Power {
+			cards.Add("ULD_156t3", new Power
+			{
 				// TODO [ULD_156t3] King Krush && Test: King Krush_ULD_156t3
 				//PowerTask = null,
 				//Trigger = null,
@@ -737,7 +781,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_236", new Power {
+			cards.Add("ULD_236", new Power
+			{
 				// TODO [ULD_236] Tortollan Pilgrim && Test: Tortollan Pilgrim_ULD_236
 				//PowerTask = null,
 				//Trigger = null,
@@ -753,7 +798,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_238", new Power {
+			cards.Add("ULD_238", new Power
+			{
 				// TODO [ULD_238] Reno the Relicologist && Test: Reno the Relicologist_ULD_238
 				//PowerTask = null,
 				//Trigger = null,
@@ -768,7 +814,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_240", new Power {
+			cards.Add("ULD_240", new Power
+			{
 				// TODO [ULD_240] Arcane Flakmage && Test: Arcane Flakmage_ULD_240
 				//PowerTask = null,
 				//Trigger = null,
@@ -789,7 +836,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_293", new Power {
+			cards.Add("ULD_293", new Power
+			{
 				// TODO [ULD_293] Cloud Prince && Test: Cloud Prince_ULD_293
 				//PowerTask = null,
 				//Trigger = null,
@@ -803,7 +851,8 @@ namespace SabberStoneCore.CardSets.Standard
 			//       add a random Mage
 			//       minion to your hand.
 			// --------------------------------------------------------
-			cards.Add("ULD_329", new Power {
+			cards.Add("ULD_329", new Power
+			{
 				// TODO [ULD_329] Dune Sculptor && Test: Dune Sculptor_ULD_329
 				//PowerTask = null,
 				//Trigger = null,
@@ -819,7 +868,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_435", new Power {
+			cards.Add("ULD_435", new Power
+			{
 				// TODO [ULD_435] Naga Sand Witch && Test: Naga Sand Witch_ULD_435
 				InfoCardId = "ULD_435e",
 				//PowerTask = null,
@@ -832,7 +882,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Cast 10 random spells <i>(targets chosen randomly).</i>
 			// --------------------------------------------------------
-			cards.Add("ULD_216", new Power {
+			cards.Add("ULD_216", new Power
+			{
 				// TODO [ULD_216] Puzzle Box of Yogg-Saron && Test: Puzzle Box of Yogg-Saron_ULD_216
 				//PowerTask = null,
 				//Trigger = null,
@@ -847,7 +898,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_239", new Power {
+			cards.Add("ULD_239", new Power
+			{
 				// TODO [ULD_239] Flame Ward && Test: Flame Ward_ULD_239
 				//PowerTask = null,
 				//Trigger = null,
@@ -868,7 +920,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 839 = 1
 			// - QUEST_REWARD_DATABASE_ID = 53946
 			// --------------------------------------------------------
-			cards.Add("ULD_433", new Power {
+			cards.Add("ULD_433", new Power
+			{
 				// TODO [ULD_433] Raid the Sky Temple && Test: Raid the Sky Temple_ULD_433
 				InfoCardId = "ULD_433e",
 				//PowerTask = null,
@@ -884,7 +937,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_726", new Power {
+			cards.Add("ULD_726", new Power
+			{
 				// TODO [ULD_726] Ancient Mysteries && Test: Ancient Mysteries_ULD_726
 				InfoCardId = "ULD_726e",
 				//PowerTask = null,
@@ -901,7 +955,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Costs (5).
 			// --------------------------------------------------------
-			cards.Add("ULD_435e", new Power {
+			cards.Add("ULD_435e", new Power
+			{
 				// TODO [ULD_435e] Sandwitched && Test: Sandwitched_ULD_435e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_435e")
 			});
@@ -912,7 +967,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Costs (0).
 			// --------------------------------------------------------
-			cards.Add("ULD_726e", new Power {
+			cards.Add("ULD_726e", new Power
+			{
 				// TODO [ULD_726e] Translated && Test: Translated_ULD_726e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_726e")
 			});
@@ -927,7 +983,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Whenever you summon a minion, gain +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("ULD_145", new Power {
+			cards.Add("ULD_145", new Power
+			{
 				// TODO [ULD_145] Brazen Zealot && Test: Brazen Zealot_ULD_145
 				InfoCardId = "ULD_145e",
 				//PowerTask = null,
@@ -945,7 +1002,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - LIFESTEAL = 1
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_207", new Power {
+			cards.Add("ULD_207", new Power
+			{
 				// TODO [ULD_207] Ancestral Guardian && Test: Ancestral Guardian_ULD_207
 				//PowerTask = null,
 				//Trigger = null,
@@ -963,7 +1021,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_217", new Power {
+			cards.Add("ULD_217", new Power
+			{
 				// TODO [ULD_217] Micro Mummy && Test: Micro Mummy_ULD_217
 				InfoCardId = "ULD_217e",
 				//PowerTask = null,
@@ -980,7 +1039,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_438", new Power {
+			cards.Add("ULD_438", new Power
+			{
 				// TODO [ULD_438] Salhet's Pride && Test: Salhet's Pride_ULD_438
 				//PowerTask = null,
 				//Trigger = null,
@@ -995,7 +1055,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_439", new Power {
+			cards.Add("ULD_439", new Power
+			{
 				// TODO [ULD_439] Sandwasp Queen && Test: Sandwasp Queen_ULD_439
 				//PowerTask = null,
 				//Trigger = null,
@@ -1017,7 +1078,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_500", new Power {
+			cards.Add("ULD_500", new Power
+			{
 				// TODO [ULD_500] Sir Finley of the Sands && Test: Sir Finley of the Sands_ULD_500
 				//PowerTask = null,
 				//Trigger = null,
@@ -1037,7 +1099,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_143", new Power {
+			cards.Add("ULD_143", new Power
+			{
 				// TODO [ULD_143] Pharaoh's Blessing && Test: Pharaoh's Blessing_ULD_143
 				InfoCardId = "ULD_143e",
 				//PowerTask = null,
@@ -1063,7 +1126,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_431", new Power {
+			cards.Add("ULD_431", new Power
+			{
 				// TODO [ULD_431] Making Mummies && Test: Making Mummies_ULD_431
 				InfoCardId = "ULD_431e",
 				//PowerTask = null,
@@ -1079,7 +1143,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_716", new Power {
+			cards.Add("ULD_716", new Power
+			{
 				// TODO [ULD_716] Tip the Scales && Test: Tip the Scales_ULD_716
 				InfoCardId = "ULD_716e2",
 				//PowerTask = null,
@@ -1096,7 +1161,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_728", new Power {
+			cards.Add("ULD_728", new Power
+			{
 				// TODO [ULD_728] Subdue && Test: Subdue_ULD_728
 				InfoCardId = "ULD_728e",
 				//PowerTask = null,
@@ -1113,7 +1179,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +4/+4, <b>Divine Shield</b>, and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("ULD_143e", new Power {
+			cards.Add("ULD_143e", new Power
+			{
 				// TODO [ULD_143e] Pharaoh's Blessing && Test: Pharaoh's Blessing_ULD_143e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_143e")
 			});
@@ -1124,7 +1191,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("ULD_145e", new Power {
+			cards.Add("ULD_145e", new Power
+			{
 				// TODO [ULD_145e] Zeal && Test: Zeal_ULD_145e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_145e")
 			});
@@ -1135,7 +1203,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: 2/2.
 			// --------------------------------------------------------
-			cards.Add("ULD_431e", new Power {
+			cards.Add("ULD_431e", new Power
+			{
 				// TODO [ULD_431e] Emperor Wrapped && Test: Emperor Wrapped_ULD_431e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_431e")
 			});
@@ -1146,7 +1215,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Stats changed to 3/3.
 			// --------------------------------------------------------
-			cards.Add("ULD_716e2", new Power {
+			cards.Add("ULD_716e2", new Power
+			{
 				// TODO [ULD_716e2] Watched && Test: Watched_ULD_716e2
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_716e2")
 			});
@@ -1155,7 +1225,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ULD_439t] Sandwasp (*) - COST:1 [ATK:2/HP:1] 
 			// - Race: beast, Set: uldum, 
 			// --------------------------------------------------------
-			cards.Add("ULD_439t", new Power {
+			cards.Add("ULD_439t", new Power
+			{
 				// TODO [ULD_439t] Sandwasp && Test: Sandwasp_ULD_439t
 				//PowerTask = null,
 				//Trigger = null,
@@ -1176,7 +1247,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_262", new Power {
+			cards.Add("ULD_262", new Power
+			{
 				// TODO [ULD_262] High Priest Amet && Test: High Priest Amet_ULD_262
 				InfoCardId = "ULD_262e",
 				//PowerTask = null,
@@ -1195,7 +1267,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_266", new Power {
+			cards.Add("ULD_266", new Power
+			{
 				// TODO [ULD_266] Grandmummy && Test: Grandmummy_ULD_266
 				InfoCardId = "ULD_266e",
 				//PowerTask = null,
@@ -1217,7 +1290,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_268", new Power {
+			cards.Add("ULD_268", new Power
+			{
 				// TODO [ULD_268] Psychopomp && Test: Psychopomp_ULD_268
 				//PowerTask = null,
 				//Trigger = null,
@@ -1239,7 +1313,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_269", new Power {
+			cards.Add("ULD_269", new Power
+			{
 				// TODO [ULD_269] Wretched Reclaimer && Test: Wretched Reclaimer_ULD_269
 				//PowerTask = null,
 				//Trigger = null,
@@ -1251,7 +1326,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: At the end of your turn, restore #5 Health to a damaged friendly character.
 			// --------------------------------------------------------
-			cards.Add("ULD_270", new Power {
+			cards.Add("ULD_270", new Power
+			{
 				// TODO [ULD_270] Sandhoof Waterbearer && Test: Sandhoof Waterbearer_ULD_270
 				//PowerTask = null,
 				//Trigger = null,
@@ -1270,7 +1346,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_265", new Power {
+			cards.Add("ULD_265", new Power
+			{
 				// TODO [ULD_265] Embalming Ritual && Test: Embalming Ritual_ULD_265
 				//PowerTask = null,
 				//Trigger = null,
@@ -1282,7 +1359,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to all enemies. Restore #1_Health to all friendly characters. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("ULD_272", new Power {
+			cards.Add("ULD_272", new Power
+			{
 				// TODO [ULD_272] Holy Ripple && Test: Holy Ripple_ULD_272
 				//PowerTask = null,
 				//Trigger = null,
@@ -1302,7 +1380,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_714", new Power {
+			cards.Add("ULD_714", new Power
+			{
 				// TODO [ULD_714] Penance && Test: Penance_ULD_714
 				//PowerTask = null,
 				//Trigger = null,
@@ -1317,7 +1396,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_718", new Power {
+			cards.Add("ULD_718", new Power
+			{
 				// TODO [ULD_718] Plague of Death && Test: Plague of Death_ULD_718
 				//PowerTask = null,
 				//Trigger = null,
@@ -1338,7 +1418,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 839 = 1
 			// - QUEST_REWARD_DATABASE_ID = 54750
 			// --------------------------------------------------------
-			cards.Add("ULD_724", new Power {
+			cards.Add("ULD_724", new Power
+			{
 				// TODO [ULD_724] Activate the Obelisk && Test: Activate the Obelisk_ULD_724
 				InfoCardId = "ULD_724e",
 				//PowerTask = null,
@@ -1355,7 +1436,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Health changed.
 			// --------------------------------------------------------
-			cards.Add("ULD_262e", new Power {
+			cards.Add("ULD_262e", new Power
+			{
 				// TODO [ULD_262e] Amet's Blessing && Test: Amet's Blessing_ULD_262e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_262e")
 			});
@@ -1369,7 +1451,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_266e", new Power {
+			cards.Add("ULD_266e", new Power
+			{
 				// TODO [ULD_266e] Grandmummy's Blessing && Test: Grandmummy's Blessing_ULD_266e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_266e")
 			});
@@ -1380,7 +1463,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("ULD_724e", new Power {
+			cards.Add("ULD_724e", new Power
+			{
 				// TODO [ULD_724e] Obelisk's Gaze && Test: Obelisk's Gaze_ULD_724e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_724e")
 			});
@@ -1401,7 +1485,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_186", new Power {
+			cards.Add("ULD_186", new Power
+			{
 				// TODO [ULD_186] Pharaoh Cat && Test: Pharaoh Cat_ULD_186
 				//PowerTask = null,
 				//Trigger = null,
@@ -1416,7 +1501,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - COMBO = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_231", new Power {
+			cards.Add("ULD_231", new Power
+			{
 				// TODO [ULD_231] Whirlkick Master && Test: Whirlkick Master_ULD_231
 				//PowerTask = null,
 				//Trigger = null,
@@ -1431,7 +1517,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_280", new Power {
+			cards.Add("ULD_280", new Power
+			{
 				// TODO [ULD_280] Sahket Sapper && Test: Sahket Sapper_ULD_280
 				//PowerTask = null,
 				//Trigger = null,
@@ -1450,7 +1537,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_288", new Power {
+			cards.Add("ULD_288", new Power
+			{
 				// TODO [ULD_288] Anka, the Buried && Test: Anka, the Buried_ULD_288
 				InfoCardId = "ULD_288e",
 				//PowerTask = null,
@@ -1468,7 +1556,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_327", new Power {
+			cards.Add("ULD_327", new Power
+			{
 				// TODO [ULD_327] Bazaar Mugger && Test: Bazaar Mugger_ULD_327
 				//PowerTask = null,
 				//Trigger = null,
@@ -1484,7 +1573,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_286", new Power {
+			cards.Add("ULD_286", new Power
+			{
 				// TODO [ULD_286] Shadow of Death && Test: Shadow of Death_ULD_286
 				//PowerTask = null,
 				//Trigger = null,
@@ -1506,7 +1596,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 839 = 1
 			// - QUEST_REWARD_DATABASE_ID = 54312
 			// --------------------------------------------------------
-			cards.Add("ULD_326", new Power {
+			cards.Add("ULD_326", new Power
+			{
 				// TODO [ULD_326] Bazaar Burglary && Test: Bazaar Burglary_ULD_326
 				//PowerTask = null,
 				//Trigger = null,
@@ -1518,7 +1609,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Add 2 random spells from another class to_your hand.
 			// --------------------------------------------------------
-			cards.Add("ULD_328", new Power {
+			cards.Add("ULD_328", new Power
+			{
 				// TODO [ULD_328] Clever Disguise && Test: Clever Disguise_ULD_328
 				//PowerTask = null,
 				//Trigger = null,
@@ -1537,7 +1629,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_715", new Power {
+			cards.Add("ULD_715", new Power
+			{
 				// TODO [ULD_715] Plague of Madness && Test: Plague of Madness_ULD_715
 				//PowerTask = null,
 				//Trigger = null,
@@ -1553,7 +1646,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 2
 			// - COMBO = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_285", new Power {
+			cards.Add("ULD_285", new Power
+			{
 				// TODO [ULD_285] Hooked Scimitar && Test: Hooked Scimitar_ULD_285
 				InfoCardId = "ULD_285e",
 				//PowerTask = null,
@@ -1570,7 +1664,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("ULD_285e", new Power {
+			cards.Add("ULD_285e", new Power
+			{
 				// TODO [ULD_285e] Polished && Test: Polished_ULD_285e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_285e")
 			});
@@ -1588,7 +1683,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - CASTSWHENDRAWN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_286t", new Power {
+			cards.Add("ULD_286t", new Power
+			{
 				// TODO [ULD_286t] Shadow && Test: Shadow_ULD_286t
 				//PowerTask = null,
 				//Trigger = null,
@@ -1606,7 +1702,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_326t", new Power {
+			cards.Add("ULD_326t", new Power
+			{
 				// TODO [ULD_326t] Mirage Blade && Test: Mirage Blade_ULD_326t
 				//PowerTask = null,
 				//Trigger = null,
@@ -1622,7 +1719,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 2
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_715t", new Power {
+			cards.Add("ULD_715t", new Power
+			{
 				// TODO [ULD_715t] Plagued Knife && Test: Plagued Knife_ULD_715t
 				//PowerTask = null,
 				//Trigger = null,
@@ -1642,7 +1740,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - OVERLOAD = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_158", new Power {
+			cards.Add("ULD_158", new Power
+			{
 				// TODO [ULD_158] Sandstorm Elemental && Test: Sandstorm Elemental_ULD_158
 				//PowerTask = null,
 				//Trigger = null,
@@ -1658,7 +1757,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_169", new Power {
+			cards.Add("ULD_169", new Power
+			{
 				// TODO [ULD_169] Mogu Fleshshaper && Test: Mogu Fleshshaper_ULD_169
 				//PowerTask = null,
 				//Trigger = null,
@@ -1680,7 +1780,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_170", new Power {
+			cards.Add("ULD_170", new Power
+			{
 				// TODO [ULD_170] Weaponized Wasp && Test: Weaponized Wasp_ULD_170
 				//PowerTask = null,
 				//Trigger = null,
@@ -1699,7 +1800,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_173", new Power {
+			cards.Add("ULD_173", new Power
+			{
 				// TODO [ULD_173] Vessina && Test: Vessina_ULD_173
 				InfoCardId = "ULD_173e",
 				//PowerTask = null,
@@ -1719,7 +1821,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_276", new Power {
+			cards.Add("ULD_276", new Power
+			{
 				// TODO [ULD_276] EVIL Totem && Test: EVIL Totem_ULD_276
 				//PowerTask = null,
 				//Trigger = null,
@@ -1731,7 +1834,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Give your Totems +2_Attack.
 			// --------------------------------------------------------
-			cards.Add("ULD_171", new Power {
+			cards.Add("ULD_171", new Power
+			{
 				// TODO [ULD_171] Totemic Surge && Test: Totemic Surge_ULD_171
 				InfoCardId = "ULD_171e",
 				//PowerTask = null,
@@ -1744,7 +1848,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Transform all minions into random Murlocs.
 			// --------------------------------------------------------
-			cards.Add("ULD_172", new Power {
+			cards.Add("ULD_172", new Power
+			{
 				// TODO [ULD_172] Plague of Murlocs && Test: Plague of Murlocs_ULD_172
 				//PowerTask = null,
 				//Trigger = null,
@@ -1756,7 +1861,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Deal $5 damage to all minions, then deal $2 damage to all minions. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("ULD_181", new Power {
+			cards.Add("ULD_181", new Power
+			{
 				// TODO [ULD_181] Earthquake && Test: Earthquake_ULD_181
 				//PowerTask = null,
 				//Trigger = null,
@@ -1781,7 +1887,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_291", new Power {
+			cards.Add("ULD_291", new Power
+			{
 				// TODO [ULD_291] Corrupt the Waters && Test: Corrupt the Waters_ULD_291
 				InfoCardId = "ULD_291pe",
 				//PowerTask = null,
@@ -1798,7 +1905,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DURABILITY = 2
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_413", new Power {
+			cards.Add("ULD_413", new Power
+			{
 				// TODO [ULD_413] Splitting Axe && Test: Splitting Axe_ULD_413
 				//PowerTask = null,
 				//Trigger = null,
@@ -1817,7 +1925,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_171e", new Power {
+			cards.Add("ULD_171e", new Power
+			{
 				// TODO [ULD_171e] Big Surge && Test: Big Surge_ULD_171e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_171e")
 			});
@@ -1828,7 +1937,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Vessina is granting this minion +2_Attack.
 			// --------------------------------------------------------
-			cards.Add("ULD_173e", new Power {
+			cards.Add("ULD_173e", new Power
+			{
 				// TODO [ULD_173e] Vessina's Devotion && Test: Vessina's Devotion_ULD_173e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_173e")
 			});
@@ -1839,7 +1949,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Costs (2) less.
 			// --------------------------------------------------------
-			cards.Add("ULD_433e", new Power {
+			cards.Add("ULD_433e", new Power
+			{
 				// TODO [ULD_433e] Cheat Sheet && Test: Cheat Sheet_ULD_433e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_433e")
 			});
@@ -1854,7 +1965,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Whenever this attacks, deal 3 damage to your_hero.
 			// --------------------------------------------------------
-			cards.Add("ULD_161", new Power {
+			cards.Add("ULD_161", new Power
+			{
 				// TODO [ULD_161] Neferset Thrasher && Test: Neferset Thrasher_ULD_161
 				//PowerTask = null,
 				//Trigger = null,
@@ -1879,7 +1991,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_162", new Power {
+			cards.Add("ULD_162", new Power
+			{
 				// TODO [ULD_162] EVIL Recruiter && Test: EVIL Recruiter_ULD_162
 				//PowerTask = null,
 				//Trigger = null,
@@ -1898,7 +2011,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_163", new Power {
+			cards.Add("ULD_163", new Power
+			{
 				// TODO [ULD_163] Expired Merchant && Test: Expired Merchant_ULD_163
 				InfoCardId = "ULD_163e",
 				//PowerTask = null,
@@ -1918,7 +2032,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_165", new Power {
+			cards.Add("ULD_165", new Power
+			{
 				// TODO [ULD_165] Riftcleaver && Test: Riftcleaver_ULD_165
 				//PowerTask = null,
 				//Trigger = null,
@@ -1931,7 +2046,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// Text: After your hero takes damage on your turn, summon a random
 			//       3-Cost minion.
 			// --------------------------------------------------------
-			cards.Add("ULD_167", new Power {
+			cards.Add("ULD_167", new Power
+			{
 				// TODO [ULD_167] Diseased Vulture && Test: Diseased Vulture_ULD_167
 				//PowerTask = null,
 				//Trigger = null,
@@ -1950,7 +2066,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_168", new Power {
+			cards.Add("ULD_168", new Power
+			{
 				// TODO [ULD_168] Dark Pharaoh Tekahn && Test: Dark Pharaoh Tekahn_ULD_168
 				InfoCardId = "ULD_168e",
 				//PowerTask = null,
@@ -1972,7 +2089,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 839 = 1
 			// - QUEST_REWARD_DATABASE_ID = 53740
 			// --------------------------------------------------------
-			cards.Add("ULD_140", new Power {
+			cards.Add("ULD_140", new Power
+			{
 				// TODO [ULD_140] Supreme Archaeology && Test: Supreme Archaeology_ULD_140
 				InfoCardId = "ULD_140e",
 				//PowerTask = null,
@@ -1993,7 +2111,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_160", new Power {
+			cards.Add("ULD_160", new Power
+			{
 				// TODO [ULD_160] Sinister Deal && Test: Sinister Deal_ULD_160
 				//PowerTask = null,
 				//Trigger = null,
@@ -2009,7 +2128,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_324", new Power {
+			cards.Add("ULD_324", new Power
+			{
 				// TODO [ULD_324] Impbalming && Test: Impbalming_ULD_324
 				//PowerTask = null,
 				//Trigger = null,
@@ -2023,7 +2143,8 @@ namespace SabberStoneCore.CardSets.Standard
 			//       For each one, destroy a
 			//       random enemy minion.
 			// --------------------------------------------------------
-			cards.Add("ULD_717", new Power {
+			cards.Add("ULD_717", new Power
+			{
 				// TODO [ULD_717] Plague of Flames && Test: Plague of Flames_ULD_717
 				//PowerTask = null,
 				//Trigger = null,
@@ -2039,7 +2160,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Costs (0).
 			// --------------------------------------------------------
-			cards.Add("ULD_140e", new Power {
+			cards.Add("ULD_140e", new Power
+			{
 				// TODO [ULD_140e] Origination && Test: Origination_ULD_140e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_140e")
 			});
@@ -2050,7 +2172,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Discarded {0}.
 			// --------------------------------------------------------
-			cards.Add("ULD_163e", new Power {
+			cards.Add("ULD_163e", new Power
+			{
 				// TODO [ULD_163e] Expired Goods && Test: Expired Goods_ULD_163e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_163e")
 			});
@@ -2061,7 +2184,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Your <b>Lackeys</b> are 4/4.
 			// --------------------------------------------------------
-			cards.Add("ULD_168e", new Power {
+			cards.Add("ULD_168e", new Power
+			{
 				// TODO [ULD_168e] Lackey Empowerment && Test: Lackey Empowerment_ULD_168e
 				InfoCardId = "ULD_168e2",
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_168e")
@@ -2073,7 +2197,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Your <b>Lackeys</b> are 4/4.
 			// --------------------------------------------------------
-			cards.Add("ULD_168e2", new Power {
+			cards.Add("ULD_168e2", new Power
+			{
 				// TODO [ULD_168e2] Lackey Empowerment && Test: Lackey Empowerment_ULD_168e2
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_168e2")
 			});
@@ -2087,7 +2212,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ENCHANTMENT_INVISIBLE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_168e3", new Power {
+			cards.Add("ULD_168e3", new Power
+			{
 				// TODO [ULD_168e3] Lackey Empowerment && Test: Lackey Empowerment_ULD_168e3
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_168e3")
 			});
@@ -2096,7 +2222,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ULD_162t] EVIL Demon (*) - COST:5 [ATK:5/HP:5] 
 			// - Race: demon, Set: uldum, 
 			// --------------------------------------------------------
-			cards.Add("ULD_162t", new Power {
+			cards.Add("ULD_162t", new Power
+			{
 				// TODO [ULD_162t] EVIL Demon && Test: EVIL Demon_ULD_162t
 				//PowerTask = null,
 				//Trigger = null,
@@ -2106,7 +2233,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ULD_324t] Worthless Imp (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: demon, Set: uldum, 
 			// --------------------------------------------------------
-			cards.Add("ULD_324t", new Power {
+			cards.Add("ULD_324t", new Power
+			{
 				// TODO [ULD_324t] Worthless Imp && Test: Worthless Imp_ULD_324t
 				//PowerTask = null,
 				//Trigger = null,
@@ -2129,7 +2257,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_195", new Power {
+			cards.Add("ULD_195", new Power
+			{
 				// TODO [ULD_195] Frightened Flunky && Test: Frightened Flunky_ULD_195
 				//PowerTask = null,
 				//Trigger = null,
@@ -2146,7 +2275,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - RUSH = 1
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_206", new Power {
+			cards.Add("ULD_206", new Power
+			{
 				// TODO [ULD_206] Restless Mummy && Test: Restless Mummy_ULD_206
 				//PowerTask = null,
 				//Trigger = null,
@@ -2163,7 +2293,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_253", new Power {
+			cards.Add("ULD_253", new Power
+			{
 				// TODO [ULD_253] Tomb Warden && Test: Tomb Warden_ULD_253
 				//PowerTask = null,
 				//Trigger = null,
@@ -2182,7 +2313,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_258", new Power {
+			cards.Add("ULD_258", new Power
+			{
 				// TODO [ULD_258] Armagedillo && Test: Armagedillo_ULD_258
 				InfoCardId = "ULD_258e",
 				//PowerTask = null,
@@ -2195,7 +2327,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Whenever your hero attacks, gain 5 Armor.
 			// --------------------------------------------------------
-			cards.Add("ULD_709", new Power {
+			cards.Add("ULD_709", new Power
+			{
 				// TODO [ULD_709] Armored Goon && Test: Armored Goon_ULD_709
 				//PowerTask = null,
 				//Trigger = null,
@@ -2218,7 +2351,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_DAMAGED_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_720", new Power {
+			cards.Add("ULD_720", new Power
+			{
 				// TODO [ULD_720] Bloodsworn Mercenary && Test: Bloodsworn Mercenary_ULD_720
 				//PowerTask = null,
 				//Trigger = null,
@@ -2233,7 +2367,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_256", new Power {
+			cards.Add("ULD_256", new Power
+			{
 				// TODO [ULD_256] Into the Fray && Test: Into the Fray_ULD_256
 				InfoCardId = "ULD_256e",
 				//PowerTask = null,
@@ -2249,7 +2384,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - 858 = 41425
 			// --------------------------------------------------------
-			cards.Add("ULD_707", new Power {
+			cards.Add("ULD_707", new Power
+			{
 				// TODO [ULD_707] Plague of Wrath && Test: Plague of Wrath_ULD_707
 				//PowerTask = null,
 				//Trigger = null,
@@ -2271,7 +2407,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - 839 = 1
 			// - QUEST_REWARD_DATABASE_ID = 54416
 			// --------------------------------------------------------
-			cards.Add("ULD_711", new Power {
+			cards.Add("ULD_711", new Power
+			{
 				// TODO [ULD_711] Hack the System && Test: Hack the System_ULD_711
 				//PowerTask = null,
 				//Trigger = null,
@@ -2290,7 +2427,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_708", new Power {
+			cards.Add("ULD_708", new Power
+			{
 				// TODO [ULD_708] Livewire Lance && Test: Livewire Lance_ULD_708
 				//PowerTask = null,
 				//Trigger = null,
@@ -2304,7 +2442,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ULD_711t] Stone Golem (*) - COST:3 [ATK:4/HP:3] 
 			// - Set: uldum, 
 			// --------------------------------------------------------
-			cards.Add("ULD_711t", new Power {
+			cards.Add("ULD_711t", new Power
+			{
 				// TODO [ULD_711t] Stone Golem && Test: Stone Golem_ULD_711t
 				//PowerTask = null,
 				//Trigger = null,
@@ -2324,7 +2463,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_003", new Power {
+			cards.Add("ULD_003", new Power
+			{
 				// TODO [ULD_003] Zephrys the Great && Test: Zephrys the Great_ULD_003
 				//PowerTask = null,
 				//Trigger = null,
@@ -2342,7 +2482,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - QUEST = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_157", new Power {
+			cards.Add("ULD_157", new Power
+			{
 				// TODO [ULD_157] Questing Explorer && Test: Questing Explorer_ULD_157
 				//PowerTask = null,
 				//Trigger = null,
@@ -2357,7 +2498,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_174", new Power {
+			cards.Add("ULD_174", new Power
+			{
 				// TODO [ULD_174] Serpent Egg && Test: Serpent Egg_ULD_174
 				//PowerTask = null,
 				//Trigger = null,
@@ -2373,7 +2515,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_177", new Power {
+			cards.Add("ULD_177", new Power
+			{
 				// TODO [ULD_177] Octosari && Test: Octosari_ULD_177
 				//PowerTask = null,
 				//Trigger = null,
@@ -2399,7 +2542,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178", new Power {
+			cards.Add("ULD_178", new Power
+			{
 				// TODO [ULD_178] Siamat && Test: Siamat_ULD_178
 				//PowerTask = null,
 				//Trigger = null,
@@ -2421,7 +2565,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_179", new Power {
+			cards.Add("ULD_179", new Power
+			{
 				// TODO [ULD_179] Phalanx Commander && Test: Phalanx Commander_ULD_179
 				InfoCardId = "ULD_179e",
 				//PowerTask = null,
@@ -2434,7 +2579,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: At the start of your turn, this has a 50% chance to_fall asleep.
 			// --------------------------------------------------------
-			cards.Add("ULD_180", new Power {
+			cards.Add("ULD_180", new Power
+			{
 				// TODO [ULD_180] Sunstruck Henchman && Test: Sunstruck Henchman_ULD_180
 				//PowerTask = null,
 				//Trigger = null,
@@ -2448,7 +2594,8 @@ namespace SabberStoneCore.CardSets.Standard
 			//       __deal 1 damage to another__
 			//       random friendly minion.
 			// --------------------------------------------------------
-			cards.Add("ULD_182", new Power {
+			cards.Add("ULD_182", new Power
+			{
 				// TODO [ULD_182] Spitting Camel && Test: Spitting Camel_ULD_182
 				//PowerTask = null,
 				//Trigger = null,
@@ -2463,7 +2610,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_183", new Power {
+			cards.Add("ULD_183", new Power
+			{
 				// TODO [ULD_183] Anubisath Warbringer && Test: Anubisath Warbringer_ULD_183
 				InfoCardId = "ULD_183e",
 				//PowerTask = null,
@@ -2479,7 +2627,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_184", new Power {
+			cards.Add("ULD_184", new Power
+			{
 				// TODO [ULD_184] Kobold Sandtrooper && Test: Kobold Sandtrooper_ULD_184
 				//PowerTask = null,
 				//Trigger = null,
@@ -2496,7 +2645,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ENRAGED = 1
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_185", new Power {
+			cards.Add("ULD_185", new Power
+			{
 				// TODO [ULD_185] Temple Berserker && Test: Temple Berserker_ULD_185
 				InfoCardId = "ULD_185e",
 				//PowerTask = null,
@@ -2515,7 +2665,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_188", new Power {
+			cards.Add("ULD_188", new Power
+			{
 				// TODO [ULD_188] Golden Scarab && Test: Golden Scarab_ULD_188
 				//PowerTask = null,
 				//Trigger = null,
@@ -2532,7 +2683,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_189", new Power {
+			cards.Add("ULD_189", new Power
+			{
 				// TODO [ULD_189] Faceless Lurker && Test: Faceless Lurker_ULD_189
 				InfoCardId = "ULD_189e",
 				//PowerTask = null,
@@ -2551,7 +2703,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_190", new Power {
+			cards.Add("ULD_190", new Power
+			{
 				// TODO [ULD_190] Pit Crocolisk && Test: Pit Crocolisk_ULD_190
 				//PowerTask = null,
 				//Trigger = null,
@@ -2571,7 +2724,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_191", new Power {
+			cards.Add("ULD_191", new Power
+			{
 				// TODO [ULD_191] Beaming Sidekick && Test: Beaming Sidekick_ULD_191
 				InfoCardId = "ULD_191e",
 				//PowerTask = null,
@@ -2587,7 +2741,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_193", new Power {
+			cards.Add("ULD_193", new Power
+			{
 				// TODO [ULD_193] Living Monument && Test: Living Monument_ULD_193
 				//PowerTask = null,
 				//Trigger = null,
@@ -2602,7 +2757,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_194", new Power {
+			cards.Add("ULD_194", new Power
+			{
 				// TODO [ULD_194] Wasteland Scorpid && Test: Wasteland Scorpid_ULD_194
 				//PowerTask = null,
 				//Trigger = null,
@@ -2617,7 +2773,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_196", new Power {
+			cards.Add("ULD_196", new Power
+			{
 				// TODO [ULD_196] Neferset Ritualist && Test: Neferset Ritualist_ULD_196
 				//PowerTask = null,
 				//Trigger = null,
@@ -2632,7 +2789,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_197", new Power {
+			cards.Add("ULD_197", new Power
+			{
 				// TODO [ULD_197] Quicksand Elemental && Test: Quicksand Elemental_ULD_197
 				InfoCardId = "ULD_197e",
 				//PowerTask = null,
@@ -2649,7 +2807,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_198", new Power {
+			cards.Add("ULD_198", new Power
+			{
 				// TODO [ULD_198] Conjured Mirage && Test: Conjured Mirage_ULD_198
 				//PowerTask = null,
 				//Trigger = null,
@@ -2664,7 +2823,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_205", new Power {
+			cards.Add("ULD_205", new Power
+			{
 				// TODO [ULD_205] Candletaker && Test: Candletaker_ULD_205
 				//PowerTask = null,
 				//Trigger = null,
@@ -2683,7 +2843,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_208", new Power {
+			cards.Add("ULD_208", new Power
+			{
 				// TODO [ULD_208] Khartut Defender && Test: Khartut Defender_ULD_208
 				//PowerTask = null,
 				//Trigger = null,
@@ -2700,7 +2861,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_209", new Power {
+			cards.Add("ULD_209", new Power
+			{
 				// TODO [ULD_209] Vulpera Scoundrel && Test: Vulpera Scoundrel_ULD_209
 				//PowerTask = null,
 				//Trigger = null,
@@ -2717,7 +2879,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - AURA = 1
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_214", new Power {
+			cards.Add("ULD_214", new Power
+			{
 				// TODO [ULD_214] Generous Mummy && Test: Generous Mummy_ULD_214
 				InfoCardId = "ULD_214e",
 				//PowerTask = null,
@@ -2739,7 +2902,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_215", new Power {
+			cards.Add("ULD_215", new Power
+			{
 				// TODO [ULD_215] Wrapped Golem && Test: Wrapped Golem_ULD_215
 				//PowerTask = null,
 				//Trigger = null,
@@ -2754,7 +2918,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_229", new Power {
+			cards.Add("ULD_229", new Power
+			{
 				// TODO [ULD_229] Mischief Maker && Test: Mischief Maker_ULD_229
 				//PowerTask = null,
 				//Trigger = null,
@@ -2771,7 +2936,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_250", new Power {
+			cards.Add("ULD_250", new Power
+			{
 				// TODO [ULD_250] Infested Goblin && Test: Infested Goblin_ULD_250
 				//PowerTask = null,
 				//Trigger = null,
@@ -2788,7 +2954,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_271", new Power {
+			cards.Add("ULD_271", new Power
+			{
 				// TODO [ULD_271] Injured Tol'vir && Test: Injured Tol'vir_ULD_271
 				//PowerTask = null,
 				//Trigger = null,
@@ -2805,7 +2972,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - STEALTH = 1
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_274", new Power {
+			cards.Add("ULD_274", new Power
+			{
 				// TODO [ULD_274] Wasteland Assassin && Test: Wasteland Assassin_ULD_274
 				//PowerTask = null,
 				//Trigger = null,
@@ -2822,7 +2990,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_275", new Power {
+			cards.Add("ULD_275", new Power
+			{
 				// TODO [ULD_275] Bone Wraith && Test: Bone Wraith_ULD_275
 				//PowerTask = null,
 				//Trigger = null,
@@ -2838,7 +3007,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_282", new Power {
+			cards.Add("ULD_282", new Power
+			{
 				// TODO [ULD_282] Jar Dealer && Test: Jar Dealer_ULD_282
 				//PowerTask = null,
 				//Trigger = null,
@@ -2854,7 +3024,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_289", new Power {
+			cards.Add("ULD_289", new Power
+			{
 				// TODO [ULD_289] Fishflinger && Test: Fishflinger_ULD_289
 				//PowerTask = null,
 				//Trigger = null,
@@ -2866,7 +3037,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Whenever you play a minion, give a random minion in your hand +1/+1.
 			// --------------------------------------------------------
-			cards.Add("ULD_290", new Power {
+			cards.Add("ULD_290", new Power
+			{
 				// TODO [ULD_290] History Buff && Test: History Buff_ULD_290
 				InfoCardId = "ULD_290e",
 				//PowerTask = null,
@@ -2886,7 +3058,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_304", new Power {
+			cards.Add("ULD_304", new Power
+			{
 				// TODO [ULD_304] King Phaoris && Test: King Phaoris_ULD_304
 				//PowerTask = null,
 				//Trigger = null,
@@ -2901,7 +3074,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_309", new Power {
+			cards.Add("ULD_309", new Power
+			{
 				// TODO [ULD_309] Dwarven Archaeologist && Test: Dwarven Archaeologist_ULD_309
 				InfoCardId = "ULD_309e",
 				//PowerTask = null,
@@ -2917,7 +3091,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_450", new Power {
+			cards.Add("ULD_450", new Power
+			{
 				// TODO [ULD_450] Vilefiend && Test: Vilefiend_ULD_450
 				//PowerTask = null,
 				//Trigger = null,
@@ -2932,7 +3107,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_702", new Power {
+			cards.Add("ULD_702", new Power
+			{
 				// TODO [ULD_702] Mortuary Machine && Test: Mortuary Machine_ULD_702
 				//PowerTask = null,
 				//Trigger = null,
@@ -2947,7 +3123,8 @@ namespace SabberStoneCore.CardSets.Standard
 			//       deal 5 damage to a
 			//       random enemy.
 			// --------------------------------------------------------
-			cards.Add("ULD_703", new Power {
+			cards.Add("ULD_703", new Power
+			{
 				// TODO [ULD_703] Desert Obelisk && Test: Desert Obelisk_ULD_703
 				//PowerTask = null,
 				//Trigger = null,
@@ -2962,7 +3139,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_705", new Power {
+			cards.Add("ULD_705", new Power
+			{
 				// TODO [ULD_705] Mogu Cultist && Test: Mogu Cultist_ULD_705
 				//PowerTask = null,
 				//Trigger = null,
@@ -2979,7 +3157,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_706", new Power {
+			cards.Add("ULD_706", new Power
+			{
 				// TODO [ULD_706] Blatant Decoy && Test: Blatant Decoy_ULD_706
 				//PowerTask = null,
 				//Trigger = null,
@@ -2997,7 +3176,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_712", new Power {
+			cards.Add("ULD_712", new Power
+			{
 				// TODO [ULD_712] Bug Collector && Test: Bug Collector_ULD_712
 				//PowerTask = null,
 				//Trigger = null,
@@ -3012,7 +3192,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_719", new Power {
+			cards.Add("ULD_719", new Power
+			{
 				// TODO [ULD_719] Desert Hare && Test: Desert Hare_ULD_719
 				//PowerTask = null,
 				//Trigger = null,
@@ -3030,7 +3211,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_721", new Power {
+			cards.Add("ULD_721", new Power
+			{
 				// TODO [ULD_721] Colossus of the Moon && Test: Colossus of the Moon_ULD_721
 				//PowerTask = null,
 				//Trigger = null,
@@ -3045,7 +3227,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_723", new Power {
+			cards.Add("ULD_723", new Power
+			{
 				// TODO [ULD_723] Murmy && Test: Murmy_ULD_723
 				//PowerTask = null,
 				//Trigger = null,
@@ -3062,7 +3245,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_727", new Power {
+			cards.Add("ULD_727", new Power
+			{
 				// TODO [ULD_727] Body Wrapper && Test: Body Wrapper_ULD_727
 				//PowerTask = null,
 				//Trigger = null,
@@ -3078,7 +3262,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Phalanx Commander is granting this +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("ULD_179e", new Power {
+			cards.Add("ULD_179e", new Power
+			{
 				// TODO [ULD_179e] Commanded && Test: Commanded_ULD_179e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_179e")
 			});
@@ -3089,7 +3274,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
-			cards.Add("ULD_183e", new Power {
+			cards.Add("ULD_183e", new Power
+			{
 				// TODO [ULD_183e] Anubisath Power && Test: Anubisath Power_ULD_183e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_183e")
 			});
@@ -3103,7 +3289,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ENRAGED = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_185e", new Power {
+			cards.Add("ULD_185e", new Power
+			{
 				// TODO [ULD_185e] Enraged && Test: Enraged_ULD_185e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_185e")
 			});
@@ -3114,7 +3301,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Doubled Health.
 			// --------------------------------------------------------
-			cards.Add("ULD_189e", new Power {
+			cards.Add("ULD_189e", new Power
+			{
 				// TODO [ULD_189e] Bravery && Test: Bravery_ULD_189e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_189e")
 			});
@@ -3125,7 +3313,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
-			cards.Add("ULD_191e", new Power {
+			cards.Add("ULD_191e", new Power
+			{
 				// TODO [ULD_191e] Assisting! && Test: Assisting!_ULD_191e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_191e")
 			});
@@ -3139,7 +3328,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_197e", new Power {
+			cards.Add("ULD_197e", new Power
+			{
 				// TODO [ULD_197e] Stuck! && Test: Stuck!_ULD_197e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_197e")
 			});
@@ -3150,7 +3340,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Costs (1) less.
 			// --------------------------------------------------------
-			cards.Add("ULD_214e", new Power {
+			cards.Add("ULD_214e", new Power
+			{
 				// TODO [ULD_214e] Charity && Test: Charity_ULD_214e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_214e")
 			});
@@ -3161,7 +3352,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Attack increased.
 			// --------------------------------------------------------
-			cards.Add("ULD_217e", new Power {
+			cards.Add("ULD_217e", new Power
+			{
 				// TODO [ULD_217e] Microwrapped && Test: Microwrapped_ULD_217e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_217e")
 			});
@@ -3172,7 +3364,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2/+2 from Into the Fray.
 			// --------------------------------------------------------
-			cards.Add("ULD_256e", new Power {
+			cards.Add("ULD_256e", new Power
+			{
 				// TODO [ULD_256e] Frayed && Test: Frayed_ULD_256e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_256e")
 			});
@@ -3183,7 +3376,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased stats from Armagedillo.
 			// --------------------------------------------------------
-			cards.Add("ULD_258e", new Power {
+			cards.Add("ULD_258e", new Power
+			{
 				// TODO [ULD_258e] Tough && Test: Tough_ULD_258e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_258e")
 			});
@@ -3194,7 +3388,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Increased stats from History Buff.
 			// --------------------------------------------------------
-			cards.Add("ULD_290e", new Power {
+			cards.Add("ULD_290e", new Power
+			{
 				// TODO [ULD_290e] Erudite && Test: Erudite_ULD_290e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_290e")
 			});
@@ -3208,7 +3403,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_291pe", new Power {
+			cards.Add("ULD_291pe", new Power
+			{
 				// TODO [ULD_291pe] Heart of Vir'naal && Test: Heart of Vir'naal_ULD_291pe
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_291pe")
 			});
@@ -3219,7 +3415,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Costs (1) less.
 			// --------------------------------------------------------
-			cards.Add("ULD_309e", new Power {
+			cards.Add("ULD_309e", new Power
+			{
 				// TODO [ULD_309e] Archaelogical Study && Test: Archaelogical Study_ULD_309e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_309e")
 			});
@@ -3230,7 +3427,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: +2 Health and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("ULD_616e", new Power {
+			cards.Add("ULD_616e", new Power
+			{
 				// TODO [ULD_616e] Hardened && Test: Hardened_ULD_616e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_616e")
 			});
@@ -3241,7 +3439,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: 1/1.
 			// --------------------------------------------------------
-			cards.Add("ULD_728e", new Power {
+			cards.Add("ULD_728e", new Power
+			{
 				// TODO [ULD_728e] Subdued && Test: Subdued_ULD_728e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_728e")
 			});
@@ -3250,7 +3449,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// [ULD_174t] Sea Serpent (*) - COST:3 [ATK:3/HP:4] 
 			// - Race: beast, Set: uldum, 
 			// --------------------------------------------------------
-			cards.Add("ULD_174t", new Power {
+			cards.Add("ULD_174t", new Power
+			{
 				// TODO [ULD_174t] Sea Serpent && Test: Sea Serpent_ULD_174t
 				//PowerTask = null,
 				//Trigger = null,
@@ -3265,7 +3465,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_215t", new Power {
+			cards.Add("ULD_215t", new Power
+			{
 				// TODO [ULD_215t] Scarab && Test: Scarab_ULD_215t
 				//PowerTask = null,
 				//Trigger = null,
@@ -3280,7 +3481,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_430t", new Power {
+			cards.Add("ULD_430t", new Power
+			{
 				// TODO [ULD_430t] Locust && Test: Locust_ULD_430t
 				//PowerTask = null,
 				//Trigger = null,
@@ -3304,7 +3506,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_616", new Power {
+			cards.Add("ULD_616", new Power
+			{
 				// TODO [ULD_616] Titanic Lackey && Test: Titanic Lackey_ULD_616
 				InfoCardId = "ULD_616e",
 				//PowerTask = null,
@@ -3320,7 +3523,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_705t", new Power {
+			cards.Add("ULD_705t", new Power
+			{
 				// TODO [ULD_705t] Highkeeper Ra && Test: Highkeeper Ra_ULD_705t
 				//PowerTask = null,
 				//Trigger = null,
@@ -3342,7 +3546,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178a", new Power {
+			cards.Add("ULD_178a", new Power
+			{
 				// TODO [ULD_178a] Siamat's Wind && Test: Siamat's Wind_ULD_178a
 				//PowerTask = null,
 				//Trigger = null,
@@ -3365,7 +3570,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178a2", new Power {
+			cards.Add("ULD_178a2", new Power
+			{
 				// TODO [ULD_178a2] Siamat's Shield && Test: Siamat's Shield_ULD_178a2
 				//PowerTask = null,
 				//Trigger = null,
@@ -3388,7 +3594,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178a3", new Power {
+			cards.Add("ULD_178a3", new Power
+			{
 				// TODO [ULD_178a3] Siamat's Heart && Test: Siamat's Heart_ULD_178a3
 				//PowerTask = null,
 				//Trigger = null,
@@ -3410,7 +3617,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178a4", new Power {
+			cards.Add("ULD_178a4", new Power
+			{
 				// TODO [ULD_178a4] Siamat's Speed && Test: Siamat's Speed_ULD_178a4
 				//PowerTask = null,
 				//Trigger = null,
@@ -3425,7 +3633,8 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_209t", new Power {
+			cards.Add("ULD_209t", new Power
+			{
 				// TODO [ULD_209t] Mystery Choice! && Test: Mystery Choice!_ULD_209t
 				//PowerTask = null,
 				//Trigger = null,
