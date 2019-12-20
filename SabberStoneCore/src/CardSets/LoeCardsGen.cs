@@ -19,6 +19,7 @@ using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Triggers;
+using SabberStoneCore.src.Loader;
 
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
@@ -26,7 +27,7 @@ namespace SabberStoneCore.CardSets
 {
 	public class LoeCardsGen
 	{
-		private static void Druid(IDictionary<string, Power> cards)
+		private static void Druid(Dictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
 			// [LOE_050] Mounted Raptor - COST:3 [ATK:3/HP:2] 
@@ -37,10 +38,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_050", new Power
+			cards.Add("LOE_050", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.SummonRandomMinion(GameTag.COST, 1)
-			});
+			}));
 
 			// ----------------------------------------- MINION - DRUID
 			// [LOE_051] Jungle Moonkin - COST:4 [ATK:4/HP:4] 
@@ -52,10 +53,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SPELLPOWER = 2
 			// --------------------------------------------------------
-			cards.Add("LOE_051", new Power
+			cards.Add("LOE_051", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.OPPONENT, new Effect(GameTag.SPELLPOWER, EffectOperator.ADD, 2))
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [LOE_115] Raven Idol - COST:1 
@@ -72,11 +73,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("LOE_115",
 				//CHOOSE_ONE
-				null);
+				new CardDef());
 
 		}
 
-		private static void DruidNonCollect(IDictionary<string, Power> cards)
+		private static void DruidNonCollect(Dictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ SPELL - DRUID
 			// [LOE_115a] Raven Idol (*) - COST:0 
@@ -84,10 +85,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a minion.
 			// --------------------------------------------------------
-			cards.Add("LOE_115a", new Power
+			cards.Add("LOE_115a", new CardDef(new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.MINION),
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [LOE_115b] Raven Idol (*) - COST:0 
@@ -95,14 +96,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a spell.
 			// --------------------------------------------------------
-			cards.Add("LOE_115b", new Power
+			cards.Add("LOE_115b", new CardDef(new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.SPELL),
-			});
+			}));
 
 		}
 
-		private static void Hunter(IDictionary<string, Power> cards)
+		private static void Hunter(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
 			// [LOE_020] Desert Camel - COST:3 [ATK:2/HP:4] 
@@ -113,7 +114,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_020", new Power
+			cards.Add("LOE_020", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsNotBoardFull),
@@ -130,7 +131,7 @@ namespace SabberStoneCore.CardSets
 						new RandomTask(1, EntityType.STACK),
 						new RemoveFromDeck(EntityType.STACK),
 						new SummonOpTask())))
-			});
+			}));
 
 			// ----------------------------------------- SPELL - HUNTER
 			// [LOE_021] Dart Trap - COST:2 
@@ -141,14 +142,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_021", new Power
+			cards.Add("LOE_021", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.INSPIRE)
 				{
 					EitherTurn = true,
 					SingleTask = ComplexTask.Secret(ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 5, true))
 				}
-			});
+			}));
 
 			// ----------------------------------------- SPELL - HUNTER
 			// [LOE_105] Explorer's Hat - COST:2 
@@ -163,14 +164,14 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_105", new Power
+			cards.Add("LOE_105", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("LOE_105e", EntityType.TARGET)
-			});
+			}));
 
 		}
 
-		private static void HunterNonCollect(IDictionary<string, Power> cards)
+		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [LOE_105e] Explorer's Hat (*) - COST:0 
@@ -178,15 +179,15 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1. <b>Deathrattle:</b> Add an Explorer's Hat to your hand.
 			// --------------------------------------------------------
-			cards.Add("LOE_105e", new Power
+			cards.Add("LOE_105e", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.AttackHealth_N(1)),
 				DeathrattleTask = new AddCardTo("LOE_105", EntityType.HAND)
-			});
+			}));
 
 		}
 
-		private static void Mage(IDictionary<string, Power> cards)
+		private static void Mage(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
 			// [LOE_003] Ethereal Conjurer - COST:5 [ATK:6/HP:3] 
@@ -200,10 +201,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_003", new Power
+			cards.Add("LOE_003", new CardDef(new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.SPELL)
-			});
+			}));
 
 			// ------------------------------------------ MINION - MAGE
 			// [LOE_119] Animated Armor - COST:4 [ATK:4/HP:4] 
@@ -211,12 +212,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Your hero can only take 1 damage at a time.
 			// --------------------------------------------------------
-			cards.Add("LOE_119", new Power
+			cards.Add("LOE_119", new CardDef(new Power
 			{
 				// TODO [LOE_119] Animated Armor && Test: Animated Armor_LOE_119
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// ------------------------------------------- SPELL - MAGE
 			// [LOE_002] Forgotten Torch - COST:3 
@@ -227,16 +228,16 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("LOE_002", new Power
+			cards.Add("LOE_002", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 						new DamageTask(3, EntityType.TARGET, true),
 						new AddCardTo("LOE_002t", EntityType.DECK)),
-			});
+			}));
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, Power> cards)
+		private static void MageNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------- SPELL - MAGE
 			// [LOE_002t] Roaring Torch (*) - COST:3 
@@ -247,14 +248,14 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("LOE_002t", new Power
+			cards.Add("LOE_002t", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(6, EntityType.TARGET, true),
-			});
+			}));
 
 		}
 
-		private static void Paladin(IDictionary<string, Power> cards)
+		private static void Paladin(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
 			// [LOE_017] Keeper of Uldaman - COST:4 [ATK:3/HP:4] 
@@ -269,10 +270,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOE_017", new Power
+			cards.Add("LOE_017", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("LOE_017e", EntityType.TARGET)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [LOE_026] Anyfin Can Happen - COST:10 
@@ -280,7 +281,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Summon 7 Murlocs that died this game.
 			// --------------------------------------------------------
-			cards.Add("LOE_026", new Power
+			cards.Add("LOE_026", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 						new IncludeTask(EntityType.GRAVEYARD),
@@ -288,7 +289,7 @@ namespace SabberStoneCore.CardSets
 						new RandomTask(7, EntityType.STACK),
 						//new CopyTask(EntityType.STACK, 1),
 						new SummonCopyTask(EntityType.STACK))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [LOE_027] Sacred Trial - COST:1 
@@ -299,7 +300,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_027", new Power
+			cards.Add("LOE_027", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
@@ -307,11 +308,11 @@ namespace SabberStoneCore.CardSets
 						new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpBoardCount(4, RelaSign.GEQ)),
 						new FlagTask(true, ComplexTask.Secret(new DestroyTask(EntityType.TARGET))))
 				}
-			});
+			}));
 
 		}
 
-		private static void PaladinNonCollect(IDictionary<string, Power> cards)
+		private static void PaladinNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [LOE_017e] Watched (*) - COST:0 
@@ -319,14 +320,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Stats changed to 3/3.
 			// --------------------------------------------------------
-			cards.Add("LOE_017e", new Power
+			cards.Add("LOE_017e", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.SetAttackHealth(3))
-			});
+			}));
 
 		}
 
-		private static void Priest(IDictionary<string, Power> cards)
+		private static void Priest(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
 			// [LOE_006] Museum Curator - COST:2 [ATK:1/HP:2] 
@@ -341,10 +342,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_006", new Power
+			cards.Add("LOE_006", new CardDef(new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.DEATHRATTLE)
-			});
+			}));
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [LOE_104] Entomb - COST:6 
@@ -358,10 +359,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOE_104", new Power
+			cards.Add("LOE_104", new CardDef(new Power
 			{
 				PowerTask = new MoveToDeck(EntityType.TARGET)
-			});
+			}));
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [LOE_111] Excavated Evil - COST:5 
@@ -370,16 +371,16 @@ namespace SabberStoneCore.CardSets
 			// Text: Deal $3 damage to all minions.
 			//       Shuffle this card into your opponent's deck. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("LOE_111", new Power
+			cards.Add("LOE_111", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 						new DamageTask(3, EntityType.ALLMINIONS, true),
 						new AddCardTo("LOE_111", EntityType.OP_DECK)),
-			});
+			}));
 
 		}
 
-		private static void Rogue(IDictionary<string, Power> cards)
+		private static void Rogue(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
 			// [LOE_010] Pit Snake - COST:1 [ATK:2/HP:1] 
@@ -390,7 +391,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_010", null);
+			cards.Add("LOE_010", new CardDef());
 
 			// ----------------------------------------- MINION - ROGUE
 			// [LOE_012] Tomb Pillager - COST:4 [ATK:5/HP:4] 
@@ -401,10 +402,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_012", new Power
+			cards.Add("LOE_012", new CardDef(new Power
 			{
 				DeathrattleTask = new AddCardTo("GAME_005", EntityType.HAND),
-			});
+			}));
 
 			// ----------------------------------------- MINION - ROGUE
 			// [LOE_019] Unearthed Raptor - COST:3 [ATK:3/HP:4] 
@@ -423,16 +424,16 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_019", new Power
+			cards.Add("LOE_019", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
 					new AddEnchantmentTask("LOE_019e", EntityType.SOURCE, false, true))
-			});
+			}));
 
 		}
 
-		private static void RogueNonCollect(IDictionary<string, Power> cards)
+		private static void RogueNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [LOE_019e] Unearthed Raptor (*) - COST:0 
@@ -440,7 +441,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Copied Deathrattle from {0}.
 			// --------------------------------------------------------
-			cards.Add("LOE_019e", new Power
+			cards.Add("LOE_019e", new CardDef(new Power
 			{
 				//DeathrattleTask = ComplexTask.Create(
 				//	new IncludeTask(EntityType.SOURCE),
@@ -451,11 +452,11 @@ namespace SabberStoneCore.CardSets
 				//		return null;
 				//	}))
 				DeathrattleTask = ActivateCapturedDeathrattleTask.Task
-			});
+			}));
 
 		}
 
-		private static void Shaman(IDictionary<string, Power> cards)
+		private static void Shaman(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
 			// [LOE_016] Rumbling Elemental - COST:4 [ATK:2/HP:6] 
@@ -466,7 +467,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_016", new Power
+			cards.Add("LOE_016", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
@@ -474,7 +475,7 @@ namespace SabberStoneCore.CardSets
 					Condition = SelfCondition.IsBattlecryMinion,
 					SingleTask = ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 2)
 				}
-			});
+			}));
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [LOE_018] Tunnel Trogg - COST:1 [ATK:1/HP:3] 
@@ -485,7 +486,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_018", new Power
+			cards.Add("LOE_018", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.PLAY_CARD)
 				{
@@ -494,7 +495,7 @@ namespace SabberStoneCore.CardSets
 						new GetGameTagTask(GameTag.OVERLOAD, EntityType.TARGET),
 						new AddEnchantmentTask("LOE_018e", EntityType.SOURCE, true))
 				}
-			});
+			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
 			// [LOE_113] Everyfin is Awesome - COST:7 
@@ -503,15 +504,15 @@ namespace SabberStoneCore.CardSets
 			// Text: Give your minions +2/+2.
 			//       Costs (1) less for each Murloc you control.
 			// --------------------------------------------------------
-			cards.Add("LOE_113", new Power
+			cards.Add("LOE_113", new CardDef(new Power
 			{
 				Aura = new AdaptiveCostEffect(p => p.Controller.BoardZone.GetAll(q => q.IsRace(Race.MURLOC)).Length),
 				PowerTask = new AddEnchantmentTask("LOE_113e", EntityType.ALLMINIONS)
-			});
+			}));
 
 		}
 
-		private static void ShamanNonCollect(IDictionary<string, Power> cards)
+		private static void ShamanNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - SHAMAN
 			// [LOE_018e] Trogg No Stupid (*) - COST:0 
@@ -519,15 +520,15 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("LOE_018e", new Power
+			cards.Add("LOE_018e", new CardDef(new Power
 			{
 				// TODO: revise this
 				Enchant = Enchants.Enchants.AddAttackScriptTag
-			});
+			}));
 
 		}
 
-		private static void Warlock(IDictionary<string, Power> cards)
+		private static void Warlock(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
 			// [LOE_023] Dark Peddler - COST:2 [ATK:2/HP:2] 
@@ -542,12 +543,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_023", new Power
+			cards.Add("LOE_023", new CardDef(new Power
 			{
 				// TODO [LOE_023] Dark Peddler && Test: Dark Peddler_LOE_023
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - WARLOCK
 			// [LOE_116] Reliquary Seeker - COST:1 [ATK:1/HP:1] 
@@ -558,12 +559,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_116", new Power
+			cards.Add("LOE_116", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsBoardFull),
 					new FlagTask(true, new AddEnchantmentTask("LOE_009e", EntityType.SOURCE)))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [LOE_007] Curse of Rafaam - COST:2 
@@ -572,14 +573,14 @@ namespace SabberStoneCore.CardSets
 			// Text: Give your opponent a 'Cursed!' card.
 			//       While they hold it, they take 2 damage on their turn.
 			// --------------------------------------------------------
-			cards.Add("LOE_007", new Power
+			cards.Add("LOE_007", new CardDef(new Power
 			{
 				PowerTask = new AddCardTo("LOE_007t", EntityType.OP_HAND)
-			});
+			}));
 
 		}
 
-		private static void WarlockNonCollect(IDictionary<string, Power> cards)
+		private static void WarlockNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARLOCK
 			// [LOE_009e] Sinister Power (*) - COST:0 
@@ -587,10 +588,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +4/+4.
 			// --------------------------------------------------------
-			cards.Add("LOE_009e", new Power
+			cards.Add("LOE_009e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("LOE_009e")
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [LOE_007t] Cursed! (*) - COST:2 
@@ -602,18 +603,18 @@ namespace SabberStoneCore.CardSets
 			// - ImmuneToSpellpower = 1
 			// - EVIL_GLOW = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_007t", new Power
+			cards.Add("LOE_007t", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					TriggerActivation = TriggerActivation.HAND,
 					SingleTask = new DamageTask(2, EntityType.HERO)
 				}
-			});
+			}));
 
 		}
 
-		private static void Warrior(IDictionary<string, Power> cards)
+		private static void Warrior(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
 			// [LOE_009] Obsidian Destroyer - COST:7 [ATK:7/HP:7] 
@@ -624,13 +625,13 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_009", new Power
+			cards.Add("LOE_009", new CardDef(new Power
 			{
 				// TODO [LOE_009] Obsidian Destroyer && Test: Obsidian Destroyer_LOE_009
 				InfoCardId = "LOE_009e",
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - WARRIOR
 			// [LOE_022] Fierce Monkey - COST:3 [ATK:3/HP:4] 
@@ -641,12 +642,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_022", new Power
+			cards.Add("LOE_022", new CardDef(new Power
 			{
 				// TODO [LOE_022] Fierce Monkey && Test: Fierce Monkey_LOE_022
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
 			// [LOE_118] Cursed Blade - COST:1 [ATK:2/HP:0] 
@@ -657,17 +658,17 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DURABILITY = 3
 			// --------------------------------------------------------
-			cards.Add("LOE_118", new Power
+			cards.Add("LOE_118", new CardDef(new Power
 			{
 				// TODO [LOE_118] Cursed Blade && Test: Cursed Blade_LOE_118
 				InfoCardId = "LOE_118e",
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 		}
 
-		private static void WarriorNonCollect(IDictionary<string, Power> cards)
+		private static void WarriorNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [LOE_118e] Cursed Blade (*) - COST:0 
@@ -675,12 +676,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Double all damage dealt to your hero.
 			// --------------------------------------------------------
-			cards.Add("LOE_118e", new Power
+			cards.Add("LOE_118e", new CardDef(new Power
 			{
 				// TODO [LOE_118e] Cursed Blade && Test: Cursed Blade_LOE_118e
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - WARRIOR
 			// [LOE_009t] Scarab (*) - COST:1 [ATK:1/HP:1] 
@@ -691,16 +692,16 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_009t", new Power
+			cards.Add("LOE_009t", new CardDef(new Power
 			{
 				// TODO [LOE_009t] Scarab && Test: Scarab_LOE_009t
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 		}
 
-		private static void Neutral(IDictionary<string, Power> cards)
+		private static void Neutral(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_011] Reno Jackson - COST:6 [ATK:4/HP:6] 
@@ -712,12 +713,12 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_011", new Power
+			cards.Add("LOE_011", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
 					new FlagTask(true, new HealFullTask(EntityType.HERO)))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_029] Jeweled Scarab - COST:2 [ATK:1/HP:1] 
@@ -732,12 +733,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_029", new Power
+			cards.Add("LOE_029", new CardDef(new Power
 			{
 				// TODO [LOE_029] Jeweled Scarab && Test: Jeweled Scarab_LOE_029
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_038] Naga Sea Witch - COST:8 [ATK:5/HP:5] 
@@ -748,10 +749,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_038", new Power
+			cards.Add("LOE_038", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.HAND, Effects.SetCost(5))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_039] Gorillabot A-3 - COST:4 [ATK:3/HP:4] 
@@ -765,12 +766,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_039", new Power
+			cards.Add("LOE_039", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, new SelfCondition(p => p.Controller.BoardZone.Any(q => q != p && q.IsRace(Race.MECHANICAL)))),
 					new FlagTask(true, new DiscoverTask(DiscoverType.MECHANICAL)))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_046] Huge Toad - COST:2 [ATK:3/HP:2] 
@@ -781,12 +782,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_046", new Power
+			cards.Add("LOE_046", new CardDef(new Power
 			{
 				// TODO [LOE_046] Huge Toad && Test: Huge Toad_LOE_046
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_047] Tomb Spider - COST:4 [ATK:3/HP:3] 
@@ -800,12 +801,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_047", new Power
+			cards.Add("LOE_047", new CardDef(new Power
 			{
 				// TODO [LOE_047] Tomb Spider && Test: Tomb Spider_LOE_047
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_053] Djinni of Zephyrs - COST:5 [ATK:4/HP:6] 
@@ -813,12 +814,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: After you cast a spell on another friendly minion, cast a copy of it on this one.
 			// --------------------------------------------------------
-			cards.Add("LOE_053", new Power
+			cards.Add("LOE_053", new CardDef(new Power
 			{
 				// TODO [LOE_053] Djinni of Zephyrs && Test: Djinni of Zephyrs_LOE_053
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_061] Anubisath Sentinel - COST:5 [ATK:4/HP:4] 
@@ -829,13 +830,13 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_061", new Power
+			cards.Add("LOE_061", new CardDef(new Power
 			{
 				// TODO [LOE_061] Anubisath Sentinel && Test: Anubisath Sentinel_LOE_061
 				InfoCardId = "LOE_061e",
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_073] Fossilized Devilsaur - COST:8 [ATK:8/HP:8] 
@@ -849,13 +850,13 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_073", new Power
+			cards.Add("LOE_073", new CardDef(new Power
 			{
 				// TODO [LOE_073] Fossilized Devilsaur && Test: Fossilized Devilsaur_LOE_073
 				InfoCardId = "LOE_073e",
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_076] Sir Finley Mrrgglton - COST:1 [ATK:1/HP:3] 
@@ -870,10 +871,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_076", new Power
+			cards.Add("LOE_076", new CardDef(new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.BASIC_HEROPOWERS)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_077] Brann Bronzebeard - COST:3 [ATK:2/HP:4] 
@@ -888,10 +889,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_077", new Power
+			cards.Add("LOE_077", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.EXTRA_BATTLECRIES_BASE, EffectOperator.SET, 1))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_079] Elise Starseeker - COST:4 [ATK:3/HP:5] 
@@ -907,10 +908,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOE_079", new Power
+			cards.Add("LOE_079", new CardDef(new Power
 			{
 				PowerTask = new AddCardTo("LOE_019t", EntityType.DECK)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_086] Summoning Stone - COST:5 [ATK:0/HP:6] 
@@ -918,7 +919,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, summon a random minion of the same Cost.
 			// --------------------------------------------------------
-			cards.Add("LOE_086", new Power
+			cards.Add("LOE_086", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
@@ -928,7 +929,7 @@ namespace SabberStoneCore.CardSets
 						new RandomMinionNumberTask(GameTag.COST),
 						new SummonTask())
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_089] Wobbling Runts - COST:6 [ATK:2/HP:6] 
@@ -939,13 +940,13 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_089", new Power
+			cards.Add("LOE_089", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 							new SummonTask("LOE_089t", SummonSide.DEATHRATTLE),
 							new SummonTask("LOE_089t2", SummonSide.DEATHRATTLE),
 							new SummonTask("LOE_089t3", SummonSide.DEATHRATTLE))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_092] Arch-Thief Rafaam - COST:9 [ATK:7/HP:8] 
@@ -960,12 +961,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_092", new Power
+			cards.Add("LOE_092", new CardDef(new Power
 			{
 				// TODO [LOE_092] Arch-Thief Rafaam && Test: Arch-Thief Rafaam_LOE_092
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_107] Eerie Statue - COST:4 [ATK:7/HP:7] 
@@ -973,12 +974,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Can’t attack unless it’s the only minion in the battlefield.
 			// --------------------------------------------------------
-			cards.Add("LOE_107", new Power
+			cards.Add("LOE_107", new CardDef(new Power
 			{
 				// TODO [LOE_107] Eerie Statue && Test: Eerie Statue_LOE_107
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_110] Ancient Shade - COST:4 [ATK:7/HP:4] 
@@ -989,14 +990,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_110", new Power
+			cards.Add("LOE_110", new CardDef(new Power
 			{
 				PowerTask = new AddCardTo("LOE_110t", EntityType.DECK)
-			});
+			}));
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, Power> cards)
+		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [LOE_030e] Hollow (*) - COST:0 
@@ -1004,12 +1005,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Stats copied.
 			// --------------------------------------------------------
-			cards.Add("LOE_030e", new Power
+			cards.Add("LOE_030e", new CardDef(new Power
 			{
 				// TODO [LOE_030e] Hollow && Test: Hollow_LOE_030e
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [LOE_061e] Power of the Titans (*) - COST:0 
@@ -1017,10 +1018,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
-			cards.Add("LOE_061e", new Power
+			cards.Add("LOE_061e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("LOE_061e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [LOE_073e] Fossilized (*) - COST:0 
@@ -1028,10 +1029,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Has <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("LOE_073e", new Power
+			cards.Add("LOE_073e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("LOE_073e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [LOE_113e] Mrglllraawrrrglrur! (*) - COST:0 
@@ -1039,10 +1040,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("LOE_113e", new Power
+			cards.Add("LOE_113e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("LOE_113e")
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_016t] Rock (*) - COST:1 [ATK:0/HP:6] 
@@ -1053,7 +1054,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_016t", null);
+			cards.Add("LOE_016t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_019t2] Golden Monkey (*) - COST:4 [ATK:6/HP:6] 
@@ -1066,12 +1067,12 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_019t2", new Power
+			cards.Add("LOE_019t2", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ChangeEntityTask(EntityType.HAND, CardType.MINION, CardClass.INVALID, Rarity.LEGENDARY),
 					new ChangeEntityTask(EntityType.DECK, CardType.MINION, CardClass.INVALID, Rarity.LEGENDARY))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_024t] Rolling Boulder (*) - COST:4 [ATK:0/HP:4] 
@@ -1079,30 +1080,30 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, destroy the minion to the left.
 			// --------------------------------------------------------
-			cards.Add("LOE_024t", new Power
+			cards.Add("LOE_024t", new CardDef(new Power
 			{
 				// TODO [LOE_024t] Rolling Boulder && Test: Rolling Boulder_LOE_024t
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_089t] Rascally Runt (*) - COST:2 [ATK:2/HP:2] 
 			// - Set: loe, 
 			// --------------------------------------------------------
-			cards.Add("LOE_089t", null);
+			cards.Add("LOE_089t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_089t2] Wily Runt (*) - COST:2 [ATK:2/HP:2] 
 			// - Set: loe, 
 			// --------------------------------------------------------
-			cards.Add("LOE_089t2", null);
+			cards.Add("LOE_089t2", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [LOE_089t3] Grumbly Runt (*) - COST:2 [ATK:2/HP:2] 
 			// - Set: loe, 
 			// --------------------------------------------------------
-			cards.Add("LOE_089t3", null);
+			cards.Add("LOE_089t3", new CardDef());
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [LOE_008] Eye of Hakkar (*) - COST:1 
@@ -1113,12 +1114,12 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOE_008", new Power
+			cards.Add("LOE_008", new CardDef(new Power
 			{
 				// TODO [LOE_008] Eye of Hakkar && Test: Eye of Hakkar_LOE_008
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [LOE_008H] Eye of Hakkar (*) - COST:1 
@@ -1126,12 +1127,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Take a secret from your opponent's deck and put it into the battlefield.
 			// --------------------------------------------------------
-			cards.Add("LOE_008H", new Power
+			cards.Add("LOE_008H", new CardDef(new Power
 			{
 				// TODO [LOE_008H] Eye of Hakkar && Test: Eye of Hakkar_LOE_008H
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [LOE_019t] Map to the Golden Monkey (*) - COST:2 
@@ -1139,12 +1140,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Shuffle the Golden Monkey into your deck. Draw a card.
 			// --------------------------------------------------------
-			cards.Add("LOE_019t", new Power
+			cards.Add("LOE_019t", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddCardTo("LOE_019t2", EntityType.DECK),
 					new DrawTask())
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [LOE_110t] Ancient Curse (*) - COST:4 
@@ -1158,7 +1159,7 @@ namespace SabberStoneCore.CardSets
 			// - ImmuneToSpellpower = 1
 			// - TOPDECK = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_110t", new Power
+			cards.Add("LOE_110t", new CardDef(new Power
 			{
 				TopdeckTask = ComplexTask.Create(
 					new DamageTask(7, EntityType.HERO),
@@ -1166,11 +1167,11 @@ namespace SabberStoneCore.CardSets
 				PowerTask = ComplexTask.Create(
 					new DamageTask(7, EntityType.HERO),
 					new DrawTask())
-			});
+			}));
 
 		}
 
-		public static void AddAll(Dictionary<string, Power> cards)
+		public static void AddAll(Dictionary<string, CardDef> cards)
 		{
 			Druid(cards);
 			DruidNonCollect(cards);

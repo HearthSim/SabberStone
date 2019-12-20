@@ -17,6 +17,7 @@ using System.Linq;
 //using Newtonsoft.Json;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
+using SabberStoneCore.src.Loader;
 //using SabberStoneCore.Properties;
 
 namespace SabberStoneCore.Loader
@@ -42,18 +43,18 @@ namespace SabberStoneCore.Loader
 			// Add Powers
 			foreach (Card c in Cards.Values)
 			{
-				if (CardDefs.Instance.Get.TryGetValue(c.Id, out Power power))
+				if (CardDefs.Instance.Get.TryGetValue(c.Id, out CardDef cardDef))
 				{
-					c.Power = power;
-					c.Implemented = power == null ||
-					                power.PowerTask != null ||
-					                power.DeathrattleTask != null ||
-					                power.ComboTask != null ||
-									power.TopdeckTask != null ||
-									power.OverkillTask != null ||
-					                power.Aura != null ||
-					                power.Trigger != null ||
-					                power.Enchant != null;
+					c.Power = cardDef.Power;
+					c.Implemented = cardDef.Power == null ||
+									cardDef.Power.PowerTask != null ||
+									cardDef.Power.DeathrattleTask != null ||
+									cardDef.Power.ComboTask != null ||
+									cardDef.Power.TopdeckTask != null ||
+									cardDef.Power.OverkillTask != null ||
+									cardDef.Power.Aura != null ||
+									cardDef.Power.Trigger != null ||
+									cardDef.Power.Enchant != null;
 				}
 			}
 		}

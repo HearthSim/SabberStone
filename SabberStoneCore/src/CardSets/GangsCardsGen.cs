@@ -20,6 +20,7 @@ using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Triggers;
+using SabberStoneCore.src.Loader;
 
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
@@ -27,7 +28,7 @@ namespace SabberStoneCore.CardSets
 {
 	public class GangsCardsGen
 	{
-		private static void Druid(IDictionary<string, Power> cards)
+		private static void Druid(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
 			// [CFM_308] Kun the Forgotten King - COST:10 [ATK:7/HP:7] 
@@ -41,7 +42,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_308",
 				//CHOOSE_ONE
-				null);
+				new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
 			// [CFM_343] Jade Behemoth - COST:6 [ATK:3/HP:6] 
@@ -60,10 +61,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_343", new Power
+			cards.Add("CFM_343", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.SummonJadeGolem(SummonSide.RIGHT)
-			});
+			}));
 
 			// ----------------------------------------- MINION - DRUID
 			// [CFM_617] Celestial Dreamer - COST:3 [ATK:3/HP:3] 
@@ -76,12 +77,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_617", new Power
+			cards.Add("CFM_617", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasBoardMinion(GameTag.ATK, 5, RelaSign.GEQ)),
 					new FlagTask(true, new AddEnchantmentTask("CFM_617e", EntityType.SOURCE))),
-			});
+			}));
 
 			// ----------------------------------------- MINION - DRUID
 			// [CFM_816] Virmen Sensei - COST:5 [ATK:4/HP:5] 
@@ -98,10 +99,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_WITH_RACE = 20
 			// --------------------------------------------------------
-			cards.Add("CFM_816", new Power
+			cards.Add("CFM_816", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("CFM_816e", EntityType.TARGET)
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [CFM_602] Jade Idol - COST:1 
@@ -117,7 +118,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("CFM_602",
 				//CHOOSE_ONE
-				null);
+				new CardDef());
 
 			// ------------------------------------------ SPELL - DRUID
 			// [CFM_614] Mark of the Lotus - COST:1 
@@ -125,10 +126,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Give your minions +1/+1.
 			// --------------------------------------------------------
-			cards.Add("CFM_614", new Power
+			cards.Add("CFM_614", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("CFM_614e", EntityType.MINIONS)
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [CFM_616] Pilfered Power - COST:3 
@@ -136,13 +137,13 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Gain an empty Mana Crystal for each friendly minion.
 			// --------------------------------------------------------
-			cards.Add("CFM_616", new Power
+			cards.Add("CFM_616", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					ComplexTask.ExcessManaCheck,
 					new CountTask(EntityType.MINIONS),
 					new ManaCrystalEmptyTask(0, false, true))
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [CFM_713] Jade Blossom - COST:3 
@@ -156,12 +157,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_713", new Power
+			cards.Add("CFM_713", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					ComplexTask.SummonJadeGolem(SummonSide.SPELL),
 					new ManaCrystalEmptyTask(1))
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [CFM_811] Lunar Visions - COST:5 
@@ -169,17 +170,17 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Draw 2 cards. Minions drawn cost (2) less.
 			// --------------------------------------------------------
-			cards.Add("CFM_811", new Power
+			cards.Add("CFM_811", new CardDef(new Power
 			{
 				PowerTask = new EnqueueTask(2, ComplexTask.Create(
 					new DrawTask(true),
 					new FilterStackTask(SelfCondition.IsMinion),
 					new AddAuraEffect(Effects.ReduceCost(2), EntityType.STACK)))
-			});
+			}));
 
 		}
 
-		private static void DruidNonCollect(IDictionary<string, Power> cards)
+		private static void DruidNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ SPELL - DRUID
 			// [CFM_308a] Forgotten Armor (*) - COST:0 
@@ -187,10 +188,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Gain 10 Armor.
 			// --------------------------------------------------------
-			cards.Add("CFM_308a", new Power
+			cards.Add("CFM_308a", new CardDef(new Power
 			{
 				PowerTask = new ArmorTask(10)
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [CFM_308b] Forgotten Mana (*) - COST:0 
@@ -198,10 +199,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Refresh your Mana Crystals.
 			// --------------------------------------------------------
-			cards.Add("CFM_308b", new Power
+			cards.Add("CFM_308b", new CardDef(new Power
 			{
 				PowerTask = new SetControllerGameTagTask(GameTag.RESOURCES_USED, 0)
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [CFM_602a] Jade Idol (*) - COST:0 
@@ -212,10 +213,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_602a", new Power
+			cards.Add("CFM_602a", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.SummonJadeGolem(SummonSide.SPELL)
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [CFM_602b] Jade Idol (*) - COST:0 
@@ -223,14 +224,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Shuffle 3 Jade Idols into your deck.
 			// --------------------------------------------------------
-			cards.Add("CFM_602b", new Power
+			cards.Add("CFM_602b", new CardDef(new Power
 			{
 				PowerTask = new AddCardTo("CFM_602", EntityType.DECK, 3)
-			});
+			}));
 
 		}
 
-		private static void Hunter(IDictionary<string, Power> cards)
+		private static void Hunter(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
 			// [CFM_315] Alleycat - COST:1 [ATK:1/HP:1] 
@@ -241,10 +242,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_315", new Power
+			cards.Add("CFM_315", new CardDef(new Power
 			{
 				PowerTask = new SummonTask("CFM_315t", SummonSide.RIGHT)
-			});
+			}));
 
 			// ---------------------------------------- MINION - HUNTER
 			// [CFM_316] Rat Pack - COST:3 [ATK:2/HP:2] 
@@ -257,13 +258,13 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_316", new Power
+			cards.Add("CFM_316", new CardDef(new Power
 			{
 				// TODO
 				DeathrattleTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
 					new EnqueueNumberTask(new SummonTask("CFM_316t", SummonSide.DEATHRATTLE)))
-			});
+			}));
 
 			// ---------------------------------------- MINION - HUNTER
 			// [CFM_333] Knuckles - COST:5 [ATK:3/HP:7] 
@@ -276,7 +277,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - FINISH_ATTACK_SPELL_ON_DAMAGE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_333", new Power
+			cards.Add("CFM_333", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
@@ -287,7 +288,7 @@ namespace SabberStoneCore.CardSets
 						new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
 						new DamageNumberTask(EntityType.OP_HERO))
 				}
-			});
+			}));
 
 			// ---------------------------------------- MINION - HUNTER
 			// [CFM_335] Dispatch Kodo - COST:4 [ATK:2/HP:4] 
@@ -301,12 +302,12 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_335", new Power
+			cards.Add("CFM_335", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
 					new DamageNumberTask(EntityType.TARGET))
-			});
+			}));
 
 			// ---------------------------------------- MINION - HUNTER
 			// [CFM_336] Shaky Zipgunner - COST:3 [ATK:3/HP:3] 
@@ -318,10 +319,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_336", new Power
+			cards.Add("CFM_336", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_336e")
-			});
+			}));
 
 			// ---------------------------------------- MINION - HUNTER
 			// [CFM_338] Trogg Beastrager - COST:2 [ATK:3/HP:2] 
@@ -332,10 +333,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_338", new Power
+			cards.Add("CFM_338", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_338e", SelfCondition.IsRace(Race.BEAST))
-			});
+			}));
 
 			// ----------------------------------------- SPELL - HUNTER
 			// [CFM_026] Hidden Cache - COST:2 
@@ -346,14 +347,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_026", new Power
+			cards.Add("CFM_026", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					SingleTask = ComplexTask.Secret(
 						ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_026e"))
 				}
-			});
+			}));
 
 			// ----------------------------------------- SPELL - HUNTER
 			// [CFM_334] Smuggler's Crate - COST:1 
@@ -361,10 +362,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Give a random Beast in your hand +2/+2.
 			// --------------------------------------------------------
-			cards.Add("CFM_334", new Power
+			cards.Add("CFM_334", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_334e", SelfCondition.IsRace(Race.BEAST))
-			});
+			}));
 
 			// ---------------------------------------- WEAPON - HUNTER
 			// [CFM_337] Piranha Launcher - COST:5 [ATK:2/HP:0] 
@@ -376,18 +377,18 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DURABILITY = 4
 			// --------------------------------------------------------
-			cards.Add("CFM_337", new Power
+			cards.Add("CFM_337", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.HERO,
 					SingleTask = new SummonTask("CFM_337t")
 				}
-			});
+			}));
 
 		}
 
-		private static void HunterNonCollect(IDictionary<string, Power> cards)
+		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [CFM_026e] Smuggling (*) - COST:0 
@@ -395,10 +396,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2 from Hidden Cache.
 			// --------------------------------------------------------
-			cards.Add("CFM_026e", new Power
+			cards.Add("CFM_026e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_026e")
-			});
+			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [CFM_338e] Smuggling (*) - COST:0 
@@ -406,32 +407,32 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1 from Trogg Beastrager.
 			// --------------------------------------------------------
-			cards.Add("CFM_338e", new Power
+			cards.Add("CFM_338e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_338e")
-			});
+			}));
 
 			// ---------------------------------------- MINION - HUNTER
 			// [CFM_315t] Tabbycat (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: beast, Set: gangs, 
 			// --------------------------------------------------------
-			cards.Add("CFM_315t", null);
+			cards.Add("CFM_315t", new CardDef());
 
 			// ---------------------------------------- MINION - HUNTER
 			// [CFM_316t] Rat (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: beast, Set: gangs, 
 			// --------------------------------------------------------
-			cards.Add("CFM_316t", null);
+			cards.Add("CFM_316t", new CardDef());
 
 			// ---------------------------------------- MINION - HUNTER
 			// [CFM_337t] Piranha (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: beast, Set: gangs, 
 			// --------------------------------------------------------
-			cards.Add("CFM_337t", null);
+			cards.Add("CFM_337t", new CardDef());
 
 		}
 
-		private static void Mage(IDictionary<string, Power> cards)
+		private static void Mage(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
 			// [CFM_066] Kabal Lackey - COST:1 [ATK:2/HP:1] 
@@ -446,10 +447,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_066", new Power
+			cards.Add("CFM_066", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("EX1_612o", EntityType.CONTROLLER)
-			});
+			}));
 
 			// ------------------------------------------ MINION - MAGE
 			// [CFM_660] Manic Soulcaster - COST:3 [ATK:3/HP:4] 
@@ -465,10 +466,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_660", new Power
+			cards.Add("CFM_660", new CardDef(new Power
 			{
 				PowerTask = new CopyTask(EntityType.TARGET, Zone.DECK)
-			});
+			}));
 
 			// ------------------------------------------ MINION - MAGE
 			// [CFM_671] Cryomancer - COST:5 [ATK:5/HP:5] 
@@ -482,12 +483,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_671", new Power
+			cards.Add("CFM_671", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasOp(GameTag.FROZEN, 1)),
 					new FlagTask(true, new AddEnchantmentTask("CFM_671e", EntityType.SOURCE))),
-			});
+			}));
 
 			// ------------------------------------------ MINION - MAGE
 			// [CFM_687] Inkmaster Solia - COST:7 [ATK:5/HP:5] 
@@ -502,13 +503,13 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_687", new Power
+			cards.Add("CFM_687", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
 					new FlagTask(true,
 						new AddEnchantmentTask("CFM_687e", EntityType.CONTROLLER)))
-			});
+			}));
 
 			// ------------------------------------------ MINION - MAGE
 			// [CFM_760] Kabal Crystal Runner - COST:6 [ATK:5/HP:5] 
@@ -519,13 +520,13 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_760", new Power
+			cards.Add("CFM_760", new CardDef(new Power
 			{
 				Aura = new AdaptiveCostEffect(p => p.Controller.NumSecretsPlayedThisGame * 2)
 				//{
 				//	UpdateTrigger = (TriggerType.AFTER_CAST, TriggerSource.FRIENDLY, SelfCondition.IsSecret)
 				//}
-			});
+			}));
 
 			// ------------------------------------------- SPELL - MAGE
 			// [CFM_021] Freezing Potion - COST:0 
@@ -540,10 +541,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_021", new Power
+			cards.Add("CFM_021", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Freeze(EntityType.TARGET)
-			});
+			}));
 
 			// ------------------------------------------- SPELL - MAGE
 			// [CFM_065] Volcanic Potion - COST:3 
@@ -551,10 +552,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to all_minions. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("CFM_065", new Power
+			cards.Add("CFM_065", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.ALLMINIONS, true)
-			});
+			}));
 
 			// ------------------------------------------- SPELL - MAGE
 			// [CFM_620] Potion of Polymorph - COST:3 
@@ -566,7 +567,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_620", new Power
+			cards.Add("CFM_620", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
@@ -575,7 +576,7 @@ namespace SabberStoneCore.CardSets
 						new FlagTask(true, ComplexTask.Secret(
 						new TransformTask("CFM_621_m5", EntityType.EVENT_SOURCE))))
 				}
-			});
+			}));
 
 			// ------------------------------------------- SPELL - MAGE
 			// [CFM_623] Greater Arcane Missiles - COST:7 
@@ -583,14 +584,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Shoot three missiles at random enemies that deal $3 damage each. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("CFM_623", new Power
+			cards.Add("CFM_623", new CardDef(new Power
 			{
 				PowerTask = new EnqueueTask(3, ComplexTask.DamageRandomTargets(1, EntityType.ENEMIES, 3), true)
-			});
+			}));
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, Power> cards)
+		private static void MageNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------- ENCHANTMENT - MAGE
 			// [CFM_687e] Free Spell (*) - COST:0 
@@ -601,17 +602,17 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_687e", new Power
+			cards.Add("CFM_687e", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.HAND, Effects.SetCost(0))
 				{
 					RemoveTrigger = (TriggerType.CAST_SPELL, null)
 				}
-			});
+			}));
 
 		}
 
-		private static void Paladin(IDictionary<string, Power> cards)
+		private static void Paladin(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
 			// [CFM_062] Grimestreet Protector - COST:7 [ATK:6/HP:6] 
@@ -628,12 +629,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_062", new Power
+			cards.Add("CFM_062", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeAdjacentTask(EntityType.SOURCE),
 					new SetGameTagTask(GameTag.DIVINE_SHIELD, 1, EntityType.STACK))
-			});
+			}));
 
 			// --------------------------------------- MINION - PALADIN
 			// [CFM_639] Grimestreet Enforcer - COST:5 [ATK:4/HP:4] 
@@ -641,7 +642,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, give all minions in your hand +1/+1.
 			// --------------------------------------------------------
-			cards.Add("CFM_639", new Power
+			cards.Add("CFM_639", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
@@ -650,7 +651,7 @@ namespace SabberStoneCore.CardSets
 						new FilterStackTask(SelfCondition.IsMinion),
 						new AddEnchantmentTask("CFM_639e", EntityType.STACK))
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - PALADIN
 			// [CFM_650] Grimscale Chum - COST:1 [ATK:2/HP:1] 
@@ -662,10 +663,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_650", new Power
+			cards.Add("CFM_650", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_650e", SelfCondition.IsRace(Race.MURLOC))
-			});
+			}));
 
 			// --------------------------------------- MINION - PALADIN
 			// [CFM_753] Grimestreet Outfitter - COST:2 [ATK:1/HP:1] 
@@ -676,13 +677,13 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_753", new Power
+			cards.Add("CFM_753", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsMinion),
 					new AddEnchantmentTask("CFM_753e", EntityType.STACK))
-			});
+			}));
 
 			// --------------------------------------- MINION - PALADIN
 			// [CFM_759] Meanstreet Marshal - COST:1 [ATK:1/HP:2] 
@@ -693,12 +694,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_759", new Power
+			cards.Add("CFM_759", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsTagValue(GameTag.ATK, 2, RelaSign.GEQ)),
 					new FlagTask(true, new DrawTask()))
-			});
+			}));
 
 			// --------------------------------------- MINION - PALADIN
 			// [CFM_815] Wickerflame Burnbristle - COST:3 [ATK:2/HP:2] 
@@ -712,7 +713,7 @@ namespace SabberStoneCore.CardSets
 			// - DIVINE_SHIELD = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_815", null);
+			cards.Add("CFM_815", new CardDef());
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [CFM_305] Smuggler's Run - COST:1 
@@ -720,13 +721,13 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Give all minions in your hand +1/+1.
 			// --------------------------------------------------------
-			cards.Add("CFM_305", new Power
+			cards.Add("CFM_305", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsMinion),
 					new AddEnchantmentTask("CFM_305e", EntityType.STACK))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [CFM_800] Getaway Kodo - COST:1 
@@ -737,7 +738,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_800", new Power
+			cards.Add("CFM_800", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.DEATH)
 				{
@@ -746,7 +747,7 @@ namespace SabberStoneCore.CardSets
 						new CopyTask(EntityType.TARGET, Zone.HAND)),
 					RemoveAfterTriggered = true
 				}
-			});
+			}));
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [CFM_905] Small-Time Recruits - COST:3 
@@ -755,13 +756,13 @@ namespace SabberStoneCore.CardSets
 			// Text: [x]Draw three 1-Cost
 			//       minions from your deck.
 			// --------------------------------------------------------
-			cards.Add("CFM_905", new Power
+			cards.Add("CFM_905", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.DrawFromDeck(3, SelfCondition.IsBaseTagValue(GameTag.COST, 1), SelfCondition.IsMinion)
-			});
+			}));
 		}
 
-		private static void PaladinNonCollect(IDictionary<string, Power> cards)
+		private static void PaladinNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [CFM_305e] Smuggling (*) - COST:0 
@@ -769,14 +770,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1 from Smuggler's Run.
 			// --------------------------------------------------------
-			cards.Add("CFM_305e", new Power
+			cards.Add("CFM_305e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_305e")
-			});
+			}));
 
 		}
 
-		private static void Priest(IDictionary<string, Power> cards)
+		private static void Priest(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
 			// [CFM_020] Raza the Chained - COST:5 [ATK:5/HP:5] 
@@ -790,13 +791,13 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_020", new Power
+			cards.Add("CFM_020", new CardDef(new Power
 			{
 				InfoCardId = "CFM_020e",
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
 					new AddEnchantmentTask("CFM_020e", EntityType.CONTROLLER))
-			});
+			}));
 
 			// ---------------------------------------- MINION - PRIEST
 			// [CFM_605] Drakonid Operative - COST:5 [ATK:5/HP:6] 
@@ -812,12 +813,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_605", new Power
+			cards.Add("CFM_605", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand, SelfCondition.IsOpDeckNotEmpty),
 					new FlagTask(true, new DiscoverTask(DiscoverType.OP_DECK)))
-			});
+			}));
 
 			// ---------------------------------------- MINION - PRIEST
 			// [CFM_606] Mana Geode - COST:2 [ATK:2/HP:3] 
@@ -825,14 +826,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this minion is_healed, summon a 2/2_Crystal.
 			// --------------------------------------------------------
-			cards.Add("CFM_606", new Power
+			cards.Add("CFM_606", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.HEAL)
 				{
 					TriggerSource = TriggerSource.SELF,
 					SingleTask = new SummonTask("CFM_606t", SummonSide.RIGHT)
 				}
-			});
+			}));
 
 			// ---------------------------------------- MINION - PRIEST
 			// [CFM_626] Kabal Talonpriest - COST:3 [ATK:3/HP:4] 
@@ -848,10 +849,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_626", new Power
+			cards.Add("CFM_626", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("CFM_626e", EntityType.TARGET)
-			});
+			}));
 
 			// ---------------------------------------- MINION - PRIEST
 			// [CFM_657] Kabal Songstealer - COST:5 [ATK:5/HP:5] 
@@ -870,10 +871,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_657", new Power
+			cards.Add("CFM_657", new CardDef(new Power
 			{
 				PowerTask = new SilenceTask(EntityType.TARGET)
-			});
+			}));
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [CFM_603] Potion of Madness - COST:1 
@@ -888,12 +889,12 @@ namespace SabberStoneCore.CardSets
 			// - REQ_NUM_MINION_SLOTS = 1
 			// - REQ_TARGET_MAX_ATTACK = 2
 			// --------------------------------------------------------
-			cards.Add("CFM_603", new Power
+			cards.Add("CFM_603", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ControlTask(EntityType.TARGET),
 					new AddEnchantmentTask("CFM_603e", EntityType.TARGET))
-			});
+			}));
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [CFM_604] Greater Healing Potion - COST:4 
@@ -905,10 +906,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_604", new Power
+			cards.Add("CFM_604", new CardDef(new Power
 			{
 				PowerTask = new HealTask(12, EntityType.TARGET)
-			});
+			}));
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [CFM_661] Pint-Size Potion - COST:1 
@@ -917,10 +918,10 @@ namespace SabberStoneCore.CardSets
 			// Text: [x]Give all enemy minions
 			//       -3 Attack this turn only.
 			// --------------------------------------------------------
-			cards.Add("CFM_661", new Power
+			cards.Add("CFM_661", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("CFM_661e", EntityType.OP_MINIONS)
-			});
+			}));
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [CFM_662] Dragonfire Potion - COST:6 
@@ -929,17 +930,17 @@ namespace SabberStoneCore.CardSets
 			// Text: [x]Deal $5 damage to all
 			//       minions except Dragons. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("CFM_662", new Power
+			cards.Add("CFM_662", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.ALLMINIONS),
 					new FilterStackTask(SelfCondition.IsNotRace(Race.DRAGON)),
 					new DamageTask(5, EntityType.STACK, true))
-			});
+			}));
 
 		}
 
-		private static void PriestNonCollect(IDictionary<string, Power> cards)
+		private static void PriestNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [CFM_603e] Madness Potion (*) - COST:0 
@@ -947,7 +948,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: This minion has switched controllers this turn.
 			// --------------------------------------------------------
-			cards.Add("CFM_603e", new Power
+			cards.Add("CFM_603e", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.Charge, new Effect(GameTag.CONTROLLER_CHANGED_THIS_TURN, EffectOperator.SET, 1)),
 				Trigger = new Trigger(TriggerType.TURN_END)
@@ -957,7 +958,7 @@ namespace SabberStoneCore.CardSets
 						RemoveEnchantmentTask.Task,
 						new ControlTask(EntityType.TARGET, true))
 				}
-			});
+			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [CFM_661e] Shrunk (*) - COST:0 
@@ -968,23 +969,23 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_661e", new Power
+			cards.Add("CFM_661e", new CardDef(new Power
 			{
 				Enchant = new Enchant(ATK.Effect(EffectOperator.SUB, 3))
 				{
 					IsOneTurnEffect = true
 				}
-			});
+			}));
 
 			// ---------------------------------------- MINION - PRIEST
 			// [CFM_606t] Crystal (*) - COST:2 [ATK:2/HP:2] 
 			// - Race: elemental, Set: gangs, 
 			// --------------------------------------------------------
-			cards.Add("CFM_606t", null);
+			cards.Add("CFM_606t", new CardDef());
 
 		}
 
-		private static void Rogue(IDictionary<string, Power> cards)
+		private static void Rogue(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
 			// [CFM_342] Luckydo Buccaneer - COST:6 [ATK:5/HP:5] 
@@ -995,12 +996,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_342", new Power
+			cards.Add("CFM_342", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.WEAPON, SelfCondition.IsTagValue(GameTag.ATK, 3, RelaSign.GEQ)),
 					new FlagTask(true, new AddEnchantmentTask("CFM_342e", EntityType.SOURCE)))
-			});
+			}));
 
 			// ----------------------------------------- MINION - ROGUE
 			// [CFM_634] Lotus Assassin - COST:5 [ATK:5/HP:5] 
@@ -1011,7 +1012,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_634", new Power
+			cards.Add("CFM_634", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
@@ -1020,7 +1021,7 @@ namespace SabberStoneCore.CardSets
 					Condition = SelfCondition.IsDefenderDead,
 					SingleTask = new SetGameTagTask(GameTag.STEALTH, 1, EntityType.SOURCE)
 				}
-			});
+			}));
 
 			// ----------------------------------------- MINION - ROGUE
 			// [CFM_636] Shadow Rager - COST:3 [ATK:5/HP:1] 
@@ -1031,7 +1032,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_636", null);
+			cards.Add("CFM_636", new CardDef());
 
 			// ----------------------------------------- MINION - ROGUE
 			// [CFM_691] Jade Swarmer - COST:2 [ATK:1/HP:1] 
@@ -1048,10 +1049,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_691", new Power
+			cards.Add("CFM_691", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.SummonJadeGolem(SummonSide.DEATHRATTLE)
-			});
+			}));
 
 			// ----------------------------------------- MINION - ROGUE
 			// [CFM_693] Gadgetzan Ferryman - COST:2 [ATK:2/HP:3] 
@@ -1067,10 +1068,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_FOR_COMBO = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_693", new Power
+			cards.Add("CFM_693", new CardDef(new Power
 			{
 				ComboTask = new ReturnHandTask(EntityType.TARGET)
-			});
+			}));
 
 			// ----------------------------------------- MINION - ROGUE
 			// [CFM_694] Shadow Sensei - COST:4 [ATK:4/HP:4] 
@@ -1089,10 +1090,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_694", new Power
+			cards.Add("CFM_694", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("CFM_694e", EntityType.TARGET)
-			});
+			}));
 
 			// ----------------------------------------- MINION - ROGUE
 			// [CFM_781] Shaku, the Collector - COST:3 [ATK:2/HP:3] 
@@ -1107,7 +1108,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_781", new Power
+			cards.Add("CFM_781", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.ATTACK)
 				{
@@ -1116,7 +1117,7 @@ namespace SabberStoneCore.CardSets
 						new RandomCardTask(EntityType.OP_HERO),
 						new AddStackTo(EntityType.HAND))
 				}
-			});
+			}));
 
 			// ------------------------------------------ SPELL - ROGUE
 			// [CFM_630] Counterfeit Coin - COST:0 
@@ -1124,10 +1125,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Gain 1 Mana Crystal this turn only.
 			// --------------------------------------------------------
-			cards.Add("CFM_630", new Power
+			cards.Add("CFM_630", new CardDef(new Power
 			{
 				PowerTask = new TempManaTask(1)
-			});
+			}));
 
 			// ------------------------------------------ SPELL - ROGUE
 			// [CFM_690] Jade Shuriken - COST:2 
@@ -1147,17 +1148,17 @@ namespace SabberStoneCore.CardSets
 			// - JADE_GOLEM = 1
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_690", new Power
+			cards.Add("CFM_690", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET),
 				ComboTask = ComplexTask.Create(
 					new DamageTask(2, EntityType.TARGET),
 					ComplexTask.SummonJadeGolem(SummonSide.SPELL))
-			});
+			}));
 
 		}
 
-		private static void RogueNonCollect(IDictionary<string, Power> cards)
+		private static void RogueNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [CFM_342e] Looted Blade (*) - COST:0 
@@ -1165,10 +1166,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +4/+4.
 			// --------------------------------------------------------
-			cards.Add("CFM_342e", new Power
+			cards.Add("CFM_342e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_342e")
-			});
+			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [CFM_694e] Trained (*) - COST:0 
@@ -1176,14 +1177,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("CFM_694e", new Power
+			cards.Add("CFM_694e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_694e")
-			});
+			}));
 
 		}
 
-		private static void Shaman(IDictionary<string, Power> cards)
+		private static void Shaman(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
 			// [CFM_061] Jinyu Waterspeaker - COST:4 [ATK:3/HP:6] 
@@ -1200,10 +1201,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_061", new Power
+			cards.Add("CFM_061", new CardDef(new Power
 			{
 				PowerTask = new HealTask(6, EntityType.TARGET)
-			});
+			}));
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [CFM_312] Jade Chieftain - COST:7 [ATK:5/HP:5] 
@@ -1218,12 +1219,12 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_312", new Power
+			cards.Add("CFM_312", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					ComplexTask.SummonJadeGolem(SummonSide.RIGHT),
 					ComplexTask.Taunt(EntityType.STACK))
-			});
+			}));
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [CFM_324] White Eyes - COST:5 [ATK:5/HP:5] 
@@ -1238,10 +1239,10 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_324", new Power
+			cards.Add("CFM_324", new CardDef(new Power
 			{
 				DeathrattleTask = new AddCardTo("CFM_324t", EntityType.DECK)
-			});
+			}));
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [CFM_697] Lotus Illusionist - COST:4 [ATK:3/HP:5] 
@@ -1251,7 +1252,7 @@ namespace SabberStoneCore.CardSets
 			//       a hero, transform it into a
 			//       _random 6-Cost minion.
 			// --------------------------------------------------------
-			cards.Add("CFM_697", new Power
+			cards.Add("CFM_697", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
@@ -1260,7 +1261,7 @@ namespace SabberStoneCore.CardSets
 					Condition = SelfCondition.IsEventTargetIs(CardType.HERO),
 					SingleTask = new TransformMinionTask(EntityType.SOURCE, 2)
 				}
-			});
+			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
 			// [CFM_310] Call in the Finishers - COST:4 
@@ -1271,10 +1272,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_310", new Power
+			cards.Add("CFM_310", new CardDef(new Power
 			{
 				PowerTask = new SummonTask("CFM_310t", 4)
-			});
+			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
 			// [CFM_313] Finders Keepers - COST:1 
@@ -1289,10 +1290,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_313", new Power
+			cards.Add("CFM_313", new CardDef(new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.OVERLOAD)
-			});
+			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
 			// [CFM_696] Devolve - COST:2 
@@ -1303,10 +1304,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_HERO_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_696", new Power
+			cards.Add("CFM_696", new CardDef(new Power
 			{
 				PowerTask = new TransformMinionTask(EntityType.OP_MINIONS, -1)
-			});
+			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
 			// [CFM_707] Jade Lightning - COST:4 
@@ -1320,12 +1321,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_707", new Power
+			cards.Add("CFM_707", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(4, EntityType.TARGET, true),
 					ComplexTask.SummonJadeGolem(SummonSide.SPELL))
-			});
+			}));
 
 			// ---------------------------------------- WEAPON - SHAMAN
 			// [CFM_717] Jade Claws - COST:2 [ATK:2/HP:0] 
@@ -1344,20 +1345,20 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_717", new Power
+			cards.Add("CFM_717", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.SummonJadeGolem(SummonSide.DEFAULT)
-			});
+			}));
 
 		}
 
-		private static void ShamanNonCollect(IDictionary<string, Power> cards)
+		private static void ShamanNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
 			// [CFM_310t] Murloc Razorgill (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: murloc, Fac: neutral, Set: gangs, 
 			// --------------------------------------------------------
-			cards.Add("CFM_310t", null);
+			cards.Add("CFM_310t", new CardDef());
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [CFM_324t] The Storm Guardian (*) - COST:5 [ATK:10/HP:10] 
@@ -1369,11 +1370,11 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_324t", null);
+			cards.Add("CFM_324t", new CardDef());
 
 		}
 
-		private static void Warlock(IDictionary<string, Power> cards)
+		private static void Warlock(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
 			// [CFM_610] Crystalweaver - COST:4 [ATK:5/HP:4] 
@@ -1384,13 +1385,13 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_610", new Power
+			cards.Add("CFM_610", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
 					new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
 					new AddEnchantmentTask("CFM_610e", EntityType.STACK))
-			});
+			}));
 
 			// --------------------------------------- MINION - WARLOCK
 			// [CFM_663] Kabal Trafficker - COST:6 [ATK:6/HP:6] 
@@ -1400,7 +1401,7 @@ namespace SabberStoneCore.CardSets
 			//       add a random Demon
 			//       to your hand.
 			// --------------------------------------------------------
-			cards.Add("CFM_663", new Power
+			cards.Add("CFM_663", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
@@ -1408,7 +1409,7 @@ namespace SabberStoneCore.CardSets
 						new RandomMinionTask(GameTag.CARDRACE, (int)Race.DEMON),
 						new AddStackTo(EntityType.HAND))
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - WARLOCK
 			// [CFM_699] Seadevil Stinger - COST:4 [ATK:4/HP:2] 
@@ -1421,10 +1422,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_699", new Power
+			cards.Add("CFM_699", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("CFM_699e", EntityType.CONTROLLER)
-			});
+			}));
 
 			// --------------------------------------- MINION - WARLOCK
 			// [CFM_750] Krul the Unshackled - COST:9 [ATK:7/HP:9] 
@@ -1438,7 +1439,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_750", new Power
+			cards.Add("CFM_750", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
@@ -1446,7 +1447,7 @@ namespace SabberStoneCore.CardSets
 						new IncludeTask(EntityType.HAND),
 						new FilterStackTask(SelfCondition.IsRace(Race.DEMON)),
 						new SummonStackTask(removeFromZone: true))))
-			});
+			}));
 
 			// --------------------------------------- MINION - WARLOCK
 			// [CFM_751] Abyssal Enforcer - COST:7 [ATK:6/HP:6] 
@@ -1457,10 +1458,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_751", new Power
+			cards.Add("CFM_751", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(3, EntityType.ALL_NOSOURCE)
-			});
+			}));
 
 			// --------------------------------------- MINION - WARLOCK
 			// [CFM_900] Unlicensed Apothecary - COST:3 [ATK:5/HP:5] 
@@ -1468,14 +1469,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: After you summon a minion, deal 5 damage to_your hero.
 			// --------------------------------------------------------
-			cards.Add("CFM_900", new Power
+			cards.Add("CFM_900", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new DamageTask(5, EntityType.HERO)
 				}
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [CFM_094] Felfire Potion - COST:6 
@@ -1483,10 +1484,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Deal $5 damage to all characters. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("CFM_094", new Power
+			cards.Add("CFM_094", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(5, EntityType.ALL, true)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [CFM_608] Blastcrystal Potion - COST:4 
@@ -1498,12 +1499,12 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_608", new Power
+			cards.Add("CFM_608", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
 					new ManaCrystalEmptyTask(-1))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [CFM_611] Bloodfury Potion - COST:3 
@@ -1517,17 +1518,17 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_611", new Power
+			cards.Add("CFM_611", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.TARGET, SelfCondition.IsRace(Race.DEMON)),
 					new FlagTask(true, new AddEnchantmentTask("CFM_611e2", EntityType.TARGET)),
 					new FlagTask(false, new AddEnchantmentTask("CFM_611e", EntityType.TARGET))),
-			});
+			}));
 
 		}
 
-		private static void Warrior(IDictionary<string, Power> cards)
+		private static void Warrior(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
 			// [CFM_300] Public Defender - COST:2 [ATK:0/HP:7] 
@@ -1538,7 +1539,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_300", null);
+			cards.Add("CFM_300", new CardDef());
 
 			// --------------------------------------- MINION - WARRIOR
 			// [CFM_643] Hobart Grapplehammer - COST:2 [ATK:2/HP:2] 
@@ -1550,14 +1551,14 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_643", new Power
+			cards.Add("CFM_643", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new IncludeTask(EntityType.DECK, null, true),
 					new FilterStackTask(SelfCondition.IsWeapon),
 					new AddEnchantmentTask("CFM_643e", EntityType.STACK))
-			});
+			}));
 
 			// --------------------------------------- MINION - WARRIOR
 			// [CFM_754] Grimy Gadgeteer - COST:4 [ATK:4/HP:3] 
@@ -1565,13 +1566,13 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, give a random minion in your hand +2/+2.
 			// --------------------------------------------------------
-			cards.Add("CFM_754", new Power
+			cards.Add("CFM_754", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
 					SingleTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_754e")
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - WARRIOR
 			// [CFM_755] Grimestreet Pawnbroker - COST:3 [ATK:3/HP:3] 
@@ -1582,7 +1583,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_755", new Power
+			cards.Add("CFM_755", new CardDef(new Power
 			{
 				InfoCardId = "CFM_755e",
 				PowerTask = ComplexTask.Create(
@@ -1590,7 +1591,7 @@ namespace SabberStoneCore.CardSets
 					new FilterStackTask(SelfCondition.IsWeapon),
 					new RandomTask(1, EntityType.STACK),
 					new AddEnchantmentTask("CFM_755e", EntityType.STACK))
-			});
+			}));
 
 			// --------------------------------------- MINION - WARRIOR
 			// [CFM_756] Alley Armorsmith - COST:5 [ATK:2/HP:7] 
@@ -1604,7 +1605,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_756", new Power
+			cards.Add("CFM_756", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.DEAL_DAMAGE)
 				{
@@ -1613,7 +1614,7 @@ namespace SabberStoneCore.CardSets
 						new GetEventNumberTask(),
 						new ArmorTask())
 				}
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [CFM_716] Sleep with the Fishes - COST:2 
@@ -1621,13 +1622,13 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to all damaged minions. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("CFM_716", new Power
+			cards.Add("CFM_716", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.ALLMINIONS),
 					new FilterStackTask(SelfCondition.IsDamaged),
 					new DamageTask(3, EntityType.STACK, true))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [CFM_752] Stolen Goods - COST:2 
@@ -1638,10 +1639,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_752", new Power
+			cards.Add("CFM_752", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_752e", SelfCondition.HasTaunt)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [CFM_940] I Know a Guy - COST:1 
@@ -1655,10 +1656,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_940", new Power
+			cards.Add("CFM_940", new CardDef(new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.TAUNT)
-			});
+			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
 			// [CFM_631] Brass Knuckles - COST:4 [ATK:2/HP:0] 
@@ -1671,18 +1672,18 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DURABILITY = 3
 			// --------------------------------------------------------
-			cards.Add("CFM_631", new Power
+			cards.Add("CFM_631", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
 					TriggerSource = TriggerSource.HERO,
 					SingleTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_631e")
 				}
-			});
+			}));
 
 		}
 
-		private static void WarriorNonCollect(IDictionary<string, Power> cards)
+		private static void WarriorNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [CFM_643e] Smuggling (*) - COST:0 
@@ -1690,10 +1691,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack from Hobart Grapplehammer.
 			// --------------------------------------------------------
-			cards.Add("CFM_643e", new Power
+			cards.Add("CFM_643e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_643e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
 			// [CFM_643e2] Smuggling (*) - COST:0 
@@ -1701,16 +1702,16 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack from Hobart Grapplehammer.
 			// --------------------------------------------------------
-			cards.Add("CFM_643e2", new Power
+			cards.Add("CFM_643e2", new CardDef(new Power
 			{
 				// TODO [CFM_643e2] Smuggling && Test: Smuggling_CFM_643e2
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 		}
 
-		private static void Neutral(IDictionary<string, Power> cards)
+		private static void Neutral(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_025] Wind-up Burglebot - COST:6 [ATK:5/HP:5] 
@@ -1718,7 +1719,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this attacks a minion and survives, draw_a card.
 			// --------------------------------------------------------
-			cards.Add("CFM_025", new Power
+			cards.Add("CFM_025", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
@@ -1728,7 +1729,7 @@ namespace SabberStoneCore.CardSets
 							 && p.Game.CurrentEventData.EventTarget is Minion),
 					SingleTask = new DrawTask()
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_039] Street Trickster - COST:3 [ATK:0/HP:7] 
@@ -1739,7 +1740,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_039", null);
+			cards.Add("CFM_039", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_060] Red Mana Wyrm - COST:5 [ATK:2/HP:6] 
@@ -1747,14 +1748,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever  you cast a spell, gain +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("CFM_060", new Power
+			cards.Add("CFM_060", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new AddEnchantmentTask("CFM_060e", EntityType.SOURCE)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_063] Kooky Chemist - COST:4 [ATK:4/HP:4] 
@@ -1769,10 +1770,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_063", new Power
+			cards.Add("CFM_063", new CardDef(new Power
 			{
 				PowerTask = new SwapAttackHealthTask(EntityType.TARGET, "CFM_063e")
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_064] Blubber Baron - COST:3 [ATK:1/HP:1] 
@@ -1783,7 +1784,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_064", new Power
+			cards.Add("CFM_064", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_SUMMON) // PRESUMMON
 				{
@@ -1792,7 +1793,7 @@ namespace SabberStoneCore.CardSets
 					Condition = SelfCondition.IsBattlecryMinion,
 					SingleTask = new AddEnchantmentTask("CFM_064e", EntityType.SOURCE)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_067] Hozen Healer - COST:4 [ATK:2/HP:6] 
@@ -1807,10 +1808,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_067", new Power
+			cards.Add("CFM_067", new CardDef(new Power
 			{
 				PowerTask = new HealFullTask(EntityType.TARGET)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_095] Weasel Tunneler - COST:1 [ATK:1/HP:1] 
@@ -1822,10 +1823,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// - 542 = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_095", new Power
+			cards.Add("CFM_095", new CardDef(new Power
 			{
 				DeathrattleTask = new AddCardTo("CFM_095", EntityType.OP_DECK)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_120] Mistress of Mixtures - COST:1 [ATK:2/HP:2] 
@@ -1836,10 +1837,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_120", new Power
+			cards.Add("CFM_120", new CardDef(new Power
 			{
 				DeathrattleTask = new HealTask(4, EntityType.HEROES)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_321] Grimestreet Informant - COST:2 [ATK:1/HP:1] 
@@ -1858,10 +1859,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_321", new Power
+			cards.Add("CFM_321", new CardDef(new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.HUNTER_PALADIN_WARRIOR)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_325] Small-Time Buccaneer - COST:1 [ATK:1/HP:1] 
@@ -1869,11 +1870,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Has +2 Attack while you have a weapon equipped.
 			// --------------------------------------------------------
-			cards.Add("CFM_325", new Power
+			cards.Add("CFM_325", new CardDef(new Power
 			{
 				InfoCardId = "CFM_325e",
 				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p => p.Controller.Hero.Weapon != null ? 2 : 0)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_328] Fight Promoter - COST:6 [ATK:4/HP:4] 
@@ -1886,13 +1887,13 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_328", new Power
+			cards.Add("CFM_328", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE,
 						SelfCondition.HasBoardMinion(GameTag.HEALTH, 6, RelaSign.GEQ)),
 					new FlagTask(true, new DrawTask(2)))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_341] Sergeant Sally - COST:3 [ATK:1/HP:1] 
@@ -1904,12 +1905,12 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_341", new Power
+			cards.Add("CFM_341", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
 					new DamageNumberTask(EntityType.ENEMIES))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_344] Finja, the Flying Star - COST:5 [ATK:2/HP:4] 
@@ -1924,7 +1925,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_344", new Power
+			cards.Add("CFM_344", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
@@ -1937,7 +1938,7 @@ namespace SabberStoneCore.CardSets
 						new RandomTask(2, EntityType.STACK),
 						new SummonStackTask())
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_609] Fel Orc Soulfiend - COST:3 [ATK:3/HP:7] 
@@ -1945,13 +1946,13 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the start of your turn, deal 2 damage to this_minion.
 			// --------------------------------------------------------
-			cards.Add("CFM_609", new Power
+			cards.Add("CFM_609", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					SingleTask = new DamageTask(2, EntityType.SOURCE)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_619] Kabal Chemist - COST:4 [ATK:3/HP:3] 
@@ -1967,12 +1968,12 @@ namespace SabberStoneCore.CardSets
 			// - MULTI_CLASS_GROUP = 3
 			// - KABAL = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_619", new Power
+			cards.Add("CFM_619", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomEntourageTask(),
 					new AddStackTo(EntityType.HAND))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_621] Kazakus - COST:4 [ATK:3/HP:3] 
@@ -1991,13 +1992,13 @@ namespace SabberStoneCore.CardSets
 			// - MULTI_CLASS_GROUP = 3
 			// - KABAL = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_621", new Power
+			cards.Add("CFM_621", new CardDef(new Power
 			{
 				// TODO [CFM_621] Kazakus && Test: Kazakus_CFM_621
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsNoDupeInDeck),
 					new FlagTask(true, new PotionGenerating()))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_637] Patches the Pirate - COST:1 [ATK:1/HP:1] 
@@ -2012,7 +2013,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_637", new Power
+			cards.Add("CFM_637", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.PLAY_MINION)
 				{
@@ -2021,7 +2022,7 @@ namespace SabberStoneCore.CardSets
 					Condition = SelfCondition.IsRace(Race.PIRATE),
 					SingleTask = SpecificTask.PatchesThePirate
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_646] Backstreet Leper - COST:3 [ATK:3/HP:1] 
@@ -2033,10 +2034,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_646", new Power
+			cards.Add("CFM_646", new CardDef(new Power
 			{
 				DeathrattleTask = new DamageTask(2, EntityType.OP_HERO)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_647] Blowgill Sniper - COST:2 [ATK:2/HP:1] 
@@ -2050,10 +2051,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_647", new Power
+			cards.Add("CFM_647", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(1, EntityType.TARGET)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_648] Big-Time Racketeer - COST:6 [ATK:1/HP:1] 
@@ -2064,10 +2065,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_648", new Power
+			cards.Add("CFM_648", new CardDef(new Power
 			{
 				PowerTask = new SummonTask("CFM_648t", SummonSide.RIGHT)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_649] Kabal Courier - COST:3 [ATK:2/HP:2] 
@@ -2084,10 +2085,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_649", new Power
+			cards.Add("CFM_649", new CardDef(new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.MAGE_PRIEST_WARLOCK)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_651] Naga Corsair - COST:4 [ATK:5/HP:4] 
@@ -2098,10 +2099,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_651", new Power
+			cards.Add("CFM_651", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("CFM_651e", EntityType.WEAPON)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_652] Second-Rate Bruiser - COST:5 [ATK:4/HP:5] 
@@ -2115,10 +2116,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_652", new Power
+			cards.Add("CFM_652", new CardDef(new Power
 			{
 				Aura = new AdaptiveCostEffect(p => p.Controller.Opponent.BoardZone.Count > 2 ? 2 : 0)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_653] Hired Gun - COST:3 [ATK:4/HP:3] 
@@ -2129,7 +2130,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_653", null);
+			cards.Add("CFM_653", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_654] Friendly Bartender - COST:2 [ATK:2/HP:3] 
@@ -2137,13 +2138,13 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, restore 1 Health to your_hero.
 			// --------------------------------------------------------
-			cards.Add("CFM_654", new Power
+			cards.Add("CFM_654", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
 					SingleTask = new HealTask(1, EntityType.HERO)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_655] Toxic Sewer Ooze - COST:3 [ATK:4/HP:3] 
@@ -2154,10 +2155,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_655", new Power
+			cards.Add("CFM_655", new CardDef(new Power
 			{
 				PowerTask = new DamageWeaponTask()
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_656] Streetwise Investigator - COST:5 [ATK:4/HP:6] 
@@ -2171,10 +2172,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_656", new Power
+			cards.Add("CFM_656", new CardDef(new Power
 			{
 				PowerTask = new RevealStealthTask(EntityType.OP_MINIONS)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_658] Backroom Bouncer - COST:4 [ATK:4/HP:4] 
@@ -2182,14 +2183,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever a friendly minion dies, gain +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("CFM_658", new Power
+			cards.Add("CFM_658", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.DEATH)
 				{
 					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = new AddEnchantmentTask("CFM_658e", EntityType.SOURCE)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_659] Gadgetzan Socialite - COST:2 [ATK:2/HP:2] 
@@ -2203,16 +2204,16 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_659", new Power
+			cards.Add("CFM_659", new CardDef(new Power
 			{
 				PowerTask = new HealTask(2, EntityType.TARGET)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_665] Worgen Greaser - COST:4 [ATK:6/HP:3] 
 			// - Set: gangs, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("CFM_665", null);
+			cards.Add("CFM_665", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_666] Grook Fu Master - COST:5 [ATK:3/HP:5] 
@@ -2223,7 +2224,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_666", null);
+			cards.Add("CFM_666", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_667] Bomb Squad - COST:5 [ATK:2/HP:2] 
@@ -2243,11 +2244,11 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_667", new Power
+			cards.Add("CFM_667", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(5, EntityType.TARGET),
 				DeathrattleTask = new DamageTask(5, EntityType.HERO)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_668] Doppelgangster - COST:5 [ATK:2/HP:2] 
@@ -2258,11 +2259,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_668", new Power
+			cards.Add("CFM_668", new CardDef(new Power
 			{
 				PowerTask = SpecificTask.Doppelgangster
 
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_669] Burgly Bully - COST:5 [ATK:4/HP:6] 
@@ -2270,14 +2271,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever your opponent casts a spell, add a Coin to your hand.
 			// --------------------------------------------------------
-			cards.Add("CFM_669", new Power
+			cards.Add("CFM_669", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
 					TriggerSource = TriggerSource.ENEMY,
 					SingleTask = new AddCardTo("GAME_005", EntityType.HAND)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_670] Mayor Noggenfogger - COST:9 [ATK:5/HP:4] 
@@ -2288,14 +2289,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_670", new Power
+			cards.Add("CFM_670", new CardDef(new Power
 			{
 				// TODO [CFM_670] Mayor Noggenfogger && Test: Mayor Noggenfogger_CFM_670
 				Trigger = new Trigger(TriggerType.TARGET)
 				{
 					SingleTask = SpecificTask.MayorNoggenfogger
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_672] Madam Goya - COST:6 [ATK:4/HP:3] 
@@ -2312,7 +2313,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_672", new Power
+			cards.Add("CFM_672", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasMinionInDeck()),
@@ -2323,7 +2324,7 @@ namespace SabberStoneCore.CardSets
 					new RemoveFromDeck(EntityType.STACK),
 					new MoveToDeck(EntityType.TARGET),
 					new SummonTask())))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_685] Don Han'Cho - COST:7 [ATK:5/HP:6] 
@@ -2338,10 +2339,10 @@ namespace SabberStoneCore.CardSets
 			// - MULTI_CLASS_GROUP = 1
 			// - GRIMY_GOONS = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_685", new Power
+			cards.Add("CFM_685", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_685e")
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_688] Spiked Hogrider - COST:5 [ATK:5/HP:5] 
@@ -2356,12 +2357,12 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_688", new Power
+			cards.Add("CFM_688", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasOpBoardMinion(GameTag.TAUNT, 1)),
 					new FlagTask(true, ComplexTask.Charge(EntityType.SOURCE)))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_715] Jade Spirit - COST:4 [ATK:2/HP:3] 
@@ -2376,10 +2377,10 @@ namespace SabberStoneCore.CardSets
 			// - MULTI_CLASS_GROUP = 2
 			// - JADE_LOTUS = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_715", new Power
+			cards.Add("CFM_715", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.SummonJadeGolem(SummonSide.SPELL)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_790] Dirty Rat - COST:2 [ATK:2/HP:6] 
@@ -2394,7 +2395,7 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_790", new Power
+			cards.Add("CFM_790", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.OP_HERO, SelfCondition.IsNotBoardFull),
@@ -2404,7 +2405,7 @@ namespace SabberStoneCore.CardSets
 						new RandomTask(1, EntityType.STACK),
 						new RemoveFromHand(EntityType.STACK),
 						new SummonOpTask()))),
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_806] Wrathion - COST:6 [ATK:4/HP:5] 
@@ -2417,13 +2418,13 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_806", new Power
+			cards.Add("CFM_806", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.RecursiveTask(
 					new ConditionTask(EntityType.STACK, SelfCondition.IsRace(Race.DRAGON)),
 					new DrawTask(true))
 
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_807] Auctionmaster Beardo - COST:3 [ATK:3/HP:4] 
@@ -2434,14 +2435,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_807", new Power
+			cards.Add("CFM_807", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.HERO_POWER)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_808] Genzo, the Shark - COST:4 [ATK:5/HP:4] 
@@ -2452,7 +2453,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_808", new Power
+			cards.Add("CFM_808", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.ATTACK)
 				{
@@ -2473,7 +2474,7 @@ namespace SabberStoneCore.CardSets
 							}),
 							new EnqueueNumberTask(new DrawOpTask())))
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_809] Tanaris Hogchopper - COST:4 [ATK:4/HP:4] 
@@ -2488,12 +2489,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_809", new Power
+			cards.Add("CFM_809", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpHandEmpty),
 					new FlagTask(true, ComplexTask.Charge(EntityType.SOURCE))),
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_810] Leatherclad Hogleader - COST:6 [ATK:6/HP:6] 
@@ -2507,12 +2508,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_810", new Power
+			cards.Add("CFM_810", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpZoneCount(Zone.HAND, 6, RelaSign.GEQ)),
 					new FlagTask(true, ComplexTask.Charge(EntityType.SOURCE)))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_851] Daring Reporter - COST:4 [ATK:3/HP:3] 
@@ -2520,14 +2521,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever your opponent draws a card, gain +1/+1.
 			// --------------------------------------------------------
-			cards.Add("CFM_851", new Power
+			cards.Add("CFM_851", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.DRAW)
 				{
 					TriggerSource = TriggerSource.ENEMY,
 					SingleTask = new AddEnchantmentTask("CFM_851e", EntityType.SOURCE)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_852] Lotus Agents - COST:5 [ATK:5/HP:3] 
@@ -2544,10 +2545,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_852", new Power
+			cards.Add("CFM_852", new CardDef(new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.DRUID_ROGUE_SHAMAN)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_853] Grimestreet Smuggler - COST:3 [ATK:2/HP:4] 
@@ -2561,10 +2562,10 @@ namespace SabberStoneCore.CardSets
 			// - MULTI_CLASS_GROUP = 1
 			// - GRIMY_GOONS = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_853", new Power
+			cards.Add("CFM_853", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.BuffRandomMinion(EntityType.HAND, "CFM_853e")
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_854] Ancient of Blossoms - COST:6 [ATK:3/HP:8] 
@@ -2575,7 +2576,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_854", null);
+			cards.Add("CFM_854", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_855] Defias Cleaner - COST:6 [ATK:5/HP:7] 
@@ -2595,10 +2596,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_855", new Power
+			cards.Add("CFM_855", new CardDef(new Power
 			{
 				PowerTask = new SilenceTask(EntityType.TARGET)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_902] Aya Blackpaw - COST:6 [ATK:5/HP:3] 
@@ -2615,15 +2616,15 @@ namespace SabberStoneCore.CardSets
 			// - MULTI_CLASS_GROUP = 2
 			// - JADE_LOTUS = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_902", new Power
+			cards.Add("CFM_902", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.SummonJadeGolem(SummonSide.RIGHT),
 				DeathrattleTask = ComplexTask.SummonJadeGolem(SummonSide.DEATHRATTLE)
-			});
+			}));
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, Power> cards)
+		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_020e] Raza Enchant (*) - COST:0 
@@ -2631,10 +2632,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Your <b>Hero Power</b> costs (0).
 			// --------------------------------------------------------
-			cards.Add("CFM_020e", new Power
+			cards.Add("CFM_020e", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.HEROPOWER, Effects.SetCost(1))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_060e] Mana Heist (*) - COST:0 
@@ -2642,10 +2643,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("CFM_060e", new Power
+			cards.Add("CFM_060e", new CardDef(new Power
 			{
 				Enchant = new OngoingEnchant(Effects.Attack_N(2))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_063e] Kooky Chemistry (*) - COST:0 
@@ -2653,10 +2654,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Attack and Health have been swapped by Kooky Chemist.
 			// --------------------------------------------------------
-			cards.Add("CFM_063e", new Power
+			cards.Add("CFM_063e", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.SetAttackHealth(0))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_064e] Size Increase (*) - COST:0 
@@ -2664,10 +2665,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("CFM_064e", new Power
+			cards.Add("CFM_064e", new CardDef(new Power
 			{
 				Enchant = new OngoingEnchant(Effects.AttackHealth_N(1))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_325e] Equipped (*) - COST:0 
@@ -2675,10 +2676,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("CFM_325e", new Power
+			cards.Add("CFM_325e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_325e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_334e] Smuggling (*) - COST:0 
@@ -2686,10 +2687,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2 from Smuggler's Crate.
 			// --------------------------------------------------------
-			cards.Add("CFM_334e", new Power
+			cards.Add("CFM_334e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_334e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_336e] Smuggling (*) - COST:0 
@@ -2697,10 +2698,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2 from Shaky Zipgunner.
 			// --------------------------------------------------------
-			cards.Add("CFM_336e", new Power
+			cards.Add("CFM_336e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_336e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_610e] Serrated Shadows (*) - COST:0 
@@ -2708,10 +2709,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("CFM_610e", new Power
+			cards.Add("CFM_610e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_610e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_611e] Demonic Draught (*) - COST:0 
@@ -2719,10 +2720,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
-			cards.Add("CFM_611e", new Power
+			cards.Add("CFM_611e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_611e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_611e2] Demonic Draught (*) - COST:0 
@@ -2730,10 +2731,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
-			cards.Add("CFM_611e2", new Power
+			cards.Add("CFM_611e2", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_611e2")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_614e] Savage Mark (*) - COST:0 
@@ -2741,10 +2742,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("CFM_614e", new Power
+			cards.Add("CFM_614e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_614e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_617e] Visions of Hypnos (*) - COST:0 
@@ -2752,10 +2753,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("CFM_617e", new Power
+			cards.Add("CFM_617e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_617e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_621e] Goldthorn (*) - COST:0 
@@ -2763,10 +2764,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
-			cards.Add("CFM_621e", new Power
+			cards.Add("CFM_621e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_621e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_621e2] Goldthorn (*) - COST:0 
@@ -2774,10 +2775,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +4 Health.
 			// --------------------------------------------------------
-			cards.Add("CFM_621e2", new Power
+			cards.Add("CFM_621e2", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_621e2")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_621e3] Goldthorn (*) - COST:0 
@@ -2785,10 +2786,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +6 Health.
 			// --------------------------------------------------------
-			cards.Add("CFM_621e3", new Power
+			cards.Add("CFM_621e3", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_621e3")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_626e] Fortitude (*) - COST:0 
@@ -2796,10 +2797,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3 Health.
 			// --------------------------------------------------------
-			cards.Add("CFM_626e", new Power
+			cards.Add("CFM_626e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_626e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_631e] Smuggling (*) - COST:0 
@@ -2807,11 +2808,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats from Brass Knuckles.
 			// --------------------------------------------------------
-			cards.Add("CFM_631e", new Power
+			cards.Add("CFM_631e", new CardDef(new Power
 			{
 				//Enchant = new OngoingEnchant(Effects.AttackHealth_N(1))
 				Enchant = new Enchant(Effects.AttackHealth_N(1))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_639e] Smuggling (*) - COST:0 
@@ -2819,11 +2820,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats from Grimestreet Enforcer.
 			// --------------------------------------------------------
-			cards.Add("CFM_639e", new Power
+			cards.Add("CFM_639e", new CardDef(new Power
 			{
 				//Enchant = new OngoingEnchant(Effects.AttackHealth_N(1))
 				Enchant = new Enchant(Effects.AttackHealth_N(1))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_650e] Smuggling (*) - COST:0 
@@ -2831,10 +2832,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1 from Grimscale Chum.
 			// --------------------------------------------------------
-			cards.Add("CFM_650e", new Power
+			cards.Add("CFM_650e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_650e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_651e] Extra Sharp (*) - COST:0 
@@ -2842,10 +2843,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("CFM_651e", new Power
+			cards.Add("CFM_651e", new CardDef(new Power
 			{
 				Enchant = new Enchant(GameTag.ATK, EffectOperator.ADD, 1)
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_658e] Cut Off (*) - COST:0 
@@ -2853,10 +2854,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("CFM_658e", new Power
+			cards.Add("CFM_658e", new CardDef(new Power
 			{
 				Enchant = new OngoingEnchant(Effects.Attack_N(1))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_671e] We All Scream (*) - COST:0 
@@ -2864,10 +2865,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("CFM_671e", new Power
+			cards.Add("CFM_671e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_671e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_685e] Smuggling (*) - COST:0 
@@ -2875,10 +2876,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +5/+5 from Don Han'Cho.
 			// --------------------------------------------------------
-			cards.Add("CFM_685e", new Power
+			cards.Add("CFM_685e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_685e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_699e] Seadevil Enchant (*) - COST:0 
@@ -2887,14 +2888,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_699e", new Power
+			cards.Add("CFM_699e", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.HAND, new Effect(GameTag.CARD_COSTS_HEALTH, EffectOperator.SET, 1))
 				{
 					Condition = SelfCondition.IsRace(Race.MURLOC),
 					RemoveTrigger = (TriggerType.PLAY_MINION, SelfCondition.IsRace(Race.MURLOC))
 				}
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_752e] Smuggling (*) - COST:0 
@@ -2902,10 +2903,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3/+3 from Stolen Goods.
 			// --------------------------------------------------------
-			cards.Add("CFM_752e", new Power
+			cards.Add("CFM_752e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_752e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_753e] Smuggling (*) - COST:0 
@@ -2913,10 +2914,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1 from Grimestreet Outfitter.
 			// --------------------------------------------------------
-			cards.Add("CFM_753e", new Power
+			cards.Add("CFM_753e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_753e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_754e] Smuggling (*) - COST:0 
@@ -2924,11 +2925,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats from Grimy Gadgeteer.
 			// --------------------------------------------------------
-			cards.Add("CFM_754e", new Power
+			cards.Add("CFM_754e", new CardDef(new Power
 			{
 				//Enchant = new OngoingEnchant(Effects.AttackHealth_N(2))
 				Enchant = new Enchant(Effects.AttackHealth_N(2))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_755e] Smuggling (*) - COST:0 
@@ -2936,10 +2937,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1 from Grimestreet Pawnbroker.
 			// --------------------------------------------------------
-			cards.Add("CFM_755e", new Power
+			cards.Add("CFM_755e", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.Attack_N(1), new Effect(GameTag.DURABILITY, EffectOperator.ADD, 1))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_816e] Get Big (*) - COST:0 
@@ -2947,10 +2948,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("CFM_816e", new Power
+			cards.Add("CFM_816e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_816e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_851e] The Scoop (*) - COST:0 
@@ -2958,10 +2959,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("CFM_851e", new Power
+			cards.Add("CFM_851e", new CardDef(new Power
 			{
 				Enchant = new OngoingEnchant(Effects.AttackHealth_N(1))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [CFM_853e] Smuggling (*) - COST:0 
@@ -2969,10 +2970,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1 from Grimestreet Smuggler.
 			// --------------------------------------------------------
-			cards.Add("CFM_853e", new Power
+			cards.Add("CFM_853e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("CFM_853e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [TB_BossRumble001hpe] Smuggling (*) - COST:0 
@@ -2980,12 +2981,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2 from Han'Cho
 			// --------------------------------------------------------
-			cards.Add("TB_BossRumble001hpe", new Power
+			cards.Add("TB_BossRumble001hpe", new CardDef(new Power
 			{
 				// TODO [TB_BossRumble001hpe] Smuggling && Test: Smuggling_TB_BossRumble001hpe
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [TB_HealthAttackSwap_Ench] Putricide's Potion (*) - COST:0 
@@ -2993,42 +2994,42 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Attack and Health have been swapped by Putricide
 			// --------------------------------------------------------
-			cards.Add("TB_HealthAttackSwap_Ench", new Power
+			cards.Add("TB_HealthAttackSwap_Ench", new CardDef(new Power
 			{
 				// TODO [TB_HealthAttackSwap_Ench] Putricide's Potion && Test: Putricide's Potion_TB_HealthAttackSwap_Ench
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_621_m2] Kabal Demon (*) - COST:5 [ATK:5/HP:5] 
 			// - Race: demon, Fac: neutral, Set: gangs, 
 			// --------------------------------------------------------
-			cards.Add("CFM_621_m2", null);
+			cards.Add("CFM_621_m2", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_621_m3] Kabal Demon (*) - COST:8 [ATK:8/HP:8] 
 			// - Race: demon, Fac: neutral, Set: gangs, 
 			// --------------------------------------------------------
-			cards.Add("CFM_621_m3", null);
+			cards.Add("CFM_621_m3", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_621_m4] Kabal Demon (*) - COST:2 [ATK:2/HP:2] 
 			// - Race: demon, Fac: neutral, Set: gangs, 
 			// --------------------------------------------------------
-			cards.Add("CFM_621_m4", null);
+			cards.Add("CFM_621_m4", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_621_m5] Sheep (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: beast, Fac: neutral, Set: gangs, 
 			// --------------------------------------------------------
-			cards.Add("CFM_621_m5", null);
+			cards.Add("CFM_621_m5", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_648t] "Little Friend" (*) - COST:6 [ATK:6/HP:6] 
 			// - Set: gangs, 
 			// --------------------------------------------------------
-			cards.Add("CFM_648t", null);
+			cards.Add("CFM_648t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_668t] Doppelgangster (*) - COST:5 [ATK:2/HP:2] 
@@ -3039,10 +3040,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_668t", new Power
+			cards.Add("CFM_668t", new CardDef(new Power
 			{
 				PowerTask = SpecificTask.Doppelgangster
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_668t2] Doppelgangster (*) - COST:5 [ATK:2/HP:2] 
@@ -3053,10 +3054,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_668t2", new Power
+			cards.Add("CFM_668t2", new CardDef(new Power
 			{
 				PowerTask = SpecificTask.Doppelgangster
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t01] Jade Golem (*) - COST:1 [ATK:1/HP:1] 
@@ -3065,7 +3066,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t01", null);
+			cards.Add("CFM_712_t01", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t02] Jade Golem (*) - COST:2 [ATK:2/HP:2] 
@@ -3074,7 +3075,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t02", null);
+			cards.Add("CFM_712_t02", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t03] Jade Golem (*) - COST:3 [ATK:3/HP:3] 
@@ -3083,7 +3084,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t03", null);
+			cards.Add("CFM_712_t03", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t04] Jade Golem (*) - COST:4 [ATK:4/HP:4] 
@@ -3092,7 +3093,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t04", null);
+			cards.Add("CFM_712_t04", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t05] Jade Golem (*) - COST:5 [ATK:5/HP:5] 
@@ -3101,7 +3102,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t05", null);
+			cards.Add("CFM_712_t05", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t06] Jade Golem (*) - COST:6 [ATK:6/HP:6] 
@@ -3110,7 +3111,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t06", null);
+			cards.Add("CFM_712_t06", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t07] Jade Golem (*) - COST:7 [ATK:7/HP:7] 
@@ -3119,7 +3120,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t07", null);
+			cards.Add("CFM_712_t07", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t08] Jade Golem (*) - COST:8 [ATK:8/HP:8] 
@@ -3128,7 +3129,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t08", null);
+			cards.Add("CFM_712_t08", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t09] Jade Golem (*) - COST:9 [ATK:9/HP:9] 
@@ -3137,7 +3138,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t09", null);
+			cards.Add("CFM_712_t09", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t10] Jade Golem (*) - COST:10 [ATK:10/HP:10] 
@@ -3146,7 +3147,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t10", null);
+			cards.Add("CFM_712_t10", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t11] Jade Golem (*) - COST:10 [ATK:11/HP:11] 
@@ -3155,7 +3156,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t11", null);
+			cards.Add("CFM_712_t11", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t12] Jade Golem (*) - COST:10 [ATK:12/HP:12] 
@@ -3164,7 +3165,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t12", null);
+			cards.Add("CFM_712_t12", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t13] Jade Golem (*) - COST:10 [ATK:13/HP:13] 
@@ -3173,7 +3174,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t13", null);
+			cards.Add("CFM_712_t13", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t14] Jade Golem (*) - COST:10 [ATK:14/HP:14] 
@@ -3182,7 +3183,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t14", null);
+			cards.Add("CFM_712_t14", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t15] Jade Golem (*) - COST:10 [ATK:15/HP:15] 
@@ -3191,7 +3192,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t15", null);
+			cards.Add("CFM_712_t15", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t16] Jade Golem (*) - COST:10 [ATK:16/HP:16] 
@@ -3200,7 +3201,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t16", null);
+			cards.Add("CFM_712_t16", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t17] Jade Golem (*) - COST:10 [ATK:17/HP:17] 
@@ -3209,7 +3210,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t17", null);
+			cards.Add("CFM_712_t17", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t18] Jade Golem (*) - COST:10 [ATK:18/HP:18] 
@@ -3218,7 +3219,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t18", null);
+			cards.Add("CFM_712_t18", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t19] Jade Golem (*) - COST:10 [ATK:19/HP:19] 
@@ -3227,7 +3228,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t19", null);
+			cards.Add("CFM_712_t19", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t20] Jade Golem (*) - COST:10 [ATK:20/HP:20] 
@@ -3236,7 +3237,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t20", null);
+			cards.Add("CFM_712_t20", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t21] Jade Golem (*) - COST:10 [ATK:21/HP:21] 
@@ -3245,7 +3246,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t21", null);
+			cards.Add("CFM_712_t21", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t22] Jade Golem (*) - COST:10 [ATK:22/HP:22] 
@@ -3254,7 +3255,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t22", null);
+			cards.Add("CFM_712_t22", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t23] Jade Golem (*) - COST:10 [ATK:23/HP:23] 
@@ -3263,7 +3264,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t23", null);
+			cards.Add("CFM_712_t23", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t24] Jade Golem (*) - COST:10 [ATK:24/HP:24] 
@@ -3272,7 +3273,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t24", null);
+			cards.Add("CFM_712_t24", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t25] Jade Golem (*) - COST:10 [ATK:25/HP:25] 
@@ -3281,7 +3282,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t25", null);
+			cards.Add("CFM_712_t25", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t26] Jade Golem (*) - COST:10 [ATK:26/HP:26] 
@@ -3290,7 +3291,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t26", null);
+			cards.Add("CFM_712_t26", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t27] Jade Golem (*) - COST:10 [ATK:27/HP:27] 
@@ -3299,7 +3300,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t27", null);
+			cards.Add("CFM_712_t27", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t28] Jade Golem (*) - COST:10 [ATK:28/HP:28] 
@@ -3308,7 +3309,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t28", null);
+			cards.Add("CFM_712_t28", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t29] Jade Golem (*) - COST:10 [ATK:29/HP:29] 
@@ -3317,7 +3318,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t29", null);
+			cards.Add("CFM_712_t29", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [CFM_712_t30] Jade Golem (*) - COST:10 [ATK:30/HP:30] 
@@ -3326,7 +3327,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - JADE_GOLEM = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_712_t30", null);
+			cards.Add("CFM_712_t30", new CardDef());
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t] Kazakus Potion (*) - COST:1 
@@ -3335,12 +3336,12 @@ namespace SabberStoneCore.CardSets
 			// Text: {0}
 			//       {1}
 			// --------------------------------------------------------
-			cards.Add("CFM_621t", new Power
+			cards.Add("CFM_621t", new CardDef(new Power
 			{
 				// TODO [CFM_621t] Kazakus Potion && Test: Kazakus Potion_CFM_621t
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t10] Netherbloom (*) - COST:1 
@@ -3351,10 +3352,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 2
 			// --------------------------------------------------------
-			cards.Add("CFM_621t10", new Power
+			cards.Add("CFM_621t10", new CardDef(new Power
 			{
 				PowerTask = new SummonTask("CFM_621_m4")
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t11] Lesser Potion (*) - COST:1 
@@ -3365,7 +3366,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1087
 			// --------------------------------------------------------
-			cards.Add("CFM_621t11", null);
+			cards.Add("CFM_621t11", new CardDef());
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t12] Greater Potion (*) - COST:5 
@@ -3376,7 +3377,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1088
 			// --------------------------------------------------------
-			cards.Add("CFM_621t12", null);
+			cards.Add("CFM_621t12", new CardDef());
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t13] Superior Potion (*) - COST:10 
@@ -3387,7 +3388,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1089
 			// --------------------------------------------------------
-			cards.Add("CFM_621t13", null);
+			cards.Add("CFM_621t13", new CardDef());
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t14] Kazakus Potion (*) - COST:5 
@@ -3396,12 +3397,12 @@ namespace SabberStoneCore.CardSets
 			// Text: {0}
 			//       {1}
 			// --------------------------------------------------------
-			cards.Add("CFM_621t14", new Power
+			cards.Add("CFM_621t14", new CardDef(new Power
 			{
 				// TODO [CFM_621t14] Kazakus Potion && Test: Kazakus Potion_CFM_621t14
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t15] Kazakus Potion (*) - COST:10 
@@ -3410,12 +3411,12 @@ namespace SabberStoneCore.CardSets
 			// Text: {0}
 			//       {1}
 			// --------------------------------------------------------
-			cards.Add("CFM_621t15", new Power
+			cards.Add("CFM_621t15", new CardDef(new Power
 			{
 				// TODO [CFM_621t15] Kazakus Potion && Test: Kazakus Potion_CFM_621t15
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t16] Heart of Fire (*) - COST:5 
@@ -3430,10 +3431,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_621t16", new Power
+			cards.Add("CFM_621t16", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(5, EntityType.TARGET, true)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t17] Stonescale Oil (*) - COST:5 
@@ -3444,10 +3445,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 6
 			// --------------------------------------------------------
-			cards.Add("CFM_621t17", new Power
+			cards.Add("CFM_621t17", new CardDef(new Power
 			{
 				PowerTask = new ArmorTask(7)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t18] Felbloom (*) - COST:5 
@@ -3459,10 +3460,10 @@ namespace SabberStoneCore.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 2
 			// - AFFECTED_BY_SPELL_POWER = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_621t18", new Power
+			cards.Add("CFM_621t18", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(4, EntityType.ALLMINIONS, true)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t19] Icecap (*) - COST:5 
@@ -3473,12 +3474,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 8
 			// --------------------------------------------------------
-			cards.Add("CFM_621t19", new Power
+			cards.Add("CFM_621t19", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomTask(2, EntityType.ENEMIES),
 					ComplexTask.Freeze(EntityType.STACK))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t2] Heart of Fire (*) - COST:1 
@@ -3493,10 +3494,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_621t2", new Power
+			cards.Add("CFM_621t2", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(3, EntityType.TARGET, true)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t20] Netherbloom (*) - COST:5 
@@ -3507,10 +3508,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 3
 			// --------------------------------------------------------
-			cards.Add("CFM_621t20", new Power
+			cards.Add("CFM_621t20", new CardDef(new Power
 			{
 				PowerTask = new SummonTask("CFM_621_m2", SummonSide.SPELL)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t21] Mystic Wool (*) - COST:5 
@@ -3524,12 +3525,12 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINIMUM_TOTAL_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_621t21", new Power
+			cards.Add("CFM_621t21", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.OP_MINIONS),
 					new TransformTask("CFM_621_m5", EntityType.STACK))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t22] Kingsblood (*) - COST:5 
@@ -3540,10 +3541,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 9
 			// --------------------------------------------------------
-			cards.Add("CFM_621t22", new Power
+			cards.Add("CFM_621t22", new CardDef(new Power
 			{
 				PowerTask = new DrawTask(2)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t23] Shadow Oil (*) - COST:5 
@@ -3554,12 +3555,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 10
 			// --------------------------------------------------------
-			cards.Add("CFM_621t23", new Power
+			cards.Add("CFM_621t23", new CardDef(new Power
 			{
 				PowerTask = new EnqueueTask(2, ComplexTask.Create(
 					new RandomMinionTask(GameTag.CARDRACE, (int)Race.DEMON),
 					new AddStackTo(EntityType.HAND)))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t24] Goldthorn (*) - COST:5 
@@ -3570,10 +3571,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 7
 			// --------------------------------------------------------
-			cards.Add("CFM_621t24", new Power
+			cards.Add("CFM_621t24", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("CFM_621e2", EntityType.MINIONS)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t25] Heart of Fire (*) - COST:10 
@@ -3588,10 +3589,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("CFM_621t25", new Power
+			cards.Add("CFM_621t25", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(8, EntityType.TARGET, true)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t26] Stonescale Oil (*) - COST:10 
@@ -3602,10 +3603,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 6
 			// --------------------------------------------------------
-			cards.Add("CFM_621t26", new Power
+			cards.Add("CFM_621t26", new CardDef(new Power
 			{
 				PowerTask = new ArmorTask(10)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t27] Icecap (*) - COST:10 
@@ -3619,12 +3620,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_621t27", new Power
+			cards.Add("CFM_621t27", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomTask(3, EntityType.ENEMIES),
 					ComplexTask.Freeze(EntityType.STACK))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t28] Netherbloom (*) - COST:10 
@@ -3635,10 +3636,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 3
 			// --------------------------------------------------------
-			cards.Add("CFM_621t28", new Power
+			cards.Add("CFM_621t28", new CardDef(new Power
 			{
 				PowerTask = new SummonTask("CFM_621_m3", SummonSide.SPELL)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t29] Mystic Wool (*) - COST:10 
@@ -3649,11 +3650,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_621t29", new Power
+			cards.Add("CFM_621t29", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new TransformTask("CFM_621_m5", EntityType.ALLMINIONS))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t3] Stonescale Oil (*) - COST:1 
@@ -3664,10 +3665,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 5
 			// --------------------------------------------------------
-			cards.Add("CFM_621t3", new Power
+			cards.Add("CFM_621t3", new CardDef(new Power
 			{
 				PowerTask = new ArmorTask(4)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t30] Kingsblood (*) - COST:10 
@@ -3678,10 +3679,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 9
 			// --------------------------------------------------------
-			cards.Add("CFM_621t30", new Power
+			cards.Add("CFM_621t30", new CardDef(new Power
 			{
 				PowerTask = new EnqueueTask(3, new DrawTask())
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t31] Shadow Oil (*) - COST:10 
@@ -3692,12 +3693,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 10
 			// --------------------------------------------------------
-			cards.Add("CFM_621t31", new Power
+			cards.Add("CFM_621t31", new CardDef(new Power
 			{
 				PowerTask = new EnqueueTask(3, ComplexTask.Create(
 					new RandomMinionTask(GameTag.CARDRACE, (int)Race.DEMON),
 					new AddStackTo(EntityType.HAND)))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t32] Goldthorn (*) - COST:10 
@@ -3708,10 +3709,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 7
 			// --------------------------------------------------------
-			cards.Add("CFM_621t32", new Power
+			cards.Add("CFM_621t32", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("CFM_621e3", EntityType.MINIONS)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t33] Felbloom (*) - COST:10 
@@ -3723,10 +3724,10 @@ namespace SabberStoneCore.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 2
 			// - AFFECTED_BY_SPELL_POWER = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_621t33", new Power
+			cards.Add("CFM_621t33", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(6, EntityType.ALLMINIONS, true)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t37] Ichor of Undeath (*) - COST:1 
@@ -3737,10 +3738,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 3
 			// --------------------------------------------------------
-			cards.Add("CFM_621t37", new Power
+			cards.Add("CFM_621t37", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.SummonRandomMinionThatDied()
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t38] Ichor of Undeath (*) - COST:5 
@@ -3751,10 +3752,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 4
 			// --------------------------------------------------------
-			cards.Add("CFM_621t38", new Power
+			cards.Add("CFM_621t38", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.SummonRandomMinionThatDied(amount: 2)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t39] Ichor of Undeath (*) - COST:10 
@@ -3765,10 +3766,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 4
 			// --------------------------------------------------------
-			cards.Add("CFM_621t39", new Power
+			cards.Add("CFM_621t39", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.SummonRandomMinionThatDied(amount: 3)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t4] Felbloom (*) - COST:1 
@@ -3780,10 +3781,10 @@ namespace SabberStoneCore.CardSets
 			// - TAG_SCRIPT_DATA_NUM_1 = 1
 			// - AFFECTED_BY_SPELL_POWER = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_621t4", new Power
+			cards.Add("CFM_621t4", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.ALLMINIONS, true)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t5] Icecap (*) - COST:1 
@@ -3797,12 +3798,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_621t5", new Power
+			cards.Add("CFM_621t5", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.ENEMIES),
 					ComplexTask.Freeze(EntityType.STACK))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t6] Goldthorn (*) - COST:1 
@@ -3813,10 +3814,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 6
 			// --------------------------------------------------------
-			cards.Add("CFM_621t6", new Power
+			cards.Add("CFM_621t6", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("CFM_621e", EntityType.MINIONS)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t8] Kingsblood (*) - COST:1 
@@ -3827,10 +3828,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 8
 			// --------------------------------------------------------
-			cards.Add("CFM_621t8", new Power
+			cards.Add("CFM_621t8", new CardDef(new Power
 			{
 				PowerTask = new DrawTask()
-			});
+			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
 			// [CFM_621t9] Shadow Oil (*) - COST:1 
@@ -3841,16 +3842,16 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 9
 			// --------------------------------------------------------
-			cards.Add("CFM_621t9", new Power
+			cards.Add("CFM_621t9", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomMinionTask(GameTag.CARDRACE, (int)Race.DEMON),
 					new AddStackTo(EntityType.HAND))
-			});
+			}));
 
 		}
 
-		public static void AddAll(Dictionary<string, Power> cards)
+		public static void AddAll(Dictionary<string, CardDef> cards)
 		{
 			Druid(cards);
 			DruidNonCollect(cards);

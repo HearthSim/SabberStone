@@ -23,6 +23,7 @@ using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Triggers;
+using SabberStoneCore.src.Loader;
 
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
@@ -30,7 +31,7 @@ namespace SabberStoneCore.CardSets
 {
 	public static class IcecrownCardsGen
 	{
-		private static void Heroes(IDictionary<string, Power> cards)
+		private static void Heroes(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ HERO - SHAMAN
 			// [ICC_481] Thrall, Deathseer - COST:5 [ATK:0/HP:30] 
@@ -44,10 +45,10 @@ namespace SabberStoneCore.CardSets
 			// - ARMOR = 5
 			// - HERO_POWER = 42982
 			// --------------------------------------------------------
-			cards.Add("ICC_481", new Power
+			cards.Add("ICC_481", new CardDef(new Power
 			{
 				PowerTask = new TransformMinionTask(EntityType.MINIONS, 2)
-			});
+			}));
 
 			// ------------------------------------------- HERO - ROGUE
 			// [ICC_827] Valeera the Hollow - COST:9 [ATK:0/HP:30] 
@@ -64,10 +65,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_827", new Power
+			cards.Add("ICC_827", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_827e3", EntityType.HERO)
-			});
+			}));
 
 			// ------------------------------------------ HERO - HUNTER
 			// [ICC_828] Deathstalker Rexxar - COST:6 [ATK:0/HP:30] 
@@ -82,10 +83,10 @@ namespace SabberStoneCore.CardSets
 			// - ARMOR = 5
 			// - HERO_POWER = 43183
 			// --------------------------------------------------------
-			cards.Add("ICC_828", new Power
+			cards.Add("ICC_828", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.OP_MINIONS)
-			});
+			}));
 
 			// ----------------------------------------- HERO - PALADIN
 			// [ICC_829] Uther of the Ebon Blade - COST:9 [ATK:0/HP:30] 
@@ -102,10 +103,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829", new Power
+			cards.Add("ICC_829", new CardDef(new Power
 			{
 				PowerTask = new WeaponTask("ICC_829t"),
-			});
+			}));
 
 			// ------------------------------------------ HERO - PRIEST
 			// [ICC_830] Shadowreaper Anduin - COST:8 [ATK:0/HP:30] 
@@ -119,13 +120,13 @@ namespace SabberStoneCore.CardSets
 			// - ARMOR = 5
 			// - HERO_POWER = 45397
 			// --------------------------------------------------------
-			cards.Add("ICC_830", new Power
+			cards.Add("ICC_830", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.ALLMINIONS),
 					new FilterStackTask(SelfCondition.IsTagValue(GameTag.ATK, 5, RelaSign.GEQ)),
 					new DestroyTask(EntityType.STACK))
-			});
+			}));
 
 			// ----------------------------------------- HERO - WARLOCK
 			// [ICC_831] Bloodreaver Gul'dan - COST:10 [ATK:0/HP:30] 
@@ -139,14 +140,14 @@ namespace SabberStoneCore.CardSets
 			// - ARMOR = 5
 			// - HERO_POWER = 43181
 			// --------------------------------------------------------
-			cards.Add("ICC_831", new Power
+			cards.Add("ICC_831", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.GRAVEYARD),
 					new FilterStackTask(SelfCondition.IsRace(Race.DEMON), SelfCondition.IsDead),
 					//new CopyTask(EntityType.STACK, 1),
 					new SummonCopyTask(EntityType.STACK, true))
-			});
+			}));
 
 			// ------------------------------------------- HERO - DRUID
 			// [ICC_832] Malfurion the Pestilent - COST:7 [ATK:0/HP:30] 
@@ -169,7 +170,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("ICC_832",
 				//CHOOSE_ONE
-				null);
+				new CardDef());
 
 			// -------------------------------------------- HERO - MAGE
 			// [ICC_833] Frost Lich Jaina - COST:9 [ATK:0/HP:30] 
@@ -189,12 +190,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_833", new Power
+			cards.Add("ICC_833", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("ICC_833e", EntityType.CONTROLLER),
 					new SummonTask("ICC_833t"))
-			});
+			}));
 
 			// ----------------------------------------- HERO - WARRIOR
 			// [ICC_834] Scourgelord Garrosh - COST:8 [ATK:0/HP:30] 
@@ -208,14 +209,14 @@ namespace SabberStoneCore.CardSets
 			// - ARMOR = 5
 			// - HERO_POWER = 45585
 			// --------------------------------------------------------
-			cards.Add("ICC_834", new Power
+			cards.Add("ICC_834", new CardDef(new Power
 			{
 				PowerTask = new WeaponTask("ICC_834w")
-			});
+			}));
 
 		}
 
-		private static void HeroPowers(IDictionary<string, Power> cards)
+		private static void HeroPowers(Dictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
 			// [ICC_481p] Transmute Spirit (*) - COST:2 
@@ -228,10 +229,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_481p", new Power
+			cards.Add("ICC_481p", new CardDef(new Power
 			{
 				PowerTask = new TransformMinionTask(EntityType.TARGET, 1)
-			});
+			}));
 
 			// ------------------------------------- HERO_POWER - ROGUE
 			// [ICC_827p] Death's Shadow (*) - COST:0 
@@ -243,14 +244,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - HIDE_STATS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_827p", new Power
+			cards.Add("ICC_827p", new CardDef(new Power
 			{
 				PowerTask = SpecificTask.DeathsShadow,
 				Trigger = new Trigger(TriggerType.TURN_START)
 				{
 					SingleTask = SpecificTask.DeathsShadow
 				}
-			});
+			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
 			// [ICC_828p] Build-A-Beast (*) - COST:2 
@@ -262,10 +263,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_HAND_NOT_FULL = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_828p", new Power
+			cards.Add("ICC_828p", new CardDef(new Power
 			{
 				PowerTask = SpecificTask.BuildABeast
-			});
+			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
 			// [ICC_829p] The Four Horsemen (*) - COST:2 
@@ -281,7 +282,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829p", new Power
+			cards.Add("ICC_829p", new CardDef(new Power
 			{
 				PowerTask = SpecificTask.TotemicCall,
 				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
@@ -299,7 +300,7 @@ namespace SabberStoneCore.CardSets
 					}),
 					SingleTask = new DestroyTask(EntityType.OP_HERO)
 				}
-			});
+			}));
 
 			// ------------------------------------ HERO_POWER - PRIEST
 			// [ICC_830p] Voidform (*) - COST:2 
@@ -313,7 +314,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_830p", new Power
+			cards.Add("ICC_830p", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET),
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
@@ -321,7 +322,7 @@ namespace SabberStoneCore.CardSets
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.SOURCE)
 				}
-			});
+			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
 			// [ICC_831p] Siphon Life (*) - COST:2 
@@ -337,10 +338,10 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_831p", new Power
+			cards.Add("ICC_831p", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(3, EntityType.TARGET)
-			});
+			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
 			// [ICC_832p] Plague Lord (*) - COST:2 
@@ -359,7 +360,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			cards.Add("ICC_832p",
 				//CHOOSE_ONE
-				null);
+				new CardDef());
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
 			// [ICC_833h] Icy Touch (*) - COST:2 
@@ -371,13 +372,13 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_833h", new Power
+			cards.Add("ICC_833h", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(1, EntityType.TARGET),
 					new ConditionTask(EntityType.TARGET, SelfCondition.IsDead),
 					new FlagTask(true, new SummonTask("ICC_833t")))
-			});
+			}));
 
 			// ----------------------------------- HERO_POWER - WARRIOR
 			// [ICC_834h] Bladestorm (*) - COST:2 
@@ -386,14 +387,14 @@ namespace SabberStoneCore.CardSets
 			// Text: <b>Hero Power</b>
 			//        Deal $1 damage to all_minions. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("ICC_834h", new Power
+			cards.Add("ICC_834h", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(1, EntityType.ALLMINIONS)
-			});
+			}));
 
 		}
 
-		private static void DeathknightNonCollect(IDictionary<string, Power> cards)
+		private static void DeathknightNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ SPELL - DEATHKNIGHT
 			// [ICC_314t2] Army of the Dead (*) - COST:6 
@@ -401,16 +402,16 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Remove the top 5 cards of your deck. Summon any minions removed.
 			// --------------------------------------------------------
-			cards.Add("ICC_314t2", new Power
+			cards.Add("ICC_314t2", new CardDef(new Power
 			{
 				PowerTask = new EnqueueTask(5, ComplexTask.Create(
 					new IncludeTask(EntityType.TOPCARDFROMDECK),
 					new ConditionTask(EntityType.STACK, SelfCondition.IsMinion),
 					new FlagTask(true, new RemoveFromDeck(EntityType.STACK)),
 					new FlagTask(true, new SummonTask(SummonSide.DEFAULT, null, true)),
-					new FlagTask(false, new MoveToGraveYard(EntityType.STACK))
-				)),
-			});
+					new FlagTask(false, new MoveToGraveYard(EntityType.STACK))))
+			}));
+
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
 			// [ICC_314t3] Doom Pact (*) - COST:5 
@@ -421,7 +422,7 @@ namespace SabberStoneCore.CardSets
 			//       from your deck for each
 			//       minion destroyed.
 			// --------------------------------------------------------
-			cards.Add("ICC_314t3", new Power
+			cards.Add("ICC_314t3", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new CountTask(EntityType.ALLMINIONS),
@@ -429,7 +430,7 @@ namespace SabberStoneCore.CardSets
 					new EnqueueNumberTask(ComplexTask.Create(
 						new IncludeTask(EntityType.TOPCARDFROMDECK),
 						new MoveToGraveYard(EntityType.STACK))))
-			});
+			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
 			// [ICC_314t4] Death Grip (*) - COST:2 
@@ -437,7 +438,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Steal a minion from your opponent's deck and add it to your hand.
 			// --------------------------------------------------------
-			cards.Add("ICC_314t4", new Power
+			cards.Add("ICC_314t4", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.OP_DECK),
@@ -454,7 +455,7 @@ namespace SabberStoneCore.CardSets
 						return new List<IPlayable>() { p[0] };
 					}),
 					new AddStackTo(EntityType.HAND))
-			});
+			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
 			// [ICC_314t5] Death Coil (*) - COST:2 
@@ -465,13 +466,13 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_314t5", new Power
+			cards.Add("ICC_314t5", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.TARGET, RelaCondition.IsFriendly),
 					new FlagTask(false, new DamageTask(5, EntityType.TARGET, true)),
 					new FlagTask(true, new HealTask(5, EntityType.TARGET)))
-			});
+			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
 			// [ICC_314t6] Obliterate (*) - COST:2 
@@ -486,7 +487,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_314t6", new Power
+			cards.Add("ICC_314t6", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
@@ -494,7 +495,7 @@ namespace SabberStoneCore.CardSets
 					new MathNumberIndexTask(0, 1, MathOperation.SUB),
 					new DestroyTask(EntityType.TARGET),
 					new DamageNumberTask(EntityType.HERO))
-			});
+			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
 			// [ICC_314t7] Anti-Magic Shell (*) - COST:4 
@@ -506,10 +507,10 @@ namespace SabberStoneCore.CardSets
 			// - CANT_BE_TARGETED_BY_SPELLS = 1
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_314t7", new Power
+			cards.Add("ICC_314t7", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_314t7e", EntityType.MINIONS)
-			});
+			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
 			// [ICC_314t8] Death and Decay (*) - COST:3 
@@ -517,10 +518,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to all enemies. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("ICC_314t8", new Power
+			cards.Add("ICC_314t8", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(3, EntityType.ENEMIES, true)
-			});
+			}));
 
 			// ----------------------------------- WEAPON - DEATHKNIGHT
 			// [ICC_314t1] Frostmourne (*) - COST:7 [ATK:5/HP:0] 
@@ -533,7 +534,7 @@ namespace SabberStoneCore.CardSets
 			// - DURABILITY = 3
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_314t1", new Power
+			cards.Add("ICC_314t1", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
@@ -545,11 +546,11 @@ namespace SabberStoneCore.CardSets
 						new GetGameTagTask(GameTag.ENTITY_ID, EntityType.EVENT_TARGET),
 						new AddEnchantmentTask("ICC_314t1e", EntityType.SOURCE, false, true))))
 				}
-			});
+			}));
 
 		}
 
-		private static void Druid(IDictionary<string, Power> cards)
+		private static void Druid(Dictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_047] Fatespinner - COST:5 [ATK:5/HP:3] 
@@ -564,13 +565,13 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_047", new Power
+			cards.Add("ICC_047", new CardDef(new Power
 			{
 				PowerTask = new SetGameTagTask(GameTag.DEATHRATTLE, 1, EntityType.SOURCE),
 				DeathrattleTask = ComplexTask.Create(
 					new DamageTask(3, EntityType.ALLMINIONS),
 					new AddEnchantmentTask("ICC_047e", EntityType.ALLMINIONS))
-			});
+			}));
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_051] Druid of the Swarm - COST:2 [ATK:1/HP:2] 
@@ -585,10 +586,10 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_051", new Power
+			cards.Add("ICC_051", new CardDef(new Power
 			{
 				PowerTask = new TransformTask("ICC_051t3", EntityType.SOURCE)
-			});
+			}));
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_807] Strongshell Scavenger - COST:4 [ATK:2/HP:3] 
@@ -602,13 +603,13 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_807", new Power
+			cards.Add("ICC_807", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS_NOSOURCE),
 					new FilterStackTask(SelfCondition.IsTagValue(GameTag.TAUNT, 1)),
 					new AddEnchantmentTask("ICC_807e", EntityType.STACK))
-			});
+			}));
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_808] Crypt Lord - COST:3 [ATK:1/HP:6] 
@@ -621,14 +622,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_808", new Power
+			cards.Add("ICC_808", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new AddEnchantmentTask("ICC_808e", EntityType.SOURCE)
 				}
-			});
+			}));
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_835] Hadronox - COST:9 [ATK:3/HP:7] 
@@ -644,13 +645,13 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_835", new Power
+			cards.Add("ICC_835", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new IncludeTask(EntityType.GRAVEYARD),
 					new FilterStackTask(SelfCondition.IsTagValue(GameTag.TAUNT, 1), SelfCondition.IsTagValue(GameTag.TO_BE_DESTROYED, 1)),
 					new SummonCopyTask(EntityType.STACK, true))
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [ICC_050] Webweave - COST:5 
@@ -664,10 +665,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_050", new Power
+			cards.Add("ICC_050", new CardDef(new Power
 			{
 				PowerTask = new SummonTask("ICC_832t3", 2)
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [ICC_054] Spreading Plague - COST:6 
@@ -681,12 +682,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_054", new Power
+			cards.Add("ICC_054", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.RecursiveTask(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.DoesOpHasMoresMinions),
 					new SummonTask("ICC_832t4"))
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [ICC_079] Gnash - COST:3 
@@ -697,12 +698,12 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_079", new Power
+			cards.Add("ICC_079", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("ICC_079e", EntityType.HERO),
 					new ArmorTask(3))
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [ICC_085] Ultimate Infestation - COST:10 
@@ -715,18 +716,18 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_085", new Power
+			cards.Add("ICC_085", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(5, EntityType.TARGET, true),
 					new DrawTask(5),
 					new ArmorTask(5),
 					new SummonTask("ICC_085t", SummonSide.SPELL))
-			});
+			}));
 
 		}
 
-		private static void DruidNonCollect(IDictionary<string, Power> cards)
+		private static void DruidNonCollect(Dictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [ICC_047e] Growth (*) - COST:0 
@@ -734,10 +735,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("ICC_047e", new Power
+			cards.Add("ICC_047e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_047e")
-			});
+			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [ICC_079e] Gnash (*) - COST:0 
@@ -748,10 +749,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_079e", new Power
+			cards.Add("ICC_079e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_079e")
-			});
+			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
 			// [ICC_808e] Might of Ner'ub (*) - COST:0 
@@ -759,10 +760,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
-			cards.Add("ICC_808e", new Power
+			cards.Add("ICC_808e", new CardDef(new Power
 			{
 				Enchant = new OngoingEnchant(Effects.Health_N(1))
-			});
+			}));
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_047t] Fatespinner (*) - COST:5 [ATK:5/HP:3] 
@@ -773,10 +774,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_047t", new Power
+			cards.Add("ICC_047t", new CardDef(new Power
 			{
 				DeathrattleTask = new DamageTask(3, EntityType.ALLMINIONS)
-			});
+			}));
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_047t2] Fatespinner (*) - COST:5 [ATK:5/HP:3] 
@@ -787,10 +788,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_047t2", new Power
+			cards.Add("ICC_047t2", new CardDef(new Power
 			{
 				DeathrattleTask = new AddEnchantmentTask("ICC_047e", EntityType.ALLMINIONS)
-			});
+			}));
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_051t] Druid of the Swarm (*) - COST:2 [ATK:1/HP:2] 
@@ -801,7 +802,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_051t", null);
+			cards.Add("ICC_051t", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_051t2] Druid of the Swarm (*) - COST:2 [ATK:1/HP:5] 
@@ -812,7 +813,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_051t2", null);
+			cards.Add("ICC_051t2", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_051t3] Druid of the Swarm (*) - COST:2 [ATK:1/HP:5] 
@@ -825,13 +826,13 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_051t3", null);
+			cards.Add("ICC_051t3", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_085t] Ghoul Infestor (*) - COST:5 [ATK:5/HP:5] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICC_085t", null);
+			cards.Add("ICC_085t", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_832t3] Frost Widow (*) - COST:1 [ATK:1/HP:2] 
@@ -842,7 +843,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_832t3", null);
+			cards.Add("ICC_832t3", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
 			// [ICC_832t4] Scarab Beetle (*) - COST:2 [ATK:1/HP:5] 
@@ -853,7 +854,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_832t4", null);
+			cards.Add("ICC_832t4", new CardDef());
 
 			// ------------------------------------------ SPELL - DRUID
 			// [ICC_047a] Growth (*) - COST:0 
@@ -861,10 +862,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Give all minions +2/+2.
 			// --------------------------------------------------------
-			cards.Add("ICC_047a", new Power
+			cards.Add("ICC_047a", new CardDef(new Power
 			{
 				PowerTask = new ChangeEntityTask("ICC_047t")
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [ICC_047b] Decay (*) - COST:0 
@@ -872,10 +873,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Deal 3 damage to all minions.
 			// --------------------------------------------------------
-			cards.Add("ICC_047b", new Power
+			cards.Add("ICC_047b", new CardDef(new Power
 			{
 				PowerTask = new ChangeEntityTask("ICC_047t2")
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [ICC_051a] Spider Form (*) - COST:0 
@@ -883,10 +884,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
 			// --------------------------------------------------------
-			cards.Add("ICC_051a", new Power
+			cards.Add("ICC_051a", new CardDef(new Power
 			{
 				PowerTask = new TransformTask("ICC_051t", EntityType.SOURCE)
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [ICC_051b] Scarab Form (*) - COST:0 
@@ -894,10 +895,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3 Health and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("ICC_051b", new Power
+			cards.Add("ICC_051b", new CardDef(new Power
 			{
 				PowerTask = new TransformTask("ICC_051t2", EntityType.SOURCE)
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [ICC_832a] Scarab Plague (*) - COST:0 
@@ -905,10 +906,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Summon two 1/5 Scarabs with <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("ICC_832a", new Power
+			cards.Add("ICC_832a", new CardDef(new Power
 			{
 				PowerTask = new EnqueueTask(2, new SummonTask("ICC_832t4"))
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [ICC_832b] Spider Plague (*) - COST:0 
@@ -917,10 +918,10 @@ namespace SabberStoneCore.CardSets
 			// Text: [x]Summon two 1/2
 			//       Spiders with <b>Poisonous</b>.
 			// --------------------------------------------------------
-			cards.Add("ICC_832b", new Power
+			cards.Add("ICC_832b", new CardDef(new Power
 			{
 				PowerTask = new EnqueueTask(2, new SummonTask("ICC_832t3"))
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [ICC_832pa] Scarab Shell (*) - COST:0 
@@ -928,10 +929,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3 Armor.
 			// --------------------------------------------------------
-			cards.Add("ICC_832pa", new Power
+			cards.Add("ICC_832pa", new CardDef(new Power
 			{
 				PowerTask = new ArmorTask(3),
-			});
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [ICC_832pb] Spider Fangs (*) - COST:0 
@@ -939,14 +940,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_832pb", new Power
+			cards.Add("ICC_832pb", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_832e", EntityType.HERO)
-			});
+			}));
 
 		}
 
-		private static void Hunter(IDictionary<string, Power> cards)
+		private static void Hunter(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
 			// [ICC_021] Exploding Bloatbat - COST:4 [ATK:2/HP:1] 
@@ -958,10 +959,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_021", new Power
+			cards.Add("ICC_021", new CardDef(new Power
 			{
 				DeathrattleTask = new DamageTask(2, EntityType.OP_MINIONS)
-			});
+			}));
 
 			// ---------------------------------------- MINION - HUNTER
 			// [ICC_204] Professor Putricide - COST:4 [ATK:5/HP:4] 
@@ -976,7 +977,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_204", new Power
+			cards.Add("ICC_204", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
@@ -987,7 +988,7 @@ namespace SabberStoneCore.CardSets
 						new FlagTask(true, SpecificTask.CastRandomSecret(CardClass.HUNTER)))
 
 				}
-			});
+			}));
 
 			// ---------------------------------------- MINION - HUNTER
 			// [ICC_243] Corpse Widow - COST:5 [ATK:4/HP:6] 
@@ -1001,13 +1002,13 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_243", new Power
+			cards.Add("ICC_243", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.HAND, Effects.ReduceCost(2))
 				{
 					Condition = SelfCondition.IsDeathrattleMinion
 				}
-			});
+			}));
 
 			// ---------------------------------------- MINION - HUNTER
 			// [ICC_415] Stitched Tracker - COST:3 [ATK:2/HP:2] 
@@ -1021,10 +1022,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_415", new Power
+			cards.Add("ICC_415", new CardDef(new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.DECK_MINION)
-			});
+			}));
 
 			// ---------------------------------------- MINION - HUNTER
 			// [ICC_419] Bearshark - COST:3 [ATK:4/HP:3] 
@@ -1036,7 +1037,7 @@ namespace SabberStoneCore.CardSets
 			// - CANT_BE_TARGETED_BY_SPELLS = 1
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_419", null);
+			cards.Add("ICC_419", new CardDef());
 
 			// ---------------------------------------- MINION - HUNTER
 			// [ICC_825] Abominable Bowman - COST:7 [ATK:6/HP:7] 
@@ -1049,10 +1050,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_825", new Power
+			cards.Add("ICC_825", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.SummonRandomMinionThatDied(SelfCondition.IsRace(Race.BEAST))
-			});
+			}));
 
 			// ----------------------------------------- SPELL - HUNTER
 			// [ICC_049] Toxic Arrow - COST:2 
@@ -1067,13 +1068,13 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_049", new Power
+			cards.Add("ICC_049", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(2, EntityType.TARGET, true),
 					new ConditionTask(EntityType.TARGET, SelfCondition.IsNotDead),
 					new FlagTask(true, new AddEnchantmentTask("ICC_049e", EntityType.TARGET)))
-			});
+			}));
 
 			// ----------------------------------------- SPELL - HUNTER
 			// [ICC_052] Play Dead - COST:1 
@@ -1090,10 +1091,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_052", new Power
+			cards.Add("ICC_052", new CardDef(new Power
 			{
 				PowerTask = new ActivateDeathrattleTask(EntityType.TARGET)
-			});
+			}));
 
 			// ----------------------------------------- SPELL - HUNTER
 			// [ICC_200] Venomstrike Trap - COST:2 
@@ -1107,7 +1108,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_200", new Power
+			cards.Add("ICC_200", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.ATTACK)
 				{
@@ -1120,11 +1121,11 @@ namespace SabberStoneCore.CardSets
 					SingleTask = ComplexTask.Secret(
 						new SummonTask("EX1_170"))
 				}
-			});
+			}));
 
 		}
 
-		private static void HunterNonCollect(IDictionary<string, Power> cards)
+		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
 			// [ICC_828e] Stitched (*) - COST:0 
@@ -1135,12 +1136,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - CANT_BE_SILENCED = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_828e", new Power
+			cards.Add("ICC_828e", new CardDef(new Power
 			{
 				// TODO [ICC_828e] Stitched && Test: Stitched_ICC_828e
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// ---------------------------------------- MINION - HUNTER
 			// [ICC_828t] Zombeast (*) - COST:0 [ATK:1/HP:1] 
@@ -1149,16 +1150,16 @@ namespace SabberStoneCore.CardSets
 			// Text: {0}
 			//       {1}
 			// --------------------------------------------------------
-			cards.Add("ICC_828t", new Power
+			cards.Add("ICC_828t", new CardDef(new Power
 			{
 				// TODO [ICC_828t] Zombeast && Test: Zombeast_ICC_828t
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 		}
 
-		private static void Mage(IDictionary<string, Power> cards)
+		private static void Mage(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
 			// [ICC_068] Ice Walker - COST:2 [ATK:1/HP:3] 
@@ -1169,14 +1170,14 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_068", new Power
+			cards.Add("ICC_068", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.INSPIRE)
 				{
 					//Condition = new SelfCondition(p => p != null),
 					SingleTask = ComplexTask.Freeze(EntityType.EVENT_TARGET)
 				}
-			});
+			}));
 
 			// ------------------------------------------ MINION - MAGE
 			// [ICC_069] Ghastly Conjurer - COST:4 [ATK:2/HP:6] 
@@ -1187,10 +1188,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_069", new Power
+			cards.Add("ICC_069", new CardDef(new Power
 			{
 				PowerTask = new AddCardTo("CS2_027", EntityType.HAND)
-			});
+			}));
 
 			// ------------------------------------------ MINION - MAGE
 			// [ICC_083] Doomed Apprentice - COST:3 [ATK:3/HP:2] 
@@ -1201,13 +1202,13 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_083", new Power
+			cards.Add("ICC_083", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.OP_HAND, Effects.AddCost(1))
 				{
 					Condition = SelfCondition.IsSpell
 				}
-			});
+			}));
 
 			// ------------------------------------------ MINION - MAGE
 			// [ICC_252] Coldwraith - COST:3 [ATK:3/HP:4] 
@@ -1225,12 +1226,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_252", new Power
+			cards.Add("ICC_252", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasOp(GameTag.FROZEN, 1)),
 					new FlagTask(true, new DrawTask()))
-			});
+			}));
 
 			// ------------------------------------------ MINION - MAGE
 			// [ICC_838] Sindragosa - COST:8 [ATK:8/HP:8] 
@@ -1242,12 +1243,12 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_838", new Power
+			cards.Add("ICC_838", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new SummonTask("ICC_838t", SummonSide.LEFT),
 					new SummonTask("ICC_838t", SummonSide.RIGHT))
-			});
+			}));
 
 			// ------------------------------------------- SPELL - MAGE
 			// [ICC_082] Frozen Clone - COST:3 
@@ -1258,7 +1259,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_082", new Power
+			cards.Add("ICC_082", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
@@ -1267,7 +1268,7 @@ namespace SabberStoneCore.CardSets
 						new FlagTask(false, ComplexTask.Secret(
 							new CopyTask(EntityType.EVENT_SOURCE, Zone.HAND, 2))))
 				}
-			});
+			}));
 
 			// ------------------------------------------- SPELL - MAGE
 			// [ICC_086] Glacial Mysteries - COST:8 
@@ -1282,7 +1283,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_086", new Power
+			cards.Add("ICC_086", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new FuncNumberTask(p =>
@@ -1305,7 +1306,7 @@ namespace SabberStoneCore.CardSets
 						}
 						return 0;
 					}))
-			});
+			}));
 
 			// ------------------------------------------- SPELL - MAGE
 			// [ICC_823] Simulacrum - COST:3 
@@ -1313,10 +1314,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Copy the lowest Cost minion in your hand.
 			// --------------------------------------------------------
-			cards.Add("ICC_823", new Power
+			cards.Add("ICC_823", new CardDef(new Power
 			{
 				PowerTask = SpecificTask.Simulacrum
-			});
+			}));
 
 			// ------------------------------------------- SPELL - MAGE
 			// [ICC_836] Breath of Sindragosa - COST:1 
@@ -1330,17 +1331,17 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_836", new Power
+			cards.Add("ICC_836", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.OP_MINIONS),
 					new DamageTask(2, EntityType.STACK, true),
 					ComplexTask.Freeze(EntityType.STACK))
-			});
+			}));
 
 		}
 
-		private static void MageNonCollect(IDictionary<string, Power> cards)
+		private static void MageNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
 			// [ICC_833t] Water Elemental (*) - COST:4 [ATK:3/HP:6] 
@@ -1351,7 +1352,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_833t", null);
+			cards.Add("ICC_833t", new CardDef());
 
 			// ------------------------------------------ MINION - MAGE
 			// [ICC_838t] Frozen Champion (*) - COST:1 [ATK:0/HP:1] 
@@ -1364,16 +1365,16 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_838t", new Power
+			cards.Add("ICC_838t", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new RandomMinionTask(GameTag.RARITY, (int)Rarity.LEGENDARY),
 					new AddStackTo(EntityType.HAND))
-			});
+			}));
 
 		}
 
-		private static void Paladin(IDictionary<string, Power> cards)
+		private static void Paladin(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_034] Arrogant Crusader - COST:4 [ATK:5/HP:2] 
@@ -1384,12 +1385,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_034", new Power
+			cards.Add("ICC_034", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new ConditionTask(EntityType.HERO, SelfCondition.IsOpTurn),
 					new FlagTask(true, new SummonTask("ICC_900t", SummonSide.DEATHRATTLE)))
-			});
+			}));
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_038] Righteous Protector - COST:1 [ATK:1/HP:1] 
@@ -1402,7 +1403,7 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_038", null);
+			cards.Add("ICC_038", new CardDef());
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_245] Blackguard - COST:6 [ATK:3/HP:9] 
@@ -1410,7 +1411,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever your hero is healed, deal that much damage to a random enemy minion.
 			// --------------------------------------------------------
-			cards.Add("ICC_245", new Power
+			cards.Add("ICC_245", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.HEAL)
 				{
@@ -1420,7 +1421,7 @@ namespace SabberStoneCore.CardSets
 						new GetEventNumberTask(),
 						new DamageNumberTask(EntityType.STACK))
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_801] Howling Commander - COST:3 [ATK:2/HP:2] 
@@ -1434,10 +1435,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_801", new Power
+			cards.Add("ICC_801", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.DrawFromDeck(1, SelfCondition.IsTagValue(GameTag.DIVINE_SHIELD, 1), SelfCondition.IsMinion)
-			});
+			}));
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_820] Chillblade Champion - COST:4 [ATK:3/HP:2] 
@@ -1450,7 +1451,7 @@ namespace SabberStoneCore.CardSets
 			// - CHARGE = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_820", null);
+			cards.Add("ICC_820", new CardDef());
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_858] Bolvar, Fireblood - COST:5 [ATK:1/HP:7] 
@@ -1463,14 +1464,14 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_858", new Power
+			cards.Add("ICC_858", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.LOSE_DIVINE_SHIELD)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new AddEnchantmentTask("ICC_858e", EntityType.SOURCE)
 				}
-			});
+			}));
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [ICC_039] Dark Conviction - COST:2 
@@ -1482,10 +1483,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_039", new Power
+			cards.Add("ICC_039", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_039e", EntityType.TARGET)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [ICC_244] Desperate Stand - COST:2 
@@ -1500,10 +1501,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_244", new Power
+			cards.Add("ICC_244", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_244e", EntityType.TARGET)
-			});
+			}));
 
 			// --------------------------------------- WEAPON - PALADIN
 			// [ICC_071] Light's Sorrow - COST:4 [ATK:1/HP:0] 
@@ -1517,18 +1518,18 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_071", new Power
+			cards.Add("ICC_071", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.LOSE_DIVINE_SHIELD)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new AddEnchantmentTask("ICC_071e", EntityType.SOURCE)
 				}
-			});
+			}));
 
 		}
 
-		private static void PaladinNonCollect(IDictionary<string, Power> cards)
+		private static void PaladinNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [ICC_071e] Dying Light (*) - COST:0 
@@ -1536,10 +1537,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_071e", new Power
+			cards.Add("ICC_071e", new CardDef(new Power
 			{
 				Enchant = new OngoingEnchant(Effects.Attack_N(1))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [ICC_244e] Redeemed (*) - COST:0 
@@ -1547,12 +1548,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Return this to life with 1 Health.
 			// --------------------------------------------------------
-			cards.Add("ICC_244e", new Power
+			cards.Add("ICC_244e", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new CopyTask(EntityType.SOURCE, Zone.PLAY, addToStack: true),
 					new SetGameTagTask(GameTag.HEALTH, 1, EntityType.STACK))    //	START_WITH_1_HEALTH ?	
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
 			// [ICC_858e] Fading Light (*) - COST:0 
@@ -1560,10 +1561,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_858e", new Power
+			cards.Add("ICC_858e", new CardDef(new Power
 			{
 				Enchant = new OngoingEnchant(Effects.Attack_N(2))
-			});
+			}));
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_829t2] Deathlord Nazgrim (*) - COST:2 [ATK:2/HP:2] 
@@ -1572,7 +1573,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t2", null);
+			cards.Add("ICC_829t2", new CardDef());
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_829t3] Thoras Trollbane (*) - COST:2 [ATK:2/HP:2] 
@@ -1581,7 +1582,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t3", null);
+			cards.Add("ICC_829t3", new CardDef());
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_829t4] Inquisitor Whitemane (*) - COST:2 [ATK:2/HP:2] 
@@ -1590,7 +1591,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t4", null);
+			cards.Add("ICC_829t4", new CardDef());
 
 			// --------------------------------------- MINION - PALADIN
 			// [ICC_829t5] Darion Mograine (*) - COST:2 [ATK:2/HP:2] 
@@ -1599,7 +1600,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t5", null);
+			cards.Add("ICC_829t5", new CardDef());
 
 			// --------------------------------------- WEAPON - PALADIN
 			// [ICC_829t] Grave Vengeance (*) - COST:8 [ATK:5/HP:0] 
@@ -1612,11 +1613,11 @@ namespace SabberStoneCore.CardSets
 			// - DURABILITY = 3
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829t", null);
+			cards.Add("ICC_829t", new CardDef());
 
 		}
 
-		private static void Priest(IDictionary<string, Power> cards)
+		private static void Priest(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
 			// [ICC_210] Shadow Ascendant - COST:2 [ATK:2/HP:2] 
@@ -1626,13 +1627,13 @@ namespace SabberStoneCore.CardSets
 			//       give another random
 			//       friendly minion +1/+1.
 			// --------------------------------------------------------
-			cards.Add("ICC_210", new Power
+			cards.Add("ICC_210", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
 					SingleTask = ComplexTask.BuffRandomMinion(EntityType.MINIONS_NOSOURCE, "ICC_210e")
 				}
-			});
+			}));
 
 			// ---------------------------------------- MINION - PRIEST
 			// [ICC_212] Acolyte of Agony - COST:3 [ATK:3/HP:3] 
@@ -1643,7 +1644,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_212", null);
+			cards.Add("ICC_212", new CardDef());
 
 			// ---------------------------------------- MINION - PRIEST
 			// [ICC_214] Obsidian Statue - COST:9 [ATK:4/HP:8] 
@@ -1658,10 +1659,10 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_214", new Power
+			cards.Add("ICC_214", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS)
-			});
+			}));
 
 			// ---------------------------------------- MINION - PRIEST
 			// [ICC_215] Archbishop Benedictus - COST:7 [ATK:4/HP:6] 
@@ -1673,12 +1674,12 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_215", new Power
+			cards.Add("ICC_215", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.OP_DECK),
 					new CopyTask(EntityType.STACK, Zone.DECK))
-			});
+			}));
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [ICC_207] Devour Mind - COST:5 
@@ -1686,12 +1687,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Copy 3 cards in your opponent's deck and add them to your hand.
 			// --------------------------------------------------------
-			cards.Add("ICC_207", new Power
+			cards.Add("ICC_207", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomTask(3, EntityType.OP_DECK),
 					new CopyTask(EntityType.STACK, Zone.HAND))
-			});
+			}));
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [ICC_213] Eternal Servitude - COST:4 
@@ -1706,10 +1707,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_213", new Power
+			cards.Add("ICC_213", new CardDef(new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.DIED_THIS_GAME)
-			});
+			}));
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [ICC_235] Shadow Essence - COST:6 
@@ -1720,7 +1721,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_235", new Power
+			cards.Add("ICC_235", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.DECK),
@@ -1728,7 +1729,7 @@ namespace SabberStoneCore.CardSets
 					new RandomTask(1, EntityType.STACK),
 					new CopyTask(EntityType.STACK, Zone.PLAY, addToStack: true),
 					new AddEnchantmentTask("ICC_235e", EntityType.STACK))
-			});
+			}));
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [ICC_802] Spirit Lash - COST:2 
@@ -1740,10 +1741,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_802", new Power
+			cards.Add("ICC_802", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(1, EntityType.ALLMINIONS, true)
-			});
+			}));
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [ICC_849] Embrace Darkness - COST:6 
@@ -1758,14 +1759,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_849", new Power
+			cards.Add("ICC_849", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_849e", EntityType.TARGET)
-			});
+			}));
 
 		}
 
-		private static void PriestNonCollect(IDictionary<string, Power> cards)
+		private static void PriestNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
 			// [ICC_210e] Ascended (*) - COST:0 
@@ -1773,14 +1774,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Stats increased.
 			// --------------------------------------------------------
-			cards.Add("ICC_210e", new Power
+			cards.Add("ICC_210e", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.AttackHealth_N(1))
-			});
+			}));
 
 		}
 
-		private static void Rogue(IDictionary<string, Power> cards)
+		private static void Rogue(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
 			// [ICC_065] Bone Baron - COST:5 [ATK:5/HP:5] 
@@ -1791,10 +1792,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_065", new Power
+			cards.Add("ICC_065", new CardDef(new Power
 			{
 				DeathrattleTask = new AddCardTo("ICC_026t", EntityType.HAND, 2)
-			});
+			}));
 
 			// ----------------------------------------- MINION - ROGUE
 			// [ICC_240] Runeforge Haunter - COST:4 [ATK:5/HP:3] 
@@ -1805,14 +1806,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_240", new Power
+			cards.Add("ICC_240", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.WEAPON, "ICC_240e")
 				{
 					Condition = SelfCondition.IsMyTurn,
 					Restless = true
 				}
-			});
+			}));
 
 			// ----------------------------------------- MINION - ROGUE
 			// [ICC_809] Plague Scientist - COST:3 [ATK:2/HP:3] 
@@ -1831,10 +1832,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_809", new Power
+			cards.Add("ICC_809", new CardDef(new Power
 			{
 				ComboTask = new AddEnchantmentTask("ICC_809e", EntityType.TARGET)
-			});
+			}));
 
 			// ----------------------------------------- MINION - ROGUE
 			// [ICC_811] Lilian Voss - COST:4 [ATK:4/HP:5] 
@@ -1846,13 +1847,13 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_811", new Power
+			cards.Add("ICC_811", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new FilterStackTask(SelfCondition.IsSpell),
 					new ChangeEntityTask(EntityType.STACK, CardType.SPELL, opClass: true))
-			});
+			}));
 
 			// ----------------------------------------- MINION - ROGUE
 			// [ICC_910] Spectral Pillager - COST:6 [ATK:5/HP:5] 
@@ -1868,13 +1869,13 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_FOR_COMBO = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_910", new Power
+			cards.Add("ICC_910", new CardDef(new Power
 			{
 				ComboTask = ComplexTask.Create(
 					new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
 					new MathSubstractionTask(1),
 					new DamageNumberTask(EntityType.TARGET))
-			});
+			}));
 
 			// ------------------------------------------ SPELL - ROGUE
 			// [ICC_201] Roll the Bones - COST:2 
@@ -1886,12 +1887,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_201", new Power
+			cards.Add("ICC_201", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.RecursiveTask(
 					new ConditionTask(EntityType.STACK, SelfCondition.IsDeathrattleCard),
 					new DrawTask(true))
-			});
+			}));
 
 			// ------------------------------------------ SPELL - ROGUE
 			// [ICC_221] Leeching Poison - COST:1 
@@ -1905,10 +1906,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_221", new Power
+			cards.Add("ICC_221", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_221e", EntityType.WEAPON)
-			});
+			}));
 
 			// ------------------------------------------ SPELL - ROGUE
 			// [ICC_233] Doomerang - COST:1 
@@ -1924,7 +1925,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_WEAPON_EQUIPPED = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_233", new Power
+			cards.Add("ICC_233", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.WEAPON),
@@ -1940,7 +1941,7 @@ namespace SabberStoneCore.CardSets
 						Generic.AddHandPhase(source.Controller, source);
 						return null;
 					}))
-			});
+			}));
 
 			// ----------------------------------------- WEAPON - ROGUE
 			// [ICC_850] Shadowblade - COST:3 [ATK:3/HP:0] 
@@ -1955,15 +1956,15 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_850", new Power
+			cards.Add("ICC_850", new CardDef(new Power
 			{
 				InfoCardId = "ICC_850e",
 				PowerTask = new AddEnchantmentTask("ICC_850e", EntityType.HERO)
-			});
+			}));
 
 		}
 
-		private static void RogueNonCollect(IDictionary<string, Power> cards)
+		private static void RogueNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_018e] Witty Weaponplay (*) - COST:0 
@@ -1971,10 +1972,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("ICC_018e", new Power
+			cards.Add("ICC_018e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
-			});
+			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_221e] Leeching Poison (*) - COST:0 
@@ -1986,13 +1987,13 @@ namespace SabberStoneCore.CardSets
 			// - TAG_ONE_TURN_EFFECT = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_221e", new Power
+			cards.Add("ICC_221e", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.Lifesteal)
 				{
 					IsOneTurnEffect = true
 				}
-			});
+			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_240e] Resilient Weapon (*) - COST:0 
@@ -2000,10 +2001,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: No durability loss.
 			// --------------------------------------------------------
-			cards.Add("ICC_240e", new Power
+			cards.Add("ICC_240e", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.Immune)
-			});
+			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_809e] Test Subject (*) - COST:0 
@@ -2014,10 +2015,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_809e", new Power
+			cards.Add("ICC_809e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_809e")
-			});
+			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_827e] Shadow Reflection (*) - COST:0 
@@ -2025,7 +2026,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Always copy your last played card.
 			// --------------------------------------------------------
-			cards.Add("ICC_827e", new Power
+			cards.Add("ICC_827e", new CardDef(new Power
 			{
 				Enchant = new Enchant(GameTag.VALEERASHADOW, EffectOperator.SET, 1)
 				{
@@ -2046,7 +2047,7 @@ namespace SabberStoneCore.CardSets
 				// Trigger 1 : PlayCard => ChangeEntity
 				// Trigger 2 : PlayCard => Self? => Dispose
 				// Trigger 3 : EndTurn => RemoveEnchantment, MoveToSetaside
-			});
+			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_827e3] Veil of Shadows (*) - COST:0 
@@ -2054,7 +2055,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b> until your next turn.
 			// --------------------------------------------------------
-			cards.Add("ICC_827e3", Power.OneTurnStealthEnchantmentPower);
+			cards.Add("ICC_827e3", new CardDef(Power.OneTurnStealthEnchantmentPower));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [ICC_850e] Shaded (*) - COST:0 
@@ -2065,10 +2066,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_850e", new Power
+			cards.Add("ICC_850e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_850e")
-			});
+			}));
 
 			// ------------------------------------------ SPELL - ROGUE
 			// [ICC_827t] Shadow Reflection (*) - COST:0 
@@ -2082,11 +2083,11 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MUST_PLAY_OTHER_CARD_FIRST = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_827t", null);
+			cards.Add("ICC_827t", new CardDef());
 
 		}
 
-		private static void Shaman(IDictionary<string, Power> cards)
+		private static void Shaman(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
 			// [ICC_058] Brrrloc - COST:2 [ATK:2/HP:2] 
@@ -2104,10 +2105,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_058", new Power
+			cards.Add("ICC_058", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Freeze(EntityType.TARGET)
-			});
+			}));
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [ICC_081] Drakkari Defender - COST:3 [ATK:2/HP:8] 
@@ -2121,7 +2122,7 @@ namespace SabberStoneCore.CardSets
 			// - OVERLOAD = 3
 			// - OVERLOAD_OWED = 3
 			// --------------------------------------------------------
-			cards.Add("ICC_081", null);
+			cards.Add("ICC_081", new CardDef());
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [ICC_088] Voodoo Hexxer - COST:5 [ATK:2/HP:7] 
@@ -2134,7 +2135,7 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_088", null);
+			cards.Add("ICC_088", new CardDef());
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [ICC_090] Snowfury Giant - COST:11 [ATK:8/HP:8] 
@@ -2145,14 +2146,14 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_090", new Power
+			cards.Add("ICC_090", new CardDef(new Power
 			{
 				Aura = new AdaptiveCostEffect(
 					initialisationFunction: p => -p.Controller.OverloadThisGame,
 					triggerValueFunction: p => -p.Card.Overload,
 					trigger: TriggerType.OVERLOAD,
 					triggerSource: TriggerSource.FRIENDLY)
-			});
+			}));
 
 			// ---------------------------------------- MINION - SHAMAN
 			// [ICC_289] Moorabi - COST:6 [ATK:4/HP:4] 
@@ -2166,14 +2167,14 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_289", new Power
+			cards.Add("ICC_289", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.FROZEN)
 				{
 					TriggerSource = TriggerSource.ALL_MINIONS_EXCEPT_SELF,
 					SingleTask = new CopyTask(EntityType.TARGET, Zone.HAND)
 				}
-			});
+			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
 			// [ICC_056] Cryostasis - COST:2 
@@ -2188,12 +2189,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_056", new Power
+			cards.Add("ICC_056", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("ICC_056e", EntityType.TARGET),
 					ComplexTask.Freeze(EntityType.TARGET))
-			});
+			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
 			// [ICC_078] Avalanche - COST:4 
@@ -2208,13 +2209,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_078", new Power
+			cards.Add("ICC_078", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					ComplexTask.Freeze(EntityType.TARGET),
 					new IncludeAdjacentTask(EntityType.TARGET),
 					new DamageTask(3, EntityType.STACK, true))
-			});
+			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
 			// [ICC_089] Ice Fishing - COST:2 
@@ -2222,10 +2223,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Draw 2 Murlocs from your deck.
 			// --------------------------------------------------------
-			cards.Add("ICC_089", new Power
+			cards.Add("ICC_089", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.DrawFromDeck(2, SelfCondition.IsRace(Race.MURLOC))
-			});
+			}));
 
 			// ---------------------------------------- WEAPON - SHAMAN
 			// [ICC_236] Ice Breaker - COST:3 [ATK:1/HP:0] 
@@ -2239,7 +2240,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_236", new Power
+			cards.Add("ICC_236", new CardDef(new Power
 			{
 				// TODO: Should change all similar effects
 				// Actual log says the source of damage is the equipped weapon, not hero
@@ -2264,11 +2265,11 @@ namespace SabberStoneCore.CardSets
 					Condition = new SelfCondition(p => p.Game.CurrentEventData.EventTarget[GameTag.FROZEN] > 0),
 					SingleTask = new DestroyTask(EntityType.EVENT_TARGET)
 				}
-			});
+			}));
 
 		}
 
-		private static void Warlock(IDictionary<string, Power> cards)
+		private static void Warlock(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
 			// [ICC_075] Despicable Dreadlord - COST:5 [ATK:4/HP:5] 
@@ -2276,13 +2277,13 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 1 damage to all enemy minions.
 			// --------------------------------------------------------
-			cards.Add("ICC_075", new Power
+			cards.Add("ICC_075", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
 					SingleTask = new DamageTask(1, EntityType.OP_MINIONS)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - WARLOCK
 			// [ICC_218] Howlfiend - COST:3 [ATK:3/HP:6] 
@@ -2290,7 +2291,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, discard a_random card.
 			// --------------------------------------------------------
-			cards.Add("ICC_218", new Power
+			cards.Add("ICC_218", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
@@ -2299,7 +2300,7 @@ namespace SabberStoneCore.CardSets
 						new RandomTask(1, EntityType.HAND),
 						new DiscardTask(EntityType.STACK))
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - WARLOCK
 			// [ICC_407] Gnomeferatu - COST:2 [ATK:2/HP:3] 
@@ -2311,10 +2312,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_407", new Power
+			cards.Add("ICC_407", new CardDef(new Power
 			{
 				PowerTask = new MoveToGraveYard(EntityType.OP_TOPDECK)
-			});
+			}));
 
 			// --------------------------------------- MINION - WARLOCK
 			// [ICC_841] Blood-Queen Lana'thel - COST:5 [ATK:1/HP:6] 
@@ -2329,7 +2330,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_841", new Power
+			cards.Add("ICC_841", new CardDef(new Power
 			{
 				// TODO [ICC_841] Blood-Queen Lana'thel && Test: Blood-Queen Lana'thel_ICC_841
 				InfoCardId = "ICC_841e",
@@ -2338,7 +2339,7 @@ namespace SabberStoneCore.CardSets
 				//	new FuncNumberTask(p => p.Controller.DiscardedEntities.Count),
 				//	new AddEnchantmentTask("ICC_841e", EntityType.SOURCE, true))
 				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p => p.Controller.NumDiscardedThisGame)
-			});
+			}));
 
 			// --------------------------------------- MINION - WARLOCK
 			// [ICC_903] Sanguine Reveler - COST:1 [ATK:1/HP:1] 
@@ -2354,12 +2355,12 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_903", new Power
+			cards.Add("ICC_903", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
 					new AddEnchantmentTask("ICC_903t", EntityType.SOURCE))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [ICC_041] Defile - COST:2 
@@ -2367,7 +2368,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to all minions. If any die, cast this again. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("ICC_041", new Power
+			cards.Add("ICC_041", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.RecursiveTask(
 					new ConditionTask(EntityType.SOURCE, new SelfCondition(p => p.Game.DeadMinions.Count > 0)),
@@ -2377,7 +2378,7 @@ namespace SabberStoneCore.CardSets
 						return 0;
 					}),
 					new DamageTask(1, EntityType.ALLMINIONS, true))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [ICC_055] Drain Soul - COST:2 
@@ -2394,10 +2395,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_055", new Power
+			cards.Add("ICC_055", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET, true)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [ICC_206] Treachery - COST:3 
@@ -2410,10 +2411,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_206", new Power
+			cards.Add("ICC_206", new CardDef(new Power
 			{
 				PowerTask = new ControlTask(EntityType.TARGET, true)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [ICC_469] Unwilling Sacrifice - COST:3 
@@ -2426,16 +2427,16 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_469", new Power
+			cards.Add("ICC_469", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
 					ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS))
-			});
+			}));
 
 		}
 
-		private static void Warrior(IDictionary<string, Power> cards)
+		private static void Warrior(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
 			// [ICC_062] Mountainfire Armor - COST:3 [ATK:4/HP:3] 
@@ -2447,12 +2448,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_062", new Power
+			cards.Add("ICC_062", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn),
 					new FlagTask(true, new ArmorTask(6))),
-			});
+			}));
 
 			// --------------------------------------- MINION - WARRIOR
 			// [ICC_238] Animated Berserker - COST:1 [ATK:1/HP:3] 
@@ -2460,14 +2461,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: After you play a minion, deal 1 damage to it.
 			// --------------------------------------------------------
-			cards.Add("ICC_238", new Power
+			cards.Add("ICC_238", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_MINION)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new DamageTask(1, EntityType.EVENT_SOURCE)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - WARRIOR
 			// [ICC_405] Rotface - COST:8 [ATK:4/HP:6] 
@@ -2481,7 +2482,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_405", new Power
+			cards.Add("ICC_405", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
@@ -2491,7 +2492,7 @@ namespace SabberStoneCore.CardSets
 						new RandomMinionTask(GameTag.RARITY, (int)Rarity.LEGENDARY),
 						new SummonTask())
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - WARRIOR
 			// [ICC_408] Val'kyr Soulclaimer - COST:3 [ATK:1/HP:4] 
@@ -2501,7 +2502,7 @@ namespace SabberStoneCore.CardSets
 			//       survives damage,
 			//       summon a 2/2 Ghoul.
 			// --------------------------------------------------------
-			cards.Add("ICC_408", new Power
+			cards.Add("ICC_408", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
@@ -2509,7 +2510,7 @@ namespace SabberStoneCore.CardSets
 					Condition = SelfCondition.IsNotDead,
 					SingleTask = new SummonTask("ICC_900t")
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - WARRIOR
 			// [ICC_450] Death Revenant - COST:5 [ATK:3/HP:3] 
@@ -2520,14 +2521,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_450", new Power
+			cards.Add("ICC_450", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.FRIENDS),
 					new FilterStackTask(SelfCondition.IsDamaged),
 					new CountTask(EntityType.STACK),
 					new AddEnchantmentTask("ICC_450e", EntityType.SOURCE, true))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [ICC_091] Dead Man's Hand - COST:2 
@@ -2535,12 +2536,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Shuffle a copy of your hand into your deck.
 			// --------------------------------------------------------
-			cards.Add("ICC_091", new Power
+			cards.Add("ICC_091", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
 					new CopyTask(EntityType.STACK, Zone.DECK))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [ICC_281] Forge of Souls - COST:2 
@@ -2548,10 +2549,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Draw 2 weapons from your deck.
 			// --------------------------------------------------------
-			cards.Add("ICC_281", new Power
+			cards.Add("ICC_281", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.DrawFromDeck(2, SelfCondition.IsWeapon)
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [ICC_837] Bring It On! - COST:2 
@@ -2559,14 +2560,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Gain 10 Armor. Reduce the Cost of minions in your opponent's hand by (2).
 			// --------------------------------------------------------
-			cards.Add("ICC_837", new Power
+			cards.Add("ICC_837", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ArmorTask(10),
 					new IncludeTask(EntityType.OP_HAND),
 					new FilterStackTask(SelfCondition.IsMinion),
 					new AddEnchantmentTask("ICC_837e", EntityType.STACK))
-			});
+			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
 			// [ICC_064] Blood Razor - COST:4 [ATK:2/HP:0] 
@@ -2580,15 +2581,15 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_064", new Power
+			cards.Add("ICC_064", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(1, EntityType.ALLMINIONS),
 				DeathrattleTask = new DamageTask(1, EntityType.ALLMINIONS)
-			});
+			}));
 
 		}
 
-		private static void WarriorNonCollect(IDictionary<string, Power> cards)
+		private static void WarriorNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- WEAPON - WARRIOR
 			// [ICC_834w] Shadowmourne (*) - COST:8 [ATK:4/HP:0] 
@@ -2600,7 +2601,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DURABILITY = 3
 			// --------------------------------------------------------
-			cards.Add("ICC_834w", new Power
+			cards.Add("ICC_834w", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
 				{
@@ -2616,11 +2617,11 @@ namespace SabberStoneCore.CardSets
 							return 0;
 						}))
 				}
-			});
+			}));
 
 		}
 
-		private static void Neutral(IDictionary<string, Power> cards)
+		private static void Neutral(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_018] Phantom Freebooter - COST:4 [ATK:3/HP:3] 
@@ -2631,7 +2632,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_018", new Power
+			cards.Add("ICC_018", new CardDef(new Power
 			{
 				InfoCardId = "ICC_018e",
 				PowerTask = ComplexTask.Create(
@@ -2640,7 +2641,7 @@ namespace SabberStoneCore.CardSets
 					new GetGameTagTask(GameTag.DAMAGE, EntityType.WEAPON, 0, 2),
 					new MathNumberIndexTask(1, 2, MathOperation.SUB, 1),
 					new AddEnchantmentTask("ICC_018e", EntityType.SOURCE, true))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_019] Skelemancer - COST:5 [ATK:2/HP:2] 
@@ -2651,18 +2652,18 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_019", new Power
+			cards.Add("ICC_019", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn),
 					new FlagTask(true, new SummonTask("ICC_019t", SummonSide.DEATHRATTLE))),
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_023] Snowflipper Penguin - COST:0 [ATK:1/HP:1] 
 			// - Race: beast, Set: icecrown, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("ICC_023", null);
+			cards.Add("ICC_023", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_025] Rattling Rascal - COST:4 [ATK:2/HP:2] 
@@ -2677,11 +2678,11 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_025", new Power
+			cards.Add("ICC_025", new CardDef(new Power
 			{
 				PowerTask = new SummonTask("ICC_025t", SummonSide.RIGHT),
 				DeathrattleTask = new SummonOpTask("ICC_025t")
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_026] Grim Necromancer - COST:4 [ATK:2/HP:4] 
@@ -2692,12 +2693,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_026", new Power
+			cards.Add("ICC_026", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new SummonTask("ICC_026t", SummonSide.LEFT),
 					new SummonTask("ICC_026t", SummonSide.RIGHT))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_027] Bone Drake - COST:6 [ATK:6/HP:5] 
@@ -2708,12 +2709,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_027", new Power
+			cards.Add("ICC_027", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.DRAGON),
 					new AddStackTo(EntityType.HAND))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_028] Sunborne Val'kyr - COST:5 [ATK:5/HP:4] 
@@ -2724,14 +2725,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_028", new Power
+			cards.Add("ICC_028", new CardDef(new Power
 			{
 				// TODO Test: Sunborne Val'kyr_ICC_028
 				InfoCardId = "ICC_028e",
 				PowerTask = ComplexTask.Create(
 					new IncludeAdjacentTask(EntityType.SOURCE),
 					new AddEnchantmentTask("ICC_028e", EntityType.STACK))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_029] Cobalt Scalebane - COST:5 [ATK:5/HP:5] 
@@ -2739,13 +2740,13 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the end of your turn, give another random friendly minion +3 Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_029", new Power
+			cards.Add("ICC_029", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
 					SingleTask = ComplexTask.BuffRandomMinion(EntityType.MINIONS_NOSOURCE, "ICC_029e")
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_031] Night Howler - COST:4 [ATK:3/HP:4] 
@@ -2754,14 +2755,14 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever this minion takes
 			//       damage, gain +2 Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_031", new Power
+			cards.Add("ICC_031", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
 					TriggerSource = TriggerSource.SELF,
 					SingleTask = new AddEnchantmentTask("ICC_031e", EntityType.SOURCE)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_032] Venomancer - COST:5 [ATK:2/HP:5] 
@@ -2772,7 +2773,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_032", null);
+			cards.Add("ICC_032", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_067] Vryghoul - COST:3 [ATK:3/HP:1] 
@@ -2785,12 +2786,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_067", new Power
+			cards.Add("ICC_067", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsOpTurn),
 					new FlagTask(true, new SummonTask("ICC_900t", SummonSide.DEATHRATTLE))),
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_092] Acherus Veteran - COST:1 [ATK:2/HP:1] 
@@ -2806,10 +2807,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_092", new Power
+			cards.Add("ICC_092", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_092e", EntityType.TARGET)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_093] Tuskarr Fisherman - COST:2 [ATK:2/HP:3] 
@@ -2828,10 +2829,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_093", new Power
+			cards.Add("ICC_093", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_093e", EntityType.TARGET)
-			});
+			}));
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_094] Fallen Sun Cleric - COST:2 [ATK:2/HP:1] 
 			// - Set: icecrown, Rarity: common
@@ -2846,10 +2847,10 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_094", new Power
+			cards.Add("ICC_094", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_094e", EntityType.TARGET)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_096] Furnacefire Colossus - COST:6 [ATK:6/HP:6] 
@@ -2860,7 +2861,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_096", new Power
+			cards.Add("ICC_096", new CardDef(new Power
 			{
 				InfoCardId = "ICC_096e",
 				PowerTask = ComplexTask.Create(
@@ -2871,7 +2872,7 @@ namespace SabberStoneCore.CardSets
 					new FuncNumberTask(p => p.Sum(w => w[GameTag.ATK])),
 					new DiscardTask(EntityType.STACK),
 					new AddEnchantmentTask("ICC_096e", EntityType.SOURCE, true))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_097] Grave Shambler - COST:4 [ATK:4/HP:4] 
@@ -2879,14 +2880,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever your weapon is destroyed, gain +1/+1.
 			// --------------------------------------------------------
-			cards.Add("ICC_097", new Power
+			cards.Add("ICC_097", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.DEATH)
 				{
 					TriggerSource = TriggerSource.WEAPON,
 					SingleTask = new AddEnchantmentTask("ICC_097e", EntityType.SOURCE)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_098] Tomb Lurker - COST:5 [ATK:5/HP:3] 
@@ -2902,14 +2903,14 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_098", new Power
+			cards.Add("ICC_098", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.GRAVEYARD),
 					new FilterStackTask(SelfCondition.IsDeathrattleMinion),
 					new RandomTask(1, EntityType.STACK),
 					new CopyTask(EntityType.STACK, Zone.HAND))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_099] Ticking Abomination - COST:4 [ATK:5/HP:6] 
@@ -2920,10 +2921,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_099", new Power
+			cards.Add("ICC_099", new CardDef(new Power
 			{
 				DeathrattleTask = new DamageTask(5, EntityType.MINIONS)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_220] Deadscale Knight - COST:1 [ATK:1/HP:1] 
@@ -2934,7 +2935,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_220", null);
+			cards.Add("ICC_220", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_257] Corpse Raiser - COST:5 [ATK:3/HP:3] 
@@ -2956,10 +2957,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_257", new Power
+			cards.Add("ICC_257", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_257e", EntityType.TARGET)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_314] The Lich King - COST:8 [ATK:8/HP:8] 
@@ -2976,7 +2977,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_314", new Power
+			cards.Add("ICC_314", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
@@ -2984,7 +2985,7 @@ namespace SabberStoneCore.CardSets
 						new RandomEntourageTask(),
 						new AddStackTo(EntityType.HAND))
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_466] Saronite Chain Gang - COST:4 [ATK:2/HP:3] 
@@ -2997,10 +2998,10 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_466", new Power
+			cards.Add("ICC_466", new CardDef(new Power
 			{
 				PowerTask = new SummonTask("ICC_466", SummonSide.RIGHT)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_467] Deathspeaker - COST:3 [ATK:2/HP:4] 
@@ -3019,10 +3020,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_467", new Power
+			cards.Add("ICC_467", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_467e", EntityType.TARGET)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_468] Wretched Tiller - COST:1 [ATK:1/HP:1] 
@@ -3030,14 +3031,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever this minion attacks, deal 2 damage to_the enemy hero.
 			// --------------------------------------------------------
-			cards.Add("ICC_468", new Power
+			cards.Add("ICC_468", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.ATTACK)
 				{
 					TriggerSource = TriggerSource.SELF,
 					SingleTask = new DamageTask(2, EntityType.OP_HERO)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_700] Happy Ghoul - COST:3 [ATK:3/HP:3] 
@@ -3045,10 +3046,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Costs (0) if your hero was healed this turn.
 			// --------------------------------------------------------
-			cards.Add("ICC_700", new Power
+			cards.Add("ICC_700", new CardDef(new Power
 			{
 				Aura = new AdaptiveCostEffect(0, TriggerType.HEAL, TriggerSource.FRIENDLY, SelfCondition.IsHero)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_701] Skulking Geist - COST:6 [ATK:4/HP:6] 
@@ -3060,7 +3061,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_701", new Power
+			cards.Add("ICC_701", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.DECK),
@@ -3075,7 +3076,7 @@ namespace SabberStoneCore.CardSets
 					new IncludeTask(EntityType.OP_HAND),
 					new FilterStackTask(SelfCondition.IsBaseTagValue(GameTag.COST, 1), SelfCondition.IsSpell),
 					new MoveToGraveYard(EntityType.STACK)),
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_702] Shallow Gravedigger - COST:3 [ATK:3/HP:1] 
@@ -3086,12 +3087,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_702", new Power
+			cards.Add("ICC_702", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new RandomCardTask(CardType.INVALID, CardClass.INVALID, Race.INVALID, Rarity.INVALID, new[] { GameTag.DEATHRATTLE }),
 					new AddStackTo(EntityType.HAND))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_705] Bonemare - COST:7 [ATK:5/HP:5] 
@@ -3110,10 +3111,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_705", new Power
+			cards.Add("ICC_705", new CardDef(new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_705e", EntityType.TARGET)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_706] Nerubian Unraveler - COST:6 [ATK:5/HP:5] 
@@ -3124,13 +3125,13 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_706", new Power
+			cards.Add("ICC_706", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.HANDS, Effects.AddCost(2))
 				{
 					Condition = SelfCondition.IsSpell
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_810] Deathaxe Punisher - COST:4 [ATK:3/HP:3] 
@@ -3144,7 +3145,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_810", new Power
+			cards.Add("ICC_810", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
@@ -3153,7 +3154,7 @@ namespace SabberStoneCore.CardSets
 						SelfCondition.IsMinion),
 					new RandomTask(1, EntityType.STACK),
 					new AddEnchantmentTask("ICC_810e", EntityType.STACK)),
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_812] Meat Wagon - COST:4 [ATK:1/HP:4] 
@@ -3167,7 +3168,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_812", new Power
+			cards.Add("ICC_812", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new IncludeTask(EntityType.SOURCE),
@@ -3180,7 +3181,7 @@ namespace SabberStoneCore.CardSets
 					new RandomTask(1, EntityType.STACK),
 					new RemoveFromDeck(EntityType.STACK),
 					new SummonTask())
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_851] Prince Keleseth - COST:2 [ATK:2/HP:2] 
@@ -3192,7 +3193,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_851", new Power
+			cards.Add("ICC_851", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoSpecficCostCardsInDeck(2)),
@@ -3200,7 +3201,7 @@ namespace SabberStoneCore.CardSets
 						new IncludeTask(EntityType.DECK),
 						new FilterStackTask(SelfCondition.IsMinion),
 						new AddEnchantmentTask("ICC_851e", EntityType.STACK))))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_852] Prince Taldaram - COST:3 [ATK:3/HP:3] 
@@ -3216,14 +3217,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_DRAG_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_852", new Power
+			cards.Add("ICC_852", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoSpecficCostCardsInDeck(3)),
 					new FlagTask(true, ComplexTask.Create(
 					new TransformCopyTask(true),
 					new AddEnchantmentTask("ICC_852e", EntityType.STACK))))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_853] Prince Valanar - COST:4 [ATK:4/HP:4] 
@@ -3239,14 +3240,14 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_853", new Power
+			cards.Add("ICC_853", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoSpecficCostCardsInDeck(4)),
 					new FlagTask(true, ComplexTask.Create(
 						new SetGameTagTask(GameTag.LIFESTEAL, 1, EntityType.SOURCE),
 						new SetGameTagTask(GameTag.TAUNT, 1, EntityType.SOURCE))))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_854] Arfus - COST:4 [ATK:2/HP:2] 
@@ -3260,12 +3261,12 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_854", new Power
+			cards.Add("ICC_854", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new RandomEntourageTask(),
 					new AddStackTo(EntityType.HAND))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_855] Hyldnir Frostrider - COST:3 [ATK:4/HP:4] 
@@ -3279,10 +3280,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_855", new Power
+			cards.Add("ICC_855", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Freeze(EntityType.MINIONS_NOSOURCE)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_856] Spellweaver - COST:6 [ATK:4/HP:4] 
@@ -3293,7 +3294,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - SPELLPOWER = 2
 			// --------------------------------------------------------
-			cards.Add("ICC_856", null);
+			cards.Add("ICC_856", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_900] Necrotic Geist - COST:6 [ATK:5/HP:3] 
@@ -3301,14 +3302,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever one of your other minions dies, summon a 2/2 Ghoul.
 			// --------------------------------------------------------
-			cards.Add("ICC_900", new Power
+			cards.Add("ICC_900", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.DEATH)
 				{
 					TriggerSource = TriggerSource.MINIONS,
 					SingleTask = new SummonTask("ICC_900t")
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_901] Drakkari Enchanter - COST:3 [ATK:1/HP:5] 
@@ -3319,10 +3320,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_901", new Power
+			cards.Add("ICC_901", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.CONTROLLER, new Effect(GameTag.EXTRA_END_TURN_EFFECT, EffectOperator.ADD, 1))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_902] Mindbreaker - COST:3 [ATK:2/HP:5] 
@@ -3330,10 +3331,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Hero Powers are disabled.
 			// --------------------------------------------------------
-			cards.Add("ICC_902", new Power
+			cards.Add("ICC_902", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.CONTROLLERS, new Effect(GameTag.HERO_POWER_DISABLED, EffectOperator.ADD, 1))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_904] Wicked Skeleton - COST:4 [ATK:1/HP:1] 
@@ -3344,13 +3345,13 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_904", new Power
+			cards.Add("ICC_904", new CardDef(new Power
 			{
 				// TODO Test: Wicked Skeleton_ICC_904
 				PowerTask = ComplexTask.Create(
 					new GetGameTagGameTask(GameTag.NUM_MINIONS_KILLED_THIS_TURN),
 					new AddEnchantmentTask("ICC_904e", EntityType.SOURCE, true))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_905] Bloodworm - COST:5 [ATK:4/HP:4] 
@@ -3361,7 +3362,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_905", null);
+			cards.Add("ICC_905", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_911] Keening Banshee - COST:4 [ATK:5/HP:5] 
@@ -3369,14 +3370,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever you play a card, remove the top 3 cards of_your deck.
 			// --------------------------------------------------------
-			cards.Add("ICC_911", new Power
+			cards.Add("ICC_911", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.PLAY_CARD)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new EnqueueTask(3, new MoveToGraveYard(EntityType.TOPCARDFROMDECK))
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_912] Corpsetaker - COST:4 [ATK:3/HP:3] 
@@ -3396,7 +3397,7 @@ namespace SabberStoneCore.CardSets
 			// - DIVINE_SHIELD = 1
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_912", new Power
+			cards.Add("ICC_912", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasMinionInDeck(GameTag.TAUNT)),
@@ -3407,7 +3408,7 @@ namespace SabberStoneCore.CardSets
 					new FlagTask(true, ComplexTask.LifeSteal(EntityType.SOURCE)),
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasMinionInDeck(GameTag.WINDFURY)),
 					new FlagTask(true, ComplexTask.WindFury(EntityType.SOURCE)))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_913] Tainted Zealot - COST:2 [ATK:1/HP:1] 
@@ -3420,11 +3421,11 @@ namespace SabberStoneCore.CardSets
 			// - SPELLPOWER = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_913", null);
+			cards.Add("ICC_913", new CardDef());
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, Power> cards)
+		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_028e] Blessing of the Val'kyr (*) - COST:0 
@@ -3432,10 +3433,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
-			cards.Add("ICC_028e", new Power
+			cards.Add("ICC_028e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_028e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_029e] Dragonscales (*) - COST:0 
@@ -3443,10 +3444,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Attack increased.
 			// --------------------------------------------------------
-			cards.Add("ICC_029e", new Power
+			cards.Add("ICC_029e", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.Attack_N(3))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_031e] Awooooo! (*) - COST:0 
@@ -3454,10 +3455,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: This minion has increased Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_031e", new Power
+			cards.Add("ICC_031e", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.Attack_N(2))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_039e] Convinced (*) - COST:0 
@@ -3465,10 +3466,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Stats changed to 3/3.
 			// --------------------------------------------------------
-			cards.Add("ICC_039e", new Power
+			cards.Add("ICC_039e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_039e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_049e] Toxic Arrow (*) - COST:0 
@@ -3476,10 +3477,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Poisonous.
 			// --------------------------------------------------------
-			cards.Add("ICC_049e", new Power
+			cards.Add("ICC_049e", new CardDef(new Power
 			{
 				Enchant = new Enchant(GameTag.POISONOUS, EffectOperator.SET, 1)
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_056e] Frozen Blood (*) - COST:0 
@@ -3487,10 +3488,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
-			cards.Add("ICC_056e", new Power
+			cards.Add("ICC_056e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_056e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_092e] Veteran's Favor (*) - COST:0 
@@ -3498,10 +3499,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_092e", new Power
+			cards.Add("ICC_092e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_092e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_093e] Fresh Fish! (*) - COST:0 
@@ -3509,10 +3510,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +1</b>.
 			// --------------------------------------------------------
-			cards.Add("ICC_093e", new Power
+			cards.Add("ICC_093e", new CardDef(new Power
 			{
 				Enchant = new Enchant(GameTag.SPELLPOWER, EffectOperator.ADD, 1)
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_094e] Cleric's Blessing (*) - COST:0 
@@ -3520,10 +3521,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("ICC_094e", new Power
+			cards.Add("ICC_094e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_094e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_096e] Me Bigger (*) - COST:0 
@@ -3531,10 +3532,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("ICC_096e", new Power
+			cards.Add("ICC_096e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_097e] Armed and Dangerous (*) - COST:0 
@@ -3542,10 +3543,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("ICC_097e", new Power
+			cards.Add("ICC_097e", new CardDef(new Power
 			{
 				Enchant = new OngoingEnchant(Effects.AttackHealth_N(1))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_235e] Shadow Essence (*) - COST:0 
@@ -3553,10 +3554,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Attack and Health set to 5.
 			// --------------------------------------------------------
-			cards.Add("ICC_235e", new Power
+			cards.Add("ICC_235e", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.SetAttackHealth(5))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_257e] Ready to Return (*) - COST:0 
@@ -3564,10 +3565,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Resummon this minion.
 			// --------------------------------------------------------
-			cards.Add("ICC_257e", new Power
+			cards.Add("ICC_257e", new CardDef(new Power
 			{
 				DeathrattleTask = new CopyTask(EntityType.SOURCE, Zone.PLAY)
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_314t1e] Trapped Soul (*) - COST:0 
@@ -3575,12 +3576,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: {0}
 			// --------------------------------------------------------
-			cards.Add("ICC_314t1e", new Power
+			cards.Add("ICC_314t1e", new CardDef(new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					GetCapturedCardTask.Task,
 					new SummonTask())
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_314t7e] Anti-Magic Shell (*) - COST:0 
@@ -3592,13 +3593,13 @@ namespace SabberStoneCore.CardSets
 			// - CANT_BE_TARGETED_BY_SPELLS = 1
 			// - CANT_BE_TARGETED_BY_HERO_POWERS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_314t7e", new Power
+			cards.Add("ICC_314t7e", new CardDef(new Power
 			{
 				Enchant = new Enchant(
 					Effects.Attack_N(2),
 					Effects.Health_N(2),
 					Effects.CantBeTargetedBySpellsAndHeroPowers)
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_450e] Bloodthirsty (*) - COST:0 
@@ -3606,10 +3607,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("ICC_450e", new Power
+			cards.Add("ICC_450e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_467e] Deathward (*) - COST:0 
@@ -3620,21 +3621,21 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_467e", new Power
+			cards.Add("ICC_467e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_467e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_483e] Frostmourne Enchantment (*) - COST:0 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICC_483e", new Power
+			cards.Add("ICC_483e", new CardDef(new Power
 			{
 				// TODO [ICC_483e] Frostmourne Enchantment && Test: Frostmourne Enchantment_ICC_483e
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_705e] Bonemare's Boon (*) - COST:0 
@@ -3642,10 +3643,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +4/+4 and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("ICC_705e", new Power
+			cards.Add("ICC_705e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_705e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_807e] Strongshell (*) - COST:0 
@@ -3653,10 +3654,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("ICC_807e", new Power
+			cards.Add("ICC_807e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_807e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_810e] Bloodthirsty (*) - COST:0 
@@ -3664,10 +3665,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2 from Deathaxe Punisher.
 			// --------------------------------------------------------
-			cards.Add("ICC_810e", new Power
+			cards.Add("ICC_810e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_810e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_832e] Fangs (*) - COST:0 
@@ -3678,10 +3679,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAG_ONE_TURN_EFFECT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_832e", new Power
+			cards.Add("ICC_832e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_832e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_833e] Frost Lich (*) - COST:0 
@@ -3692,13 +3693,13 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - AURA = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_833e", new Power
+			cards.Add("ICC_833e", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.BOARD, "ICC_833e2")
 				{
 					Condition = SelfCondition.IsRace(Race.ELEMENTAL)
 				}
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_833e2] Icy Veins (*) - COST:0 
@@ -3709,10 +3710,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_833e2", new Power
+			cards.Add("ICC_833e2", new CardDef(new Power
 			{
 				Enchant = new Enchant(GameTag.LIFESTEAL, EffectOperator.SET, 1)
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_837e] Challenged (*) - COST:0 
@@ -3720,10 +3721,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Minion cost reduced by (2).
 			// --------------------------------------------------------
-			cards.Add("ICC_837e", new Power
+			cards.Add("ICC_837e", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.ReduceCost(2))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_841e] Vampiric Bite (*) - COST:0 
@@ -3731,10 +3732,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
-			cards.Add("ICC_841e", new Power
+			cards.Add("ICC_841e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.AddAttackScriptTag
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_849e] Embraced (*) - COST:0 
@@ -3742,7 +3743,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: At the start of the next turn, lose control of this minion.
 			// --------------------------------------------------------
-			cards.Add("ICC_849e", new Power
+			cards.Add("ICC_849e", new CardDef(new Power
 			{
 				//Enchant = new Enchant(GameTag.CONTROLLER_CHANGED_THIS_TURN, EffectOperator.SET, 1),
 				// 333, 887 = Controller.PlayerId ?
@@ -3752,7 +3753,7 @@ namespace SabberStoneCore.CardSets
 						RemoveEnchantmentTask.Task,
 						new ControlTask(EntityType.TARGET))
 				}
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_851e] Keleseth's Blessing (*) - COST:0 
@@ -3760,10 +3761,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("ICC_851e", new Power
+			cards.Add("ICC_851e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_851e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_852e] Taldaram's Visage (*) - COST:0 
@@ -3771,10 +3772,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: 3/3.
 			// --------------------------------------------------------
-			cards.Add("ICC_852e", new Power
+			cards.Add("ICC_852e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("ICC_852e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_903t] Bloodthirst (*) - COST:0 
@@ -3782,10 +3783,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("ICC_903t", new Power
+			cards.Add("ICC_903t", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.AttackHealth_N(2))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [ICC_904e] Extra Calcium (*) - COST:0 
@@ -3793,49 +3794,49 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
-			cards.Add("ICC_904e", new Power
+			cards.Add("ICC_904e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.AddAttackHealthScriptTag
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_019t] Skeletal Flayer (*) - COST:8 [ATK:8/HP:8] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICC_019t", null);
+			cards.Add("ICC_019t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_025t] Skeletal Enforcer (*) - COST:5 [ATK:5/HP:5] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICC_025t", null);
+			cards.Add("ICC_025t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_026t] Skeleton (*) - COST:1 [ATK:1/HP:1] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICC_026t", null);
+			cards.Add("ICC_026t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_800h3t] Zombeast (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: beast, Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICC_800h3t", new Power
+			cards.Add("ICC_800h3t", new CardDef(new Power
 			{
 				// TODO [ICC_800h3t] Zombeast && Test: Zombeast_ICC_800h3t
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [ICC_900t] Ghoul (*) - COST:2 [ATK:2/HP:2] 
 			// - Set: icecrown, 
 			// --------------------------------------------------------
-			cards.Add("ICC_900t", null);
+			cards.Add("ICC_900t", new CardDef());
 
 		}
 
-		public static void AddAll(Dictionary<string, Power> cards)
+		public static void AddAll(Dictionary<string, CardDef> cards)
 		{
 			Heroes(cards);
 			HeroPowers(cards);

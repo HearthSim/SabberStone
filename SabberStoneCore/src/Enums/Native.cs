@@ -195,7 +195,7 @@ namespace SabberStoneCore.Enums
 		BOOMSDAY = 1127,
 		TROLL = 1129,
 		DALARAN = 1130,
-		TAVERNS_OF_TIME = 1143,
+		//TAVERNS_OF_TIME = 1143,
 		ULDUM = 1158,
 		DRAGONS = 1347,
 		WILD_EVENT = 1439,

@@ -21,6 +21,7 @@ using SabberStoneCore.Model.Entities;
 using SabberStoneCore.Tasks;
 using SabberStoneCore.Tasks.SimpleTasks;
 using SabberStoneCore.Triggers;
+using SabberStoneCore.src.Loader;
 
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
@@ -28,7 +29,7 @@ namespace SabberStoneCore.CardSets
 {
 	public class KaraCardsGen
 	{
-		private static void Druid(IDictionary<string, Power> cards)
+		private static void Druid(Dictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
 			// [KAR_065] Menagerie Warden - COST:6 [ATK:5/HP:5] 
@@ -45,16 +46,16 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_WITH_RACE = 20
 			// --------------------------------------------------------
-			cards.Add("KAR_065", new Power
+			cards.Add("KAR_065", new CardDef(new Power
 			{
 				PowerTask = new CopyTask(EntityType.TARGET, Zone.PLAY)
-			});
+			}));
 
 			// ----------------------------------------- MINION - DRUID
 			// [KAR_300] Enchanted Raven - COST:1 [ATK:2/HP:2] 
 			// - Race: beast, Set: kara, Rarity: common
 			// --------------------------------------------------------
-			cards.Add("KAR_300", null);
+			cards.Add("KAR_300", new CardDef());
 
 			// ------------------------------------------ SPELL - DRUID
 			// [KAR_075] Moonglade Portal - COST:6 
@@ -66,16 +67,16 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("KAR_075", new Power
+			cards.Add("KAR_075", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new HealTask(6, EntityType.TARGET),
 					ComplexTask.SummonRandomMinion(GameTag.COST, 6))
-			});
+			}));
 
 		}
 
-		private static void Hunter(IDictionary<string, Power> cards)
+		private static void Hunter(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
 			// [KAR_005] Kindly Grandmother - COST:2 [ATK:1/HP:1] 
@@ -86,10 +87,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_005", new Power
+			cards.Add("KAR_005", new CardDef(new Power
 			{
 				DeathrattleTask = new SummonTask("KAR_005a", SummonSide.DEATHRATTLE)
-			});
+			}));
 
 			// ---------------------------------------- MINION - HUNTER
 			// [KAR_006] Cloaked Huntress - COST:3 [ATK:3/HP:4] 
@@ -100,13 +101,13 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_006", new Power
+			cards.Add("KAR_006", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.HAND, Effects.SetCost(0))
 				{
 					Condition = SelfCondition.IsSecret
 				}
-			});
+			}));
 
 			// ----------------------------------------- SPELL - HUNTER
 			// [KAR_004] Cat Trick - COST:2 
@@ -120,7 +121,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_004", new Power
+			cards.Add("KAR_004", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
@@ -128,11 +129,11 @@ namespace SabberStoneCore.CardSets
 					SingleTask = ComplexTask.Secret(
 						new SummonTask("KAR_004a", SummonSide.SPELL))
 				}
-			});
+			}));
 
 		}
 
-		private static void HunterNonCollect(IDictionary<string, Power> cards)
+		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
 			// [KAR_004a] Cat in a Hat (*) - COST:3 [ATK:4/HP:2] 
@@ -143,17 +144,17 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_004a", null);
+			cards.Add("KAR_004a", new CardDef());
 
 			// ---------------------------------------- MINION - HUNTER
 			// [KAR_005a] Big Bad Wolf (*) - COST:2 [ATK:3/HP:2] 
 			// - Race: beast, Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KAR_005a", null);
+			cards.Add("KAR_005a", new CardDef());
 
 		}
 
-		private static void Mage(IDictionary<string, Power> cards)
+		private static void Mage(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
 			// [KAR_009] Babbling Book - COST:1 [ATK:1/HP:1] 
@@ -164,12 +165,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_009", new Power
+			cards.Add("KAR_009", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomCardTask(CardType.SPELL, CardClass.MAGE),
 					new AddStackTo(EntityType.HAND))
-			});
+			}));
 
 			// ------------------------------------------ MINION - MAGE
 			// [KAR_092] Medivh's Valet - COST:2 [ATK:2/HP:3] 
@@ -186,10 +187,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_092", new Power
+			cards.Add("KAR_092", new CardDef(new Power
 			{
 				PowerTask = new DamageTask(3, EntityType.TARGET)
-			});
+			}));
 
 			// ------------------------------------------- SPELL - MAGE
 			// [KAR_076] Firelands Portal - COST:7 
@@ -201,16 +202,16 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("KAR_076", new Power
+			cards.Add("KAR_076", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(5, EntityType.TARGET),
 					ComplexTask.SummonRandomMinion(GameTag.COST, 5)),
-			});
+			}));
 
 		}
 
-		private static void Paladin(IDictionary<string, Power> cards)
+		private static void Paladin(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
 			// [KAR_010] Nightbane Templar - COST:3 [ATK:2/HP:3] 
@@ -221,14 +222,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_010", new Power
+			cards.Add("KAR_010", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 					new FlagTask(true, ComplexTask.Create(
 						new SummonTask("KAR_010a", SummonSide.LEFT),
 						new SummonTask("KAR_010a", SummonSide.RIGHT)))),
-			});
+			}));
 
 			// --------------------------------------- MINION - PALADIN
 			// [KAR_057] Ivory Knight - COST:6 [ATK:4/HP:4] 
@@ -244,13 +245,13 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_057", new Power
+			cards.Add("KAR_057", new CardDef(new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.SPELL,
 					ComplexTask.Create(
 						new GetGameTagTask(GameTag.COST, EntityType.TARGET),
 						new HealNumberTask(EntityType.HERO)))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - PALADIN
 			// [KAR_077] Silvermoon Portal - COST:4 
@@ -263,26 +264,26 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("KAR_077", new Power
+			cards.Add("KAR_077", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("KAR_077e", EntityType.TARGET),
 					ComplexTask.SummonRandomMinion(GameTag.COST, 2))
-			});
+			}));
 
 		}
 
-		private static void PaladinNonCollect(IDictionary<string, Power> cards)
+		private static void PaladinNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
 			// [KAR_010a] Whelp (*) - COST:1 [ATK:1/HP:1] 
 			// - Race: dragon, Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KAR_010a", null);
+			cards.Add("KAR_010a", new CardDef());
 
 		}
 
-		private static void Priest(IDictionary<string, Power> cards)
+		private static void Priest(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
 			// [KAR_035] Priest of the Feast - COST:4 [ATK:3/HP:6] 
@@ -291,14 +292,14 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever you cast a spell, restore 3 Health to
 			//       your hero.
 			// --------------------------------------------------------
-			cards.Add("KAR_035", new Power
+			cards.Add("KAR_035", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new HealTask(3, EntityType.HERO)
 				}
-			});
+			}));
 
 			// ---------------------------------------- MINION - PRIEST
 			// [KAR_204] Onyx Bishop - COST:5 [ATK:3/HP:4] 
@@ -309,10 +310,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_204", new Power
+			cards.Add("KAR_204", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.SummonRandomMinionThatDied()
-			});
+			}));
 
 			// ----------------------------------------- SPELL - PRIEST
 			// [KAR_013] Purify - COST:2 
@@ -328,16 +329,16 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_013", new Power
+			cards.Add("KAR_013", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new SilenceTask(EntityType.TARGET),
 					new DrawTask()),
-			});
+			}));
 
 		}
 
-		private static void Rogue(IDictionary<string, Power> cards)
+		private static void Rogue(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
 			// [KAR_069] Swashburglar - COST:1 [ATK:1/HP:1] 
@@ -348,12 +349,12 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_069", new Power
+			cards.Add("KAR_069", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomCardTask(EntityType.OP_HERO),
 					new AddStackTo(EntityType.HAND))
-			});
+			}));
 
 			// ----------------------------------------- MINION - ROGUE
 			// [KAR_070] Ethereal Peddler - COST:5 [ATK:5/HP:6] 
@@ -366,7 +367,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_070", new Power
+			cards.Add("KAR_070", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.AnyNonClassCardInHand(CardClass.ROGUE)),
@@ -374,7 +375,7 @@ namespace SabberStoneCore.CardSets
 						new IncludeTask(EntityType.HAND),
 						new FilterStackTask(SelfCondition.IsNotCardClass(CardClass.ROGUE)),
 						new AddAuraEffect(Effects.ReduceCost(2), EntityType.STACK))))
-			});
+			}));
 
 			// ----------------------------------------- MINION - ROGUE
 			// [KAR_094] Deadly Fork - COST:3 [ATK:3/HP:2] 
@@ -385,14 +386,14 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_094", new Power
+			cards.Add("KAR_094", new CardDef(new Power
 			{
 				DeathrattleTask = new AddCardTo("KAR_094a", EntityType.HAND)
-			});
+			}));
 
 		}
 
-		private static void RogueNonCollect(IDictionary<string, Power> cards)
+		private static void RogueNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- WEAPON - ROGUE
 			// [KAR_094a] Sharp Fork (*) - COST:3 [ATK:3/HP:0] 
@@ -401,11 +402,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DURABILITY = 2
 			// --------------------------------------------------------
-			cards.Add("KAR_094a", null);
+			cards.Add("KAR_094a", new CardDef());
 
 		}
 
-		private static void Shaman(IDictionary<string, Power> cards)
+		private static void Shaman(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
 			// [KAR_021] Wicked Witchdoctor - COST:4 [ATK:3/HP:4] 
@@ -413,7 +414,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, summon a random basic_Totem.
 			// --------------------------------------------------------
-			cards.Add("KAR_021", new Power
+			cards.Add("KAR_021", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
@@ -431,7 +432,7 @@ namespace SabberStoneCore.CardSets
 						}),
 						new SummonTask())
 				}
-			});
+			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
 			// [KAR_073] Maelstrom Portal - COST:2 
@@ -440,12 +441,12 @@ namespace SabberStoneCore.CardSets
 			// Text: Deal_$1_damage to_all_enemy_minions. Summon_a_random
 			//       1-Cost minion. @spelldmg
 			// --------------------------------------------------------
-			cards.Add("KAR_073", new Power
+			cards.Add("KAR_073", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(1, EntityType.OP_MINIONS, true),
 					ComplexTask.SummonRandomMinion(GameTag.COST, 1))
-			});
+			}));
 
 			// ---------------------------------------- WEAPON - SHAMAN
 			// [KAR_063] Spirit Claws - COST:2 [ATK:1/HP:0] 
@@ -460,14 +461,14 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_063", new Power
+			cards.Add("KAR_063", new CardDef(new Power
 			{
 				Aura = new AdaptiveEffect(GameTag.ATK, EffectOperator.ADD, p => p.Controller.CurrentSpellPower > 0 ? 2 : 0)
-			});
+			}));
 
 		}
 
-		private static void Warlock(IDictionary<string, Power> cards)
+		private static void Warlock(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
 			// [KAR_089] Malchezaar's Imp - COST:1 [ATK:1/HP:3] 
@@ -475,14 +476,14 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Whenever you discard a card, draw a card.
 			// --------------------------------------------------------
-			cards.Add("KAR_089", new Power
+			cards.Add("KAR_089", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.DISCARD)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new DrawTask()
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - WARLOCK
 			// [KAR_205] Silverware Golem - COST:3 [ATK:3/HP:3] 
@@ -493,7 +494,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - InvisibleDeathrattle = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_205", new Power
+			cards.Add("KAR_205", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.DISCARD)
 				{
@@ -501,7 +502,7 @@ namespace SabberStoneCore.CardSets
 					TriggerSource = TriggerSource.SELF,
 					SingleTask = new SummonTask("KAR_205")
 				}
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
 			// [KAR_025] Kara Kazham! - COST:5 
@@ -512,39 +513,39 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_025", new Power
+			cards.Add("KAR_025", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new SummonTask("KAR_025a", SummonSide.SPELL),
 					new SummonTask("KAR_025b", SummonSide.SPELL),
 					new SummonTask("KAR_025c", SummonSide.SPELL))
-			});
+			}));
 
 		}
 
-		private static void WarlockNonCollect(IDictionary<string, Power> cards)
+		private static void WarlockNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
 			// [KAR_025a] Candle (*) - COST:1 [ATK:1/HP:1] 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KAR_025a", null);
+			cards.Add("KAR_025a", new CardDef());
 
 			// --------------------------------------- MINION - WARLOCK
 			// [KAR_025b] Broom (*) - COST:2 [ATK:2/HP:2] 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KAR_025b", null);
+			cards.Add("KAR_025b", new CardDef());
 
 			// --------------------------------------- MINION - WARLOCK
 			// [KAR_025c] Teapot (*) - COST:3 [ATK:3/HP:3] 
 			// - Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KAR_025c", null);
+			cards.Add("KAR_025c", new CardDef());
 
 		}
 
-		private static void Warrior(IDictionary<string, Power> cards)
+		private static void Warrior(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- SPELL - WARRIOR
 			// [KAR_026] Protect the King! - COST:3 
@@ -559,12 +560,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_026", new Power
+			cards.Add("KAR_026", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new CountTask(EntityType.OP_MINIONS),
 					new EnqueueNumberTask(new SummonTask("KAR_026t", SummonSide.SPELL)))
-			});
+			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
 			// [KAR_091] Ironforge Portal - COST:5 
@@ -574,12 +575,12 @@ namespace SabberStoneCore.CardSets
 			//       Summon a random
 			//       4-Cost minion.
 			// --------------------------------------------------------
-			cards.Add("KAR_091", new Power
+			cards.Add("KAR_091", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ArmorTask(4),
 					ComplexTask.SummonRandomMinion(GameTag.COST, 4))
-			});
+			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
 			// [KAR_028] Fool's Bane - COST:5 [ATK:3/HP:0] 
@@ -590,7 +591,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DURABILITY = 4
 			// --------------------------------------------------------
-			cards.Add("KAR_028", new Power
+			cards.Add("KAR_028", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.HERO, new Effect(GameTag.CANNOT_ATTACK_HEROES, EffectOperator.SET, 1)),
 				Trigger = new Trigger(TriggerType.AFTER_ATTACK)
@@ -598,11 +599,11 @@ namespace SabberStoneCore.CardSets
 					TriggerSource = TriggerSource.HERO,
 					SingleTask = new SetGameTagTask(GameTag.EXHAUSTED, 0, EntityType.HERO)
 				}
-			});
+			}));
 
 		}
 
-		private static void WarriorNonCollect(IDictionary<string, Power> cards)
+		private static void WarriorNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
 			// [KAR_026t] Pawn (*) - COST:1 [ATK:1/HP:1] 
@@ -613,11 +614,11 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_026t", null);
+			cards.Add("KAR_026t", new CardDef());
 
 		}
 
-		private static void Neutral(IDictionary<string, Power> cards)
+		private static void Neutral(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_011] Pompous Thespian - COST:2 [ATK:3/HP:2] 
@@ -628,7 +629,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_011", null);
+			cards.Add("KAR_011", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_029] Runic Egg - COST:1 [ATK:0/HP:2] 
@@ -639,10 +640,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_029", new Power
+			cards.Add("KAR_029", new CardDef(new Power
 			{
 				DeathrattleTask = new DrawTask()
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_030a] Pantry Spider - COST:3 [ATK:1/HP:3] 
@@ -654,10 +655,10 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_030a", new Power
+			cards.Add("KAR_030a", new CardDef(new Power
 			{
 				PowerTask = new SummonTask("KAR_030", SummonSide.RIGHT)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_033] Book Wyrm - COST:6 [ATK:3/HP:6] 
@@ -675,12 +676,12 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_MAX_ATTACK = 3
 			// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
 			// --------------------------------------------------------
-			cards.Add("KAR_033", new Power
+			cards.Add("KAR_033", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 					new FlagTask(true, new DestroyTask(EntityType.TARGET)))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_036] Arcane Anomaly - COST:1 [ATK:2/HP:1] 
@@ -689,14 +690,14 @@ namespace SabberStoneCore.CardSets
 			// Text: Whenever you cast a spell, give this minion
 			//       +1 Health.
 			// --------------------------------------------------------
-			cards.Add("KAR_036", new Power
+			cards.Add("KAR_036", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.CAST_SPELL)
 				{
 					TriggerSource = TriggerSource.FRIENDLY,
 					SingleTask = new AddEnchantmentTask("KAR_036e", EntityType.SOURCE)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_037] Avian Watcher - COST:5 [ATK:3/HP:6] 
@@ -712,14 +713,14 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_037", new Power
+			cards.Add("KAR_037", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingSecret),
 					new FlagTask(true, ComplexTask.Create(
 						new AddEnchantmentTask("KAR_037t", EntityType.SOURCE),
 						ComplexTask.Taunt(EntityType.SOURCE))))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_041] Moat Lurker - COST:6 [ATK:3/HP:3] 
@@ -735,7 +736,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("KAR_041", new Power
+			cards.Add("KAR_041", new CardDef(new Power
 			{
 				InfoCardId = "KAR_041e",
 				PowerTask = ComplexTask.Create(
@@ -759,7 +760,7 @@ namespace SabberStoneCore.CardSets
 							creator: p[0]);
 						return null;
 					}))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_044] Moroes - COST:3 [ATK:1/HP:1] 
@@ -772,13 +773,13 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_044", new Power
+			cards.Add("KAR_044", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
 					SingleTask = new SummonTask("KAR_044a", SummonSide.RIGHT)
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_061] The Curator - COST:7 [ATK:4/HP:6] 
@@ -792,13 +793,13 @@ namespace SabberStoneCore.CardSets
 			// - TAUNT = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_061", new Power
+			cards.Add("KAR_061", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					ComplexTask.DrawFromDeck(1, SelfCondition.IsRace(Race.BEAST)),
 					ComplexTask.DrawFromDeck(1, SelfCondition.IsRace(Race.DRAGON)),
 					ComplexTask.DrawFromDeck(1, SelfCondition.IsRace(Race.MURLOC)))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_062] Netherspite Historian - COST:2 [ATK:1/HP:3] 
@@ -813,12 +814,12 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_062", new Power
+			cards.Add("KAR_062", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
 					new FlagTask(true, new DiscoverTask(DiscoverType.DRAGON)))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_095] Zoobot - COST:3 [ATK:3/HP:3] 
@@ -829,7 +830,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_095", new Power
+			cards.Add("KAR_095", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
@@ -844,7 +845,7 @@ namespace SabberStoneCore.CardSets
 					new FilterStackTask(SelfCondition.IsRace(Race.MURLOC)),
 					new RandomTask(1, EntityType.STACK),
 					new AddEnchantmentTask("KAR_095e", EntityType.STACK))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_096] Prince Malchezaar - COST:5 [ATK:5/HP:6] 
@@ -857,7 +858,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_096", new Power
+			cards.Add("KAR_096", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.GAME_START)
 				{
@@ -867,7 +868,7 @@ namespace SabberStoneCore.CardSets
 						new RandomMinionTask(GameTag.RARITY, (int)Rarity.LEGENDARY, 5, RelaSign.EQ, true, true),
 						new AddStackTo(EntityType.DECK))
 				}
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_097] Medivh, the Guardian - COST:8 [ATK:7/HP:7] 
@@ -879,10 +880,10 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_097", new Power
+			cards.Add("KAR_097", new CardDef(new Power
 			{
 				PowerTask = new WeaponTask("KAR_097t")
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_114] Barnes - COST:4 [ATK:3/HP:4] 
@@ -894,7 +895,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_114", new Power
+			cards.Add("KAR_114", new CardDef(new Power
 			{
 				InfoCardId = "KAR_114e",
 				PowerTask = ComplexTask.Create(
@@ -905,7 +906,7 @@ namespace SabberStoneCore.CardSets
 						new RandomTask(1, EntityType.STACK),
 						new CopyTask(EntityType.STACK, Zone.PLAY, addToStack: true),
 						new AddEnchantmentTask("KAR_114e", EntityType.STACK))))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_702] Menagerie Magician - COST:5 [ATK:4/HP:4] 
@@ -916,7 +917,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_702", new Power
+			cards.Add("KAR_702", new CardDef(new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
@@ -931,7 +932,7 @@ namespace SabberStoneCore.CardSets
 					new FilterStackTask(SelfCondition.IsRace(Race.MURLOC)),
 					new RandomTask(1, EntityType.STACK),
 					new AddEnchantmentTask("KAR_702e", EntityType.STACK))
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_710] Arcanosmith - COST:4 [ATK:3/HP:2] 
@@ -945,10 +946,10 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_710", new Power
+			cards.Add("KAR_710", new CardDef(new Power
 			{
 				PowerTask = new SummonTask("KAR_710m", SummonSide.RIGHT)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_711] Arcane Giant - COST:12 [ATK:8/HP:8] 
@@ -957,10 +958,10 @@ namespace SabberStoneCore.CardSets
 			// Text: [x]Costs (1) less for each spell
 			//       you've cast this game.
 			// --------------------------------------------------------
-			cards.Add("KAR_711", new Power
+			cards.Add("KAR_711", new CardDef(new Power
 			{
 				Aura = new AdaptiveCostEffect(p => p.Controller.NumSpellsPlayedThisGame)
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_712] Violet Illusionist - COST:3 [ATK:4/HP:3] 
@@ -974,18 +975,18 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_712", new Power
+			cards.Add("KAR_712", new CardDef(new Power
 			{
 				Aura = new Aura(AuraType.HERO, Effects.Immune)
 				{
 					Condition = SelfCondition.IsMyTurn,
 					Restless = true
 				},
-			});
+			}));
 
 		}
 
-		private static void NeutralNonCollect(IDictionary<string, Power> cards)
+		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [KAR_036e] Eating (*) - COST:0 
@@ -993,10 +994,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
-			cards.Add("KAR_036e", new Power
+			cards.Add("KAR_036e", new CardDef(new Power
 			{
 				Enchant = new OngoingEnchant(Effects.Health_N(1))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [KAR_037t] Secrets of Karazhan (*) - COST:0 
@@ -1004,10 +1005,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1 and <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("KAR_037t", new Power
+			cards.Add("KAR_037t", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KAR_037t")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [KAR_041e] Moat Lurker (*) - COST:0 
@@ -1015,12 +1016,12 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Destroyed {0}.
 			// --------------------------------------------------------
-			cards.Add("KAR_041e", new Power
+			cards.Add("KAR_041e", new CardDef(new Power
 			{
 				// TODO [KAR_041e] Moat Lurker && Test: Moat Lurker_KAR_041e
 				//PowerTask = null,
 				//Trigger = null,
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [KAR_077e] Silver Might (*) - COST:0 
@@ -1028,10 +1029,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("KAR_077e", new Power
+			cards.Add("KAR_077e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KAR_077e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [KAR_095e] Well Fed (*) - COST:0 
@@ -1039,10 +1040,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
-			cards.Add("KAR_095e", new Power
+			cards.Add("KAR_095e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KAR_095e")
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [KAR_114e] Incredible Impression (*) - COST:0 
@@ -1050,10 +1051,10 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: Attack and Health set to 1.
 			// --------------------------------------------------------
-			cards.Add("KAR_114e", new Power
+			cards.Add("KAR_114e", new CardDef(new Power
 			{
 				Enchant = new Enchant(Effects.SetAttackHealth(1))
-			});
+			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
 			// [KAR_702e] A Simple Trick (*) - COST:0 
@@ -1061,22 +1062,22 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
-			cards.Add("KAR_702e", new Power
+			cards.Add("KAR_702e", new CardDef(new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("KAR_702e")
-			});
+			}));
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_030] Cellar Spider (*) - COST:3 [ATK:1/HP:3] 
 			// - Race: beast, Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KAR_030", null);
+			cards.Add("KAR_030", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_044a] Steward (*) - COST:1 [ATK:1/HP:1] 
 			// - Fac: neutral, Set: kara, 
 			// --------------------------------------------------------
-			cards.Add("KAR_044a", null);
+			cards.Add("KAR_044a", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
 			// [KAR_710m] Animated Shield (*) - COST:2 [ATK:0/HP:5] 
@@ -1087,7 +1088,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_710m", null);
+			cards.Add("KAR_710m", new CardDef());
 
 			// --------------------------------------- WEAPON - NEUTRAL
 			// [KAR_097t] Atiesh (*) - COST:3 [ATK:1/HP:0] 
@@ -1102,7 +1103,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DURABILITY = 3
 			// --------------------------------------------------------
-			cards.Add("KAR_097t", new Power
+			cards.Add("KAR_097t", new CardDef(new Power
 			{
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
 				{
@@ -1113,10 +1114,10 @@ namespace SabberStoneCore.CardSets
 						new SummonTask(),
 						new DamageWeaponTask(false))
 				}
-			});
+			}));
 		}
 
-		public static void AddAll(Dictionary<string, Power> cards)
+		public static void AddAll(Dictionary<string, CardDef> cards)
 		{
 			Druid(cards);
 			Hunter(cards);
