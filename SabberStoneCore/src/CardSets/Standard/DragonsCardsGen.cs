@@ -3560,7 +3560,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("DRG_402", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
+			cards.Add("DRG_402", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_TARGET_IF_AVAILABLE,0}}, new Power
 			{
 				// TODO [DRG_402] Sathrovarr && Test: Sathrovarr_DRG_402
 				//PowerTask = null,

@@ -51,7 +51,7 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void DruidNonCollect(Dictionary<string, CardDef> cards)
+		private static void DruidNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
 			// [FP1_019t] Treant (*) - COST:1 [ATK:2/HP:2]
@@ -216,7 +216,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("FP1_025", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("FP1_025", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET, true),

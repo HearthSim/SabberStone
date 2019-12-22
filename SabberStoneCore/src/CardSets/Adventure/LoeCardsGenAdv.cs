@@ -24,8 +24,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void Heroes(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA01_01] Sun Raider Phaerix (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA01_01] Sun Raider Phaerix (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 14019
@@ -39,8 +39,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA01_01h] Sun Raider Phaerix (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA01_01h] Sun Raider Phaerix (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 38479
@@ -54,8 +54,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA02_01] Zinaar (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA02_01] Zinaar (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 14203
@@ -69,8 +69,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA02_01h] Zinaar (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA02_01h] Zinaar (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 38465
@@ -84,8 +84,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA04_01] Temple Escape (*) - COST:0 [ATK:0/HP:100] 
-			// - Set: loe, 
+			// [LOEA04_01] Temple Escape (*) - COST:0 [ATK:0/HP:100]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 16231
@@ -101,8 +101,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA04_01h] Temple Escape (*) - COST:0 [ATK:0/HP:100] 
-			// - Set: loe, 
+			// [LOEA04_01h] Temple Escape (*) - COST:0 [ATK:0/HP:100]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 38510
@@ -116,8 +116,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA05_01] Chieftain Scarvash (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA05_01] Chieftain Scarvash (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 15353
@@ -131,8 +131,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA05_01h] Chieftain Scarvash (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA05_01h] Chieftain Scarvash (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 38555
@@ -146,8 +146,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA07_01] Mine Cart (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA07_01] Mine Cart (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -160,8 +160,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA07_02] Mine Shaft (*) - COST:0 [ATK:0/HP:80] 
-			// - Set: loe, 
+			// [LOEA07_02] Mine Shaft (*) - COST:0 [ATK:0/HP:80]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 16205
@@ -175,8 +175,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA07_02h] Mine Shaft (*) - COST:0 [ATK:0/HP:80] 
-			// - Set: loe, 
+			// [LOEA07_02h] Mine Shaft (*) - COST:0 [ATK:0/HP:80]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 38676
@@ -190,8 +190,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA08_01] Archaedas (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA08_01] Archaedas (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 17145
@@ -205,8 +205,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA08_01h] Archaedas (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA08_01h] Archaedas (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 38588
@@ -220,8 +220,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA09_1] Lord Slitherspear (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA09_1] Lord Slitherspear (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 24427
@@ -235,8 +235,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA09_1H] Lord Slitherspear (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA09_1H] Lord Slitherspear (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 38609
@@ -250,8 +250,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA10_1] Giantfin (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA10_1] Giantfin (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 10045
@@ -265,8 +265,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA10_1H] Giantfin (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA10_1H] Giantfin (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 38617
@@ -280,8 +280,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA12_1] Lady Naz'jar (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA12_1] Lady Naz'jar (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 17193
@@ -295,8 +295,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA12_1H] Lady Naz'jar (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA12_1H] Lady Naz'jar (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 38620
@@ -310,8 +310,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA13_1] Skelesaurus Hex (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA13_1] Skelesaurus Hex (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 19795
@@ -325,8 +325,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA13_1h] Skelesaurus Hex (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA13_1h] Skelesaurus Hex (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 38705
@@ -340,8 +340,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA14_1] The Steel Sentinel (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA14_1] The Steel Sentinel (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 19117
@@ -355,8 +355,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA14_1H] The Steel Sentinel (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA14_1H] The Steel Sentinel (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 38708
@@ -370,8 +370,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA15_1] Rafaam (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA15_1] Rafaam (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 19292
@@ -385,8 +385,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA15_1H] Rafaam (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA15_1H] Rafaam (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 38710
@@ -400,8 +400,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA16_1] Rafaam (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA16_1] Rafaam (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Entourage: LOEA16_18, LOEA16_23, LOEA16_19, LOEA16_22, LOEA16_21, LOEA16_24, LOEA16_25, LOEA16_26, LOEA16_27
 			// --------------------------------------------------------
@@ -417,8 +417,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [LOEA16_1H] Rafaam (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: loe, 
+			// [LOEA16_1H] Rafaam (*) - COST:0 [ATK:0/HP:30]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Entourage: LOEA16_18H, LOEA16_19H, LOEA16_21H, LOEA16_22H, LOEA16_23H, LOEA16_24H, LOEA16_25H, LOEA16_26H, LOEA16_27H
 			// --------------------------------------------------------
@@ -438,8 +438,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void HeroPowers(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA01_02] Blessings of the Sun (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA01_02] Blessings of the Sun (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Whoever controls the Rod of the Sun is <b>Immune.</b>
@@ -455,8 +455,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA01_02h] Blessings of the Sun (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA01_02h] Blessings of the Sun (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//        Phaerix is <b>Immune</b> while he controls the Rod of the Sun.
@@ -472,8 +472,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA02_02] Djinn’s Intuition (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA02_02] Djinn’s Intuition (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Draw a card.
 			//       Give your opponent a Wish.
@@ -490,8 +490,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA02_02h] Djinn’s Intuition (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA02_02h] Djinn’s Intuition (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Draw a card. Gain a Mana Crystal. Give your opponent a Wish.
 			// --------------------------------------------------------
@@ -507,7 +507,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA04_02] Escape! (*) - COST:0 
+			// [LOEA04_02] Escape! (*) - COST:0
 			// - Set: loe, Rarity: free
 			// --------------------------------------------------------
 			// Text: Encounter new obstacles!
@@ -524,8 +524,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA04_02h] Escape! (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_02h] Escape! (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Encounter new obstacles!
 			// --------------------------------------------------------
@@ -540,8 +540,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA05_02] Trogg Hate Minions! (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA05_02] Trogg Hate Minions! (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//        Enemy minions cost (2) more. Swap at the start of your turn.
@@ -557,8 +557,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA05_02a] Trogg Hate Minions! (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA05_02a] Trogg Hate Minions! (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//        Enemy minions cost (2) more. Swap at the start of your turn.
@@ -574,8 +574,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA05_02h] Trogg Hate Minions! (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA05_02h] Trogg Hate Minions! (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//        Enemy minions cost (11). Swap at the start of your turn.
@@ -591,8 +591,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA05_02ha] Trogg Hate Minions! (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA05_02ha] Trogg Hate Minions! (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//        Enemy minions cost (11). Swap at the start of your turn.
@@ -608,8 +608,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA05_03] Trogg Hate Spells! (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA05_03] Trogg Hate Spells! (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//        Enemy spells cost (2) more. Swap at the start of your turn.
@@ -625,8 +625,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA05_03h] Trogg Hate Spells! (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA05_03h] Trogg Hate Spells! (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//        Enemy spells cost (11). Swap at the start of your turn.
@@ -642,8 +642,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA06_02] Stonesculpting (*) - COST:1 
-			// - Set: loe, 
+			// [LOEA06_02] Stonesculpting (*) - COST:1
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//        Summon a 0/2 Statue for both players.
@@ -660,8 +660,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA06_02h] Stonesculpting (*) - COST:1 
-			// - Set: loe, 
+			// [LOEA06_02h] Stonesculpting (*) - COST:1
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//        Summon a Statue for both players.
@@ -678,8 +678,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA07_03] Flee the Mine! (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA07_03] Flee the Mine! (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Escape the Troggs!
 			// --------------------------------------------------------
@@ -695,8 +695,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA07_03h] Flee the Mine! (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA07_03h] Flee the Mine! (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Escape the Troggs!
 			// --------------------------------------------------------
@@ -712,8 +712,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA07_29] Throw Rocks (*) - COST:1 
-			// - Set: loe, 
+			// [LOEA07_29] Throw Rocks (*) - COST:1
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//        Deal 3 damage to a random enemy minion.
@@ -729,8 +729,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA09_2] Enraged! (*) - COST:2 
-			// - Set: loe, 
+			// [LOEA09_2] Enraged! (*) - COST:2
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Give your hero +2 attack this turn.
 			// --------------------------------------------------------
@@ -747,8 +747,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA09_2H] Enraged! (*) - COST:2 
-			// - Set: loe, 
+			// [LOEA09_2H] Enraged! (*) - COST:2
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Give your hero +5 attack this turn.
 			// --------------------------------------------------------
@@ -763,8 +763,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA09_3] Getting Hungry (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA09_3] Getting Hungry (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a Hungry Naga.
@@ -782,8 +782,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA09_3b] Getting Hungry (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA09_3b] Getting Hungry (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 1/1 Hungry Naga.
@@ -800,8 +800,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA09_3c] Getting Hungry (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA09_3c] Getting Hungry (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 2/1 Hungry Naga.
@@ -818,8 +818,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA09_3d] Getting Hungry (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA09_3d] Getting Hungry (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 5/1 Hungry Naga.
@@ -836,8 +836,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA09_3H] Endless Hunger (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA09_3H] Endless Hunger (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a Hungry Naga.
@@ -854,8 +854,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA10_2] Mrglmrgl MRGL! (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA10_2] Mrglmrgl MRGL! (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Draw cards until you have as many in hand as your opponent.
@@ -872,8 +872,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA10_2H] Mrglmrgl MRGL! (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA10_2H] Mrglmrgl MRGL! (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Draw 2 cards.
@@ -890,8 +890,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA12_2] Pearl of the Tides (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA12_2] Pearl of the Tides (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, replace all minions with new ones that cost (1) more.
 			// --------------------------------------------------------
@@ -906,8 +906,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA12_2H] Pearl of the Tides (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA12_2H] Pearl of the Tides (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, replace all minions with new ones. Yours cost (1) more.
 			// --------------------------------------------------------
@@ -922,8 +922,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA13_2] Ancient Power (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA13_2] Ancient Power (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Give each player a random card. It costs (0).
@@ -940,8 +940,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA13_2H] Ancient Power (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA13_2H] Ancient Power (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Add a random card to your hand. It costs (0).
@@ -958,8 +958,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA14_2] Platemail Armor (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA14_2] Platemail Armor (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Your Hero can only take 1 damage at a time.
@@ -975,8 +975,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA14_2H] Platemail Armor (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA14_2H] Platemail Armor (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Your Hero and your minions can only take 1 damage at a time.
@@ -992,8 +992,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA15_2] Unstable Portal (*) - COST:2 
-			// - Set: loe, 
+			// [LOEA15_2] Unstable Portal (*) - COST:2
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Add a random minion to your hand. It costs (3) less.
@@ -1009,8 +1009,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA15_2H] Unstable Portal (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA15_2H] Unstable Portal (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Add a random minion to your hand. It costs (3) less.
@@ -1027,8 +1027,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA16_16] Rummage (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_16] Rummage (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Find an artifact.
 			// --------------------------------------------------------
@@ -1045,8 +1045,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA16_16H] Rummage (*) - COST:2 
-			// - Set: loe, 
+			// [LOEA16_16H] Rummage (*) - COST:2
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Find an artifact.
 			// --------------------------------------------------------
@@ -1063,8 +1063,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA16_2] Staff of Origination (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_2] Staff of Origination (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Your hero is <b>Immune</b> while the staff charges.
@@ -1082,8 +1082,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [LOEA16_2H] Staff of Origination (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_2H] Staff of Origination (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Your hero is <b>Immune</b>.
@@ -1104,8 +1104,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
-			// [LOEA02_10a] Leokk (*) - COST:0 [ATK:2/HP:4] 
-			// - Race: beast, Set: loe, 
+			// [LOEA02_10a] Leokk (*) - COST:0 [ATK:2/HP:4]
+			// - Race: beast, Set: loe,
 			// --------------------------------------------------------
 			// Text: Your minions have +1 Attack.
 			// --------------------------------------------------------
@@ -1115,7 +1115,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOEA02_10a", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("LOEA02_10a", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [LOEA02_10a] Leokk && Test: Leokk_LOEA02_10a
 				//PowerTask = null,
@@ -1123,8 +1123,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [LOEA02_10c] Misha (*) - COST:0 [ATK:4/HP:4] 
-			// - Race: beast, Set: loe, 
+			// [LOEA02_10c] Misha (*) - COST:0 [ATK:4/HP:4]
+			// - Race: beast, Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -1134,7 +1134,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOEA02_10c", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("LOEA02_10c", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [LOEA02_10c] Misha && Test: Misha_LOEA02_10c
 				//PowerTask = null,
@@ -1146,7 +1146,7 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void Neutral(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1] 
+			// [LOEA10_3] Murloc Tinyfin - COST:0 [ATK:1/HP:1]
 			// - Race: murloc, Set: loe, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("LOEA10_3", new CardDef(new Power
@@ -1161,8 +1161,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA01_11he] Heroic Mode (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA01_11he] Heroic Mode (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: +3/+3 if Phaerix controls the Rod.
 			// --------------------------------------------------------
@@ -1176,8 +1176,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA04_01e] Temple Escape Enchant (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_01e] Temple Escape Enchant (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1190,8 +1190,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA04_01eh] Temple Escape Enchant (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_01eh] Temple Escape Enchant (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1203,8 +1203,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA06_03e] Animated (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA06_03e] Animated (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: +1/+1 and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -1219,8 +1219,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA06_03eh] Animated (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA06_03eh] Animated (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: +3/+3 and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -1234,8 +1234,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA09_2e] Enraged (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA09_2e] Enraged (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: +2 Attack
 			// --------------------------------------------------------
@@ -1251,8 +1251,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA09_2eH] Enraged (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA09_2eH] Enraged (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: +5 Attack
 			// --------------------------------------------------------
@@ -1267,8 +1267,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA09_3a] Famished (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA09_3a] Famished (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Quite Hungry.
 			// --------------------------------------------------------
@@ -1283,8 +1283,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA09_3aH] Famished (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA09_3aH] Famished (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Quite Hungry.
 			// --------------------------------------------------------
@@ -1298,8 +1298,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA09_7e] Cauldron (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA09_7e] Cauldron (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1311,8 +1311,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA16_20e] Blessed (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_20e] Blessed (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Immune</b> this turn.
 			// --------------------------------------------------------
@@ -1327,8 +1327,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA16_20H] Blessing of the Sun (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_20H] Blessing of the Sun (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Immune</b>.
 			// --------------------------------------------------------
@@ -1342,8 +1342,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA16_21e] Scarvashed (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_21e] Scarvashed (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Costs (1) more.
 			// --------------------------------------------------------
@@ -1357,8 +1357,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA16_21He] Heroic Scarvashed (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_21He] Heroic Scarvashed (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Costs (2) more.
 			// --------------------------------------------------------
@@ -1372,8 +1372,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA16_3e] Lantern of Power (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_3e] Lantern of Power (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: +10/+10.
 			// --------------------------------------------------------
@@ -1387,8 +1387,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOEA16_8a] Putressed (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_8a] Putressed (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Attack and Health swapped.
 			// --------------------------------------------------------
@@ -1402,8 +1402,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA01_11] Rod of the Sun (*) - COST:0 [ATK:0/HP:5] 
-			// - Set: loe, 
+			// [LOEA01_11] Rod of the Sun (*) - COST:0 [ATK:0/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Surrender this to your opponent.
 			// --------------------------------------------------------
@@ -1420,8 +1420,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA01_11h] Rod of the Sun (*) - COST:0 [ATK:0/HP:5] 
-			// - Set: loe, 
+			// [LOEA01_11h] Rod of the Sun (*) - COST:0 [ATK:0/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Surrender this to your opponent.
 			// --------------------------------------------------------
@@ -1438,8 +1438,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA01_12] Tol'vir Hoplite (*) - COST:3 [ATK:5/HP:2] 
-			// - Set: loe, 
+			// [LOEA01_12] Tol'vir Hoplite (*) - COST:3 [ATK:5/HP:2]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Deal 5 damage to both heroes.
 			// --------------------------------------------------------
@@ -1455,8 +1455,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA01_12h] Tol'vir Hoplite (*) - COST:3 [ATK:5/HP:5] 
-			// - Set: loe, 
+			// [LOEA01_12h] Tol'vir Hoplite (*) - COST:3 [ATK:5/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Deal 5 damage to both heroes.
 			// --------------------------------------------------------
@@ -1472,8 +1472,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA04_13bt] Orsis Guard (*) - COST:4 [ATK:7/HP:5] 
-			// - Set: loe, 
+			// [LOEA04_13bt] Orsis Guard (*) - COST:4 [ATK:7/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>
 			// --------------------------------------------------------
@@ -1489,8 +1489,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA04_13bth] Orsis Guard (*) - COST:4 [ATK:8/HP:8] 
-			// - Set: loe, 
+			// [LOEA04_13bth] Orsis Guard (*) - COST:4 [ATK:8/HP:8]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>
 			// --------------------------------------------------------
@@ -1506,8 +1506,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA04_23] Giant Insect (*) - COST:7 [ATK:10/HP:3] 
-			// - Set: loe, 
+			// [LOEA04_23] Giant Insect (*) - COST:7 [ATK:10/HP:3]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1520,8 +1520,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA04_23h] Giant Insect (*) - COST:7 [ATK:10/HP:6] 
-			// - Set: loe, 
+			// [LOEA04_23h] Giant Insect (*) - COST:7 [ATK:10/HP:6]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1534,8 +1534,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA04_24] Anubisath Temple Guard (*) - COST:8 [ATK:5/HP:10] 
-			// - Set: loe, 
+			// [LOEA04_24] Anubisath Temple Guard (*) - COST:8 [ATK:5/HP:10]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1548,8 +1548,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA04_24h] Anubisath Temple Guard (*) - COST:8 [ATK:6/HP:15] 
-			// - Set: loe, 
+			// [LOEA04_24h] Anubisath Temple Guard (*) - COST:8 [ATK:6/HP:15]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1562,8 +1562,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA04_25] Seething Statue (*) - COST:8 [ATK:0/HP:9] 
-			// - Set: loe, 
+			// [LOEA04_25] Seething Statue (*) - COST:8 [ATK:0/HP:9]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 2 damage to all enemies.
 			// --------------------------------------------------------
@@ -1578,8 +1578,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA04_25h] Seething Statue (*) - COST:8 [ATK:5/HP:9] 
-			// - Set: loe, 
+			// [LOEA04_25h] Seething Statue (*) - COST:8 [ATK:5/HP:9]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 5 damage to all enemies.
 			// --------------------------------------------------------
@@ -1594,8 +1594,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA04_27] Animated Statue (*) - COST:1 [ATK:10/HP:10] 
-			// - Set: loe, 
+			// [LOEA04_27] Animated Statue (*) - COST:1 [ATK:10/HP:10]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: You've disturbed the ancient statue...
 			// --------------------------------------------------------
@@ -1610,8 +1610,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA06_02t] Earthen Statue (*) - COST:1 [ATK:0/HP:2] 
-			// - Set: loe, 
+			// [LOEA06_02t] Earthen Statue (*) - COST:1 [ATK:0/HP:2]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1624,8 +1624,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA06_02th] Earthen Statue (*) - COST:1 [ATK:0/HP:5] 
-			// - Set: loe, 
+			// [LOEA06_02th] Earthen Statue (*) - COST:1 [ATK:0/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1638,8 +1638,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA07_09] Chasing Trogg (*) - COST:4 [ATK:2/HP:6] 
-			// - Set: loe, 
+			// [LOEA07_09] Chasing Trogg (*) - COST:4 [ATK:2/HP:6]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1652,8 +1652,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA07_11] Debris (*) - COST:1 [ATK:0/HP:3] 
-			// - Set: loe, 
+			// [LOEA07_11] Debris (*) - COST:1 [ATK:0/HP:3]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Taunt.</b>
 			// --------------------------------------------------------
@@ -1669,8 +1669,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA07_12] Earthen Pursuer (*) - COST:5 [ATK:4/HP:6] 
-			// - Set: loe, 
+			// [LOEA07_12] Earthen Pursuer (*) - COST:5 [ATK:4/HP:6]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1683,8 +1683,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA07_14] Lumbering Golem (*) - COST:6 [ATK:6/HP:6] 
-			// - Set: loe, 
+			// [LOEA07_14] Lumbering Golem (*) - COST:6 [ATK:6/HP:6]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1697,8 +1697,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA07_24] Spiked Decoy (*) - COST:1 [ATK:3/HP:6] 
-			// - Race: mechanical, Set: loe, 
+			// [LOEA07_24] Spiked Decoy (*) - COST:1 [ATK:3/HP:6]
+			// - Race: mechanical, Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			//       Can't attack.
@@ -1716,8 +1716,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA07_25] Mechanical Parrot (*) - COST:1 [ATK:3/HP:6] 
-			// - Race: mechanical, Set: loe, 
+			// [LOEA07_25] Mechanical Parrot (*) - COST:1 [ATK:3/HP:6]
+			// - Race: mechanical, Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1730,8 +1730,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA09_10] Hungry Naga (*) - COST:2 [ATK:2/HP:1] 
-			// - Set: loe, 
+			// [LOEA09_10] Hungry Naga (*) - COST:2 [ATK:2/HP:1]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1744,8 +1744,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA09_11] Hungry Naga (*) - COST:3 [ATK:1/HP:1] 
-			// - Set: loe, 
+			// [LOEA09_11] Hungry Naga (*) - COST:3 [ATK:1/HP:1]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1758,8 +1758,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA09_12] Hungry Naga (*) - COST:4 [ATK:2/HP:1] 
-			// - Set: loe, 
+			// [LOEA09_12] Hungry Naga (*) - COST:4 [ATK:2/HP:1]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1772,8 +1772,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA09_13] Hungry Naga (*) - COST:5 [ATK:5/HP:1] 
-			// - Set: loe, 
+			// [LOEA09_13] Hungry Naga (*) - COST:5 [ATK:5/HP:1]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1786,8 +1786,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA09_5] Hungry Naga (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: loe, 
+			// [LOEA09_5] Hungry Naga (*) - COST:1 [ATK:1/HP:1]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1800,8 +1800,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA09_5H] Hungry Naga (*) - COST:3 [ATK:3/HP:3] 
-			// - Set: loe, 
+			// [LOEA09_5H] Hungry Naga (*) - COST:3 [ATK:3/HP:3]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1814,8 +1814,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA09_6] Slithering Archer (*) - COST:2 [ATK:2/HP:2] 
-			// - Set: loe, 
+			// [LOEA09_6] Slithering Archer (*) - COST:2 [ATK:2/HP:2]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 1 damage.
 			// --------------------------------------------------------
@@ -1827,7 +1827,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_NONSELF_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOEA09_6", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_NONSELF_TARGET}, new Power
+			cards.Add("LOEA09_6", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_NONSELF_TARGET,0}}, new Power
 			{
 				// TODO [LOEA09_6] Slithering Archer && Test: Slithering Archer_LOEA09_6
 				//PowerTask = null,
@@ -1835,8 +1835,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA09_6H] Slithering Archer (*) - COST:2 [ATK:2/HP:2] 
-			// - Set: loe, 
+			// [LOEA09_6H] Slithering Archer (*) - COST:2 [ATK:2/HP:2]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 2 damage to all enemy minions.
 			// --------------------------------------------------------
@@ -1852,8 +1852,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA09_7] Cauldron (*) - COST:0 [ATK:0/HP:5] 
-			// - Set: loe, 
+			// [LOEA09_7] Cauldron (*) - COST:0 [ATK:0/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			//       <b>Deathrattle:</b> Save Sir Finley and stop the Naga onslaught!
@@ -1872,8 +1872,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA09_7H] Cauldron (*) - COST:0 [ATK:0/HP:10] 
-			// - Set: loe, 
+			// [LOEA09_7H] Cauldron (*) - COST:0 [ATK:0/HP:10]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			//       <b>Deathrattle:</b> Save Sir Finley!
@@ -1891,8 +1891,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA09_8] Slithering Guard (*) - COST:5 [ATK:3/HP:6] 
-			// - Set: loe, 
+			// [LOEA09_8] Slithering Guard (*) - COST:5 [ATK:3/HP:6]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -1908,8 +1908,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA09_8H] Slithering Guard (*) - COST:5 [ATK:5/HP:7] 
-			// - Set: loe, 
+			// [LOEA09_8H] Slithering Guard (*) - COST:5 [ATK:5/HP:7]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -1925,8 +1925,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA15_3] Boneraptor (*) - COST:3 [ATK:2/HP:2] 
-			// - Set: loe, 
+			// [LOEA15_3] Boneraptor (*) - COST:3 [ATK:2/HP:2]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b>Take control of your opponent's weapon.
 			// --------------------------------------------------------
@@ -1942,8 +1942,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA15_3H] Boneraptor (*) - COST:3 [ATK:2/HP:2] 
-			// - Set: loe, 
+			// [LOEA15_3H] Boneraptor (*) - COST:3 [ATK:2/HP:2]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b>Take control of your opponent's weapon.
 			// --------------------------------------------------------
@@ -1959,8 +1959,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_17] Animated Statue (*) - COST:10 [ATK:10/HP:10] 
-			// - Set: loe, 
+			// [LOEA16_17] Animated Statue (*) - COST:10 [ATK:10/HP:10]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1973,8 +1973,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_18] Zinaar (*) - COST:5 [ATK:5/HP:5] 
-			// - Set: loe, 
+			// [LOEA16_18] Zinaar (*) - COST:5 [ATK:5/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, gain a wish.
 			// --------------------------------------------------------
@@ -1990,8 +1990,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_18H] Zinaar (*) - COST:10 [ATK:10/HP:10] 
-			// - Set: loe, 
+			// [LOEA16_18H] Zinaar (*) - COST:10 [ATK:10/HP:10]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, gain a wish.
 			// --------------------------------------------------------
@@ -2007,8 +2007,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_19] Sun Raider Phaerix (*) - COST:5 [ATK:5/HP:5] 
-			// - Set: loe, 
+			// [LOEA16_19] Sun Raider Phaerix (*) - COST:5 [ATK:5/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, add a Blessing of the Sun to your hand.
 			// --------------------------------------------------------
@@ -2027,8 +2027,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_19H] Sun Raider Phaerix (*) - COST:10 [ATK:10/HP:10] 
-			// - Set: loe, 
+			// [LOEA16_19H] Sun Raider Phaerix (*) - COST:10 [ATK:10/HP:10]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Your other minions are <b>Immune</b>.
 			// --------------------------------------------------------
@@ -2048,8 +2048,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_21] Chieftain Scarvash (*) - COST:5 [ATK:5/HP:5] 
-			// - Set: loe, 
+			// [LOEA16_21] Chieftain Scarvash (*) - COST:5 [ATK:5/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Enemy cards cost (1) more.
 			// --------------------------------------------------------
@@ -2067,8 +2067,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_21H] Chieftain Scarvash (*) - COST:10 [ATK:10/HP:10] 
-			// - Set: loe, 
+			// [LOEA16_21H] Chieftain Scarvash (*) - COST:10 [ATK:10/HP:10]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Enemy cards cost (2) more.
 			// --------------------------------------------------------
@@ -2086,8 +2086,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_22] Archaedas (*) - COST:5 [ATK:5/HP:5] 
-			// - Set: loe, 
+			// [LOEA16_22] Archaedas (*) - COST:5 [ATK:5/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, turn a random enemy minion into a 0/2 Statue.
 			// --------------------------------------------------------
@@ -2103,8 +2103,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_22H] Archaedas (*) - COST:10 [ATK:10/HP:10] 
-			// - Set: loe, 
+			// [LOEA16_22H] Archaedas (*) - COST:10 [ATK:10/HP:10]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, turn a random enemy minion into a 0/2 Statue.
 			// --------------------------------------------------------
@@ -2120,8 +2120,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_23] Lord Slitherspear (*) - COST:5 [ATK:5/HP:5] 
-			// - Set: loe, 
+			// [LOEA16_23] Lord Slitherspear (*) - COST:5 [ATK:5/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, summon 1/1 Hungry Naga for each enemy minion.
 			// --------------------------------------------------------
@@ -2137,8 +2137,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_23H] Lord Slitherspear (*) - COST:10 [ATK:10/HP:10] 
-			// - Set: loe, 
+			// [LOEA16_23H] Lord Slitherspear (*) - COST:10 [ATK:10/HP:10]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, summon 1/1 Hungry Naga for each enemy minion.
 			// --------------------------------------------------------
@@ -2154,8 +2154,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_24] Giantfin (*) - COST:5 [ATK:5/HP:5] 
-			// - Race: murloc, Set: loe, 
+			// [LOEA16_24] Giantfin (*) - COST:5 [ATK:5/HP:5]
+			// - Race: murloc, Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, draw until you have as many cards as your opponent.
 			// --------------------------------------------------------
@@ -2171,8 +2171,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_24H] Giantfin (*) - COST:10 [ATK:10/HP:10] 
-			// - Race: murloc, Set: loe, 
+			// [LOEA16_24H] Giantfin (*) - COST:10 [ATK:10/HP:10]
+			// - Race: murloc, Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, draw 2 cards.
 			// --------------------------------------------------------
@@ -2188,8 +2188,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_25] Lady Naz'jar (*) - COST:5 [ATK:5/HP:5] 
-			// - Set: loe, 
+			// [LOEA16_25] Lady Naz'jar (*) - COST:5 [ATK:5/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, replace all other minions with new ones of the same Cost.
 			// --------------------------------------------------------
@@ -2205,8 +2205,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_25H] Lady Naz'jar (*) - COST:10 [ATK:10/HP:10] 
-			// - Set: loe, 
+			// [LOEA16_25H] Lady Naz'jar (*) - COST:10 [ATK:10/HP:10]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, replace all other minions with new ones of the same Cost.
 			// --------------------------------------------------------
@@ -2222,8 +2222,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_26] Skelesaurus Hex (*) - COST:5 [ATK:5/HP:5] 
-			// - Set: loe, 
+			// [LOEA16_26] Skelesaurus Hex (*) - COST:5 [ATK:5/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, give each player a random card. It costs (0).
 			// --------------------------------------------------------
@@ -2239,8 +2239,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_26H] Skelesaurus Hex (*) - COST:10 [ATK:10/HP:10] 
-			// - Set: loe, 
+			// [LOEA16_26H] Skelesaurus Hex (*) - COST:10 [ATK:10/HP:10]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, put a random card in your hand. It costs (0).
 			// --------------------------------------------------------
@@ -2256,8 +2256,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_27] The Steel Sentinel (*) - COST:5 [ATK:5/HP:5] 
-			// - Set: loe, 
+			// [LOEA16_27] The Steel Sentinel (*) - COST:5 [ATK:5/HP:5]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: This minion can only take 1 damage at a time.
 			// --------------------------------------------------------
@@ -2273,8 +2273,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_27H] The Steel Sentinel (*) - COST:10 [ATK:10/HP:10] 
-			// - Set: loe, 
+			// [LOEA16_27H] The Steel Sentinel (*) - COST:10 [ATK:10/HP:10]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: This minion can only take 1 damage at a time.
 			// --------------------------------------------------------
@@ -2290,8 +2290,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOEA16_5t] Mummy Zombie (*) - COST:3 [ATK:3/HP:3] 
-			// - Set: loe, 
+			// [LOEA16_5t] Mummy Zombie (*) - COST:3 [ATK:3/HP:3]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -2304,8 +2304,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA02_03] Wish for Power (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA02_03] Wish for Power (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a spell.
 			// --------------------------------------------------------
@@ -2322,8 +2322,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA02_04] Wish for Valor (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA02_04] Wish for Valor (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a (4)-Cost card.
 			// --------------------------------------------------------
@@ -2340,8 +2340,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA02_05] Wish for Glory (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA02_05] Wish for Glory (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a minion.
 			// --------------------------------------------------------
@@ -2358,8 +2358,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA02_06] Wish for More Wishes (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA02_06] Wish for More Wishes (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Gain 2 Wishes.
 			// --------------------------------------------------------
@@ -2374,8 +2374,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA02_10] Wish for Companionship (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA02_10] Wish for Companionship (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a Companion.
 			// --------------------------------------------------------
@@ -2392,8 +2392,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA04_06] Pit of Spikes (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_06] Pit of Spikes (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Choose Your Path!</b>
 			// --------------------------------------------------------
@@ -2408,8 +2408,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA04_06a] Swing Across (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_06a] Swing Across (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Take 10 damage or no damage, at random.
 			// --------------------------------------------------------
@@ -2425,8 +2425,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA04_06b] Walk Across Gingerly (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_06b] Walk Across Gingerly (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Take 5 damage.
 			// --------------------------------------------------------
@@ -2441,8 +2441,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA04_28] A Glowing Pool (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_28] A Glowing Pool (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Drink?</b>
 			// --------------------------------------------------------
@@ -2457,8 +2457,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA04_28a] Drink Deeply (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_28a] Drink Deeply (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Draw a card.
 			// --------------------------------------------------------
@@ -2473,8 +2473,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA04_28b] Wade Through (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_28b] Wade Through (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Gain a Mana Crystal
 			// --------------------------------------------------------
@@ -2489,8 +2489,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA04_29] The Eye (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_29] The Eye (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Choose Your Path!</b>
 			// --------------------------------------------------------
@@ -2505,8 +2505,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA04_29a] Touch It (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_29a] Touch It (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Restore 10 Health to your hero.
 			// --------------------------------------------------------
@@ -2521,8 +2521,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA04_29b] Investigate the Runes (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_29b] Investigate the Runes (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Draw 2 cards.
 			// --------------------------------------------------------
@@ -2537,8 +2537,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA04_30] The Darkness (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_30] The Darkness (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Take the Shortcut?</b>
 			// --------------------------------------------------------
@@ -2553,8 +2553,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA04_30a] Take the Shortcut (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_30a] Take the Shortcut (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Get 1 turn closer to the Exit! Encounter a 7/7 War Golem.
 			// --------------------------------------------------------
@@ -2569,8 +2569,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA04_31b] No Way! (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA04_31b] No Way! (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Do nothing.
 			// --------------------------------------------------------
@@ -2585,8 +2585,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA06_03] Animate Earthen (*) - COST:2 
-			// - Set: loe, 
+			// [LOEA06_03] Animate Earthen (*) - COST:2
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Give your minions +1/+1 and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -2599,7 +2599,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("LOEA06_03", new CardDef(new[] {PlayReq.REQ_MINIMUM_TOTAL_MINIONS}, new Power
+			cards.Add("LOEA06_03", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINIMUM_TOTAL_MINIONS,1}}, new Power
 			{
 				// TODO [LOEA06_03] Animate Earthen && Test: Animate Earthen_LOEA06_03
 				InfoCardId = "LOEA06_03e",
@@ -2608,8 +2608,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA06_03h] Animate Earthen (*) - COST:2 
-			// - Set: loe, 
+			// [LOEA06_03h] Animate Earthen (*) - COST:2
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Give your minions +3/+3 and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -2627,8 +2627,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA06_04] Shattering Spree (*) - COST:2 
-			// - Set: loe, 
+			// [LOEA06_04] Shattering Spree (*) - COST:2
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Destroy all Statues. For each destroyed, deal 1 damage. @spelldmg
 			// --------------------------------------------------------
@@ -2639,7 +2639,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("LOEA06_04", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("LOEA06_04", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [LOEA06_04] Shattering Spree && Test: Shattering Spree_LOEA06_04
 				//PowerTask = null,
@@ -2647,8 +2647,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA06_04h] Shattering Spree (*) - COST:2 
-			// - Set: loe, 
+			// [LOEA06_04h] Shattering Spree (*) - COST:2
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Destroy all Statues. For each destroyed, deal 3 damage. @spelldmg
 			// --------------------------------------------------------
@@ -2659,7 +2659,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("LOEA06_04h", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("LOEA06_04h", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [LOEA06_04h] Shattering Spree && Test: Shattering Spree_LOEA06_04h
 				//PowerTask = null,
@@ -2667,8 +2667,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA07_18] Dynamite (*) - COST:1 
-			// - Set: loe, 
+			// [LOEA07_18] Dynamite (*) - COST:1
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Deal $10 damage. @spelldmg
 			// --------------------------------------------------------
@@ -2678,7 +2678,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("LOEA07_18", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("LOEA07_18", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [LOEA07_18] Dynamite && Test: Dynamite_LOEA07_18
 				//PowerTask = null,
@@ -2686,8 +2686,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA07_20] Boom! (*) - COST:1 
-			// - Set: loe, 
+			// [LOEA07_20] Boom! (*) - COST:1
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to all enemy minions. @spelldmg
 			// --------------------------------------------------------
@@ -2702,8 +2702,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA07_21] Barrel Forward (*) - COST:1 
-			// - Set: loe, 
+			// [LOEA07_21] Barrel Forward (*) - COST:1
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Get 1 turn closer to the Exit!
 			// --------------------------------------------------------
@@ -2718,8 +2718,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA07_26] Consult Brann (*) - COST:1 
-			// - Set: loe, 
+			// [LOEA07_26] Consult Brann (*) - COST:1
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Draw 3 cards.
 			// --------------------------------------------------------
@@ -2734,8 +2734,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA07_28] Repairs (*) - COST:1 
-			// - Set: loe, 
+			// [LOEA07_28] Repairs (*) - COST:1
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Restore #10 Health.
 			// --------------------------------------------------------
@@ -2745,7 +2745,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("LOEA07_28", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("LOEA07_28", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [LOEA07_28] Repairs && Test: Repairs_LOEA07_28
 				//PowerTask = null,
@@ -2753,8 +2753,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA09_9] Naga Repellent (*) - COST:1 
-			// - Set: loe, 
+			// [LOEA09_9] Naga Repellent (*) - COST:1
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Destroy all Hungry Naga.
 			// --------------------------------------------------------
@@ -2769,8 +2769,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA09_9H] Naga Repellent (*) - COST:1 
-			// - Set: loe, 
+			// [LOEA09_9H] Naga Repellent (*) - COST:1
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Change the Attack of all Hungry Naga to 1.
 			// --------------------------------------------------------
@@ -2785,7 +2785,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA10_5] Mrgl Mrgl Nyah Nyah (*) - COST:5 
+			// [LOEA10_5] Mrgl Mrgl Nyah Nyah (*) - COST:5
 			// - Set: loe, Rarity: common
 			// --------------------------------------------------------
 			// Text: Summon 3 Murlocs that died this game.
@@ -2801,7 +2801,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA10_5H] Mrgl Mrgl Nyah Nyah (*) - COST:3 
+			// [LOEA10_5H] Mrgl Mrgl Nyah Nyah (*) - COST:3
 			// - Set: loe, Rarity: common
 			// --------------------------------------------------------
 			// Text: Summon 5 Murlocs that died this game.
@@ -2817,8 +2817,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_10] Hakkari Blood Goblet (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_10] Hakkari Blood Goblet (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Transform a minion into a 2/1 Pit Snake.
 			// --------------------------------------------------------
@@ -2829,7 +2829,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOEA16_10", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("LOEA16_10", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [LOEA16_10] Hakkari Blood Goblet && Test: Hakkari Blood Goblet_LOEA16_10
 				//PowerTask = null,
@@ -2837,8 +2837,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_11] Crown of Kael'thas (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_11] Crown of Kael'thas (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Deal $10 damage randomly split among ALL characters. @spelldmg
 			// --------------------------------------------------------
@@ -2854,8 +2854,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_12] Medivh's Locket (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_12] Medivh's Locket (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Replace your hand with Unstable Portals.
 			// --------------------------------------------------------
@@ -2870,8 +2870,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_13] Eye of Orsis (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_13] Eye of Orsis (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a minion and gain 3 copies of it.
 			// --------------------------------------------------------
@@ -2888,8 +2888,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_14] Khadgar's Pipe (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_14] Khadgar's Pipe (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Put a random spell into each player's hand.  Yours costs (0).
 			// --------------------------------------------------------
@@ -2904,8 +2904,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_15] Ysera's Tear (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_15] Ysera's Tear (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Gain 4 Mana Crystals this turn only.
 			// --------------------------------------------------------
@@ -2920,8 +2920,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_20] Blessing of the Sun (*) - COST:1 
-			// - Set: loe, 
+			// [LOEA16_20] Blessing of the Sun (*) - COST:1
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Give a minion <b>Immune</b> this turn.
 			// --------------------------------------------------------
@@ -2936,7 +2936,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("LOEA16_20", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("LOEA16_20", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [LOEA16_20] Blessing of the Sun && Test: Blessing of the Sun_LOEA16_20
 				InfoCardId = "LOEA16_20e",
@@ -2945,8 +2945,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_3] Lantern of Power (*) - COST:10 
-			// - Set: loe, 
+			// [LOEA16_3] Lantern of Power (*) - COST:10
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Give a minion +10/+10.
 			// --------------------------------------------------------
@@ -2957,7 +2957,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOEA16_3", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("LOEA16_3", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [LOEA16_3] Lantern of Power && Test: Lantern of Power_LOEA16_3
 				InfoCardId = "LOEA16_3e",
@@ -2966,8 +2966,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_4] Timepiece of Horror (*) - COST:10 
-			// - Set: loe, 
+			// [LOEA16_4] Timepiece of Horror (*) - COST:10
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Deal $10 damage randomly split among all enemies. @spelldmg
 			// --------------------------------------------------------
@@ -2983,8 +2983,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_5] Mirror of Doom (*) - COST:10 
-			// - Set: loe, 
+			// [LOEA16_5] Mirror of Doom (*) - COST:10
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Fill your board with 3/3 Mummy Zombies.
 			// --------------------------------------------------------
@@ -2994,7 +2994,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOEA16_5", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("LOEA16_5", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [LOEA16_5] Mirror of Doom && Test: Mirror of Doom_LOEA16_5
 				//PowerTask = null,
@@ -3002,8 +3002,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_6] Shard of Sulfuras (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_6] Shard of Sulfuras (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Deal $5 damage to ALL characters. @spelldmg
 			// --------------------------------------------------------
@@ -3018,8 +3018,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_7] Benediction Splinter (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_7] Benediction Splinter (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Restore #10 Health to ALL characters.
 			// --------------------------------------------------------
@@ -3034,8 +3034,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_8] Putress' Vial (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_8] Putress' Vial (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Destroy a random enemy minion.
 			// --------------------------------------------------------
@@ -3051,8 +3051,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA16_9] Lothar's Left Greave (*) - COST:0 
-			// - Set: loe, 
+			// [LOEA16_9] Lothar's Left Greave (*) - COST:0
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to all enemies. @spelldmg
 			// --------------------------------------------------------
@@ -3067,8 +3067,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA_01] Looming Presence (*) - COST:3 
-			// - Set: loe, 
+			// [LOEA_01] Looming Presence (*) - COST:3
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Draw 2 cards. Gain 4 Armor.
 			// --------------------------------------------------------
@@ -3083,8 +3083,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOEA_01H] Looming Presence (*) - COST:3 
-			// - Set: loe, 
+			// [LOEA_01H] Looming Presence (*) - COST:3
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Draw 3 cards. Gain 6 Armor.
 			// --------------------------------------------------------
@@ -3099,8 +3099,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [LOEA09_4] Rare Spear (*) - COST:1 [ATK:1/HP:0] 
-			// - Set: loe, 
+			// [LOEA09_4] Rare Spear (*) - COST:1 [ATK:1/HP:0]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Whenever your opponent plays a Rare card, gain +1/+1.
 			// --------------------------------------------------------
@@ -3116,8 +3116,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [LOEA09_4H] Rare Spear (*) - COST:1 [ATK:1/HP:0] 
-			// - Set: loe, 
+			// [LOEA09_4H] Rare Spear (*) - COST:1 [ATK:1/HP:0]
+			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: Whenever your opponent plays a Rare card, gain +1/+1.
 			// --------------------------------------------------------

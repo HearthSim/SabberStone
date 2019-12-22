@@ -229,7 +229,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_481p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_481p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new TransformMinionTask(EntityType.TARGET, 1)
 			}));
@@ -263,7 +263,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_HAND_NOT_FULL = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_828p", new CardDef(new[] {PlayReq.REQ_HAND_NOT_FULL}, new Power
+			cards.Add("ICC_828p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_HAND_NOT_FULL,0}}, new Power
 			{
 				PowerTask = SpecificTask.BuildABeast
 			}));
@@ -282,7 +282,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829p", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("ICC_829p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				PowerTask = SpecificTask.TotemicCall,
 				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
@@ -314,7 +314,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_830p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ICC_830p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET),
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
@@ -338,7 +338,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_831p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ICC_831p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = new DamageTask(3, EntityType.TARGET)
 			}));
@@ -358,7 +358,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_832p", new CardDef(new[] {PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}));
+			cards.Add("ICC_832p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
 			// [ICC_833h] Icy Touch (*) - COST:2
@@ -370,7 +370,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_833h", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ICC_833h", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(1, EntityType.TARGET),
@@ -464,7 +464,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_314t5", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ICC_314t5", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.TARGET, RelaCondition.IsFriendly),
@@ -485,7 +485,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_314t6", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ICC_314t6", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
@@ -663,7 +663,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_050", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("ICC_050", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				PowerTask = new SummonTask("ICC_832t3", 2)
 			}));
@@ -680,7 +680,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_054", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("ICC_054", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				PowerTask = ComplexTask.RecursiveTask(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.DoesOpHasMoresMinions),
@@ -696,7 +696,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_079", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_079", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("ICC_079e", EntityType.HERO),
@@ -714,7 +714,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_085", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ICC_085", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(5, EntityType.TARGET, true),
@@ -1066,7 +1066,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_049", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ICC_049", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(2, EntityType.TARGET, true),
@@ -1089,7 +1089,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_052", new CardDef(new[] {PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_WITH_DEATHRATTLE,PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ICC_052", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_TARGET_WITH_DEATHRATTLE,0},{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = new ActivateDeathrattleTask(EntityType.TARGET)
 			}));
@@ -1224,7 +1224,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_252", new CardDef(new[] {PlayReq.REQ_FROZEN_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_252", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_FROZEN_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasOp(GameTag.FROZEN, 1)),
@@ -1281,7 +1281,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_086", new CardDef(new[] {PlayReq.REQ_SECRET_ZONE_CAP_FOR_NON_SECRET}, new Power
+			cards.Add("ICC_086", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_SECRET_ZONE_CAP_FOR_NON_SECRET,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new FuncNumberTask(p =>
@@ -1329,7 +1329,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_836", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
+			cards.Add("ICC_836", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINIMUM_ENEMY_MINIONS,1}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.OP_MINIONS),
@@ -1481,7 +1481,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_039", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ICC_039", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_039e", EntityType.TARGET)
 			}));
@@ -1499,7 +1499,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_244", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_244", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_244e", EntityType.TARGET)
 			}));
@@ -1704,7 +1704,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_213", new CardDef(new[] { PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME, PlayReq.REQ_NUM_MINION_SLOTS }, new Power
+			cards.Add("ICC_213", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME,0},{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.DIED_THIS_GAME)
 			}));
@@ -1718,7 +1718,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_235", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("ICC_235", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.DECK),
@@ -1756,7 +1756,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_849", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET}, new Power
+			cards.Add("ICC_849", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_ENEMY_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_849e", EntityType.TARGET)
 			}));
@@ -1829,7 +1829,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_809", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_TARGET_FOR_COMBO}, new Power
+			cards.Add("ICC_809", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_TARGET_FOR_COMBO,0}}, new Power
 			{
 				ComboTask = new AddEnchantmentTask("ICC_809e", EntityType.TARGET)
 			}));
@@ -1866,7 +1866,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_FOR_COMBO = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_910", new CardDef(new[] {PlayReq.REQ_TARGET_FOR_COMBO}, new Power
+			cards.Add("ICC_910", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_FOR_COMBO,0}}, new Power
 			{
 				ComboTask = ComplexTask.Create(
 					new GetGameTagControllerTask(GameTag.NUM_CARDS_PLAYED_THIS_TURN),
@@ -1903,7 +1903,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_221", new CardDef(new[] {PlayReq.REQ_WEAPON_EQUIPPED}, new Power
+			cards.Add("ICC_221", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_WEAPON_EQUIPPED,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_221e", EntityType.WEAPON)
 			}));
@@ -1922,7 +1922,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_WEAPON_EQUIPPED = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_233", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_WEAPON_EQUIPPED}, new Power
+			cards.Add("ICC_233", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_WEAPON_EQUIPPED,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.WEAPON),
@@ -2080,7 +2080,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MUST_PLAY_OTHER_CARD_FIRST = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_827t", new CardDef(new[] {PlayReq.REQ_MUST_PLAY_OTHER_CARD_FIRST}));
+			cards.Add("ICC_827t", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MUST_PLAY_OTHER_CARD_FIRST,0}}));
 
 		}
 
@@ -2102,7 +2102,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_058", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_ENEMY_TARGET}, new Power
+			cards.Add("ICC_058", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_ENEMY_TARGET,0}}, new Power
 			{
 				PowerTask = ComplexTask.Freeze(EntityType.TARGET)
 			}));
@@ -2186,7 +2186,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_056", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_056", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("ICC_056e", EntityType.TARGET),
@@ -2206,7 +2206,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_078", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_078", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					ComplexTask.Freeze(EntityType.TARGET),
@@ -2352,7 +2352,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_903", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_903", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
@@ -2392,7 +2392,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_055", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_055", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET, true)
 			}));
@@ -2408,7 +2408,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_206", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_206", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new ControlTask(EntityType.TARGET, true)
 			}));
@@ -2424,7 +2424,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_469", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_469", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
@@ -2804,7 +2804,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_092", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_092", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_092e", EntityType.TARGET)
 			}));
@@ -2826,7 +2826,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_093", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_093", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_093e", EntityType.TARGET)
 			}));
@@ -2844,7 +2844,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_094", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_094", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_094e", EntityType.TARGET)
 			}));
@@ -2954,7 +2954,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_257", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ICC_257", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_257e", EntityType.TARGET)
 			}));
@@ -3017,7 +3017,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_467", new CardDef(new[] {PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
+			cards.Add("ICC_467", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_TARGET_IF_AVAILABLE,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_467e", EntityType.TARGET)
 			}));
@@ -3108,7 +3108,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_705", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("ICC_705", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("ICC_705e", EntityType.TARGET)
 			}));
@@ -3214,7 +3214,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_DRAG_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICC_852", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE_AND_NO_3_COST_CARD_IN_DECK}, new Power
+			cards.Add("ICC_852", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_TARGET_IF_AVAILABLE_AND_NO_3_COST_CARD_IN_DECK,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoSpecficCostCardsInDeck(3)),

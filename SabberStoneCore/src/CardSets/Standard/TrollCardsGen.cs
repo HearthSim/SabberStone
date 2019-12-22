@@ -73,7 +73,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_065h", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("TRL_065h", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET)
 			}));
@@ -129,7 +129,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_ENEMY_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE_AND_HERO_HAS_ATTACK = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_240", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE_AND_HERO_HAS_ATTACK}, new Power
+			cards.Add("TRL_240", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_ENEMY_TARGET,0},{PlayReq.REQ_TARGET_IF_AVAILABLE_AND_HERO_HAS_ATTACK,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.HERO),
@@ -227,7 +227,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_254", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET}));
+			cards.Add("TRL_254", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_MINION_TARGET,0}}));
 
 			// ------------------------------------------ SPELL - DRUID
 			// [TRL_255] Stampeding Roar - COST:6
@@ -240,7 +240,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// - REQ_FRIENDLY_MINION_OF_RACE_IN_HAND = 20
 			// --------------------------------------------------------
-			cards.Add("TRL_255", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NUM_MINION_SLOTS,PlayReq.REQ_FRIENDLY_MINION_OF_RACE_IN_HAND}, new Power
+			cards.Add("TRL_255", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_NUM_MINION_SLOTS,1},{PlayReq.REQ_FRIENDLY_MINION_OF_RACE_IN_HAND,20}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
@@ -411,7 +411,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_254a", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("TRL_254a", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("TRL_254ae", EntityType.TARGET)
 			}));
@@ -426,7 +426,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("TRL_254b", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("TRL_254b", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				PowerTask = new SummonTask("TRL_254b", 2)
 			}));
@@ -522,7 +522,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_119", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_TARGET_WITH_RACE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("TRL_119", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_TARGET_WITH_RACE,20},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("TRL_119e", EntityType.TARGET),
@@ -559,7 +559,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_347", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("TRL_347", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = new DamageTask(3, EntityType.TARGET, true),
 				OverkillTask = new SummonTask("TRL_347t")
@@ -575,7 +575,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_MINION_OF_RACE_DIED_THIS_TURN = 20
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("TRL_566", new CardDef(new[] {PlayReq.REQ_FRIENDLY_MINION_OF_RACE_DIED_THIS_TURN,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("TRL_566", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_FRIENDLY_MINION_OF_RACE_DIED_THIS_TURN,20},{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				PowerTask = ComplexTask.SummonAllFriendlyDiedThisTurn(SelfCondition.IsRace(Race.BEAST))
 			}));
@@ -753,7 +753,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_313", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("TRL_313", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new DamageTask(4, EntityType.TARGET),
 				Aura = new AdaptiveCostEffect(1, TriggerType.TURN_START, triggerCondition: SelfCondition.ElementalPlayedLastTurn)
@@ -945,7 +945,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("TRL_302", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("TRL_302", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("TRL_302e", EntityType.HERO)
 			}));
@@ -965,7 +965,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("TRL_305", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("TRL_305", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.SIX_COST_SUMMON, ComplexTask.Create(
 					ComplexTask.DivineShield(EntityType.TARGET),
@@ -982,7 +982,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_307", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("TRL_307", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new HealTask(4, EntityType.TARGET),
@@ -1176,7 +1176,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_097", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("TRL_097", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new CopyTask(EntityType.TARGET, Zone.HAND)
 			}));
@@ -1190,7 +1190,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_128", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("TRL_128", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = new HealTask(3, EntityType.TARGET)
 			}));
@@ -1205,7 +1205,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_258", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET}, new Power
+			cards.Add("TRL_258", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_ENEMY_TARGET,0}}, new Power
 			{
 				PowerTask = new CustomTask((g, c, s, t, stack) =>
 				{
@@ -1363,7 +1363,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_077", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("TRL_077", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.BATTLECRY, new AddEnchantmentTask("TRL_077e", EntityType.TARGET))
 			}));
@@ -1503,7 +1503,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_UNDAMAGED_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_157", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_UNDAMAGED_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("TRL_157", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_UNDAMAGED_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new DestroyTask(EntityType.TARGET)
 			}));
@@ -1559,7 +1559,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_059", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("TRL_059", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ReturnHandTask(EntityType.TARGET),
@@ -1654,7 +1654,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_SPELLS_PLAYED_THIS_TURN = 2
 			// --------------------------------------------------------
-			cards.Add("TRL_522", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_SPELLS_PLAYED_THIS_TURN}, new Power
+			cards.Add("TRL_522", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_SPELLS_PLAYED_THIS_TURN,2}}, new Power
 			{
 				// TODO [TRL_522] Wartbringer && Test: Wartbringer_TRL_522
 				//PowerTask = null,
@@ -1675,7 +1675,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_012", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("TRL_012", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET, true),
 				OverkillTask = ComplexTask.SummonRandomBasicTotem
@@ -1711,7 +1711,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("TRL_082", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("TRL_082", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("TRL_082e", EntityType.TARGET)
 			}));
@@ -1732,7 +1732,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("TRL_351", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("TRL_351", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				PowerTask = new SummonTask("TRL_351t", 3)
 			}));
@@ -1957,7 +1957,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_249", new CardDef(new[] {PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("TRL_249", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
@@ -1974,7 +1974,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_555", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("TRL_555", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new DestroyTask(EntityType.TARGET),
 				Aura = new AdaptiveCostEffect(p => p.Controller.BoardZone.Count)
@@ -2015,7 +2015,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
 			// - REQ_DAMAGED_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_326", new CardDef(new[] {PlayReq.REQ_ENEMY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND,PlayReq.REQ_DAMAGED_TARGET}, new Power
+			cards.Add("TRL_326", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_ENEMY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND,0},{PlayReq.REQ_DAMAGED_TARGET,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
@@ -2098,7 +2098,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_DAMAGED_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_321", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_DAMAGED_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("TRL_321", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_DAMAGED_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new DamageTask(4, EntityType.TARGET, true)
 			}));
@@ -2115,7 +2115,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("TRL_324", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("TRL_324", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ARMOR, EntityType.HERO),
@@ -2374,7 +2374,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_407", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("TRL_407", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("TRL_407e", EntityType.CONTROLLER)
 			}));
@@ -2493,7 +2493,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_512", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
+			cards.Add("TRL_512", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0}}, new Power
 			{
 				PowerTask = new DamageTask(1, EntityType.TARGET)
 			}));
@@ -2652,7 +2652,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("TRL_524", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_ENEMY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_MUST_TARGET_TAUNTER}, new Power
+			cards.Add("TRL_524", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_ENEMY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_MUST_TARGET_TAUNTER,0}}, new Power
 			{
 				PowerTask = new SilenceTask(EntityType.TARGET)
 			}));
@@ -2934,7 +2934,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_ENEMY_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_569", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND}, new Power
+			cards.Add("TRL_569", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_ENEMY_TARGET,0},{PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND,0}}, new Power
 			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.IsDragonInHand,
 					new DamageTask(7, EntityType.TARGET))
@@ -3407,7 +3407,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_509t", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("TRL_509t", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("TRL_509te", EntityType.TARGET)
 			}));

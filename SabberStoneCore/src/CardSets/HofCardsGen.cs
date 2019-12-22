@@ -67,7 +67,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_161", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("EX1_161", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
@@ -108,7 +108,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("CS2_031", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("CS2_031", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
@@ -265,7 +265,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_DRAG_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_530", new CardDef(new[] {PlayReq.REQ_DRAG_TO_PLAY_PRE29933}, new Power
+			cards.Add("GIL_530", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_DRAG_TO_PLAY_PRE29933,0}}, new Power
 			{
 				// TODO Test: Murkspark Eel_GIL_530
 				// play requirement?
@@ -304,7 +304,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_316", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("EX1_316", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("EX1_316e", EntityType.TARGET)
 			}));
@@ -685,7 +685,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("PRO_001a", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("PRO_001a", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [PRO_001a] I Am Murloc && Test: I Am Murloc_PRO_001a
 				//PowerTask = null,
@@ -701,7 +701,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("PRO_001b", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("PRO_001b", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [PRO_001b] Rogues Do It... && Test: Rogues Do It..._PRO_001b
 				//PowerTask = null,
@@ -719,7 +719,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("PRO_001c", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("PRO_001c", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [PRO_001c] Power of the Horde && Test: Power of the Horde_PRO_001c
 				//PowerTask = null,

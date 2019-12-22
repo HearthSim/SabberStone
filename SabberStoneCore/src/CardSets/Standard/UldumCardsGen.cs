@@ -115,7 +115,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_431p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("ULD_431p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [ULD_431p] Emperor Wraps && Test: Emperor Wraps_ULD_431p
 				//PowerTask = null,
@@ -134,7 +134,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_HAND_NOT_FULL = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_433p", new CardDef(new[] {PlayReq.REQ_HAND_NOT_FULL}, new Power
+			cards.Add("ULD_433p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_HAND_NOT_FULL,0}}, new Power
 			{
 				// TODO [ULD_433p] Ascendant Scroll && Test: Ascendant Scroll_ULD_433p
 				//PowerTask = null,
@@ -153,7 +153,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_711p3", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("ULD_711p3", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [ULD_711p3] Anraphet's Core && Test: Anraphet's Core_ULD_711p3
 				//PowerTask = null,
@@ -171,7 +171,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_724p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ULD_724p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [ULD_724p] Obelisk's Eye && Test: Obelisk's Eye_ULD_724p
 				//PowerTask = null,
@@ -301,7 +301,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_134", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("ULD_134", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [ULD_134] BEEEES!!! && Test: BEEEES!!!_ULD_134
 				//PowerTask = null,
@@ -323,7 +323,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_135", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ULD_135", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [ULD_135] Hidden Oasis && Test: Hidden Oasis_ULD_135
 				//PowerTask = null,
@@ -440,7 +440,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_135a", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("ULD_135a", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [ULD_135a] Befriend the Ancient && Test: Befriend the Ancient_ULD_135a
 				//PowerTask = null,
@@ -456,7 +456,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_135b", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ULD_135b", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [ULD_135b] Drink the Water && Test: Drink the Water_ULD_135b
 				//PowerTask = null,
@@ -486,7 +486,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 2
 			// --------------------------------------------------------
-			cards.Add("ULD_292b", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("ULD_292b", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,2}}, new Power
 			{
 				// TODO [ULD_292b] Divide and Conquer && Test: Divide and Conquer_ULD_292b
 				//PowerTask = null,
@@ -651,7 +651,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_713", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("ULD_713", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [ULD_713] Swarm of Locusts && Test: Swarm of Locusts_ULD_713
 				//PowerTask = null,
@@ -837,7 +837,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_293", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS}, new Power
+			cards.Add("ULD_293", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS,1}}, new Power
 			{
 				// TODO [ULD_293] Cloud Prince && Test: Cloud Prince_ULD_293
 				//PowerTask = null,
@@ -1100,7 +1100,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_143", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ULD_143", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [ULD_143] Pharaoh's Blessing && Test: Pharaoh's Blessing_ULD_143
 				InfoCardId = "ULD_143e",
@@ -1144,7 +1144,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_716", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ULD_716", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [ULD_716] Tip the Scales && Test: Tip the Scales_ULD_716
 				InfoCardId = "ULD_716e2",
@@ -1162,7 +1162,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_728", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ULD_728", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [ULD_728] Subdue && Test: Subdue_ULD_728
 				InfoCardId = "ULD_728e",
@@ -1314,7 +1314,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_269", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
+			cards.Add("ULD_269", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_TARGET_IF_AVAILABLE,0}}, new Power
 			{
 				// TODO [ULD_269] Wretched Reclaimer && Test: Wretched Reclaimer_ULD_269
 				//PowerTask = null,
@@ -1347,7 +1347,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_265", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ULD_265", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [ULD_265] Embalming Ritual && Test: Embalming Ritual_ULD_265
 				//PowerTask = null,
@@ -1381,7 +1381,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_714", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ULD_714", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [ULD_714] Penance && Test: Penance_ULD_714
 				//PowerTask = null,
@@ -1574,7 +1574,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_286", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ULD_286", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [ULD_286] Shadow of Death && Test: Shadow of Death_ULD_286
 				//PowerTask = null,
@@ -1781,7 +1781,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_170", new CardDef(new[] {PlayReq.REQ88}, new Power
+			cards.Add("ULD_170", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ88,0}}, new Power
 			{
 				// TODO [ULD_170] Weaponized Wasp && Test: Weaponized Wasp_ULD_170
 				//PowerTask = null,
@@ -1926,7 +1926,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_171e", new CardDef(new[] {PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("ULD_171e", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				// TODO [ULD_171e] Big Surge && Test: Big Surge_ULD_171e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_171e")
@@ -1992,7 +1992,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_162", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ87}, new Power
+			cards.Add("ULD_162", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ87,0}}, new Power
 			{
 				// TODO [ULD_162] EVIL Recruiter && Test: EVIL Recruiter_ULD_162
 				//PowerTask = null,
@@ -2033,7 +2033,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_165", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ULD_165", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [ULD_165] Riftcleaver && Test: Riftcleaver_ULD_165
 				//PowerTask = null,
@@ -2129,7 +2129,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_324", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ULD_324", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [ULD_324] Impbalming && Test: Impbalming_ULD_324
 				//PowerTask = null,
@@ -2352,7 +2352,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_DAMAGED_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_720", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_DAMAGED_TARGET}, new Power
+			cards.Add("ULD_720", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_DAMAGED_TARGET,0}}, new Power
 			{
 				// TODO [ULD_720] Bloodsworn Mercenary && Test: Bloodsworn Mercenary_ULD_720
 				//PowerTask = null,
@@ -2704,7 +2704,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_190", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ULD_190", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [ULD_190] Pit Crocolisk && Test: Pit Crocolisk_ULD_190
 				//PowerTask = null,
@@ -2725,7 +2725,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_191", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ULD_191", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [ULD_191] Beaming Sidekick && Test: Beaming Sidekick_ULD_191
 				InfoCardId = "ULD_191e",
@@ -3507,7 +3507,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_616", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("ULD_616", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				// TODO [ULD_616] Titanic Lackey && Test: Titanic Lackey_ULD_616
 				InfoCardId = "ULD_616e",
@@ -3547,7 +3547,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178a", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ULD_178a", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [ULD_178a] Siamat's Wind && Test: Siamat's Wind_ULD_178a
 				//PowerTask = null,
@@ -3571,7 +3571,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178a2", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ULD_178a2", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [ULD_178a2] Siamat's Shield && Test: Siamat's Shield_ULD_178a2
 				//PowerTask = null,
@@ -3595,7 +3595,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178a3", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("ULD_178a3", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				// TODO [ULD_178a3] Siamat's Heart && Test: Siamat's Heart_ULD_178a3
 				//PowerTask = null,
@@ -3618,7 +3618,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178a4", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("ULD_178a4", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [ULD_178a4] Siamat's Speed && Test: Siamat's Speed_ULD_178a4
 				//PowerTask = null,

@@ -1038,7 +1038,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_400p", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("GILA_400p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [GILA_400p] Dog Whistle && Test: Dog Whistle_GILA_400p
 				//PowerTask = null,
@@ -1057,7 +1057,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_HAND_NOT_FULL = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_500p2", new CardDef(new[] {PlayReq.REQ_HAND_NOT_FULL}, new Power
+			cards.Add("GILA_500p2", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_HAND_NOT_FULL,0}}, new Power
 			{
 				// TODO [GILA_500p2] Scavenge && Test: Scavenge_GILA_500p2
 				//PowerTask = null,
@@ -1077,7 +1077,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_EXACT_COST = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_600p", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_TARGET_EXACT_COST}, new Power
+			cards.Add("GILA_600p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_TARGET_EXACT_COST,0}}, new Power
 			{
 				// TODO [GILA_600p] Fire! && Test: Fire!_GILA_600p
 				//PowerTask = null,
@@ -1137,7 +1137,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_22p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_BOSS_22p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_22p] Shank && Test: Shank_GILA_BOSS_22p
 				//PowerTask = null,
@@ -1156,7 +1156,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_23p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("GILA_BOSS_23p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_23p] Chuck && Test: Chuck_GILA_BOSS_23p
 				//PowerTask = null,
@@ -1189,7 +1189,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_SECRET_ZONE_CAP_FOR_NON_SECRET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_25p", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_SECRET_ZONE_CAP_FOR_NON_SECRET}, new Power
+			cards.Add("GILA_BOSS_25p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_SECRET_ZONE_CAP_FOR_NON_SECRET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_25p] Trap Preparation && Test: Trap Preparation_GILA_BOSS_25p
 				//PowerTask = null,
@@ -1208,7 +1208,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_ENEMY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_26p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_ENEMY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_BOSS_26p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_ENEMY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_26p] Nab && Test: Nab_GILA_BOSS_26p
 				//PowerTask = null,
@@ -1227,7 +1227,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_27p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("GILA_BOSS_27p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_27p] Consume && Test: Consume_GILA_BOSS_27p
 				//PowerTask = null,
@@ -1244,7 +1244,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_29p", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("GILA_BOSS_29p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [GILA_BOSS_29p] Infatuation && Test: Infatuation_GILA_BOSS_29p
 				//PowerTask = null,
@@ -1279,7 +1279,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_31p", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("GILA_BOSS_31p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [GILA_BOSS_31p] Splinter && Test: Splinter_GILA_BOSS_31p
 				//PowerTask = null,
@@ -1315,7 +1315,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_33p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("GILA_BOSS_33p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_33p] Harvest && Test: Harvest_GILA_BOSS_33p
 				//PowerTask = null,
@@ -1348,7 +1348,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_35p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_BOSS_35p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_35p] Bloodthirst && Test: Bloodthirst_GILA_BOSS_35p
 				//PowerTask = null,
@@ -1366,7 +1366,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_36p", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
+			cards.Add("GILA_BOSS_36p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_MINIMUM_ENEMY_MINIONS,1}}, new Power
 			{
 				// TODO [GILA_BOSS_36p] Witch's Kiss && Test: Witch's Kiss_GILA_BOSS_36p
 				//PowerTask = null,
@@ -1426,7 +1426,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_40p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_BOSS_40p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_40p] Grafted Bark && Test: Grafted Bark_GILA_BOSS_40p
 				//PowerTask = null,
@@ -1474,7 +1474,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_43p", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_BOSS_43p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_43p] Grave Mistake && Test: Grave Mistake_GILA_BOSS_43p
 				//PowerTask = null,
@@ -1492,7 +1492,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_44p", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("GILA_BOSS_44p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [GILA_BOSS_44p] Hollow Needle && Test: Hollow Needle_GILA_BOSS_44p
 				//PowerTask = null,
@@ -1567,7 +1567,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_48p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("GILA_BOSS_48p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_48p] Chronoacceleration && Test: Chronoacceleration_GILA_BOSS_48p
 				//PowerTask = null,
@@ -1636,7 +1636,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_52p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("GILA_BOSS_52p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_52p] Soot Up && Test: Soot Up_GILA_BOSS_52p
 				//PowerTask = null,
@@ -1697,7 +1697,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_56p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("GILA_BOSS_56p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_56p] A New Face && Test: A New Face_GILA_BOSS_56p
 				//PowerTask = null,
@@ -1731,7 +1731,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_58p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_BOSS_58p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_58p] Terrify && Test: Terrify_GILA_BOSS_58p
 				//PowerTask = null,
@@ -1753,7 +1753,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_59p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET}, new Power
+			cards.Add("GILA_BOSS_59p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_ENEMY_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_59p] Pistol Barrage && Test: Pistol Barrage_GILA_BOSS_59p
 				//PowerTask = null,
@@ -1850,7 +1850,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_66p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_BOSS_66p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_66p] . . . && Test: . . ._GILA_BOSS_66p
 				//PowerTask = null,
@@ -1882,7 +1882,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_68p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_BOSS_68p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_68p] Poison Flask && Test: Poison Flask_GILA_BOSS_68p
 				//PowerTask = null,
@@ -2911,7 +2911,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_410", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET}, new Power
+			cards.Add("GILA_410", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_ENEMY_TARGET,0}}, new Power
 			{
 				// TODO [GILA_410] Bubba && Test: Bubba_GILA_410
 				//PowerTask = null,
@@ -3079,7 +3079,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_803", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_803", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_803] Gilnean Vigilante && Test: Gilnean Vigilante_GILA_803
 				//PowerTask = null,
@@ -3390,7 +3390,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_401", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("GILA_401", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [GILA_401] Sic 'Em && Test: Sic 'Em_GILA_401
 				//PowerTask = null,
@@ -3659,7 +3659,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_500p2t", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("GILA_500p2t", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [GILA_500p2t] A Small Rock && Test: A Small Rock_GILA_500p2t
 				//PowerTask = null,
@@ -3680,7 +3680,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_501", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_501", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_501] Exterminate && Test: Exterminate_GILA_501
 				//PowerTask = null,
@@ -4099,7 +4099,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_608", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_608", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_608] Safe Harbor && Test: Safe Harbor_GILA_608
 				//PowerTask = null,
@@ -4119,7 +4119,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_804", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_804", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_804] Holy Book && Test: Holy Book_GILA_804
 				InfoCardId = "GILA_804e",
@@ -4158,7 +4158,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_806", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_806", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_806] Brass Lantern && Test: Brass Lantern_GILA_806
 				//PowerTask = null,
@@ -4210,7 +4210,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_812", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("GILA_812", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [GILA_812] Bestiary && Test: Bestiary_GILA_812
 				//PowerTask = null,
@@ -4267,7 +4267,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_816a", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("GILA_816a", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [GILA_816a] Coin Pouch && Test: Coin Pouch_GILA_816a
 				//PowerTask = null,
@@ -4283,7 +4283,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_816b", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("GILA_816b", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [GILA_816b] Sack of Coins && Test: Sack of Coins_GILA_816b
 				//PowerTask = null,
@@ -4299,7 +4299,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_816c", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("GILA_816c", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [GILA_816c] Hefty Sack of Coins && Test: Hefty Sack of Coins_GILA_816c
 				//PowerTask = null,
@@ -4370,7 +4370,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_821a", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
+			cards.Add("GILA_821a", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINIMUM_ENEMY_MINIONS,1}}, new Power
 			{
 				// TODO [GILA_821a] Surly Mob && Test: Surly Mob_GILA_821a
 				//PowerTask = null,
@@ -4386,7 +4386,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_821b", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
+			cards.Add("GILA_821b", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINIMUM_ENEMY_MINIONS,1}}, new Power
 			{
 				// TODO [GILA_821b] Angry Mob && Test: Angry Mob_GILA_821b
 				//PowerTask = null,
@@ -4405,7 +4405,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_821c", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
+			cards.Add("GILA_821c", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINIMUM_ENEMY_MINIONS,1}}, new Power
 			{
 				// TODO [GILA_821c] Crazed Mob && Test: Crazed Mob_GILA_821c
 				//PowerTask = null,
@@ -4422,7 +4422,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_824", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_824", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_824] Royal Gift && Test: Royal Gift_GILA_824
 				InfoCardId = "GILA_824e",
@@ -4446,7 +4446,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_825", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_825", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_825] Gentleman's Top Hat && Test: Gentleman's Top Hat_GILA_825
 				InfoCardId = "GILA_825e",
@@ -4583,7 +4583,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - ECHO = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_904", new CardDef(new[] {PlayReq.REQ_MINIMUM_TOTAL_MINIONS}, new Power
+			cards.Add("GILA_904", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINIMUM_TOTAL_MINIONS,1}}, new Power
 			{
 				// TODO [GILA_904] Stroke of Midnight && Test: Stroke of Midnight_GILA_904
 				//PowerTask = null,
@@ -4655,7 +4655,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_23t", new CardDef(new[] {PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_BOSS_23t", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_FRIENDLY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_23t] Chuck && Test: Chuck_GILA_BOSS_23t
 				//PowerTask = null,
@@ -4687,7 +4687,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINIMUM_TOTAL_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_27t", new CardDef(new[] {PlayReq.REQ_MINIMUM_TOTAL_MINIONS}, new Power
+			cards.Add("GILA_BOSS_27t", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINIMUM_TOTAL_MINIONS,1}}, new Power
 			{
 				// TODO [GILA_BOSS_27t] Amalgamate && Test: Amalgamate_GILA_BOSS_27t
 				//PowerTask = null,
@@ -4717,7 +4717,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_35t", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_BOSS_35t", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_35t] Vampiric Fangs && Test: Vampiric Fangs_GILA_BOSS_35t
 				//PowerTask = null,
@@ -4747,7 +4747,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_41t", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_BOSS_41t", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_41t] Hack && Test: Hack_GILA_BOSS_41t
 				//PowerTask = null,
@@ -4794,7 +4794,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_49t2", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("GILA_BOSS_49t2", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [GILA_BOSS_49t2] Crowskin Pact && Test: Crowskin Pact_GILA_BOSS_49t2
 				//PowerTask = null,
@@ -4824,7 +4824,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_57t", new CardDef(new[] {PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME}, new Power
+			cards.Add("GILA_BOSS_57t", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME,0}}, new Power
 			{
 				// TODO [GILA_BOSS_57t] Shallow Graves && Test: Shallow Graves_GILA_BOSS_57t
 				//PowerTask = null,

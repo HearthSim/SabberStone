@@ -52,11 +52,11 @@ namespace SabberStoneCore.Loader
 						{
 							if (cardDef.PlayReqs == null)
 							{
-								Console.WriteLine($"{c.Id} missing {keyValuePair.Key}!!!");
+								Console.WriteLine($"{c.Id} missing {keyValuePair.Key} = {keyValuePair.Value}!!!");
 							}
-							else if (!cardDef.PlayReqs.Any(p => p == keyValuePair.Key))
+							else if (!cardDef.PlayReqs.Any(p => p.Key == keyValuePair.Key && p.Value == keyValuePair.Value))
 							{
-								Console.WriteLine($"{c.Id} missing {keyValuePair.Key}!!!");
+								Console.WriteLine($"{c.Id} missing {keyValuePair.Key} = {keyValuePair.Value}!!!");
 							}
 						}
 					}

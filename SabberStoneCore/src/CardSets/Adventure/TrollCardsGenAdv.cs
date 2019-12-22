@@ -345,7 +345,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_STEADY_SHOT = 0
 			// - REQ_MINION_OR_ENEMY_HERO = 0
 			// --------------------------------------------------------
-			cards.Add("TRLA_065p", new CardDef(new[] {PlayReq.REQ_STEADY_SHOT,PlayReq.REQ_MINION_OR_ENEMY_HERO}, new Power
+			cards.Add("TRLA_065p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_STEADY_SHOT,0},{PlayReq.REQ_MINION_OR_ENEMY_HERO,0}}, new Power
 			{
 				// TODO [TRLA_065p] Steady Throw && Test: Steady Throw_TRLA_065p
 				//PowerTask = null,
@@ -1662,7 +1662,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TRLA_129s", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("TRLA_129s", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [TRLA_129s] Frostfire && Test: Frostfire_TRLA_129s
 				//PowerTask = null,
@@ -4479,7 +4479,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_DAMAGED_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("TRLA_177", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_DAMAGED_TARGET}, new Power
+			cards.Add("TRLA_177", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_DAMAGED_TARGET,0}}, new Power
 			{
 				// TODO [TRLA_177] Unbound Punisher && Test: Unbound Punisher_TRLA_177
 				//PowerTask = null,

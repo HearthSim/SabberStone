@@ -24,8 +24,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void Heroes(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA01_1] Coren Direbrew (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA01_1] Coren Direbrew (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - AI_MUST_PLAY = 1
@@ -40,8 +40,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA01_1H] Coren Direbrew (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA01_1H] Coren Direbrew (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - AI_MUST_PLAY = 1
@@ -56,8 +56,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA02_1] High Justice Grimstone (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA02_1] High Justice Grimstone (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2317
@@ -71,8 +71,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA02_1H] High Justice Grimstone (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA02_1H] High Justice Grimstone (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2588
@@ -86,8 +86,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA03_1] Emperor Thaurissan (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA03_1] Emperor Thaurissan (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2321
@@ -101,8 +101,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA03_1H] Emperor Thaurissan (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA03_1H] Emperor Thaurissan (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2321
@@ -116,8 +116,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA04_1] Garr (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA04_1] Garr (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2325
@@ -131,8 +131,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA04_1H] Garr (*) - COST:0 [ATK:0/HP:45] 
-			// - Set: brm, 
+			// [BRMA04_1H] Garr (*) - COST:0 [ATK:0/HP:45]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2325
@@ -146,8 +146,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA05_1] Baron Geddon (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA05_1] Baron Geddon (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2329
@@ -161,8 +161,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA05_1H] Baron Geddon (*) - COST:0 [ATK:0/HP:50] 
-			// - Set: brm, 
+			// [BRMA05_1H] Baron Geddon (*) - COST:0 [ATK:0/HP:50]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2445
@@ -176,8 +176,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA06_1] Majordomo Executus (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA06_1] Majordomo Executus (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2335
@@ -191,8 +191,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA06_1H] Majordomo Executus (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA06_1H] Majordomo Executus (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2479
@@ -206,8 +206,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA06_3] Ragnaros the Firelord (*) - COST:0 [ATK:0/HP:8] 
-			// - Set: brm, 
+			// [BRMA06_3] Ragnaros the Firelord (*) - COST:0 [ATK:0/HP:8]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2319
@@ -221,8 +221,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA06_3H] Ragnaros the Firelord (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA06_3H] Ragnaros the Firelord (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2448
@@ -236,8 +236,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA07_1] Highlord Omokk (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA07_1] Highlord Omokk (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2338
@@ -251,8 +251,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA07_1H] Highlord Omokk (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA07_1H] Highlord Omokk (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2451
@@ -266,8 +266,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA08_1] General Drakkisath (*) - COST:0 [ATK:0/HP:50] 
-			// - Set: brm, 
+			// [BRMA08_1] General Drakkisath (*) - COST:0 [ATK:0/HP:50]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2341
@@ -281,8 +281,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA08_1H] General Drakkisath (*) - COST:0 [ATK:0/HP:50] 
-			// - Set: brm, 
+			// [BRMA08_1H] General Drakkisath (*) - COST:0 [ATK:0/HP:50]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2453
@@ -296,8 +296,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA09_1] Rend Blackhand (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA09_1] Rend Blackhand (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2345
@@ -311,8 +311,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA09_1H] Rend Blackhand (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA09_1H] Rend Blackhand (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2530
@@ -326,8 +326,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA10_1] Razorgore the Untamed (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA10_1] Razorgore the Untamed (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2356
@@ -341,8 +341,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA10_1H] Razorgore the Untamed (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA10_1H] Razorgore the Untamed (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2475
@@ -356,8 +356,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA11_1] Vaelastrasz the Corrupt (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA11_1] Vaelastrasz the Corrupt (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2358
@@ -371,8 +371,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA11_1H] Vaelastrasz the Corrupt (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA11_1H] Vaelastrasz the Corrupt (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2456
@@ -386,8 +386,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA12_1] Chromaggus (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA12_1] Chromaggus (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2361
@@ -401,8 +401,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA12_1H] Chromaggus (*) - COST:0 [ATK:0/HP:60] 
-			// - Set: brm, 
+			// [BRMA12_1H] Chromaggus (*) - COST:0 [ATK:0/HP:60]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2458
@@ -416,8 +416,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA12_9] Chromatic Dragonkin (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA12_9] Chromatic Dragonkin (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -430,8 +430,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA13_1] Lord Victor Nefarius (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA13_1] Lord Victor Nefarius (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2379
@@ -445,8 +445,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA13_1H] Lord Victor Nefarius (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA13_1H] Lord Victor Nefarius (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2465
@@ -460,8 +460,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA13_3] Nefarian (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA13_3] Nefarian (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Entourage: BRMA13_8, BRMA13_7, BRMA13_5, BRMA13_6
 			// --------------------------------------------------------
@@ -477,8 +477,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA13_3H] Nefarian (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA13_3H] Nefarian (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Entourage: BRMA13_8, BRMA13_7, BRMA13_6, BRMA13_5
 			// --------------------------------------------------------
@@ -494,8 +494,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA14_1] Omnotron Defense System (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA14_1] Omnotron Defense System (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2388
@@ -509,8 +509,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA14_1H] Omnotron Defense System (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA14_1H] Omnotron Defense System (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2469
@@ -524,8 +524,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA15_1] Maloriak (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA15_1] Maloriak (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2397
@@ -539,8 +539,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA15_1H] Maloriak (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA15_1H] Maloriak (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2592
@@ -554,8 +554,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA16_1] Atramedes (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA16_1] Atramedes (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2401
@@ -569,8 +569,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA16_1H] Atramedes (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA16_1H] Atramedes (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2489
@@ -584,8 +584,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA17_2] Nefarian (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA17_2] Nefarian (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2433
@@ -599,8 +599,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA17_2H] Nefarian (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA17_2H] Nefarian (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2561
@@ -614,8 +614,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA17_3] Onyxia (*) - COST:0 [ATK:0/HP:15] 
-			// - Set: brm, 
+			// [BRMA17_3] Onyxia (*) - COST:0 [ATK:0/HP:15]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2548
@@ -629,8 +629,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRMA17_3H] Onyxia (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: brm, 
+			// [BRMA17_3H] Onyxia (*) - COST:0 [ATK:0/HP:30]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2559
@@ -648,8 +648,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void HeroPowers(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA01_2] Pile On! (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA01_2] Pile On! (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Put a minion from each deck into the battlefield.
@@ -661,7 +661,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA01_2", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("BRMA01_2", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA01_2] Pile On! && Test: Pile On!_BRMA01_2
 				//PowerTask = null,
@@ -669,8 +669,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA01_2H] Pile On! (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA01_2H] Pile On! (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Put two minions from your deck and one from your opponent's into the battlefield.
@@ -682,7 +682,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA01_2H", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("BRMA01_2H", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA01_2H] Pile On! && Test: Pile On!_BRMA01_2H
 				//PowerTask = null,
@@ -690,8 +690,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA02_2] Jeering Crowd (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA02_2] Jeering Crowd (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 1/1 Spectator with <b>Taunt</b>.
@@ -702,7 +702,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA02_2", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("BRMA02_2", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA02_2] Jeering Crowd && Test: Jeering Crowd_BRMA02_2
 				//PowerTask = null,
@@ -710,8 +710,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA02_2H] Jeering Crowd (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA02_2H] Jeering Crowd (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 1/1 Spectator with <b>Taunt</b>.
@@ -722,7 +722,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA02_2H", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("BRMA02_2H", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA02_2H] Jeering Crowd && Test: Jeering Crowd_BRMA02_2H
 				//PowerTask = null,
@@ -730,8 +730,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA03_2] Power of the Firelord (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA03_2] Power of the Firelord (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 30 damage.
@@ -742,7 +742,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("BRMA03_2", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("BRMA03_2", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [BRMA03_2] Power of the Firelord && Test: Power of the Firelord_BRMA03_2
 				//PowerTask = null,
@@ -750,8 +750,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA04_2] Magma Pulse (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA04_2] Magma Pulse (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 1 damage to all minions.
@@ -768,8 +768,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA05_2] Ignite Mana (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA05_2] Ignite Mana (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 5 damage to the enemy hero if they have any unspent Mana.
@@ -785,8 +785,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA05_2H] Ignite Mana (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA05_2H] Ignite Mana (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 10 damage to the enemy hero if they have any unspent Mana.
@@ -802,8 +802,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA06_2] The Majordomo (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA06_2] The Majordomo (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 1/3 Flamewaker Acolyte.
@@ -814,7 +814,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA06_2", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("BRMA06_2", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA06_2] The Majordomo && Test: The Majordomo_BRMA06_2
 				//PowerTask = null,
@@ -822,8 +822,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA06_2H] The Majordomo (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA06_2H] The Majordomo (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 3/3 Flamewaker Acolyte.
@@ -834,7 +834,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA06_2H", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("BRMA06_2H", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA06_2H] The Majordomo && Test: The Majordomo_BRMA06_2H
 				//PowerTask = null,
@@ -842,8 +842,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA07_2] ME SMASH (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA07_2] ME SMASH (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Destroy a random damaged enemy minion.
@@ -854,7 +854,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA07_2", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
+			cards.Add("BRMA07_2", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINIMUM_ENEMY_MINIONS,1}}, new Power
 			{
 				// TODO [BRMA07_2] ME SMASH && Test: ME SMASH_BRMA07_2
 				//PowerTask = null,
@@ -862,8 +862,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA07_2H] ME SMASH (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA07_2H] ME SMASH (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Destroy a random enemy minion.
@@ -880,8 +880,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA08_2] Intense Gaze (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA08_2] Intense Gaze (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       All cards cost (1). Players are capped at 1 Mana Crystal.
@@ -898,8 +898,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA08_2H] Intense Gaze (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA08_2H] Intense Gaze (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       All cards cost (1). You are capped at 2 Mana Crystals, and opponent at 1.
@@ -916,8 +916,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA09_2] Open the Gates (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA09_2] Open the Gates (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon three 1/1 Whelps. Get a new Hero Power.
@@ -930,7 +930,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA09_2", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("BRMA09_2", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA09_2] Open the Gates && Test: Open the Gates_BRMA09_2
 				//PowerTask = null,
@@ -938,8 +938,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA09_2H] Open the Gates (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA09_2H] Open the Gates (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon three 2/2 Whelps. Get a new Hero Power.
@@ -957,8 +957,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA09_3] Old Horde (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA09_3] Old Horde (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon two 1/1 Orcs with <b>Taunt</b>. Get a new Hero Power.
@@ -971,7 +971,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA09_3", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("BRMA09_3", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA09_3] Old Horde && Test: Old Horde_BRMA09_3
 				//PowerTask = null,
@@ -979,8 +979,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA09_3H] Old Horde (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA09_3H] Old Horde (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon two 2/2 Orcs with <b>Taunt</b>. Get a new Hero Power.
@@ -998,8 +998,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA09_4] Blackwing (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA09_4] Blackwing (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 3/1 Dragonkin. Get a new Hero Power.
@@ -1012,7 +1012,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA09_4", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("BRMA09_4", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA09_4] Blackwing && Test: Blackwing_BRMA09_4
 				//PowerTask = null,
@@ -1020,8 +1020,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA09_4H] Blackwing (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA09_4H] Blackwing (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 5/4 Dragonkin. Get a new Hero Power.
@@ -1039,8 +1039,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA09_5] Dismount (*) - COST:4 
-			// - Set: brm, 
+			// [BRMA09_5] Dismount (*) - COST:4
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon Gyth. Get a new Hero Power.
@@ -1053,7 +1053,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA09_5", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("BRMA09_5", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA09_5] Dismount && Test: Dismount_BRMA09_5
 				//PowerTask = null,
@@ -1061,8 +1061,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA09_5H] Dismount (*) - COST:4 
-			// - Set: brm, 
+			// [BRMA09_5H] Dismount (*) - COST:4
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon Gyth. Get a new Hero Power.
@@ -1080,8 +1080,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA10_3] The Rookery (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA10_3] The Rookery (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Give all Corrupted Eggs +1 Health, then summon one.
@@ -1099,8 +1099,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA10_3H] The Rookery (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA10_3H] The Rookery (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Give all Corrupted Eggs +1 Health, then summon one.
@@ -1117,8 +1117,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA11_2] Essence of the Red (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA11_2] Essence of the Red (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Each player draws 2 cards.
@@ -1135,8 +1135,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA11_2H] Essence of the Red (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA11_2H] Essence of the Red (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Each player draws 3 cards. Gain a Mana Crystal.
@@ -1153,8 +1153,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA12_10] Mutation (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA12_10] Mutation (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Discard a random card.
@@ -1171,8 +1171,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA12_2] Brood Affliction (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA12_2] Brood Affliction (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       At the end of your turn, add a Brood Affliction card to your opponent's hand.
@@ -1191,8 +1191,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA12_2H] Brood Affliction (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA12_2H] Brood Affliction (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       At the end of your turn, add a Brood Affliction card to your opponent's hand.
@@ -1211,8 +1211,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA13_2] True Form (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA13_2] True Form (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Let the games begin!
@@ -1231,8 +1231,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA13_2H] True Form (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA13_2H] True Form (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Let the games begin!
@@ -1251,8 +1251,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA13_4] Wild Magic (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA13_4] Wild Magic (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Put a random spell from your opponent's class into your hand.
@@ -1269,8 +1269,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA13_4H] Wild Magic (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA13_4H] Wild Magic (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Put a random spell from your opponent's class into your hand.
@@ -1287,8 +1287,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA14_10] Activate! (*) - COST:4 
-			// - Set: brm, 
+			// [BRMA14_10] Activate! (*) - COST:4
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Activate a random Tron.
@@ -1306,8 +1306,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA14_10H] Activate! (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA14_10H] Activate! (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Activate a random Tron.
@@ -1325,8 +1325,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA14_2] Activate Arcanotron (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA14_2] Activate Arcanotron (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Activate Arcanotron!
@@ -1343,8 +1343,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA14_2H] Activate Arcanotron (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA14_2H] Activate Arcanotron (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Activate Arcanotron!
@@ -1361,8 +1361,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA14_4] Activate Toxitron (*) - COST:4 
-			// - Set: brm, 
+			// [BRMA14_4] Activate Toxitron (*) - COST:4
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Activate Toxitron!
@@ -1379,8 +1379,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA14_4H] Activate Toxitron (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA14_4H] Activate Toxitron (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Activate Toxitron!
@@ -1397,8 +1397,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA14_6] Activate Electron (*) - COST:6 
-			// - Set: brm, 
+			// [BRMA14_6] Activate Electron (*) - COST:6
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Activate Electron!
@@ -1415,8 +1415,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA14_6H] Activate Electron (*) - COST:4 
-			// - Set: brm, 
+			// [BRMA14_6H] Activate Electron (*) - COST:4
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Activate Electron!
@@ -1433,8 +1433,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA14_8] Activate Magmatron (*) - COST:8 
-			// - Set: brm, 
+			// [BRMA14_8] Activate Magmatron (*) - COST:8
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Activate Magmatron!
@@ -1451,8 +1451,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA14_8H] Activate Magmatron (*) - COST:6 
-			// - Set: brm, 
+			// [BRMA14_8H] Activate Magmatron (*) - COST:6
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Activate Magmatron!
@@ -1469,8 +1469,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA15_2] The Alchemist (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA15_2] The Alchemist (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Whenever a minion is summoned, swap its Attack and Health.
@@ -1487,8 +1487,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA15_2H] The Alchemist (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA15_2H] The Alchemist (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Minions' Attack and Health are swapped.
@@ -1506,8 +1506,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA16_2] Echolocate (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA16_2] Echolocate (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Equip a weapon that grows as your opponent plays cards.
@@ -1523,8 +1523,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA16_2H] Echolocate (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA16_2H] Echolocate (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Equip a weapon that grows as your opponent plays cards.
@@ -1540,8 +1540,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA17_5] Bone Minions (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA17_5] Bone Minions (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon two 2/1 Bone Constructs.
@@ -1552,7 +1552,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA17_5", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("BRMA17_5", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA17_5] Bone Minions && Test: Bone Minions_BRMA17_5
 				//PowerTask = null,
@@ -1560,8 +1560,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA17_5H] Bone Minions (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA17_5H] Bone Minions (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon two 4/2 Bone Constructs.
@@ -1572,7 +1572,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA17_5H", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("BRMA17_5H", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA17_5H] Bone Minions && Test: Bone Minions_BRMA17_5H
 				//PowerTask = null,
@@ -1580,8 +1580,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA17_8] Nefarian Strikes! (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA17_8] Nefarian Strikes! (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Nefarian rains fire from above!
@@ -1598,8 +1598,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRMA17_8H] Nefarian Strikes! (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA17_8H] Nefarian Strikes! (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Nefarian rains fire from above!
@@ -1620,8 +1620,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRMA03_3e] Moira's Presence (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA03_3e] Moira's Presence (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Costs (1).
 			// --------------------------------------------------------
@@ -1635,8 +1635,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRMA05_3e] Living Bomb (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA05_3e] Living Bomb (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: On Geddon's turn, deal 5 damage to all of your stuff.
 			// --------------------------------------------------------
@@ -1650,8 +1650,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRMA05_3He] Living Bomb (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA05_3He] Living Bomb (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: On Geddon's turn, deal 10 damage to all of your stuff.
 			// --------------------------------------------------------
@@ -1665,8 +1665,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRMA10_3e] Incubation (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA10_3e] Incubation (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
@@ -1680,8 +1680,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRMA10_6e] Blind With Rage (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA10_6e] Blind With Rage (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -1695,8 +1695,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRMA12_8te] Draconic Lineage (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA12_8te] Draconic Lineage (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: +2/+2
 			// --------------------------------------------------------
@@ -1710,8 +1710,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRMA14_7e] Electron's Power (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA14_7e] Electron's Power (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Costs (3) less.
 			// --------------------------------------------------------
@@ -1725,8 +1725,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRMA15_2He] Potion of Might (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA15_2He] Potion of Might (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -1740,8 +1740,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRMA16_3e] Sonic Breath (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA16_3e] Sonic Breath (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
@@ -1755,8 +1755,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRMA16_5e] I hear you... (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA16_5e] I hear you... (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -1770,8 +1770,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA01_3] Dark Iron Bouncer (*) - COST:6 [ATK:4/HP:8] 
-			// - Set: brm, 
+			// [BRMA01_3] Dark Iron Bouncer (*) - COST:6 [ATK:4/HP:8]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Always wins Brawls.
 			// --------------------------------------------------------
@@ -1786,8 +1786,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA01_4t] Guzzler (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: brm, 
+			// [BRMA01_4t] Guzzler (*) - COST:1 [ATK:1/HP:1]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -1803,8 +1803,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA02_2t] Dark Iron Spectator (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: brm, 
+			// [BRMA02_2t] Dark Iron Spectator (*) - COST:1 [ATK:1/HP:1]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -1820,8 +1820,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA03_3] Moira Bronzebeard (*) - COST:2 [ATK:1/HP:3] 
-			// - Set: brm, 
+			// [BRMA03_3] Moira Bronzebeard (*) - COST:2 [ATK:1/HP:3]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Thaurissan's Hero Power can't be used.
 			//       Never attacks minions unless they have <b>Taunt</b>.
@@ -1843,8 +1843,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA03_3H] Moira Bronzebeard (*) - COST:2 [ATK:3/HP:1] 
-			// - Set: brm, 
+			// [BRMA03_3H] Moira Bronzebeard (*) - COST:2 [ATK:3/HP:1]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Thaurissan's Hero Power can't be used.
 			//       Never attacks minions unless they have <b>Taunt</b>.
@@ -1865,8 +1865,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA04_3] Firesworn (*) - COST:0 [ATK:0/HP:5] 
-			// - Set: brm, 
+			// [BRMA04_3] Firesworn (*) - COST:0 [ATK:0/HP:5]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Deal 1 damage to the enemy hero for each Firesworn that died this turn.
 			// --------------------------------------------------------
@@ -1882,8 +1882,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA04_3H] Firesworn (*) - COST:0 [ATK:0/HP:5] 
-			// - Set: brm, 
+			// [BRMA04_3H] Firesworn (*) - COST:0 [ATK:0/HP:5]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Deal 3 damage to the enemy hero for each Firesworn that died this turn.
 			// --------------------------------------------------------
@@ -1899,8 +1899,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA06_4] Flamewaker Acolyte (*) - COST:2 [ATK:1/HP:3] 
-			// - Set: brm, 
+			// [BRMA06_4] Flamewaker Acolyte (*) - COST:2 [ATK:1/HP:3]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1913,8 +1913,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA06_4H] Flamewaker Acolyte (*) - COST:2 [ATK:3/HP:3] 
-			// - Set: brm, 
+			// [BRMA06_4H] Flamewaker Acolyte (*) - COST:2 [ATK:3/HP:3]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1927,8 +1927,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA09_2Ht] Whelp (*) - COST:1 [ATK:2/HP:2] 
-			// - Race: dragon, Set: brm, 
+			// [BRMA09_2Ht] Whelp (*) - COST:1 [ATK:2/HP:2]
+			// - Race: dragon, Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1941,8 +1941,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA09_2t] Whelp (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: dragon, Set: brm, 
+			// [BRMA09_2t] Whelp (*) - COST:1 [ATK:1/HP:1]
+			// - Race: dragon, Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1955,8 +1955,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA09_3Ht] Old Horde Orc (*) - COST:1 [ATK:2/HP:2] 
-			// - Set: brm, 
+			// [BRMA09_3Ht] Old Horde Orc (*) - COST:1 [ATK:2/HP:2]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -1972,8 +1972,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA09_3t] Old Horde Orc (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: brm, 
+			// [BRMA09_3t] Old Horde Orc (*) - COST:1 [ATK:1/HP:1]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -1989,8 +1989,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA09_4Ht] Dragonkin (*) - COST:1 [ATK:5/HP:4] 
-			// - Race: dragon, Set: brm, 
+			// [BRMA09_4Ht] Dragonkin (*) - COST:1 [ATK:5/HP:4]
+			// - Race: dragon, Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -2003,8 +2003,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA09_4t] Dragonkin (*) - COST:1 [ATK:3/HP:1] 
-			// - Race: dragon, Set: brm, 
+			// [BRMA09_4t] Dragonkin (*) - COST:1 [ATK:3/HP:1]
+			// - Race: dragon, Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -2017,8 +2017,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA09_5Ht] Gyth (*) - COST:3 [ATK:8/HP:8] 
-			// - Race: dragon, Set: brm, 
+			// [BRMA09_5Ht] Gyth (*) - COST:3 [ATK:8/HP:8]
+			// - Race: dragon, Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
@@ -2032,8 +2032,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA09_5t] Gyth (*) - COST:3 [ATK:8/HP:4] 
-			// - Race: dragon, Set: brm, 
+			// [BRMA09_5t] Gyth (*) - COST:3 [ATK:8/HP:4]
+			// - Race: dragon, Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
@@ -2047,8 +2047,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA10_4] Corrupted Egg (*) - COST:1 [ATK:0/HP:1] 
-			// - Set: brm, 
+			// [BRMA10_4] Corrupted Egg (*) - COST:1 [ATK:0/HP:1]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: When this minion has 4 or more Health, it hatches.
 			// --------------------------------------------------------
@@ -2064,8 +2064,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA10_4H] Corrupted Egg (*) - COST:1 [ATK:0/HP:3] 
-			// - Set: brm, 
+			// [BRMA10_4H] Corrupted Egg (*) - COST:1 [ATK:0/HP:3]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: When this minion has 5 or more Health, it hatches.
 			// --------------------------------------------------------
@@ -2081,8 +2081,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA10_5] Chromatic Drake (*) - COST:4 [ATK:7/HP:3] 
-			// - Race: dragon, Set: brm, 
+			// [BRMA10_5] Chromatic Drake (*) - COST:4 [ATK:7/HP:3]
+			// - Race: dragon, Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -2095,8 +2095,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA10_5H] Chromatic Drake (*) - COST:4 [ATK:7/HP:7] 
-			// - Race: dragon, Set: brm, 
+			// [BRMA10_5H] Chromatic Drake (*) - COST:4 [ATK:7/HP:7]
+			// - Race: dragon, Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -2109,8 +2109,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA12_8t] Chromatic Dragonkin (*) - COST:2 [ATK:2/HP:3] 
-			// - Race: dragon, Set: brm, 
+			// [BRMA12_8t] Chromatic Dragonkin (*) - COST:2 [ATK:2/HP:3]
+			// - Race: dragon, Set: brm,
 			// --------------------------------------------------------
 			// Text: Whenever your opponent casts a spell, gain +2/+2.
 			// --------------------------------------------------------
@@ -2126,8 +2126,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA13_5] Son of the Flame (*) - COST:0 [ATK:6/HP:3] 
-			// - Set: brm, 
+			// [BRMA13_5] Son of the Flame (*) - COST:0 [ATK:6/HP:3]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 6 damage.
 			// --------------------------------------------------------
@@ -2138,7 +2138,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("BRMA13_5", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
+			cards.Add("BRMA13_5", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_IF_AVAILABLE,0}}, new Power
 			{
 				// TODO [BRMA13_5] Son of the Flame && Test: Son of the Flame_BRMA13_5
 				//PowerTask = null,
@@ -2146,8 +2146,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA13_6] Living Lava (*) - COST:0 [ATK:6/HP:6] 
-			// - Set: brm, 
+			// [BRMA13_6] Living Lava (*) - COST:0 [ATK:6/HP:6]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -2163,8 +2163,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA13_7] Whirling Ash (*) - COST:0 [ATK:4/HP:5] 
-			// - Set: brm, 
+			// [BRMA13_7] Whirling Ash (*) - COST:0 [ATK:4/HP:5]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Windfury</b>
 			// --------------------------------------------------------
@@ -2180,8 +2180,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA14_12] Magmaw (*) - COST:5 [ATK:10/HP:2] 
-			// - Set: brm, 
+			// [BRMA14_12] Magmaw (*) - COST:5 [ATK:10/HP:2]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -2198,8 +2198,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA14_3] Arcanotron (*) - COST:0 [ATK:2/HP:2] 
-			// - Race: mechanical, Set: brm, 
+			// [BRMA14_3] Arcanotron (*) - COST:0 [ATK:2/HP:2]
+			// - Race: mechanical, Set: brm,
 			// --------------------------------------------------------
 			// Text: Both players have <b>Spell Damage +2</b>.
 			// --------------------------------------------------------
@@ -2216,8 +2216,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA14_5] Toxitron (*) - COST:1 [ATK:3/HP:3] 
-			// - Race: mechanical, Set: brm, 
+			// [BRMA14_5] Toxitron (*) - COST:1 [ATK:3/HP:3]
+			// - Race: mechanical, Set: brm,
 			// --------------------------------------------------------
 			// Text: At the start of your turn, deal 1 damage to all other minions.
 			// --------------------------------------------------------
@@ -2233,8 +2233,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA14_5H] Toxitron (*) - COST:1 [ATK:4/HP:4] 
-			// - Race: mechanical, Set: brm, 
+			// [BRMA14_5H] Toxitron (*) - COST:1 [ATK:4/HP:4]
+			// - Race: mechanical, Set: brm,
 			// --------------------------------------------------------
 			// Text: At the start of your turn, deal 1 damage to all other minions.
 			// --------------------------------------------------------
@@ -2250,8 +2250,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA14_7] Electron (*) - COST:3 [ATK:5/HP:5] 
-			// - Race: mechanical, Set: brm, 
+			// [BRMA14_7] Electron (*) - COST:3 [ATK:5/HP:5]
+			// - Race: mechanical, Set: brm,
 			// --------------------------------------------------------
 			// Text: All spells cost (3) less.
 			// --------------------------------------------------------
@@ -2269,8 +2269,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA14_7H] Electron (*) - COST:3 [ATK:6/HP:6] 
-			// - Race: mechanical, Set: brm, 
+			// [BRMA14_7H] Electron (*) - COST:3 [ATK:6/HP:6]
+			// - Race: mechanical, Set: brm,
 			// --------------------------------------------------------
 			// Text: All spells cost (3) less.
 			// --------------------------------------------------------
@@ -2287,8 +2287,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA14_9] Magmatron (*) - COST:5 [ATK:7/HP:7] 
-			// - Race: mechanical, Set: brm, 
+			// [BRMA14_9] Magmatron (*) - COST:5 [ATK:7/HP:7]
+			// - Race: mechanical, Set: brm,
 			// --------------------------------------------------------
 			// Text: Whenever a player plays a card, Magmatron deals 2 damage to them.
 			// --------------------------------------------------------
@@ -2305,8 +2305,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA14_9H] Magmatron (*) - COST:5 [ATK:8/HP:8] 
-			// - Race: mechanical, Set: brm, 
+			// [BRMA14_9H] Magmatron (*) - COST:5 [ATK:8/HP:8]
+			// - Race: mechanical, Set: brm,
 			// --------------------------------------------------------
 			// Text: Whenever a player plays a card, Magmatron deals 2 damage to them.
 			// --------------------------------------------------------
@@ -2323,8 +2323,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA15_4] Aberration (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: brm, 
+			// [BRMA15_4] Aberration (*) - COST:1 [ATK:1/HP:1]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Charge</b>
 			// --------------------------------------------------------
@@ -2340,8 +2340,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA17_6] Bone Construct (*) - COST:1 [ATK:2/HP:1] 
-			// - Set: brm, 
+			// [BRMA17_6] Bone Construct (*) - COST:1 [ATK:2/HP:1]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -2354,8 +2354,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA17_6H] Bone Construct (*) - COST:1 [ATK:4/HP:2] 
-			// - Set: brm, 
+			// [BRMA17_6H] Bone Construct (*) - COST:1 [ATK:4/HP:2]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -2368,8 +2368,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRMA17_7] Chromatic Prototype (*) - COST:2 [ATK:1/HP:4] 
-			// - Set: brm, 
+			// [BRMA17_7] Chromatic Prototype (*) - COST:2 [ATK:1/HP:4]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -2385,8 +2385,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA01_4] Get 'em! (*) - COST:3 
-			// - Set: brm, 
+			// [BRMA01_4] Get 'em! (*) - COST:3
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Summon four 1/1 Dwarves with <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -2404,8 +2404,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA04_4] Rock Out (*) - COST:3 
-			// - Set: brm, 
+			// [BRMA04_4] Rock Out (*) - COST:3
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Summon 3 Firesworn. <b>Overload:</b> (2)
 			// --------------------------------------------------------
@@ -2421,8 +2421,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA04_4H] Rock Out (*) - COST:3 
-			// - Set: brm, 
+			// [BRMA04_4H] Rock Out (*) - COST:3
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Summon 3 Firesworn. <b>Overload:</b> (2)
 			// --------------------------------------------------------
@@ -2438,8 +2438,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA05_3] Living Bomb (*) - COST:4 
-			// - Set: brm, 
+			// [BRMA05_3] Living Bomb (*) - COST:4
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Choose an enemy minion. If it lives until your next turn, deal $5 damage to all enemies. @spelldmg
 			// --------------------------------------------------------
@@ -2451,7 +2451,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_ENEMY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BRMA05_3", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_ENEMY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("BRMA05_3", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_ENEMY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [BRMA05_3] Living Bomb && Test: Living Bomb_BRMA05_3
 				InfoCardId = "BRMA05_3e",
@@ -2460,8 +2460,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA05_3H] Living Bomb (*) - COST:3 
-			// - Set: brm, 
+			// [BRMA05_3H] Living Bomb (*) - COST:3
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Choose an enemy minion. If it lives until your next turn, deal $10 damage to all enemies. @spelldmg
 			// --------------------------------------------------------
@@ -2473,7 +2473,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_ENEMY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BRMA05_3H", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_ENEMY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("BRMA05_3H", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_ENEMY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [BRMA05_3H] Living Bomb && Test: Living Bomb_BRMA05_3H
 				InfoCardId = "BRMA05_3He",
@@ -2482,8 +2482,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA07_3] TIME FOR SMASH (*) - COST:4 
-			// - Set: brm, 
+			// [BRMA07_3] TIME FOR SMASH (*) - COST:4
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Deal $5 damage to a random enemy. Gain 5 Armor. @spelldmg
 			// --------------------------------------------------------
@@ -2498,8 +2498,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA08_3] Drakkisath's Command (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA08_3] Drakkisath's Command (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Destroy a minion. Gain 10 Armor.
 			// --------------------------------------------------------
@@ -2510,7 +2510,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BRMA08_3", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("BRMA08_3", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [BRMA08_3] Drakkisath's Command && Test: Drakkisath's Command_BRMA08_3
 				//PowerTask = null,
@@ -2518,8 +2518,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA09_6] The True Warchief (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA09_6] The True Warchief (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Destroy a Legendary minion.
 			// --------------------------------------------------------
@@ -2531,7 +2531,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_LEGENDARY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BRMA09_6", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_LEGENDARY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("BRMA09_6", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_LEGENDARY_TARGET,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [BRMA09_6] The True Warchief && Test: The True Warchief_BRMA09_6
 				//PowerTask = null,
@@ -2539,8 +2539,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA11_3] Burning Adrenaline (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA11_3] Burning Adrenaline (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to the enemy hero. @spelldmg
 			// --------------------------------------------------------
@@ -2555,8 +2555,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA12_3] Brood Affliction: Red (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA12_3] Brood Affliction: Red (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: While this is in your hand, take 1 damage at the start of your turn.
 			// --------------------------------------------------------
@@ -2573,8 +2573,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA12_3H] Brood Affliction: Red (*) - COST:3 
-			// - Set: brm, 
+			// [BRMA12_3H] Brood Affliction: Red (*) - COST:3
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: While this is in your hand, take 3 damage at the start of your turn.
 			// --------------------------------------------------------
@@ -2591,8 +2591,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA12_4] Brood Affliction: Green (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA12_4] Brood Affliction: Green (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: While this is in your hand, restore #2 health to your opponent at the start of your turn.
 			// --------------------------------------------------------
@@ -2608,8 +2608,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA12_4H] Brood Affliction: Green (*) - COST:3 
-			// - Set: brm, 
+			// [BRMA12_4H] Brood Affliction: Green (*) - COST:3
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: While this is in your hand, restore #6 health to your opponent at the start of your turn.
 			// --------------------------------------------------------
@@ -2625,8 +2625,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA12_5] Brood Affliction: Blue (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA12_5] Brood Affliction: Blue (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: While this is in your hand, Chromaggus' spells cost (1) less.
 			// --------------------------------------------------------
@@ -2642,8 +2642,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA12_5H] Brood Affliction: Blue (*) - COST:3 
-			// - Set: brm, 
+			// [BRMA12_5H] Brood Affliction: Blue (*) - COST:3
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: While this is in your hand, Chromaggus' spells cost (3) less.
 			// --------------------------------------------------------
@@ -2659,8 +2659,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA12_6] Brood Affliction: Black (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA12_6] Brood Affliction: Black (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: While this is in your hand, whenever Chromaggus draws a card, he gets another copy of it.
 			// --------------------------------------------------------
@@ -2676,8 +2676,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA12_6H] Brood Affliction: Black (*) - COST:3 
-			// - Set: brm, 
+			// [BRMA12_6H] Brood Affliction: Black (*) - COST:3
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: While this is in your hand, whenever Chromaggus draws a card, he gets another copy of it.
 			// --------------------------------------------------------
@@ -2693,8 +2693,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA12_7] Brood Affliction: Bronze (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA12_7] Brood Affliction: Bronze (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: While this is in your hand, Chromaggus' minions cost (1) less.
 			// --------------------------------------------------------
@@ -2710,8 +2710,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA12_7H] Brood Affliction: Bronze (*) - COST:3 
-			// - Set: brm, 
+			// [BRMA12_7H] Brood Affliction: Bronze (*) - COST:3
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: While this is in your hand, Chromaggus' minions cost (3) less.
 			// --------------------------------------------------------
@@ -2727,8 +2727,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA12_8] Chromatic Mutation (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA12_8] Chromatic Mutation (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Transform a minion into a 2/2 Chromatic Dragonkin.
 			// --------------------------------------------------------
@@ -2739,7 +2739,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BRMA12_8", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("BRMA12_8", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [BRMA12_8] Chromatic Mutation && Test: Chromatic Mutation_BRMA12_8
 				InfoCardId = "BRMA12_8te",
@@ -2748,8 +2748,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA13_8] DIE, INSECT! (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA13_8] DIE, INSECT! (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Deal $8 damage to a random enemy. @spelldmg
 			// --------------------------------------------------------
@@ -2765,8 +2765,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA14_11] Recharge (*) - COST:0 
-			// - Set: brm, 
+			// [BRMA14_11] Recharge (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Fill all empty Mana Crystals.
 			// --------------------------------------------------------
@@ -2781,8 +2781,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA15_3] Release the Aberrations! (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA15_3] Release the Aberrations! (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Summon 3 Aberrations.
 			// --------------------------------------------------------
@@ -2792,7 +2792,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA15_3", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("BRMA15_3", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA15_3] Release the Aberrations! && Test: Release the Aberrations!_BRMA15_3
 				//PowerTask = null,
@@ -2800,8 +2800,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA16_3] Sonic Breath (*) - COST:4 
-			// - Set: brm, 
+			// [BRMA16_3] Sonic Breath (*) - COST:4
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to a minion. Give your weapon +3 Attack. @spelldmg
 			// --------------------------------------------------------
@@ -2813,7 +2813,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_WEAPON_EQUIPPED = 0
 			// --------------------------------------------------------
-			cards.Add("BRMA16_3", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_WEAPON_EQUIPPED}, new Power
+			cards.Add("BRMA16_3", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_WEAPON_EQUIPPED,0}}, new Power
 			{
 				// TODO [BRMA16_3] Sonic Breath && Test: Sonic Breath_BRMA16_3
 				InfoCardId = "BRMA16_3e",
@@ -2822,8 +2822,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA16_4] Reverberating Gong (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA16_4] Reverberating Gong (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Destroy your opponent's weapon.
 			// --------------------------------------------------------
@@ -2833,7 +2833,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_ENEMY_WEAPON_EQUIPPED = 0
 			// --------------------------------------------------------
-			cards.Add("BRMA16_4", new CardDef(new[] {PlayReq.REQ_ENEMY_WEAPON_EQUIPPED}, new Power
+			cards.Add("BRMA16_4", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_ENEMY_WEAPON_EQUIPPED,0}}, new Power
 			{
 				// TODO [BRMA16_4] Reverberating Gong && Test: Reverberating Gong_BRMA16_4
 				//PowerTask = null,
@@ -2841,8 +2841,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA17_4] LAVA! (*) - COST:2 
-			// - Set: brm, 
+			// [BRMA17_4] LAVA! (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to all minions. @spelldmg
 			// --------------------------------------------------------
@@ -2857,8 +2857,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRMA_01] Flameheart (*) - COST:3 
-			// - Set: brm, 
+			// [BRMA_01] Flameheart (*) - COST:3
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Draw 2 cards.
 			//       Gain 4 Armor.
@@ -2874,8 +2874,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [BRMA10_6] Razorgore's Claws (*) - COST:1 [ATK:1/HP:0] 
-			// - Set: brm, 
+			// [BRMA10_6] Razorgore's Claws (*) - COST:1 [ATK:1/HP:0]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Whenever a Corrupted Egg dies, gain +1 Attack.
 			// --------------------------------------------------------
@@ -2892,8 +2892,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [BRMA16_5] Dragonteeth (*) - COST:1 
-			// - Set: brm, 
+			// [BRMA16_5] Dragonteeth (*) - COST:1
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Whenever your opponent plays a card, gain +1 Attack.
 			// --------------------------------------------------------
@@ -2910,8 +2910,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [BRMA17_9] Onyxiclaw (*) - COST:2 [ATK:2/HP:0] 
-			// - Set: brm, 
+			// [BRMA17_9] Onyxiclaw (*) - COST:2 [ATK:2/HP:0]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - DURABILITY = 6

@@ -343,9 +343,8 @@ namespace SabberStoneBuildCardSet
 			string enchantId = Cards.All
 				.Where(p => p.Id.Contains(card.Id) && p.Id.Length > card.Id.Length && p.Type == CardType.ENCHANTMENT)
 				.Select(p => p.Id).FirstOrDefault();
-
-			string playReqs = String.Join(',', card.PlayRequirements.Keys.Select(p => $"PlayReq.{p}"));
-			str.AppendLine($"\t\t\tcards.Add(\"{card.Id}\", new CardDef({(playReqs.Length == 0? "" : $"new[] {{{playReqs}}}, ")}new Power");
+			string playReqs = String.Join(',', card.PlayRequirements.Select(p => $"{{PlayReq.{p.Key},{p.Value}}}"));
+			str.AppendLine($"\t\t\tcards.Add(\"{card.Id}\", new CardDef({(playReqs.Length == 0? "" : $"new Dictionary<PlayReq, int>() {{{playReqs}}}, ")}new Power");
 			str.AppendLine($"\t\t\t{{");
 			str.AppendLine($"\t\t\t\t// TODO [{card.Id}] {card.Name} && Test: {card.Name}_{card.Id}");
 			if (enchantId != null)

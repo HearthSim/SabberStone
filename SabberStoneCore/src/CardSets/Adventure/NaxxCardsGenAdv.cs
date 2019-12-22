@@ -24,8 +24,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void Heroes(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX10_01] Patchwerk (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: naxx, 
+			// [NAX10_01] Patchwerk (*) - COST:0 [ATK:0/HP:30]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - AI_MUST_PLAY = 1
@@ -40,8 +40,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX10_01H] Patchwerk (*) - COST:0 [ATK:0/HP:45] 
-			// - Set: naxx, 
+			// [NAX10_01H] Patchwerk (*) - COST:0 [ATK:0/HP:45]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - AI_MUST_PLAY = 1
@@ -56,8 +56,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX11_01] Grobbulus (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: naxx, 
+			// [NAX11_01] Grobbulus (*) - COST:0 [ATK:0/HP:30]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1888
@@ -71,8 +71,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX11_01H] Grobbulus (*) - COST:0 [ATK:0/HP:45] 
-			// - Set: naxx, 
+			// [NAX11_01H] Grobbulus (*) - COST:0 [ATK:0/HP:45]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2135
@@ -86,8 +86,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX12_01] Gluth (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: naxx, 
+			// [NAX12_01] Gluth (*) - COST:0 [ATK:0/HP:30]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1891
@@ -101,8 +101,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX12_01H] Gluth (*) - COST:0 [ATK:0/HP:45] 
-			// - Set: naxx, 
+			// [NAX12_01H] Gluth (*) - COST:0 [ATK:0/HP:45]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2141
@@ -116,8 +116,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX13_01] Thaddius (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: naxx, 
+			// [NAX13_01] Thaddius (*) - COST:0 [ATK:0/HP:30]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1897
@@ -131,8 +131,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX13_01H] Thaddius (*) - COST:0 [ATK:0/HP:45] 
-			// - Set: naxx, 
+			// [NAX13_01H] Thaddius (*) - COST:0 [ATK:0/HP:45]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1897
@@ -146,8 +146,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX14_01] Sapphiron (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: naxx, 
+			// [NAX14_01] Sapphiron (*) - COST:0 [ATK:0/HP:30]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1905
@@ -161,8 +161,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX14_01H] Sapphiron (*) - COST:0 [ATK:0/HP:45] 
-			// - Set: naxx, 
+			// [NAX14_01H] Sapphiron (*) - COST:0 [ATK:0/HP:45]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1905
@@ -176,8 +176,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX15_01] Kel'Thuzad (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: naxx, 
+			// [NAX15_01] Kel'Thuzad (*) - COST:0 [ATK:0/HP:30]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1901
@@ -192,8 +192,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX15_01H] Kel'Thuzad (*) - COST:0 [ATK:0/HP:45] 
-			// - Set: naxx, 
+			// [NAX15_01H] Kel'Thuzad (*) - COST:0 [ATK:0/HP:45]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2148
@@ -208,8 +208,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX1_01] Anub'Rekhan (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: naxx, 
+			// [NAX1_01] Anub'Rekhan (*) - COST:0 [ATK:0/HP:30]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1831
@@ -218,7 +218,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("NAX1_01", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("NAX1_01", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [NAX1_01] Anub'Rekhan && Test: Anub'Rekhan_NAX1_01
 				//PowerTask = null,
@@ -226,8 +226,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX1h_01] Anub'Rekhan (*) - COST:0 [ATK:0/HP:45] 
-			// - Set: naxx, 
+			// [NAX1h_01] Anub'Rekhan (*) - COST:0 [ATK:0/HP:45]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2103
@@ -236,7 +236,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("NAX1h_01", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("NAX1h_01", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [NAX1h_01] Anub'Rekhan && Test: Anub'Rekhan_NAX1h_01
 				//PowerTask = null,
@@ -244,8 +244,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX2_01] Grand Widow Faerlina (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: naxx, 
+			// [NAX2_01] Grand Widow Faerlina (*) - COST:0 [ATK:0/HP:30]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1840
@@ -259,8 +259,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX2_01H] Grand Widow Faerlina (*) - COST:0 [ATK:0/HP:45] 
-			// - Set: naxx, 
+			// [NAX2_01H] Grand Widow Faerlina (*) - COST:0 [ATK:0/HP:45]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2105
@@ -274,8 +274,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX3_01] Maexxna (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: naxx, 
+			// [NAX3_01] Maexxna (*) - COST:0 [ATK:0/HP:30]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1867
@@ -289,8 +289,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX3_01H] Maexxna (*) - COST:0 [ATK:0/HP:45] 
-			// - Set: naxx, 
+			// [NAX3_01H] Maexxna (*) - COST:0 [ATK:0/HP:45]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2107
@@ -304,8 +304,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// -------------------------------------------- HERO - MAGE
-			// [NAX4_01] Noth the Plaguebringer (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: naxx, 
+			// [NAX4_01] Noth the Plaguebringer (*) - COST:0 [ATK:0/HP:30]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1849
@@ -319,8 +319,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// -------------------------------------------- HERO - MAGE
-			// [NAX4_01H] Noth the Plaguebringer (*) - COST:0 [ATK:0/HP:45] 
-			// - Set: naxx, 
+			// [NAX4_01H] Noth the Plaguebringer (*) - COST:0 [ATK:0/HP:45]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2115
@@ -334,8 +334,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARLOCK
-			// [NAX5_01] Heigan the Unclean (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: naxx, 
+			// [NAX5_01] Heigan the Unclean (*) - COST:0 [ATK:0/HP:30]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1854
@@ -349,8 +349,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARLOCK
-			// [NAX5_01H] Heigan the Unclean (*) - COST:0 [ATK:0/HP:45] 
-			// - Set: naxx, 
+			// [NAX5_01H] Heigan the Unclean (*) - COST:0 [ATK:0/HP:45]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2117
@@ -364,8 +364,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX6_01] Loatheb (*) - COST:0 [ATK:0/HP:75] 
-			// - Set: naxx, 
+			// [NAX6_01] Loatheb (*) - COST:0 [ATK:0/HP:75]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1862
@@ -379,8 +379,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX6_01H] Loatheb (*) - COST:0 [ATK:0/HP:99] 
-			// - Set: naxx, 
+			// [NAX6_01H] Loatheb (*) - COST:0 [ATK:0/HP:99]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2119
@@ -394,8 +394,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX7_01] Instructor Razuvious (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: naxx, 
+			// [NAX7_01] Instructor Razuvious (*) - COST:0 [ATK:0/HP:40]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1870
@@ -409,8 +409,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX7_01H] Instructor Razuvious (*) - COST:0 [ATK:0/HP:55] 
-			// - Set: naxx, 
+			// [NAX7_01H] Instructor Razuvious (*) - COST:0 [ATK:0/HP:55]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2129
@@ -424,8 +424,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX8_01] Gothik the Harvester (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: naxx, 
+			// [NAX8_01] Gothik the Harvester (*) - COST:0 [ATK:0/HP:30]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1872
@@ -439,8 +439,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX8_01H] Gothik the Harvester (*) - COST:0 [ATK:0/HP:45] 
-			// - Set: naxx, 
+			// [NAX8_01H] Gothik the Harvester (*) - COST:0 [ATK:0/HP:45]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2121
@@ -454,8 +454,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX9_01] Baron Rivendare (*) - COST:0 [ATK:0/HP:7] 
-			// - Set: naxx, 
+			// [NAX9_01] Baron Rivendare (*) - COST:0 [ATK:0/HP:7]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1883
@@ -469,8 +469,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [NAX9_01H] Baron Rivendare (*) - COST:0 [ATK:0/HP:14] 
-			// - Set: naxx, 
+			// [NAX9_01H] Baron Rivendare (*) - COST:0 [ATK:0/HP:14]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1883
@@ -488,8 +488,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void HeroPowers(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX10_03] Hateful Strike (*) - COST:4 
-			// - Set: naxx, 
+			// [NAX10_03] Hateful Strike (*) - COST:4
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Destroy a minion.
@@ -501,7 +501,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("NAX10_03", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("NAX10_03", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [NAX10_03] Hateful Strike && Test: Hateful Strike_NAX10_03
 				//PowerTask = null,
@@ -509,8 +509,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX10_03H] Hateful Strike (*) - COST:4 
-			// - Set: naxx, 
+			// [NAX10_03H] Hateful Strike (*) - COST:4
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Destroy a minion.
@@ -522,7 +522,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("NAX10_03H", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("NAX10_03H", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [NAX10_03H] Hateful Strike && Test: Hateful Strike_NAX10_03H
 				//PowerTask = null,
@@ -530,8 +530,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX11_02] Poison Cloud (*) - COST:2 
-			// - Set: naxx, 
+			// [NAX11_02] Poison Cloud (*) - COST:2
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 1 damage to all minions. If any die, summon a slime.
@@ -547,8 +547,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX11_02H] Poison Cloud (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX11_02H] Poison Cloud (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 2 damage to all enemies. If any die, summon a slime.
@@ -565,8 +565,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX12_02] Decimate (*) - COST:2 
-			// - Set: naxx, 
+			// [NAX12_02] Decimate (*) - COST:2
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Change the Health of all minions to 1.
@@ -577,7 +577,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("NAX12_02", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
+			cards.Add("NAX12_02", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINIMUM_ENEMY_MINIONS,1}}, new Power
 			{
 				// TODO [NAX12_02] Decimate && Test: Decimate_NAX12_02
 				InfoCardId = "NAX12_02e",
@@ -586,8 +586,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX12_02H] Decimate (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX12_02H] Decimate (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Change the Health of enemy minions to 1.
@@ -599,7 +599,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("NAX12_02H", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
+			cards.Add("NAX12_02H", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINIMUM_ENEMY_MINIONS,1}}, new Power
 			{
 				// TODO [NAX12_02H] Decimate && Test: Decimate_NAX12_02H
 				//PowerTask = null,
@@ -607,8 +607,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX13_02] Polarity Shift (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX13_02] Polarity Shift (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Swap the Attack and Health of all minions.
@@ -626,8 +626,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX14_02] Frost Breath (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX14_02] Frost Breath (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Destroy all enemy minions that aren't <b>Frozen</b>.
@@ -644,8 +644,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX15_02] Frost Blast (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX15_02] Frost Blast (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 2 damage to the enemy hero and <b>Freeze</b> it.
@@ -663,8 +663,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX15_02H] Frost Blast (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX15_02H] Frost Blast (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 3 damage to the enemy hero and <b>Freeze</b> it.
@@ -682,8 +682,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX15_04] Chains (*) - COST:8 
-			// - Set: naxx, 
+			// [NAX15_04] Chains (*) - COST:8
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Take control of a random enemy minion until end of turn.
@@ -700,8 +700,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX15_04H] Chains (*) - COST:8 
-			// - Set: naxx, 
+			// [NAX15_04H] Chains (*) - COST:8
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Take control of a random enemy minion.
@@ -717,8 +717,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX1_04] Skitter (*) - COST:2 
-			// - Set: naxx, 
+			// [NAX1_04] Skitter (*) - COST:2
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 3/1 Nerubian.
@@ -729,7 +729,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("NAX1_04", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("NAX1_04", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [NAX1_04] Skitter && Test: Skitter_NAX1_04
 				//PowerTask = null,
@@ -737,8 +737,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX1h_04] Skitter (*) - COST:2 
-			// - Set: naxx, 
+			// [NAX1h_04] Skitter (*) - COST:2
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 4/4 Nerubian.
@@ -754,8 +754,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX2_03] Rain of Fire (*) - COST:2 
-			// - Set: naxx, 
+			// [NAX2_03] Rain of Fire (*) - COST:2
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Fire a missile for each card in your opponent's hand.
@@ -772,8 +772,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX2_03H] Rain of Fire (*) - COST:1 
-			// - Set: naxx, 
+			// [NAX2_03H] Rain of Fire (*) - COST:1
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Fire a missile for each card in your opponent's hand.
@@ -790,8 +790,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX3_02] Web Wrap (*) - COST:3 
-			// - Set: naxx, 
+			// [NAX3_02] Web Wrap (*) - COST:3
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Return a random enemy minion to your opponent's hand.
@@ -802,7 +802,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("NAX3_02", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
+			cards.Add("NAX3_02", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINIMUM_ENEMY_MINIONS,1}}, new Power
 			{
 				// TODO [NAX3_02] Web Wrap && Test: Web Wrap_NAX3_02
 				//PowerTask = null,
@@ -810,8 +810,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX3_02H] Web Wrap (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX3_02H] Web Wrap (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Return 2 random enemy minions to your opponent's hand.
@@ -828,8 +828,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX4_04] Raise Dead (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX4_04] Raise Dead (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Whenever an enemy dies, raise a 1/1 Skeleton.
@@ -845,8 +845,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX4_04H] Raise Dead (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX4_04H] Raise Dead (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Whenever an enemy dies, raise a 5/5 Skeleton.
@@ -862,8 +862,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX5_02] Eruption (*) - COST:1 
-			// - Set: naxx, 
+			// [NAX5_02] Eruption (*) - COST:1
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 2 damage to the left-most enemy minion.
@@ -874,7 +874,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("NAX5_02", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
+			cards.Add("NAX5_02", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINIMUM_ENEMY_MINIONS,1}}, new Power
 			{
 				// TODO [NAX5_02] Eruption && Test: Eruption_NAX5_02
 				//PowerTask = null,
@@ -882,8 +882,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX5_02H] Eruption (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX5_02H] Eruption (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 3 damage to the left-most enemy minion.
@@ -895,7 +895,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 0
 			// --------------------------------------------------------
-			cards.Add("NAX5_02H", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
+			cards.Add("NAX5_02H", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINIMUM_ENEMY_MINIONS,0}}, new Power
 			{
 				// TODO [NAX5_02H] Eruption && Test: Eruption_NAX5_02H
 				//PowerTask = null,
@@ -903,8 +903,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX6_02] Necrotic Aura (*) - COST:2 
-			// - Set: naxx, 
+			// [NAX6_02] Necrotic Aura (*) - COST:2
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 3 damage to the enemy hero.
@@ -920,8 +920,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX6_02H] Necrotic Aura (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX6_02H] Necrotic Aura (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 3 damage to the enemy hero.
@@ -937,8 +937,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX7_03] Unbalancing Strike (*) - COST:2 
-			// - Set: naxx, 
+			// [NAX7_03] Unbalancing Strike (*) - COST:2
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 3 damage.
@@ -949,7 +949,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("NAX7_03", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("NAX7_03", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [NAX7_03] Unbalancing Strike && Test: Unbalancing Strike_NAX7_03
 				//PowerTask = null,
@@ -957,8 +957,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX7_03H] Unbalancing Strike (*) - COST:1 
-			// - Set: naxx, 
+			// [NAX7_03H] Unbalancing Strike (*) - COST:1
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 4 damage.
@@ -969,7 +969,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("NAX7_03H", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("NAX7_03H", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [NAX7_03H] Unbalancing Strike && Test: Unbalancing Strike_NAX7_03H
 				//PowerTask = null,
@@ -977,8 +977,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX8_02] Harvest (*) - COST:2 
-			// - Set: naxx, 
+			// [NAX8_02] Harvest (*) - COST:2
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Draw a card.
@@ -994,8 +994,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX8_02H] Harvest (*) - COST:1 
-			// - Set: naxx, 
+			// [NAX8_02H] Harvest (*) - COST:1
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Draw a card. Gain a Mana Crystal.
@@ -1012,8 +1012,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [NAX9_06] Unholy Shadow (*) - COST:5 
-			// - Set: naxx, 
+			// [NAX9_06] Unholy Shadow (*) - COST:5
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Draw 2 cards.
@@ -1033,8 +1033,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NAX11_04e] Mutating Injection (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX11_04e] Mutating Injection (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: +4/+4 and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -1051,8 +1051,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NAX12_02e] Decimate (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX12_02e] Decimate (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Health changed to 1.
 			// --------------------------------------------------------
@@ -1066,8 +1066,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NAX12_03e] Extra Teeth (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX12_03e] Extra Teeth (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -1081,8 +1081,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NAX12_04e] Enrage (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX12_04e] Enrage (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: +6 Attack this turn.
 			// --------------------------------------------------------
@@ -1097,8 +1097,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NAX13_02e] Polarity (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX13_02e] Polarity (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Attack and Health swapped.
 			// --------------------------------------------------------
@@ -1112,8 +1112,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NAX13_03e] Supercharged (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX13_03e] Supercharged (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
@@ -1127,8 +1127,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NAX15_01e] Interloper! (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX15_01e] Interloper! (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1140,8 +1140,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NAX15_01He] Interloper! (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX15_01He] Interloper! (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1153,8 +1153,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NAX15_04a] Slave of Kel'Thuzad (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX15_04a] Slave of Kel'Thuzad (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: MINE!
 			// --------------------------------------------------------
@@ -1168,8 +1168,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NAX2_05e] Worship (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX2_05e] Worship (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
@@ -1183,8 +1183,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NAX2_05He] Heroic Worship (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX2_05He] Heroic Worship (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
@@ -1198,8 +1198,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NAX6_03te] Fungal Growth (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX6_03te] Fungal Growth (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -1213,8 +1213,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NAX9_07e] Mark of the Horsemen (*) - COST:0 
-			// - Set: naxx, 
+			// [NAX9_07e] Mark of the Horsemen (*) - COST:0
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -1228,8 +1228,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX11_03] Fallout Slime (*) - COST:1 [ATK:2/HP:2] 
-			// - Set: naxx, 
+			// [NAX11_03] Fallout Slime (*) - COST:1 [ATK:2/HP:2]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1242,7 +1242,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX13_04H] Feugen (*) - COST:5 [ATK:4/HP:7] 
+			// [NAX13_04H] Feugen (*) - COST:5 [ATK:4/HP:7]
 			// - Set: naxx, Rarity: legendary
 			// --------------------------------------------------------
 			// GameTag:
@@ -1257,7 +1257,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX13_05H] Stalagg (*) - COST:5 [ATK:7/HP:4] 
+			// [NAX13_05H] Stalagg (*) - COST:5 [ATK:7/HP:4]
 			// - Set: naxx, Rarity: legendary
 			// --------------------------------------------------------
 			// GameTag:
@@ -1272,8 +1272,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX14_03] Frozen Champion (*) - COST:5 [ATK:2/HP:10] 
-			// - Set: naxx, 
+			// [NAX14_03] Frozen Champion (*) - COST:5 [ATK:2/HP:10]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Permanently Frozen.  Adjacent minions are Immune to Frost Breath.
 			// --------------------------------------------------------
@@ -1292,8 +1292,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX15_03n] Guardian of Icecrown (*) - COST:4 [ATK:3/HP:3] 
-			// - Set: naxx, 
+			// [NAX15_03n] Guardian of Icecrown (*) - COST:4 [ATK:3/HP:3]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -1309,8 +1309,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX15_03t] Guardian of Icecrown (*) - COST:4 [ATK:5/HP:5] 
-			// - Set: naxx, 
+			// [NAX15_03t] Guardian of Icecrown (*) - COST:4 [ATK:5/HP:5]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -1326,8 +1326,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX15_05] Mr. Bigglesworth (*) - COST:0 [ATK:1/HP:1] 
-			// - Race: beast, Set: naxx, 
+			// [NAX15_05] Mr. Bigglesworth (*) - COST:0 [ATK:1/HP:1]
+			// - Race: beast, Set: naxx,
 			// --------------------------------------------------------
 			// Text: <i>This is Kel'Thuzad's kitty.</i>
 			// --------------------------------------------------------
@@ -1344,8 +1344,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX1_03] Nerubian (*) - COST:2 [ATK:3/HP:1] 
-			// - Set: naxx, 
+			// [NAX1_03] Nerubian (*) - COST:2 [ATK:3/HP:1]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1358,8 +1358,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX1h_03] Nerubian (*) - COST:2 [ATK:4/HP:4] 
-			// - Set: naxx, 
+			// [NAX1h_03] Nerubian (*) - COST:2 [ATK:4/HP:4]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1372,8 +1372,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX2_05] Worshipper (*) - COST:3 [ATK:1/HP:4] 
-			// - Set: naxx, 
+			// [NAX2_05] Worshipper (*) - COST:3 [ATK:1/HP:4]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Your hero has +1 Attack on your turn.
 			// --------------------------------------------------------
@@ -1391,8 +1391,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX2_05H] Worshipper (*) - COST:3 [ATK:2/HP:4] 
-			// - Set: naxx, 
+			// [NAX2_05H] Worshipper (*) - COST:3 [ATK:2/HP:4]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Your hero has +3 Attack on your turn.
 			// --------------------------------------------------------
@@ -1410,8 +1410,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX4_03] Skeleton (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: naxx, 
+			// [NAX4_03] Skeleton (*) - COST:1 [ATK:1/HP:1]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1424,8 +1424,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX4_03H] Skeleton (*) - COST:5 [ATK:5/HP:5] 
-			// - Set: naxx, 
+			// [NAX4_03H] Skeleton (*) - COST:5 [ATK:5/HP:5]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1438,8 +1438,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX6_03t] Spore (*) - COST:0 [ATK:0/HP:1] 
-			// - Set: naxx, 
+			// [NAX6_03t] Spore (*) - COST:0 [ATK:0/HP:1]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Give all enemy minions +8 Attack.
 			// --------------------------------------------------------
@@ -1456,8 +1456,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX7_02] Understudy (*) - COST:2 [ATK:0/HP:7] 
-			// - Set: naxx, 
+			// [NAX7_02] Understudy (*) - COST:2 [ATK:0/HP:7]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -1473,8 +1473,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX8_03] Unrelenting Trainee (*) - COST:1 [ATK:2/HP:2] 
-			// - Set: naxx, 
+			// [NAX8_03] Unrelenting Trainee (*) - COST:1 [ATK:2/HP:2]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a Spectral Trainee for your opponent.
 			// --------------------------------------------------------
@@ -1490,8 +1490,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX8_03t] Spectral Trainee (*) - COST:1 [ATK:0/HP:2] 
-			// - Set: naxx, 
+			// [NAX8_03t] Spectral Trainee (*) - COST:1 [ATK:0/HP:2]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: At the start of your turn, deal 1 damage to your hero.
 			// --------------------------------------------------------
@@ -1506,8 +1506,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX8_04] Unrelenting Warrior (*) - COST:3 [ATK:3/HP:4] 
-			// - Set: naxx, 
+			// [NAX8_04] Unrelenting Warrior (*) - COST:3 [ATK:3/HP:4]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a Spectral Warrior for your opponent.
 			// --------------------------------------------------------
@@ -1523,8 +1523,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX8_04t] Spectral Warrior (*) - COST:3 [ATK:0/HP:4] 
-			// - Set: naxx, 
+			// [NAX8_04t] Spectral Warrior (*) - COST:3 [ATK:0/HP:4]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: At the start of your turn, deal 1 damage to your hero.
 			// --------------------------------------------------------
@@ -1539,8 +1539,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX8_05] Unrelenting Rider (*) - COST:6 [ATK:5/HP:6] 
-			// - Set: naxx, 
+			// [NAX8_05] Unrelenting Rider (*) - COST:6 [ATK:5/HP:6]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a Spectral Rider for your opponent.
 			// --------------------------------------------------------
@@ -1556,8 +1556,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX8_05t] Spectral Rider (*) - COST:5 [ATK:0/HP:6] 
-			// - Set: naxx, 
+			// [NAX8_05t] Spectral Rider (*) - COST:5 [ATK:0/HP:6]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: At the start of your turn, deal 1 damage to your hero.
 			// --------------------------------------------------------
@@ -1572,8 +1572,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX9_02] Lady Blaumeux (*) - COST:3 [ATK:1/HP:7] 
-			// - Set: naxx, 
+			// [NAX9_02] Lady Blaumeux (*) - COST:3 [ATK:1/HP:7]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Your hero is <b>Immune</b>.
 			// --------------------------------------------------------
@@ -1592,8 +1592,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX9_02H] Lady Blaumeux (*) - COST:3 [ATK:2/HP:7] 
-			// - Set: naxx, 
+			// [NAX9_02H] Lady Blaumeux (*) - COST:3 [ATK:2/HP:7]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Your hero is <b>Immune</b>.
 			// --------------------------------------------------------
@@ -1612,8 +1612,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX9_03] Thane Korth'azz (*) - COST:3 [ATK:1/HP:7] 
-			// - Set: naxx, 
+			// [NAX9_03] Thane Korth'azz (*) - COST:3 [ATK:1/HP:7]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Your hero is <b>Immune</b>.
 			// --------------------------------------------------------
@@ -1632,8 +1632,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX9_03H] Thane Korth'azz (*) - COST:3 [ATK:2/HP:7] 
-			// - Set: naxx, 
+			// [NAX9_03H] Thane Korth'azz (*) - COST:3 [ATK:2/HP:7]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Your hero is <b>Immune</b>.
 			// --------------------------------------------------------
@@ -1652,8 +1652,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX9_04] Sir Zeliek (*) - COST:3 [ATK:1/HP:7] 
-			// - Set: naxx, 
+			// [NAX9_04] Sir Zeliek (*) - COST:3 [ATK:1/HP:7]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Your hero is <b>Immune</b>.
 			// --------------------------------------------------------
@@ -1672,8 +1672,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAX9_04H] Sir Zeliek (*) - COST:3 [ATK:2/HP:7] 
-			// - Set: naxx, 
+			// [NAX9_04H] Sir Zeliek (*) - COST:3 [ATK:2/HP:7]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Your hero is <b>Immune</b>.
 			// --------------------------------------------------------
@@ -1692,8 +1692,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAXM_001] Necroknight (*) - COST:4 [ATK:5/HP:6] 
-			// - Set: naxx, 
+			// [NAXM_001] Necroknight (*) - COST:4 [ATK:5/HP:6]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Destroy the minions next to this one as well.
 			// --------------------------------------------------------
@@ -1709,8 +1709,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NAXM_002] Skeletal Smith (*) - COST:3 [ATK:4/HP:3] 
-			// - Set: naxx, 
+			// [NAXM_002] Skeletal Smith (*) - COST:3 [ATK:4/HP:3]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Destroy your opponent's weapon.
 			// --------------------------------------------------------
@@ -1726,8 +1726,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [NAX11_04] Mutating Injection (*) - COST:3 
-			// - Set: naxx, 
+			// [NAX11_04] Mutating Injection (*) - COST:3
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Give a minion +4/+4 and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -1741,7 +1741,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("NAX11_04", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("NAX11_04", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [NAX11_04] Mutating Injection && Test: Mutating Injection_NAX11_04
 				InfoCardId = "NAX11_04e",
@@ -1750,8 +1750,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [NAX12_04] Enrage (*) - COST:3 
-			// - Set: naxx, 
+			// [NAX12_04] Enrage (*) - COST:3
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Give your hero +6 Attack this turn.
 			// --------------------------------------------------------
@@ -1767,8 +1767,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [NAX13_03] Supercharge (*) - COST:2 
-			// - Set: naxx, 
+			// [NAX13_03] Supercharge (*) - COST:2
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Give your minions +2 Health.
 			// --------------------------------------------------------
@@ -1784,8 +1784,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [NAX14_04] Pure Cold (*) - COST:5 
-			// - Set: naxx, 
+			// [NAX14_04] Pure Cold (*) - COST:5
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Deal $8 damage to the enemy hero, and <b>Freeze</b> it. @spelldmg
 			// --------------------------------------------------------
@@ -1801,8 +1801,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [NAX1_05] Locust Swarm (*) - COST:7 
-			// - Set: naxx, 
+			// [NAX1_05] Locust Swarm (*) - COST:7
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to all enemy minions. Restore #3 Health to your hero. @spelldmg
 			// --------------------------------------------------------
@@ -1817,8 +1817,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [NAX3_03] Necrotic Poison (*) - COST:2 
-			// - Set: naxx, 
+			// [NAX3_03] Necrotic Poison (*) - COST:2
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Destroy a minion.
 			// --------------------------------------------------------
@@ -1829,7 +1829,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("NAX3_03", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("NAX3_03", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [NAX3_03] Necrotic Poison && Test: Necrotic Poison_NAX3_03
 				//PowerTask = null,
@@ -1837,8 +1837,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [NAX4_05] Plague (*) - COST:6 
-			// - Set: naxx, 
+			// [NAX4_05] Plague (*) - COST:6
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Destroy all non-Skeleton minions.
 			// --------------------------------------------------------
@@ -1853,8 +1853,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [NAX5_03] Mindpocalypse (*) - COST:2 
-			// - Set: naxx, 
+			// [NAX5_03] Mindpocalypse (*) - COST:2
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Both players draw 2 cards and gain a Mana Crystal.
 			// --------------------------------------------------------
@@ -1869,8 +1869,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [NAX6_03] Deathbloom (*) - COST:4 
-			// - Set: naxx, 
+			// [NAX6_03] Deathbloom (*) - COST:4
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Deal $5 damage to a minion. Summon a Spore. @spelldmg
 			// --------------------------------------------------------
@@ -1881,7 +1881,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("NAX6_03", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			cards.Add("NAX6_03", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				// TODO [NAX6_03] Deathbloom && Test: Deathbloom_NAX6_03
 				InfoCardId = "NAX6_03te",
@@ -1890,8 +1890,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [NAX6_04] Sporeburst (*) - COST:1 
-			// - Set: naxx, 
+			// [NAX6_04] Sporeburst (*) - COST:1
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to all enemy minions. Summon a Spore. @spelldmg
 			// --------------------------------------------------------
@@ -1906,8 +1906,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [NAX7_05] Mind Control Crystal (*) - COST:1 
-			// - Set: naxx, 
+			// [NAX7_05] Mind Control Crystal (*) - COST:1
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Activate the Crystal to control the Understudies!
 			// --------------------------------------------------------
@@ -1922,8 +1922,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [NAX9_07] Mark of the Horsemen (*) - COST:5 
-			// - Set: naxx, 
+			// [NAX9_07] Mark of the Horsemen (*) - COST:5
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Give your minions and your weapon +1/+1.
 			// --------------------------------------------------------
@@ -1939,8 +1939,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [NAX10_02] Hook (*) - COST:3 [ATK:5/HP:0] 
-			// - Set: naxx, 
+			// [NAX10_02] Hook (*) - COST:3 [ATK:5/HP:0]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Put this weapon into your hand.
 			// --------------------------------------------------------
@@ -1957,8 +1957,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [NAX10_02H] Hook (*) - COST:3 [ATK:4/HP:0] 
-			// - Set: naxx, 
+			// [NAX10_02H] Hook (*) - COST:3 [ATK:4/HP:0]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: <b>Windfury</b>
 			//       <b>Deathrattle:</b> Put this weapon into your hand.
@@ -1977,8 +1977,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [NAX12_03] Jaws (*) - COST:1 [ATK:1/HP:0] 
-			// - Set: naxx, 
+			// [NAX12_03] Jaws (*) - COST:1 [ATK:1/HP:0]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Whenever a minion with <b>Deathrattle</b> dies, gain +2 Attack.
 			// --------------------------------------------------------
@@ -1998,8 +1998,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [NAX12_03H] Jaws (*) - COST:1 [ATK:3/HP:0] 
-			// - Set: naxx, 
+			// [NAX12_03H] Jaws (*) - COST:1 [ATK:3/HP:0]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Whenever a minion with <b>Deathrattle</b> dies, gain +2 Attack.
 			// --------------------------------------------------------
@@ -2018,8 +2018,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [NAX7_04] Massive Runeblade (*) - COST:3 [ATK:5/HP:0] 
-			// - Set: naxx, 
+			// [NAX7_04] Massive Runeblade (*) - COST:3 [ATK:5/HP:0]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Deals double damage to heroes.
 			// --------------------------------------------------------
@@ -2035,8 +2035,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [NAX7_04H] Massive Runeblade (*) - COST:3 [ATK:10/HP:0] 
-			// - Set: naxx, 
+			// [NAX7_04H] Massive Runeblade (*) - COST:3 [ATK:10/HP:0]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Deals double damage to heroes.
 			// --------------------------------------------------------
@@ -2052,8 +2052,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [NAX9_05] Runeblade (*) - COST:3 [ATK:1/HP:0] 
-			// - Set: naxx, 
+			// [NAX9_05] Runeblade (*) - COST:3 [ATK:1/HP:0]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Has +3 Attack if the other Horsemen are dead.
 			// --------------------------------------------------------
@@ -2069,8 +2069,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [NAX9_05H] Runeblade (*) - COST:3 [ATK:2/HP:0] 
-			// - Set: naxx, 
+			// [NAX9_05H] Runeblade (*) - COST:3 [ATK:2/HP:0]
+			// - Set: naxx,
 			// --------------------------------------------------------
 			// Text: Has +6 Attack if the other Horsemen are dead.
 			// --------------------------------------------------------

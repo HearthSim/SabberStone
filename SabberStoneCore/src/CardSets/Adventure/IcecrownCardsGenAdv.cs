@@ -24,8 +24,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void Heroes(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- HERO - NEUTRAL
-			// [ICCA01_001] The Lich King (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: icecrown, 
+			// [ICCA01_001] The Lich King (*) - COST:0 [ATK:0/HP:30]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 42457
@@ -39,8 +39,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - PALADIN
-			// [ICCA01_013] Tirion Fordring (*) - COST:0 [ATK:0/HP:30] 
-			// - Fac: neutral, Set: icecrown, 
+			// [ICCA01_013] Tirion Fordring (*) - COST:0 [ATK:0/HP:30]
+			// - Fac: neutral, Set: icecrown,
 			// --------------------------------------------------------
 			// Entourage: ICC_314t2, ICC_314t3, ICC_314t4, ICC_314t1, ICC_314t6, ICC_314t5, ICC_314t7, ICC_314t8
 			// --------------------------------------------------------
@@ -55,8 +55,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [ICCA04_001] Sindragosa (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: icecrown, 
+			// [ICCA04_001] Sindragosa (*) - COST:0 [ATK:0/HP:30]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 45627
@@ -70,8 +70,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [ICCA05_001] Blood-Queen Lana'thel (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: icecrown, 
+			// [ICCA05_001] Blood-Queen Lana'thel (*) - COST:0 [ATK:0/HP:30]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 43194
@@ -85,8 +85,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [ICCA06_001] Lord Marrowgar (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: icecrown, 
+			// [ICCA06_001] Lord Marrowgar (*) - COST:0 [ATK:0/HP:30]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 42447
@@ -100,8 +100,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [ICCA07_001] Professor Putricide (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: icecrown, 
+			// [ICCA07_001] Professor Putricide (*) - COST:0 [ATK:0/HP:30]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 42876
@@ -115,8 +115,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [ICCA07_001h2] Professor Putricide (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: icecrown, 
+			// [ICCA07_001h2] Professor Putricide (*) - COST:0 [ATK:0/HP:30]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 42876
@@ -130,8 +130,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [ICCA07_001h3] Professor Putricide (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: icecrown, 
+			// [ICCA07_001h3] Professor Putricide (*) - COST:0 [ATK:0/HP:30]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 42876
@@ -145,8 +145,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [ICCA08_001] The Lich King (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: icecrown, 
+			// [ICCA08_001] The Lich King (*) - COST:0 [ATK:0/HP:30]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 42457
@@ -160,8 +160,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [ICCA09_002] Deathbringer Saurfang (*) - COST:0 [ATK:0/HP:20] 
-			// - Set: icecrown, 
+			// [ICCA09_002] Deathbringer Saurfang (*) - COST:0 [ATK:0/HP:20]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 43038
@@ -175,8 +175,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [ICCA10_009] Lady Deathwhisper (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: icecrown, 
+			// [ICCA10_009] Lady Deathwhisper (*) - COST:0 [ATK:0/HP:30]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 45605
@@ -194,8 +194,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void HeroPowers(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA04_008p] Frost Breath (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA04_008p] Frost Breath (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Permanently <b>Freeze</b> all enemy minions.
@@ -212,8 +212,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA04_009p] Frost Breath (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA04_009p] Frost Breath (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Triggered Power</b>
 			//       At 20 Health, transforms all enemy minions into blocks of ice.
@@ -229,8 +229,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA04_010p] Frost Breath (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA04_010p] Frost Breath (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Triggered Power</b>
 			//       At 10 Health, transforms all enemy minions into blocks of ice.
@@ -246,8 +246,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA04_011p] Ice Claw (*) - COST:2 
-			// - Set: icecrown, 
+			// [ICCA04_011p] Ice Claw (*) - COST:2
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $2 damage. @spelldmg
@@ -258,7 +258,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICCA04_011p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ICCA04_011p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [ICCA04_011p] Ice Claw && Test: Ice Claw_ICCA04_011p
 				//PowerTask = null,
@@ -266,8 +266,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA05_002p] Vampiric Bite (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA05_002p] Vampiric Bite (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Give a non-Vampire +2/+2. You <i>must</i> use this.
@@ -280,7 +280,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_NOT_VAMPIRE = 0
 			// --------------------------------------------------------
-			cards.Add("ICCA05_002p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_NOT_VAMPIRE}, new Power
+			cards.Add("ICCA05_002p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_TARGET_NOT_VAMPIRE,0}}, new Power
 			{
 				// TODO [ICCA05_002p] Vampiric Bite && Test: Vampiric Bite_ICCA05_002p
 				//PowerTask = null,
@@ -288,8 +288,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA05_004p] Vampiric Leech (*) - COST:2 
-			// - Set: icecrown, 
+			// [ICCA05_004p] Vampiric Leech (*) - COST:2
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       <b>Lifesteal</b>
@@ -302,7 +302,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICCA05_004p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ICCA05_004p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [ICCA05_004p] Vampiric Leech && Test: Vampiric Leech_ICCA05_004p
 				//PowerTask = null,
@@ -310,8 +310,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA06_002p] Skeletal Reconstruction (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA06_002p] Skeletal Reconstruction (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Restore your hero to full Health.
@@ -327,8 +327,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA07_002p] Mad Science (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA07_002p] Mad Science (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       All <b>Secrets</b> cost (0).
@@ -345,8 +345,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA07_003p] Madder Science (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA07_003p] Madder Science (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       All weapons cost (1).
@@ -363,8 +363,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA07_005p] Maddest Science (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA07_005p] Maddest Science (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       All cards cost (5).
@@ -385,8 +385,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA08_002p] The Scourge (*) - COST:2 
-			// - Set: icecrown, 
+			// [ICCA08_002p] The Scourge (*) - COST:2
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 2/2 Ghoul.
@@ -397,7 +397,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA08_002p", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
+			cards.Add("ICCA08_002p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [ICCA08_002p] The Scourge && Test: The Scourge_ICCA08_002p
 				//PowerTask = null,
@@ -405,8 +405,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------- HERO_POWER - DEATHKNIGHT
-			// [ICCA08_030p] Remorseless Winter (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA08_030p] Remorseless Winter (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal @ damage to the enemy hero. +1 Damage each time.
@@ -424,8 +424,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA08_032p] Harvest of Souls (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA08_032p] Harvest of Souls (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       You are <b>Immune</b> if you control a Trapped Soul.
@@ -442,8 +442,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA09_001p] Blood Rune (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA09_001p] Blood Rune (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Can only take damage from weapons.
@@ -460,8 +460,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [ICCA10_009p] Whisper of Death (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA10_009p] Whisper of Death (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: [x]<b>Hero Power</b>
 			//       Damage all enemy
@@ -484,8 +484,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void DeathknightNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------ ENCHANTMENT - DEATHKNIGHT
-			// [ICCA08_023e] Plagued (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA08_023e] Plagued (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: 1/1.
 			// --------------------------------------------------------
@@ -499,8 +499,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
-			// [ICCA01_003] Blood Tap (*) - COST:1 
-			// - Fac: neutral, Set: icecrown, 
+			// [ICCA01_003] Blood Tap (*) - COST:1
+			// - Fac: neutral, Set: icecrown,
 			// --------------------------------------------------------
 			// Text: The next spell you cast this turn costs (0).
 			// --------------------------------------------------------
@@ -515,8 +515,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
-			// [ICCA01_004] Army of the Dead (*) - COST:10 
-			// - Fac: neutral, Set: icecrown, 
+			// [ICCA01_004] Army of the Dead (*) - COST:10
+			// - Fac: neutral, Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Summon seven 3/3 Ghouls with <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -531,8 +531,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
-			// [ICCA08_021] The True Lich (*) - COST:1 
-			// - Set: icecrown, 
+			// [ICCA08_021] The True Lich (*) - COST:1
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Set the enemy hero's remaining Health to 1.
 			// --------------------------------------------------------
@@ -548,8 +548,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
-			// [ICCA08_022] Fallen Champions (*) - COST:1 
-			// - Set: icecrown, 
+			// [ICCA08_022] Fallen Champions (*) - COST:1
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Whenever an enemy dies this game, take control of it.
 			// --------------------------------------------------------
@@ -566,8 +566,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
-			// [ICCA08_023] Necrotic Plague (*) - COST:1 
-			// - Set: icecrown, 
+			// [ICCA08_023] Necrotic Plague (*) - COST:1
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Set minions in your opponent's hand and deck to 1/1.
 			// --------------------------------------------------------
@@ -584,8 +584,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
-			// [ICCA08_024] The Hunted (*) - COST:1 
-			// - Set: icecrown, 
+			// [ICCA08_024] The Hunted (*) - COST:1
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to your opponent for each minion in their deck. @spelldmg
 			// --------------------------------------------------------
@@ -601,8 +601,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
-			// [ICCA08_025] Purge the Weak (*) - COST:1 
-			// - Set: icecrown, 
+			// [ICCA08_025] Purge the Weak (*) - COST:1
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Destroy all enemy minions that cost (3) or less, wherever they are.
 			// --------------------------------------------------------
@@ -618,8 +618,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
-			// [ICCA08_026] Soul Reaper (*) - COST:1 
-			// - Set: icecrown, 
+			// [ICCA08_026] Soul Reaper (*) - COST:1
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Deal $2 damage for each duplicate in opponent’s deck. @spelldmg
 			// --------------------------------------------------------
@@ -630,7 +630,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ICCA08_026", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
+			cards.Add("ICCA08_026", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				// TODO [ICCA08_026] Soul Reaper && Test: Soul Reaper_ICCA08_026
 				//PowerTask = null,
@@ -638,8 +638,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
-			// [ICCA08_027] The True King (*) - COST:1 
-			// - Set: icecrown, 
+			// [ICCA08_027] The True King (*) - COST:1
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Gain 100 Armor.
 			// --------------------------------------------------------
@@ -655,8 +655,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
-			// [ICCA08_028] The Price of Power (*) - COST:1 
-			// - Set: icecrown, 
+			// [ICCA08_028] The Price of Power (*) - COST:1
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Destroy every spell in your opponent's hand and deck.
 			// --------------------------------------------------------
@@ -672,8 +672,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------ SPELL - DEATHKNIGHT
-			// [ICCA08_029] Shut up, Priest (*) - COST:1 
-			// - Set: icecrown, 
+			// [ICCA08_029] Shut up, Priest (*) - COST:1
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Your opponent can't emote.
 			// --------------------------------------------------------
@@ -689,8 +689,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- WEAPON - DEATHKNIGHT
-			// [ICCA01_005] Frostmourne (*) - COST:2 [ATK:5/HP:0] 
-			// - Set: icecrown, 
+			// [ICCA01_005] Frostmourne (*) - COST:2 [ATK:5/HP:0]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
@@ -705,8 +705,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- WEAPON - DEATHKNIGHT
-			// [ICCA08_020] Frostmourne (*) - COST:7 [ATK:5/HP:0] 
-			// - Set: icecrown, 
+			// [ICCA08_020] Frostmourne (*) - COST:7 [ATK:5/HP:0]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Remove all your minions. <b>Deathrattle:</b> Resummon them.
 			// --------------------------------------------------------
@@ -732,8 +732,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void MageNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------- SPELL - MAGE
-			// [ICCA04_002] Unchained Magic (*) - COST:1 
-			// - Set: icecrown, 
+			// [ICCA04_002] Unchained Magic (*) - COST:1
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to the enemy hero for each spell in their hand. @spelldmg
 			// --------------------------------------------------------
@@ -753,8 +753,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void WarlockNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- SPELL - WARLOCK
-			// [ICCA05_020] Bite of the Blood-Queen (*) - COST:1 
-			// - Set: icecrown, 
+			// [ICCA05_020] Bite of the Blood-Queen (*) - COST:1
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Turn a hero into a Vampire.
 			// --------------------------------------------------------
@@ -770,8 +770,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [ICCA05_021] Blood Essence (*) - COST:1 
-			// - Set: icecrown, 
+			// [ICCA05_021] Blood Essence (*) - COST:1
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Transform 2 random minions in your opponent's hand into spells.
 			// --------------------------------------------------------
@@ -790,8 +790,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ICCA05_002e] Bitten! (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA05_002e] Bitten! (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: +2/+2. Can't be bitten again.
 			// --------------------------------------------------------
@@ -805,8 +805,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ICCA07_004e] Grow (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA07_004e] Grow (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: The ooze is growing.
 			// --------------------------------------------------------
@@ -820,8 +820,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ICCA08_022e] Join the Ranks Player Enchantment (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA08_022e] Join the Ranks Player Enchantment (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -834,8 +834,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ICCA08_022e2] Join the Ranks (*) - COST:0 
-			// - Set: icecrown, 
+			// [ICCA08_022e2] Join the Ranks (*) - COST:0
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: When this dies, resummon it for your oponent.
 			// --------------------------------------------------------
@@ -849,8 +849,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA01_004t] Ghoul (*) - COST:3 [ATK:3/HP:3] 
-			// - Set: icecrown, 
+			// [ICCA01_004t] Ghoul (*) - COST:3 [ATK:3/HP:3]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -866,8 +866,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA01_007] Eager Rogue (*) - COST:1 [ATK:3/HP:2] 
-			// - Set: icecrown, 
+			// [ICCA01_007] Eager Rogue (*) - COST:1 [ATK:3/HP:2]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Deals no damage while attacking.
 			// --------------------------------------------------------
@@ -882,8 +882,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA01_008] Terrible Tank (*) - COST:2 [ATK:2/HP:3] 
-			// - Set: icecrown, 
+			// [ICCA01_008] Terrible Tank (*) - COST:2 [ATK:2/HP:3]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -896,8 +896,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA01_009] Needy Hunter (*) - COST:3 [ATK:3/HP:3] 
-			// - Set: icecrown, 
+			// [ICCA01_009] Needy Hunter (*) - COST:3 [ATK:3/HP:3]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Whenever this minion attacks, add a Coin to your hand.
 			// --------------------------------------------------------
@@ -912,8 +912,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA01_010] A. F. Kay (*) - COST:4 [ATK:5/HP:2] 
-			// - Set: icecrown, 
+			// [ICCA01_010] A. F. Kay (*) - COST:4 [ATK:5/HP:2]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Can't attack.
 			// --------------------------------------------------------
@@ -930,8 +930,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA01_011] Warlock on Fire (*) - COST:5 [ATK:7/HP:1] 
-			// - Set: icecrown, 
+			// [ICCA01_011] Warlock on Fire (*) - COST:5 [ATK:7/HP:1]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 1 damage to this minion.
 			// --------------------------------------------------------
@@ -946,8 +946,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA04_004] Block of Ice (*) - COST:3 [ATK:0/HP:7] 
-			// - Set: icecrown, 
+			// [ICCA04_004] Block of Ice (*) - COST:3 [ATK:0/HP:7]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_STATS = 1
@@ -962,8 +962,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA05_003] Sleeping Acolyte (*) - COST:1 [ATK:0/HP:10] 
-			// - Set: icecrown, 
+			// [ICCA05_003] Sleeping Acolyte (*) - COST:1 [ATK:0/HP:10]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -976,8 +976,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA06_005] Bone Spike (*) - COST:4 [ATK:0/HP:8] 
-			// - Set: icecrown, 
+			// [ICCA06_005] Bone Spike (*) - COST:4 [ATK:0/HP:8]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: At the start of your turn, deal 15 damage to the enemy hero.
 			// --------------------------------------------------------
@@ -992,8 +992,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA07_004] Growing Ooze (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: icecrown, 
+			// [ICCA07_004] Growing Ooze (*) - COST:1 [ATK:1/HP:1]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: At the start of your turn, gain +1/+1.
 			// --------------------------------------------------------
@@ -1009,8 +1009,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA07_008] Festergut (*) - COST:4 [ATK:3/HP:5] 
-			// - Set: icecrown, 
+			// [ICCA07_008] Festergut (*) - COST:4 [ATK:3/HP:5]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 3 damage to all enemy minions.
 			// --------------------------------------------------------
@@ -1026,8 +1026,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA08_002t] Ghoul (*) - COST:2 [ATK:2/HP:2] 
-			// - Set: icecrown, 
+			// [ICCA08_002t] Ghoul (*) - COST:2 [ATK:2/HP:2]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1040,8 +1040,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA08_017] Val'kyr Shadowguard (*) - COST:3 [ATK:0/HP:5] 
-			// - Set: icecrown, 
+			// [ICCA08_017] Val'kyr Shadowguard (*) - COST:3 [ATK:0/HP:5]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: At the start of your turn, destroy a random enemy minion and this one.
 			// --------------------------------------------------------
@@ -1056,8 +1056,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA08_033] Trapped Soul (*) - COST:3 [ATK:2/HP:6] 
-			// - Set: icecrown, 
+			// [ICCA08_033] Trapped Soul (*) - COST:3 [ATK:2/HP:6]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -1070,8 +1070,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA09_001t1] Blood Beast (*) - COST:3 [ATK:2/HP:4] 
-			// - Set: icecrown, 
+			// [ICCA09_001t1] Blood Beast (*) - COST:3 [ATK:2/HP:4]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: At the start of your turn, restore #3 Health to your hero.
 			// --------------------------------------------------------
@@ -1086,8 +1086,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA10_001] Valithria Dreamwalker (*) - COST:5 [ATK:30/HP:5] 
-			// - Race: dragon, Set: icecrown, 
+			// [ICCA10_001] Valithria Dreamwalker (*) - COST:5 [ATK:30/HP:5]
+			// - Race: dragon, Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Can't attack or be attacked while damaged.
 			// --------------------------------------------------------
@@ -1107,8 +1107,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICCA11_001] Skeletal Knight (*) - COST:1 [ATK:2/HP:3] 
-			// - Set: icecrown, 
+			// [ICCA11_001] Skeletal Knight (*) - COST:1 [ATK:2/HP:3]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Add a
 			//        <b>Knights of the Frozen Throne</b> card to your opponent's hand.
@@ -1125,8 +1125,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [ICCA06_004] Bone Storm (*) - COST:2 
-			// - Set: icecrown, 
+			// [ICCA06_004] Bone Storm (*) - COST:2
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to all enemies. Draw a card. @spelldmg
 			// --------------------------------------------------------
@@ -1137,7 +1137,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ICCA06_004", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
+			cards.Add("ICCA06_004", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_FRIENDLY_TARGET,0}}, new Power
 			{
 				// TODO [ICCA06_004] Bone Storm && Test: Bone Storm_ICCA06_004
 				//PowerTask = null,
@@ -1145,8 +1145,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [ICCA06_003] Bryn'troll, the Bone Arbiter (*) - COST:6 [ATK:3/HP:0] 
-			// - Set: icecrown, 
+			// [ICCA06_003] Bryn'troll, the Bone Arbiter (*) - COST:6 [ATK:3/HP:0]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// Text: <b>Windfury</b>
 			// --------------------------------------------------------
@@ -1164,8 +1164,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [ICCA07_020] Tentacles (*) - COST:6 [ATK:3/HP:0] 
-			// - Set: icecrown, 
+			// [ICCA07_020] Tentacles (*) - COST:6 [ATK:3/HP:0]
+			// - Set: icecrown,
 			// --------------------------------------------------------
 			// GameTag:
 			// - DURABILITY = 6
