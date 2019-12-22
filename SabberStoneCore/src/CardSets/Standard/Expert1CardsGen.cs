@@ -35,7 +35,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Heroes(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- HERO - WARLOCK
-			// [EX1_323h] Lord Jaraxxus (*) - COST:0 [ATK:0/HP:15] 
+			// [EX1_323h] Lord Jaraxxus (*) - COST:0 [ATK:0/HP:15]
 			// - Race: demon, Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// GameTag:
@@ -48,8 +48,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void HeroPowers(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ HERO_POWER - PRIEST
-			// [EX1_625t] Mind Spike (*) - COST:2 
-			// - Set: expert1, 
+			// [EX1_625t] Mind Spike (*) - COST:2
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $2 damage. @spelldmg
@@ -57,14 +57,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_625t", new CardDef(new Power
+			cards.Add("EX1_625t", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET)
 			}));
 
 			// ------------------------------------ HERO_POWER - PRIEST
-			// [EX1_625t2] Mind Shatter (*) - COST:2 
-			// - Set: expert1, 
+			// [EX1_625t2] Mind Shatter (*) - COST:2
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $3 damage. @spelldmg
@@ -72,14 +72,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_625t2", new CardDef(new Power
+			cards.Add("EX1_625t2", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(3, EntityType.TARGET)
 			}));
 
 			// ----------------------------------- HERO_POWER - WARLOCK
-			// [EX1_tk33] INFERNO! (*) - COST:2 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_tk33] INFERNO! (*) - COST:2
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 6/6 Infernal.
@@ -87,7 +87,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_tk33", new CardDef(new Power
+			cards.Add("EX1_tk33", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new SummonTask("EX1_tk34")
 			}));
@@ -97,7 +97,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Druid(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4] 
+			// [EX1_165] Druid of the Claw - COST:5 [ATK:4/HP:4]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Choose One -</b> Transform
@@ -118,7 +118,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:2] 
+			// [EX1_166] Keeper of the Grove - COST:4 [ATK:2/HP:2]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b> Deal_2_damage; or <b>Silence</b> a minion.
@@ -132,11 +132,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_166", //CHOOSE_ONE
-				new CardDef());
+			cards.Add("EX1_166", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
+			{
+			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5] 
+			// [EX1_178] Ancient of War - COST:7 [ATK:5/HP:5]
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b>
@@ -148,11 +149,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_178", // CHOOSE_ONE
-				new CardDef());
+			cards.Add("EX1_178", new CardDef(new Power
+			{
+			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [EX1_573] Cenarius - COST:9 [ATK:5/HP:8] 
+			// [EX1_573] Cenarius - COST:9 [ATK:5/HP:8]
 			// - Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b> Give your other minions +2/+2; or Summon two 2/2 Treants with <b>Taunt</b>.
@@ -164,11 +166,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_573", // CHOOSE_ONE
-				new CardDef());
+			cards.Add("EX1_573", new CardDef(new Power
+			{
+			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5] 
+			// [NEW1_008] Ancient of Lore - COST:7 [ATK:5/HP:5]
 			// - Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b> Draw a card; or Restore 5 Health.
@@ -179,11 +182,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("NEW1_008", // CHOOSE_ONE
-				new CardDef());
+			cards.Add("NEW1_008", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
+			{
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_154] Wrath - COST:2 
+			// [EX1_154] Wrath - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b>
@@ -197,11 +201,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_154", // CHOOSE_ONE
-				new CardDef());
+			cards.Add("EX1_154", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			{
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_155] Mark of Nature - COST:3 
+			// [EX1_155] Mark of Nature - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b> Give a minion +4 Attack; or +4 Health and <b>Taunt</b>.
@@ -216,11 +221,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_155", // CHOOSE_ONE
-				new CardDef());
+			cards.Add("EX1_155", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
+			{
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_158] Soul of the Forest - COST:4 
+			// [EX1_158] Soul of the Forest - COST:4
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give your minions "<b>Deathrattle:</b> Summon a 2/2 Treant."
@@ -234,7 +240,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_160] Power of the Wild - COST:2 
+			// [EX1_160] Power of the Wild - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b> Give your minions +1/+1; or Summon a 3/2 Panther.
@@ -242,11 +248,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_160", //CHOOSE_ONE
-				new CardDef());
+			cards.Add("EX1_160", new CardDef(new Power
+			{
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_164] Nourish - COST:5 
+			// [EX1_164] Nourish - COST:5
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b> Gain 2_Mana Crystals; or Draw 3 cards.
@@ -254,11 +261,26 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - CHOOSE_ONE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_164", //CHOOSE_ONE
-				new CardDef());
+			cards.Add("EX1_164", new CardDef(new Power
+			{
+			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_570] Bite - COST:4 
+			// [EX1_183] Gift of the Wild - COST:8
+			// - Set: expert1, Rarity: common
+			// --------------------------------------------------------
+			// Text: Give your minions +2/+2 and <b>Taunt</b>.
+			// --------------------------------------------------------
+			// RefTag:
+			// - TAUNT = 1
+			// --------------------------------------------------------
+			cards.Add("EX1_183", new CardDef(new Power
+			{
+				PowerTask = new AddEnchantmentTask("EX1_183e", EntityType.MINIONS)
+			}));
+
+			// ------------------------------------------ SPELL - DRUID
+			// [EX1_570] Bite - COST:4
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Give your hero +4_Attack this turn. Gain 4 Armor.
@@ -271,7 +293,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_571] Force of Nature - COST:5 
+			// [EX1_571] Force of Nature - COST:5
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Summon three 2/2 Treants.
@@ -279,13 +301,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_571", new CardDef(new Power
+			cards.Add("EX1_571", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new SummonTask("EX1_158t", 3)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_578] Savagery - COST:1 
+			// [EX1_578] Savagery - COST:1
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal damage equal to your hero's Attack to a minion. @spelldmg
@@ -297,7 +319,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_578", new CardDef(new Power
+			cards.Add("EX1_578", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.HERO),
@@ -305,7 +327,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [NEW1_007] Starfall - COST:5 
+			// [NEW1_007] Starfall - COST:5
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b>
@@ -318,16 +340,17 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("NEW1_007", //CHOOSE_ONE
-				new CardDef());
+			cards.Add("NEW1_007", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET}, new Power
+			{
+			}));
 
 		}
 
 		private static void DruidNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [EX1_155ae] Mark of Nature (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_155ae] Mark of Nature (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: This minion has +4 Attack.
 			// --------------------------------------------------------
@@ -337,8 +360,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [EX1_155be] Mark of Nature (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_155be] Mark of Nature (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: This minion has +4 Health and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -348,8 +371,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [EX1_158e] Soul of the Forest (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_158e] Soul of the Forest (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Deathrattle: Summon a 2/2 Treant.
 			// --------------------------------------------------------
@@ -359,8 +382,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [EX1_160be] Leader of the Pack (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_160be] Leader of the Pack (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -370,8 +393,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [EX1_178ae] Rooted (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_178ae] Rooted (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +5 Health and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -381,8 +404,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [EX1_178be] Uprooted (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_178be] Uprooted (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +5 Attack.
 			// --------------------------------------------------------
@@ -392,8 +415,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [EX1_183e] Gift of the Wild (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_183e] Gift of the Wild (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +2/+2 and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -403,8 +426,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [EX1_573ae] Demigod's Favor (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_573ae] Demigod's Favor (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -414,19 +437,19 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [EX1_158t] Treant (*) - COST:2 [ATK:2/HP:2] 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_158t] Treant (*) - COST:2 [ATK:2/HP:2]
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			cards.Add("EX1_158t", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [EX1_160t] Panther (*) - COST:2 [ATK:3/HP:2] 
+			// [EX1_160t] Panther (*) - COST:2 [ATK:3/HP:2]
 			// - Race: beast, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("EX1_160t", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [EX1_165t1] Druid of the Claw (*) - COST:5 [ATK:4/HP:4] 
+			// [EX1_165t1] Druid of the Claw (*) - COST:5 [ATK:4/HP:4]
 			// - Race: beast, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Charge</b>
@@ -437,7 +460,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_165t1", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [EX1_165t2] Druid of the Claw (*) - COST:5 [ATK:4/HP:6] 
+			// [EX1_165t2] Druid of the Claw (*) - COST:5 [ATK:4/HP:6]
 			// - Race: beast, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -448,8 +471,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_165t2", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [EX1_573t] Treant (*) - COST:2 [ATK:2/HP:2] 
-			// - Set: expert1, 
+			// [EX1_573t] Treant (*) - COST:2 [ATK:2/HP:2]
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -459,13 +482,13 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_573t", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [EX1_tk9] Treant (*) - COST:2 [ATK:2/HP:2] 
+			// [EX1_tk9] Treant (*) - COST:2 [ATK:2/HP:2]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("EX1_tk9", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [OG_044a] Druid of the Claw (*) - COST:5 [ATK:4/HP:6] 
+			// [OG_044a] Druid of the Claw (*) - COST:5 [ATK:4/HP:6]
 			// - Race: beast, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Charge</b>
@@ -478,8 +501,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("OG_044a", new CardDef());
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_154a] Wrath (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_154a] Wrath (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to a minion. @spelldmg
 			// --------------------------------------------------------
@@ -487,14 +510,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_154a", new CardDef(new Power
+			cards.Add("EX1_154a", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DamageTask(3, EntityType.TARGET, true)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_154b] Wrath (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_154b] Wrath (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to a minion. Draw a card. @spelldmg
 			// --------------------------------------------------------
@@ -502,7 +525,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_154b", new CardDef(new Power
+			cards.Add("EX1_154b", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(1, EntityType.TARGET, true),
@@ -510,8 +533,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_155a] Mark of Nature (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_155a] Mark of Nature (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: +4 Attack.
 			// --------------------------------------------------------
@@ -519,14 +542,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_155a", new CardDef(new Power
+			cards.Add("EX1_155a", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("EX1_155ae", EntityType.TARGET)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_155b] Mark of Nature (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_155b] Mark of Nature (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: +4 Health and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -534,28 +557,28 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_155b", new CardDef(new Power
+			cards.Add("EX1_155b", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("EX1_155be", EntityType.TARGET)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_160a] Summon a Panther (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_160a] Summon a Panther (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: Summon a 3/2 Panther.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_160a", new CardDef(new Power
+			cards.Add("EX1_160a", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new SummonTask("EX1_160t", SummonSide.SPELL)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_160b] Leader of the Pack (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_160b] Leader of the Pack (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: Give your minions +1/+1.
 			// --------------------------------------------------------
@@ -565,8 +588,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_164a] Nourish (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_164a] Nourish (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: Gain 2 Mana Crystals.
 			// --------------------------------------------------------
@@ -576,8 +599,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_164b] Nourish (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_164b] Nourish (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: Draw 3 cards.
 			// --------------------------------------------------------
@@ -587,8 +610,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_165a] Cat Form (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_165a] Cat Form (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: <b>Charge</b>
 			// --------------------------------------------------------
@@ -598,8 +621,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_165b] Bear Form (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_165b] Bear Form (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: +2 Health and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -609,22 +632,22 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_166a] Moonfire (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_166a] Moonfire (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: Deal 2 damage.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_166a", new CardDef(new Power
+			cards.Add("EX1_166a", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_166b] Dispel (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_166b] Dispel (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: <b>Silence</b> a minion.
 			// --------------------------------------------------------
@@ -635,14 +658,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_166b", new CardDef(new Power
+			cards.Add("EX1_166b", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new SilenceTask(EntityType.TARGET)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_178a] Rooted (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_178a] Rooted (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: +5 Health and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -652,8 +675,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_178b] Uproot (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_178b] Uproot (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: +5 Attack.
 			// --------------------------------------------------------
@@ -663,8 +686,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_573a] Demigod's Favor (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_573a] Demigod's Favor (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: Give your other minions +2/+2.
 			// --------------------------------------------------------
@@ -674,19 +697,19 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [EX1_573b] Shan'do's Lesson (*) - COST:0 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_573b] Shan'do's Lesson (*) - COST:0
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// Text: Summon two 2/2 Treants with <b>Taunt</b>.
 			// --------------------------------------------------------
-			cards.Add("EX1_573b", new CardDef(new Power
+			cards.Add("EX1_573b", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new EnqueueTask(2, new SummonTask("EX1_573t", SummonSide.SPELL))
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [NEW1_007a] Starfall (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_007a] Starfall (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to all enemy minions. @spelldmg
 			// --------------------------------------------------------
@@ -696,8 +719,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [NEW1_007b] Starfall (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_007b] Starfall (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Deal $5 damage to a minion. @spelldmg
 			// --------------------------------------------------------
@@ -705,14 +728,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("NEW1_007b", new CardDef(new Power
+			cards.Add("NEW1_007b", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DamageTask(5, EntityType.TARGET)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [NEW1_008a] Ancient Teachings (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_008a] Ancient Teachings (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Draw a card.
 			// --------------------------------------------------------
@@ -722,15 +745,15 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [NEW1_008b] Ancient Secrets (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_008b] Ancient Secrets (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Restore 5 Health.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("NEW1_008b", new CardDef(new Power
+			cards.Add("NEW1_008b", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new HealTask(5, EntityType.TARGET),
 			}));
@@ -740,7 +763,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Hunter(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
-			// [EX1_531] Scavenging Hyena - COST:2 [ATK:2/HP:2] 
+			// [EX1_531] Scavenging Hyena - COST:2 [ATK:2/HP:2]
 			// - Race: beast, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever a friendly Beast dies, gain +2/+1.
@@ -756,7 +779,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5] 
+			// [EX1_534] Savannah Highmane - COST:6 [ATK:6/HP:5]
 			// - Race: beast, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon two 2/2 Hyenas.
@@ -770,7 +793,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [EX1_543] King Krush - COST:9 [ATK:8/HP:8] 
+			// [EX1_543] King Krush - COST:9 [ATK:8/HP:8]
 			// - Race: beast, Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Charge</b>
@@ -782,7 +805,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_543", new CardDef());
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [EX1_533] Misdirection - COST:2 
+			// [EX1_533] Misdirection - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When an enemy attacks your hero, instead it attacks another random character.
@@ -807,7 +830,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [EX1_537] Explosive Shot - COST:5 
+			// [EX1_537] Explosive Shot - COST:5
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $5 damage to a minion and $2 damage to adjacent ones. @spelldmg
@@ -816,7 +839,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_537", new CardDef(new Power
+			cards.Add("EX1_537", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(5, EntityType.TARGET, true),
@@ -825,7 +848,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [EX1_538] Unleash the Hounds - COST:3 
+			// [EX1_538] Unleash the Hounds - COST:3
 			// - Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: For each enemy minion, summon a 1/1 Hound with <b>Charge</b>.
@@ -837,7 +860,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - CHARGE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_538", new CardDef(new Power
+			cards.Add("EX1_538", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new CountTask(EntityType.OP_MINIONS),
@@ -845,7 +868,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [EX1_544] Flare - COST:2 
+			// [EX1_544] Flare - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: All minions lose <b>Stealth</b>. Destroy all enemy <b>Secrets</b>. Draw a card.
@@ -863,7 +886,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [EX1_549] Bestial Wrath - COST:1 
+			// [EX1_549] Bestial Wrath - COST:1
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Give a friendly Beast +2 Attack and <b>Immune</b> this turn.
@@ -876,13 +899,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - IMMUNE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_549", new CardDef(new Power
+			cards.Add("EX1_549", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_TARGET_WITH_RACE,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("EX1_549o", EntityType.TARGET)
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [EX1_554] Snake Trap - COST:2 
+			// [EX1_554] Snake Trap - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When one of your minions is attacked, summon three 1/1 Snakes.
@@ -900,7 +923,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [EX1_609] Snipe - COST:2 
+			// [EX1_609] Snipe - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> After your opponent plays a minion, deal $4 damage to it. @spelldmg
@@ -920,7 +943,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [EX1_610] Explosive Trap - COST:2 
+			// [EX1_610] Explosive Trap - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When your hero is attacked, deal $2 damage to all enemies. @spelldmg
@@ -938,7 +961,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [EX1_611] Freezing Trap - COST:2 
+			// [EX1_611] Freezing Trap - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When an enemy minion attacks, return it to its owner's hand. It costs (2) more.
@@ -960,7 +983,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [EX1_617] Deadly Shot - COST:3 
+			// [EX1_617] Deadly Shot - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Destroy a random enemy minion.
@@ -968,13 +991,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_617", new CardDef(new Power
+			cards.Add("EX1_617", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
 			{
 				PowerTask = ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS)
 			}));
 
 			// ---------------------------------------- WEAPON - HUNTER
-			// [DS1_188] Gladiator's Longbow - COST:7 [ATK:5/HP:0] 
+			// [DS1_188] Gladiator's Longbow - COST:7 [ATK:5/HP:0]
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Your hero is <b>Immune</b> while attacking.
@@ -995,7 +1018,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- WEAPON - HUNTER
-			// [EX1_536] Eaglehorn Bow - COST:3 [ATK:3/HP:0] 
+			// [EX1_536] Eaglehorn Bow - COST:3 [ATK:3/HP:0]
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]Whenever a friendly
@@ -1022,8 +1045,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [DS1_188e] Gladiator's Longbow enchantment (*) - COST:0 
-			// - Set: expert1, 
+			// [DS1_188e] Gladiator's Longbow enchantment (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			cards.Add("DS1_188e", new CardDef(new Power
 			{
@@ -1036,8 +1059,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [EX1_531e] Well Fed (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_531e] Well Fed (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased Attack and Health.
 			// --------------------------------------------------------
@@ -1047,8 +1070,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [EX1_536e] Upgraded (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_536e] Upgraded (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased Durability.
 			// --------------------------------------------------------
@@ -1058,8 +1081,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [EX1_549o] Bestial Wrath (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_549o] Bestial Wrath (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +2 Attack and <b>Immune</b> this turn.
 			// --------------------------------------------------------
@@ -1072,8 +1095,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [EX1_611e] Trapped (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_611e] Trapped (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Will be <b>Frozen</b> again at the start of the next turn.
 			// --------------------------------------------------------
@@ -1084,14 +1107,14 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [EX1_534t] Hyena (*) - COST:2 [ATK:2/HP:2] 
+			// [EX1_534t] Hyena (*) - COST:2 [ATK:2/HP:2]
 			// - Race: beast, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			cards.Add("EX1_534t", new CardDef());
 
 			// ---------------------------------------- MINION - HUNTER
-			// [EX1_538t] Hound (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: beast, Set: expert1, 
+			// [EX1_538t] Hound (*) - COST:1 [ATK:1/HP:1]
+			// - Race: beast, Set: expert1,
 			// --------------------------------------------------------
 			// Text: <b>Charge</b>
 			// --------------------------------------------------------
@@ -1101,7 +1124,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_538t", new CardDef());
 
 			// ---------------------------------------- MINION - HUNTER
-			// [EX1_554t] Snake (*) - COST:1 [ATK:1/HP:1] 
+			// [EX1_554t] Snake (*) - COST:1 [ATK:1/HP:1]
 			// - Race: beast, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("EX1_554t", new CardDef());
@@ -1111,7 +1134,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Mage(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
-			// [EX1_274] Ethereal Arcanist - COST:4 [ATK:3/HP:3] 
+			// [EX1_274] Ethereal Arcanist - COST:4 [ATK:3/HP:3]
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: If you control a <b>Secret</b> at_the end of your turn, gain +2/+2.
@@ -1129,7 +1152,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7] 
+			// [EX1_559] Archmage Antonidas - COST:7 [ATK:5/HP:7]
 			// - Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, add a 'Fireball' spell to_your hand.
@@ -1147,7 +1170,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2] 
+			// [EX1_608] Sorcerer's Apprentice - COST:2 [ATK:3/HP:2]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Your spells cost (1) less.
@@ -1164,7 +1187,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [EX1_612] Kirin Tor Mage - COST:3 [ATK:4/HP:3] 
+			// [EX1_612] Kirin Tor Mage - COST:3 [ATK:4/HP:3]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> The next <b>Secret</b>
@@ -1182,7 +1205,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [NEW1_012] Mana Wyrm - COST:1 [ATK:1/HP:3] 
+			// [NEW1_012] Mana Wyrm - COST:1 [ATK:1/HP:3]
 			// - Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, gain +1 Attack.
@@ -1197,7 +1220,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [CS2_028] Blizzard - COST:6 
+			// [CS2_028] Blizzard - COST:6
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to all enemy minions and <b>Freeze</b> them. @spelldmg
@@ -1213,7 +1236,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [EX1_179] Icicle - COST:2 
+			// [EX1_179] Icicle - COST:2
 			// - Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to a minion. If it's <b>Frozen</b>, draw a card. @spelldmg
@@ -1225,7 +1248,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_179", new CardDef(new Power
+			cards.Add("EX1_179", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(2, EntityType.TARGET, true),
@@ -1234,7 +1257,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [EX1_180] Tome of Intellect - COST:1 
+			// [EX1_180] Tome of Intellect - COST:1
 			// - Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Add a random Mage spell to your hand.
@@ -1245,7 +1268,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [EX1_275] Cone of Cold - COST:4 
+			// [EX1_275] Cone of Cold - COST:4
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Freeze</b> a minion and the minions next to it, and deal $1 damage to them. @spelldmg
@@ -1257,7 +1280,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_275", new CardDef(new Power
+			cards.Add("EX1_275", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeAdjacentTask(EntityType.TARGET, true),
@@ -1266,7 +1289,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [EX1_279] Pyroblast - COST:10 
+			// [EX1_279] Pyroblast - COST:10
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Deal $10 damage. @spelldmg
@@ -1274,13 +1297,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_279", new CardDef(new Power
+			cards.Add("EX1_279", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(10, EntityType.TARGET, true)
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [EX1_287] Counterspell - COST:3 
+			// [EX1_287] Counterspell - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When your opponent casts a spell, <b>Counter</b> it.
@@ -1307,7 +1330,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [EX1_289] Ice Barrier - COST:3 
+			// [EX1_289] Ice Barrier - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When your
@@ -1327,7 +1350,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [EX1_294] Mirror Entity - COST:3 
+			// [EX1_294] Mirror Entity - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> After your opponent plays a minion, summon a copy of it.
@@ -1347,7 +1370,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [EX1_594] Vaporize - COST:3 
+			// [EX1_594] Vaporize - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When a minion attacks your hero, destroy it.
@@ -1367,7 +1390,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [tt_010] Spellbender - COST:3 
+			// [tt_010] Spellbender - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When an enemy casts a spell on a minion, summon a 1/3 as the new target.
@@ -1399,8 +1422,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void MageNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------- ENCHANTMENT - MAGE
-			// [EX1_274e] Raw Power! (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_274e] Raw Power! (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -1410,8 +1433,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------- ENCHANTMENT - MAGE
-			// [EX1_612o] Power of the Kirin Tor (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_612o] Power of the Kirin Tor (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Your next Secret costs (0).
 			// --------------------------------------------------------
@@ -1428,8 +1451,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------- ENCHANTMENT - MAGE
-			// [NEW1_012o] Mana Gorged (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_012o] Mana Gorged (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased attack.
 			// --------------------------------------------------------
@@ -1439,7 +1462,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [tt_010a] Spellbender (*) - COST:1 [ATK:1/HP:3] 
+			// [tt_010a] Spellbender (*) - COST:1 [ATK:1/HP:3]
 			// - Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			cards.Add("tt_010a", new CardDef());
@@ -1449,7 +1472,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Paladin(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
-			// [EX1_362] Argent Protector - COST:2 [ATK:2/HP:2] 
+			// [EX1_362] Argent Protector - COST:2 [ATK:2/HP:2]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a friendly minion <b>Divine Shield</b>.
@@ -1466,13 +1489,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_362", new CardDef(new Power
+			cards.Add("EX1_362", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_NONSELF_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.DivineShield(EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3] 
+			// [EX1_382] Aldor Peacekeeper - COST:3 [ATK:3/HP:3]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Change an_enemy minion's Attack to 1.
@@ -1485,13 +1508,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_382", new CardDef(new Power
+			cards.Add("EX1_382", new CardDef(new[] {PlayReq.REQ_ENEMY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("EX1_382e", EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6] 
+			// [EX1_383] Tirion Fordring - COST:8 [ATK:6/HP:6]
 			// - Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b><b>Divine Shield</b>,</b> <b>Taunt</b> <b>Deathrattle:</b> Equip a 5/3_Ashbringer.
@@ -1508,7 +1531,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [EX1_130] Noble Sacrifice - COST:1 
+			// [EX1_130] Noble Sacrifice - COST:1
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When an enemy attacks, summon a 2/1 Defender as the new target.
@@ -1528,7 +1551,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [EX1_132] Eye for an Eye - COST:1 
+			// [EX1_132] Eye for an Eye - COST:1
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When your hero takes damage, deal_that much damage to the enemy hero.
@@ -1548,7 +1571,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [EX1_136] Redemption - COST:1 
+			// [EX1_136] Redemption - COST:1
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When a friendly minion dies, return it to life with 1 Health.
@@ -1577,7 +1600,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [EX1_184] Righteousness - COST:5 
+			// [EX1_184] Righteousness - COST:5
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Give your minions <b>Divine Shield</b>.
@@ -1591,7 +1614,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [EX1_354] Lay on Hands - COST:8 
+			// [EX1_354] Lay on Hands - COST:8
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Restore #8 Health. Draw_3 cards.
@@ -1599,7 +1622,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_354", new CardDef(new Power
+			cards.Add("EX1_354", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new HealTask(8, EntityType.TARGET),
@@ -1607,7 +1630,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [EX1_355] Blessed Champion - COST:5 
+			// [EX1_355] Blessed Champion - COST:5
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Double a minion's Attack.
@@ -1616,13 +1639,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_355", new CardDef(new Power
+			cards.Add("EX1_355", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("EX1_355e", EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [EX1_363] Blessing of Wisdom - COST:1 
+			// [EX1_363] Blessing of Wisdom - COST:1
 			// - Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Choose a minion. Whenever it attacks, draw a card.
@@ -1631,13 +1654,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_363", new CardDef(new Power
+			cards.Add("EX1_363", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("EX1_363e", EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [EX1_365] Holy Wrath - COST:5 
+			// [EX1_365] Holy Wrath - COST:5
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Draw a card and deal_damage equal to_its Cost. @spelldmg
@@ -1648,7 +1671,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_365", new CardDef(new Power
+			cards.Add("EX1_365", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DrawTask(true),
@@ -1657,7 +1680,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [EX1_379] Repentance - COST:1 
+			// [EX1_379] Repentance - COST:1
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> After your opponent plays a minion, reduce its Health to 1.
@@ -1677,7 +1700,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [EX1_384] Avenging Wrath - COST:6 
+			// [EX1_384] Avenging Wrath - COST:6
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Deal $8 damage randomly split among all enemies. @spelldmg
@@ -1691,7 +1714,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [EX1_619] Equality - COST:2 
+			// [EX1_619] Equality - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Change the Health of ALL minions to 1.
@@ -1702,7 +1725,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- WEAPON - PALADIN
-			// [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0] 
+			// [EX1_366] Sword of Justice - COST:3 [ATK:1/HP:0]
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: After you summon a minion, give it +1/+1 and this loses 1_Durability.
@@ -1726,8 +1749,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void PaladinNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [EX1_355e] Blessed Champion (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_355e] Blessed Champion (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: This minion's Attack has been doubled.
 			// --------------------------------------------------------
@@ -1737,8 +1760,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [EX1_363e] Blessing of Wisdom (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_363e] Blessing of Wisdom (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: When this minion attacks, the player who blessed it draws a card.
 			// --------------------------------------------------------
@@ -1752,16 +1775,16 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [EX1_363e2] Blessing of Wisdom (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_363e2] Blessing of Wisdom (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: When this minion attacks, the enemy player draws a card.
 			// --------------------------------------------------------
 			cards.Add("EX1_363e2", new CardDef());
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [EX1_366e] Justice Served (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_366e] Justice Served (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Has +1/+1.
 			// --------------------------------------------------------
@@ -1771,8 +1794,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [EX1_379e] Repentance (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_379e] Repentance (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Health reduced to 1.
 			// --------------------------------------------------------
@@ -1782,8 +1805,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [EX1_382e] Stand Down! (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_382e] Stand Down! (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Attack changed to 1.
 			// --------------------------------------------------------
@@ -1793,8 +1816,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [EX1_619e] Equality (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_619e] Equality (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Health changed to 1.
 			// --------------------------------------------------------
@@ -1804,14 +1827,14 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [EX1_130a] Defender (*) - COST:1 [ATK:2/HP:1] 
+			// [EX1_130a] Defender (*) - COST:1 [ATK:2/HP:1]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("EX1_130a", new CardDef());
 
 			// --------------------------------------- WEAPON - PALADIN
-			// [EX1_383t] Ashbringer (*) - COST:5 [ATK:5/HP:0] 
-			// - Set: expert1, 
+			// [EX1_383t] Ashbringer (*) - COST:5 [ATK:5/HP:0]
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
@@ -1824,7 +1847,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Priest(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
-			// [EX1_091] Cabal Shadow Priest - COST:6 [ATK:4/HP:5] 
+			// [EX1_091] Cabal Shadow Priest - COST:6 [ATK:4/HP:5]
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Take control of an enemy minion that has 2 or less Attack.
@@ -1838,13 +1861,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_091", new CardDef(new Power
+			cards.Add("EX1_091", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_TARGET_MAX_ATTACK,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET}, new Power
 			{
 				PowerTask = new ControlTask(EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [EX1_335] Lightspawn - COST:4 [ATK:0/HP:5] 
+			// [EX1_335] Lightspawn - COST:4 [ATK:0/HP:5]
 			// - Race: elemental, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: This minion's Attack is always equal to its Health.
@@ -1855,7 +1878,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [EX1_341] Lightwell - COST:2 [ATK:0/HP:5] 
+			// [EX1_341] Lightwell - COST:2 [ATK:0/HP:5]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the start of your turn, restore 3 Health to a damaged friendly character.
@@ -1873,7 +1896,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7] 
+			// [EX1_350] Prophet Velen - COST:7 [ATK:7/HP:7]
 			// - Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Double the damage and healing of your spells and Hero Power.
@@ -1888,7 +1911,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5] 
+			// [EX1_591] Auchenai Soulpriest - COST:4 [ATK:3/HP:5]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Your cards and powers that restore Health now deal damage instead.
@@ -1902,7 +1925,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [EX1_623] Temple Enforcer - COST:6 [ATK:6/HP:6] 
+			// [EX1_623] Temple Enforcer - COST:6 [ATK:6/HP:6]
 			// - Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a friendly minion +3 Health.
@@ -1915,13 +1938,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_623", new CardDef(new Power
+			cards.Add("EX1_623", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("EX1_623e", EntityType.TARGET)
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [CS1_129] Inner Fire - COST:1 
+			// [CS1_129] Inner Fire - COST:1
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Change a minion's Attack to be equal to its Health.
@@ -1930,7 +1953,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CS1_129", new CardDef(new Power
+			cards.Add("CS1_129", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
@@ -1940,7 +1963,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [EX1_332] Silence - COST:0 
+			// [EX1_332] Silence - COST:0
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Silence</b> a minion.
@@ -1952,13 +1975,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_332", new CardDef(new Power
+			cards.Add("EX1_332", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new SilenceTask(EntityType.TARGET)
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [EX1_334] Shadow Madness - COST:4 
+			// [EX1_334] Shadow Madness - COST:4
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Gain control of an enemy minion with 3 or less Attack until end of turn.
@@ -1970,7 +1993,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// - REQ_TARGET_MAX_ATTACK = 3
 			// --------------------------------------------------------
-			cards.Add("EX1_334", new CardDef(new Power
+			cards.Add("EX1_334", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET,PlayReq.REQ_NUM_MINION_SLOTS,PlayReq.REQ_TARGET_MAX_ATTACK}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ControlTask(EntityType.TARGET),
@@ -1978,7 +2001,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [EX1_339] Thoughtsteal - COST:3 
+			// [EX1_339] Thoughtsteal - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Copy 2 cards in your opponent's deck and add them to your hand.
@@ -1991,7 +2014,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [EX1_345] Mindgames - COST:4 
+			// [EX1_345] Mindgames - COST:4
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Put a copy of
@@ -2001,7 +2024,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_345", new CardDef(new Power
+			cards.Add("EX1_345", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO: When No minions exist
 				PowerTask = ComplexTask.Create(
@@ -2012,7 +2035,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [EX1_621] Circle of Healing - COST:0 
+			// [EX1_621] Circle of Healing - COST:0
 			// - Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Restore #4 Health to ALL_minions.
@@ -2023,7 +2046,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [EX1_624] Holy Fire - COST:6 
+			// [EX1_624] Holy Fire - COST:6
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $5 damage. Restore #5 Health to your hero. @spelldmg
@@ -2031,7 +2054,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_624", new CardDef(new Power
+			cards.Add("EX1_624", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(5, EntityType.TARGET),
@@ -2039,7 +2062,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [EX1_625] Shadowform - COST:3 
+			// [EX1_625] Shadowform - COST:3
 			// - Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Your Hero Power becomes 'Deal 2 damage'. If already in Shadowform: 3 damage.
@@ -2055,7 +2078,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [EX1_626] Mass Dispel - COST:4 
+			// [EX1_626] Mass Dispel - COST:4
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Silence</b> all enemy minions. Draw a card.
@@ -2075,8 +2098,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void PriestNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [CS1_129e] Inner Fire (*) - COST:0 
-			// - Set: expert1, 
+			// [CS1_129e] Inner Fire (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: This minion's Attack is equal to its Health.
 			// --------------------------------------------------------
@@ -2086,8 +2109,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [EX1_334e] Shadow Madness (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_334e] Shadow Madness (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: This minion has switched controllers this turn.
 			// --------------------------------------------------------
@@ -2104,8 +2127,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [EX1_623e] Infusion (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_623e] Infusion (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +3 Health.
 			// --------------------------------------------------------
@@ -2115,7 +2138,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [EX1_tk31] Mind Controlling (*) - COST:0 
+			// [EX1_tk31] Mind Controlling (*) - COST:0
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// GameTag:
@@ -2124,7 +2147,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_tk31", new CardDef());
 
 			// ---------------------------------------- MINION - PRIEST
-			// [EX1_345t] Shadow of Nothing (*) - COST:0 [ATK:0/HP:1] 
+			// [EX1_345t] Shadow of Nothing (*) - COST:0 [ATK:0/HP:1]
 			// - Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Mindgames whiffed! Your opponent had no minions!
@@ -2136,7 +2159,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Rogue(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
-			// [EX1_131] Defias Ringleader - COST:2 [ATK:2/HP:2] 
+			// [EX1_131] Defias Ringleader - COST:2 [ATK:2/HP:2]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Combo:</b> Summon a 2/1 Defias Bandit.
@@ -2150,7 +2173,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3] 
+			// [EX1_134] SI:7 Agent - COST:3 [ATK:3/HP:3]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Combo:</b> Deal 2 damage.
@@ -2161,13 +2184,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_FOR_COMBO = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_134", new CardDef(new Power
+			cards.Add("EX1_134", new CardDef(new[] {PlayReq.REQ_TARGET_FOR_COMBO}, new Power
 			{
 				ComboTask = new DamageTask(2, EntityType.TARGET)
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1] 
+			// [EX1_522] Patient Assassin - COST:2 [ATK:1/HP:1]
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
@@ -2180,7 +2203,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_522", new CardDef());
 
 			// ----------------------------------------- MINION - ROGUE
-			// [EX1_613] Edwin VanCleef - COST:3 [ATK:2/HP:2] 
+			// [EX1_613] Edwin VanCleef - COST:3 [ATK:2/HP:2]
 			// - Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Combo:</b> Gain +2/+2 for each other card you've played this turn.
@@ -2199,7 +2222,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3] 
+			// [NEW1_005] Kidnapper - COST:6 [ATK:5/HP:3]
 			// - Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Combo:</b> Return a minion to_its owner's hand.
@@ -2211,13 +2234,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_FOR_COMBO = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("NEW1_005", new CardDef(new Power
+			cards.Add("NEW1_005", new CardDef(new[] {PlayReq.REQ_TARGET_FOR_COMBO,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				ComboTask = new ReturnHandTask(EntityType.TARGET)
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [NEW1_014] Master of Disguise - COST:4 [ATK:4/HP:4] 
+			// [NEW1_014] Master of Disguise - COST:4 [ATK:4/HP:4]
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a friendly minion <b>Stealth</b> until your next turn.
@@ -2234,13 +2257,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("NEW1_014", new CardDef(new Power
+			cards.Add("NEW1_014", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_NONSELF_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("NEW1_014e", EntityType.TARGET)
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [CS2_073] Cold Blood - COST:1 
+			// [CS2_073] Cold Blood - COST:1
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give a minion +2 Attack. <b>Combo:</b> +4 Attack instead.
@@ -2252,14 +2275,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CS2_073", new CardDef(new Power
+			cards.Add("CS2_073", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("CS2_073e", EntityType.TARGET),
 				ComboTask = new AddEnchantmentTask("CS2_073e2", EntityType.TARGET)
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [CS2_233] Blade Flurry - COST:4 
+			// [CS2_233] Blade Flurry - COST:4
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Destroy your weapon and deal its damage to all enemy minions. @spelldmg
@@ -2270,7 +2293,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_WEAPON_EQUIPPED = 0
 			// --------------------------------------------------------
-			cards.Add("CS2_233", new CardDef(new Power
+			cards.Add("CS2_233", new CardDef(new[] {PlayReq.REQ_WEAPON_EQUIPPED}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.WEAPON),
@@ -2279,7 +2302,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [EX1_124] Eviscerate - COST:2 
+			// [EX1_124] Eviscerate - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $2 damage. <b>Combo:</b> Deal $4 damage instead. @spelldmg
@@ -2290,14 +2313,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_124", new CardDef(new Power
+			cards.Add("EX1_124", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET),
 				ComboTask = new DamageTask(4, EntityType.TARGET)
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [EX1_126] Betrayal - COST:2 
+			// [EX1_126] Betrayal - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Force an enemy minion to deal its damage to the minions next to it.
@@ -2307,13 +2330,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_126", new CardDef(new Power
+			cards.Add("EX1_126", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET}, new Power
 			{
 				PowerTask = SpecificTask.Betrayal
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [EX1_137] Headcrack - COST:3 
+			// [EX1_137] Headcrack - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to the enemy hero. <b>Combo:</b> Return this to your hand next turn. @spelldmg
@@ -2346,7 +2369,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [EX1_144] Shadowstep - COST:0 
+			// [EX1_144] Shadowstep - COST:0
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Return a friendly minion to your hand. It_costs (2) less.
@@ -2356,7 +2379,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_144", new CardDef(new Power
+			cards.Add("EX1_144", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ReturnHandTask(EntityType.TARGET),
@@ -2364,7 +2387,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [EX1_145] Preparation - COST:0 
+			// [EX1_145] Preparation - COST:0
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: The next spell you cast this turn costs (3) less.
@@ -2375,7 +2398,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [EX1_182] Pilfer - COST:1 
+			// [EX1_182] Pilfer - COST:1
 			// - Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Add a random card to your hand <i>(from your opponent's class)</i>.
@@ -2386,7 +2409,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- WEAPON - ROGUE
-			// [EX1_133] Perdition's Blade - COST:3 [ATK:2/HP:0] 
+			// [EX1_133] Perdition's Blade - COST:3 [ATK:2/HP:0]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 1 damage. <b>Combo:</b> Deal 2 instead.
@@ -2399,7 +2422,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_133", new CardDef(new Power
+			cards.Add("EX1_133", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
 			{
 				PowerTask = new DamageTask(1, EntityType.TARGET),
 				ComboTask = new DamageTask(2, EntityType.TARGET)
@@ -2410,8 +2433,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void RogueNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [CS2_073e] Cold Blood (*) - COST:0 
-			// - Set: expert1, 
+			// [CS2_073e] Cold Blood (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
@@ -2421,8 +2444,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [CS2_073e2] Cold Blood (*) - COST:0 
-			// - Set: expert1, 
+			// [CS2_073e2] Cold Blood (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +4 Attack.
 			// --------------------------------------------------------
@@ -2432,8 +2455,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [EX1_145o] Preparation (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_145o] Preparation (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: The next spell you cast this turn costs (3) less.
 			// --------------------------------------------------------
@@ -2450,8 +2473,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [EX1_613e] VanCleef's Vengeance (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_613e] VanCleef's Vengeance (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -2461,16 +2484,16 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [NEW1_014e] Disguised (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_014e] Disguised (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Stealthed until your next turn.
 			// --------------------------------------------------------
 			cards.Add("NEW1_014e", new CardDef(Power.OneTurnStealthEnchantmentPower));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [EX1_131t] Defias Bandit (*) - COST:1 [ATK:2/HP:1] 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_131t] Defias Bandit (*) - COST:1 [ATK:2/HP:1]
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			cards.Add("EX1_131t", new CardDef());
 
@@ -2479,7 +2502,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Shaman(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
-			// [EX1_243] Dust Devil - COST:1 [ATK:3/HP:1] 
+			// [EX1_243] Dust Devil - COST:1 [ATK:3/HP:1]
 			// - Race: elemental, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Windfury</b>. <b>Overload:</b> (2)
@@ -2492,7 +2515,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_243", new CardDef());
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8] 
+			// [EX1_250] Earth Elemental - COST:5 [ATK:7/HP:8]
 			// - Race: elemental, Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2506,7 +2529,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_250", new CardDef());
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4] 
+			// [EX1_258] Unbound Elemental - COST:3 [ATK:2/HP:4]
 			// - Race: elemental, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever you play a card_with <b>Overload</b>, gain_+1/+1.
@@ -2524,7 +2547,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3] 
+			// [EX1_575] Mana Tide Totem - COST:3 [ATK:0/HP:3]
 			// - Race: totem, Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the end of your turn, draw a card.
@@ -2538,7 +2561,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5] 
+			// [NEW1_010] Al'Akir the Windlord - COST:8 [ATK:3/HP:5]
 			// - Race: elemental, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Charge, Divine Shield, Taunt, Windfury</b>
@@ -2553,7 +2576,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_010", new CardDef());
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [CS2_038] Ancestral Spirit - COST:2 
+			// [CS2_038] Ancestral Spirit - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Give a minion "<b>Deathrattle:</b> Resummon this minion."
@@ -2565,13 +2588,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("CS2_038", new CardDef(new Power
+			cards.Add("CS2_038", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("CS2_038e", EntityType.TARGET)
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [CS2_053] Far Sight - COST:3 
+			// [CS2_053] Far Sight - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Draw a card. That card costs (3) less.
@@ -2584,7 +2607,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [EX1_238] Lightning Bolt - COST:1 
+			// [EX1_238] Lightning Bolt - COST:1
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $3 damage. <b>Overload:</b> (1) @spelldmg
@@ -2596,13 +2619,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_238", new CardDef(new Power
+			cards.Add("EX1_238", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(3, EntityType.TARGET, true)
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [EX1_241] Lava Burst - COST:3 
+			// [EX1_241] Lava Burst - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $5 damage. <b>Overload:</b> (2) @spelldmg
@@ -2614,13 +2637,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_241", new CardDef(new Power
+			cards.Add("EX1_241", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(5, EntityType.TARGET, true),
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [EX1_245] Earth Shock - COST:1 
+			// [EX1_245] Earth Shock - COST:1
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Silence</b> a minion, then deal $1 damage to it. @spelldmg
@@ -2632,7 +2655,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_245", new CardDef(new Power
+			cards.Add("EX1_245", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new SilenceTask(EntityType.TARGET),
@@ -2640,7 +2663,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [EX1_248] Feral Spirit - COST:3 
+			// [EX1_248] Feral Spirit - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon two 2/3 Spirit Wolves with <b>Taunt</b>. <b>Overload:</b> (2)
@@ -2655,13 +2678,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_248", new CardDef(new Power
+			cards.Add("EX1_248", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new EnqueueTask(2, new SummonTask("EX1_tk11", SummonSide.SPELL))
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [EX1_251] Forked Lightning - COST:1 
+			// [EX1_251] Forked Lightning - COST:1
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to 2_random enemy minions. <b>Overload:</b> (2) @spelldmg
@@ -2673,13 +2696,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 2
 			// --------------------------------------------------------
-			cards.Add("EX1_251", new CardDef(new Power
+			cards.Add("EX1_251", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
 			{
 				PowerTask = ComplexTask.DamageRandomTargets(2, EntityType.OP_MINIONS, 2, true)
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [EX1_259] Lightning Storm - COST:3 
+			// [EX1_259] Lightning Storm - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $2-$3 damage to all_enemy minions. <b>Overload:</b> (2) @spelldmg
@@ -2694,7 +2717,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- WEAPON - SHAMAN
-			// [EX1_247] Stormforged Axe - COST:2 [ATK:2/HP:0] 
+			// [EX1_247] Stormforged Axe - COST:2 [ATK:2/HP:0]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Overload:</b> (1)
@@ -2707,7 +2730,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_247", new CardDef());
 
 			// ---------------------------------------- WEAPON - SHAMAN
-			// [EX1_567] Doomhammer - COST:5 [ATK:2/HP:0] 
+			// [EX1_567] Doomhammer - COST:5 [ATK:2/HP:0]
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Windfury, Overload:</b> (2)
@@ -2725,8 +2748,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void ShamanNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - SHAMAN
-			// [CS2_038e] Ancestral Spirit (*) - COST:0 
-			// - Set: expert1, 
+			// [CS2_038e] Ancestral Spirit (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Resummon this minion.
 			// --------------------------------------------------------
@@ -2736,8 +2759,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
-			// [CS2_053e] Far Sight (*) - COST:0 
-			// - Set: expert1, 
+			// [CS2_053e] Far Sight (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: One of your cards costs (3) less.
 			// --------------------------------------------------------
@@ -2755,8 +2778,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
-			// [EX1_258e] Overloading (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_258e] Overloading (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -2766,7 +2789,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [EX1_tk11] Spirit Wolf (*) - COST:2 [ATK:2/HP:3] 
+			// [EX1_tk11] Spirit Wolf (*) - COST:2 [ATK:2/HP:3]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2781,10 +2804,10 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Warlock(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
-			// [CS2_059] Blood Imp - COST:1 [ATK:0/HP:1] 
+			// [CS2_059] Blood Imp - COST:1 [ATK:0/HP:1]
 			// - Race: demon, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
-			// Text: [x]  <b>Stealth</b>. At the end of your  
+			// Text: [x]  <b>Stealth</b>. At the end of your
 			//       turn, give another random
 			//        friendly minion +1 Health.
 			// --------------------------------------------------------
@@ -2802,7 +2825,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [EX1_185] Siegebreaker - COST:7 [ATK:5/HP:8] 
+			// [EX1_185] Siegebreaker - COST:7 [ATK:5/HP:8]
 			// - Race: demon, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2821,7 +2844,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [EX1_301] Felguard - COST:3 [ATK:3/HP:5] 
+			// [EX1_301] Felguard - COST:3 [ATK:3/HP:5]
 			// - Race: demon, Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2837,7 +2860,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [EX1_304] Void Terror - COST:3 [ATK:3/HP:3] 
+			// [EX1_304] Void Terror - COST:3 [ATK:3/HP:3]
 			// - Race: demon, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Destroy both
@@ -2862,7 +2885,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [EX1_313] Pit Lord - COST:4 [ATK:5/HP:6] 
+			// [EX1_313] Pit Lord - COST:4 [ATK:5/HP:6]
 			// - Race: demon, Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 5 damage to your hero.
@@ -2876,7 +2899,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [EX1_315] Summoning Portal - COST:4 [ATK:0/HP:4] 
+			// [EX1_315] Summoning Portal - COST:4 [ATK:0/HP:4]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// ---------------------------------------------c-----------
 			// Text: Your minions cost (2) less, but not less than (1).
@@ -2894,7 +2917,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_315e", new CardDef());
 
 			// --------------------------------------- MINION - WARLOCK
-			// [EX1_319] Flame Imp - COST:1 [ATK:3/HP:2] 
+			// [EX1_319] Flame Imp - COST:1 [ATK:3/HP:2]
 			// - Race: demon, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 3 damage to your hero.
@@ -2908,7 +2931,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15] 
+			// [EX1_323] Lord Jaraxxus - COST:9 [ATK:3/HP:15]
 			// - Race: demon, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy your hero and replace it with Lord Jaraxxus.
@@ -2923,7 +2946,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [EX1_181] Call of the Void - COST:1 
+			// [EX1_181] Call of the Void - COST:1
 			// - Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Add a random Demon to your hand.
@@ -2936,7 +2959,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [EX1_303] Shadowflame - COST:4 
+			// [EX1_303] Shadowflame - COST:4
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Destroy a friendly minion and deal its Attack damage to all enemy minions. @spelldmg
@@ -2949,7 +2972,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_303", new CardDef(new Power
+			cards.Add("EX1_303", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
@@ -2958,7 +2981,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [EX1_309] Siphon Soul - COST:6 
+			// [EX1_309] Siphon Soul - COST:6
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Destroy a minion. Restore #3 Health to_your hero.
@@ -2967,7 +2990,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_309", new CardDef(new Power
+			cards.Add("EX1_309", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
@@ -2975,7 +2998,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [EX1_312] Twisting Nether - COST:8 
+			// [EX1_312] Twisting Nether - COST:8
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Destroy all minions.
@@ -2986,7 +3009,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [EX1_317] Sense Demons - COST:3 
+			// [EX1_317] Sense Demons - COST:3
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Draw 2 Demons
@@ -3001,7 +3024,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [EX1_320] Bane of Doom - COST:5 
+			// [EX1_320] Bane of Doom - COST:5
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to_a character. If that kills it, summon a random Demon. @spelldmg
@@ -3009,7 +3032,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_320", new CardDef(new Power
+			cards.Add("EX1_320", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(2, EntityType.TARGET),
@@ -3018,7 +3041,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [EX1_596] Demonfire - COST:2 
+			// [EX1_596] Demonfire - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to a minion. If it’s a friendly Demon, give it +2/+2 instead. @spelldmg
@@ -3027,7 +3050,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_596", new CardDef(new Power
+			cards.Add("EX1_596", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.TARGET,
@@ -3042,8 +3065,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void WarlockNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [CS2_059o] Blood Pact (*) - COST:0 
-			// - Set: expert1, 
+			// [CS2_059o] Blood Pact (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
@@ -3054,8 +3077,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [EX1_185e] Siegebreaking (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_185e] Siegebreaking (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Siegebreaker is granting this minion +1 Attack.
 			// --------------------------------------------------------
@@ -3065,8 +3088,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [EX1_304e] Consume (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_304e] Consume (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -3076,7 +3099,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [EX1_596e] Demonfire (*) - COST:0 
+			// [EX1_596e] Demonfire (*) - COST:0
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: This Demon has +2/+2.
@@ -3087,7 +3110,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [EX1_317t] Worthless Imp (*) - COST:1 [ATK:1/HP:1] 
+			// [EX1_317t] Worthless Imp (*) - COST:1 [ATK:1/HP:1]
 			// - Race: demon, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <i>You are out of demons! At least there are always imps...</i>
@@ -3095,14 +3118,14 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_317t", new CardDef());
 
 			// --------------------------------------- MINION - WARLOCK
-			// [EX1_tk34] Infernal (*) - COST:6 [ATK:6/HP:6] 
+			// [EX1_tk34] Infernal (*) - COST:6 [ATK:6/HP:6]
 			// - Race: demon, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("EX1_tk34", new CardDef());
 
 			// --------------------------------------- WEAPON - WARLOCK
-			// [EX1_323w] Blood Fury (*) - COST:3 [ATK:3/HP:0] 
-			// - Set: expert1, 
+			// [EX1_323w] Blood Fury (*) - COST:3 [ATK:3/HP:0]
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
@@ -3115,7 +3138,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Warrior(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
-			// [EX1_398] Arathi Weaponsmith - COST:4 [ATK:3/HP:3] 
+			// [EX1_398] Arathi Weaponsmith - COST:4 [ATK:3/HP:3]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Equip a 2/2_weapon.
@@ -3129,7 +3152,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [EX1_402] Armorsmith - COST:2 [ATK:1/HP:4] 
+			// [EX1_402] Armorsmith - COST:2 [ATK:1/HP:4]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever a friendly minion_takes damage, gain 1 Armor.
@@ -3144,7 +3167,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9] 
+			// [EX1_414] Grommash Hellscream - COST:8 [ATK:4/HP:9]
 			// - Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Charge</b>
@@ -3162,7 +3185,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2] 
+			// [EX1_603] Cruel Taskmaster - COST:2 [ATK:2/HP:2]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 1 damage to a minion and give it +2_Attack.
@@ -3175,7 +3198,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NONSELF_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_603", new CardDef(new Power
+			cards.Add("EX1_603", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NONSELF_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(1, EntityType.TARGET),
@@ -3183,7 +3206,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [EX1_604] Frothing Berserker - COST:3 [ATK:2/HP:4] 
+			// [EX1_604] Frothing Berserker - COST:3 [ATK:2/HP:4]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever a minion takes damage, gain +1 Attack.
@@ -3198,7 +3221,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [CS2_104] Rampage - COST:2 
+			// [CS2_104] Rampage - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give a damaged minion +3/+3.
@@ -3208,13 +3231,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_DAMAGED_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CS2_104", new CardDef(new Power
+			cards.Add("CS2_104", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_DAMAGED_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("CS2_104e", EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [EX1_391] Slam - COST:2 
+			// [EX1_391] Slam - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to a minion. If it survives, draw a card. @spelldmg
@@ -3223,7 +3246,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_391", new CardDef(new Power
+			cards.Add("EX1_391", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(2, EntityType.TARGET, true),
@@ -3232,7 +3255,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [EX1_392] Battle Rage - COST:2 
+			// [EX1_392] Battle Rage - COST:2
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Draw a card for each damaged friendly character.
@@ -3240,7 +3263,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_392", new CardDef(new Power
+			cards.Add("EX1_392", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.FRIENDS),
@@ -3250,7 +3273,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [EX1_407] Brawl - COST:5 
+			// [EX1_407] Brawl - COST:5
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Destroy all minions except one. <i>(chosen randomly)</i>
@@ -3258,7 +3281,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINIMUM_TOTAL_MINIONS = 2
 			// --------------------------------------------------------
-			cards.Add("EX1_407", new CardDef(new Power
+			cards.Add("EX1_407", new CardDef(new[] {PlayReq.REQ_MINIMUM_TOTAL_MINIONS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomTask(1, EntityType.ALLMINIONS),
@@ -3267,7 +3290,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [EX1_408] Mortal Strike - COST:4 
+			// [EX1_408] Mortal Strike - COST:4
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $4 damage. If you have 12 or less Health, deal $6 instead. @spelldmg
@@ -3275,7 +3298,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_408", new CardDef(new Power
+			cards.Add("EX1_408", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.HERO, SelfCondition.IsHealth(12, RelaSign.LEQ)),
@@ -3284,7 +3307,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [EX1_409] Upgrade! - COST:1 
+			// [EX1_409] Upgrade! - COST:1
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: If you have a weapon, give it +1/+1. Otherwise equip a 1/3 weapon.
@@ -3298,7 +3321,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [EX1_410] Shield Slam - COST:1 
+			// [EX1_410] Shield Slam - COST:1
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Deal 1 damage to a minion for each Armor you have. @spelldmg
@@ -3310,7 +3333,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_410", new CardDef(new Power
+			cards.Add("EX1_410", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ARMOR, EntityType.HERO),
@@ -3318,7 +3341,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [EX1_607] Inner Rage - COST:0 
+			// [EX1_607] Inner Rage - COST:0
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to a minion and give it +2_Attack. @spelldmg
@@ -3327,7 +3350,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_607", new CardDef(new Power
+			cards.Add("EX1_607", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(1, EntityType.TARGET),
@@ -3335,7 +3358,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [NEW1_036] Commanding Shout - COST:2 
+			// [NEW1_036] Commanding Shout - COST:2
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Your minions can't be reduced below 1 Health this turn. Draw a card.
@@ -3348,7 +3371,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
-			// [EX1_411] Gorehowl - COST:7 [ATK:7/HP:0] 
+			// [EX1_411] Gorehowl - COST:7 [ATK:7/HP:0]
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Attacking a minion costs 1 Attack instead of 1 Durability.
@@ -3373,8 +3396,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void WarriorNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [CS2_104e] Rampage (*) - COST:0 
-			// - Set: expert1, 
+			// [CS2_104e] Rampage (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
@@ -3384,8 +3407,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [EX1_409e] Upgraded (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_409e] Upgraded (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +1 Attack and +1 Durability.
 			// --------------------------------------------------------
@@ -3397,8 +3420,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [EX1_411e] Bloodrage (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_411e] Bloodrage (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: No durability loss.
 			// --------------------------------------------------------
@@ -3416,8 +3439,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [EX1_411e2] Needs Sharpening (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_411e2] Needs Sharpening (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Decreased Attack.
 			// --------------------------------------------------------
@@ -3428,8 +3451,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [EX1_414e] Enraged (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_414e] Enraged (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +6 Attack
 			// --------------------------------------------------------
@@ -3440,8 +3463,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [EX1_603e] Whipped Into Shape (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_603e] Whipped Into Shape (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
@@ -3451,8 +3474,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [EX1_604o] Berserk (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_604o] Berserk (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -3462,8 +3485,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [EX1_607e] Inner Rage (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_607e] Inner Rage (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
@@ -3473,8 +3496,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [NEW1_036e] Commanding Shout (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_036e] Commanding Shout (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Can't be reduced below 1 Health this turn.
 			// --------------------------------------------------------
@@ -3508,8 +3531,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [NEW1_036e2] Commanding Shout (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_036e2] Commanding Shout (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Your minions can't be reduced below 1 Health this turn.
 			// --------------------------------------------------------
@@ -3522,8 +3545,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
-			// [EX1_398t] Battle Axe (*) - COST:1 [ATK:2/HP:0] 
-			// - Set: expert1, 
+			// [EX1_398t] Battle Axe (*) - COST:1 [ATK:2/HP:0]
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// GameTag:
 			// - DURABILITY = 2
@@ -3531,8 +3554,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_398t", new CardDef());
 
 			// --------------------------------------- WEAPON - WARRIOR
-			// [EX1_409t] Heavy Axe (*) - COST:1 [ATK:1/HP:0] 
-			// - Set: expert1, 
+			// [EX1_409t] Heavy Axe (*) - COST:1 [ATK:1/HP:0]
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// GameTag:
 			// - DURABILITY = 3
@@ -3544,8 +3567,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void DreamNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DREAM
-			// [DREAM_01] Laughing Sister (*) - COST:3 [ATK:3/HP:5] 
-			// - Set: expert1, 
+			// [DREAM_01] Laughing Sister (*) - COST:3 [ATK:3/HP:5]
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Can't be targeted by spells or Hero Powers.
 			// --------------------------------------------------------
@@ -3556,14 +3579,14 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DREAM_01", new CardDef());
 
 			// ----------------------------------------- MINION - DREAM
-			// [DREAM_03] Emerald Drake (*) - COST:4 [ATK:7/HP:6] 
-			// - Race: dragon, Set: expert1, 
+			// [DREAM_03] Emerald Drake (*) - COST:4 [ATK:7/HP:6]
+			// - Race: dragon, Set: expert1,
 			// --------------------------------------------------------
 			cards.Add("DREAM_03", new CardDef());
 
 			// ------------------------------------------ SPELL - DREAM
-			// [DREAM_02] Ysera Awakens (*) - COST:2 
-			// - Set: expert1, 
+			// [DREAM_02] Ysera Awakens (*) - COST:2
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Deal $5 damage to all characters except Ysera. @spelldmg
 			// --------------------------------------------------------
@@ -3576,8 +3599,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DREAM
-			// [DREAM_04] Dream (*) - COST:0 
-			// - Set: expert1, 
+			// [DREAM_04] Dream (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Return a minion to its owner's hand.
 			// --------------------------------------------------------
@@ -3585,14 +3608,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DREAM_04", new CardDef(new Power
+			cards.Add("DREAM_04", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new ReturnHandTask(EntityType.TARGET)
 			}));
 
 			// ------------------------------------------ SPELL - DREAM
-			// [DREAM_05] Nightmare (*) - COST:0 
-			// - Set: expert1, 
+			// [DREAM_05] Nightmare (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Give a minion +5/+5. At the start of your next turn, destroy it.
 			// --------------------------------------------------------
@@ -3600,7 +3623,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DREAM_05", new CardDef(new Power
+			cards.Add("DREAM_05", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("DREAM_05e", EntityType.TARGET)
 			}));
@@ -3610,7 +3633,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Neutral(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
-			// [CS1_069] Fen Creeper - COST:5 [ATK:3/HP:6] 
+			// [CS1_069] Fen Creeper - COST:5 [ATK:3/HP:6]
 			// - Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -3621,7 +3644,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS1_069", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3] 
+			// [CS2_117] Earthen Ring Farseer - COST:3 [ATK:3/HP:3]
 			// - Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Restore 3_Health.
@@ -3632,13 +3655,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("CS2_117", new CardDef(new Power
+			cards.Add("CS2_117", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
 			{
 				PowerTask = new HealTask(3, EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [CS2_146] Southsea Deckhand - COST:1 [ATK:2/HP:1] 
+			// [CS2_146] Southsea Deckhand - COST:1 [ATK:2/HP:1]
 			// - Race: pirate, Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Has <b>Charge</b> while you have a weapon equipped.
@@ -3652,7 +3675,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [CS2_151] Silver Hand Knight - COST:5 [ATK:4/HP:4] 
+			// [CS2_151] Silver Hand Knight - COST:5 [ATK:4/HP:4]
 			// - Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a 2/2_Squire.
@@ -3666,7 +3689,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [CS2_161] Ravenholdt Assassin - COST:7 [ATK:7/HP:5] 
+			// [CS2_161] Ravenholdt Assassin - COST:7 [ATK:7/HP:5]
 			// - Fac: alliance, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
@@ -3677,7 +3700,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_161", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [CS2_169] Young Dragonhawk - COST:1 [ATK:1/HP:1] 
+			// [CS2_169] Young Dragonhawk - COST:1 [ATK:1/HP:1]
 			// - Race: beast, Fac: horde, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Windfury</b>
@@ -3688,7 +3711,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("CS2_169", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7] 
+			// [CS2_181] Injured Blademaster - COST:3 [ATK:4/HP:7]
 			// - Fac: horde, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 4 damage to HIMSELF.
@@ -3702,7 +3725,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [CS2_188] Abusive Sergeant - COST:1 [ATK:1/HP:1] 
+			// [CS2_188] Abusive Sergeant - COST:1 [ATK:1/HP:1]
 			// - Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a minion +2_Attack this turn.
@@ -3714,13 +3737,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("CS2_188", new CardDef(new Power
+			cards.Add("CS2_188", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("CS2_188o", EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [CS2_203] Ironbeak Owl - COST:3 [ATK:2/HP:1] 
+			// [CS2_203] Ironbeak Owl - COST:3 [ATK:2/HP:1]
 			// - Race: beast, Fac: horde, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Silence</b> a_minion.
@@ -3735,13 +3758,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("CS2_203", new CardDef(new Power
+			cards.Add("CS2_203", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new SilenceTask(EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [CS2_221] Spiteful Smith - COST:5 [ATK:4/HP:6] 
+			// [CS2_221] Spiteful Smith - COST:5 [ATK:4/HP:6]
 			// - Fac: horde, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Enrage:</b> Your weapon has +2 Attack.
@@ -3756,7 +3779,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRALa
-			// [CS2_227] Venture Co. Mercenary - COST:5 [ATK:7/HP:6] 
+			// [CS2_227] Venture Co. Mercenary - COST:5 [ATK:7/HP:6]
 			// - Fac: horde, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Your minions cost (3) more.
@@ -3773,13 +3796,13 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [CS2_231] Wisp - COST:0 [ATK:1/HP:1] 
+			// [CS2_231] Wisp - COST:0 [ATK:1/HP:1]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("CS2_231", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_001] Lightwarden - COST:1 [ATK:1/HP:2] 
+			// [EX1_001] Lightwarden - COST:1 [ATK:1/HP:2]
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever a character is healed, gain +2 Attack.
@@ -3793,7 +3816,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_002] The Black Knight - COST:6 [ATK:4/HP:5] 
+			// [EX1_002] The Black Knight - COST:6 [ATK:4/HP:5]
 			// - Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy an enemy minion with <b>Taunt</b>.
@@ -3811,13 +3834,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_002", new CardDef(new Power
+			cards.Add("EX1_002", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_MUST_TARGET_TAUNTER,PlayReq.REQ_ENEMY_TARGET}, new Power
 			{
 				PowerTask = new DestroyTask(EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_004] Young Priestess - COST:1 [ATK:2/HP:1] 
+			// [EX1_004] Young Priestess - COST:1 [ATK:2/HP:1]
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the end of your turn, give another random friendly minion +1 Health.
@@ -3833,7 +3856,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_005] Big Game Hunter - COST:5 [ATK:4/HP:2] 
+			// [EX1_005] Big Game Hunter - COST:5 [ATK:4/HP:2]
 			// - Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy a minion with 7 or more Attack.
@@ -3846,13 +3869,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_MIN_ATTACK = 7
 			// --------------------------------------------------------
-			cards.Add("EX1_005", new CardDef(new Power
+			cards.Add("EX1_005", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_MIN_ATTACK}, new Power
 			{
 				PowerTask = new DestroyTask(EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_006] Alarm-o-Bot - COST:3 [ATK:0/HP:3] 
+			// [EX1_006] Alarm-o-Bot - COST:3 [ATK:0/HP:3]
 			// - Race: mechanical, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]At the start of your turn,
@@ -3877,7 +3900,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3] 
+			// [EX1_007] Acolyte of Pain - COST:3 [ATK:1/HP:3]
 			// - Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, draw a_card.
@@ -3892,7 +3915,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_008] Argent Squire - COST:1 [ATK:1/HP:1] 
+			// [EX1_008] Argent Squire - COST:1 [ATK:1/HP:1]
 			// - Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>
@@ -3903,7 +3926,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_008", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_009] Angry Chicken - COST:1 [ATK:1/HP:1] 
+			// [EX1_009] Angry Chicken - COST:1 [ATK:1/HP:1]
 			// - Race: beast, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Enrage:</b> +5 Attack.
@@ -3918,7 +3941,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1] 
+			// [EX1_010] Worgen Infiltrator - COST:1 [ATK:2/HP:1]
 			// - Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
@@ -3929,7 +3952,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_010", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_012] Bloodmage Thalnos - COST:2 [ATK:1/HP:1] 
+			// [EX1_012] Bloodmage Thalnos - COST:2 [ATK:1/HP:1]
 			// - Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +1</b>
@@ -3946,7 +3969,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_014] King Mukla - COST:3 [ATK:5/HP:5] 
+			// [EX1_014] King Mukla - COST:3 [ATK:5/HP:5]
 			// - Race: beast, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give your opponent 2 Bananas.
@@ -3961,7 +3984,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2] 
+			// [EX1_017] Jungle Panther - COST:3 [ATK:4/HP:2]
 			// - Race: beast, Fac: horde, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
@@ -3972,7 +3995,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_017", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_020] Scarlet Crusader - COST:3 [ATK:3/HP:1] 
+			// [EX1_020] Scarlet Crusader - COST:3 [ATK:3/HP:1]
 			// - Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>
@@ -3983,7 +4006,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_020", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_021] Thrallmar Farseer - COST:3 [ATK:2/HP:3] 
+			// [EX1_021] Thrallmar Farseer - COST:3 [ATK:2/HP:3]
 			// - Fac: horde, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Windfury</b>
@@ -3994,7 +4017,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_021", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_023] Silvermoon Guardian - COST:4 [ATK:3/HP:3] 
+			// [EX1_023] Silvermoon Guardian - COST:4 [ATK:3/HP:3]
 			// - Fac: horde, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>
@@ -4005,7 +4028,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_023", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_028] Stranglethorn Tiger - COST:5 [ATK:5/HP:5] 
+			// [EX1_028] Stranglethorn Tiger - COST:5 [ATK:5/HP:5]
 			// - Race: beast, Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
@@ -4016,7 +4039,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_028", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_029] Leper Gnome - COST:1 [ATK:1/HP:1] 
+			// [EX1_029] Leper Gnome - COST:1 [ATK:1/HP:1]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Deal 2 damage to the enemy_hero.
@@ -4030,7 +4053,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_032] Sunwalker - COST:6 [ATK:4/HP:5] 
+			// [EX1_032] Sunwalker - COST:6 [ATK:4/HP:5]
 			// - Fac: alliance, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -4043,7 +4066,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_032", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_033] Windfury Harpy - COST:6 [ATK:4/HP:5] 
+			// [EX1_033] Windfury Harpy - COST:6 [ATK:4/HP:5]
 			// - Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Windfury</b>
@@ -4054,7 +4077,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_033", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_043] Twilight Drake - COST:4 [ATK:4/HP:1] 
+			// [EX1_043] Twilight Drake - COST:4 [ATK:4/HP:1]
 			// - Race: dragon, Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Gain +1 Health for each card in your hand.
@@ -4070,7 +4093,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_044] Questing Adventurer - COST:3 [ATK:2/HP:2] 
+			// [EX1_044] Questing Adventurer - COST:3 [ATK:2/HP:2]
 			// - Fac: alliance, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you play a card, gain +1/+1.
@@ -4085,7 +4108,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_045] Ancient Watcher - COST:2 [ATK:4/HP:5] 
+			// [EX1_045] Ancient Watcher - COST:2 [ATK:4/HP:5]
 			// - Fac: alliance, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Can't attack.
@@ -4096,7 +4119,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_045", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4] 
+			// [EX1_046] Dark Iron Dwarf - COST:4 [ATK:4/HP:4]
 			// - Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a minion +2_Attack this turn.
@@ -4108,13 +4131,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_046", new CardDef(new Power
+			cards.Add("EX1_046", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("EX1_046e", EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_048] Spellbreaker - COST:4 [ATK:4/HP:3] 
+			// [EX1_048] Spellbreaker - COST:4 [ATK:4/HP:3]
 			// - Fac: horde, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Silence</b> a_minion.
@@ -4130,13 +4153,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_048", new CardDef(new Power
+			cards.Add("EX1_048", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NONSELF_TARGET}, new Power
 			{
 				PowerTask = new SilenceTask(EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_049] Youthful Brewmaster - COST:2 [ATK:3/HP:2] 
+			// [EX1_049] Youthful Brewmaster - COST:2 [ATK:3/HP:2]
 			// - Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Return a friendly minion from the battlefield to your hand.
@@ -4150,13 +4173,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_049", new CardDef(new Power
+			cards.Add("EX1_049", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_NONSELF_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = new ReturnHandTask(EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_055] Mana Addict - COST:2 [ATK:1/HP:3] 
+			// [EX1_055] Mana Addict - COST:2 [ATK:1/HP:3]
 			// - Fac: alliance, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, gain +2 Attack this turn.
@@ -4171,7 +4194,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_057] Ancient Brewmaster - COST:4 [ATK:5/HP:4] 
+			// [EX1_057] Ancient Brewmaster - COST:4 [ATK:5/HP:4]
 			// - Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Return a friendly minion from the battlefield to your hand.
@@ -4185,13 +4208,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_NONSELF_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_057", new CardDef(new Power
+			cards.Add("EX1_057", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_NONSELF_TARGET}, new Power
 			{
 				PowerTask = new ReturnHandTask(EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_058] Sunfury Protector - COST:2 [ATK:2/HP:3] 
+			// [EX1_058] Sunfury Protector - COST:2 [ATK:2/HP:3]
 			// - Fac: alliance, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give adjacent minions <b>Taunt</b>.
@@ -4210,7 +4233,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_059] Crazed Alchemist - COST:2 [ATK:2/HP:2] 
+			// [EX1_059] Crazed Alchemist - COST:2 [ATK:2/HP:2]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Swap the Attack and Health of a minion.
@@ -4222,13 +4245,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_059", new CardDef(new Power
+			cards.Add("EX1_059", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
 			{
 				PowerTask = new SwapAttackHealthTask(EntityType.TARGET, "EX1_059e")
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_067] Argent Commander - COST:6 [ATK:4/HP:2] 
+			// [EX1_067] Argent Commander - COST:6 [ATK:4/HP:2]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Charge</b>
@@ -4241,7 +4264,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_067", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_076] Pint-Sized Summoner - COST:2 [ATK:2/HP:2] 
+			// [EX1_076] Pint-Sized Summoner - COST:2 [ATK:2/HP:2]
 			// - Fac: alliance, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: The first minion you play each turn costs (1) less.
@@ -4264,7 +4287,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_080] Secretkeeper - COST:1 [ATK:1/HP:2] 
+			// [EX1_080] Secretkeeper - COST:1 [ATK:1/HP:2]
 			// - Fac: alliance, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever a <b>Secret</b> is played, gain +1/+1.
@@ -4282,7 +4305,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_082] Mad Bomber - COST:2 [ATK:3/HP:2] 
+			// [EX1_082] Mad Bomber - COST:2 [ATK:3/HP:2]
 			// - Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 3 damage randomly split between all other characters.
@@ -4297,7 +4320,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_083] Tinkmaster Overspark - COST:3 [ATK:3/HP:3] 
+			// [EX1_083] Tinkmaster Overspark - COST:3 [ATK:3/HP:3]
 			// - Fac: alliance, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Transform
@@ -4319,7 +4342,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_085] Mind Control Tech - COST:3 [ATK:3/HP:3] 
+			// [EX1_085] Mind Control Tech - COST:3 [ATK:3/HP:3]
 			// - Fac: alliance, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> If your opponent
@@ -4341,7 +4364,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_089] Arcane Golem - COST:3 [ATK:4/HP:4] 
+			// [EX1_089] Arcane Golem - COST:3 [ATK:4/HP:4]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give your opponent a Mana Crystal.
@@ -4355,7 +4378,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_093] Defender of Argus - COST:4 [ATK:2/HP:3] 
+			// [EX1_093] Defender of Argus - COST:4 [ATK:2/HP:3]
 			// - Fac: alliance, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give adjacent minions +1/+1 and <b>Taunt</b>.
@@ -4374,7 +4397,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_095] Gadgetzan Auctioneer - COST:6 [ATK:4/HP:4] 
+			// [EX1_095] Gadgetzan Auctioneer - COST:6 [ATK:4/HP:4]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, draw a card.
@@ -4389,7 +4412,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_096] Loot Hoarder - COST:2 [ATK:2/HP:1] 
+			// [EX1_096] Loot Hoarder - COST:2 [ATK:2/HP:1]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Draw a card.
@@ -4403,7 +4426,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_097] Abomination - COST:5 [ATK:4/HP:4] 
+			// [EX1_097] Abomination - COST:5 [ATK:4/HP:4]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>. <b>Deathrattle:</b> Deal 2
@@ -4419,7 +4442,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_100] Lorewalker Cho - COST:2 [ATK:0/HP:4] 
+			// [EX1_100] Lorewalker Cho - COST:2 [ATK:0/HP:4]
 			// - Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Whenever a player casts a spell, put a copy into the other player’s hand.
@@ -4439,7 +4462,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_102] Demolisher - COST:3 [ATK:1/HP:4] 
+			// [EX1_102] Demolisher - COST:3 [ATK:1/HP:4]
 			// - Race: mechanical, Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the start of your turn, deal 2 damage to a random enemy.
@@ -4455,7 +4478,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_103] Coldlight Seer - COST:3 [ATK:2/HP:3] 
+			// [EX1_103] Coldlight Seer - COST:3 [ATK:2/HP:3]
 			// - Race: murloc, Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give your other Murlocs +2 Health.
@@ -4472,7 +4495,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_105] Mountain Giant - COST:12 [ATK:8/HP:8] 
+			// [EX1_105] Mountain Giant - COST:12 [ATK:8/HP:8]
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Costs (1) less for each other card in your hand.
@@ -4483,7 +4506,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_110] Cairne Bloodhoof - COST:6 [ATK:4/HP:5] 
+			// [EX1_110] Cairne Bloodhoof - COST:6 [ATK:4/HP:5]
 			// - Fac: alliance, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a 4/5 Baine Bloodhoof.
@@ -4498,7 +4521,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_116] Leeroy Jenkins - COST:5 [ATK:6/HP:2] 
+			// [EX1_116] Leeroy Jenkins - COST:5 [ATK:6/HP:2]
 			// - Fac: alliance, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Charge</b>. <b>Battlecry:</b> Summon two 1/1 Whelps for your opponent.
@@ -4514,7 +4537,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_162] Dire Wolf Alpha - COST:2 [ATK:2/HP:2] 
+			// [EX1_162] Dire Wolf Alpha - COST:2 [ATK:2/HP:2]
 			// - Race: beast, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Adjacent minions have +1_Attack.
@@ -4530,7 +4553,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3] 
+			// [EX1_170] Emperor Cobra - COST:3 [ATK:2/HP:3]
 			// - Race: beast, Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
@@ -4541,7 +4564,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_170", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_186] SI:7 Infiltrator - COST:4 [ATK:5/HP:4] 
+			// [EX1_186] SI:7 Infiltrator - COST:4 [ATK:5/HP:4]
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy a random enemy <b>Secret</b>.
@@ -4561,7 +4584,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_187] Arcane Devourer - COST:8 [ATK:5/HP:5] 
+			// [EX1_187] Arcane Devourer - COST:8 [ATK:5/HP:5]
 			// - Race: elemental, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, gain +2/+2.
@@ -4576,7 +4599,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_188] Barrens Stablehand - COST:7 [ATK:4/HP:4] 
+			// [EX1_188] Barrens Stablehand - COST:7 [ATK:4/HP:4]
 			// - Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a random Beast.
@@ -4592,7 +4615,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_189] Brightwing - COST:3 [ATK:3/HP:2] 
+			// [EX1_189] Brightwing - COST:3 [ATK:3/HP:2]
 			// - Race: dragon, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Add a random <b>Legendary</b> minion to your_hand.
@@ -4609,7 +4632,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_190] High Inquisitor Whitemane - COST:7 [ATK:6/HP:8] 
+			// [EX1_190] High Inquisitor Whitemane - COST:7 [ATK:6/HP:8]
 			// - Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon all friendly minions that died_this turn.
@@ -4624,7 +4647,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5] 
+			// [EX1_249] Baron Geddon - COST:7 [ATK:7/HP:5]
 			// - Race: elemental, Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 2 damage to ALL other characters.
@@ -4641,7 +4664,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_283] Frost Elemental - COST:6 [ATK:5/HP:5] 
+			// [EX1_283] Frost Elemental - COST:6 [ATK:5/HP:5]
 			// - Race: elemental, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Freeze</b> a_character.
@@ -4653,13 +4676,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_283", new CardDef(new Power
+			cards.Add("EX1_283", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
 			{
 				PowerTask = ComplexTask.Freeze(EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3] 
+			// [EX1_390] Tauren Warrior - COST:3 [ATK:2/HP:3]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -4676,7 +4699,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_393] Amani Berserker - COST:2 [ATK:2/HP:3] 
+			// [EX1_393] Amani Berserker - COST:2 [ATK:2/HP:3]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Enrage:</b> +3 Attack
@@ -4691,7 +4714,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7] 
+			// [EX1_396] Mogu'shan Warden - COST:4 [ATK:1/HP:7]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -4702,7 +4725,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_396", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_405] Shieldbearer - COST:1 [ATK:0/HP:4] 
+			// [EX1_405] Shieldbearer - COST:1 [ATK:0/HP:4]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -4713,7 +4736,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_405", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_412] Raging Worgen - COST:3 [ATK:3/HP:3] 
+			// [EX1_412] Raging Worgen - COST:3 [ATK:3/HP:3]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Enrage:</b> <b>Windfury</b> and +1_Attack.
@@ -4731,7 +4754,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_507] Murloc Warleader - COST:3 [ATK:3/HP:3] 
+			// [EX1_507] Murloc Warleader - COST:3 [ATK:3/HP:3]
 			// - Race: murloc, Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Your other Murlocs have +2 Attack.
@@ -4748,7 +4771,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_509] Murloc Tidecaller - COST:1 [ATK:1/HP:2] 
+			// [EX1_509] Murloc Tidecaller - COST:1 [ATK:1/HP:2]
 			// - Race: murloc, Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you summon a Murloc, gain +1 Attack.
@@ -4764,7 +4787,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_556] Harvest Golem - COST:3 [ATK:2/HP:3] 
+			// [EX1_556] Harvest Golem - COST:3 [ATK:2/HP:3]
 			// - Race: mechanical, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a 2/1 Damaged Golem.
@@ -4778,7 +4801,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_557] Nat Pagle - COST:2 [ATK:0/HP:4] 
+			// [EX1_557] Nat Pagle - COST:2 [ATK:0/HP:4]
 			// - Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: At the start of your turn, you have a 50% chance to draw an extra card.
@@ -4797,7 +4820,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_558] Harrison Jones - COST:5 [ATK:5/HP:4] 
+			// [EX1_558] Harrison Jones - COST:5 [ATK:5/HP:4]
 			// - Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy your opponent's weapon and draw cards equal to its Durability.
@@ -4817,7 +4840,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_560] Nozdormu - COST:9 [ATK:8/HP:8] 
+			// [EX1_560] Nozdormu - COST:9 [ATK:8/HP:8]
 			// - Race: dragon, Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Players only have 15 seconds to take their_turns.
@@ -4831,7 +4854,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_561] Alexstrasza - COST:9 [ATK:8/HP:8] 
+			// [EX1_561] Alexstrasza - COST:9 [ATK:8/HP:8]
 			// - Race: dragon, Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Set a hero's remaining Health to 15.
@@ -4844,13 +4867,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_HERO_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_561", new CardDef(new Power
+			cards.Add("EX1_561", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_HERO_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("EX1_561e", EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_562] Onyxia - COST:9 [ATK:8/HP:8] 
+			// [EX1_562] Onyxia - COST:9 [ATK:8/HP:8]
 			// - Race: dragon, Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon 1/1 Whelps until your side of the battlefield is full.
@@ -4868,7 +4891,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_563] Malygos - COST:9 [ATK:4/HP:12] 
+			// [EX1_563] Malygos - COST:9 [ATK:4/HP:12]
 			// - Race: dragon, Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +5</b>
@@ -4880,7 +4903,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_563", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_564] Faceless Manipulator - COST:5 [ATK:3/HP:3] 
+			// [EX1_564] Faceless Manipulator - COST:5 [ATK:3/HP:3]
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Choose a minion and become a copy of it.
@@ -4893,13 +4916,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NONSELF_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_564", new CardDef(new Power
+			cards.Add("EX1_564", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NONSELF_TARGET}, new Power
 			{
 				PowerTask = new TransformCopyTask()
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_572] Ysera - COST:9 [ATK:4/HP:12] 
+			// [EX1_572] Ysera - COST:9 [ATK:4/HP:12]
 			// - Race: dragon, Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: At the end of your turn, add_a Dream Card to_your hand.
@@ -4920,7 +4943,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_577] The Beast - COST:6 [ATK:9/HP:7] 
+			// [EX1_577] The Beast - COST:6 [ATK:9/HP:7]
 			// - Race: beast, Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a 3/3 Finkle Einhorn for your opponent.
@@ -4935,7 +4958,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_583] Priestess of Elune - COST:6 [ATK:5/HP:4] 
+			// [EX1_583] Priestess of Elune - COST:6 [ATK:5/HP:4]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Restore 4 Health to your hero.
@@ -4949,7 +4972,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5] 
+			// [EX1_584] Ancient Mage - COST:4 [ATK:2/HP:5]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give adjacent_minions <b>Spell_Damage +1</b>.
@@ -4968,7 +4991,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_586] Sea Giant - COST:10 [ATK:8/HP:8] 
+			// [EX1_586] Sea Giant - COST:10 [ATK:8/HP:8]
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Costs (1) less for each other minion on the battlefield.
@@ -4979,7 +5002,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_590] Blood Knight - COST:3 [ATK:3/HP:3] 
+			// [EX1_590] Blood Knight - COST:3 [ATK:3/HP:3]
 			// - Fac: neutral, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> All minions lose <b>Divine Shield</b>. Gain +3/+3 for each Shield lost.
@@ -5002,7 +5025,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_595] Cult Master - COST:4 [ATK:4/HP:2] 
+			// [EX1_595] Cult Master - COST:4 [ATK:4/HP:2]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever one of your other minions dies, draw a card.
@@ -5017,7 +5040,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_597] Imp Master - COST:3 [ATK:1/HP:5] 
+			// [EX1_597] Imp Master - COST:3 [ATK:1/HP:5]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]At the end of your turn, deal
@@ -5035,7 +5058,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_614] Illidan Stormrage - COST:6 [ATK:7/HP:5] 
+			// [EX1_614] Illidan Stormrage - COST:6 [ATK:7/HP:5]
 			// - Race: demon, Fac: neutral, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Whenever you play a card, summon a 2/1 Flame of_Azzinoth.
@@ -5053,7 +5076,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_616] Mana Wraith - COST:2 [ATK:2/HP:2] 
+			// [EX1_616] Mana Wraith - COST:2 [ATK:2/HP:2]
 			// - Fac: neutral, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: ALL minions cost (1) more.
@@ -5070,7 +5093,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_017] Hungry Crab - COST:1 [ATK:1/HP:2] 
+			// [NEW1_017] Hungry Crab - COST:1 [ATK:1/HP:2]
 			// - Race: beast, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy a Murloc and gain +2/+2.
@@ -5082,7 +5105,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_TARGET_WITH_RACE = 14
 			// --------------------------------------------------------
-			cards.Add("NEW1_017", new CardDef(new Power
+			cards.Add("NEW1_017", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_TARGET_WITH_RACE}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.TARGET, SelfCondition.IsRace(Race.MURLOC)),
@@ -5091,7 +5114,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3] 
+			// [NEW1_018] Bloodsail Raider - COST:2 [ATK:2/HP:3]
 			// - Race: pirate, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Gain Attack equal to the Attack
@@ -5108,7 +5131,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2] 
+			// [NEW1_019] Knife Juggler - COST:2 [ATK:2/HP:2]
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]After you summon a
@@ -5125,7 +5148,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2] 
+			// [NEW1_020] Wild Pyromancer - COST:2 [ATK:3/HP:2]
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: After you cast a spell, deal 1 damage to ALL minions.
@@ -5140,7 +5163,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7] 
+			// [NEW1_021] Doomsayer - COST:2 [ATK:0/HP:7]
 			// - Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: At the start of your turn, destroy ALL minions.
@@ -5157,7 +5180,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_022] Dread Corsair - COST:4 [ATK:3/HP:3] 
+			// [NEW1_022] Dread Corsair - COST:4 [ATK:3/HP:3]
 			// - Race: pirate, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -5172,7 +5195,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_023] Faerie Dragon - COST:2 [ATK:3/HP:2] 
+			// [NEW1_023] Faerie Dragon - COST:2 [ATK:3/HP:2]
 			// - Race: dragon, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Can't be targeted by spells or Hero Powers.
@@ -5184,7 +5207,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_023", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4] 
+			// [NEW1_024] Captain Greenskin - COST:5 [ATK:5/HP:4]
 			// - Race: pirate, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give your weapon +1/+1.
@@ -5199,7 +5222,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_025] Bloodsail Corsair - COST:1 [ATK:1/HP:2] 
+			// [NEW1_025] Bloodsail Corsair - COST:1 [ATK:1/HP:2]
 			// - Race: pirate, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Remove
@@ -5215,7 +5238,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5] 
+			// [NEW1_026] Violet Teacher - COST:4 [ATK:3/HP:5]
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, summon a 1/1 Violet Apprentice.
@@ -5230,7 +5253,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3] 
+			// [NEW1_027] Southsea Captain - COST:3 [ATK:3/HP:3]
 			// - Race: pirate, Set: expert1, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Your other Pirates have +1/+1.
@@ -5247,7 +5270,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_029] Millhouse Manastorm - COST:2 [ATK:4/HP:4] 
+			// [NEW1_029] Millhouse Manastorm - COST:2 [ATK:4/HP:4]
 			// - Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Enemy spells cost (0) next turn.
@@ -5262,7 +5285,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12] 
+			// [NEW1_030] Deathwing - COST:10 [ATK:12/HP:12]
 			// - Race: dragon, Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy all other minions and discard your_hand.
@@ -5280,7 +5303,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3] 
+			// [NEW1_037] Master Swordsmith - COST:2 [ATK:1/HP:3]
 			// - Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the end of your turn, give another random friendly minion +1 Attack.
@@ -5296,7 +5319,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_038] Gruul - COST:8 [ATK:7/HP:7] 
+			// [NEW1_038] Gruul - COST:8 [ATK:7/HP:7]
 			// - Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: At the end of each turn, gain +1/+1 .
@@ -5314,7 +5337,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_040] Hogger - COST:6 [ATK:4/HP:4] 
+			// [NEW1_040] Hogger - COST:6 [ATK:4/HP:4]
 			// - Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: At the end of your turn, summon a 2/2 Gnoll with_<b>Taunt</b>.
@@ -5334,7 +5357,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_041] Stampeding Kodo - COST:5 [ATK:3/HP:5] 
+			// [NEW1_041] Stampeding Kodo - COST:5 [ATK:3/HP:5]
 			// - Race: beast, Set: expert1, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy a random enemy minion with 2 or less Attack.
@@ -5354,7 +5377,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [tt_004] Flesheating Ghoul - COST:3 [ATK:2/HP:3] 
+			// [tt_004] Flesheating Ghoul - COST:3 [ATK:2/HP:3]
 			// - Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever a minion dies, gain +1 Attack.
@@ -5373,8 +5396,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [CS2_181e] Full Strength (*) - COST:0 
-			// - Set: expert1, 
+			// [CS2_181e] Full Strength (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: This minion has +2 Attack.
 			// --------------------------------------------------------
@@ -5384,8 +5407,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [CS2_188o] 'Inspired' (*) - COST:0 
-			// - Set: expert1, 
+			// [CS2_188o] 'Inspired' (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: This minion has +2 Attack this turn.
 			// --------------------------------------------------------
@@ -5398,8 +5421,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [CS2_221e] Sharp! (*) - COST:0 
-			// - Set: expert1, 
+			// [CS2_221e] Sharp! (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +2 Attack from Spiteful Smith.
 			// --------------------------------------------------------
@@ -5410,8 +5433,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DREAM_05e] Nightmare (*) - COST:0 
-			// - Set: expert1, 
+			// [DREAM_05e] Nightmare (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: This minion has +5/+5, but will be destroyed soon.
 			// --------------------------------------------------------
@@ -5425,8 +5448,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_001e] Warded (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_001e] Warded (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -5436,8 +5459,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_004e] Elune's Grace (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_004e] Elune's Grace (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
@@ -5448,8 +5471,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_009e] Enraged (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_009e] Enraged (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +5 Attack.
 			// --------------------------------------------------------
@@ -5463,8 +5486,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_014te] Bananas (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_014te] Bananas (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Has +1/+1.
 			// --------------------------------------------------------
@@ -5474,8 +5497,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_043e] Hour of Twilight (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_043e] Hour of Twilight (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
@@ -5485,8 +5508,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_044e] Level Up! (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_044e] Level Up! (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased Attack and Health.
 			// --------------------------------------------------------
@@ -5496,8 +5519,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_046e] Tempered (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_046e] Tempered (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +2 Attack this turn.
 			// --------------------------------------------------------
@@ -5510,8 +5533,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_055o] Empowered (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_055o] Empowered (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Mana Addict has increased Attack.
 			// --------------------------------------------------------
@@ -5528,8 +5551,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_059e] Experiments! (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_059e] Experiments! (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Attack and Health have been swapped by Crazed Alchemist.
 			// --------------------------------------------------------
@@ -5539,8 +5562,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_080o] Keeping Secrets (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_080o] Keeping Secrets (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -5550,8 +5573,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_093e] Hand of Argus (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_093e] Hand of Argus (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +1/+1 and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -5561,8 +5584,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_103e] Mrghlglhal (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_103e] Mrghlglhal (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
@@ -5572,8 +5595,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_187e] Arcane Gorged (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_187e] Arcane Gorged (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -5584,8 +5607,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_162o] Strength of the Pack (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_162o] Strength of the Pack (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +1 Attack from Dire Wolf Alpha.
 			// --------------------------------------------------------
@@ -5595,8 +5618,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_390e] Enraged (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_390e] Enraged (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
@@ -5610,8 +5633,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_393e] Enraged (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_393e] Enraged (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
@@ -5625,8 +5648,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_412e] Enraged (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_412e] Enraged (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +1 Attack and <b>Windfury</b>.
 			// --------------------------------------------------------
@@ -5640,8 +5663,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_509e] Blarghghl (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_509e] Blarghghl (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -5651,8 +5674,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_561e] Alexstrasza's Fire (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_561e] Alexstrasza's Fire (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Health set to 15.
 			// --------------------------------------------------------
@@ -5661,23 +5684,11 @@ namespace SabberStoneCore.CardSets.Standard
 				Enchant = new Enchant(Effects.SetMaxHealth(15))
 			}));
 
-			// ------------------------------------------ SPELL - DRUID
-			// [EX1_183] Gift of the Wild - COST:8 
-			// - Set: expert1, Rarity: common
-			// --------------------------------------------------------
-			// Text: Give your minions +2/+2 and <b>Taunt</b>.
-			// --------------------------------------------------------
-			// RefTag:
-			// - TAUNT = 1
-			// --------------------------------------------------------
-			cards.Add("EX1_183", new CardDef(new Power
-			{
-				PowerTask = new AddEnchantmentTask("EX1_183e", EntityType.MINIONS)
-			}));
+
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_570e] Bite (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_570e] Bite (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +4 Attack this turn.
 			// --------------------------------------------------------
@@ -5690,8 +5701,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_584e] Teachings of the Kirin Tor (*) - COST:0 
-			// - Set: expert1, 
+			// [EX1_584e] Teachings of the Kirin Tor (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +1</b>.
 			// --------------------------------------------------------
@@ -5701,7 +5712,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [EX1_590e] Shadows of M'uru (*) - COST:0 
+			// [EX1_590e] Shadows of M'uru (*) - COST:0
 			// - Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			// Text: This minion has consumed Divine Shields and has increased Attack and Health.
@@ -5712,8 +5723,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [KARA_08_04e] Empowered (*) - COST:0 
-			// - Set: expert1, 
+			// [KARA_08_04e] Empowered (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +8 Attack this turn.
 			// --------------------------------------------------------
@@ -5726,8 +5737,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NEW1_017e] Full Belly (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_017e] Full Belly (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +2/+2.  Full of Murloc.
 			// --------------------------------------------------------
@@ -5737,8 +5748,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NEW1_018e] Treasure Crazed (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_018e] Treasure Crazed (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -5748,8 +5759,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NEW1_024o] Greenskin's Command (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_024o] Greenskin's Command (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -5761,15 +5772,15 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NEW1_025e] Bolstered (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_025e] Bolstered (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
 			cards.Add("NEW1_025e", new CardDef());
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NEW1_029t] Kill Millhouse! (*) - COST:0 
+			// [NEW1_029t] Kill Millhouse! (*) - COST:0
 			// - Set: expert1, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Spells cost (0) this turn!
@@ -5784,8 +5795,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NEW1_037e] Equipped (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_037e] Equipped (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -5796,8 +5807,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [NEW1_038o] Growth (*) - COST:0 
-			// - Set: expert1, 
+			// [NEW1_038o] Growth (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Gruul is growing...
 			// --------------------------------------------------------
@@ -5807,8 +5818,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [tt_004o] Cannibalize (*) - COST:0 
-			// - Set: expert1, 
+			// [tt_004o] Cannibalize (*) - COST:0
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -5818,20 +5829,20 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [CS2_152] Squire (*) - COST:1 [ATK:2/HP:2] 
+			// [CS2_152] Squire (*) - COST:1 [ATK:2/HP:2]
 			// - Fac: alliance, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("CS2_152", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ds1_whelptoken] Whelp (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: dragon, Fac: neutral, Set: expert1, 
+			// [ds1_whelptoken] Whelp (*) - COST:1 [ATK:1/HP:1]
+			// - Race: dragon, Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			cards.Add("ds1_whelptoken", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_110t] Baine Bloodhoof (*) - COST:4 [ATK:4/HP:5] 
-			// - Set: expert1, 
+			// [EX1_110t] Baine Bloodhoof (*) - COST:4 [ATK:4/HP:5]
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
@@ -5839,26 +5850,26 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_110t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_116t] Whelp (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: dragon, Set: expert1, 
+			// [EX1_116t] Whelp (*) - COST:1 [ATK:1/HP:1]
+			// - Race: dragon, Set: expert1,
 			// --------------------------------------------------------
 			cards.Add("EX1_116t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_598] Imp (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: demon, Fac: neutral, Set: expert1, 
+			// [EX1_598] Imp (*) - COST:1 [ATK:1/HP:1]
+			// - Race: demon, Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			cards.Add("EX1_598", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_614t] Flame of Azzinoth (*) - COST:1 [ATK:2/HP:1] 
-			// - Race: elemental, Set: expert1, 
+			// [EX1_614t] Flame of Azzinoth (*) - COST:1 [ATK:2/HP:1]
+			// - Race: elemental, Set: expert1,
 			// --------------------------------------------------------
 			cards.Add("EX1_614t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_finkle] Finkle Einhorn (*) - COST:3 [ATK:3/HP:3] 
-			// - Fac: neutral, Set: expert1, 
+			// [EX1_finkle] Finkle Einhorn (*) - COST:3 [ATK:3/HP:3]
+			// - Fac: neutral, Set: expert1,
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
@@ -5866,26 +5877,26 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("EX1_finkle", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_tk28] Squirrel (*) - COST:1 [ATK:1/HP:1] 
+			// [EX1_tk28] Squirrel (*) - COST:1 [ATK:1/HP:1]
 			// - Race: beast, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("EX1_tk28", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [EX1_tk29] Devilsaur (*) - COST:5 [ATK:5/HP:5] 
+			// [EX1_tk29] Devilsaur (*) - COST:5 [ATK:5/HP:5]
 			// - Race: beast, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("EX1_tk29", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_026t] Violet Apprentice (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: expert1, 
+			// [NEW1_026t] Violet Apprentice (*) - COST:1 [ATK:1/HP:1]
+			// - Set: expert1,
 			// --------------------------------------------------------
 			cards.Add("NEW1_026t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [NEW1_040t] Gnoll (*) - COST:2 [ATK:2/HP:2] 
-			// - Set: expert1, 
+			// [NEW1_040t] Gnoll (*) - COST:2 [ATK:2/HP:2]
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -5895,14 +5906,14 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("NEW1_040t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [skele21] Damaged Golem (*) - COST:1 [ATK:2/HP:1] 
+			// [skele21] Damaged Golem (*) - COST:1 [ATK:2/HP:1]
 			// - Race: mechanical, Fac: neutral, Set: expert1, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("skele21", new CardDef());
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [EX1_014t] Bananas (*) - COST:1 
-			// - Set: expert1, 
+			// [EX1_014t] Bananas (*) - COST:1
+			// - Set: expert1,
 			// --------------------------------------------------------
 			// Text: Give a minion +1/+1.
 			// --------------------------------------------------------
@@ -5910,7 +5921,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("EX1_014t", new CardDef(new Power
+			cards.Add("EX1_014t", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("EX1_014te", EntityType.TARGET)
 			}));

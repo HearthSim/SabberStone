@@ -13,13 +13,13 @@
 #endregion
 using System.Collections.Generic;
 using SabberStoneCore.CardSets;
+using SabberStoneCore.CardSets.Adventure;
 using SabberStoneCore.CardSets.Standard;
-using SabberStoneCore.src.Loader;
 
 //using SabberStoneCore.CardSets.TavernBrawl;
 //using SabberStoneCore.CardSets.Adventure;
 
-namespace SabberStoneCore.Enchants
+namespace SabberStoneCore.src.Loader
 {
 	///// <summary>
 	///// Interface for instances which support delayed removal.
@@ -92,7 +92,7 @@ namespace SabberStoneCore.Enchants
 			//LoeCardsGenAdv.AddAll(_powerDic);
 			//KaraCardsGenAdv.AddAll(_powerDic);
 			//IcecrownCardsGenAdv.AddAll(_powerDic);
-			//LootapaloozaCardsGenAdv.AddAll(_powerDic);
+			//LootapaloozaCardsGenAdv.AddAll(_cardDefsDic);
 		}
 
 		/// <summary>

@@ -28,8 +28,8 @@ namespace SabberStoneCore.CardSets
 		private static void Heroes(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BRM_027h] Ragnaros the Firelord (*) - COST:0 [ATK:0/HP:8] 
-			// - Set: brm, 
+			// [BRM_027h] Ragnaros the Firelord (*) - COST:0 [ATK:0/HP:8]
+			// - Set: brm,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 2319
@@ -41,8 +41,8 @@ namespace SabberStoneCore.CardSets
 		private static void HeroPowers(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRM_027p] DIE, INSECT! (*) - COST:2 
-			// - Set: brm, 
+			// [BRM_027p] DIE, INSECT! (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $8 damage to a random enemy. @spelldmg
@@ -53,8 +53,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BRM_027pH] DIE, INSECTS! (*) - COST:2 
-			// - Set: brm, 
+			// [BRM_027pH] DIE, INSECTS! (*) - COST:2
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $8 damage to a random enemy. TWICE. @spelldmg
@@ -69,7 +69,7 @@ namespace SabberStoneCore.CardSets
 		private static void Druid(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [BRM_009] Volcanic Lumberer - COST:9 [ATK:7/HP:8] 
+			// [BRM_009] Volcanic Lumberer - COST:9 [ATK:7/HP:8]
 			// - Set: brm, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -84,7 +84,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [BRM_010] Druid of the Flame - COST:3 [ATK:2/HP:2] 
+			// [BRM_010] Druid of the Flame - COST:3 [ATK:2/HP:2]
 			// - Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b> Transform into a 5/2 minion; or a 2/5 minion.
@@ -102,26 +102,26 @@ namespace SabberStoneCore.CardSets
 		private static void DruidNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [BRM_010t] Druid of the Flame (*) - COST:3 [ATK:5/HP:2] 
+			// [BRM_010t] Druid of the Flame (*) - COST:3 [ATK:5/HP:2]
 			// - Race: beast, Set: brm, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("BRM_010t", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [BRM_010t2] Druid of the Flame (*) - COST:3 [ATK:2/HP:5] 
+			// [BRM_010t2] Druid of the Flame (*) - COST:3 [ATK:2/HP:5]
 			// - Race: beast, Set: brm, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("BRM_010t2", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [OG_044b] Druid of the Flame (*) - COST:3 [ATK:5/HP:5] 
+			// [OG_044b] Druid of the Flame (*) - COST:3 [ATK:5/HP:5]
 			// - Race: beast, Set: brm, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("OG_044b", new CardDef());
 
 			// ------------------------------------------ SPELL - DRUID
-			// [BRM_010a] Firecat Form (*) - COST:0 
-			// - Set: brm, 
+			// [BRM_010a] Firecat Form (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Transform into a 5/2 minion.
 			// --------------------------------------------------------
@@ -131,8 +131,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [BRM_010b] Fire Hawk Form (*) - COST:0 
-			// - Set: brm, 
+			// [BRM_010b] Fire Hawk Form (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Transform into a 2/5 minion.
 			// --------------------------------------------------------
@@ -146,7 +146,7 @@ namespace SabberStoneCore.CardSets
 		private static void Hunter(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
-			// [BRM_014] Core Rager - COST:4 [ATK:4/HP:4] 
+			// [BRM_014] Core Rager - COST:4 [ATK:4/HP:4]
 			// - Race: beast, Set: brm, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If your hand is empty, gain +3/+3.
@@ -162,7 +162,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [BRM_013] Quick Shot - COST:2 
+			// [BRM_013] Quick Shot - COST:2
 			// - Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $3 damage.
@@ -174,7 +174,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_013", new CardDef(new Power
+			cards.Add("BRM_013", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 						new DamageTask(3, EntityType.TARGET, true),
@@ -187,8 +187,8 @@ namespace SabberStoneCore.CardSets
 		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [BRM_014e] Power Rager (*) - COST:0 
-			// - Set: brm, 
+			// [BRM_014e] Power Rager (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: +3/+3
 			// --------------------------------------------------------
@@ -202,7 +202,7 @@ namespace SabberStoneCore.CardSets
 		private static void Mage(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
-			// [BRM_002] Flamewaker - COST:3 [ATK:2/HP:4] 
+			// [BRM_002] Flamewaker - COST:3 [ATK:2/HP:4]
 			// - Set: brm, Rarity: rare
 			// --------------------------------------------------------
 			// Text: After you cast a spell, deal 2 damage randomly split among all enemies.
@@ -217,7 +217,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [BRM_003] Dragon's Breath - COST:5 
+			// [BRM_003] Dragon's Breath - COST:5
 			// - Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $4 damage. Costs (1) less for each minion that died this turn. @spelldmg
@@ -225,7 +225,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_003", new CardDef(new Power
+			cards.Add("BRM_003", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				Aura = AdaptiveCostEffect.NumEachMinionDiedThisTurn,
 				PowerTask = ComplexTask.Create(
@@ -242,7 +242,7 @@ namespace SabberStoneCore.CardSets
 		private static void Paladin(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
-			// [BRM_018] Dragon Consort - COST:5 [ATK:5/HP:5] 
+			// [BRM_018] Dragon Consort - COST:5 [ATK:5/HP:5]
 			// - Race: dragon, Set: brm, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> The next Dragon you play costs (2) less.
@@ -256,7 +256,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [BRM_001] Solemn Vigil - COST:5 
+			// [BRM_001] Solemn Vigil - COST:5
 			// - Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: Draw 2 cards. Costs (1) less for each minion that died this turn.
@@ -272,8 +272,8 @@ namespace SabberStoneCore.CardSets
 		private static void PaladinNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [BRM_018e] Unchained! (*) - COST:0 
-			// - Set: brm, 
+			// [BRM_018e] Unchained! (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Your next Dragon costs (2) less.
 			// --------------------------------------------------------
@@ -290,7 +290,7 @@ namespace SabberStoneCore.CardSets
 		private static void Priest(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
-			// [BRM_004] Twilight Whelp - COST:1 [ATK:2/HP:1] 
+			// [BRM_004] Twilight Whelp - COST:1 [ATK:2/HP:1]
 			// - Race: dragon, Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you're holding a Dragon, gain +2 Health.
@@ -306,7 +306,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [BRM_017] Resurrect - COST:2 
+			// [BRM_017] Resurrect - COST:2
 			// - Set: brm, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon a random friendly minion that died this game.
@@ -315,7 +315,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_NUM_MINION_SLOTS = 1
 			// - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_017", new CardDef(new Power
+			cards.Add("BRM_017", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS,PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME}, new Power
 			{
 				PowerTask = ComplexTask.SummonRandomMinionThatDied()
 			}));
@@ -329,7 +329,7 @@ namespace SabberStoneCore.CardSets
 		private static void Rogue(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
-			// [BRM_008] Dark Iron Skulker - COST:5 [ATK:4/HP:3] 
+			// [BRM_008] Dark Iron Skulker - COST:5 [ATK:4/HP:3]
 			// - Set: brm, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 2 damage to all undamaged enemy minions.
@@ -346,7 +346,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [BRM_007] Gang Up - COST:2 
+			// [BRM_007] Gang Up - COST:2
 			// - Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: Choose a minion. Shuffle 3 copies of it into your deck.
@@ -355,7 +355,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_007", new CardDef(new Power
+			cards.Add("BRM_007", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new CopyTask(EntityType.TARGET, Zone.DECK, 3)
 			}));
@@ -364,7 +364,7 @@ namespace SabberStoneCore.CardSets
 		private static void Shaman(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
-			// [BRM_012] Fireguard Destroyer - COST:4 [ATK:3/HP:6] 
+			// [BRM_012] Fireguard Destroyer - COST:4 [ATK:3/HP:6]
 			// - Race: elemental, Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Gain 1-4 Attack. <b>Overload:</b> (1)
@@ -382,7 +382,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [BRM_011] Lava Shock - COST:2 
+			// [BRM_011] Lava Shock - COST:2
 			// - Set: brm, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $2 damage.
@@ -394,7 +394,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
-			cards.Add("BRM_011", new CardDef(new Power
+			cards.Add("BRM_011", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(2, EntityType.TARGET),
@@ -412,7 +412,7 @@ namespace SabberStoneCore.CardSets
 		private static void Warlock(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
-			// [BRM_006] Imp Gang Boss - COST:3 [ATK:2/HP:4] 
+			// [BRM_006] Imp Gang Boss - COST:3 [ATK:2/HP:4]
 			// - Race: demon, Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, summon a 1/1 Imp.
@@ -427,7 +427,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [BRM_005] Demonwrath - COST:3 
+			// [BRM_005] Demonwrath - COST:3
 			// - Set: brm, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]Deal $2 damage to all
@@ -449,8 +449,8 @@ namespace SabberStoneCore.CardSets
 		private static void WarlockNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
-			// [BRM_006t] Imp (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: demon, Set: brm, 
+			// [BRM_006t] Imp (*) - COST:1 [ATK:1/HP:1]
+			// - Race: demon, Set: brm,
 			// --------------------------------------------------------
 			cards.Add("BRM_006t", new CardDef());
 		}
@@ -458,7 +458,7 @@ namespace SabberStoneCore.CardSets
 		private static void Warrior(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
-			// [BRM_016] Axe Flinger - COST:4 [ATK:2/HP:5] 
+			// [BRM_016] Axe Flinger - COST:4 [ATK:2/HP:5]
 			// - Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, deal 2 damage to the enemy hero.
@@ -473,7 +473,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [BRM_015] Revenge - COST:2 
+			// [BRM_015] Revenge - COST:2
 			// - Set: brm, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to all minions. If you have 12 or less Health, deal $3 damage instead. @spelldmg
@@ -491,7 +491,7 @@ namespace SabberStoneCore.CardSets
 		private static void Neutral(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_019] Grim Patron - COST:5 [ATK:3/HP:3] 
+			// [BRM_019] Grim Patron - COST:5 [ATK:3/HP:3]
 			// - Set: brm, Rarity: rare
 			// --------------------------------------------------------
 			// Text: After this minion survives damage, summon another Grim Patron.
@@ -507,7 +507,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_020] Dragonkin Sorcerer - COST:4 [ATK:3/HP:5] 
+			// [BRM_020] Dragonkin Sorcerer - COST:4 [ATK:3/HP:5]
 			// - Race: dragon, Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever <b>you</b> target this minion with a spell, gain +1/+1.
@@ -522,7 +522,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_022] Dragon Egg - COST:1 [ATK:0/HP:2] 
+			// [BRM_022] Dragon Egg - COST:1 [ATK:0/HP:2]
 			// - Set: brm, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, summon a 2/1 Whelp.
@@ -537,7 +537,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_024] Drakonid Crusher - COST:6 [ATK:6/HP:6] 
+			// [BRM_024] Drakonid Crusher - COST:6 [ATK:6/HP:6]
 			// - Race: dragon, Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If your opponent has 15 or less Health, gain +3/+3.
@@ -553,7 +553,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_025] Volcanic Drake - COST:6 [ATK:6/HP:4] 
+			// [BRM_025] Volcanic Drake - COST:6 [ATK:6/HP:4]
 			// - Race: dragon, Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: Costs (1) less for each minion that died this turn.
@@ -564,7 +564,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_026] Hungry Dragon - COST:4 [ATK:5/HP:6] 
+			// [BRM_026] Hungry Dragon - COST:4 [ATK:5/HP:6]
 			// - Race: dragon, Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a random 1-Cost minion for_your opponent.
@@ -580,7 +580,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_027] Majordomo Executus - COST:9 [ATK:9/HP:7] 
+			// [BRM_027] Majordomo Executus - COST:9 [ATK:9/HP:7]
 			// - Set: brm, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Replace your hero with Ragnaros, the Firelord.
@@ -595,7 +595,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_028] Emperor Thaurissan - COST:6 [ATK:5/HP:5] 
+			// [BRM_028] Emperor Thaurissan - COST:6 [ATK:5/HP:5]
 			// - Set: brm, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: At the end of your turn, reduce the Cost of cards in your hand by (1).
@@ -612,7 +612,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_029] Rend Blackhand - COST:7 [ATK:8/HP:4] 
+			// [BRM_029] Rend Blackhand - COST:7 [ATK:8/HP:4]
 			// - Set: brm, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you're holding a Dragon, destroy a <b>Legendary</b> minion.
@@ -626,13 +626,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_LEGENDARY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_029", new CardDef(new Power
+			cards.Add("BRM_029", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND,PlayReq.REQ_LEGENDARY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DestroyTask(EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_030] Nefarian - COST:9 [ATK:8/HP:8] 
+			// [BRM_030] Nefarian - COST:9 [ATK:8/HP:8]
 			// - Race: dragon, Set: brm, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Add 2 random spells to your hand <i>(from your opponent's class)</i>.
@@ -649,7 +649,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_031] Chromaggus - COST:8 [ATK:6/HP:8] 
+			// [BRM_031] Chromaggus - COST:8 [ATK:6/HP:8]
 			// - Race: dragon, Set: brm, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Whenever you draw a card, put another copy into your hand.
@@ -667,7 +667,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_033] Blackwing Technician - COST:3 [ATK:2/HP:4] 
+			// [BRM_033] Blackwing Technician - COST:3 [ATK:2/HP:4]
 			// - Fac: neutral, Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you're holding a Dragon, gain +1/+1.
@@ -683,7 +683,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_034] Blackwing Corruptor - COST:5 [ATK:5/HP:4] 
+			// [BRM_034] Blackwing Corruptor - COST:5 [ATK:5/HP:4]
 			// - Fac: neutral, Set: brm, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you're holding a Dragon, deal 3 damage.
@@ -694,7 +694,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_034", new CardDef(new Power
+			cards.Add("BRM_034", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
@@ -706,8 +706,8 @@ namespace SabberStoneCore.CardSets
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRM_004e] Twilight Endurance (*) - COST:0 
-			// - Set: brm, 
+			// [BRM_004e] Twilight Endurance (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
@@ -717,8 +717,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRM_012e] On Fire! (*) - COST:0 
-			// - Set: brm, 
+			// [BRM_012e] On Fire! (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -728,8 +728,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRM_020e] Draconic Power (*) - COST:0 
-			// - Set: brm, 
+			// [BRM_020e] Draconic Power (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -739,8 +739,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRM_024e] Large Talons (*) - COST:0 
-			// - Set: brm, 
+			// [BRM_024e] Large Talons (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
@@ -750,8 +750,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRM_028e] Imperial Favor (*) - COST:0 
-			// - Set: brm, 
+			// [BRM_028e] Imperial Favor (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Costs (1) less.
 			// --------------------------------------------------------
@@ -761,8 +761,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BRM_033e] Dragon Blood (*) - COST:0 
-			// - Set: brm, 
+			// [BRM_033e] Dragon Blood (*) - COST:0
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: +1/+1
 			// --------------------------------------------------------
@@ -772,27 +772,27 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_004t] Whelp (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: brm, 
+			// [BRM_004t] Whelp (*) - COST:1 [ATK:1/HP:1]
+			// - Set: brm,
 			// --------------------------------------------------------
 			cards.Add("BRM_004t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BRM_022t] Black Whelp (*) - COST:1 [ATK:2/HP:1] 
+			// [BRM_022t] Black Whelp (*) - COST:1 [ATK:2/HP:1]
 			// - Race: dragon, Set: brm, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("BRM_022t", new CardDef());
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BRM_030t] Tail Swipe (*) - COST:4 
-			// - Set: brm, 
+			// [BRM_030t] Tail Swipe (*) - COST:4
+			// - Set: brm,
 			// --------------------------------------------------------
 			// Text: Deal $4 damage. @spelldmg
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("BRM_030t", new CardDef(new Power
+			cards.Add("BRM_030t", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(4, EntityType.TARGET, true)
 			}));

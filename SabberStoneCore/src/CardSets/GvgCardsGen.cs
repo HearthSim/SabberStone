@@ -32,7 +32,7 @@ namespace SabberStoneCore.CardSets
 		private static void Druid(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [GVG_030] Anodized Robo Cub - COST:2 [ATK:2/HP:2] 
+			// [GVG_030] Anodized Robo Cub - COST:2 [ATK:2/HP:2]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>. <b>Choose One -</b>
@@ -46,7 +46,7 @@ namespace SabberStoneCore.CardSets
 				new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [GVG_032] Grove Tender - COST:3 [ATK:2/HP:4] 
+			// [GVG_032] Grove Tender - COST:3 [ATK:2/HP:4]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b> Give each player a Mana Crystal; or Each player draws a card.
@@ -58,7 +58,7 @@ namespace SabberStoneCore.CardSets
 				new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [GVG_034] Mech-Bear-Cat - COST:6 [ATK:7/HP:6] 
+			// [GVG_034] Mech-Bear-Cat - COST:6 [ATK:7/HP:6]
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, add a <b>Spare Part</b> card to your hand.
@@ -78,7 +78,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [GVG_035] Malorne - COST:7 [ATK:9/HP:7] 
+			// [GVG_035] Malorne - COST:7 [ATK:9/HP:7]
 			// - Race: beast, Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Shuffle this minion into your deck.
@@ -94,7 +94,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [GVG_080] Druid of the Fang - COST:5 [ATK:4/HP:4] 
+			// [GVG_080] Druid of the Fang - COST:5 [ATK:4/HP:4]
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you have a Beast, transform this minion into a 7/7.
@@ -110,7 +110,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GVG_031] Recycle - COST:6 
+			// [GVG_031] Recycle - COST:6
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Shuffle an enemy minion into your opponent's deck.
@@ -120,7 +120,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_031", new CardDef(new Power
+			cards.Add("GVG_031", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET}, new Power
 			{
 				// http://hearthstone.gamepedia.com/Recycle
 				PowerTask = ComplexTask.Create(
@@ -129,7 +129,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GVG_033] Tree of Life - COST:9 
+			// [GVG_033] Tree of Life - COST:9
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Restore all characters to full Health.
@@ -140,7 +140,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GVG_041] Dark Wispers - COST:6 
+			// [GVG_041] Dark Wispers - COST:6
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b> Summon 5 Wisps; or Give_a minion +5/+5 and <b>Taunt</b>.
@@ -155,16 +155,15 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_041", //CHOOSE_ONE
-				new CardDef());
+			cards.Add("GVG_041", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET}));
 
 		}
 
 		private static void DruidNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [GVG_030ae] Attack Mode (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_030ae] Attack Mode (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
@@ -174,8 +173,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [GVG_030be] Tank Mode (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_030be] Tank Mode (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +1 Health.
 			// --------------------------------------------------------
@@ -185,8 +184,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [GVG_041c] Dark Wispers (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_041c] Dark Wispers (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +5/+5 and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -196,14 +195,14 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [GVG_080t] Druid of the Fang (*) - COST:5 [ATK:7/HP:7] 
-			// - Race: beast, Set: gvg, 
+			// [GVG_080t] Druid of the Fang (*) - COST:5 [ATK:7/HP:7]
+			// - Race: beast, Set: gvg,
 			// --------------------------------------------------------
 			cards.Add("GVG_080t", new CardDef());
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GVG_030a] Attack Mode (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_030a] Attack Mode (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
@@ -213,8 +212,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GVG_030b] Tank Mode (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_030b] Tank Mode (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +1 Health.
 			// --------------------------------------------------------
@@ -224,8 +223,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GVG_032a] Gift of Mana (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_032a] Gift of Mana (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Give each player a Mana Crystal.
 			// --------------------------------------------------------
@@ -237,8 +236,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GVG_032b] Gift of Cards (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_032b] Gift of Cards (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Each player draws a card.
 			// --------------------------------------------------------
@@ -250,8 +249,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GVG_041a] Dark Wispers (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_041a] Dark Wispers (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +5/+5 and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -259,14 +258,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_041a", new CardDef(new Power
+			cards.Add("GVG_041a", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("GVG_041c", EntityType.SOURCE)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GVG_041b] Dark Wispers (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_041b] Dark Wispers (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Summon 5 Wisps.
 			// --------------------------------------------------------
@@ -274,7 +273,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_041b", new CardDef(new Power
+			cards.Add("GVG_041b", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new SummonTask("CS2_231", 5)
 			}));
@@ -284,7 +283,7 @@ namespace SabberStoneCore.CardSets
 		private static void Hunter(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
-			// [GVG_046] King of Beasts - COST:5 [ATK:2/HP:6] 
+			// [GVG_046] King of Beasts - COST:5 [ATK:2/HP:6]
 			// - Race: beast, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>. <b>Battlecry:</b> Gain +1 Attack for each other Beast you have.
@@ -302,7 +301,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [GVG_048] Metaltooth Leaper - COST:3 [ATK:3/HP:3] 
+			// [GVG_048] Metaltooth Leaper - COST:3 [ATK:3/HP:3]
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give your other Mechs +2 Attack.
@@ -319,7 +318,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [GVG_049] Gahz'rilla - COST:7 [ATK:6/HP:9] 
+			// [GVG_049] Gahz'rilla - COST:7 [ATK:6/HP:9]
 			// - Race: beast, Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, double its Attack.
@@ -336,7 +335,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [GVG_087] Steamwheedle Sniper - COST:2 [ATK:2/HP:3] 
+			// [GVG_087] Steamwheedle Sniper - COST:2 [ATK:2/HP:3]
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Your Hero Power can target minions.
@@ -349,7 +348,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [GVG_017] Call Pet - COST:2 
+			// [GVG_017] Call Pet - COST:2
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Draw a card.
@@ -363,7 +362,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [GVG_026] Feign Death - COST:2 
+			// [GVG_026] Feign Death - COST:2
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Trigger all <b>Deathrattles</b> on your minions.
@@ -377,7 +376,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [GVG_073] Cobra Shot - COST:5 
+			// [GVG_073] Cobra Shot - COST:5
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to a minion and the enemy hero. @spelldmg
@@ -386,7 +385,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_073", new CardDef(new Power
+			cards.Add("GVG_073", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(3, EntityType.TARGET, true),
@@ -394,7 +393,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- WEAPON - HUNTER
-			// [GVG_043] Glaivezooka - COST:2 [ATK:2/HP:0] 
+			// [GVG_043] Glaivezooka - COST:2 [ATK:2/HP:0]
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a random friendly minion +1 Attack.
@@ -417,8 +416,8 @@ namespace SabberStoneCore.CardSets
 		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [GVG_043e] Glaivezooka (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_043e] Glaivezooka (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
@@ -428,8 +427,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [GVG_046e] The King (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_046e] The King (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -441,8 +440,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [GVG_048e] Metal Teeth (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_048e] Metal Teeth (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
@@ -452,8 +451,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [GVG_049e] Might of Zul'Farrak (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_049e] Might of Zul'Farrak (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Multiplying Attack.
 			// --------------------------------------------------------
@@ -469,7 +468,7 @@ namespace SabberStoneCore.CardSets
 		private static void Mage(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
-			// [GVG_002] Snowchugger - COST:2 [ATK:2/HP:3] 
+			// [GVG_002] Snowchugger - COST:2 [ATK:2/HP:3]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Freeze</b> any character damaged by this minion.
@@ -480,7 +479,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_002", new CardDef());
 
 			// ------------------------------------------ MINION - MAGE
-			// [GVG_004] Goblin Blastmage - COST:4 [ATK:5/HP:4] 
+			// [GVG_004] Goblin Blastmage - COST:4 [ATK:5/HP:4]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you have a Mech, deal 4 damage randomly split among all enemies.
@@ -496,7 +495,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [GVG_007] Flame Leviathan - COST:7 [ATK:7/HP:7] 
+			// [GVG_007] Flame Leviathan - COST:7 [ATK:7/HP:7]
 			// - Race: mechanical, Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: When you draw this, deal 2 damage to all characters.
@@ -512,7 +511,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [GVG_122] Wee Spellstopper - COST:4 [ATK:2/HP:5] 
+			// [GVG_122] Wee Spellstopper - COST:4 [ATK:2/HP:5]
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Adjacent minions can't be targeted by spells or Hero Powers.
@@ -527,7 +526,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [GVG_123] Soot Spewer - COST:3 [ATK:3/HP:3] 
+			// [GVG_123] Soot Spewer - COST:3 [ATK:3/HP:3]
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +1</b>
@@ -538,7 +537,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_123", new CardDef());
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GVG_001] Flamecannon - COST:2 
+			// [GVG_001] Flamecannon - COST:2
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $4 damage to a random enemy minion. @spelldmg
@@ -546,13 +545,13 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_001", new CardDef(new Power
+			cards.Add("GVG_001", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
 			{
 				PowerTask = ComplexTask.DamageRandomTargets(1, EntityType.OP_MINIONS, 4, true)
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GVG_003] Unstable Portal - COST:2 
+			// [GVG_003] Unstable Portal - COST:2
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Add a random minion to your hand. It costs (3) less.
@@ -566,7 +565,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GVG_005] Echo of Medivh - COST:4 
+			// [GVG_005] Echo of Medivh - COST:4
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Put a copy of each friendly minion into your hand.
@@ -588,7 +587,7 @@ namespace SabberStoneCore.CardSets
 		private static void Paladin(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
-			// [GVG_058] Shielded Minibot - COST:2 [ATK:2/HP:2] 
+			// [GVG_058] Shielded Minibot - COST:2 [ATK:2/HP:2]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>
@@ -599,7 +598,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_058", new CardDef());
 
 			// --------------------------------------- MINION - PALADIN
-			// [GVG_060] Quartermaster - COST:5 [ATK:2/HP:5] 
+			// [GVG_060] Quartermaster - COST:5 [ATK:2/HP:5]
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give your Silver Hand Recruits +2/+2.
@@ -616,7 +615,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [GVG_062] Cobalt Guardian - COST:5 [ATK:6/HP:3] 
+			// [GVG_062] Cobalt Guardian - COST:5 [ATK:6/HP:3]
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you summon a Mech, gain <b>Divine Shield</b>.
@@ -635,7 +634,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [GVG_063] Bolvar Fordragon - COST:5 [ATK:1/HP:7] 
+			// [GVG_063] Bolvar Fordragon - COST:5 [ATK:1/HP:7]
 			// - Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Whenever a friendly minion dies while this is in your hand, gain +1 Attack.
@@ -654,7 +653,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [GVG_101] Scarlet Purifier - COST:3 [ATK:4/HP:3] 
+			// [GVG_101] Scarlet Purifier - COST:3 [ATK:4/HP:3]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 2 damage to all minions with <b>Deathrattle</b>.
@@ -674,7 +673,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [GVG_057] Seal of Light - COST:2 
+			// [GVG_057] Seal of Light - COST:2
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: Restore #4 Health to your hero and gain +2 Attack this turn.
@@ -687,7 +686,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [GVG_061] Muster for Battle - COST:3 
+			// [GVG_061] Muster for Battle - COST:3
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon three 1/1 Silver Hand Recruits. Equip a 1/4 Weapon.
@@ -700,7 +699,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- WEAPON - PALADIN
-			// [GVG_059] Coghammer - COST:3 [ATK:2/HP:0] 
+			// [GVG_059] Coghammer - COST:3 [ATK:2/HP:0]
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a random friendly minion <b>Divine Shield</b> and <b>Taunt</b>.
@@ -726,8 +725,8 @@ namespace SabberStoneCore.CardSets
 		private static void PaladinNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [GVG_060e] Well Equipped (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_060e] Well Equipped (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -737,8 +736,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [GVG_101e] Pure (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_101e] Pure (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Increased Stats.
 			// --------------------------------------------------------
@@ -754,7 +753,7 @@ namespace SabberStoneCore.CardSets
 		private static void Priest(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
-			// [GVG_009] Shadowbomber - COST:1 [ATK:2/HP:1] 
+			// [GVG_009] Shadowbomber - COST:1 [ATK:2/HP:1]
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 3 damage to each hero.
@@ -768,7 +767,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [GVG_011] Shrinkmeister - COST:2 [ATK:3/HP:2] 
+			// [GVG_011] Shrinkmeister - COST:2 [ATK:3/HP:2]
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a minion -2_Attack this turn.
@@ -780,13 +779,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_011", new CardDef(new Power
+			cards.Add("GVG_011", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("GVG_011a", EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [GVG_014] Vol'jin - COST:5 [ATK:6/HP:2] 
+			// [GVG_014] Vol'jin - COST:5 [ATK:6/HP:2]
 			// - Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Swap Health with another minion.
@@ -799,7 +798,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_014", new CardDef(new Power
+			cards.Add("GVG_014", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GVG_014] Vol'jin && Test: Vol'jin_GVG_014
 				InfoCardId = "GVG_014a",
@@ -808,7 +807,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [GVG_072] Shadowboxer - COST:2 [ATK:2/HP:3] 
+			// [GVG_072] Shadowboxer - COST:2 [ATK:2/HP:3]
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever a minion is healed, deal 1 damage to a random enemy.
@@ -825,7 +824,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [GVG_083] Upgraded Repair Bot - COST:5 [ATK:5/HP:5] 
+			// [GVG_083] Upgraded Repair Bot - COST:5 [ATK:5/HP:5]
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a friendly Mech +4 Health.
@@ -839,13 +838,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_WITH_RACE = 17
 			// --------------------------------------------------------
-			cards.Add("GVG_083", new CardDef(new Power
+			cards.Add("GVG_083", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_WITH_RACE}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("GVG_069a", EntityType.TARGET)
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [GVG_008] Lightbomb - COST:6 
+			// [GVG_008] Lightbomb - COST:6
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Deal damage to each minion equal to its Attack. @spelldmg
@@ -872,7 +871,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [GVG_010] Velen's Chosen - COST:3 
+			// [GVG_010] Velen's Chosen - COST:3
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give a minion +2/+4 and <b>Spell Damage +1</b>.
@@ -884,13 +883,13 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPELLPOWER = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_010", new CardDef(new Power
+			cards.Add("GVG_010", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("GVG_010b", EntityType.TARGET)
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [GVG_012] Light of the Naaru - COST:1 
+			// [GVG_012] Light of the Naaru - COST:1
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Restore #3 Health. If the target is still damaged, summon a Lightwarden.
@@ -898,7 +897,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_012", new CardDef(new Power
+			cards.Add("GVG_012", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new HealTask(3, EntityType.TARGET),
@@ -911,8 +910,8 @@ namespace SabberStoneCore.CardSets
 		private static void PriestNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [GVG_014a] Shadowed (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_014a] Shadowed (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Health was swapped.
 			// --------------------------------------------------------
@@ -924,8 +923,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [GVG_069a] Repairs! (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_069a] Repairs! (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +4 Health.
 			// --------------------------------------------------------
@@ -939,7 +938,7 @@ namespace SabberStoneCore.CardSets
 		private static void Rogue(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
-			// [GVG_023] Goblin Auto-Barber - COST:2 [ATK:3/HP:2] 
+			// [GVG_023] Goblin Auto-Barber - COST:2 [ATK:3/HP:2]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give your weapon +1 Attack.
@@ -953,7 +952,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [GVG_025] One-eyed Cheat - COST:2 [ATK:4/HP:1] 
+			// [GVG_025] One-eyed Cheat - COST:2 [ATK:4/HP:1]
 			// - Race: pirate, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you summon a Pirate, gain <b>Stealth</b>.
@@ -969,7 +968,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [GVG_027] Iron Sensei - COST:3 [ATK:2/HP:2] 
+			// [GVG_027] Iron Sensei - COST:3 [ATK:2/HP:2]
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the end of your turn, give another friendly Mech +2/+2.
@@ -987,7 +986,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [GVG_028] Trade Prince Gallywix - COST:6 [ATK:5/HP:8] 
+			// [GVG_028] Trade Prince Gallywix - COST:6 [ATK:5/HP:8]
 			// - Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Whenever your opponent casts a spell, gain a copy of it and give them a Coin.
@@ -1007,7 +1006,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [GVG_088] Ogre Ninja - COST:5 [ATK:6/HP:6] 
+			// [GVG_088] Ogre Ninja - COST:5 [ATK:6/HP:6]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
@@ -1025,7 +1024,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [GVG_022] Tinker's Sharpsword Oil - COST:4 
+			// [GVG_022] Tinker's Sharpsword Oil - COST:4
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give your weapon +3 Attack. <b>Combo:</b> Give a random friendly minion +3 Attack.
@@ -1036,7 +1035,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_022", new CardDef(new Power
+			cards.Add("GVG_022", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("GVG_022a", EntityType.WEAPON),
 				ComboTask = ComplexTask.Create(
@@ -1046,7 +1045,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [GVG_047] Sabotage - COST:4 
+			// [GVG_047] Sabotage - COST:4
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Destroy a random enemy minion. <b>Combo:</b> And your opponent's weapon.
@@ -1058,7 +1057,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_ENEMY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_047", new CardDef(new Power
+			cards.Add("GVG_047", new CardDef(new[] {PlayReq.REQ_ENEMY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS),
 				ComboTask = ComplexTask.Create(
@@ -1068,7 +1067,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- WEAPON - ROGUE
-			// [GVG_024] Cogmaster's Wrench - COST:3 [ATK:1/HP:0] 
+			// [GVG_024] Cogmaster's Wrench - COST:3 [ATK:1/HP:0]
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Has +2 Attack while you have a Mech.
@@ -1087,8 +1086,8 @@ namespace SabberStoneCore.CardSets
 		private static void RogueNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [GVG_027e] Ironed Out (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_027e] Ironed Out (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -1102,7 +1101,7 @@ namespace SabberStoneCore.CardSets
 		private static void Shaman(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
-			// [GVG_037] Whirling Zap-o-matic - COST:2 [ATK:3/HP:2] 
+			// [GVG_037] Whirling Zap-o-matic - COST:2 [ATK:3/HP:2]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Windfury</b>
@@ -1113,7 +1112,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_037", new CardDef());
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [GVG_039] Vitality Totem - COST:2 [ATK:0/HP:3] 
+			// [GVG_039] Vitality Totem - COST:2 [ATK:0/HP:3]
 			// - Race: totem, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the end of your turn, restore 4 Health to your hero.
@@ -1127,7 +1126,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [GVG_040] Siltfin Spiritwalker - COST:4 [ATK:2/HP:5] 
+			// [GVG_040] Siltfin Spiritwalker - COST:4 [ATK:2/HP:5]
 			// - Race: murloc, Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Whenever another friendly Murloc dies, draw a card. <b><b>Overload</b>:</b> (1)
@@ -1147,7 +1146,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [GVG_042] Neptulon - COST:7 [ATK:7/HP:7] 
+			// [GVG_042] Neptulon - COST:7 [ATK:7/HP:7]
 			// - Race: elemental, Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Add 4 random Murlocs to your hand. <b>Overload:</b> (3)
@@ -1166,7 +1165,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [GVG_066] Dunemaul Shaman - COST:4 [ATK:5/HP:4] 
+			// [GVG_066] Dunemaul Shaman - COST:4 [ATK:5/HP:4]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Windfury, Overload:</b> (1)
@@ -1186,7 +1185,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [GVG_029] Ancestor's Call - COST:4 
+			// [GVG_029] Ancestor's Call - COST:4
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Put a random minion from each player's hand into the battlefield.
@@ -1206,7 +1205,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [GVG_038] Crackle - COST:2 
+			// [GVG_038] Crackle - COST:2
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $3-$6 damage. <b>Overload:</b> (1) @spelldmg
@@ -1218,7 +1217,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_038", new CardDef(new Power
+			cards.Add("GVG_038", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new MathRandTask(3, 6),
@@ -1226,7 +1225,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- WEAPON - SHAMAN
-			// [GVG_036] Powermace - COST:3 [ATK:3/HP:0] 
+			// [GVG_036] Powermace - COST:3 [ATK:3/HP:0]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Give a random friendly Mech +2/+2.
@@ -1249,8 +1248,8 @@ namespace SabberStoneCore.CardSets
 		private static void ShamanNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - SHAMAN
-			// [GVG_036e] Powered (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_036e] Powered (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -1264,7 +1263,7 @@ namespace SabberStoneCore.CardSets
 		private static void Warlock(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
-			// [GVG_018] Queen of Pain - COST:2 [ATK:1/HP:4] 
+			// [GVG_018] Queen of Pain - COST:2 [ATK:1/HP:4]
 			// - Race: demon, Set: gvg, Rarity: rare
 			// Renamed Queen of Pain 2019-07-01
 			// --------------------------------------------------------
@@ -1276,7 +1275,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_018", new CardDef());
 
 			// --------------------------------------- MINION - WARLOCK
-			// [GVG_020] Fel Cannon - COST:4 [ATK:3/HP:5] 
+			// [GVG_020] Fel Cannon - COST:4 [ATK:3/HP:5]
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 2 damage to a non-Mech minion.
@@ -1294,7 +1293,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [GVG_021] Mal'Ganis - COST:9 [ATK:9/HP:7] 
+			// [GVG_021] Mal'Ganis - COST:9 [ATK:9/HP:7]
 			// - Race: demon, Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Your other Demons have +2/+2.
@@ -1316,7 +1315,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [GVG_077] Anima Golem - COST:6 [ATK:9/HP:9] 
+			// [GVG_077] Anima Golem - COST:6 [ATK:9/HP:9]
 			// - Race: mechanical, Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: At the end of each turn, destroy this minion if it's your only one.
@@ -1329,7 +1328,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [GVG_100] Floating Watcher - COST:5 [ATK:4/HP:4] 
+			// [GVG_100] Floating Watcher - COST:5 [ATK:4/HP:4]
 			// - Race: demon, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever your hero takes damage on your turn, gain +2/+2.
@@ -1346,7 +1345,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [GVG_015] Darkbomb - COST:2 
+			// [GVG_015] Darkbomb - COST:2
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $3 damage. @spelldmg
@@ -1354,13 +1353,13 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_015", new CardDef(new Power
+			cards.Add("GVG_015", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(3, EntityType.TARGET, true)
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [GVG_019] Demonheart - COST:5 
+			// [GVG_019] Demonheart - COST:5
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Deal $5 damage to a minion.  If it's a friendly Demon, give it +5/+5 instead. @spelldmg
@@ -1369,7 +1368,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_019", new CardDef(new Power
+			cards.Add("GVG_019", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.TARGET,
@@ -1380,7 +1379,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [GVG_045] Imp-losion - COST:4 
+			// [GVG_045] Imp-losion - COST:4
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $2-$4 damage to a minion. Summon a 1/1 Imp for each damage dealt. @spelldmg
@@ -1389,7 +1388,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_045", new CardDef(new Power
+			cards.Add("GVG_045", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new MathRandTask(2, 4),
@@ -1402,8 +1401,8 @@ namespace SabberStoneCore.CardSets
 		private static void WarlockNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [GVG_019e] Demonheart (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_019e] Demonheart (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +5/+5.
 			// --------------------------------------------------------
@@ -1413,8 +1412,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [GVG_021e] Grasp of Mal'Ganis (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_021e] Grasp of Mal'Ganis (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Mal'Ganis is granting +2/+2.
 			// --------------------------------------------------------
@@ -1424,8 +1423,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [GVG_100e] Brow Furrow (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_100e] Brow Furrow (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -1435,8 +1434,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [GVG_045t] Imp (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: demon, Set: gvg, 
+			// [GVG_045t] Imp (*) - COST:1 [ATK:1/HP:1]
+			// - Race: demon, Set: gvg,
 			// --------------------------------------------------------
 			cards.Add("GVG_045t", new CardDef());
 
@@ -1445,7 +1444,7 @@ namespace SabberStoneCore.CardSets
 		private static void Warrior(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
-			// [GVG_051] Warbot - COST:1 [ATK:1/HP:3] 
+			// [GVG_051] Warbot - COST:1 [ATK:1/HP:3]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Enrage:</b> +1 Attack.
@@ -1460,7 +1459,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [GVG_053] Shieldmaiden - COST:6 [ATK:5/HP:5] 
+			// [GVG_053] Shieldmaiden - COST:6 [ATK:5/HP:5]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Gain 5 Armor.
@@ -1474,7 +1473,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [GVG_055] Screwjank Clunker - COST:4 [ATK:2/HP:5] 
+			// [GVG_055] Screwjank Clunker - COST:4 [ATK:2/HP:5]
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a friendly Mech +2/+2.
@@ -1487,13 +1486,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_WITH_RACE = 17
 			// --------------------------------------------------------
-			cards.Add("GVG_055", new CardDef(new Power
+			cards.Add("GVG_055", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_TARGET_WITH_RACE}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("GVG_055e", EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [GVG_056] Iron Juggernaut - COST:6 [ATK:6/HP:5] 
+			// [GVG_056] Iron Juggernaut - COST:6 [ATK:6/HP:5]
 			// - Race: mechanical, Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Shuffle a Mine into your opponent's deck. When drawn, it explodes for 10 damage.
@@ -1509,7 +1508,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [GVG_086] Siege Engine - COST:5 [ATK:5/HP:5] 
+			// [GVG_086] Siege Engine - COST:5 [ATK:5/HP:5]
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you gain Armor, give this minion +1 Attack.
@@ -1524,7 +1523,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GVG_050] Bouncing Blade - COST:3 
+			// [GVG_050] Bouncing Blade - COST:3
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to a random minion. Repeat until a minion dies. @spelldmg
@@ -1532,7 +1531,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINIMUM_TOTAL_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_050", new CardDef(new Power
+			cards.Add("GVG_050", new CardDef(new[] {PlayReq.REQ_MINIMUM_TOTAL_MINIONS}, new Power
 			{
 				// TODO [GVG_050] Bouncing Blade && Test: Bouncing Blade_GVG_050
 				//PowerTask = null,
@@ -1540,7 +1539,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GVG_052] Crush - COST:7 
+			// [GVG_052] Crush - COST:7
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Destroy a minion. If you have a damaged minion, this costs (4) less.
@@ -1549,14 +1548,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_052", new CardDef(new Power
+			cards.Add("GVG_052", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DestroyTask(EntityType.TARGET),
 				Aura = new AdaptiveCostEffect(p => p.Controller.BoardZone.Any(m => m.Damage > 0) ? 4 : 0)
 			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
-			// [GVG_054] Ogre Warmaul - COST:3 [ATK:4/HP:0] 
+			// [GVG_054] Ogre Warmaul - COST:3 [ATK:4/HP:0]
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: 50% chance to attack the wrong enemy.
@@ -1576,8 +1575,8 @@ namespace SabberStoneCore.CardSets
 		private static void WarriorNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [GVG_051e] Enraged (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_051e] Enraged (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +1 Attack
 			// --------------------------------------------------------
@@ -1588,22 +1587,22 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [GVG_055e] Screwy Jank (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_055e] Screwy Jank (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_055e", new CardDef(new Power
+			cards.Add("GVG_055e", new CardDef(new[] {PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				Enchant = Enchants.Enchants.GetAutoEnchantFromText("GVG_055e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [GVG_086e] Armor Plated (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_086e] Armor Plated (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -1613,8 +1612,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GVG_056t] Burrowing Mine (*) - COST:6 
-			// - Set: gvg, 
+			// [GVG_056t] Burrowing Mine (*) - COST:6
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: [x]You take 10 damage.
 			//       Draw a card. This
@@ -1639,7 +1638,7 @@ namespace SabberStoneCore.CardSets
 		private static void Neutral(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_006] Mechwarper - COST:2 [ATK:2/HP:3] 
+			// [GVG_006] Mechwarper - COST:2 [ATK:2/HP:3]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: Your Mechs cost (1) less.
@@ -1656,7 +1655,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_013] Cogmaster - COST:1 [ATK:1/HP:2] 
+			// [GVG_013] Cogmaster - COST:1 [ATK:1/HP:2]
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: Has +2 Attack while you have a Mech.
@@ -1671,7 +1670,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_016] Fel Reaver - COST:5 [ATK:8/HP:8] 
+			// [GVG_016] Fel Reaver - COST:5 [ATK:8/HP:8]
 			// - Race: mechanical, Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Whenever your opponent plays a card, remove the top 3 cards of your deck.
@@ -1684,19 +1683,19 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_044] Spider Tank - COST:3 [ATK:3/HP:4] 
+			// [GVG_044] Spider Tank - COST:3 [ATK:3/HP:4]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("GVG_044", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_064] Puddlestomper - COST:2 [ATK:3/HP:2] 
+			// [GVG_064] Puddlestomper - COST:2 [ATK:3/HP:2]
 			// - Race: murloc, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("GVG_064", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_065] Ogre Brute - COST:3 [ATK:4/HP:4] 
+			// [GVG_065] Ogre Brute - COST:3 [ATK:4/HP:4]
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: 50% chance to attack the wrong enemy.
@@ -1712,7 +1711,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_067] Stonesplinter Trogg - COST:2 [ATK:2/HP:3] 
+			// [GVG_067] Stonesplinter Trogg - COST:2 [ATK:2/HP:3]
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever your opponent casts a spell, gain +1 Attack.
@@ -1727,7 +1726,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_068] Burly Rockjaw Trogg - COST:4 [ATK:3/HP:5] 
+			// [GVG_068] Burly Rockjaw Trogg - COST:4 [ATK:3/HP:5]
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever your opponent casts a spell, gain +2 Attack.
@@ -1742,7 +1741,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_069] Antique Healbot - COST:5 [ATK:3/HP:3] 
+			// [GVG_069] Antique Healbot - COST:5 [ATK:3/HP:3]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Restore 8 Health to your hero.
@@ -1756,19 +1755,19 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_070] Salty Dog - COST:5 [ATK:7/HP:4] 
+			// [GVG_070] Salty Dog - COST:5 [ATK:7/HP:4]
 			// - Race: pirate, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("GVG_070", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_071] Lost Tallstrider - COST:4 [ATK:5/HP:4] 
+			// [GVG_071] Lost Tallstrider - COST:4 [ATK:5/HP:4]
 			// - Race: beast, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("GVG_071", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_074] Kezan Mystic - COST:4 [ATK:4/HP:3] 
+			// [GVG_074] Kezan Mystic - COST:4 [ATK:4/HP:3]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Take control of a random enemy <b>Secret</b>.
@@ -1787,7 +1786,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_075] Ship's Cannon - COST:2 [ATK:2/HP:3] 
+			// [GVG_075] Ship's Cannon - COST:2 [ATK:2/HP:3]
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: After you summon a Pirate, deal 2 damage to a random enemy.
@@ -1805,7 +1804,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_076] Explosive Sheep - COST:2 [ATK:1/HP:1] 
+			// [GVG_076] Explosive Sheep - COST:2 [ATK:1/HP:1]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Deal 2 damage to all minions.
@@ -1819,7 +1818,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_078] Mechanical Yeti - COST:4 [ATK:4/HP:5] 
+			// [GVG_078] Mechanical Yeti - COST:4 [ATK:4/HP:5]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Give each player a <b>Spare Part.</b>
@@ -1840,7 +1839,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_079] Force-Tank MAX - COST:8 [ATK:7/HP:7] 
+			// [GVG_079] Force-Tank MAX - COST:8 [ATK:7/HP:7]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>
@@ -1851,7 +1850,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_079", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_081] Gilblin Stalker - COST:2 [ATK:2/HP:3] 
+			// [GVG_081] Gilblin Stalker - COST:2 [ATK:2/HP:3]
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
@@ -1862,7 +1861,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_081", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_082] Clockwork Gnome - COST:1 [ATK:2/HP:1] 
+			// [GVG_082] Clockwork Gnome - COST:1 [ATK:2/HP:1]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Add a <b>Spare Part</b> card to your hand.
@@ -1881,7 +1880,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_084] Flying Machine - COST:3 [ATK:1/HP:4] 
+			// [GVG_084] Flying Machine - COST:3 [ATK:1/HP:4]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Windfury</b>
@@ -1892,7 +1891,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_084", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_085] Annoy-o-Tron - COST:2 [ATK:1/HP:2] 
+			// [GVG_085] Annoy-o-Tron - COST:2 [ATK:1/HP:2]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -1905,7 +1904,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_085", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_089] Illuminator - COST:3 [ATK:2/HP:4] 
+			// [GVG_089] Illuminator - COST:3 [ATK:2/HP:4]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: If you control a <b>Secret</b> at the end of your turn, restore 4 Health to your hero.
@@ -1924,7 +1923,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_090] Madder Bomber - COST:5 [ATK:5/HP:4] 
+			// [GVG_090] Madder Bomber - COST:5 [ATK:5/HP:4]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 6 damage randomly split between all other characters.
@@ -1939,7 +1938,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_091] Arcane Nullifier X-21 - COST:4 [ATK:2/HP:5] 
+			// [GVG_091] Arcane Nullifier X-21 - COST:4 [ATK:2/HP:5]
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -1953,7 +1952,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_091", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_092] Gnomish Experimenter - COST:3 [ATK:3/HP:2] 
+			// [GVG_092] Gnomish Experimenter - COST:3 [ATK:3/HP:2]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Draw a card. If it's a minion, transform it into a Chicken.
@@ -1969,7 +1968,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_093] Target Dummy - COST:0 [ATK:0/HP:2] 
+			// [GVG_093] Target Dummy - COST:0 [ATK:0/HP:2]
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -1980,7 +1979,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_093", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_094] Jeeves - COST:4 [ATK:1/HP:4] 
+			// [GVG_094] Jeeves - COST:4 [ATK:1/HP:4]
 			// - Race: mechanical, Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the end of each player's turn, that player draws until they have 3 cards.
@@ -1998,7 +1997,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_095] Goblin Sapper - COST:3 [ATK:2/HP:4] 
+			// [GVG_095] Goblin Sapper - COST:3 [ATK:2/HP:4]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Has +4 Attack while your opponent has 6 or more cards in hand.
@@ -2012,7 +2011,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_096] Piloted Shredder - COST:4 [ATK:4/HP:3] 
+			// [GVG_096] Piloted Shredder - COST:4 [ATK:4/HP:3]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a random 2-Cost minion.
@@ -2028,7 +2027,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_097] Lil' Exorcist - COST:3 [ATK:2/HP:3] 
+			// [GVG_097] Lil' Exorcist - COST:3 [ATK:2/HP:3]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2052,7 +2051,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_098] Gnomeregan Infantry - COST:3 [ATK:1/HP:4] 
+			// [GVG_098] Gnomeregan Infantry - COST:3 [ATK:1/HP:4]
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Charge</b>
@@ -2065,7 +2064,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_098", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_099] Bomb Lobber - COST:5 [ATK:3/HP:3] 
+			// [GVG_099] Bomb Lobber - COST:5 [ATK:3/HP:3]
 			// - Set: gvg, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 4 damage to a random enemy minion.
@@ -2081,7 +2080,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_102] Tinkertown Technician - COST:3 [ATK:3/HP:3] 
+			// [GVG_102] Tinkertown Technician - COST:3 [ATK:3/HP:3]
 			// - Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you have a Mech, gain +1/+1 and add a <b>Spare Part</b> to your hand.
@@ -2104,7 +2103,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_103] Micro Machine - COST:2 [ATK:1/HP:2] 
+			// [GVG_103] Micro Machine - COST:2 [ATK:1/HP:2]
 			// - Race: mechanical, Set: gvg, Rarity: common
 			// --------------------------------------------------------
 			// Text: At the start of each turn, gain +1 Attack.
@@ -2118,7 +2117,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_104] Hobgoblin - COST:3 [ATK:2/HP:3] 
+			// [GVG_104] Hobgoblin - COST:3 [ATK:2/HP:3]
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Whenever you play a 1-Attack minion, give it +2/+2.
@@ -2135,7 +2134,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_105] Piloted Sky Golem - COST:6 [ATK:6/HP:4] 
+			// [GVG_105] Piloted Sky Golem - COST:6 [ATK:6/HP:4]
 			// - Race: mechanical, Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a random 4-Cost minion.
@@ -2151,7 +2150,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_106] Junkbot - COST:5 [ATK:1/HP:5] 
+			// [GVG_106] Junkbot - COST:5 [ATK:1/HP:5]
 			// - Race: mechanical, Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Whenever a friendly Mech dies, gain +2/+2.
@@ -2167,7 +2166,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_107] Enhance-o Mechano - COST:4 [ATK:3/HP:2] 
+			// [GVG_107] Enhance-o Mechano - COST:4 [ATK:3/HP:2]
 			// - Race: mechanical, Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give your other minions <b>Windfury</b>, <b>Taunt</b>, or <b>Divine Shield</b>
@@ -2189,7 +2188,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_108] Recombobulator - COST:2 [ATK:3/HP:2] 
+			// [GVG_108] Recombobulator - COST:2 [ATK:3/HP:2]
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Transform a friendly minion into a random minion with the same Cost.
@@ -2202,7 +2201,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_108", new CardDef(new Power
+			cards.Add("GVG_108", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GVG_108] Recombobulator && Test: Recombobulator_GVG_108
 				//PowerTask = null,
@@ -2210,7 +2209,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_109] Mini-Mage - COST:4 [ATK:4/HP:1] 
+			// [GVG_109] Mini-Mage - COST:4 [ATK:4/HP:1]
 			// - Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
@@ -2223,7 +2222,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("GVG_109", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_110] Dr. Boom - COST:7 [ATK:7/HP:7] 
+			// [GVG_110] Dr. Boom - COST:7 [ATK:7/HP:7]
 			// - Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon two 1/1 Boom Bots. <i>WARNING: Bots may explode.</i>
@@ -2240,7 +2239,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_111] Mimiron's Head - COST:5 [ATK:4/HP:5] 
+			// [GVG_111] Mimiron's Head - COST:5 [ATK:4/HP:5]
 			// - Race: mechanical, Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: At the start of your turn, if you have at least 3 Mechs, destroy them all and form V-07-TR-0N.
@@ -2256,7 +2255,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_112] Mogor the Ogre - COST:6 [ATK:7/HP:6] 
+			// [GVG_112] Mogor the Ogre - COST:6 [ATK:7/HP:6]
 			// - Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: All minions have a 50% chance to attack the wrong enemy.
@@ -2272,7 +2271,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_113] Foe Reaper 4000 - COST:8 [ATK:6/HP:9] 
+			// [GVG_113] Foe Reaper 4000 - COST:8 [ATK:6/HP:9]
 			// - Race: mechanical, Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Also damages the minions next to whomever it attacks.
@@ -2288,7 +2287,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_114] Sneed's Old Shredder - COST:8 [ATK:5/HP:7] 
+			// [GVG_114] Sneed's Old Shredder - COST:8 [ATK:5/HP:7]
 			// - Race: mechanical, Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a random <b>Legendary</b> minion.
@@ -2305,7 +2304,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_115] Toshley - COST:6 [ATK:5/HP:7] 
+			// [GVG_115] Toshley - COST:6 [ATK:5/HP:7]
 			// - Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry and Deathrattle:</b> Add a <b>Spare Part</b> card to your hand.
@@ -2327,7 +2326,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_116] Mekgineer Thermaplugg - COST:9 [ATK:9/HP:7] 
+			// [GVG_116] Mekgineer Thermaplugg - COST:9 [ATK:9/HP:7]
 			// - Race: mechanical, Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Whenever an enemy minion dies, summon a Leper Gnome.
@@ -2345,7 +2344,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_117] Gazlowe - COST:6 [ATK:3/HP:6] 
+			// [GVG_117] Gazlowe - COST:6 [ATK:3/HP:6]
 			// - Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Whenever you cast a 1-mana spell, add a random Mech to your hand.
@@ -2366,7 +2365,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_118] Troggzor the Earthinator - COST:7 [ATK:6/HP:6] 
+			// [GVG_118] Troggzor the Earthinator - COST:7 [ATK:6/HP:6]
 			// - Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Whenever your opponent casts a spell, summon a Burly Rockjaw Trogg.
@@ -2384,7 +2383,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_119] Blingtron 3000 - COST:5 [ATK:3/HP:4] 
+			// [GVG_119] Blingtron 3000 - COST:5 [ATK:3/HP:4]
 			// - Race: mechanical, Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Equip a random weapon for each player.
@@ -2401,7 +2400,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_120] Hemet Nesingwary - COST:5 [ATK:6/HP:3] 
+			// [GVG_120] Hemet Nesingwary - COST:5 [ATK:6/HP:3]
 			// - Set: gvg, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy a Beast.
@@ -2414,13 +2413,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_WITH_RACE = 20
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("GVG_120", new CardDef(new Power
+			cards.Add("GVG_120", new CardDef(new[] {PlayReq.REQ_TARGET_WITH_RACE,PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
 			{
 				PowerTask = new DestroyTask(EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_121] Clockwork Giant - COST:12 [ATK:8/HP:8] 
+			// [GVG_121] Clockwork Giant - COST:12 [ATK:8/HP:8]
 			// - Race: mechanical, Set: gvg, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Costs (1) less for each card in your opponent's hand.
@@ -2435,8 +2434,8 @@ namespace SabberStoneCore.CardSets
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GVG_010b] Velen's Chosen (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_010b] Velen's Chosen (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +2/+4 and <b>Spell Damage +1</b>.
 			// --------------------------------------------------------
@@ -2449,8 +2448,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GVG_011a] Shrink Ray (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_011a] Shrink Ray (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: -2 Attack this turn.
 			// --------------------------------------------------------
@@ -2466,8 +2465,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GVG_022a] Tinker's Sharpsword Oil (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_022a] Tinker's Sharpsword Oil (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
@@ -2477,8 +2476,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GVG_022b] Tinker's Sharpsword Oil (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_022b] Tinker's Sharpsword Oil (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
@@ -2488,8 +2487,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GVG_023a] Extra Sharp (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_023a] Extra Sharp (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
@@ -2499,8 +2498,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GVG_057a] Seal of Light (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_057a] Seal of Light (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +2 Attack this turn.
 			// --------------------------------------------------------
@@ -2513,8 +2512,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GVG_063a] Retribution (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_063a] Retribution (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Increased Attack
 			// --------------------------------------------------------
@@ -2524,8 +2523,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GVG_067a] Metabolized Magic (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_067a] Metabolized Magic (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -2538,8 +2537,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GVG_068a] Metabolized Magic (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_068a] Metabolized Magic (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -2552,8 +2551,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GVG_076a] Pistons (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_076a] Pistons (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -2563,8 +2562,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GVG_102e] Might of Tinkertown (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_102e] Might of Tinkertown (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -2574,8 +2573,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GVG_104a] HERE, TAKE BUFF. (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_104a] HERE, TAKE BUFF. (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -2585,8 +2584,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GVG_106e] Junked Up (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_106e] Junked Up (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -2596,8 +2595,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [PART_001e] Armor Plating (*) - COST:0 
-			// - Set: gvg, 
+			// [PART_001e] Armor Plating (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +1 Health.
 			// --------------------------------------------------------
@@ -2610,8 +2609,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [PART_004e] Cloaked (*) - COST:0 
-			// - Set: gvg, 
+			// [PART_004e] Cloaked (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Stealthed until your next turn.
 			// --------------------------------------------------------
@@ -2621,8 +2620,8 @@ namespace SabberStoneCore.CardSets
 			cards.Add("PART_004e", new CardDef(Power.OneTurnStealthEnchantmentPower));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [PART_006a] Switched (*) - COST:0 
-			// - Set: gvg, 
+			// [PART_006a] Switched (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Attack and Health have been swapped by Reversing Switch.
 			// --------------------------------------------------------
@@ -2635,8 +2634,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [PART_007e] Whirling Blades (*) - COST:0 
-			// - Set: gvg, 
+			// [PART_007e] Whirling Blades (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
@@ -2649,14 +2648,14 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_092t] Chicken (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: beast, Set: gvg, 
+			// [GVG_092t] Chicken (*) - COST:1 [ATK:1/HP:1]
+			// - Race: beast, Set: gvg,
 			// --------------------------------------------------------
 			cards.Add("GVG_092t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_110t] Boom Bot (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: mechanical, Set: gvg, 
+			// [GVG_110t] Boom Bot (*) - COST:1 [ATK:1/HP:1]
+			// - Race: mechanical, Set: gvg,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Deal 1-4 damage to a random enemy.
 			// --------------------------------------------------------
@@ -2672,8 +2671,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GVG_111t] V-07-TR-0N (*) - COST:8 [ATK:4/HP:8] 
-			// - Race: mechanical, Set: gvg, 
+			// [GVG_111t] V-07-TR-0N (*) - COST:8 [ATK:4/HP:8]
+			// - Race: mechanical, Set: gvg,
 			// --------------------------------------------------------
 			// Text: <b>Charge</b>
 			//       <b>Mega-Windfury</b> <i>(Can attack four times a turn.)</i>
@@ -2690,8 +2689,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GVG_028t] Gallywix's Coin (*) - COST:0 
-			// - Set: gvg, 
+			// [GVG_028t] Gallywix's Coin (*) - COST:0
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Gain 1 Mana Crystal this turn only.
 			//       <i>(Won't trigger Gallywix.)</i>
@@ -2702,8 +2701,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [PART_001] Armor Plating (*) - COST:1 
-			// - Set: gvg, 
+			// [PART_001] Armor Plating (*) - COST:1
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Give a minion +1 Health.
 			// --------------------------------------------------------
@@ -2714,14 +2713,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("PART_001", new CardDef(new Power
+			cards.Add("PART_001", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("PART_001e", EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [PART_002] Time Rewinder (*) - COST:1 
-			// - Set: gvg, 
+			// [PART_002] Time Rewinder (*) - COST:1
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Return a friendly minion to your hand.
 			// --------------------------------------------------------
@@ -2733,14 +2732,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("PART_002", new CardDef(new Power
+			cards.Add("PART_002", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = new ReturnHandTask(EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [PART_003] Rusty Horn (*) - COST:1 
-			// - Set: gvg, 
+			// [PART_003] Rusty Horn (*) - COST:1
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Give a minion <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -2754,14 +2753,14 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("PART_003", new CardDef(new Power
+			cards.Add("PART_003", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Taunt(EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [PART_004] Finicky Cloakfield (*) - COST:1 
-			// - Set: gvg, 
+			// [PART_004] Finicky Cloakfield (*) - COST:1
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Give a friendly minion <b>Stealth</b> until your next turn.
 			// --------------------------------------------------------
@@ -2776,14 +2775,14 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - STEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("PART_004", new CardDef(new Power
+			cards.Add("PART_004", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("PART_004e", EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [PART_005] Emergency Coolant (*) - COST:1 
-			// - Set: gvg, 
+			// [PART_005] Emergency Coolant (*) - COST:1
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: <b>Freeze</b> a minion.
 			// --------------------------------------------------------
@@ -2795,14 +2794,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("PART_005", new CardDef(new Power
+			cards.Add("PART_005", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Freeze(EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [PART_006] Reversing Switch (*) - COST:1 
-			// - Set: gvg, 
+			// [PART_006] Reversing Switch (*) - COST:1
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Swap a minion's Attack and Health.
 			// --------------------------------------------------------
@@ -2813,14 +2812,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("PART_006", new CardDef(new Power
+			cards.Add("PART_006", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new SwapAttackHealthTask(EntityType.TARGET, "PART_006a")
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [PART_007] Whirling Blades (*) - COST:1 
-			// - Set: gvg, 
+			// [PART_007] Whirling Blades (*) - COST:1
+			// - Set: gvg,
 			// --------------------------------------------------------
 			// Text: Give a minion +1 Attack.
 			// --------------------------------------------------------
@@ -2831,7 +2830,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("PART_007", new CardDef(new Power
+			cards.Add("PART_007", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("PART_007e", EntityType.TARGET)
 			}));

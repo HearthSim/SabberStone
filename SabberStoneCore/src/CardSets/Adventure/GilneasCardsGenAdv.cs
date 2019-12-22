@@ -13,6 +13,7 @@
 #endregion
 using System.Collections.Generic;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.src.Loader;
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
@@ -23,8 +24,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void Heroes(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ HERO - HUNTER
-			// [GILA_400h] Houndmaster Shaw (*) - COST:0 [ATK:0/HP:20] 
-			// - Set: gilneas, 
+			// [GILA_400h] Houndmaster Shaw (*) - COST:0 [ATK:0/HP:20]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: GILA_414, GILA_415, GILA_805
 			// --------------------------------------------------------
@@ -40,8 +41,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - ROGUE
-			// [GILA_500h3] Tess Greymane (*) - COST:0 [ATK:0/HP:20] 
-			// - Set: gilneas, 
+			// [GILA_500h3] Tess Greymane (*) - COST:0 [ATK:0/HP:20]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: GILA_513, GILA_511, GILA_506
 			// --------------------------------------------------------
@@ -57,7 +58,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - ROGUE
-			// [GILA_500h4] Tess Greymane (*) - COST:8 [ATK:0/HP:30] 
+			// [GILA_500h4] Tess Greymane (*) - COST:8 [ATK:0/HP:30]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Deal 8 damage
@@ -82,8 +83,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARRIOR
-			// [GILA_600h] Darius Crowley (*) - COST:0 [ATK:0/HP:20] 
-			// - Set: gilneas, 
+			// [GILA_600h] Darius Crowley (*) - COST:0 [ATK:0/HP:20]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: GILA_604, GILA_603, GILA_814
 			// --------------------------------------------------------
@@ -99,7 +100,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARRIOR
-			// [GILA_600h2] Darius Crowley (*) - COST:5 [ATK:0/HP:30] 
+			// [GILA_600h2] Darius Crowley (*) - COST:5 [ATK:0/HP:30]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Deal 5 damage
@@ -124,8 +125,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// -------------------------------------------- HERO - MAGE
-			// [GILA_900h] Toki, Time-Tinker (*) - COST:0 [ATK:0/HP:20] 
-			// - Set: gilneas, 
+			// [GILA_900h] Toki, Time-Tinker (*) - COST:0 [ATK:0/HP:20]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: GILA_913, GILA_813, LOOTA_825
 			// --------------------------------------------------------
@@ -141,7 +142,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// -------------------------------------------- HERO - MAGE
-			// [GILA_900h2] Toki, Time-Tinker (*) - COST:3 [ATK:0/HP:30] 
+			// [GILA_900h2] Toki, Time-Tinker (*) - COST:3 [ATK:0/HP:30]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Deal 3 damage
@@ -166,8 +167,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - DRUID
-			// [GILA_BOSS_20h] A Mangy Wolf (*) - COST:0 [ATK:0/HP:15] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_20h] A Mangy Wolf (*) - COST:0 [ATK:0/HP:15]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Unearthly howls drive the wildlife mad.</i>
 			// --------------------------------------------------------
@@ -184,8 +185,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - DRUID
-			// [GILA_BOSS_21h] Rottooth (*) - COST:0 [ATK:0/HP:15] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_21h] Rottooth (*) - COST:0 [ATK:0/HP:15]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Incorporeal or not, those claws hurt!</i>
 			// --------------------------------------------------------
@@ -202,8 +203,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - ROGUE
-			// [GILA_BOSS_22h] Cutthroat Willie (*) - COST:0 [ATK:0/HP:25] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_22h] Cutthroat Willie (*) - COST:0 [ATK:0/HP:25]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>WANTED: For doing exactly what his name suggests.</i>
 			// --------------------------------------------------------
@@ -220,8 +221,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARRIOR
-			// [GILA_BOSS_23h] Grubb the Swampdrinker (*) - COST:0 [ATK:0/HP:50] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_23h] Grubb the Swampdrinker (*) - COST:0 [ATK:0/HP:50]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>An iron gut, and quite the throwing arm.</i>
 			// --------------------------------------------------------
@@ -240,8 +241,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARLOCK
-			// [GILA_BOSS_24h] Groddo the Bogwarden (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_24h] Groddo the Bogwarden (*) - COST:0 [ATK:0/HP:30]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Dead emerge from the swamp. It's not a pleasant scent.</i>
 			// --------------------------------------------------------
@@ -258,8 +259,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - HUNTER
-			// [GILA_BOSS_25h] Manhunter Ivan (*) - COST:0 [ATK:0/HP:25] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_25h] Manhunter Ivan (*) - COST:0 [ATK:0/HP:25]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Watch your step, this traitor is an expert trapper.</i>
 			// --------------------------------------------------------
@@ -276,8 +277,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - ROGUE
-			// [GILA_BOSS_26h] Gnomenapper (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_26h] Gnomenapper (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>A collector of gnomes. Real ones.</i>
 			// --------------------------------------------------------
@@ -296,8 +297,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - SHAMAN
-			// [GILA_BOSS_27h] Experiment 3C (*) - COST:0 [ATK:0/HP:60] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_27h] Experiment 3C (*) - COST:0 [ATK:0/HP:60]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>It's a Murloc! It's a Dragon! It's... everything?</i>
 			// --------------------------------------------------------
@@ -316,8 +317,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - PRIEST
-			// [GILA_BOSS_29h] Sazzmi Gentlehorn (*) - COST:0 [ATK:0/HP:35] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_29h] Sazzmi Gentlehorn (*) - COST:0 [ATK:0/HP:35]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<i>This satyr has a
 			//       tendency to attract
@@ -338,8 +339,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARLOCK
-			// [GILA_BOSS_30h] Blood Witch Gretta (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_30h] Blood Witch Gretta (*) - COST:0 [ATK:0/HP:30]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Magic is powerful in her grove… but it comes at a cost.</i>
 			// --------------------------------------------------------
@@ -356,8 +357,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - DRUID
-			// [GILA_BOSS_31h] Gnarlroot (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_31h] Gnarlroot (*) - COST:0 [ATK:0/HP:30]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Gnarled, twisting roots, splintering to life.</i>
 			// --------------------------------------------------------
@@ -374,8 +375,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - DRUID
-			// [GILA_BOSS_32h] Niira the Trickster (*) - COST:0 [ATK:0/HP:25] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_32h] Niira the Trickster (*) - COST:0 [ATK:0/HP:25]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>She plays with wee critters… until they’re big critters.</i>
 			// --------------------------------------------------------
@@ -392,8 +393,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - HUNTER
-			// [GILA_BOSS_33h] The Scarecrow (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_33h] The Scarecrow (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>His enchanted scythe drinks deep from every_harvest.</i>
 			// --------------------------------------------------------
@@ -412,8 +413,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - PRIEST
-			// [GILA_BOSS_34h] Inquisitor Hav'nixx (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_34h] Inquisitor Hav'nixx (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>A mind is a terrible thing to waste. It's far too delicious.</i>
 			// --------------------------------------------------------
@@ -430,8 +431,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - DRUID
-			// [GILA_BOSS_35h] Chupacabran (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_35h] Chupacabran (*) - COST:0 [ATK:0/HP:30]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>It used to feed on local livestock. Now it hungers for more.</i>
 			// --------------------------------------------------------
@@ -450,8 +451,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// -------------------------------------------- HERO - MAGE
-			// [GILA_BOSS_36h] Griselda (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_36h] Griselda (*) - COST:0 [ATK:0/HP:30]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Watch those lips, she'll kiss just about anything.</i>
 			// --------------------------------------------------------
@@ -468,8 +469,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - SHAMAN
-			// [GILA_BOSS_37h] Wharrgarbl (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_37h] Wharrgarbl (*) - COST:0 [ATK:0/HP:30]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>The Witchwood's curse has not been kind to the local Murlocs.</i>
 			// --------------------------------------------------------
@@ -488,8 +489,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - HUNTER
-			// [GILA_BOSS_38h] Ravencaller Cozzlewurt (*) - COST:0 [ATK:0/HP:15] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_38h] Ravencaller Cozzlewurt (*) - COST:0 [ATK:0/HP:15]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>The feathered fiends of Gilneas flock to his sinister call.</i>
 			// --------------------------------------------------------
@@ -505,8 +506,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - PRIEST
-			// [GILA_BOSS_39h] Forlorn Lovers (*) - COST:0 [ATK:0/HP:70] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_39h] Forlorn Lovers (*) - COST:0 [ATK:0/HP:70]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Bound by vows, she just won't let go.</i>
 			// --------------------------------------------------------
@@ -522,8 +523,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - DRUID
-			// [GILA_BOSS_40h] Splintergraft (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_40h] Splintergraft (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>She'll take a piece of you and make it her own.</i>
 			// --------------------------------------------------------
@@ -539,8 +540,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARRIOR
-			// [GILA_BOSS_41h] Brushwood Centurion (*) - COST:0 [ATK:0/HP:60] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_41h] Brushwood Centurion (*) - COST:0 [ATK:0/HP:60]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>This once-stalwart defender of the woods now sows chaos.</i>
 			// --------------------------------------------------------
@@ -556,8 +557,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARRIOR
-			// [GILA_BOSS_42h] Baran the Blind (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_42h] Baran the Blind (*) - COST:0 [ATK:0/HP:30]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Poor vision doesn't matter with strength like his.</i>
 			// --------------------------------------------------------
@@ -573,8 +574,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - PRIEST
-			// [GILA_BOSS_43h] Gravekeeper Damph (*) - COST:0 [ATK:0/HP:35] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_43h] Gravekeeper Damph (*) - COST:0 [ATK:0/HP:35]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>The rattle of bones remain a comfort to him.</i>
 			// --------------------------------------------------------
@@ -592,8 +593,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARLOCK
-			// [GILA_BOSS_44h] Doctor Sezavo (*) - COST:0 [ATK:0/HP:20] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_44h] Doctor Sezavo (*) - COST:0 [ATK:0/HP:20]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>It’s good to give blood. But not to him. He’s not a real doctor.</i>
 			// --------------------------------------------------------
@@ -609,8 +610,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARLOCK
-			// [GILA_BOSS_45h] Cultist S'thara (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_45h] Cultist S'thara (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>A silver tongue to accompany her silver daggers.</i>
 			// --------------------------------------------------------
@@ -626,8 +627,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - PALADIN
-			// [GILA_BOSS_46h] Vitus the Exiled (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_46h] Vitus the Exiled (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Corrupted. Banished. Hungry.</i>
 			// --------------------------------------------------------
@@ -643,8 +644,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARLOCK
-			// [GILA_BOSS_47h] Shudderwock (*) - COST:0 [ATK:0/HP:50] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_47h] Shudderwock (*) - COST:0 [ATK:0/HP:50]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<i>And 'lo in uffish
 			//       thought he stood, crying
@@ -662,8 +663,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// -------------------------------------------- HERO - MAGE
-			// [GILA_BOSS_48h] Infinite Toki (*) - COST:0 [ATK:0/HP:60] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_48h] Infinite Toki (*) - COST:0 [ATK:0/HP:60]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>One either dies a hero or mangles time enough to become a villain.</i>
 			// --------------------------------------------------------
@@ -679,8 +680,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARLOCK
-			// [GILA_BOSS_49h] Glinda Crowskin (*) - COST:0 [ATK:0/HP:50] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_49h] Glinda Crowskin (*) - COST:0 [ATK:0/HP:50]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>The leader of Hagatha’s dark cult hides behind her loyal minions.</i>
 			// --------------------------------------------------------
@@ -696,8 +697,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - ROGUE
-			// [GILA_BOSS_50h] The Whisperer (*) - COST:0 [ATK:0/HP:25] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_50h] The Whisperer (*) - COST:0 [ATK:0/HP:25]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Do you hear the echoes of his whispers?</i>
 			// --------------------------------------------------------
@@ -713,8 +714,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - ROGUE
-			// [GILA_BOSS_51h] Garrow, the Rancorous (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_51h] Garrow, the Rancorous (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Missing? Dead? He'll still collect.</i>
 			// --------------------------------------------------------
@@ -730,8 +731,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - PRIEST
-			// [GILA_BOSS_52h] Crooked Pete (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_52h] Crooked Pete (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>The locals report
 			//       that Pete is up to
@@ -749,8 +750,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - ROGUE
-			// [GILA_BOSS_52h2] Beastly Pete (*) - COST:0 [ATK:0/HP:50] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_52h2] Beastly Pete (*) - COST:0 [ATK:0/HP:50]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 48872
@@ -763,8 +764,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - DRUID
-			// [GILA_BOSS_54h] Cragtorr (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_54h] Cragtorr (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Seeds sewn from hatred, sustained by dark magic.</i>
 			// --------------------------------------------------------
@@ -780,8 +781,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARLOCK
-			// [GILA_BOSS_55h] Azalina Soulthief (*) - COST:0 [ATK:0/HP:50] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_55h] Azalina Soulthief (*) - COST:0 [ATK:0/HP:50]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<i>Her children's safety
 			//       is her top priority.
@@ -799,8 +800,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - ROGUE
-			// [GILA_BOSS_56h] Face Collector (*) - COST:0 [ATK:0/HP:60] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_56h] Face Collector (*) - COST:0 [ATK:0/HP:60]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<i>Beware his terrible
 			//       minions and their
@@ -818,8 +819,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - PRIEST
-			// [GILA_BOSS_57h] Raeth Ghostsong (*) - COST:0 [ATK:0/HP:60] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_57h] Raeth Ghostsong (*) - COST:0 [ATK:0/HP:60]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>There's a reason you should burn the dead.</i>
 			// --------------------------------------------------------
@@ -837,8 +838,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARRIOR
-			// [GILA_BOSS_58h] Grum (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_58h] Grum (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Grum likes to smash. He also likes to bash. And crash.</i>
 			// --------------------------------------------------------
@@ -854,8 +855,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - HUNTER
-			// [GILA_BOSS_59h] Lord Godfrey (*) - COST:0 [ATK:0/HP:60] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_59h] Lord Godfrey (*) - COST:0 [ATK:0/HP:60]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>The Lord of Shadowfang Keep has a bullet to pick with Crowley.</i>
 			// --------------------------------------------------------
@@ -871,8 +872,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - ROGUE
-			// [GILA_BOSS_60h] Captain Shivers (*) - COST:0 [ATK:0/HP:75] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_60h] Captain Shivers (*) - COST:0 [ATK:0/HP:75]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Vowing vengeance, his cursed crew haunts Gilnean shores.</i>
 			// --------------------------------------------------------
@@ -888,8 +889,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - SHAMAN
-			// [GILA_BOSS_61h] Hagatha the Witch (*) - COST:0 [ATK:0/HP:100] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_61h] Hagatha the Witch (*) - COST:0 [ATK:0/HP:100]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
@@ -903,8 +904,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - HUNTER
-			// [GILA_BOSS_62h] Gustave, the Gutripper (*) - COST:0 [ATK:0/HP:50] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_62h] Gustave, the Gutripper (*) - COST:0 [ATK:0/HP:50]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Hagatha’s pet eats his way from the bottom of the food chain up.</i>
 			// --------------------------------------------------------
@@ -920,8 +921,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - DRUID
-			// [GILA_BOSS_63h] Sephira Dusktalon (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_63h] Sephira Dusktalon (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Even your own magic can be twisted by these woods.</i>
 			// --------------------------------------------------------
@@ -937,8 +938,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - PRIEST
-			// [GILA_BOSS_64h] Winslow Tobtock (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_64h] Winslow Tobtock (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>His tricks will leave you both in a daze.</i>
 			// --------------------------------------------------------
@@ -954,8 +955,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - HUNTER
-			// [GILA_BOSS_65h] Gobbles (*) - COST:0 [ATK:0/HP:10] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_65h] Gobbles (*) - COST:0 [ATK:0/HP:10]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Every dying beast makes this dreaded carrion bird stronger.</i>
 			// --------------------------------------------------------
@@ -971,8 +972,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - PRIEST
-			// [GILA_BOSS_66h] The Mute (*) - COST:0 [ATK:0/HP:25] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_66h] The Mute (*) - COST:0 [ATK:0/HP:25]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>. . .</i>
 			// --------------------------------------------------------
@@ -988,8 +989,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARLOCK
-			// [GILA_BOSS_67h] Ratcatcher Hannigul (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_67h] Ratcatcher Hannigul (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Rats aren't always the most loyal pets.</i>
 			// --------------------------------------------------------
@@ -1005,8 +1006,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARLOCK
-			// [GILA_BOSS_68h] Plaguemaster Rancel (*) - COST:0 [ATK:0/HP:40] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_68h] Plaguemaster Rancel (*) - COST:0 [ATK:0/HP:40]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <i>Dying to his touch is terrible. Living is even_worse.</i>
 			// --------------------------------------------------------
@@ -1025,11 +1026,11 @@ namespace SabberStoneCore.CardSets.Adventure
 
 		}
 
-		private static void HeroPowers(Dictionary<string, CardDef> cards)
+		private static void HeroPowers(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_400p] Dog Whistle (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_400p] Dog Whistle (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon a 1/1 Bloodhound with <b>Rush</b>.
@@ -1037,7 +1038,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_400p", new CardDef(new Power
+			cards.Add("GILA_400p", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [GILA_400p] Dog Whistle && Test: Dog Whistle_GILA_400p
 				//PowerTask = null,
@@ -1045,8 +1046,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_500p2] Scavenge (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_500p2] Scavenge (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<b>Hero Power</b>
 			//       <b>Discover</b> a class spell
@@ -1056,7 +1057,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_HAND_NOT_FULL = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_500p2", new CardDef(new Power
+			cards.Add("GILA_500p2", new CardDef(new[] {PlayReq.REQ_HAND_NOT_FULL}, new Power
 			{
 				// TODO [GILA_500p2] Scavenge && Test: Scavenge_GILA_500p2
 				//PowerTask = null,
@@ -1064,8 +1065,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_600p] Fire! (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_600p] Fire! (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Fire your Cannons!
@@ -1076,7 +1077,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_EXACT_COST = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_600p", new CardDef(new Power
+			cards.Add("GILA_600p", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_TARGET_EXACT_COST}, new Power
 			{
 				// TODO [GILA_600p] Fire! && Test: Fire!_GILA_600p
 				//PowerTask = null,
@@ -1084,8 +1085,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_900p] Temporal Loop (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_900p] Temporal Loop (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Start your turn over.
@@ -1098,8 +1099,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_20p] Guttural Howl (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_20p] Guttural Howl (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Give a random minion in your hand +1/+1.
@@ -1112,8 +1113,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_21p] Fading Bite (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_21p] Fading Bite (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//        Gain +2_Attack this turn.
@@ -1126,8 +1127,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_22p] Shank (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_22p] Shank (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $1 damage to a minion. Draw a card. @spelldmg
@@ -1136,7 +1137,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_22p", new CardDef(new Power
+			cards.Add("GILA_BOSS_22p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_22p] Shank && Test: Shank_GILA_BOSS_22p
 				//PowerTask = null,
@@ -1144,8 +1145,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_23p] Chuck (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_23p] Chuck (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Destroy a friendly minion and deal its Attack to the enemy hero.
@@ -1155,7 +1156,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_23p", new CardDef(new Power
+			cards.Add("GILA_BOSS_23p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_23p] Chuck && Test: Chuck_GILA_BOSS_23p
 				//PowerTask = null,
@@ -1163,8 +1164,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_24p] From the Swamp (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_24p] From the Swamp (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Whenever an enemy dies, raise a 1/3 Bloated Zombie.
@@ -1177,8 +1178,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_25p] Trap Preparation (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_25p] Trap Preparation (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Put a random <b>Secret</b> from your deck into the battlefield.
@@ -1188,7 +1189,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_SECRET_ZONE_CAP_FOR_NON_SECRET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_25p", new CardDef(new Power
+			cards.Add("GILA_BOSS_25p", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_SECRET_ZONE_CAP_FOR_NON_SECRET}, new Power
 			{
 				// TODO [GILA_BOSS_25p] Trap Preparation && Test: Trap Preparation_GILA_BOSS_25p
 				//PowerTask = null,
@@ -1196,8 +1197,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_26p] Nab (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_26p] Nab (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Put an enemy minion into a sack.
@@ -1207,7 +1208,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_ENEMY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_26p", new CardDef(new Power
+			cards.Add("GILA_BOSS_26p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_ENEMY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_26p] Nab && Test: Nab_GILA_BOSS_26p
 				//PowerTask = null,
@@ -1215,8 +1216,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_27p] Consume (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_27p] Consume (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power:</b>
 			//       Destroy a friendly minion, then draw 3 cards.
@@ -1226,7 +1227,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_27p", new CardDef(new Power
+			cards.Add("GILA_BOSS_27p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_27p] Consume && Test: Consume_GILA_BOSS_27p
 				//PowerTask = null,
@@ -1234,8 +1235,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_29p] Infatuation (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_29p] Infatuation (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Gain control of enemy minions with 1 or less Attack.
@@ -1243,7 +1244,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_29p", new CardDef(new Power
+			cards.Add("GILA_BOSS_29p", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [GILA_BOSS_29p] Infatuation && Test: Infatuation_GILA_BOSS_29p
 				//PowerTask = null,
@@ -1251,8 +1252,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_30p] Blood Red Apple (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_30p] Blood Red Apple (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Spells cost Health instead of Mana.
@@ -1268,8 +1269,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_31p] Splinter (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_31p] Splinter (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Take 2 damage.
@@ -1278,7 +1279,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_31p", new CardDef(new Power
+			cards.Add("GILA_BOSS_31p", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [GILA_BOSS_31p] Splinter && Test: Splinter_GILA_BOSS_31p
 				//PowerTask = null,
@@ -1286,8 +1287,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_32p] Unstable Growth (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_32p] Unstable Growth (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Give all minions +1/+1.
@@ -1300,8 +1301,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_33p] Harvest (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_33p] Harvest (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Destroy a friendly minion. Restore 8_Health to your hero.
@@ -1314,7 +1315,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_33p", new CardDef(new Power
+			cards.Add("GILA_BOSS_33p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_33p] Harvest && Test: Harvest_GILA_BOSS_33p
 				//PowerTask = null,
@@ -1322,8 +1323,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_34p] Devour Soul (*) - COST:4 
-			// - Set: gilneas, 
+			// [GILA_BOSS_34p] Devour Soul (*) - COST:4
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Halve the enemy hero's Health.
@@ -1336,8 +1337,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_35p] Bloodthirst (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_35p] Bloodthirst (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Give a friendly minion <b>Lifesteal</b>.
@@ -1347,7 +1348,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_35p", new CardDef(new Power
+			cards.Add("GILA_BOSS_35p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_35p] Bloodthirst && Test: Bloodthirst_GILA_BOSS_35p
 				//PowerTask = null,
@@ -1355,8 +1356,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_36p] Witch's Kiss (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_36p] Witch's Kiss (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Tranform a random minion into a 0/1 Frog with <b>Taunt</b>.
@@ -1365,7 +1366,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_36p", new CardDef(new Power
+			cards.Add("GILA_BOSS_36p", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
 			{
 				// TODO [GILA_BOSS_36p] Witch's Kiss && Test: Witch's Kiss_GILA_BOSS_36p
 				//PowerTask = null,
@@ -1373,8 +1374,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_37p] It's Raining Fin (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_37p] It's Raining Fin (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Draw 3 Murlocs from your deck.
@@ -1387,8 +1388,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_38p] Call of the Raven (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_38p] Call of the Raven (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Add a random 1-Cost minion to your hand.
@@ -1401,8 +1402,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_39p] Together Forever (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_39p] Together Forever (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Whenever a friendly minion dies, shuffle a copy into your deck.
@@ -1415,8 +1416,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_40p] Grafted Bark (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_40p] Grafted Bark (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Choose a minion. Add a 2/2 copy to your hand that costs (2).
@@ -1425,7 +1426,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_40p", new CardDef(new Power
+			cards.Add("GILA_BOSS_40p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_40p] Grafted Bark && Test: Grafted Bark_GILA_BOSS_40p
 				//PowerTask = null,
@@ -1433,8 +1434,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_41p] Survival of the Fittest (*) - COST:3 
-			// - Set: gilneas, 
+			// [GILA_BOSS_41p] Survival of the Fittest (*) - COST:3
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       All minions attack random enemy minions.
@@ -1450,8 +1451,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_42p] Bulldoze (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_42p] Bulldoze (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Spend all your armor. Deal that much damage to a random minion.
@@ -1464,8 +1465,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_43p] Grave Mistake (*) - COST:3 
-			// - Set: gilneas, 
+			// [GILA_BOSS_43p] Grave Mistake (*) - COST:3
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Trigger all minions' <b>Deathrattles</b> twice.
@@ -1473,7 +1474,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_43p", new CardDef(new Power
+			cards.Add("GILA_BOSS_43p", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_43p] Grave Mistake && Test: Grave Mistake_GILA_BOSS_43p
 				//PowerTask = null,
@@ -1481,8 +1482,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_44p] Hollow Needle (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_44p] Hollow Needle (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $1 damage to a minion. If it dies, restore #3 Health to your hero. @spelldmg
@@ -1491,7 +1492,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_44p", new CardDef(new Power
+			cards.Add("GILA_BOSS_44p", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				// TODO [GILA_BOSS_44p] Hollow Needle && Test: Hollow Needle_GILA_BOSS_44p
 				//PowerTask = null,
@@ -1499,8 +1500,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_45p] Poisoned Drink (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_45p] Poisoned Drink (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<b>Passive Hero Power</b>
 			//       Whenever a player
@@ -1515,8 +1516,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_46p] Monstrous Aura (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_46p] Monstrous Aura (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Your minions have +1/+1.
@@ -1533,8 +1534,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_47p] Frumiousity (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_47p] Frumiousity (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       All <b>Battlecries</b> trigger twice.
@@ -1550,8 +1551,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_48p] Chronoacceleration (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_48p] Chronoacceleration (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<b>Hero Power</b>
 			//       Give a friendly minion
@@ -1566,7 +1567,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_48p", new CardDef(new Power
+			cards.Add("GILA_BOSS_48p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_48p] Chronoacceleration && Test: Chronoacceleration_GILA_BOSS_48p
 				//PowerTask = null,
@@ -1574,8 +1575,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_49p] False Heart (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_49p] False Heart (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       While you control
@@ -1593,8 +1594,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_50p] Echoes of the Witchwood (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_50p] Echoes of the Witchwood (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       All spells have <b>Echo</b>.
@@ -1610,8 +1611,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_51p] Death and Taxes (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_51p] Death and Taxes (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 1 damage to your opponent for each minion they control.
@@ -1624,8 +1625,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_52p] Soot Up (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_52p] Soot Up (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Give a friendly minion <b>Stealth</b> until your next turn.
@@ -1635,7 +1636,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_52p", new CardDef(new Power
+			cards.Add("GILA_BOSS_52p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_52p] Soot Up && Test: Soot Up_GILA_BOSS_52p
 				//PowerTask = null,
@@ -1643,8 +1644,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_52p2] Beast Within (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_52p2] Beast Within (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Give your minions +1_Attack.
@@ -1657,8 +1658,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_54p] One with the Trees (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_54p] One with the Trees (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Reduce the cost of minions in your hand by (1).
@@ -1671,8 +1672,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_55p] Unfinished Business (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_55p] Unfinished Business (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon three 1/1 Wisps.
@@ -1685,8 +1686,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_56p] A New Face (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_56p] A New Face (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Transform a minion into a random one that costs (2) more.
@@ -1696,7 +1697,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_56p", new CardDef(new Power
+			cards.Add("GILA_BOSS_56p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_56p] A New Face && Test: A New Face_GILA_BOSS_56p
 				//PowerTask = null,
@@ -1704,8 +1705,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_57p] Desecrate (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_57p] Desecrate (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $1 damage to all minions. If any die, refresh this. @spelldmg
@@ -1718,8 +1719,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_58p] Terrify (*) - COST:4 
-			// - Set: gilneas, 
+			// [GILA_BOSS_58p] Terrify (*) - COST:4
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<b>Hero Power</b>
 			//       Shuffle a minion into
@@ -1730,7 +1731,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_58p", new CardDef(new Power
+			cards.Add("GILA_BOSS_58p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_58p] Terrify && Test: Terrify_GILA_BOSS_58p
 				//PowerTask = null,
@@ -1738,8 +1739,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_59p] Pistol Barrage (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_59p] Pistol Barrage (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $2 damage to a minion and the minions next to it. @spelldmg
@@ -1752,7 +1753,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_59p", new CardDef(new Power
+			cards.Add("GILA_BOSS_59p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_59p] Pistol Barrage && Test: Pistol Barrage_GILA_BOSS_59p
 				//PowerTask = null,
@@ -1760,8 +1761,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_60p] Plunder (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_60p] Plunder (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Draw a weapon from your deck.
@@ -1778,8 +1779,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_62p] Cull the Meek (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_62p] Cull the Meek (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Destroy a minion with the lowest Attack.
@@ -1795,8 +1796,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_63p] Tangled Wrath (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_63p] Tangled Wrath (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Whenever your opponent casts a spell, draw a spell from your deck.
@@ -1809,8 +1810,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_64p] Hypnotize (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_64p] Hypnotize (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<b>Hero Power</b>
 			//       Each player shuffles their
@@ -1825,8 +1826,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_65p] Starving (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_65p] Starving (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Whenever a friendly Beast dies, draw a card.
@@ -1839,8 +1840,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_66p] . . . (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_BOSS_66p] . . . (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       <b>Silence</b> a minion.
@@ -1849,7 +1850,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_66p", new CardDef(new Power
+			cards.Add("GILA_BOSS_66p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_66p] . . . && Test: . . ._GILA_BOSS_66p
 				//PowerTask = null,
@@ -1857,8 +1858,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_67p] Cannibalism (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_67p] Cannibalism (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Whenever a minion dies, give the adjacent minions +1 Attack.
@@ -1871,8 +1872,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GILA_BOSS_68p] Poison Flask (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_68p] Poison Flask (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $2 damage to a minion. If it survives, give it <b>Poisonous</b>. @spelldmg
@@ -1881,7 +1882,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_68p", new CardDef(new Power
+			cards.Add("GILA_BOSS_68p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_68p] Poison Flask && Test: Poison Flask_GILA_BOSS_68p
 				//PowerTask = null,
@@ -1890,11 +1891,11 @@ namespace SabberStoneCore.CardSets.Adventure
 
 		}
 
-		private static void DruidNonCollect(Dictionary<string, CardDef> cards)
+		private static void DruidNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [GILA_BOSS_21e] Fangs (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_21e] Fangs (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Your hero has +2 Attack this turn.
 			// --------------------------------------------------------
@@ -1913,8 +1914,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void MageNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------- SPELL - MAGE
-			// [GILA_Toki_01] Chaos (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Toki_01] Chaos (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: KAR_009, UNG_846, AT_007, CFM_619, LOOT_537, LOE_003, BRM_030, OG_134, LOOT_104, UNG_028, UNG_941, OG_090
 			// --------------------------------------------------------
@@ -1926,8 +1927,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GILA_Toki_02] Wild Magic (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Toki_02] Wild Magic (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: ICC_836, EX1_277, GVG_001, KAR_076, CFM_623, AT_009, GVG_003, LOOT_106, GIL_147, GIL_664
 			// --------------------------------------------------------
@@ -1939,8 +1940,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GILA_Toki_03] Erratic Creatures (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Toki_03] Erratic Creatures (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: GVG_108, NEW1_019, CFM_790, EX1_085, UNG_075, CFM_649, GIL_213, LOOT_347, UNG_072, EX1_083, OG_207, AT_118, EX1_112, UNG_088
 			// --------------------------------------------------------
@@ -1952,8 +1953,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GILA_Toki_04] Frosty (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Toki_04] Frosty (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: GVG_002, CS2_033, UNG_079, ICC_838, ICC_836, CS2_031, CS2_024, GIL_801, EX1_289, CS2_026, EX1_275, CS2_028, EX1_295
 			// --------------------------------------------------------
@@ -1965,8 +1966,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GILA_Toki_05] Legends (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Toki_05] Legends (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: CFM_807, GVG_119, EX1_016, EX1_559, GVG_118, ICC_314, FP1_013, LOOT_357, GVG_116, EX1_572, OG_042
 			// --------------------------------------------------------
@@ -1978,8 +1979,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GILA_Toki_06] Knowledge (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Toki_06] Knowledge (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: EX1_096, EX1_015, EX1_012, EX1_557, EX1_050, CS2_147, EX1_284, GIL_640, EX1_095, GIL_548, CS2_023, LOOT_108
 			// --------------------------------------------------------
@@ -1991,8 +1992,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GILA_Toki_07] Elementalist (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Toki_07] Elementalist (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: UNG_809, UNG_027, UNG_846, UNG_928, LOOT_537, UNG_070, UNG_816, UNG_816, UNG_847, EX1_298, LOOT_103, CFM_065, CS2_029
 			// --------------------------------------------------------
@@ -2004,8 +2005,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GILA_Toki_08] Magical Friends (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Toki_08] Magical Friends (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: LOOT_231, NEW1_012, EX1_608, GIL_664, BRM_002, NEW1_026, ICC_069, LOE_086, LOOT_539, EX1_559, KAR_711, CS2_027, ICC_823, UNG_948, GVG_005
 			// --------------------------------------------------------
@@ -2017,8 +2018,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GILA_Toki_09] Lost Secrets (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Toki_09] Lost Secrets (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: KAR_092, FP1_004, UNG_020, EX1_274, GIL_116, CFM_760, FP1_018, ICC_082, EX1_295, EX1_294, EX1_287, UNG_024, EX1_594, FP1_004
 			// --------------------------------------------------------
@@ -2030,8 +2031,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GILA_Toki_10] Mechanical (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Toki_10] Mechanical (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: GVG_002, GVG_004, GVG_085, GVG_006, GVG_103, EX1_556, LOE_039, GVG_096, GVG_069, GVG_111, OG_145, GVG_105, GVG_114, GVG_117
 			// --------------------------------------------------------
@@ -2043,8 +2044,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GILA_Toki_11] BOOM! (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Toki_11] BOOM! (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: LOOT_231, LOOT_170, UNG_928, LOOT_539, GVG_110, KAR_097, LOOT_535, LOOT_172, LOOT_106, CS2_028, UNG_955, KAR_076, CS2_032, EX1_279
 			// --------------------------------------------------------
@@ -2060,8 +2061,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void WarriorNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GILA_Darius_01] Berserker (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Darius_01] Berserker (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: EX1_604, OG_218, BRM_019, ICC_405, GIL_152, FP1_021, OG_318, EX1_007, EX1_400, EX1_392, ICC_064, OG_149
 			// --------------------------------------------------------
@@ -2073,8 +2074,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GILA_Darius_02] Pirates (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Darius_02] Pirates (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: OG_312, CFM_637, NEW1_018, OG_315, NEW1_027, AT_070, CFM_631, GVG_075, NEW1_022, ICC_018, NEW1_024, AT_070, OG_033
 			// --------------------------------------------------------
@@ -2086,8 +2087,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GILA_Darius_03] Tactical (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Darius_03] Tactical (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: GIL_683, CS2_108, EX1_407, BRM_026, GIL_655, LOOT_154, EX1_391, GVG_052, OG_314, UNG_926, LOOT_383, AT_085
 			// --------------------------------------------------------
@@ -2099,8 +2100,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GILA_Darius_04] Attack! (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Darius_04] Attack! (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: GIL_155, GIL_113, GIL_803, GIL_682, GIL_202, EX1_414, NEW1_011, GIL_528, EX1_116, GIL_578, GIL_653
 			// --------------------------------------------------------
@@ -2112,8 +2113,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GILA_Darius_05] Vanguard (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Darius_05] Vanguard (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: FP1_012, UNG_848, OG_218, FP1_024, CFM_756, LOE_009, UNG_957, ICC_314, LOE_022, CFM_940, AT_065, UNG_072
 			// --------------------------------------------------------
@@ -2125,8 +2126,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GILA_Darius_06] Armory (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Darius_06] Armory (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: EX1_402, CFM_756, GVG_053, AT_064, KAR_091, EX1_606, LOOT_367, ICC_837, KAR_028, OG_220, LOOT_519, LOOT_285, ICC_062
 			// --------------------------------------------------------
@@ -2138,8 +2139,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GILA_Darius_07] Commander (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Darius_07] Commander (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: AT_082, AT_119, AT_090, AT_099, AT_085, AT_127, EX1_392, NEW1_036, AT_080, GIL_561, AT_091, AT_100
 			// --------------------------------------------------------
@@ -2151,8 +2152,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GILA_Darius_08] Legends (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Darius_08] Legends (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: EX1_298, GVG_114, ICC_314, FP1_013, UNG_933, EX1_572, OG_042, LOOT_380, AT_072, EX1_016, LOE_079, AT_127, GVG_056, LOOT_357
 			// --------------------------------------------------------
@@ -2164,8 +2165,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GILA_Darius_09] Strike (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Darius_09] Strike (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: CS2_108, EX1_407, FP1_021, EX1_411, GIL_614, CFM_716, AT_064, GIL_537, CS2_112, GIL_654, EX1_391, ICC_064
 			// --------------------------------------------------------
@@ -2177,8 +2178,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GILA_Darius_10] Warcry (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Darius_10] Warcry (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: LOE_077, EX1_046, EX1_284, GVG_099, ICC_705, OG_149, UNG_848, GIL_803, EX1_603, ICC_466, CFM_668, GVG_053
 			// --------------------------------------------------------
@@ -2190,8 +2191,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GILA_Darius_11] Dragonfire (*) - COST:0 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_Darius_11] Dragonfire (*) - COST:0
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Entourage: EX1_284, UNG_848, ICC_027, ICC_029, NEW1_023, KAR_062, AT_071, AT_017, NEW1_030, OG_317, EX1_572, CFM_806, BRM_031, BRM_034
 			// --------------------------------------------------------
@@ -2207,8 +2208,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_411e] Princess's Bone (*) - COST:5 
-			// - Set: gilneas, 
+			// [GILA_411e] Princess's Bone (*) - COST:5
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Copied Deathrattle from {0}.
 			// --------------------------------------------------------
@@ -2220,8 +2221,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_412e] Blood Hungry (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_412e] Blood Hungry (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +1/+1 and <b>Lifesteal</b>.
 			// --------------------------------------------------------
@@ -2233,8 +2234,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_414e] Companionship Player Enchant (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_414e] Companionship Player Enchant (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// GameTag:
 			// - AURA = 1
@@ -2248,8 +2249,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_414e2] Companionship (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_414e2] Companionship (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
@@ -2264,8 +2265,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_415e] Lunar Signet Player Enchant (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_415e] Lunar Signet Player Enchant (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GILA_415e", new CardDef(new Power
 			{
@@ -2275,8 +2276,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_503e] Insightful (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_503e] Insightful (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: This card costs (3) less.
 			// --------------------------------------------------------
@@ -2288,8 +2289,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_506e] First Aid Kit Player Enchantment (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_506e] First Aid Kit Player Enchantment (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GILA_506e", new CardDef(new Power
 			{
@@ -2299,8 +2300,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_507e] Veteran's Intuition (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_507e] Veteran's Intuition (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased Spell Damage.
 			// --------------------------------------------------------
@@ -2312,8 +2313,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_511e] Sticky Fingers Player Enchant (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_511e] Sticky Fingers Player Enchant (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// GameTag:
 			// - AURA = 1
@@ -2326,8 +2327,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_513e] Cult of the Wolf Player Enchant (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_513e] Cult of the Wolf Player Enchant (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// GameTag:
 			// - AURA = 1
@@ -2340,8 +2341,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_602e2] Victorious Rally Player Enchant (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_602e2] Victorious Rally Player Enchant (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GILA_602e2", new CardDef(new Power
 			{
@@ -2351,8 +2352,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_602e3] Strategic Initiative (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_602e3] Strategic Initiative (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +1 Attack this turn.
 			// --------------------------------------------------------
@@ -2367,8 +2368,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_603e2] Tactical Reinforcements Player Enchant (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_603e2] Tactical Reinforcements Player Enchant (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// GameTag:
 			// - 793 = 1583
@@ -2381,8 +2382,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_603e3] Inspired (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: gilneas, 
+			// [GILA_603e3] Inspired (*) - COST:0 [ATK:0/HP:30]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Costs (2) less.
 			// --------------------------------------------------------
@@ -2398,8 +2399,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_604e2] Extra Powder Player Enchant (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_604e2] Extra Powder Player Enchant (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 47847
@@ -2413,8 +2414,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_605e2] Dragonfire Ammo Player Enchant (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_605e2] Dragonfire Ammo Player Enchant (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 47847
@@ -2428,8 +2429,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_607e2] Pillage the Fallen Player Enchantment (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_607e2] Pillage the Fallen Player Enchantment (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GILA_607e2", new CardDef(new Power
 			{
@@ -2439,8 +2440,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_612e] Seabreaker Goliath Player Enchantment (*) - COST:0 [ATK:15/HP:15] 
-			// - Set: gilneas, 
+			// [GILA_612e] Seabreaker Goliath Player Enchantment (*) - COST:0 [ATK:15/HP:15]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Costs (1) less for each time you've fired your Cannons.
 			// --------------------------------------------------------
@@ -2452,8 +2453,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_804e] Holy Essence (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_804e] Holy Essence (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Attack and Health set to 10.
 			// --------------------------------------------------------
@@ -2465,8 +2466,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_805e] Entrenchment Player Enchantment (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_805e] Entrenchment Player Enchantment (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Your minions have +2 Health.
 			// --------------------------------------------------------
@@ -2482,8 +2483,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_805e2] Entrenched (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_805e2] Entrenched (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
@@ -2495,8 +2496,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_810e] Ambush! (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_810e] Ambush! (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Has <b>Charge</b>.
 			// --------------------------------------------------------
@@ -2508,8 +2509,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_813e] Expedite Player Enchantment (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_813e] Expedite Player Enchantment (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Your minions cost (1) less.
 			// --------------------------------------------------------
@@ -2525,8 +2526,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_814e] Caltrops Player Enchantment (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_814e] Caltrops Player Enchantment (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GILA_814e", new CardDef(new Power
 			{
@@ -2536,8 +2537,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_824e] Royalty (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_824e] Royalty (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -2549,8 +2550,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_825e] Gentleman's Top Hat (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_825e] Gentleman's Top Hat (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +2/+2. <b>Deathrattle</b>: Give your Top_Hat to another random friendly minion.
 			// --------------------------------------------------------
@@ -2562,8 +2563,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_852ae] Morale Boost (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_852ae] Morale Boost (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +1/+1 and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -2575,8 +2576,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_852be] Rallied (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_852be] Rallied (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +2/+2 and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -2588,8 +2589,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_852ce] United (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_852ce] United (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +4/+4, <b>Taunt</b>, and <b>Divine Shield</b>.
 			// --------------------------------------------------------
@@ -2601,8 +2602,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_911e] Rewind Player Enchant (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_911e] Rewind Player Enchant (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GILA_911e", new CardDef(new Power
 			{
@@ -2612,8 +2613,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_913e] Double Time Player Enchant (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_913e] Double Time Player Enchant (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GILA_913e", new CardDef(new Power
 			{
@@ -2623,8 +2624,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_20e] Howling (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_20e] Howling (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -2636,8 +2637,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_29e] Enchanted (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_29e] Enchanted (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Attack and Health set to 1.
 			// --------------------------------------------------------
@@ -2649,8 +2650,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_32e] Growing Strong (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_32e] Growing Strong (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased Attack and Health.
 			// --------------------------------------------------------
@@ -2662,8 +2663,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_33e] Unbreakable (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_33e] Unbreakable (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: No durability loss.
 			// --------------------------------------------------------
@@ -2676,8 +2677,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_33e2] Bloody (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_33e2] Bloody (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -2689,8 +2690,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_35e2] Bloodthirsty (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_35e2] Bloodthirsty (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal.</b>
 			// --------------------------------------------------------
@@ -2702,8 +2703,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_37e2] Plague of Murlocs (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_37e2] Plague of Murlocs (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle</b>: Summon a random Murloc.
 			// --------------------------------------------------------
@@ -2715,8 +2716,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_40e] Petrified (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_40e] Petrified (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Splintergraft made this 2/2.
 			// --------------------------------------------------------
@@ -2728,8 +2729,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_46e] Empowered (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_46e] Empowered (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Vitus is giving this minion +1/+1.
 			// --------------------------------------------------------
@@ -2741,8 +2742,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_48e] Accelerated (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_48e] Accelerated (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Mega-Windfury</b>. Will die at the end of this turn.
 			// --------------------------------------------------------
@@ -2755,8 +2756,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_48e2] Alternate Timelines (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_48e2] Alternate Timelines (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Number of timelines visited
 			// --------------------------------------------------------
@@ -2768,8 +2769,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_52e] Beast Mode (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_52e] Beast Mode (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -2782,8 +2783,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_52e2] Covered in Soot (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_52e2] Covered in Soot (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>ed until your next turn.
 			// --------------------------------------------------------
@@ -2795,8 +2796,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_54e] Assimilation (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_54e] Assimilation (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Cost reduced by (1).
 			// --------------------------------------------------------
@@ -2808,8 +2809,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_58e] Terrified (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_58e] Terrified (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Costs (4) less.
 			// --------------------------------------------------------
@@ -2821,8 +2822,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_61te] Spooky (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_61te] Spooky (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased Durability.
 			// --------------------------------------------------------
@@ -2834,8 +2835,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_67e] Mmm, so tasty! (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_67e] Mmm, so tasty! (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
@@ -2847,8 +2848,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GILA_BOSS_68e] Dripping Poison (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_68e] Dripping Poison (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>.
 			// --------------------------------------------------------
@@ -2860,8 +2861,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_400t] Bloodhound (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: beast, Set: gilneas, 
+			// [GILA_400t] Bloodhound (*) - COST:1 [ATK:1/HP:1]
+			// - Race: beast, Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			// --------------------------------------------------------
@@ -2876,8 +2877,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_403] Butch (*) - COST:4 [ATK:1/HP:1] 
-			// - Race: beast, Set: gilneas, 
+			// [GILA_403] Butch (*) - COST:4 [ATK:1/HP:1]
+			// - Race: beast, Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			//       Has +1/+1 for each
@@ -2896,8 +2897,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_410] Bubba (*) - COST:7 [ATK:9/HP:9] 
-			// - Race: beast, Set: gilneas, 
+			// [GILA_410] Bubba (*) - COST:7 [ATK:9/HP:9]
+			// - Race: beast, Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry</b>: Summon six 1/1 Bloodhounds to attack an enemy minion.
 			// --------------------------------------------------------
@@ -2910,7 +2911,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_410", new CardDef(new Power
+			cards.Add("GILA_410", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET}, new Power
 			{
 				// TODO [GILA_410] Bubba && Test: Bubba_GILA_410
 				//PowerTask = null,
@@ -2918,8 +2919,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_411] Princess (*) - COST:5 [ATK:5/HP:5] 
-			// - Race: beast, Set: gilneas, 
+			// [GILA_411] Princess (*) - COST:5 [ATK:5/HP:5]
+			// - Race: beast, Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Gain the
 			//       <b>Deathrattles</b> of 3 random
@@ -2938,8 +2939,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_507] Hunter of Old (*) - COST:3 [ATK:3/HP:6] 
-			// - Set: gilneas, 
+			// [GILA_507] Hunter of Old (*) - COST:3 [ATK:3/HP:6]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, gain <b>Spell Damage +2</b>.
 			// --------------------------------------------------------
@@ -2952,8 +2953,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_509] Frenzied Trapper (*) - COST:5 [ATK:5/HP:5] 
-			// - Set: gilneas, 
+			// [GILA_509] Frenzied Trapper (*) - COST:5 [ATK:5/HP:5]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Put 5 random Hunter <b>Secrets</b> into the_battlefield.
 			// --------------------------------------------------------
@@ -2968,8 +2969,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_601] Cannon (*) - COST:0 [ATK:0/HP:3] 
-			// - Set: gilneas, 
+			// [GILA_601] Cannon (*) - COST:0 [ATK:0/HP:3]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Deal @ damage to the enemies opposite of this_minion.
 			// --------------------------------------------------------
@@ -2986,8 +2987,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_610] Grizzled Reinforcement (*) - COST:3 [ATK:4/HP:3] 
-			// - Set: gilneas, 
+			// [GILA_610] Grizzled Reinforcement (*) - COST:3 [ATK:4/HP:3]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon an extra Cannon.
 			// --------------------------------------------------------
@@ -3002,8 +3003,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_611] Tuskarr Raider (*) - COST:4 [ATK:3/HP:9] 
-			// - Race: pirate, Set: gilneas, 
+			// [GILA_611] Tuskarr Raider (*) - COST:4 [ATK:3/HP:9]
+			// - Race: pirate, Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			//       After this minion attacks, fire your Cannons.
@@ -3019,8 +3020,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_612] Seabreaker Goliath (*) - COST:10 [ATK:15/HP:15] 
-			// - Race: pirate, Set: gilneas, 
+			// [GILA_612] Seabreaker Goliath (*) - COST:10 [ATK:15/HP:15]
+			// - Race: pirate, Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Costs (1) less for each time you've fired your Cannons.
 			// --------------------------------------------------------
@@ -3033,8 +3034,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_801] Gattling Gunner (*) - COST:4 [ATK:5/HP:3] 
-			// - Set: gilneas, 
+			// [GILA_801] Gattling Gunner (*) - COST:4 [ATK:5/HP:3]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Whenever you play a card, deal damage equal to its Cost to a random enemy minion.
 			// --------------------------------------------------------
@@ -3046,8 +3047,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_802] Cartographer (*) - COST:2 [ATK:1/HP:5] 
-			// - Set: gilneas, 
+			// [GILA_802] Cartographer (*) - COST:2 [ATK:1/HP:5]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Discover</b> a Treasure.
 			// --------------------------------------------------------
@@ -3064,8 +3065,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_803] Gilnean Vigilante (*) - COST:4 [ATK:6/HP:3] 
-			// - Set: gilneas, 
+			// [GILA_803] Gilnean Vigilante (*) - COST:4 [ATK:6/HP:3]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy a
 			//       minion and fill your
@@ -3078,7 +3079,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_803", new CardDef(new Power
+			cards.Add("GILA_803", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_803] Gilnean Vigilante && Test: Gilnean Vigilante_GILA_803
 				//PowerTask = null,
@@ -3086,8 +3087,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_817t] Weeping Ghost (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: gilneas, 
+			// [GILA_817t] Weeping Ghost (*) - COST:1 [ATK:1/HP:1]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GILA_817t", new CardDef(new Power
 			{
@@ -3097,8 +3098,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_818t] Weeping Ghost (*) - COST:1 [ATK:2/HP:2] 
-			// - Set: gilneas, 
+			// [GILA_818t] Weeping Ghost (*) - COST:1 [ATK:2/HP:2]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GILA_818t", new CardDef(new Power
 			{
@@ -3108,8 +3109,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_819t] Weeping Ghost (*) - COST:1 [ATK:3/HP:3] 
-			// - Set: gilneas, 
+			// [GILA_819t] Weeping Ghost (*) - COST:1 [ATK:3/HP:3]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
 			// --------------------------------------------------------
@@ -3124,8 +3125,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_826] Nalaa the Redeemer (*) - COST:6 [ATK:9/HP:9] 
-			// - Set: gilneas, 
+			// [GILA_826] Nalaa the Redeemer (*) - COST:6 [ATK:9/HP:9]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<b>Divine Shield</b>. <b>Taunt</b>.
 			//       After this minion survives
@@ -3144,8 +3145,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_827] Murloc Holmes (*) - COST:2 [ATK:3/HP:4] 
-			// - Race: murloc, Set: gilneas, 
+			// [GILA_827] Murloc Holmes (*) - COST:2 [ATK:3/HP:4]
+			// - Race: murloc, Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Whenever your opponent draws a card, add a copy to your hand.
 			// --------------------------------------------------------
@@ -3160,8 +3161,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_851a] Gilnean Tracker (*) - COST:3 [ATK:3/HP:3] 
-			// - Set: gilneas, 
+			// [GILA_851a] Gilnean Tracker (*) - COST:3 [ATK:3/HP:3]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<b>Rush</b>
 			//       At the start of your turn,
@@ -3178,8 +3179,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_851b] Transforming Tracker (*) - COST:3 [ATK:5/HP:5] 
-			// - Set: gilneas, 
+			// [GILA_851b] Transforming Tracker (*) - COST:3 [ATK:5/HP:5]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			//       At the start of your turn, transform this into a 7/7 with <b>Windfury</b>.
@@ -3198,8 +3199,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_851c] Worgen Tracker (*) - COST:3 [ATK:7/HP:7] 
-			// - Set: gilneas, 
+			// [GILA_851c] Worgen Tracker (*) - COST:3 [ATK:7/HP:7]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			//       <b>Windfury</b>
@@ -3216,8 +3217,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_854] Beastly Beauty (*) - COST:2 [ATK:2/HP:5] 
-			// - Set: gilneas, 
+			// [GILA_854] Beastly Beauty (*) - COST:2 [ATK:2/HP:5]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<b>Rush</b>
 			//       After this attacks a minion
@@ -3235,8 +3236,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_854t] Beautiful Beast (*) - COST:2 [ATK:8/HP:8] 
-			// - Set: gilneas, 
+			// [GILA_854t] Beautiful Beast (*) - COST:2 [ATK:8/HP:8]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GILA_854t", new CardDef(new Power
 			{
@@ -3246,8 +3247,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_906] Impetuous Companion (*) - COST:3 [ATK:5/HP:5] 
-			// - Set: gilneas, 
+			// [GILA_906] Impetuous Companion (*) - COST:3 [ATK:5/HP:5]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Swap hands with your opponent.
 			// --------------------------------------------------------
@@ -3262,8 +3263,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_907] Clockwork Assistant (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: mechanical, Set: gilneas, 
+			// [GILA_907] Clockwork Assistant (*) - COST:1 [ATK:1/HP:1]
+			// - Race: mechanical, Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Has +1/+1 for each spell you've cast this game.
 			// --------------------------------------------------------
@@ -3275,8 +3276,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_BOSS_24t] Bloated Zombie (*) - COST:1 [ATK:1/HP:3] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_24t] Bloated Zombie (*) - COST:1 [ATK:1/HP:3]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b>
 			//       Deal 1 damage to all characters.
@@ -3292,8 +3293,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_BOSS_26t] Stuffed Sack (*) - COST:1 [ATK:0/HP:3] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_26t] Stuffed Sack (*) - COST:1 [ATK:0/HP:3]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Return your stolen minion!
 			// --------------------------------------------------------
@@ -3308,8 +3309,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_BOSS_27t2] Amalgamation (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: all, Set: gilneas, 
+			// [GILA_BOSS_27t2] Amalgamation (*) - COST:1 [ATK:1/HP:1]
+			// - Race: all, Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<i>This is an Elemental, Mech,
 			//       Demon, Murloc, Dragon,
@@ -3323,8 +3324,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_BOSS_49t] Crowskin Faithful (*) - COST:3 [ATK:6/HP:3] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_49t] Crowskin Faithful (*) - COST:3 [ATK:6/HP:3]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Draw a card. Shuffle this minion into your deck.
 			// --------------------------------------------------------
@@ -3340,8 +3341,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_BOSS_55t] Wisp (*) - COST:0 [ATK:1/HP:1] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_55t] Wisp (*) - COST:0 [ATK:1/HP:1]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GILA_BOSS_55t", new CardDef(new Power
 			{
@@ -3351,8 +3352,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_BOSS_60t] Cursed Crewmember (*) - COST:2 [ATK:2/HP:1] 
-			// - Race: pirate, Set: gilneas, 
+			// [GILA_BOSS_60t] Cursed Crewmember (*) - COST:2 [ATK:2/HP:1]
+			// - Race: pirate, Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Draw 2 cards, then shuffle a copy of your hand into your deck.
 			// --------------------------------------------------------
@@ -3368,8 +3369,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GILA_BOSS_68t] Infected Quillflinger (*) - COST:4 [ATK:3/HP:7] 
-			// - Race: beast, Set: gilneas, 
+			// [GILA_BOSS_68t] Infected Quillflinger (*) - COST:4 [ATK:3/HP:7]
+			// - Race: beast, Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, deal 1 damage to a random enemy minion.
 			// --------------------------------------------------------
@@ -3381,15 +3382,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_401] Sic 'Em (*) - COST:6 
-			// - Set: gilneas, 
+			// [GILA_401] Sic 'Em (*) - COST:6
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Summon 3 minions from your deck with the highest attack.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_401", new CardDef(new Power
+			cards.Add("GILA_401", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [GILA_401] Sic 'Em && Test: Sic 'Em_GILA_401
 				//PowerTask = null,
@@ -3397,8 +3398,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_412] Blood Moon (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_412] Blood Moon (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Give your minions +1/+1 and <b>Lifesteal</b>.
 			// --------------------------------------------------------
@@ -3414,8 +3415,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_414] Companionship (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_414] Companionship (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       Your Bloodhounds have +2 Attack.
@@ -3433,8 +3434,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_415] Lunar Signet (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_415] Lunar Signet (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       After you play a minion, trigger its <b>Deathrattle</b> effect.
@@ -3452,8 +3453,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_489] Stalking (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_489] Stalking (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3470,8 +3471,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_490] On the Hunt (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_490] On the Hunt (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3488,8 +3489,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_491] Pack Mentality (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_491] Pack Mentality (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3506,8 +3507,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_492] Go for the Throat (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_492] Go for the Throat (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3524,8 +3525,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_493] Unwavering (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_493] Unwavering (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3542,8 +3543,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_494] Divide and Conquer (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_494] Divide and Conquer (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3560,8 +3561,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_495] Companions (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_495] Companions (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3578,8 +3579,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_496] Exotic Beasts (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_496] Exotic Beasts (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3596,8 +3597,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_497] Stomp, Stomp, STOMP (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_497] Stomp, Stomp, STOMP (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3614,8 +3615,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_498] Thick Hide (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_498] Thick Hide (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3632,8 +3633,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_499] Unload (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_499] Unload (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3650,15 +3651,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_500p2t] A Small Rock (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_500p2t] A Small Rock (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Deal $1 damage. @spelldmg
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_500p2t", new CardDef(new Power
+			cards.Add("GILA_500p2t", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				// TODO [GILA_500p2t] A Small Rock && Test: A Small Rock_GILA_500p2t
 				//PowerTask = null,
@@ -3666,8 +3667,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_501] Exterminate (*) - COST:3 
-			// - Set: gilneas, 
+			// [GILA_501] Exterminate (*) - COST:3
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>.
 			//       Deal $10 damage to a minion and any excess to the enemy hero. @spelldmg
@@ -3679,7 +3680,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_501", new CardDef(new Power
+			cards.Add("GILA_501", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_501] Exterminate && Test: Exterminate_GILA_501
 				//PowerTask = null,
@@ -3687,8 +3688,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_503] Hunter's Insight (*) - COST:3 
-			// - Set: gilneas, 
+			// [GILA_503] Hunter's Insight (*) - COST:3
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Reduce the cost of all cards in your hand by_(3).
 			// --------------------------------------------------------
@@ -3701,8 +3702,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_506] First Aid Kit (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_506] First Aid Kit (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       At the end of your turn, restore 2_Health to all friendly characters.
@@ -3720,8 +3721,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_506t] Bandage (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_506t] Bandage (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Restore all friendly minions to full Health. They can attack again this turn.
 			// --------------------------------------------------------
@@ -3733,8 +3734,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_510] Tools of the Trade (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_510] Tools of the Trade (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> one of Tess's weapons and equip it. Return this to your hand.
 			// --------------------------------------------------------
@@ -3749,8 +3750,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_511] Sticky Fingers (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_511] Sticky Fingers (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       Cards that didn't start in your deck cost (1) less.
@@ -3768,8 +3769,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_513] Cult of the Wolf (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_513] Cult of the Wolf (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       You can use your Hero Power twice each turn.
@@ -3788,8 +3789,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_589] Old Bones (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_589] Old Bones (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3806,8 +3807,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_590] The Professional (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_590] The Professional (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3824,8 +3825,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_591] Run n' Gun (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_591] Run n' Gun (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3842,8 +3843,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_592] Mercenaries (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_592] Mercenaries (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3860,8 +3861,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_593] Resourceful (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_593] Resourceful (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3878,8 +3879,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_594] Rapid Fire (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_594] Rapid Fire (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3896,8 +3897,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_595] Copycat (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_595] Copycat (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3914,8 +3915,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_596] Trapper (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_596] Trapper (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3932,8 +3933,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_597] Arsenal (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_597] Arsenal (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3950,8 +3951,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_598] Specialist (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_598] Specialist (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3968,8 +3969,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_599] Jade in the Rough (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_599] Jade in the Rough (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add to your deck:
 			//       '{0}'
@@ -3986,8 +3987,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_602] Victorious Rally (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_602] Victorious Rally (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<b>Passive</b>
 			//       Whenever you fire your
@@ -4008,8 +4009,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_603] Tactical Reinforcements (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_603] Tactical Reinforcements (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<b>Passive</b>
 			//       Whenever you fire your
@@ -4030,8 +4031,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_604] Extra Powder (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_604] Extra Powder (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]Your Cannons do 2
 			//       extra damage this turn.
@@ -4045,8 +4046,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_605] Dragonfire Ammo (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_605] Dragonfire Ammo (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       Your Cannons do
@@ -4066,8 +4067,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_607] Pillage the Fallen (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_607] Pillage the Fallen (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       Whenever your weapon is destroyed, equip a random weapon.
@@ -4085,8 +4086,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_608] Safe Harbor (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_608] Safe Harbor (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Choose a minion and put it into your hand.
 			//       It costs (0).
@@ -4098,7 +4099,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_608", new CardDef(new Power
+			cards.Add("GILA_608", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_608] Safe Harbor && Test: Safe Harbor_GILA_608
 				//PowerTask = null,
@@ -4106,8 +4107,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_804] Holy Book (*) - COST:6 
-			// - Set: gilneas, 
+			// [GILA_804] Holy Book (*) - COST:6
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Silence</b> and destroy a minion. Summon a 10/10 copy of it.
 			// --------------------------------------------------------
@@ -4118,7 +4119,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_804", new CardDef(new Power
+			cards.Add("GILA_804", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_804] Holy Book && Test: Holy Book_GILA_804
 				InfoCardId = "GILA_804e",
@@ -4127,8 +4128,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_805] Entrenchment (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_805] Entrenchment (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       Your minions have +2_Health.
@@ -4146,8 +4147,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_806] Brass Lantern (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_806] Brass Lantern (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a copy of a card in your deck. Repeat this 2 more times.
 			// --------------------------------------------------------
@@ -4157,7 +4158,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_806", new CardDef(new Power
+			cards.Add("GILA_806", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_806] Brass Lantern && Test: Brass Lantern_GILA_806
 				//PowerTask = null,
@@ -4165,8 +4166,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_810] Sneak Attack (*) - COST:3 
-			// - Set: gilneas, 
+			// [GILA_810] Sneak Attack (*) - COST:3
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Put 2 random minions from your hand into the battlefield and give them <b>Charge</b>.
 			// --------------------------------------------------------
@@ -4182,8 +4183,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_811] Spyglass (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_811] Spyglass (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>
 			//       Put a copy of a random card in your opponent's hand into yours. It costs (3) less.
@@ -4199,8 +4200,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_812] Bestiary (*) - COST:8 
-			// - Set: gilneas, 
+			// [GILA_812] Bestiary (*) - COST:8
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]Fill your board with
 			//       copies of random minions
@@ -4209,7 +4210,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_812", new CardDef(new Power
+			cards.Add("GILA_812", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [GILA_812] Bestiary && Test: Bestiary_GILA_812
 				//PowerTask = null,
@@ -4217,8 +4218,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_813] Expedite (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_813] Expedite (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       Your minions cost
@@ -4237,8 +4238,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_814] Caltrops (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_814] Caltrops (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       After your opponent
@@ -4258,15 +4259,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_816a] Coin Pouch (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_816a] Coin Pouch (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Summon a random 3-Cost minion. Upgrade this and shuffle it into your deck.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_816a", new CardDef(new Power
+			cards.Add("GILA_816a", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [GILA_816a] Coin Pouch && Test: Coin Pouch_GILA_816a
 				//PowerTask = null,
@@ -4274,15 +4275,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_816b] Sack of Coins (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_816b] Sack of Coins (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Summon a random 6-Cost minion. Upgrade this and shuffle it into your deck.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_816b", new CardDef(new Power
+			cards.Add("GILA_816b", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [GILA_816b] Sack of Coins && Test: Sack of Coins_GILA_816b
 				//PowerTask = null,
@@ -4290,15 +4291,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_816c] Hefty Sack of Coins (*) - COST:3 
-			// - Set: gilneas, 
+			// [GILA_816c] Hefty Sack of Coins (*) - COST:3
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Summon a random 3, 6, and 9-Cost minion.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_816c", new CardDef(new Power
+			cards.Add("GILA_816c", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [GILA_816c] Hefty Sack of Coins && Test: Hefty Sack of Coins_GILA_816c
 				//PowerTask = null,
@@ -4306,8 +4307,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_817] Creepy Curio (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_817] Creepy Curio (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Summon three 1/1 Ghosts. Upgrade this and shuffle it into your deck.
 			// --------------------------------------------------------
@@ -4319,8 +4320,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_818] Haunted Curio (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_818] Haunted Curio (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Summon three 2/2 Ghosts. Upgrade this and shuffle it into your deck.
 			// --------------------------------------------------------
@@ -4332,8 +4333,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_819] Cursed Curio (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_819] Cursed Curio (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Summon three 3/3 Ghosts with <b>Lifesteal</b>.
 			// --------------------------------------------------------
@@ -4348,8 +4349,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_820] Ricochet Shot (*) - COST:5 
-			// - Set: gilneas, 
+			// [GILA_820] Ricochet Shot (*) - COST:5
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to a random character. Repeat this 12 times. @spelldmg
 			// --------------------------------------------------------
@@ -4361,15 +4362,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_821a] Surly Mob (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_821a] Surly Mob (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Destroy a random enemy minion. Upgrade this and shuffle it into your deck.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_821a", new CardDef(new Power
+			cards.Add("GILA_821a", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
 			{
 				// TODO [GILA_821a] Surly Mob && Test: Surly Mob_GILA_821a
 				//PowerTask = null,
@@ -4377,15 +4378,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_821b] Angry Mob (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_821b] Angry Mob (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Destroy 2 random enemy minions. Upgrade this and shuffle it into your deck.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_821b", new CardDef(new Power
+			cards.Add("GILA_821b", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
 			{
 				// TODO [GILA_821b] Angry Mob && Test: Angry Mob_GILA_821b
 				//PowerTask = null,
@@ -4393,8 +4394,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_821c] Crazed Mob (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_821c] Crazed Mob (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Silence</b> and destroy all enemy minions.
 			// --------------------------------------------------------
@@ -4404,7 +4405,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_821c", new CardDef(new Power
+			cards.Add("GILA_821c", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
 			{
 				// TODO [GILA_821c] Crazed Mob && Test: Crazed Mob_GILA_821c
 				//PowerTask = null,
@@ -4412,8 +4413,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_824] Royal Gift (*) - COST:4 
-			// - Set: gilneas, 
+			// [GILA_824] Royal Gift (*) - COST:4
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Give a minion +2/+2 for each minion you control.
 			// --------------------------------------------------------
@@ -4421,7 +4422,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_824", new CardDef(new Power
+			cards.Add("GILA_824", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_824] Royal Gift && Test: Royal Gift_GILA_824
 				InfoCardId = "GILA_824e",
@@ -4430,8 +4431,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_825] Gentleman's Top Hat (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_825] Gentleman's Top Hat (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]Give a minion +2/+2
 			//       and "<b>Deathrattle:</b> Give
@@ -4445,7 +4446,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_825", new CardDef(new Power
+			cards.Add("GILA_825", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_825] Gentleman's Top Hat && Test: Gentleman's Top Hat_GILA_825
 				InfoCardId = "GILA_825e",
@@ -4454,8 +4455,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_825d] Gentlemanly Reequip Effect Dummy (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_825d] Gentlemanly Reequip Effect Dummy (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: It is a dummy card for holding a effect to play when reequipping Gentleman's Top Hat (GILA_825)
 			// --------------------------------------------------------
@@ -4467,8 +4468,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_850b] Hallowed Water (*) - COST:7 
-			// - Set: gilneas, 
+			// [GILA_850b] Hallowed Water (*) - COST:7
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Restore your hero
 			//       to full Health.
@@ -4482,8 +4483,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_852a] Old Militia Horn (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_852a] Old Militia Horn (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Give your minions +1/+1 and <b>Taunt</b>. Upgrade this and shuffle it into your deck.
 			// --------------------------------------------------------
@@ -4499,8 +4500,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_852b] Militia Horn (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_852b] Militia Horn (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Give your minions +2/+2 and <b>Taunt</b>. Upgrade this and shuffle it into your deck.
 			// --------------------------------------------------------
@@ -4516,8 +4517,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_852c] Veteran's Militia Horn (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_852c] Veteran's Militia Horn (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Give your minions +4/+4, <b>Taunt</b>, and <b>Divine Shield</b>.
 			// --------------------------------------------------------
@@ -4534,8 +4535,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_853b] Pristine Compass (*) - COST:3 
-			// - Set: gilneas, 
+			// [GILA_853b] Pristine Compass (*) - COST:3
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Draw a card and add 2 extra copies of it to your hand. They cost (0).
 			// --------------------------------------------------------
@@ -4547,8 +4548,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_901] Chaos Theory (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_901] Chaos Theory (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Both players cast all spells in their hand <i>(targets chosen randomly).</i>
 			// --------------------------------------------------------
@@ -4560,8 +4561,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_903] Enhance-a-matic (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_903] Enhance-a-matic (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Add a random spell from each class to your_hand.
 			// --------------------------------------------------------
@@ -4573,8 +4574,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_904] Stroke of Midnight (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_904] Stroke of Midnight (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>
 			//       Destroy a random enemy minion.
@@ -4582,7 +4583,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - ECHO = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_904", new CardDef(new Power
+			cards.Add("GILA_904", new CardDef(new[] {PlayReq.REQ_MINIMUM_TOTAL_MINIONS}, new Power
 			{
 				// TODO [GILA_904] Stroke of Midnight && Test: Stroke of Midnight_GILA_904
 				//PowerTask = null,
@@ -4590,8 +4591,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_910] Puzzle Box (*) - COST:1 
-			// - Set: gilneas, 
+			// [GILA_910] Puzzle Box (*) - COST:1
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Transform all minions into random ones that cost (3) more.
 			// --------------------------------------------------------
@@ -4603,8 +4604,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_911] Rewind (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_911] Rewind (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       When your hero dies, restart the game and remove this from your Dungeon Deck.
@@ -4622,8 +4623,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_913] Double Time (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_913] Double Time (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       After you cast your first spell in a turn, cast a copy of it
@@ -4642,8 +4643,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_23t] Chuck (*) - COST:6 
-			// - Set: gilneas, 
+			// [GILA_BOSS_23t] Chuck (*) - COST:6
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Discard all minions
 			//       from your hand and
@@ -4654,7 +4655,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_23t", new CardDef(new Power
+			cards.Add("GILA_BOSS_23t", new CardDef(new[] {PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_23t] Chuck && Test: Chuck_GILA_BOSS_23t
 				//PowerTask = null,
@@ -4662,8 +4663,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_26t2] Sack of Gnomes (*) - COST:4 
-			// - Set: gilneas, 
+			// [GILA_BOSS_26t2] Sack of Gnomes (*) - COST:4
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Fill your board with random Gnomes.
 			// --------------------------------------------------------
@@ -4677,8 +4678,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_27t] Amalgamate (*) - COST:8 
-			// - Set: gilneas, 
+			// [GILA_BOSS_27t] Amalgamate (*) - COST:8
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Destroy all minions. Summon an Amalgamation with the combined
 			//       Attack and Health.
@@ -4686,7 +4687,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_MINIMUM_TOTAL_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_27t", new CardDef(new Power
+			cards.Add("GILA_BOSS_27t", new CardDef(new[] {PlayReq.REQ_MINIMUM_TOTAL_MINIONS}, new Power
 			{
 				// TODO [GILA_BOSS_27t] Amalgamate && Test: Amalgamate_GILA_BOSS_27t
 				//PowerTask = null,
@@ -4694,8 +4695,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_29t] Enchanting Tune (*) - COST:4 
-			// - Set: gilneas, 
+			// [GILA_BOSS_29t] Enchanting Tune (*) - COST:4
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Gain control of all enemy minions. Set their Attack and Health to 1.
 			// --------------------------------------------------------
@@ -4707,8 +4708,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_35t] Vampiric Fangs (*) - COST:3 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_BOSS_35t] Vampiric Fangs (*) - COST:3
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Destroy a minion. Restore its Health to your hero.
 			// --------------------------------------------------------
@@ -4716,7 +4717,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_35t", new CardDef(new Power
+			cards.Add("GILA_BOSS_35t", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_35t] Vampiric Fangs && Test: Vampiric Fangs_GILA_BOSS_35t
 				//PowerTask = null,
@@ -4724,8 +4725,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_37t] Plague of Murlocs (*) - COST:3 
-			// - Set: gilneas, 
+			// [GILA_BOSS_37t] Plague of Murlocs (*) - COST:3
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Give your minions: "<b>Deathrattle</b>: Summon a random Murloc."
 			// --------------------------------------------------------
@@ -4737,8 +4738,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_41t] Hack (*) - COST:3 
-			// - Set: gilneas, 
+			// [GILA_BOSS_41t] Hack (*) - COST:3
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to a minion. Then do it four more times. @spelldmg
 			// --------------------------------------------------------
@@ -4746,7 +4747,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_41t", new CardDef(new Power
+			cards.Add("GILA_BOSS_41t", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_41t] Hack && Test: Hack_GILA_BOSS_41t
 				//PowerTask = null,
@@ -4754,8 +4755,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_43t] Grave Mistake (*) - COST:0 
-			// - Set: gilneas, 
+			// [GILA_BOSS_43t] Grave Mistake (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Trigger all minions' <b>Deathrattles</b> twice.
 			// --------------------------------------------------------
@@ -4767,8 +4768,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_48t] Alternate Timeline (*) - COST:10 
-			// - Set: gilneas, 
+			// [GILA_BOSS_48t] Alternate Timeline (*) - COST:10
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Start a new game,
 			//       but your opponent's Health stays the same.
@@ -4781,8 +4782,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_49t2] Crowskin Pact (*) - COST:5 
-			// - Set: gilneas, 
+			// [GILA_BOSS_49t2] Crowskin Pact (*) - COST:5
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Transform a minion into a 'Crowskin Faithful' and take control of it.
 			// --------------------------------------------------------
@@ -4793,7 +4794,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_49t2", new CardDef(new Power
+			cards.Add("GILA_BOSS_49t2", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [GILA_BOSS_49t2] Crowskin Pact && Test: Crowskin Pact_GILA_BOSS_49t2
 				//PowerTask = null,
@@ -4801,8 +4802,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_55t2] Soul Assimilation (*) - COST:4 
-			// - Set: gilneas, 
+			// [GILA_BOSS_55t2] Soul Assimilation (*) - COST:4
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Destroy your Wisps.
 			//       Gain control of a random enemy minion for each Wisp destroyed.
@@ -4815,15 +4816,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_57t] Shallow Graves (*) - COST:9 
-			// - Set: gilneas, 
+			// [GILA_BOSS_57t] Shallow Graves (*) - COST:9
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Summon 7 random minions that died this_game.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
 			// --------------------------------------------------------
-			cards.Add("GILA_BOSS_57t", new CardDef(new Power
+			cards.Add("GILA_BOSS_57t", new CardDef(new[] {PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME}, new Power
 			{
 				// TODO [GILA_BOSS_57t] Shallow Graves && Test: Shallow Graves_GILA_BOSS_57t
 				//PowerTask = null,
@@ -4831,8 +4832,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_61t3] Ominous Fog (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_61t3] Ominous Fog (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Corrupt all enemy minions. Destroy them at the start of your next turn.
 			// --------------------------------------------------------
@@ -4847,8 +4848,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_99t] Witchwood's Touch (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_99t] Witchwood's Touch (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Draw a card.
 			//       Gain 6 Armor.
@@ -4861,8 +4862,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_99t2] Witchwood's Touch (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_99t2] Witchwood's Touch (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Draw 2 cards.
 			//       Gain 8 Armor.
@@ -4875,8 +4876,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [GILA_BOSS_99t3] Witchwood's Touch (*) - COST:2 
-			// - Set: gilneas, 
+			// [GILA_BOSS_99t3] Witchwood's Touch (*) - COST:2
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Draw 3 cards.
 			//       Gain 10 Armor.
@@ -4889,8 +4890,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [GILA_413] Shaw's Shank (*) - COST:3 [ATK:1/HP:0] 
-			// - Set: gilneas, 
+			// [GILA_413] Shaw's Shank (*) - COST:3 [ATK:1/HP:0]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Has +1_Attack for each friendly minion you control.
 			// --------------------------------------------------------
@@ -4905,8 +4906,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [GILA_500t] Stake Thrower (*) - COST:1 [ATK:1/HP:0] 
-			// - Set: gilneas, 
+			// [GILA_500t] Stake Thrower (*) - COST:1 [ATK:1/HP:0]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Windfury</b>
 			// --------------------------------------------------------
@@ -4922,8 +4923,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [GILA_500t2] Handgonne (*) - COST:1 [ATK:4/HP:0] 
-			// - Set: gilneas, 
+			// [GILA_500t2] Handgonne (*) - COST:1 [ATK:4/HP:0]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// GameTag:
 			// - DURABILITY = 2
@@ -4936,8 +4937,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [GILA_500t3] Blunderbuss (*) - COST:1 [ATK:2/HP:0] 
-			// - Set: gilneas, 
+			// [GILA_500t3] Blunderbuss (*) - COST:1 [ATK:2/HP:0]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Also damages the minions next to whomever your hero_attacks.
 			// --------------------------------------------------------
@@ -4952,8 +4953,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [GILA_508] The Exorcisor (*) - COST:3 [ATK:4/HP:0] 
-			// - Set: gilneas, 
+			// [GILA_508] The Exorcisor (*) - COST:3 [ATK:4/HP:0]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Silence</b> any minion attacked by this weapon.
 			// --------------------------------------------------------
@@ -4971,8 +4972,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [GILA_BOSS_33t] Scythe (*) - COST:3 [ATK:1/HP:0] 
-			// - Fac: neutral, Set: gilneas, 
+			// [GILA_BOSS_33t] Scythe (*) - COST:3 [ATK:1/HP:0]
+			// - Fac: neutral, Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Doesn't lose Durability. When you kill a minion with this weapon, gain +1 Attack.
 			// --------------------------------------------------------
@@ -4988,8 +4989,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- WEAPON - NEUTRAL
-			// [GILA_BOSS_61t] Ritual Dagger (*) - COST:2 [ATK:3/HP:0] 
-			// - Set: gilneas, 
+			// [GILA_BOSS_61t] Ritual Dagger (*) - COST:2 [ATK:3/HP:0]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<b>Lifesteal</b>
 			//       After you cast a spell, this

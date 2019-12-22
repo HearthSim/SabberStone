@@ -13,6 +13,7 @@
 #endregion
 using System.Collections.Generic;
 using SabberStoneCore.Enchants;
+using SabberStoneCore.Enums;
 using SabberStoneCore.src.Loader;
 // ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
@@ -23,8 +24,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void Heroes(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_01h2] Test Subject (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_01h2] Test Subject (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52176
@@ -39,8 +40,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_03h] Astromancer Arwyn (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_03h] Astromancer Arwyn (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52175
@@ -55,8 +56,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_04h] Stargazer Luna (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_04h] Stargazer Luna (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52175
@@ -71,8 +72,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_05h] Zerek, Master Cloner (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_05h] Zerek, Master Cloner (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52176
@@ -87,8 +88,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_06h] Dexter the Dendrologist (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_06h] Dexter the Dendrologist (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52177
@@ -103,8 +104,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_07h] Flobbidinous Floop (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_07h] Flobbidinous Floop (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52177
@@ -119,8 +120,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_08h] Demonologist Draan (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_08h] Demonologist Draan (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52178
@@ -135,8 +136,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_09h] Dr. Morrigan (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_09h] Dr. Morrigan (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52178
@@ -151,8 +152,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_10h] Poisonmaster Pollark (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_10h] Poisonmaster Pollark (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52180
@@ -165,8 +166,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_12h] Lil' Stormy (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_12h] Lil' Stormy (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52179
@@ -179,8 +180,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_13h] Electra Stormsurge (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_13h] Electra Stormsurge (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52179
@@ -193,8 +194,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_14h] Myra Rotspring (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_14h] Myra Rotspring (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52180
@@ -207,8 +208,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_15h] Boomnician Breena (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_15h] Boomnician Breena (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52181
@@ -223,8 +224,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_16h] Boommaster Flark (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_16h] Boommaster Flark (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52182
@@ -239,8 +240,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_17h] Glow-Tron 2000 (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_17h] Glow-Tron 2000 (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52183
@@ -255,8 +256,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_18h] Crystalsmith Kangor (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_18h] Crystalsmith Kangor (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 52184
@@ -271,8 +272,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_20h] Dr. Boom (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_20h] Dr. Boom (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 47494
@@ -285,8 +286,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [BOTA_BOSS_20h2] Dr. Boom (*) - COST:0 [ATK:0/HP:30] 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_20h2] Dr. Boom (*) - COST:0 [ATK:0/HP:30]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 47494
@@ -303,8 +304,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void HeroPowers(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_04p] Duality (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_04p] Duality (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <i>There's symmetry in the stars.</i>
 			// --------------------------------------------------------
@@ -319,8 +320,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_05p] Perfection (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_05p] Perfection (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <i>Everything must be perfect.</i>
 			// --------------------------------------------------------
@@ -335,8 +336,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_07p] Gloop Sprayer (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_07p] Gloop Sprayer (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <i>The most effective fertilizer this side of Outland.</i>
 			// --------------------------------------------------------
@@ -351,8 +352,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_09p] Soul Battery (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_09p] Soul Battery (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <i>Stores souls...
 			//       for science.</i>
@@ -368,8 +369,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_13p] Stormsurge (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_13p] Stormsurge (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <i>These puzzles are elementary.</i>
 			// --------------------------------------------------------
@@ -384,8 +385,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_14p] Experimental Necrium (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_14p] Experimental Necrium (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <i>Good poisons work instantly.</i>
 			// --------------------------------------------------------
@@ -400,8 +401,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_15p] Firework Volley (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_15p] Firework Volley (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Heal to full to survive this experiment!
 			// --------------------------------------------------------
@@ -416,8 +417,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_16p] Firework Barrage (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_16p] Firework Barrage (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Heal to full to survive this experiment!
 			// --------------------------------------------------------
@@ -432,8 +433,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_17p] Glowing Laser (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_17p] Glowing Laser (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Heal to full to survive this experiment!
 			// --------------------------------------------------------
@@ -448,8 +449,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_18p] Radiant Laser (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_18p] Radiant Laser (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Heal to full to survive this experiment!
 			// --------------------------------------------------------
@@ -464,8 +465,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_20p1] True Perfection (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_20p1] True Perfection (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <i>Have you ever seen such a magnificent reflection?</i>
 			// --------------------------------------------------------
@@ -480,8 +481,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_20p2] Fusion Core (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_20p2] Fusion Core (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <i>Why stop at souls?</i>
 			// --------------------------------------------------------
@@ -496,8 +497,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_20p3] Kadoom Bot (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_20p3] Kadoom Bot (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <i>The fuse is lit.</i>
 			// --------------------------------------------------------
@@ -512,8 +513,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [BOTA_BOSS_20p4] Death Ray (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_BOSS_20p4] Death Ray (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal 40 damage to the enemy hero.
@@ -534,8 +535,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void DruidNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [BOTA_241e] Contaminated (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_241e] Contaminated (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
 			// --------------------------------------------------------
@@ -547,8 +548,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [BOTA_241] Contamination (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_241] Contamination (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Give a minion <b>Poisonous</b>.
 			// --------------------------------------------------------
@@ -559,7 +560,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("BOTA_241", new CardDef(new Power
+			cards.Add("BOTA_241", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [BOTA_241] Contamination && Test: Contamination_BOTA_241
 				InfoCardId = "BOTA_241e",
@@ -572,8 +573,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void WarlockNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
-			// [BOTA_603] Soul Repressor (*) - COST:3 [ATK:0/HP:4] 
-			// - Race: mechanical, Set: boomsday, 
+			// [BOTA_603] Soul Repressor (*) - COST:3 [ATK:0/HP:4]
+			// - Race: mechanical, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Put the lowest Cost Demon from your hand into the battlefield.
 			// --------------------------------------------------------
@@ -588,8 +589,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [BOTA_601] Phasing Portal (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_601] Phasing Portal (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Choose a minion.
 			//       Put it on the bottom of your deck.
@@ -598,7 +599,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOTA_601", new CardDef(new Power
+			cards.Add("BOTA_601", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [BOTA_601] Phasing Portal && Test: Phasing Portal_BOTA_601
 				//PowerTask = null,
@@ -610,8 +611,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOTA_203e] FREEDOM! (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_203e] FREEDOM! (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Has <b>Charge</b>.
 			// --------------------------------------------------------
@@ -626,8 +627,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOTA_208e] Demonic Research Player Enchant (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_208e] Demonic Research Player Enchant (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: This turn, your cards cost Health instead of Mana.
 			// --------------------------------------------------------
@@ -642,8 +643,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOTA_231e] Incubating (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_231e] Incubating (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a {0}.
 			// --------------------------------------------------------
@@ -655,8 +656,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOTA_242e] Steel Rattler (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_242e] Steel Rattler (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>.
 			// --------------------------------------------------------
@@ -672,8 +673,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOTA_101] Spud M.E. (*) - COST:5 [ATK:0/HP:10] 
-			// - Race: mechanical, Set: boomsday, 
+			// [BOTA_101] Spud M.E. (*) - COST:5 [ATK:0/HP:10]
+			// - Race: mechanical, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: After this minion survives damage, switch sides.
 			//       <b>Deathrattle:</b>_Destroy your hero.
@@ -689,8 +690,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOTA_200] Undercover Reporter (*) - COST:2 [ATK:1/HP:2] 
-			// - Set: boomsday, 
+			// [BOTA_200] Undercover Reporter (*) - COST:2 [ATK:1/HP:2]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Choose a minion. Put two copies of it on top of your deck.
 			// --------------------------------------------------------
@@ -701,7 +702,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("BOTA_200", new CardDef(new Power
+			cards.Add("BOTA_200", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
 			{
 				// TODO [BOTA_200] Undercover Reporter && Test: Undercover Reporter_BOTA_200
 				//PowerTask = null,
@@ -709,8 +710,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOTA_210] Galvanized Golem (*) - COST:3 [ATK:5/HP:2] 
-			// - Set: boomsday, 
+			// [BOTA_210] Galvanized Golem (*) - COST:3 [ATK:5/HP:2]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Your 1-Attack minions cost (1) less.
 			// --------------------------------------------------------
@@ -725,8 +726,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOTA_211] Super Soldier (*) - COST:3 [ATK:2/HP:3] 
-			// - Set: boomsday, 
+			// [BOTA_211] Super Soldier (*) - COST:3 [ATK:2/HP:3]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Whenever you summon a minion with 3 or less Attack, give it <b>Charge</b>.
 			// --------------------------------------------------------
@@ -741,8 +742,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOTA_212] Cure-All (*) - COST:3 [ATK:3/HP:3] 
-			// - Race: mechanical, Set: boomsday, 
+			// [BOTA_212] Cure-All (*) - COST:3 [ATK:3/HP:3]
+			// - Race: mechanical, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Whenever a minion is healed, deal 2 damage to the enemy hero.
 			// --------------------------------------------------------
@@ -754,8 +755,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOTA_214] Turret Sentinel (*) - COST:4 [ATK:4/HP:8] 
-			// - Race: mechanical, Set: boomsday, 
+			// [BOTA_214] Turret Sentinel (*) - COST:4 [ATK:4/HP:8]
+			// - Race: mechanical, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: [x]After your opponent plays
 			//       a minion, attack it.
@@ -773,8 +774,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOTA_223] Gelbin's Coil (*) - COST:1 [ATK:1/HP:2] 
-			// - Race: mechanical, Set: boomsday, 
+			// [BOTA_223] Gelbin's Coil (*) - COST:1 [ATK:1/HP:2]
+			// - Race: mechanical, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: After you play a spell, deal 1 damage to a random enemy minion.
 			// --------------------------------------------------------
@@ -786,8 +787,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOTA_229] Boom-in-a-Box (*) - COST:10 [ATK:0/HP:10] 
-			// - Set: boomsday, 
+			// [BOTA_229] Boom-in-a-Box (*) - COST:10 [ATK:0/HP:10]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
 			//       <b>Deathrattle:</b>Deal 100 damage to the enemy hero.
@@ -804,8 +805,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOTA_231] Incubator (*) - COST:3 [ATK:1/HP:1] 
-			// - Race: mechanical, Set: boomsday, 
+			// [BOTA_231] Incubator (*) - COST:3 [ATK:1/HP:1]
+			// - Race: mechanical, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Choose a minion.
 			//       <b>Deathrattle:</b> Summon a copy of it.
@@ -818,7 +819,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOTA_231", new CardDef(new Power
+			cards.Add("BOTA_231", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [BOTA_231] Incubator && Test: Incubator_BOTA_231
 				InfoCardId = "BOTA_231e",
@@ -827,8 +828,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOTA_242] Steel Rattler (*) - COST:2 [ATK:1/HP:2] 
-			// - Race: mechanical, Set: boomsday, 
+			// [BOTA_242] Steel Rattler (*) - COST:2 [ATK:1/HP:2]
+			// - Race: mechanical, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Magnetic</b>
 			//       <b>Poisonous</b>
@@ -846,8 +847,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_102] Battery Pack (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_102] Battery Pack (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Refresh all your Mana Crystals.
 			// --------------------------------------------------------
@@ -859,8 +860,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_202] Uplink (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_202] Uplink (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Take control of an enemy minion.
 			// --------------------------------------------------------
@@ -870,7 +871,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_ENEMY_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BOTA_202", new CardDef(new Power
+			cards.Add("BOTA_202", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [BOTA_202] Uplink && Test: Uplink_BOTA_202
 				//PowerTask = null,
@@ -878,8 +879,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_203] Breakout (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_203] Breakout (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Give your minions <b>Charge</b>.
 			// --------------------------------------------------------
@@ -895,8 +896,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_207] The Swap (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_207] The Swap (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Swap minions with your opponent.
 			// --------------------------------------------------------
@@ -908,8 +909,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_208] Demonic Research (*) - COST:8 
-			// - Set: boomsday, 
+			// [BOTA_208] Demonic Research (*) - COST:8
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: This turn, your cards cost Health instead of Mana.
 			// --------------------------------------------------------
@@ -922,8 +923,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_232] Cosmic Projection (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_232] Cosmic Projection (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Swap hands with your opponent.
 			// --------------------------------------------------------
@@ -935,8 +936,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_234] The Stars Align (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_234] The Stars Align (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Arrange your minions by their Health.
 			// --------------------------------------------------------
@@ -948,8 +949,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_235] Unbeakered Lightning (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_235] Unbeakered Lightning (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Deal $8 damage to all minions. @spelldmg
 			// --------------------------------------------------------
@@ -961,8 +962,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_240] Back-up Plan (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_240] Back-up Plan (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Destroy all friendly minions.
 			// --------------------------------------------------------
@@ -974,8 +975,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_244] Ray of Roasting (*) - COST:10 
-			// - Set: boomsday, 
+			// [BOTA_244] Ray of Roasting (*) - COST:10
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Deal 10 damage to all minions 10 times.
 			// --------------------------------------------------------
@@ -987,8 +988,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_301] Cold Blooded (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_301] Cold Blooded (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 1-1.
 			// --------------------------------------------------------
@@ -1000,8 +1001,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_302] Frostbite (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_302] Frostbite (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 1-2.
 			// --------------------------------------------------------
@@ -1013,8 +1014,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_303] Battle Boar (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_303] Battle Boar (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 1-3.
 			// --------------------------------------------------------
@@ -1026,8 +1027,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_304] Stand By Me (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_304] Stand By Me (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 1-4.
 			// --------------------------------------------------------
@@ -1039,8 +1040,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_305] Frothing Fighters (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_305] Frothing Fighters (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 1-5.
 			// --------------------------------------------------------
@@ -1052,8 +1053,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_306] Leeroy Returns (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_306] Leeroy Returns (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 1-6.
 			// --------------------------------------------------------
@@ -1065,8 +1066,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_307] Cosmic Fire (*) - COST:7 
-			// - Set: boomsday, 
+			// [BOTA_307] Cosmic Fire (*) - COST:7
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 1-7.
 			// --------------------------------------------------------
@@ -1078,8 +1079,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_309] Quick and Quiet (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_309] Quick and Quiet (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 2-1.
 			// --------------------------------------------------------
@@ -1091,8 +1092,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_310] Dinosaur Domination (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_310] Dinosaur Domination (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 2-2.
 			// --------------------------------------------------------
@@ -1104,8 +1105,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_311] Hot Potato (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_311] Hot Potato (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 2-3.
 			// --------------------------------------------------------
@@ -1117,8 +1118,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_312] A Dim Flame (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_312] A Dim Flame (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 2-4.
 			// --------------------------------------------------------
@@ -1130,8 +1131,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_313] Lethal Lepers (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_313] Lethal Lepers (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 2-5.
 			// --------------------------------------------------------
@@ -1143,8 +1144,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_314] Full Draw (*) - COST:8 
-			// - Set: boomsday, 
+			// [BOTA_314] Full Draw (*) - COST:8
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 1-8.
 			// --------------------------------------------------------
@@ -1156,8 +1157,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_315] Plan B (*) - COST:9 
-			// - Set: boomsday, 
+			// [BOTA_315] Plan B (*) - COST:9
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 1-9.
 			// --------------------------------------------------------
@@ -1169,8 +1170,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_316] The Wall (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_316] The Wall (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 2-6.
 			// --------------------------------------------------------
@@ -1182,8 +1183,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_317] Four Horsemen (*) - COST:7 
-			// - Set: boomsday, 
+			// [BOTA_317] Four Horsemen (*) - COST:7
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 2-7.
 			// --------------------------------------------------------
@@ -1195,8 +1196,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_318] Light and Fire (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_318] Light and Fire (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 3-1.
 			// --------------------------------------------------------
@@ -1208,8 +1209,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_319] Hostile Hoppers (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_319] Hostile Hoppers (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 3-2.
 			// --------------------------------------------------------
@@ -1221,8 +1222,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_320] A Corrupted Spirit (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_320] A Corrupted Spirit (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 3-3.
 			// --------------------------------------------------------
@@ -1234,8 +1235,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_321] The Best Offense (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_321] The Best Offense (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 3-4.
 			// --------------------------------------------------------
@@ -1247,8 +1248,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_322] Healing Hammers (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_322] Healing Hammers (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 3-5.
 			// --------------------------------------------------------
@@ -1260,8 +1261,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_323] Toasted Hydra (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_323] Toasted Hydra (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 3-6.
 			// --------------------------------------------------------
@@ -1273,8 +1274,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_324] C'Thun! C'Thun! C'THUN! (*) - COST:7 
-			// - Set: boomsday, 
+			// [BOTA_324] C'Thun! C'Thun! C'THUN! (*) - COST:7
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 3-7.
 			// --------------------------------------------------------
@@ -1286,8 +1287,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_327] Tossing Taters (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_327] Tossing Taters (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 4-1.
 			// --------------------------------------------------------
@@ -1299,8 +1300,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_328] Pride's Fall (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_328] Pride's Fall (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 4-2.
 			// --------------------------------------------------------
@@ -1312,8 +1313,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_329] Keepers of the Gate (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_329] Keepers of the Gate (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 4-3.
 			// --------------------------------------------------------
@@ -1325,8 +1326,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_330] A Shaman's Strength (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_330] A Shaman's Strength (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 4-4.
 			// --------------------------------------------------------
@@ -1338,8 +1339,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_331] Selective Stampede (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_331] Selective Stampede (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 4-5.
 			// --------------------------------------------------------
@@ -1351,8 +1352,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_332] Spell Addiction (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_332] Spell Addiction (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle 4-6.
 			// --------------------------------------------------------
@@ -1364,8 +1365,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_333] Of Pirates and Patrons (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_333] Of Pirates and Patrons (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle B-1.
 			// --------------------------------------------------------
@@ -1377,8 +1378,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_334] Erratic Explosive (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_334] Erratic Explosive (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle B-2.
 			// --------------------------------------------------------
@@ -1390,8 +1391,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_336] Never Go Full Northshire (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_336] Never Go Full Northshire (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle B-3.
 			// --------------------------------------------------------
@@ -1403,8 +1404,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_337] Full Northshire (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_337] Full Northshire (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Lethal Puzzle B-4
 			// --------------------------------------------------------
@@ -1416,8 +1417,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_420] Quick Attack (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_420] Quick Attack (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 1-1.
 			// --------------------------------------------------------
@@ -1429,8 +1430,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_421] Holy Extermination (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_421] Holy Extermination (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 1-2.
 			// --------------------------------------------------------
@@ -1442,8 +1443,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_422] Stomp the Snail (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_422] Stomp the Snail (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 1-3.
 			// --------------------------------------------------------
@@ -1455,8 +1456,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_423] Sticky Scarecrows (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_423] Sticky Scarecrows (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 1-4.
 			// --------------------------------------------------------
@@ -1468,8 +1469,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_424] The Power of Pigs (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_424] The Power of Pigs (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 1-5.
 			// --------------------------------------------------------
@@ -1481,8 +1482,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_425] Position Perfection (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_425] Position Perfection (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 1-6.
 			// --------------------------------------------------------
@@ -1494,8 +1495,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_426] Scorched Earth (*) - COST:7 
-			// - Set: boomsday, 
+			// [BOTA_426] Scorched Earth (*) - COST:7
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 1-7.
 			// --------------------------------------------------------
@@ -1507,8 +1508,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_427] Dragon Removal Service (*) - COST:8 
-			// - Set: boomsday, 
+			// [BOTA_427] Dragon Removal Service (*) - COST:8
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 1-8.
 			// --------------------------------------------------------
@@ -1520,8 +1521,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_429] Fighter's Finale (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_429] Fighter's Finale (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 2-1.
 			// --------------------------------------------------------
@@ -1533,8 +1534,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_430] No More N'Zoth (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_430] No More N'Zoth (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 2-2.
 			// --------------------------------------------------------
@@ -1546,8 +1547,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_431] Contamination! (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_431] Contamination! (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 2-3.
 			// --------------------------------------------------------
@@ -1559,8 +1560,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_432] A Stolen Shadow (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_432] A Stolen Shadow (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 2-4.
 			// --------------------------------------------------------
@@ -1572,8 +1573,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_433] Hurricane of Horrors (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_433] Hurricane of Horrors (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 2-5.
 			// --------------------------------------------------------
@@ -1585,8 +1586,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_434] Curious Crustacean (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_434] Curious Crustacean (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 2-6.
 			// --------------------------------------------------------
@@ -1598,8 +1599,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_435] Shocking Spells (*) - COST:7 
-			// - Set: boomsday, 
+			// [BOTA_435] Shocking Spells (*) - COST:7
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 2-7.
 			// --------------------------------------------------------
@@ -1611,8 +1612,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_437] Tiny Terrors (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_437] Tiny Terrors (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 3-1.
 			// --------------------------------------------------------
@@ -1624,8 +1625,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_438] Defiling Demons (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_438] Defiling Demons (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 3-2.
 			// --------------------------------------------------------
@@ -1637,8 +1638,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_439] A Warrior's Weapons (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_439] A Warrior's Weapons (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 3-3.
 			// --------------------------------------------------------
@@ -1650,8 +1651,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_440] Poultry Provoked (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_440] Poultry Provoked (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 3-4.
 			// --------------------------------------------------------
@@ -1663,8 +1664,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_441] Bot Battle (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_441] Bot Battle (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 3-5.
 			// --------------------------------------------------------
@@ -1676,8 +1677,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_444] Airborne Assault (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_444] Airborne Assault (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 4-1.
 			// --------------------------------------------------------
@@ -1689,8 +1690,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_445] Dog Days (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_445] Dog Days (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 4-2.
 			// --------------------------------------------------------
@@ -1702,8 +1703,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_446] Grumble's Rumble (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_446] Grumble's Rumble (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 4-3.
 			// --------------------------------------------------------
@@ -1715,8 +1716,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_447] Toxic Treants (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_447] Toxic Treants (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 4-4.
 			// --------------------------------------------------------
@@ -1728,8 +1729,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_448] A Dance with Death (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_448] A Dance with Death (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle 4-5.
 			// --------------------------------------------------------
@@ -1741,8 +1742,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_450] A Storm of Souls (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_450] A Storm of Souls (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle B-1.
 			// --------------------------------------------------------
@@ -1754,8 +1755,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_451] Plugging Away (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_451] Plugging Away (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle B-2.
 			// --------------------------------------------------------
@@ -1767,8 +1768,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_452] Warlock's Apprentice (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_452] Warlock's Apprentice (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle B-3.
 			// --------------------------------------------------------
@@ -1780,8 +1781,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_453] The Test (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_453] The Test (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Board Clear Puzzle B-4.
 			// --------------------------------------------------------
@@ -1793,8 +1794,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_500] First Steps (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_500] First Steps (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 1-1.
 			// --------------------------------------------------------
@@ -1806,8 +1807,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_501] Smoldering Shield (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_501] Smoldering Shield (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 1-2.
 			// --------------------------------------------------------
@@ -1819,8 +1820,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_502] In a Flash (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_502] In a Flash (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 1-3.
 			// --------------------------------------------------------
@@ -1832,8 +1833,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_503] Adorable Sacrifice (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_503] Adorable Sacrifice (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 1-4.
 			// --------------------------------------------------------
@@ -1845,8 +1846,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_504] Pursuit of Knowledge (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_504] Pursuit of Knowledge (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 1-5.
 			// --------------------------------------------------------
@@ -1858,8 +1859,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_505] Brazed Pork (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_505] Brazed Pork (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 1-6.
 			// --------------------------------------------------------
@@ -1871,8 +1872,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_506] Shields Up! (*) - COST:7 
-			// - Set: boomsday, 
+			// [BOTA_506] Shields Up! (*) - COST:7
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 1-7.
 			// --------------------------------------------------------
@@ -1884,8 +1885,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_507] Three Odd Yetis (*) - COST:8 
-			// - Set: boomsday, 
+			// [BOTA_507] Three Odd Yetis (*) - COST:8
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 1-8.
 			// --------------------------------------------------------
@@ -1897,8 +1898,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_509] Loss and Gain (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_509] Loss and Gain (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 2-1.
 			// --------------------------------------------------------
@@ -1910,8 +1911,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_510] Explosive Assault (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_510] Explosive Assault (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 2-2.
 			// --------------------------------------------------------
@@ -1923,8 +1924,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_511] Dragonslayer (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_511] Dragonslayer (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 2-3.
 			// --------------------------------------------------------
@@ -1936,8 +1937,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_512] Nature's Wispers (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_512] Nature's Wispers (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 2-4.
 			// --------------------------------------------------------
@@ -1949,8 +1950,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_513] Burning Volley (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_513] Burning Volley (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 2-5.
 			// --------------------------------------------------------
@@ -1962,8 +1963,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_514] Divine Alignment (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_514] Divine Alignment (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 2-6.
 			// --------------------------------------------------------
@@ -1975,8 +1976,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_515] Aha! (*) - COST:7 
-			// - Set: boomsday, 
+			// [BOTA_515] Aha! (*) - COST:7
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 2-7.
 			// --------------------------------------------------------
@@ -1988,8 +1989,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_516] Cruel Souls (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_516] Cruel Souls (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle B-1.
 			// --------------------------------------------------------
@@ -2001,8 +2002,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_517] Ride the Wave (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_517] Ride the Wave (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle B-2.
 			// --------------------------------------------------------
@@ -2014,8 +2015,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_518] Hello Darkness (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_518] Hello Darkness (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle B-3.
 			// --------------------------------------------------------
@@ -2027,8 +2028,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_519] The Ray of Roasting (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_519] The Ray of Roasting (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle B-4.
 			// --------------------------------------------------------
@@ -2040,8 +2041,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_520] The Ol' Switcheroo (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_520] The Ol' Switcheroo (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 3-1.
 			// --------------------------------------------------------
@@ -2053,8 +2054,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_521] It's in the Stars (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_521] It's in the Stars (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 3-2.
 			// --------------------------------------------------------
@@ -2066,8 +2067,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_522] Nether Side Up (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_522] Nether Side Up (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 3-3.
 			// --------------------------------------------------------
@@ -2079,8 +2080,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_524] A Quest for Three (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_524] A Quest for Three (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 3-5.
 			// --------------------------------------------------------
@@ -2092,8 +2093,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_525] Chilling Winds (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_525] Chilling Winds (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 3-6.
 			// --------------------------------------------------------
@@ -2105,8 +2106,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_526] Filthy Rodent (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_526] Filthy Rodent (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 3-4.
 			// --------------------------------------------------------
@@ -2118,8 +2119,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_529] Noble Sacrifices (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_529] Noble Sacrifices (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 4-1.
 			// --------------------------------------------------------
@@ -2131,8 +2132,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_530] Shrinking Solutions (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_530] Shrinking Solutions (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 4-2.
 			// --------------------------------------------------------
@@ -2144,8 +2145,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_531] Perfect Patrons (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_531] Perfect Patrons (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 4-3.
 			// --------------------------------------------------------
@@ -2157,8 +2158,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_532] Deathwing Dilemma (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_532] Deathwing Dilemma (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 4-4.
 			// --------------------------------------------------------
@@ -2170,8 +2171,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_533] Infestation! (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_533] Infestation! (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Mirror Puzzle 4-5.
 			// --------------------------------------------------------
@@ -2183,8 +2184,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_611] Don't Panic (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_611] Don't Panic (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 1-1.
 			// --------------------------------------------------------
@@ -2196,8 +2197,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_612] A Gentle Touch (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_612] A Gentle Touch (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 1-2.
 			// --------------------------------------------------------
@@ -2209,8 +2210,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_613] Cleansing Corruption (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_613] Cleansing Corruption (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 1-3.
 			// --------------------------------------------------------
@@ -2222,8 +2223,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_614] A Dire Situation (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_614] A Dire Situation (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 1-4.
 			// --------------------------------------------------------
@@ -2235,8 +2236,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_615] Double Dip (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_615] Double Dip (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 1-5.
 			// --------------------------------------------------------
@@ -2248,8 +2249,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_616] A Priest's Feast (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_616] A Priest's Feast (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 1-6.
 			// --------------------------------------------------------
@@ -2261,8 +2262,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_617] Splash! (*) - COST:7 
-			// - Set: boomsday, 
+			// [BOTA_617] Splash! (*) - COST:7
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 1-7.
 			// --------------------------------------------------------
@@ -2274,8 +2275,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_621] Up for Auction (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_621] Up for Auction (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 2-1.
 			// --------------------------------------------------------
@@ -2287,8 +2288,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_622] Sowing Seeds (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_622] Sowing Seeds (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 2-2.
 			// --------------------------------------------------------
@@ -2300,8 +2301,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_623] Mechanical Medic (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_623] Mechanical Medic (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 2-3.
 			// --------------------------------------------------------
@@ -2313,8 +2314,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_624] Lifesteel (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_624] Lifesteel (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 2-4.
 			// --------------------------------------------------------
@@ -2326,8 +2327,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_625] Double Trouble (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_625] Double Trouble (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 2-5.
 			// --------------------------------------------------------
@@ -2339,8 +2340,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_626] Revived and Refreshed (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_626] Revived and Refreshed (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 2-6.
 			// --------------------------------------------------------
@@ -2352,8 +2353,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_631] That's the Spirit (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_631] That's the Spirit (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 3-1.
 			// --------------------------------------------------------
@@ -2365,8 +2366,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_632] Underhanded Dealing (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_632] Underhanded Dealing (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 3-2.
 			// --------------------------------------------------------
@@ -2378,8 +2379,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_633] Pesky Priest (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_633] Pesky Priest (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 3-3.
 			// --------------------------------------------------------
@@ -2391,8 +2392,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_634] Hallazeal? Hallaheal (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_634] Hallazeal? Hallaheal (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 3-4.
 			// --------------------------------------------------------
@@ -2404,8 +2405,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_635] Primal Investment (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_635] Primal Investment (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 3-5.
 			// --------------------------------------------------------
@@ -2417,8 +2418,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_636] Healing Hands (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_636] Healing Hands (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 3-6.
 			// --------------------------------------------------------
@@ -2430,8 +2431,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_641] Just Jaraxxus (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_641] Just Jaraxxus (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 4-1.
 			// --------------------------------------------------------
@@ -2443,8 +2444,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_642] Strike Me Down (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_642] Strike Me Down (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 4-2.
 			// --------------------------------------------------------
@@ -2456,8 +2457,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_643] For Me? (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_643] For Me? (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 4-3.
 			// --------------------------------------------------------
@@ -2469,8 +2470,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_644] Risky Research (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_644] Risky Research (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 4-4.
 			// --------------------------------------------------------
@@ -2482,8 +2483,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_645] Tempting Demons (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_645] Tempting Demons (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 4-5.
 			// --------------------------------------------------------
@@ -2495,8 +2496,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_649] Mal'Ganis and Me (*) - COST:1 
-			// - Set: boomsday, 
+			// [BOTA_649] Mal'Ganis and Me (*) - COST:1
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle B-1.
 			// --------------------------------------------------------
@@ -2508,8 +2509,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_650] Sharing is Caring (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOTA_650] Sharing is Caring (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle B-2.
 			// --------------------------------------------------------
@@ -2521,8 +2522,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_651] The Path to Victory (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOTA_651] The Path to Victory (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle B-3.
 			// --------------------------------------------------------
@@ -2534,8 +2535,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_652] Doomed! (*) - COST:4 
-			// - Set: boomsday, 
+			// [BOTA_652] Doomed! (*) - COST:4
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle B-4.
 			// --------------------------------------------------------
@@ -2547,8 +2548,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_653] Copycats (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOTA_653] Copycats (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle B-5.
 			// --------------------------------------------------------
@@ -2560,8 +2561,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_654] Fungal Frugality (*) - COST:6 
-			// - Set: boomsday, 
+			// [BOTA_654] Fungal Frugality (*) - COST:6
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle B-6.
 			// --------------------------------------------------------
@@ -2573,8 +2574,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_655] Visions of Vitality (*) - COST:8 
-			// - Set: boomsday, 
+			// [BOTA_655] Visions of Vitality (*) - COST:8
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Start Survival Puzzle 1-8.
 			// --------------------------------------------------------
@@ -2586,8 +2587,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_700] Mirror (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_700] Mirror (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Match the boss's
 			//       side of the
@@ -2605,8 +2606,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_701] Survival (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_701] Survival (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Survive the boss's
 			//       Hero Power.
@@ -2624,8 +2625,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_702] Lethal (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_702] Lethal (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Destroy the enemy hero.
 			// --------------------------------------------------------
@@ -2641,8 +2642,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOTA_706] Board Clear (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOTA_706] Board Clear (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Clear the battlefield
 			//       of all minions!
@@ -2660,7 +2661,7 @@ namespace SabberStoneCore.CardSets.Adventure
 
 		}
 
-		public static void AddAll(IDictionary<string, CardDef> cards)
+		public static void AddAll(Dictionary<string, CardDef> cards)
 		{
 			Heroes(cards);
 			HeroPowers(cards);

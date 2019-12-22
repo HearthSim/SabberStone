@@ -20,8 +20,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void HeroPowers(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------- HERO_POWER - DRUID
-			// [ULD_131p] Ossirian Tear (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_131p] Ossirian Tear (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Passive Hero Power</b>
 			//       Your <b>Choose One</b> cards have both effects combined.
@@ -37,8 +37,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- HERO_POWER - WARLOCK
-			// [ULD_140p] Tome of Origination (*) - COST:2 
-			// - Set: uldum, 
+			// [ULD_140p] Tome of Origination (*) - COST:2
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Draw a card.
@@ -52,8 +52,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ HERO_POWER - HUNTER
-			// [ULD_155p] Ramkahen Roar (*) - COST:2 
-			// - Set: uldum, 
+			// [ULD_155p] Ramkahen Roar (*) - COST:2
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Give your minions +2_Attack.
@@ -66,8 +66,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ HERO_POWER - SHAMAN
-			// [ULD_291p] Heart of Vir'naal (*) - COST:2 
-			// - Set: uldum, 
+			// [ULD_291p] Heart of Vir'naal (*) - COST:2
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Your <b>Battlecries</b> trigger twice this turn.
@@ -84,8 +84,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------- HERO_POWER - ROGUE
-			// [ULD_326p] Ancient Blades (*) - COST:2 
-			// - Set: uldum, 
+			// [ULD_326p] Ancient Blades (*) - COST:2
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: [x]<b>Hero Power</b>
 			//       Equip a 3/2 Blade with
@@ -102,8 +102,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- HERO_POWER - PALADIN
-			// [ULD_431p] Emperor Wraps (*) - COST:2 
-			// - Set: uldum, 
+			// [ULD_431p] Emperor Wraps (*) - COST:2
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: [x]<b>Hero Power</b>
 			//       Summon a 2/2 copy
@@ -115,7 +115,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_431p", new CardDef(new Power
+			cards.Add("ULD_431p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [ULD_431p] Emperor Wraps && Test: Emperor Wraps_ULD_431p
 				//PowerTask = null,
@@ -123,8 +123,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// -------------------------------------- HERO_POWER - MAGE
-			// [ULD_433p] Ascendant Scroll (*) - COST:2 
-			// - Set: uldum, 
+			// [ULD_433p] Ascendant Scroll (*) - COST:2
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Add a random Mage
@@ -134,7 +134,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_HAND_NOT_FULL = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_433p", new CardDef(new Power
+			cards.Add("ULD_433p", new CardDef(new[] {PlayReq.REQ_HAND_NOT_FULL}, new Power
 			{
 				// TODO [ULD_433p] Ascendant Scroll && Test: Ascendant Scroll_ULD_433p
 				//PowerTask = null,
@@ -142,8 +142,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- HERO_POWER - WARRIOR
-			// [ULD_711p3] Anraphet's Core (*) - COST:2 
-			// - Set: uldum, 
+			// [ULD_711p3] Anraphet's Core (*) - COST:2
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: [x]<b>Hero Power</b>
 			//       Summon a 4/3 Golem.
@@ -153,7 +153,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_711p3", new CardDef(new Power
+			cards.Add("ULD_711p3", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [ULD_711p3] Anraphet's Core && Test: Anraphet's Core_ULD_711p3
 				//PowerTask = null,
@@ -161,8 +161,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ HERO_POWER - PRIEST
-			// [ULD_724p] Obelisk's Eye (*) - COST:2 
-			// - Set: uldum, 
+			// [ULD_724p] Obelisk's Eye (*) - COST:2
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Restore #3 Health.
@@ -171,7 +171,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_724p", new CardDef(new Power
+			cards.Add("ULD_724p", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				// TODO [ULD_724p] Obelisk's Eye && Test: Obelisk's Eye_ULD_724p
 				//PowerTask = null,
@@ -183,7 +183,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Druid(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [ULD_133] Crystal Merchant - COST:2 [ATK:1/HP:4] 
+			// [ULD_133] Crystal Merchant - COST:2 [ATK:1/HP:4]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: If you have any unspent Mana at the end of your turn, draw a card.
@@ -196,7 +196,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [ULD_137] Garden Gnome - COST:4 [ATK:2/HP:3] 
+			// [ULD_137] Garden Gnome - COST:4 [ATK:2/HP:3]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> If you're holding
@@ -214,7 +214,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [ULD_138] Anubisath Defender - COST:5 [ATK:3/HP:5] 
+			// [ULD_138] Anubisath Defender - COST:5 [ATK:3/HP:5]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>. Costs (0) if you've cast a spell that costs (5) or more this turn.
@@ -230,7 +230,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [ULD_139] Elise the Enlightened - COST:5 [ATK:5/HP:5] 
+			// [ULD_139] Elise the Enlightened - COST:5 [ATK:5/HP:5]
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If your deck has no duplicates, duplicate your hand.
@@ -247,7 +247,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [ULD_292] Oasis Surger - COST:5 [ATK:3/HP:3] 
+			// [ULD_292] Oasis Surger - COST:5 [ATK:3/HP:3]
 			// - Race: elemental, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -266,7 +266,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [ULD_131] Untapped Potential - COST:1 
+			// [ULD_131] Untapped Potential - COST:1
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Quest:</b> End 4 turns
@@ -289,7 +289,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [ULD_134] BEEEES!!! - COST:3 [ATK:1/HP:4] 
+			// [ULD_134] BEEEES!!! - COST:3 [ATK:1/HP:4]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]Choose a minion.
@@ -301,7 +301,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_134", new CardDef(new Power
+			cards.Add("ULD_134", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [ULD_134] BEEEES!!! && Test: BEEEES!!!_ULD_134
 				//PowerTask = null,
@@ -309,7 +309,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [ULD_135] Hidden Oasis - COST:6 
+			// [ULD_135] Hidden Oasis - COST:6
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Choose One</b> - Summon a 6/6 Ancient with <b>Taunt</b>; or Restore #12 Health.
@@ -323,7 +323,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_135", new CardDef(new Power
+			cards.Add("ULD_135", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				// TODO [ULD_135] Hidden Oasis && Test: Hidden Oasis_ULD_135
 				//PowerTask = null,
@@ -331,7 +331,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [ULD_136] Worthy Expedition - COST:1 
+			// [ULD_136] Worthy Expedition - COST:1
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a <b>Choose One</b> card.
@@ -348,7 +348,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [ULD_273] Overflow - COST:7 
+			// [ULD_273] Overflow - COST:7
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Restore #5 Health
@@ -367,8 +367,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void DruidNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [ULD_288e] Buried (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_288e] Buried (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Anka, the Buried made this 1/1.
 			// --------------------------------------------------------
@@ -379,8 +379,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [ULD_292ae] Focused (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_292ae] Focused (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -391,8 +391,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [ULD_134t] Bee (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: beast, Set: uldum, 
+			// [ULD_134t] Bee (*) - COST:1 [ATK:1/HP:1]
+			// - Race: beast, Set: uldum,
 			// --------------------------------------------------------
 			cards.Add("ULD_134t", new CardDef(new Power
 			{
@@ -402,8 +402,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [ULD_135at] Vir'naal Ancient (*) - COST:6 [ATK:6/HP:6] 
-			// - Set: uldum, 
+			// [ULD_135at] Vir'naal Ancient (*) - COST:6 [ATK:6/HP:6]
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -418,8 +418,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [ULD_137t] Treant (*) - COST:2 [ATK:2/HP:2] 
-			// - Set: uldum, 
+			// [ULD_137t] Treant (*) - COST:2 [ATK:2/HP:2]
+			// - Set: uldum,
 			// --------------------------------------------------------
 			cards.Add("ULD_137t", new CardDef(new Power
 			{
@@ -429,8 +429,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [ULD_135a] Befriend the Ancient (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_135a] Befriend the Ancient (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Summon a 6/6 Ancient with <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -440,7 +440,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_135a", new CardDef(new Power
+			cards.Add("ULD_135a", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [ULD_135a] Befriend the Ancient && Test: Befriend the Ancient_ULD_135a
 				//PowerTask = null,
@@ -448,15 +448,15 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [ULD_135b] Drink the Water (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_135b] Drink the Water (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Restore #12 Health.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_135b", new CardDef(new Power
+			cards.Add("ULD_135b", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				// TODO [ULD_135b] Drink the Water && Test: Drink the Water_ULD_135b
 				//PowerTask = null,
@@ -464,8 +464,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [ULD_292a] Focused Burst (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_292a] Focused Burst (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Gain +2/+2.
 			// --------------------------------------------------------
@@ -478,15 +478,15 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [ULD_292b] Divide and Conquer (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_292b] Divide and Conquer (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Summon a copy of this_minion.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 2
 			// --------------------------------------------------------
-			cards.Add("ULD_292b", new CardDef(new Power
+			cards.Add("ULD_292b", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [ULD_292b] Divide and Conquer && Test: Divide and Conquer_ULD_292b
 				//PowerTask = null,
@@ -498,7 +498,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Hunter(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
-			// [ULD_151] Ramkahen Wildtamer - COST:3 [ATK:4/HP:3] 
+			// [ULD_151] Ramkahen Wildtamer - COST:3 [ATK:4/HP:3]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Copy a random Beast in your hand.
@@ -514,7 +514,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [ULD_154] Hyena Alpha - COST:4 [ATK:3/HP:3] 
+			// [ULD_154] Hyena Alpha - COST:4 [ATK:3/HP:3]
 			// - Race: beast, Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> If you control
@@ -535,7 +535,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [ULD_156] Dinotamer Brann - COST:7 [ATK:2/HP:4] 
+			// [ULD_156] Dinotamer Brann - COST:7 [ATK:2/HP:4]
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If your deck has no duplicates, summon King Krush.
@@ -552,7 +552,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [ULD_212] Wild Bloodstinger - COST:6 [ATK:6/HP:9] 
+			// [ULD_212] Wild Bloodstinger - COST:6 [ATK:6/HP:9]
 			// - Race: beast, Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a minion from your opponent's hand. Attack it.
@@ -568,7 +568,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [ULD_410] Scarlet Webweaver - COST:6 [ATK:5/HP:5] 
+			// [ULD_410] Scarlet Webweaver - COST:6 [ATK:5/HP:5]
 			// - Race: beast, Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Reduce the Cost of a random Beast in your_hand by (5).
@@ -585,7 +585,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [ULD_152] Pressure Plate - COST:2 
+			// [ULD_152] Pressure Plate - COST:2
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> After your opponent casts a spell, destroy a random enemy_minion.
@@ -601,7 +601,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [ULD_155] Unseal the Vault - COST:1 
+			// [ULD_155] Unseal the Vault - COST:1
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Quest:</b> Summon 20_minions.
@@ -624,7 +624,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [ULD_429] Hunter's Pack - COST:3 
+			// [ULD_429] Hunter's Pack - COST:3
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: Add a random Hunter Beast, <b>Secret</b>, and weapon to your_hand.
@@ -640,7 +640,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [ULD_713] Swarm of Locusts - COST:6 
+			// [ULD_713] Swarm of Locusts - COST:6
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon seven 1/1 Locusts with <b>Rush</b>.
@@ -651,7 +651,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_713", new CardDef(new Power
+			cards.Add("ULD_713", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO [ULD_713] Swarm of Locusts && Test: Swarm of Locusts_ULD_713
 				//PowerTask = null,
@@ -659,7 +659,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- WEAPON - HUNTER
-			// [ULD_430] Desert Spear - COST:3 [ATK:1/HP:0] 
+			// [ULD_430] Desert Spear - COST:3 [ATK:1/HP:0]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: After your hero attacks, summon a 1/1 Locust with <b>Rush</b>.
@@ -682,8 +682,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [ULD_155e] Roar! (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_155e] Roar! (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
@@ -694,8 +694,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [ULD_410e] Weaved (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_410e] Weaved (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Costs (5) less.
 			// --------------------------------------------------------
@@ -706,8 +706,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [ULD_154t] Hyena (*) - COST:2 [ATK:2/HP:2] 
-			// - Race: beast, Set: uldum, 
+			// [ULD_154t] Hyena (*) - COST:2 [ATK:2/HP:2]
+			// - Race: beast, Set: uldum,
 			// --------------------------------------------------------
 			cards.Add("ULD_154t", new CardDef(new Power
 			{
@@ -717,8 +717,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [ULD_156t] Duke (*) - COST:5 [ATK:5/HP:5] 
-			// - Race: beast, Set: uldum, 
+			// [ULD_156t] Duke (*) - COST:5 [ATK:5/HP:5]
+			// - Race: beast, Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			// --------------------------------------------------------
@@ -733,8 +733,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [ULD_156t2] Duchess (*) - COST:5 [ATK:5/HP:5] 
-			// - Race: beast, Set: uldum, 
+			// [ULD_156t2] Duchess (*) - COST:5 [ATK:5/HP:5]
+			// - Race: beast, Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			// --------------------------------------------------------
@@ -749,7 +749,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [ULD_156t3] King Krush (*) - COST:9 [ATK:8/HP:8] 
+			// [ULD_156t3] King Krush (*) - COST:9 [ATK:8/HP:8]
 			// - Race: beast, Fac: neutral, Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Charge</b>
@@ -770,7 +770,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Mage(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
-			// [ULD_236] Tortollan Pilgrim - COST:8 [ATK:5/HP:5] 
+			// [ULD_236] Tortollan Pilgrim - COST:8 [ATK:5/HP:5]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry</b>: <b>Discover</b> a copy of
@@ -790,7 +790,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [ULD_238] Reno the Relicologist - COST:6 [ATK:4/HP:6] 
+			// [ULD_238] Reno the Relicologist - COST:6 [ATK:4/HP:6]
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If your deck has no duplicates, deal 10 damage randomly split among all enemy minions.
@@ -807,7 +807,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [ULD_240] Arcane Flakmage - COST:2 [ATK:3/HP:2] 
+			// [ULD_240] Arcane Flakmage - COST:2 [ATK:3/HP:2]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: After you play a <b>Secret</b>, deal 2 damage to all enemy minions.
@@ -823,7 +823,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [ULD_293] Cloud Prince - COST:5 [ATK:4/HP:4] 
+			// [ULD_293] Cloud Prince - COST:5 [ATK:4/HP:4]
 			// - Race: elemental, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you control a <b>Secret</b>, deal 6 damage.
@@ -837,7 +837,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_293", new CardDef(new Power
+			cards.Add("ULD_293", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS}, new Power
 			{
 				// TODO [ULD_293] Cloud Prince && Test: Cloud Prince_ULD_293
 				//PowerTask = null,
@@ -845,7 +845,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [ULD_329] Dune Sculptor - COST:3 [ATK:3/HP:3] 
+			// [ULD_329] Dune Sculptor - COST:3 [ATK:3/HP:3]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]After you cast a spell,
@@ -860,7 +860,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [ULD_435] Naga Sand Witch - COST:5 [ATK:5/HP:5] 
+			// [ULD_435] Naga Sand Witch - COST:5 [ATK:5/HP:5]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Change the Cost
@@ -878,7 +878,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [ULD_216] Puzzle Box of Yogg-Saron - COST:10 
+			// [ULD_216] Puzzle Box of Yogg-Saron - COST:10
 			// - Fac: neutral, Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Cast 10 random spells <i>(targets chosen randomly).</i>
@@ -891,7 +891,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [ULD_239] Flame Ward - COST:3 
+			// [ULD_239] Flame Ward - COST:3
 			// - Fac: neutral, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> After a minion attacks your hero, deal $3 damage to all enemy minions. @spelldmg
@@ -907,7 +907,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [ULD_433] Raid the Sky Temple - COST:1 
+			// [ULD_433] Raid the Sky Temple - COST:1
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Quest:</b> Cast 10 spells.
@@ -930,7 +930,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [ULD_726] Ancient Mysteries - COST:2 
+			// [ULD_726] Ancient Mysteries - COST:2
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: Draw a <b>Secret</b> from your deck. It costs (0).
@@ -951,8 +951,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void MageNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------- ENCHANTMENT - MAGE
-			// [ULD_435e] Sandwitched (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_435e] Sandwitched (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Costs (5).
 			// --------------------------------------------------------
@@ -963,8 +963,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------- ENCHANTMENT - MAGE
-			// [ULD_726e] Translated (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_726e] Translated (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Costs (0).
 			// --------------------------------------------------------
@@ -979,7 +979,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Paladin(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
-			// [ULD_145] Brazen Zealot - COST:1 [ATK:2/HP:1] 
+			// [ULD_145] Brazen Zealot - COST:1 [ATK:2/HP:1]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you summon a minion, gain +1 Attack.
@@ -993,7 +993,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2] 
+			// [ULD_207] Ancestral Guardian - COST:4 [ATK:4/HP:2]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
@@ -1011,7 +1011,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [ULD_217] Micro Mummy - COST:2 [ATK:1/HP:2] 
+			// [ULD_217] Micro Mummy - COST:2 [ATK:1/HP:2]
 			// - Race: mechanical, Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Reborn</b>
@@ -1031,7 +1031,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [ULD_438] Salhet's Pride - COST:3 [ATK:3/HP:1] 
+			// [ULD_438] Salhet's Pride - COST:3 [ATK:3/HP:1]
 			// - Race: beast, Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Draw two
@@ -1048,7 +1048,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [ULD_439] Sandwasp Queen - COST:2 [ATK:3/HP:1] 
+			// [ULD_439] Sandwasp Queen - COST:2 [ATK:3/HP:1]
 			// - Race: beast, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Add two 2/1 Sandwasps to your hand.
@@ -1064,7 +1064,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [ULD_500] Sir Finley of the Sands - COST:2 [ATK:2/HP:3] 
+			// [ULD_500] Sir Finley of the Sands - COST:2 [ATK:2/HP:3]
 			// - Race: murloc, Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> If your deck has
@@ -1087,7 +1087,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [ULD_143] Pharaoh's Blessing - COST:6 
+			// [ULD_143] Pharaoh's Blessing - COST:6
 			// - Fac: neutral, Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Give a minion +4/+4, <b>Divine Shield</b>, and <b>Taunt</b>.
@@ -1100,7 +1100,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TAUNT = 1
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_143", new CardDef(new Power
+			cards.Add("ULD_143", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [ULD_143] Pharaoh's Blessing && Test: Pharaoh's Blessing_ULD_143
 				InfoCardId = "ULD_143e",
@@ -1109,7 +1109,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [ULD_431] Making Mummies - COST:1 
+			// [ULD_431] Making Mummies - COST:1
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Quest:</b> Play 5 <b>Reborn</b>
@@ -1136,7 +1136,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [ULD_716] Tip the Scales - COST:8 
+			// [ULD_716] Tip the Scales - COST:8
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Summon 7 Murlocs from your deck.
@@ -1144,7 +1144,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_716", new CardDef(new Power
+			cards.Add("ULD_716", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [ULD_716] Tip the Scales && Test: Tip the Scales_ULD_716
 				InfoCardId = "ULD_716e2",
@@ -1153,7 +1153,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [ULD_728] Subdue - COST:2 
+			// [ULD_728] Subdue - COST:2
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: Set a minion's Attack and Health to 1.
@@ -1162,7 +1162,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_728", new CardDef(new Power
+			cards.Add("ULD_728", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [ULD_728] Subdue && Test: Subdue_ULD_728
 				InfoCardId = "ULD_728e",
@@ -1175,8 +1175,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void PaladinNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [ULD_143e] Pharaoh's Blessing (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_143e] Pharaoh's Blessing (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: +4/+4, <b>Divine Shield</b>, and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -1187,8 +1187,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [ULD_145e] Zeal (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_145e] Zeal (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -1199,8 +1199,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [ULD_431e] Emperor Wrapped (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_431e] Emperor Wrapped (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: 2/2.
 			// --------------------------------------------------------
@@ -1211,8 +1211,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [ULD_716e2] Watched (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_716e2] Watched (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Stats changed to 3/3.
 			// --------------------------------------------------------
@@ -1223,8 +1223,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [ULD_439t] Sandwasp (*) - COST:1 [ATK:2/HP:1] 
-			// - Race: beast, Set: uldum, 
+			// [ULD_439t] Sandwasp (*) - COST:1 [ATK:2/HP:1]
+			// - Race: beast, Set: uldum,
 			// --------------------------------------------------------
 			cards.Add("ULD_439t", new CardDef(new Power
 			{
@@ -1238,7 +1238,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Priest(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
-			// [ULD_262] High Priest Amet - COST:4 [ATK:2/HP:7] 
+			// [ULD_262] High Priest Amet - COST:4 [ATK:2/HP:7]
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]Whenever you summon a
@@ -1257,7 +1257,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [ULD_266] Grandmummy - COST:2 [ATK:1/HP:2] 
+			// [ULD_266] Grandmummy - COST:2 [ATK:1/HP:2]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Reborn</b>
@@ -1277,7 +1277,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [ULD_268] Psychopomp - COST:4 [ATK:3/HP:1] 
+			// [ULD_268] Psychopomp - COST:4 [ATK:3/HP:1]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Summon a
@@ -1299,7 +1299,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [ULD_269] Wretched Reclaimer - COST:3 [ATK:3/HP:3] 
+			// [ULD_269] Wretched Reclaimer - COST:3 [ATK:3/HP:3]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Destroy a friendly
@@ -1314,7 +1314,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_269", new CardDef(new Power
+			cards.Add("ULD_269", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
 			{
 				// TODO [ULD_269] Wretched Reclaimer && Test: Wretched Reclaimer_ULD_269
 				//PowerTask = null,
@@ -1322,7 +1322,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [ULD_270] Sandhoof Waterbearer - COST:5 [ATK:5/HP:5] 
+			// [ULD_270] Sandhoof Waterbearer - COST:5 [ATK:5/HP:5]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: At the end of your turn, restore #5 Health to a damaged friendly character.
@@ -1335,7 +1335,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [ULD_265] Embalming Ritual - COST:1 
+			// [ULD_265] Embalming Ritual - COST:1
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give a minion <b>Reborn</b>.
@@ -1347,7 +1347,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - REBORN = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_265", new CardDef(new Power
+			cards.Add("ULD_265", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [ULD_265] Embalming Ritual && Test: Embalming Ritual_ULD_265
 				//PowerTask = null,
@@ -1355,7 +1355,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [ULD_272] Holy Ripple - COST:2 
+			// [ULD_272] Holy Ripple - COST:2
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to all enemies. Restore #1_Health to all friendly characters. @spelldmg
@@ -1368,7 +1368,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [ULD_714] Penance - COST:2 
+			// [ULD_714] Penance - COST:2
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
@@ -1381,7 +1381,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_714", new CardDef(new Power
+			cards.Add("ULD_714", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [ULD_714] Penance && Test: Penance_ULD_714
 				//PowerTask = null,
@@ -1389,7 +1389,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [ULD_718] Plague of Death - COST:9 
+			// [ULD_718] Plague of Death - COST:9
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Silence</b> and destroy all_minions.
@@ -1405,7 +1405,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [ULD_724] Activate the Obelisk - COST:1 
+			// [ULD_724] Activate the Obelisk - COST:1
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Quest:</b> Restore 15_Health.
@@ -1432,8 +1432,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void PriestNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [ULD_262e] Amet's Blessing (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_262e] Amet's Blessing (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Health changed.
 			// --------------------------------------------------------
@@ -1444,8 +1444,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [ULD_266e] Grandmummy's Blessing (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_266e] Grandmummy's Blessing (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -1459,8 +1459,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [ULD_724e] Obelisk's Gaze (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_724e] Obelisk's Gaze (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -1475,7 +1475,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Rogue(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
-			// [ULD_186] Pharaoh Cat - COST:1 [ATK:1/HP:2] 
+			// [ULD_186] Pharaoh Cat - COST:1 [ATK:1/HP:2]
 			// - Race: beast, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Add a random <b>Reborn</b> minion to your_hand.
@@ -1494,7 +1494,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [ULD_231] Whirlkick Master - COST:2 [ATK:1/HP:2] 
+			// [ULD_231] Whirlkick Master - COST:2 [ATK:1/HP:2]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Whenever you play a <b>Combo</b> card, add a random <b>Combo</b> card to your hand.
@@ -1510,7 +1510,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [ULD_280] Sahket Sapper - COST:4 [ATK:4/HP:4] 
+			// [ULD_280] Sahket Sapper - COST:4 [ATK:4/HP:4]
 			// - Race: pirate, Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Return a _random enemy minion to_ your_opponent's_hand.
@@ -1526,7 +1526,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [ULD_288] Anka, the Buried - COST:5 [ATK:5/HP:5] 
+			// [ULD_288] Anka, the Buried - COST:5 [ATK:5/HP:5]
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Change each <b>Deathrattle</b> minion in your hand into a 1/1 that costs (1).
@@ -1547,7 +1547,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [ULD_327] Bazaar Mugger - COST:5 [ATK:3/HP:5] 
+			// [ULD_327] Bazaar Mugger - COST:5 [ATK:3/HP:5]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -1565,7 +1565,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [ULD_286] Shadow of Death - COST:4 
+			// [ULD_286] Shadow of Death - COST:4
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Choose a minion. Shuffle 3 'Shadows' into your deck that summon a copy when drawn.
@@ -1574,7 +1574,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_286", new CardDef(new Power
+			cards.Add("ULD_286", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [ULD_286] Shadow of Death && Test: Shadow of Death_ULD_286
 				//PowerTask = null,
@@ -1582,7 +1582,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [ULD_326] Bazaar Burglary - COST:1 
+			// [ULD_326] Bazaar Burglary - COST:1
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Quest:</b> Add 4 cards from
@@ -1605,7 +1605,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [ULD_328] Clever Disguise - COST:2 
+			// [ULD_328] Clever Disguise - COST:2
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: Add 2 random spells from another class to_your hand.
@@ -1618,7 +1618,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [ULD_715] Plague of Madness - COST:1 
+			// [ULD_715] Plague of Madness - COST:1
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Each player equips
@@ -1638,7 +1638,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- WEAPON - ROGUE
-			// [ULD_285] Hooked Scimitar - COST:3 [ATK:2/HP:0] 
+			// [ULD_285] Hooked Scimitar - COST:3 [ATK:2/HP:0]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Combo:</b> Gain +2 Attack.
@@ -1660,8 +1660,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void RogueNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [ULD_285e] Polished (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_285e] Polished (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
@@ -1672,8 +1672,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [ULD_286t] Shadow (*) - COST:4 
-			// - Set: uldum, 
+			// [ULD_286t] Shadow (*) - COST:4
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Casts When Drawn</b>
 			//       Summon a {0}.
@@ -1692,8 +1692,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- WEAPON - ROGUE
-			// [ULD_326t] Mirage Blade (*) - COST:2 [ATK:3/HP:0] 
-			// - Set: uldum, 
+			// [ULD_326t] Mirage Blade (*) - COST:2 [ATK:3/HP:0]
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Your hero is <b>Immune</b> while attacking.
 			// --------------------------------------------------------
@@ -1711,8 +1711,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- WEAPON - ROGUE
-			// [ULD_715t] Plagued Knife (*) - COST:1 [ATK:2/HP:0] 
-			// - Set: uldum, 
+			// [ULD_715t] Plagued Knife (*) - COST:1 [ATK:2/HP:0]
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
 			// --------------------------------------------------------
@@ -1732,7 +1732,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Shaman(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
-			// [ULD_158] Sandstorm Elemental - COST:2 [ATK:2/HP:2] 
+			// [ULD_158] Sandstorm Elemental - COST:2 [ATK:2/HP:2]
 			// - Race: elemental, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 1 damage to all enemy minions. <b>Overload:</b> (1)
@@ -1749,7 +1749,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [ULD_169] Mogu Fleshshaper - COST:7 [ATK:3/HP:4] 
+			// [ULD_169] Mogu Fleshshaper - COST:7 [ATK:3/HP:4]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Rush</b>. Costs (1) less for each
@@ -1766,7 +1766,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [ULD_170] Weaponized Wasp - COST:3 [ATK:3/HP:3] 
+			// [ULD_170] Weaponized Wasp - COST:3 [ATK:3/HP:3]
 			// - Race: beast, Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you control
@@ -1776,12 +1776,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
 			// PlayReq:
-			// - 88 = 0
+			// - REQ88 = 0
 			// --------------------------------------------------------
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_170", new CardDef(new Power
+			cards.Add("ULD_170", new CardDef(new[] {PlayReq.REQ88}, new Power
 			{
 				// TODO [ULD_170] Weaponized Wasp && Test: Weaponized Wasp_ULD_170
 				//PowerTask = null,
@@ -1789,7 +1789,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [ULD_173] Vessina - COST:4 [ATK:2/HP:6] 
+			// [ULD_173] Vessina - COST:4 [ATK:2/HP:6]
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: While you're <b>Overloaded</b>, your other minions have +2 Attack.
@@ -1810,7 +1810,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [ULD_276] EVIL Totem - COST:2 [ATK:0/HP:2] 
+			// [ULD_276] EVIL Totem - COST:2 [ATK:0/HP:2]
 			// - Race: totem, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: At the end of your turn,
@@ -1830,7 +1830,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [ULD_171] Totemic Surge - COST:0 
+			// [ULD_171] Totemic Surge - COST:0
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give your Totems +2_Attack.
@@ -1844,7 +1844,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [ULD_172] Plague of Murlocs - COST:3 
+			// [ULD_172] Plague of Murlocs - COST:3
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Transform all minions into random Murlocs.
@@ -1857,7 +1857,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [ULD_181] Earthquake - COST:7 
+			// [ULD_181] Earthquake - COST:7
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $5 damage to all minions, then deal $2 damage to all minions. @spelldmg
@@ -1870,7 +1870,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [ULD_291] Corrupt the Waters - COST:1 
+			// [ULD_291] Corrupt the Waters - COST:1
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Quest:</b> Play 6 <b>Battlecry</b>
@@ -1897,7 +1897,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- WEAPON - SHAMAN
-			// [ULD_413] Splitting Axe - COST:4 [ATK:3/HP:0] 
+			// [ULD_413] Splitting Axe - COST:4 [ATK:3/HP:0]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon copies of your Totems.
@@ -1918,23 +1918,23 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void ShamanNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - SHAMAN
-			// [ULD_171e] Big Surge (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_171e] Big Surge (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_171e", new CardDef(new Power
+			cards.Add("ULD_171e", new CardDef(new[] {PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				// TODO [ULD_171e] Big Surge && Test: Big Surge_ULD_171e
 				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("ULD_171e")
 			}));
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
-			// [ULD_173e] Vessina's Devotion (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_173e] Vessina's Devotion (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Vessina is granting this minion +2_Attack.
 			// --------------------------------------------------------
@@ -1945,8 +1945,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
-			// [ULD_433e] Cheat Sheet (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_433e] Cheat Sheet (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Costs (2) less.
 			// --------------------------------------------------------
@@ -1961,7 +1961,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Warlock(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
-			// [ULD_161] Neferset Thrasher - COST:3 [ATK:4/HP:5] 
+			// [ULD_161] Neferset Thrasher - COST:3 [ATK:4/HP:5]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever this attacks, deal 3 damage to your_hero.
@@ -1974,7 +1974,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [ULD_162] EVIL Recruiter - COST:3 [ATK:3/HP:3] 
+			// [ULD_162] EVIL Recruiter - COST:3 [ATK:3/HP:3]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy a friendly <b>Lackey</b> to summon a 5/5 Demon.
@@ -1987,12 +1987,12 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
-			// - 87 = 0
+			// - REQ87 = 0
 			// --------------------------------------------------------
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_162", new CardDef(new Power
+			cards.Add("ULD_162", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ87}, new Power
 			{
 				// TODO [ULD_162] EVIL Recruiter && Test: EVIL Recruiter_ULD_162
 				//PowerTask = null,
@@ -2000,7 +2000,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [ULD_163] Expired Merchant - COST:2 [ATK:2/HP:1] 
+			// [ULD_163] Expired Merchant - COST:2 [ATK:2/HP:1]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Discard your
@@ -2021,7 +2021,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [ULD_165] Riftcleaver - COST:6 [ATK:7/HP:5] 
+			// [ULD_165] Riftcleaver - COST:6 [ATK:7/HP:5]
 			// - Race: demon, Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy a minion. Your hero takes damage equal to its Health.
@@ -2033,7 +2033,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_165", new CardDef(new Power
+			cards.Add("ULD_165", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [ULD_165] Riftcleaver && Test: Riftcleaver_ULD_165
 				//PowerTask = null,
@@ -2041,7 +2041,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [ULD_167] Diseased Vulture - COST:4 [ATK:3/HP:5] 
+			// [ULD_167] Diseased Vulture - COST:4 [ATK:3/HP:5]
 			// - Race: beast, Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: After your hero takes damage on your turn, summon a random
@@ -2055,7 +2055,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [ULD_168] Dark Pharaoh Tekahn - COST:5 [ATK:4/HP:4] 
+			// [ULD_168] Dark Pharaoh Tekahn - COST:5 [ATK:4/HP:4]
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> For the rest of the game, your <b>Lackeys</b> are 4/4.
@@ -2076,7 +2076,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [ULD_140] Supreme Archaeology - COST:1 
+			// [ULD_140] Supreme Archaeology - COST:1
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Quest:</b> Draw 20 cards.
@@ -2099,7 +2099,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [ULD_160] Sinister Deal - COST:1 
+			// [ULD_160] Sinister Deal - COST:1
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a <b>Lackey</b>.
@@ -2120,7 +2120,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [ULD_324] Impbalming - COST:4 
+			// [ULD_324] Impbalming - COST:4
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Destroy a minion. Shuffle 3 Worthless Imps into your deck.
@@ -2129,7 +2129,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_324", new CardDef(new Power
+			cards.Add("ULD_324", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [ULD_324] Impbalming && Test: Impbalming_ULD_324
 				//PowerTask = null,
@@ -2137,7 +2137,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [ULD_717] Plague of Flames - COST:1 
+			// [ULD_717] Plague of Flames - COST:1
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]Destroy all your minions.
@@ -2156,8 +2156,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void WarlockNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [ULD_140e] Origination (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_140e] Origination (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Costs (0).
 			// --------------------------------------------------------
@@ -2168,8 +2168,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [ULD_163e] Expired Goods (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_163e] Expired Goods (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Discarded {0}.
 			// --------------------------------------------------------
@@ -2180,8 +2180,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [ULD_168e] Lackey Empowerment (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_168e] Lackey Empowerment (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Your <b>Lackeys</b> are 4/4.
 			// --------------------------------------------------------
@@ -2193,8 +2193,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [ULD_168e2] Lackey Empowerment (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_168e2] Lackey Empowerment (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Your <b>Lackeys</b> are 4/4.
 			// --------------------------------------------------------
@@ -2205,8 +2205,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [ULD_168e3] Lackey Empowerment (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_168e3] Lackey Empowerment (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: 4/4.
 			// --------------------------------------------------------
@@ -2220,8 +2220,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [ULD_162t] EVIL Demon (*) - COST:5 [ATK:5/HP:5] 
-			// - Race: demon, Set: uldum, 
+			// [ULD_162t] EVIL Demon (*) - COST:5 [ATK:5/HP:5]
+			// - Race: demon, Set: uldum,
 			// --------------------------------------------------------
 			cards.Add("ULD_162t", new CardDef(new Power
 			{
@@ -2231,8 +2231,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [ULD_324t] Worthless Imp (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: demon, Set: uldum, 
+			// [ULD_324t] Worthless Imp (*) - COST:1 [ATK:1/HP:1]
+			// - Race: demon, Set: uldum,
 			// --------------------------------------------------------
 			cards.Add("ULD_324t", new CardDef(new Power
 			{
@@ -2246,7 +2246,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Warrior(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
-			// [ULD_195] Frightened Flunky - COST:2 [ATK:2/HP:2] 
+			// [ULD_195] Frightened Flunky - COST:2 [ATK:2/HP:2]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2266,7 +2266,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [ULD_206] Restless Mummy - COST:4 [ATK:3/HP:2] 
+			// [ULD_206] Restless Mummy - COST:4 [ATK:3/HP:2]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -2284,7 +2284,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [ULD_253] Tomb Warden - COST:8 [ATK:3/HP:6] 
+			// [ULD_253] Tomb Warden - COST:8 [ATK:3/HP:6]
 			// - Race: mechanical, Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2302,7 +2302,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [ULD_258] Armagedillo - COST:6 [ATK:4/HP:7] 
+			// [ULD_258] Armagedillo - COST:6 [ATK:4/HP:7]
 			// - Race: beast, Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Taunt</b>
@@ -2323,7 +2323,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [ULD_709] Armored Goon - COST:6 [ATK:6/HP:7] 
+			// [ULD_709] Armored Goon - COST:6 [ATK:6/HP:7]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever your hero attacks, gain 5 Armor.
@@ -2336,7 +2336,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:3/HP:3] 
+			// [ULD_720] Bloodsworn Mercenary - COST:3 [ATK:3/HP:3]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry</b>: Choose a
@@ -2352,7 +2352,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_DAMAGED_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_720", new CardDef(new Power
+			cards.Add("ULD_720", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_DAMAGED_TARGET}, new Power
 			{
 				// TODO [ULD_720] Bloodsworn Mercenary && Test: Bloodsworn Mercenary_ULD_720
 				//PowerTask = null,
@@ -2360,7 +2360,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [ULD_256] Into the Fray - COST:1 
+			// [ULD_256] Into the Fray - COST:1
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Give all <b>Taunt</b> minions in your hand +2/+2.
@@ -2377,7 +2377,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [ULD_707] Plague of Wrath - COST:5 
+			// [ULD_707] Plague of Wrath - COST:5
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Destroy all damaged minions.
@@ -2393,7 +2393,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [ULD_711] Hack the System - COST:1 
+			// [ULD_711] Hack the System - COST:1
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Quest:</b> Attack 5 times
@@ -2416,7 +2416,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
-			// [ULD_708] Livewire Lance - COST:3 [ATK:2/HP:0] 
+			// [ULD_708] Livewire Lance - COST:3 [ATK:2/HP:0]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: After your Hero attacks, add a <b>Lackey</b> to your_hand.
@@ -2440,8 +2440,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void WarriorNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
-			// [ULD_711t] Stone Golem (*) - COST:3 [ATK:4/HP:3] 
-			// - Set: uldum, 
+			// [ULD_711t] Stone Golem (*) - COST:3 [ATK:4/HP:3]
+			// - Set: uldum,
 			// --------------------------------------------------------
 			cards.Add("ULD_711t", new CardDef(new Power
 			{
@@ -2455,7 +2455,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Neutral(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_003] Zephrys the Great - COST:2 [ATK:3/HP:2] 
+			// [ULD_003] Zephrys the Great - COST:2 [ATK:3/HP:2]
 			// - Race: elemental, Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If your deck has no duplicates, wish for the perfect card.
@@ -2472,7 +2472,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_157] Questing Explorer - COST:2 [ATK:2/HP:3] 
+			// [ULD_157] Questing Explorer - COST:2 [ATK:2/HP:3]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you control a <b>Quest</b>, draw a card.
@@ -2491,7 +2491,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_174] Serpent Egg - COST:2 [ATK:0/HP:3] 
+			// [ULD_174] Serpent Egg - COST:2 [ATK:0/HP:3]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a 3/4 Sea Serpent.
@@ -2507,7 +2507,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_177] Octosari - COST:8 [ATK:8/HP:8] 
+			// [ULD_177] Octosari - COST:8 [ATK:8/HP:8]
 			// - Race: beast, Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Draw 8 cards.
@@ -2524,7 +2524,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_178] Siamat - COST:7 [ATK:6/HP:6] 
+			// [ULD_178] Siamat - COST:7 [ATK:6/HP:6]
 			// - Race: elemental, Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Gain 2 of <b>Rush</b>,
@@ -2551,7 +2551,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_179] Phalanx Commander - COST:5 [ATK:4/HP:5] 
+			// [ULD_179] Phalanx Commander - COST:5 [ATK:4/HP:5]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: Your <b>Taunt</b> minions
@@ -2575,7 +2575,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_180] Sunstruck Henchman - COST:4 [ATK:6/HP:5] 
+			// [ULD_180] Sunstruck Henchman - COST:4 [ATK:6/HP:5]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the start of your turn, this has a 50% chance to_fall asleep.
@@ -2588,7 +2588,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_182] Spitting Camel - COST:2 [ATK:2/HP:4] 
+			// [ULD_182] Spitting Camel - COST:2 [ATK:2/HP:4]
 			// - Race: beast, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]At the end of your turn,
@@ -2603,7 +2603,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_183] Anubisath Warbringer - COST:9 [ATK:9/HP:6] 
+			// [ULD_183] Anubisath Warbringer - COST:9 [ATK:9/HP:6]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Give all minions in your hand +3/+3.
@@ -2620,7 +2620,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_184] Kobold Sandtrooper - COST:2 [ATK:2/HP:1] 
+			// [ULD_184] Kobold Sandtrooper - COST:2 [ATK:2/HP:1]
 			// - Fac: alliance, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Deal 3 damage to the enemy_hero.
@@ -2636,7 +2636,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_185] Temple Berserker - COST:2 [ATK:1/HP:2] 
+			// [ULD_185] Temple Berserker - COST:2 [ATK:1/HP:2]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Reborn</b>
@@ -2655,7 +2655,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_188] Golden Scarab - COST:3 [ATK:2/HP:2] 
+			// [ULD_188] Golden Scarab - COST:3 [ATK:2/HP:2]
 			// - Race: beast, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b><b>Battlecry:</b> Discover</b> a
@@ -2674,7 +2674,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_189] Faceless Lurker - COST:5 [ATK:3/HP:3] 
+			// [ULD_189] Faceless Lurker - COST:5 [ATK:3/HP:3]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2693,7 +2693,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_190] Pit Crocolisk - COST:8 [ATK:5/HP:6] 
+			// [ULD_190] Pit Crocolisk - COST:8 [ATK:5/HP:6]
 			// - Race: beast, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 5 damage.
@@ -2704,7 +2704,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_190", new CardDef(new Power
+			cards.Add("ULD_190", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				// TODO [ULD_190] Pit Crocolisk && Test: Pit Crocolisk_ULD_190
 				//PowerTask = null,
@@ -2712,7 +2712,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_191] Beaming Sidekick - COST:1 [ATK:1/HP:2] 
+			// [ULD_191] Beaming Sidekick - COST:1 [ATK:1/HP:2]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a friendly minion +2 Health.
@@ -2725,7 +2725,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("ULD_191", new CardDef(new Power
+			cards.Add("ULD_191", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [ULD_191] Beaming Sidekick && Test: Beaming Sidekick_ULD_191
 				InfoCardId = "ULD_191e",
@@ -2734,7 +2734,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_193] Living Monument - COST:10 [ATK:10/HP:10] 
+			// [ULD_193] Living Monument - COST:10 [ATK:10/HP:10]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2750,7 +2750,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_194] Wasteland Scorpid - COST:7 [ATK:3/HP:9] 
+			// [ULD_194] Wasteland Scorpid - COST:7 [ATK:3/HP:9]
 			// - Race: beast, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
@@ -2766,7 +2766,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_196] Neferset Ritualist - COST:2 [ATK:2/HP:3] 
+			// [ULD_196] Neferset Ritualist - COST:2 [ATK:2/HP:3]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Restore adjacent minions to full_Health.
@@ -2782,7 +2782,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_197] Quicksand Elemental - COST:2 [ATK:3/HP:2] 
+			// [ULD_197] Quicksand Elemental - COST:2 [ATK:3/HP:2]
 			// - Race: elemental, Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give all enemy minions -2 Attack this_turn.
@@ -2799,7 +2799,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_198] Conjured Mirage - COST:4 [ATK:3/HP:10] 
+			// [ULD_198] Conjured Mirage - COST:4 [ATK:3/HP:10]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2816,7 +2816,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_205] Candletaker - COST:3 [ATK:3/HP:2] 
+			// [ULD_205] Candletaker - COST:3 [ATK:3/HP:2]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Reborn</b>
@@ -2832,7 +2832,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_208] Khartut Defender - COST:6 [ATK:3/HP:4] 
+			// [ULD_208] Khartut Defender - COST:6 [ATK:3/HP:4]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Taunt</b>, <b>Reborn</b>
@@ -2852,7 +2852,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_209] Vulpera Scoundrel - COST:3 [ATK:2/HP:3] 
+			// [ULD_209] Vulpera Scoundrel - COST:3 [ATK:2/HP:3]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry</b>: <b>Discover</b> a spell or pick a mystery choice.
@@ -2870,7 +2870,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_214] Generous Mummy - COST:3 [ATK:5/HP:4] 
+			// [ULD_214] Generous Mummy - COST:3 [ATK:5/HP:4]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Reborn</b>
@@ -2889,7 +2889,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_215] Wrapped Golem - COST:7 [ATK:7/HP:5] 
+			// [ULD_215] Wrapped Golem - COST:7 [ATK:7/HP:5]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Reborn</b>
@@ -2911,7 +2911,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_229] Mischief Maker - COST:3 [ATK:3/HP:3] 
+			// [ULD_229] Mischief Maker - COST:3 [ATK:3/HP:3]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Swap the top card of your deck with your_opponent's.
@@ -2927,7 +2927,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_250] Infested Goblin - COST:3 [ATK:2/HP:3] 
+			// [ULD_250] Infested Goblin - COST:3 [ATK:2/HP:3]
 			// - Set: uldum, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2945,7 +2945,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6] 
+			// [ULD_271] Injured Tol'vir - COST:2 [ATK:2/HP:6]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2963,7 +2963,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_274] Wasteland Assassin - COST:5 [ATK:4/HP:2] 
+			// [ULD_274] Wasteland Assassin - COST:5 [ATK:4/HP:2]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
@@ -2981,7 +2981,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_275] Bone Wraith - COST:4 [ATK:2/HP:5] 
+			// [ULD_275] Bone Wraith - COST:4 [ATK:2/HP:5]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2999,7 +2999,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_282] Jar Dealer - COST:1 [ATK:1/HP:1] 
+			// [ULD_282] Jar Dealer - COST:1 [ATK:1/HP:1]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Deathrattle:</b> Add a random
@@ -3016,7 +3016,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_289] Fishflinger - COST:2 [ATK:3/HP:2] 
+			// [ULD_289] Fishflinger - COST:2 [ATK:3/HP:2]
 			// - Race: murloc, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Add a
@@ -3033,7 +3033,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_290] History Buff - COST:3 [ATK:3/HP:4] 
+			// [ULD_290] History Buff - COST:3 [ATK:3/HP:4]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Whenever you play a minion, give a random minion in your hand +1/+1.
@@ -3047,7 +3047,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_304] King Phaoris - COST:10 [ATK:5/HP:5] 
+			// [ULD_304] King Phaoris - COST:10 [ATK:5/HP:5]
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> For each spell
@@ -3067,7 +3067,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_309] Dwarven Archaeologist - COST:2 [ATK:2/HP:3] 
+			// [ULD_309] Dwarven Archaeologist - COST:2 [ATK:2/HP:3]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: After you <b>Discover</b> a card, reduce its cost by (1).
@@ -3084,7 +3084,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_450] Vilefiend - COST:2 [ATK:2/HP:2] 
+			// [ULD_450] Vilefiend - COST:2 [ATK:2/HP:2]
 			// - Race: demon, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
@@ -3100,7 +3100,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_702] Mortuary Machine - COST:5 [ATK:8/HP:8] 
+			// [ULD_702] Mortuary Machine - COST:5 [ATK:8/HP:8]
 			// - Race: mechanical, Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: After your opponent plays a minion, give it <b>Reborn</b>.
@@ -3116,7 +3116,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_703] Desert Obelisk - COST:5 [ATK:0/HP:5] 
+			// [ULD_703] Desert Obelisk - COST:5 [ATK:0/HP:5]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]If you control 3 of these
@@ -3132,7 +3132,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_705] Mogu Cultist - COST:1 [ATK:1/HP:1] 
+			// [ULD_705] Mogu Cultist - COST:1 [ATK:1/HP:1]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If your board is full of Mogu Cultists, sacrifice them all and summon Highkeeper Ra.
@@ -3148,7 +3148,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_706] Blatant Decoy - COST:6 [ATK:5/HP:5] 
+			// [ULD_706] Blatant Decoy - COST:6 [ATK:5/HP:5]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Deathrattle:</b> Each player
@@ -3166,7 +3166,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_712] Bug Collector - COST:2 [ATK:2/HP:1] 
+			// [ULD_712] Bug Collector - COST:2 [ATK:2/HP:1]
 			// - Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a 1/1 Locust with <b>Rush</b>.
@@ -3185,7 +3185,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_719] Desert Hare - COST:3 [ATK:1/HP:1] 
+			// [ULD_719] Desert Hare - COST:3 [ATK:1/HP:1]
 			// - Race: beast, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon two 1/1 Desert Hares.
@@ -3201,7 +3201,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_721] Colossus of the Moon - COST:10 [ATK:10/HP:10] 
+			// [ULD_721] Colossus of the Moon - COST:10 [ATK:10/HP:10]
 			// - Set: uldum, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>
@@ -3220,7 +3220,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_723] Murmy - COST:1 [ATK:1/HP:1] 
+			// [ULD_723] Murmy - COST:1 [ATK:1/HP:1]
 			// - Race: murloc, Set: uldum, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Reborn</b>
@@ -3236,7 +3236,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_727] Body Wrapper - COST:4 [ATK:4/HP:4] 
+			// [ULD_727] Body Wrapper - COST:4 [ATK:4/HP:4]
 			// - Set: uldum, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Discover</b> a friendly minion that died this game. Shuffle it into your deck.
@@ -3258,8 +3258,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_179e] Commanded (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_179e] Commanded (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Phalanx Commander is granting this +2 Attack.
 			// --------------------------------------------------------
@@ -3270,8 +3270,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_183e] Anubisath Power (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_183e] Anubisath Power (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
@@ -3282,8 +3282,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_185e] Enraged (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_185e] Enraged (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
@@ -3297,8 +3297,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_189e] Bravery (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_189e] Bravery (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Doubled Health.
 			// --------------------------------------------------------
@@ -3309,8 +3309,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_191e] Assisting! (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_191e] Assisting! (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
@@ -3321,8 +3321,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_197e] Stuck! (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_197e] Stuck! (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: -2 Attack this turn.
 			// --------------------------------------------------------
@@ -3336,8 +3336,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_214e] Charity (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_214e] Charity (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Costs (1) less.
 			// --------------------------------------------------------
@@ -3348,8 +3348,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_217e] Microwrapped (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_217e] Microwrapped (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Attack increased.
 			// --------------------------------------------------------
@@ -3360,8 +3360,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_256e] Frayed (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_256e] Frayed (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: +2/+2 from Into the Fray.
 			// --------------------------------------------------------
@@ -3372,8 +3372,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_258e] Tough (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_258e] Tough (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Increased stats from Armagedillo.
 			// --------------------------------------------------------
@@ -3384,8 +3384,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_290e] Erudite (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_290e] Erudite (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Increased stats from History Buff.
 			// --------------------------------------------------------
@@ -3396,8 +3396,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_291pe] Heart of Vir'naal (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_291pe] Heart of Vir'naal (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Your <b>Battlecries</b> trigger twice this turn.
 			// --------------------------------------------------------
@@ -3411,8 +3411,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_309e] Archaelogical Study (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_309e] Archaelogical Study (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Costs (1) less.
 			// --------------------------------------------------------
@@ -3423,8 +3423,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_616e] Hardened (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_616e] Hardened (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: +2 Health and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -3435,8 +3435,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [ULD_728e] Subdued (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_728e] Subdued (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: 1/1.
 			// --------------------------------------------------------
@@ -3447,8 +3447,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_174t] Sea Serpent (*) - COST:3 [ATK:3/HP:4] 
-			// - Race: beast, Set: uldum, 
+			// [ULD_174t] Sea Serpent (*) - COST:3 [ATK:3/HP:4]
+			// - Race: beast, Set: uldum,
 			// --------------------------------------------------------
 			cards.Add("ULD_174t", new CardDef(new Power
 			{
@@ -3458,8 +3458,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_215t] Scarab (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: beast, Set: uldum, 
+			// [ULD_215t] Scarab (*) - COST:1 [ATK:1/HP:1]
+			// - Race: beast, Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -3474,8 +3474,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_430t] Locust (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: beast, Set: uldum, 
+			// [ULD_430t] Locust (*) - COST:1 [ATK:1/HP:1]
+			// - Race: beast, Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			// --------------------------------------------------------
@@ -3490,8 +3490,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_616] Titanic Lackey (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: uldum, 
+			// [ULD_616] Titanic Lackey (*) - COST:1 [ATK:1/HP:1]
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a friendly minion +2 Health and_<b>Taunt</b>.
 			// --------------------------------------------------------
@@ -3507,7 +3507,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_616", new CardDef(new Power
+			cards.Add("ULD_616", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				// TODO [ULD_616] Titanic Lackey && Test: Titanic Lackey_ULD_616
 				InfoCardId = "ULD_616e",
@@ -3516,8 +3516,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ULD_705t] Highkeeper Ra (*) - COST:10 [ATK:20/HP:20] 
-			// - Set: uldum, 
+			// [ULD_705t] Highkeeper Ra (*) - COST:10 [ATK:20/HP:20]
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 20 damage to all_enemies.
 			// --------------------------------------------------------
@@ -3532,8 +3532,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [ULD_178a] Siamat's Wind (*) - COST:0 
-			// - Fac: neutral, Set: uldum, 
+			// [ULD_178a] Siamat's Wind (*) - COST:0
+			// - Fac: neutral, Set: uldum,
 			// --------------------------------------------------------
 			// Text: Give Siamat <b>Windfury</b>.
 			// --------------------------------------------------------
@@ -3547,7 +3547,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - WINDFURY = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178a", new CardDef(new Power
+			cards.Add("ULD_178a", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [ULD_178a] Siamat's Wind && Test: Siamat's Wind_ULD_178a
 				//PowerTask = null,
@@ -3555,8 +3555,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [ULD_178a2] Siamat's Shield (*) - COST:0 
-			// - Fac: neutral, Set: uldum, 
+			// [ULD_178a2] Siamat's Shield (*) - COST:0
+			// - Fac: neutral, Set: uldum,
 			// --------------------------------------------------------
 			// Text: Give Siamat
 			//       <b>Divine Shield</b>.
@@ -3571,7 +3571,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DIVINE_SHIELD = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178a2", new CardDef(new Power
+			cards.Add("ULD_178a2", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [ULD_178a2] Siamat's Shield && Test: Siamat's Shield_ULD_178a2
 				//PowerTask = null,
@@ -3579,8 +3579,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [ULD_178a3] Siamat's Heart (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_178a3] Siamat's Heart (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Give Siamat <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -3595,7 +3595,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178a3", new CardDef(new Power
+			cards.Add("ULD_178a3", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				// TODO [ULD_178a3] Siamat's Heart && Test: Siamat's Heart_ULD_178a3
 				//PowerTask = null,
@@ -3603,8 +3603,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [ULD_178a4] Siamat's Speed (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_178a4] Siamat's Speed (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Give Siamat <b>Rush</b>.
 			// --------------------------------------------------------
@@ -3618,7 +3618,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178a4", new CardDef(new Power
+			cards.Add("ULD_178a4", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO [ULD_178a4] Siamat's Speed && Test: Siamat's Speed_ULD_178a4
 				//PowerTask = null,
@@ -3626,8 +3626,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [ULD_209t] Mystery Choice! (*) - COST:0 
-			// - Set: uldum, 
+			// [ULD_209t] Mystery Choice! (*) - COST:0
+			// - Set: uldum,
 			// --------------------------------------------------------
 			// Text: Add a random spell to your hand.
 			// --------------------------------------------------------

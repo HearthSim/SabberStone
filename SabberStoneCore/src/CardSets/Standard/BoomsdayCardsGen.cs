@@ -40,7 +40,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Heroes(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- HERO - WARRIOR
-			// [BOT_238] Dr. Boom, Mad Genius - COST:9 [ATK:0/HP:30] 
+			// [BOT_238] Dr. Boom, Mad Genius - COST:9 [ATK:0/HP:30]
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> For the rest of the game, your Mechs have <b>Rush</b>.
@@ -62,7 +62,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- HERO - WHIZBANG
-			// [BOT_914h] Whizbang the Wonderful (*) - COST:0 [ATK:0/HP:30] 
+			// [BOT_914h] Whizbang the Wonderful (*) - COST:0 [ATK:0/HP:30]
 			// - Set: boomsday, Rarity: free
 			// --------------------------------------------------------
 			cards.Add("BOT_914h", new CardDef(new Power
@@ -77,8 +77,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void HeroPowers(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- HERO_POWER - WARRIOR
-			// [BOT_238p] Big Red Button (*) - COST:2 
-			// - Fac: neutral, Set: boomsday, 
+			// [BOT_238p] Big Red Button (*) - COST:2
+			// - Fac: neutral, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: [x]<b>Hero Power</b>
 			//       Activate this turn's
@@ -95,8 +95,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- HERO_POWER - WARRIOR
-			// [BOT_238p1] Zap Cannon (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOT_238p1] Zap Cannon (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $3 damage.
@@ -105,7 +105,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_238p1", new CardDef(new Power
+			cards.Add("BOT_238p1", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(3, EntityType.TARGET),
 				Trigger = new Trigger(TriggerType.TURN_END)
@@ -115,8 +115,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- HERO_POWER - WARRIOR
-			// [BOT_238p2] Blast Shield (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOT_238p2] Blast Shield (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Gain 7 Armor.
@@ -132,8 +132,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- HERO_POWER - WARRIOR
-			// [BOT_238p3] KABOOM! (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOT_238p3] KABOOM! (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $1 damage to all enemies. Swaps each turn. @spelldmg
@@ -148,8 +148,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- HERO_POWER - WARRIOR
-			// [BOT_238p4] Delivery Drone (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOT_238p4] Delivery Drone (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       <b>Discover</b> a Mech.
@@ -162,7 +162,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// - GEARS = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_238p4", new CardDef(new Power
+			cards.Add("BOT_238p4", new CardDef(new[] {PlayReq.REQ_HAND_NOT_FULL}, new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.MECHANICAL),
 				Trigger = new Trigger(TriggerType.TURN_END)
@@ -172,8 +172,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- HERO_POWER - WARRIOR
-			// [BOT_238p6] Micro-Squad (*) - COST:2 
-			// - Set: boomsday, 
+			// [BOT_238p6] Micro-Squad (*) - COST:2
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Summon three 1/1 Microbots.
@@ -182,7 +182,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_238p6", new CardDef(new Power
+			cards.Add("BOT_238p6", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new SummonTask("BOT_312t", 3),
 				Trigger = new Trigger(TriggerType.TURN_END)
@@ -196,7 +196,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Druid(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [BOT_419] Dendrologist - COST:2 [ATK:2/HP:3] 
+			// [BOT_419] Dendrologist - COST:2 [ATK:2/HP:3]
 			// - Fac: neutral, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you control a Treant, <b>Discover</b> a spell.
@@ -216,7 +216,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [BOT_422] Tending Tauren - COST:6 [ATK:3/HP:4] 
+			// [BOT_422] Tending Tauren - COST:6 [ATK:3/HP:4]
 			// - Set: boomsday, Rarity: rare
 			// ------------------------------la--------------------------
 			// Text: [x]<b>Choose One -</b> Give your
@@ -236,7 +236,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [BOT_423] Dreampetal Florist - COST:7 [ATK:4/HP:4] 
+			// [BOT_423] Dreampetal Florist - COST:7 [ATK:4/HP:4]
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: At the end of your turn, reduce the Cost of a random minion in your hand by (7).
@@ -250,7 +250,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [BOT_434] Flobbidinous Floop - COST:4 [ATK:3/HP:4] 
+			// [BOT_434] Flobbidinous Floop - COST:4 [ATK:3/HP:4]
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: While in your hand, this is a 3/4 copy of the last minion you played.
@@ -280,7 +280,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [BOT_507] Gloop Sprayer - COST:8 [ATK:4/HP:4] 
+			// [BOT_507] Gloop Sprayer - COST:8 [ATK:4/HP:4]
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a copy of each adjacent minion.
@@ -292,7 +292,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_507", new CardDef(new Power
+			cards.Add("BOT_507", new CardDef(new[] {PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeAdjacentTask(EntityType.SOURCE),
@@ -300,7 +300,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [BOT_523] Mulchmuncher - COST:10 [ATK:8/HP:8] 
+			// [BOT_523] Mulchmuncher - COST:10 [ATK:8/HP:8]
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>. Costs (1) less for each friendly Treant that died this game.
@@ -315,7 +315,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [BOT_054] Biology Project - COST:1 
+			// [BOT_054] Biology Project - COST:1
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Each player gains 2_Mana Crystals.
@@ -330,7 +330,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [BOT_404] Juicy Psychmelon - COST:4 
+			// [BOT_404] Juicy Psychmelon - COST:4
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Draw a 7, 8, 9, and
@@ -346,7 +346,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [BOT_420] Landscaping - COST:3 
+			// [BOT_420] Landscaping - COST:3
 			// - Fac: neutral, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Summon two 2/2 Treants.
@@ -354,13 +354,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_420", new CardDef(new Power
+			cards.Add("BOT_420", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new SummonTask("EX1_158t", 2)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [BOT_444] Floop's Glorious Gloop - COST:1 
+			// [BOT_444] Floop's Glorious Gloop - COST:1
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Whenever a minion dies this turn, gain 1 Mana Crystal this turn only.
@@ -379,8 +379,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void DruidNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [BOT_423e] Floral Arrangement (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_423e] Floral Arrangement (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Costs (7) less.
 			// --------------------------------------------------------
@@ -390,8 +390,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [BOT_434e] Floopy (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_434e] Floopy (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Transforming into recent minions.
 			// --------------------------------------------------------
@@ -414,8 +414,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [BOT_434e2] Floopy (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_434e2] Floopy (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: 3/4.
 			// --------------------------------------------------------
@@ -425,8 +425,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [BOT_444e] Gloopy (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_444e] Gloopy (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Whenever a minion dies this turn, gain 1 Mana Crystal this turn only.
 			// --------------------------------------------------------
@@ -442,8 +442,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [BOT_422a] Old Growth (*) - COST:0 
-			// - Fac: neutral, Set: boomsday, 
+			// [BOT_422a] Old Growth (*) - COST:0
+			// - Fac: neutral, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Give your other minions +1/+1.
 			// --------------------------------------------------------
@@ -453,12 +453,12 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [BOT_422b] New Growth (*) - COST:0 
-			// - Fac: neutral, Set: boomsday, 
+			// [BOT_422b] New Growth (*) - COST:0
+			// - Fac: neutral, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Summon two 2/2 Treants.
 			// --------------------------------------------------------
-			cards.Add("BOT_422b", new CardDef(new Power
+			cards.Add("BOT_422b", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new SummonTask("EX1_158t", SummonSide.RIGHT),
@@ -470,7 +470,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Hunter(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
-			// [BOT_034] Boommaster Flark - COST:7 [ATK:5/HP:5] 
+			// [BOT_034] Boommaster Flark - COST:7 [ATK:5/HP:5]
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon four 0/2 Goblin Bombs.
@@ -485,7 +485,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [BOT_035] Venomizer - COST:2 [ATK:2/HP:2] 
+			// [BOT_035] Venomizer - COST:2 [ATK:2/HP:2]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Magnetic</b>
@@ -501,7 +501,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [BOT_038] Fireworks Tech - COST:2 [ATK:2/HP:1] 
+			// [BOT_038] Fireworks Tech - COST:2 [ATK:2/HP:1]
 			// - Fac: neutral, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Give a friendly
@@ -520,7 +520,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_038", new CardDef(new Power
+			cards.Add("BOT_038", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_WITH_RACE}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("BOT_038e", EntityType.TARGET),
@@ -530,7 +530,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [BOT_039] Necromechanic - COST:5 [ATK:3/HP:6] 
+			// [BOT_039] Necromechanic - COST:5 [ATK:3/HP:6]
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Your <b>Deathrattles</b> trigger twice.
@@ -547,7 +547,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [BOT_251] Spider Bomb - COST:3 [ATK:2/HP:2] 
+			// [BOT_251] Spider Bomb - COST:3 [ATK:2/HP:2]
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Magnetic</b>
@@ -564,7 +564,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [BOT_033] Bomb Toss - COST:2 
+			// [BOT_033] Bomb Toss - COST:2
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $2 damage. Summon a 0/2 Goblin_Bomb. @spelldmg
@@ -575,7 +575,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_033", new CardDef(new Power
+			cards.Add("BOT_033", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(2, EntityType.TARGET, true),
@@ -583,7 +583,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [BOT_402] Secret Plan - COST:1 
+			// [BOT_402] Secret Plan - COST:1
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a <b>Secret</b>.
@@ -598,7 +598,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [BOT_429] Flark's Boom-Zooka - COST:8 
+			// [BOT_429] Flark's Boom-Zooka - COST:8
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]Summon 3 minions from
@@ -611,7 +611,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_429", new CardDef(new Power
+			cards.Add("BOT_429", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RecruitTask(3, true),
@@ -637,7 +637,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [BOT_437] Goblin Prank - COST:2 
+			// [BOT_437] Goblin Prank - COST:2
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Give a friendly minion +3/+3 and <b>Rush</b>. It_dies at end of turn.
@@ -650,13 +650,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_437", new CardDef(new Power
+			cards.Add("BOT_437", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("BOT_437e", EntityType.TARGET)
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [BOT_438] Cybertech Chip - COST:2 
+			// [BOT_438] Cybertech Chip - COST:2
 			// - Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Give your minions "<b>Deathrattle:</b> Add a random Mech to your_hand."
@@ -674,8 +674,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [BOT_038e] Primed (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_038e] Primed (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -685,8 +685,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [BOT_251e] Spider Bomb (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_251e] Spider Bomb (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Destroy a random enemy minion.
 			// --------------------------------------------------------
@@ -701,7 +701,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [BOT_438e] Chipped (*) - COST:0 
+			// [BOT_438e] Chipped (*) - COST:0
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Add a random Mech to your_hand.
@@ -718,7 +718,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Mage(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
-			// [BOT_103] Stargazer Luna - COST:3 [ATK:2/HP:4] 
+			// [BOT_103] Stargazer Luna - COST:3 [ATK:2/HP:4]
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: After you play the
@@ -738,7 +738,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [BOT_256] Astromancer - COST:7 [ATK:5/HP:5] 
+			// [BOT_256] Astromancer - COST:7 [ATK:5/HP:5]
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Summon a
@@ -757,7 +757,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [BOT_531] Celestial Emissary - COST:2 [ATK:2/HP:1] 
+			// [BOT_531] Celestial Emissary - COST:2 [ATK:2/HP:1]
 			// - Race: elemental, Fac: neutral, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Your next spell_this turn has <b>Spell_Damage +2</b>.
@@ -774,7 +774,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [BOT_601] Meteorologist - COST:6 [ATK:3/HP:3] 
+			// [BOT_601] Meteorologist - COST:6 [ATK:3/HP:3]
 			// - Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> For each card in your hand, deal 1 damage to a random enemy.
@@ -791,7 +791,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [BOT_604] Cosmic Anomaly - COST:4 [ATK:4/HP:3] 
+			// [BOT_604] Cosmic Anomaly - COST:4 [ATK:4/HP:3]
 			// - Race: elemental, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +2</b>
@@ -802,7 +802,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_604", new CardDef());
 
 			// ------------------------------------------- SPELL - MAGE
-			// [BOT_101] Astral Rift - COST:2 
+			// [BOT_101] Astral Rift - COST:2
 			// - Fac: neutral, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Add 2 random minions to your hand.
@@ -815,7 +815,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [BOT_254] Unexpected Results - COST:4 
+			// [BOT_254] Unexpected Results - COST:4
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]Summon two random
@@ -825,7 +825,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_254", new CardDef(new Power
+			cards.Add("BOT_254", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new EnqueueTask(2,
 					ComplexTask.Create(
@@ -835,7 +835,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [BOT_257] Luna's Pocket Galaxy - COST:7 
+			// [BOT_257] Luna's Pocket Galaxy - COST:7
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Change the Cost of minions in your
@@ -853,7 +853,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [BOT_453] Shooting Star - COST:1 
+			// [BOT_453] Shooting Star - COST:1
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to a minion and the minions next to it. @spelldmg
@@ -862,7 +862,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_453", new CardDef(new Power
+			cards.Add("BOT_453", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeAdjacentTask(EntityType.TARGET, true),
@@ -870,7 +870,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [BOT_600] Research Project - COST:2 
+			// [BOT_600] Research Project - COST:2
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Each player draws 2_cards.
@@ -887,8 +887,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void MageNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------- ENCHANTMENT - MAGE
-			// [BOT_257e] Starstruck (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_257e] Starstruck (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Costs (1).
 			// --------------------------------------------------------
@@ -898,8 +898,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------- ENCHANTMENT - MAGE
-			// [BOT_531e] Celestial Power (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_531e] Celestial Power (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: You have <b>Spell Damage +2</b> for your next spell this turn.
 			// --------------------------------------------------------
@@ -929,8 +929,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------- ENCHANTMENT - MAGE
-			// [BOT_531e2] Celestial Power (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_531e2] Celestial Power (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: You have <b>Spell Damage +2</b> for your next spell this turn.
 			// --------------------------------------------------------
@@ -948,7 +948,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Paladin(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
-			// [BOT_236] Crystalsmith Kangor - COST:2 [ATK:1/HP:2] 
+			// [BOT_236] Crystalsmith Kangor - COST:2 [ATK:1/HP:2]
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>, <b>Lifesteal</b>
@@ -965,7 +965,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [BOT_537] Mechano-Egg - COST:5 [ATK:0/HP:5] 
+			// [BOT_537] Mechano-Egg - COST:5 [ATK:0/HP:5]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon an 8/8 Robosaur.
@@ -979,7 +979,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [BOT_906] Glow-Tron - COST:1 [ATK:1/HP:3] 
+			// [BOT_906] Glow-Tron - COST:1 [ATK:1/HP:3]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Magnetic</b>
@@ -993,7 +993,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [BOT_910] Glowstone Technician - COST:6 [ATK:3/HP:4] 
+			// [BOT_910] Glowstone Technician - COST:6 [ATK:3/HP:4]
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give all minions in your hand +2/+2.
@@ -1010,7 +1010,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [BOT_911] Annoy-o-Module - COST:4 [ATK:2/HP:4] 
+			// [BOT_911] Annoy-o-Module - COST:4 [ATK:2/HP:4]
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Magnetic</b>
@@ -1028,7 +1028,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [BOT_234] Shrink Ray - COST:5 
+			// [BOT_234] Shrink Ray - COST:5
 			// - Fac: neutral, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Set the Attack and Health of all minions
@@ -1040,7 +1040,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [BOT_436] Prismatic Lens - COST:4 
+			// [BOT_436] Prismatic Lens - COST:4
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Draw a minion and a spell from your deck. Swap their Costs.
@@ -1049,7 +1049,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_436", new CardDef(new Power
+			cards.Add("BOT_436", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				// TODO [BOT_436] Prismatic Lens && Test: Prismatic Lens_BOT_436
 				InfoCardId = "BOT_436e",
@@ -1058,7 +1058,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [BOT_908] Autodefense Matrix - COST:1 
+			// [BOT_908] Autodefense Matrix - COST:1
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When one of your minions is attacked, give it <b>Divine Shield</b>.
@@ -1080,7 +1080,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [BOT_909] Crystology - COST:2 
+			// [BOT_909] Crystology - COST:2
 			// - Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]Draw two 1-Attack
@@ -1092,7 +1092,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [BOT_912] Kangor's Endless Army - COST:7 
+			// [BOT_912] Kangor's Endless Army - COST:7
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Resurrect 3 friendly Mechs. They keep any <b>Magnetic</b> upgrades.
@@ -1107,7 +1107,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MODULAR = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_912", new CardDef(new Power
+			cards.Add("BOT_912", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS,PlayReq.REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.GRAVEYARD),
@@ -1137,8 +1137,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void PaladinNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [BOT_436e] Swapped Cost (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_436e] Swapped Cost (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Cost swapped.
 			// --------------------------------------------------------
@@ -1150,8 +1150,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [BOT_910e] Light Infused (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_910e] Light Infused (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -1161,8 +1161,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [BOT_911e] Annoy-o-Module (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_911e] Annoy-o-Module (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>, <b>Divine Shield</b>.
 			// --------------------------------------------------------
@@ -1176,8 +1176,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [BOT_537t] Robosaur (*) - COST:8 [ATK:8/HP:8] 
-			// - Race: mechanical, Set: boomsday, 
+			// [BOT_537t] Robosaur (*) - COST:8 [ATK:8/HP:8]
+			// - Race: mechanical, Set: boomsday,
 			// --------------------------------------------------------
 			cards.Add("BOT_537t", new CardDef());
 
@@ -1186,7 +1186,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Priest(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
-			// [BOT_216] Omega Medic - COST:3 [ATK:3/HP:4] 
+			// [BOT_216] Omega Medic - COST:3 [ATK:3/HP:4]
 			// - Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you have 10 Mana Crystals, restore #10 Health to your hero.
@@ -1202,7 +1202,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [BOT_258] Zerek, Master Cloner - COST:6 [ATK:5/HP:5] 
+			// [BOT_258] Zerek, Master Cloner - COST:6 [ATK:5/HP:5]
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> If you've cast any spells on this minion, resummon it.
@@ -1224,7 +1224,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [BOT_509] Dead Ringer - COST:2 [ATK:2/HP:1] 
+			// [BOT_509] Dead Ringer - COST:2 [ATK:2/HP:1]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Draw a <b>Deathrattle</b> minion from your deck.
@@ -1238,7 +1238,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [BOT_558] Test Subject - COST:1 [ATK:0/HP:2] 
+			// [BOT_558] Test Subject - COST:1 [ATK:0/HP:2]
 			// - Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Deathrattle:</b> Return any
@@ -1262,7 +1262,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [BOT_566] Reckless Experimenter - COST:5 [ATK:4/HP:6] 
+			// [BOT_566] Reckless Experimenter - COST:5 [ATK:4/HP:6]
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Deathrattle</b> minions you
@@ -1289,7 +1289,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [BOT_219] Extra Arms - COST:3 
+			// [BOT_219] Extra Arms - COST:3
 			// - Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]Give a minion +2/+2.
@@ -1300,7 +1300,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_219", new CardDef(new Power
+			cards.Add("BOT_219", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("BOT_219e", EntityType.TARGET),
@@ -1308,7 +1308,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [BOT_435] Cloning Device - COST:2 
+			// [BOT_435] Cloning Device - COST:2
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a copy of a minion in your opponent's deck.
@@ -1322,7 +1322,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [BOT_517] Topsy Turvy - COST:0 
+			// [BOT_517] Topsy Turvy - COST:0
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Swap a minion's Attack and Health.
@@ -1331,13 +1331,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_517", new CardDef(new Power
+			cards.Add("BOT_517", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new SwapAttackHealthTask(EntityType.TARGET, "BOT_517e")
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [BOT_529] Power Word: Replicate - COST:5 
+			// [BOT_529] Power Word: Replicate - COST:5
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Choose a friendly minion. Summon a 5/5 copy of it.
@@ -1348,7 +1348,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_529", new CardDef(new Power
+			cards.Add("BOT_529", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new SummonCopyTask(EntityType.TARGET, addToStack: true),
@@ -1356,7 +1356,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [BOT_567] Zerek's Cloning Gallery - COST:9 
+			// [BOT_567] Zerek's Cloning Gallery - COST:9
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Summon a 1/1 copy of_each minion in your_deck.
@@ -1378,8 +1378,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void PriestNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [BOT_219e] Armed (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_219e] Armed (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -1389,8 +1389,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [BOT_219te] More Armed (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_219te] More Armed (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -1400,8 +1400,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [BOT_258e] Cloning Vector (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_258e] Cloning Vector (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Prepared to summon Zerek, Master Cloner
 			// --------------------------------------------------------
@@ -1411,8 +1411,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [BOT_529e] Replicated (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_529e] Replicated (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: 5/5.
 			// --------------------------------------------------------
@@ -1422,8 +1422,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [BOT_558e] Stored Data (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_558e] Stored Data (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Storing spell.
 			// --------------------------------------------------------
@@ -1448,8 +1448,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [BOT_566e] Reckless Experiment (*) - COST:0 
-			// - Fac: neutral, Set: boomsday, 
+			// [BOT_566e] Reckless Experiment (*) - COST:0
+			// - Fac: neutral, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: This minion will die a reckless death at the end of the turn.
 			// --------------------------------------------------------
@@ -1462,8 +1462,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [BOT_566e2] Reckless Experiment (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_566e2] Reckless Experiment (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Costs (3) less.
 			// --------------------------------------------------------
@@ -1473,8 +1473,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [BOT_567e] Cloned (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_567e] Cloned (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: 1/1.
 			// --------------------------------------------------------
@@ -1484,8 +1484,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [BOT_219t] More Arms! (*) - COST:3 
-			// - Set: boomsday, 
+			// [BOT_219t] More Arms! (*) - COST:3
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Give a minion +2/+2.
 			// --------------------------------------------------------
@@ -1493,7 +1493,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_219t", new CardDef(new Power
+			cards.Add("BOT_219t", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("BOT_219te", EntityType.TARGET)
 			}));
@@ -1503,7 +1503,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Rogue(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
-			// [BOT_243] Myra Rotspring - COST:5 [ATK:4/HP:2] 
+			// [BOT_243] Myra Rotspring - COST:5 [ATK:4/HP:2]
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> <b>Discover</b> a
@@ -1527,7 +1527,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [BOT_283] Pogo-Hopper - COST:2 [ATK:1/HP:1] 
+			// [BOT_283] Pogo-Hopper - COST:2 [ATK:1/HP:1]
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Gain +2/+2 for
@@ -1550,7 +1550,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [BOT_288] Lab Recruiter - COST:2 [ATK:3/HP:2] 
+			// [BOT_288] Lab Recruiter - COST:2 [ATK:3/HP:2]
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Shuffle 3 copies of a friendly minion into your deck.
@@ -1563,13 +1563,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_288", new CardDef(new Power
+			cards.Add("BOT_288", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = new CopyTask(EntityType.TARGET, Zone.DECK, 3)
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [BOT_565] Blightnozzle Crawler - COST:4 [ATK:2/HP:4] 
+			// [BOT_565] Blightnozzle Crawler - COST:4 [ATK:2/HP:4]
 			// - Race: mechanical, Fac: neutral, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a 1/1 Ooze with <b>Poisonous</b> and <b>Rush</b>.
@@ -1587,7 +1587,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [BOT_576] Crazed Chemist - COST:5 [ATK:4/HP:4] 
+			// [BOT_576] Crazed Chemist - COST:5 [ATK:4/HP:4]
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Combo:</b> Give a friendly minion +4 Attack.
@@ -1600,13 +1600,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_FOR_COMBO = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_576", new CardDef(new Power
+			cards.Add("BOT_576", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_FOR_COMBO,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				ComboTask = new AddEnchantmentTask("BOT_576e", EntityType.TARGET)
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [BOT_084] Violet Haze - COST:3 
+			// [BOT_084] Violet Haze - COST:3
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Add 2 random <b>Deathrattle</b> cards to_your hand.
@@ -1623,7 +1623,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [BOT_087] Academic Espionage - COST:4 
+			// [BOT_087] Academic Espionage - COST:4
 			// - Fac: neutral, Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Shuffle 10 cards from your opponent's class into your deck. They_cost (1).
@@ -1631,7 +1631,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_087", new CardDef(new Power
+			cards.Add("BOT_087", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Repeat(
 					ComplexTask.Create(
@@ -1641,7 +1641,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [BOT_242] Myra's Unstable Element - COST:5 
+			// [BOT_242] Myra's Unstable Element - COST:5
 			// - Fac: neutral, Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Draw the rest of
@@ -1671,7 +1671,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [BOT_508] Necrium Vial - COST:5 
+			// [BOT_508] Necrium Vial - COST:5
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Trigger a friendly minion's <b>Deathrattle</b> twice.
@@ -1685,14 +1685,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_508", new CardDef(new Power
+			cards.Add("BOT_508", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_TARGET_WITH_DEATHRATTLE}, new Power
 			{
 				// TODO Test: Necrium Vial_BOT_508
 				PowerTask = new EnqueueTask(2, new ActivateDeathrattleTask(EntityType.TARGET))
 			}));
 
 			// ----------------------------------------- WEAPON - ROGUE
-			// [BOT_286] Necrium Blade - COST:3 [ATK:3/HP:0] 
+			// [BOT_286] Necrium Blade - COST:3 [ATK:3/HP:0]
 			// - Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Trigger the <b>Deathrattle</b> of a random friendly minion.
@@ -1715,8 +1715,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void RogueNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [BOT_087e] Academic Espionage (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_087e] Academic Espionage (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Costs (1).
 			// --------------------------------------------------------
@@ -1726,8 +1726,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [BOT_243e] Necroalchemy (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_243e] Necroalchemy (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Copied Deathrattle from {0}.
 			// --------------------------------------------------------
@@ -1745,8 +1745,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [BOT_283e] Kinetic Energy (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_283e] Kinetic Energy (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -1756,8 +1756,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [BOT_576e] Overcharged (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_576e] Overcharged (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: +4 Attack.
 			// --------------------------------------------------------
@@ -1768,8 +1768,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [BOT_565t] Radioactive Ooze (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: boomsday, 
+			// [BOT_565t] Radioactive Ooze (*) - COST:1 [ATK:1/HP:1]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
 			//       <b>Rush</b>
@@ -1785,7 +1785,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Shaman(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
-			// [BOT_291] Storm Chaser - COST:4 [ATK:3/HP:4] 
+			// [BOT_291] Storm Chaser - COST:4 [ATK:3/HP:4]
 			// - Race: elemental, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Draw a spell from your deck that costs_(5) or more.
@@ -1799,7 +1799,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [BOT_407] Thunderhead - COST:4 [ATK:3/HP:5] 
+			// [BOT_407] Thunderhead - COST:4 [ATK:3/HP:5]
 			// - Race: elemental, Fac: neutral, Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]After you play a card with
@@ -1821,7 +1821,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [BOT_411] Electra Stormsurge - COST:3 [ATK:3/HP:3] 
+			// [BOT_411] Electra Stormsurge - COST:3 [ATK:3/HP:3]
 			// - Race: elemental, Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Your next spell this turn casts twice.
@@ -1836,7 +1836,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [BOT_533] Menacing Nimbus - COST:2 [ATK:2/HP:2] 
+			// [BOT_533] Menacing Nimbus - COST:2 [ATK:2/HP:2]
 			// - Race: elemental, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Add a random Elemental to your hand.
@@ -1852,7 +1852,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [BOT_543] Omega Mind - COST:2 [ATK:2/HP:3] 
+			// [BOT_543] Omega Mind - COST:2 [ATK:2/HP:3]
 			// - Fac: neutral, Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> If you have 10
@@ -1876,7 +1876,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [BOT_093] Elementary Reaction - COST:2 
+			// [BOT_093] Elementary Reaction - COST:2
 			// - Fac: neutral, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Draw a card. Copy it if_you played an Elemental last turn.
@@ -1894,7 +1894,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [BOT_099] Eureka! - COST:6 
+			// [BOT_099] Eureka! - COST:6
 			// - Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon a copy of_a_random minion from your hand.
@@ -1902,7 +1902,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_099", new CardDef(new Power
+			cards.Add("BOT_099", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
@@ -1912,7 +1912,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [BOT_245] The Storm Bringer - COST:7 
+			// [BOT_245] The Storm Bringer - COST:7
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Transform your minions into random <b>Legendary</b> minions.
@@ -1944,7 +1944,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [BOT_246] Beakered Lightning - COST:0 
+			// [BOT_246] Beakered Lightning - COST:0
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $1 damage to all minions. <b>Overload:</b> (2) @spelldmg
@@ -1959,7 +1959,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [BOT_451] Voltaic Burst - COST:1 
+			// [BOT_451] Voltaic Burst - COST:1
 			// - Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon two 1/1 Sparks with <b>Rush</b>. <b>Overload:</b> (1)
@@ -1974,7 +1974,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_451", new CardDef(new Power
+			cards.Add("BOT_451", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new SummonTask("BOT_102t", 2)
 			}));
@@ -1984,8 +1984,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void ShamanNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - SHAMAN
-			// [BOT_411e] Electric (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_411e] Electric (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Your next spell this turn casts twice.
 			// --------------------------------------------------------
@@ -2004,8 +2004,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
-			// [BOT_411e2] Electricking (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_411e2] Electricking (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Your next spell this turn casts twice.
 			// --------------------------------------------------------
@@ -2030,7 +2030,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Warlock(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
-			// [BOT_224] Doubling Imp - COST:3 [ATK:2/HP:2] 
+			// [BOT_224] Doubling Imp - COST:3 [ATK:2/HP:2]
 			// - Race: demon, Fac: neutral, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a copy of this minion.
@@ -2044,7 +2044,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [BOT_226] Nethersoul Buster - COST:3 [ATK:1/HP:5] 
+			// [BOT_226] Nethersoul Buster - COST:3 [ATK:1/HP:5]
 			// - Race: demon, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Gain +1 Attack for each damage your hero has taken this turn.
@@ -2060,7 +2060,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [BOT_433] Dr. Morrigan - COST:8 [ATK:5/HP:5] 
+			// [BOT_433] Dr. Morrigan - COST:8 [ATK:5/HP:5]
 			// - Fac: neutral, Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Swap this with a minion from your deck.
@@ -2090,7 +2090,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [BOT_443] Void Analyst - COST:2 [ATK:2/HP:2] 
+			// [BOT_443] Void Analyst - COST:2 [ATK:2/HP:2]
 			// - Race: demon, Fac: neutral, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Give all Demons in your hand +1/+1.
@@ -2107,7 +2107,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [BOT_536] Omega Agent - COST:5 [ATK:4/HP:5] 
+			// [BOT_536] Omega Agent - COST:5 [ATK:4/HP:5]
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> If you have 10
@@ -2126,7 +2126,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [BOT_222] Spirit Bomb - COST:2 
+			// [BOT_222] Spirit Bomb - COST:2
 			// - Fac: neutral, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $4 damage to a minion and your hero. @spelldmg
@@ -2135,7 +2135,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_222", new CardDef(new Power
+			cards.Add("BOT_222", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.TARGET),
@@ -2144,7 +2144,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [BOT_263] Soul Infusion - COST:1 
+			// [BOT_263] Soul Infusion - COST:1
 			// - Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Give the
@@ -2168,7 +2168,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [BOT_521] Ectomancy - COST:6 
+			// [BOT_521] Ectomancy - COST:6
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Summon copies of all Demons you control.
@@ -2176,7 +2176,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_521", new CardDef(new Power
+			cards.Add("BOT_521", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				// TODO Test: Ectomancy_BOT_521
 				PowerTask = ComplexTask.Create(
@@ -2186,7 +2186,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [BOT_568] The Soularium - COST:1 
+			// [BOT_568] The Soularium - COST:1
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Draw 3 cards.
@@ -2204,7 +2204,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [BOT_913] Demonic Project - COST:2 
+			// [BOT_913] Demonic Project - COST:2
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Each player transforms a random minion in their hand into a Demon.
@@ -2227,8 +2227,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void WarlockNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [BOT_226e] Nethercharged (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_226e] Nethercharged (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Attack increased.
 			// --------------------------------------------------------
@@ -2238,8 +2238,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [BOT_263e] Infused (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_263e] Infused (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -2249,8 +2249,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [BOT_443e] Well-Studied (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_443e] Well-Studied (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: +1/+1 from Void Analyst.
 			// --------------------------------------------------------
@@ -2260,8 +2260,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [BOT_568e] Fleeting Soul (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_568e] Fleeting Soul (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Discards at the end of your turn.
 			// --------------------------------------------------------
@@ -2282,7 +2282,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Warrior(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
-			// [BOT_059] Eternium Rover - COST:1 [ATK:1/HP:3] 
+			// [BOT_059] Eternium Rover - COST:1 [ATK:1/HP:3]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, gain 2_Armor.
@@ -2297,7 +2297,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [BOT_104] Dyn-o-matic - COST:5 [ATK:3/HP:4] 
+			// [BOT_104] Dyn-o-matic - COST:5 [ATK:3/HP:4]
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 5 damage randomly split among all minions_except_Mechs.
@@ -2314,7 +2314,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [BOT_218] Security Rover - COST:6 [ATK:2/HP:5] 
+			// [BOT_218] Security Rover - COST:6 [ATK:2/HP:5]
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]Whenever this minion
@@ -2334,7 +2334,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [BOT_237] Beryllium Nullifier - COST:7 [ATK:3/HP:8] 
+			// [BOT_237] Beryllium Nullifier - COST:7 [ATK:3/HP:8]
 			// - Race: mechanical, Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Magnetic</b>
@@ -2351,7 +2351,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [BOT_042] Weapons Project - COST:2 
+			// [BOT_042] Weapons Project - COST:2
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Each player equips a 2/3 Weapon and
@@ -2367,7 +2367,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [BOT_067] Rocket Boots - COST:2 
+			// [BOT_067] Rocket Boots - COST:2
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give a minion <b>Rush</b>. Draw a card.
@@ -2380,7 +2380,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_067", new CardDef(new Power
+			cards.Add("BOT_067", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("BOT_067e", EntityType.TARGET),
@@ -2388,7 +2388,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [BOT_069] The Boomship - COST:9 
+			// [BOT_069] The Boomship - COST:9
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Summon 3 random minions from your hand. Give them <b>Rush</b>.
@@ -2402,7 +2402,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("BOT_069", new CardDef(new Power
+			cards.Add("BOT_069", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.HAND),
@@ -2413,7 +2413,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [BOT_299] Omega Assembly - COST:1 
+			// [BOT_299] Omega Assembly - COST:1
 			// - Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Discover</b> a Mech. If you
@@ -2434,7 +2434,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
-			// [BOT_406] Supercollider - COST:5 [ATK:1/HP:0] 
+			// [BOT_406] Supercollider - COST:5 [ATK:1/HP:0]
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]After you attack a minion,
@@ -2466,8 +2466,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void WarriorNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [BOT_067e] Rocket Boots (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_067e] Rocket Boots (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>.
 			// --------------------------------------------------------
@@ -2477,8 +2477,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [BOT_069e] Rocketeer (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_069e] Rocketeer (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>.
 			// --------------------------------------------------------
@@ -2488,8 +2488,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [BOT_218t] Guard Bot (*) - COST:2 [ATK:2/HP:3] 
-			// - Race: mechanical, Set: boomsday, 
+			// [BOT_218t] Guard Bot (*) - COST:2 [ATK:2/HP:3]
+			// - Race: mechanical, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -2501,8 +2501,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
-			// [BOT_042t] Gearblade (*) - COST:2 [ATK:2/HP:0] 
-			// - Set: boomsday, 
+			// [BOT_042t] Gearblade (*) - COST:2 [ATK:2/HP:0]
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// GameTag:
 			// - DURABILITY = 3
@@ -2514,7 +2514,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Neutral(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_020] Skaterbot - COST:1 [ATK:1/HP:1] 
+			// [BOT_020] Skaterbot - COST:1 [ATK:1/HP:1]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Magnetic</b>
@@ -2530,7 +2530,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_021] Bronze Gatekeeper - COST:3 [ATK:1/HP:5] 
+			// [BOT_021] Bronze Gatekeeper - COST:3 [ATK:1/HP:5]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Magnetic</b>
@@ -2546,7 +2546,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_031] Goblin Bomb - COST:1 [ATK:0/HP:2] 
+			// [BOT_031] Goblin Bomb - COST:1 [ATK:0/HP:2]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Deathrattle:</b> Deal 2 damage
@@ -2561,7 +2561,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_050] Rusty Recycler - COST:5 [ATK:2/HP:6] 
+			// [BOT_050] Rusty Recycler - COST:5 [ATK:2/HP:6]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2574,7 +2574,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_050", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_066] Mechanical Whelp - COST:6 [ATK:2/HP:2] 
+			// [BOT_066] Mechanical Whelp - COST:6 [ATK:2/HP:2]
 			// - Race: mechanical, Fac: neutral, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a 7/7 Mechanical Dragon.
@@ -2588,7 +2588,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_079] Faithful Lumi - COST:1 [ATK:1/HP:1] 
+			// [BOT_079] Faithful Lumi - COST:1 [ATK:1/HP:1]
 			// - Race: mechanical, Fac: neutral, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a friendly Mech +1/+1.
@@ -2602,13 +2602,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_079", new CardDef(new Power
+			cards.Add("BOT_079", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_TARGET_WITH_RACE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("BOT_079e", EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_083] Toxicologist - COST:2 [ATK:2/HP:2] 
+			// [BOT_083] Toxicologist - COST:2 [ATK:2/HP:2]
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give your weapon +1 Attack.
@@ -2622,7 +2622,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_098] Unpowered Mauler - COST:2 [ATK:2/HP:4] 
+			// [BOT_098] Unpowered Mauler - COST:2 [ATK:2/HP:4]
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Can only attack if you cast a spell this turn.
@@ -2633,7 +2633,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_102] Spark Drill - COST:6 [ATK:5/HP:1] 
+			// [BOT_102] Spark Drill - COST:6 [ATK:5/HP:1]
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -2650,7 +2650,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_107] Missile Launcher - COST:6 [ATK:4/HP:4] 
+			// [BOT_107] Missile Launcher - COST:6 [ATK:4/HP:4]
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Magnetic</b>
@@ -2671,7 +2671,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_267] Piloted Reaper - COST:4 [ATK:4/HP:3] 
+			// [BOT_267] Piloted Reaper - COST:4 [ATK:4/HP:3]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a random minion from
@@ -2691,7 +2691,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_270] Giggling Inventor - COST:5 [ATK:2/HP:1] 
+			// [BOT_270] Giggling Inventor - COST:5 [ATK:2/HP:1]
 			// - Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon two 1/2 Mechs with <b>Taunt</b> and_<b>Divine Shield</b>.
@@ -2711,7 +2711,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_280] Holomancer - COST:5 [ATK:3/HP:3] 
+			// [BOT_280] Holomancer - COST:5 [ATK:3/HP:3]
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: After your opponent plays a minion, summon a 1/1_copy of it.
@@ -2728,7 +2728,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_296] Omega Defender - COST:4 [ATK:2/HP:6] 
+			// [BOT_296] Omega Defender - COST:4 [ATK:2/HP:6]
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Taunt</b>
@@ -2748,7 +2748,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_308] Spring Rocket - COST:3 [ATK:2/HP:1] 
+			// [BOT_308] Spring Rocket - COST:3 [ATK:2/HP:1]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 2 damage.
@@ -2759,19 +2759,19 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_308", new CardDef(new Power
+			cards.Add("BOT_308", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_309] Upgradeable Framebot - COST:2 [ATK:1/HP:5] 
+			// [BOT_309] Upgradeable Framebot - COST:2 [ATK:1/HP:5]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("BOT_309", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_312] Replicating Menace - COST:4 [ATK:3/HP:1] 
+			// [BOT_312] Replicating Menace - COST:4 [ATK:3/HP:1]
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Magnetic</b>
@@ -2789,7 +2789,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_401] Weaponized Piñata - COST:4 [ATK:4/HP:3] 
+			// [BOT_401] Weaponized Piñata - COST:4 [ATK:4/HP:3]
 			// - Race: mechanical, Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Add a random <b>Legendary</b> minion to your_hand.
@@ -2805,7 +2805,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_413] Brainstormer - COST:3 [ATK:3/HP:1] 
+			// [BOT_413] Brainstormer - COST:3 [ATK:3/HP:1]
 			// - Fac: neutral, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Gain +1 Health
@@ -2824,7 +2824,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_414] Cloakscale Chemist - COST:2 [ATK:1/HP:2] 
+			// [BOT_414] Cloakscale Chemist - COST:2 [ATK:1/HP:2]
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
@@ -2837,7 +2837,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_414", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_424] Mecha'thun - COST:10 [ATK:10/HP:10] 
+			// [BOT_424] Mecha'thun - COST:10 [ATK:10/HP:10]
 			// - Race: mechanical, Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Deathrattle:</b> If you have no
@@ -2861,7 +2861,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_431] Whirliglider - COST:2 [ATK:2/HP:1] 
+			// [BOT_431] Whirliglider - COST:2 [ATK:2/HP:1]
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a 0/2_Goblin Bomb.
@@ -2875,7 +2875,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_445] Mecharoo - COST:1 [ATK:1/HP:1] 
+			// [BOT_445] Mecharoo - COST:1 [ATK:1/HP:1]
 			// - Race: mechanical, Fac: neutral, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a 1/1 Jo-E Bot.
@@ -2889,7 +2889,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_447] Crystallizer - COST:1 [ATK:1/HP:3] 
+			// [BOT_447] Crystallizer - COST:1 [ATK:1/HP:3]
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Deal 5 damage
@@ -2906,7 +2906,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_448] Damaged Stegotron - COST:6 [ATK:5/HP:12] 
+			// [BOT_448] Damaged Stegotron - COST:6 [ATK:5/HP:12]
 			// - Race: mechanical, Fac: horde, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2922,7 +2922,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_511] Seaforium Bomber - COST:5 [ATK:5/HP:5] 
+			// [BOT_511] Seaforium Bomber - COST:5 [ATK:5/HP:5]
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Shuffle a Bomb
@@ -2939,7 +2939,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_532] Explodinator - COST:4 [ATK:3/HP:2] 
+			// [BOT_532] Explodinator - COST:4 [ATK:3/HP:2]
 			// - Race: mechanical, Fac: horde, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon two 0/2 Goblin Bombs.
@@ -2953,7 +2953,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_534] Bull Dozer - COST:9 [ATK:9/HP:7] 
+			// [BOT_534] Bull Dozer - COST:9 [ATK:9/HP:7]
 			// - Race: mechanical, Fac: alliance, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>
@@ -2964,7 +2964,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_534", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_535] Microtech Controller - COST:3 [ATK:2/HP:1] 
+			// [BOT_535] Microtech Controller - COST:3 [ATK:2/HP:1]
 			// - Fac: neutral, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon two 1/1 Microbots.
@@ -2978,10 +2978,10 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_538] Spark Engine - COST:2 [ATK:2/HP:1] 
+			// [BOT_538] Spark Engine - COST:2 [ATK:2/HP:1]
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
-			// Text: <b>Battlecry:</b> Add a 
+			// Text: <b>Battlecry:</b> Add a
 			//       1/1 Spark with <b>Rush</b> to_your hand.
 			// --------------------------------------------------------
 			// GameTag:
@@ -2996,7 +2996,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_539] Arcane Dynamo - COST:6 [ATK:3/HP:4] 
+			// [BOT_539] Arcane Dynamo - COST:6 [ATK:3/HP:4]
 			// - Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Discover</b> a spell that costs (5) or more.
@@ -3013,7 +3013,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_540] E.M.P. Operative - COST:5 [ATK:3/HP:3] 
+			// [BOT_540] E.M.P. Operative - COST:5 [ATK:3/HP:3]
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy a Mech.
@@ -3026,13 +3026,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_WITH_RACE = 17
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("BOT_540", new CardDef(new Power
+			cards.Add("BOT_540", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_TARGET_WITH_RACE,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DestroyTask(EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_544] Loose Specimen - COST:5 [ATK:6/HP:6] 
+			// [BOT_544] Loose Specimen - COST:5 [ATK:6/HP:6]
 			// - Race: beast, Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 6 damage randomly split among other friendly minions.
@@ -3046,7 +3046,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_548] Zilliax - COST:5 [ATK:3/HP:2] 
+			// [BOT_548] Zilliax - COST:5 [ATK:3/HP:2]
 			// - Race: mechanical, Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Magnetic</b>
@@ -3066,7 +3066,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_550] Electrowright - COST:3 [ATK:3/HP:3] 
+			// [BOT_550] Electrowright - COST:3 [ATK:3/HP:3]
 			// - Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you're holding a spell that costs (5) or more, gain +1/+1.
@@ -3082,7 +3082,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_552] Star Aligner - COST:7 [ATK:7/HP:7] 
+			// [BOT_552] Star Aligner - COST:7 [ATK:7/HP:7]
 			// - Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> If you control 3
@@ -3102,7 +3102,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_555] Harbinger Celestia - COST:4 [ATK:5/HP:6] 
+			// [BOT_555] Harbinger Celestia - COST:4 [ATK:5/HP:6]
 			// - Fac: neutral, Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Stealth</b>
@@ -3124,7 +3124,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_559] Augmented Elekk - COST:3 [ATK:3/HP:4] 
+			// [BOT_559] Augmented Elekk - COST:3 [ATK:3/HP:4]
 			// - Race: beast, Set: boomsday, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Whenever you shuffle a card into a deck, shuffle in_an extra copy.
@@ -3140,7 +3140,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_562] Coppertail Imposter - COST:4 [ATK:4/HP:4] 
+			// [BOT_562] Coppertail Imposter - COST:4 [ATK:4/HP:4]
 			// - Race: mechanical, Fac: horde, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Gain <b>Stealth</b> until your next turn.
@@ -3157,7 +3157,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_563] Wargear - COST:5 [ATK:5/HP:5] 
+			// [BOT_563] Wargear - COST:5 [ATK:5/HP:5]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Magnetic</b>
@@ -3171,7 +3171,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_573] Subject 9 - COST:5 [ATK:4/HP:4] 
+			// [BOT_573] Subject 9 - COST:5 [ATK:4/HP:4]
 			// - Race: beast, Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Draw 5 different <b>Secrets</b> from your deck.
@@ -3199,7 +3199,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_603] Steel Rager - COST:4 [ATK:5/HP:1] 
+			// [BOT_603] Steel Rager - COST:4 [ATK:5/HP:1]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -3210,7 +3210,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_603", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_606] Kaboom Bot - COST:3 [ATK:2/HP:2] 
+			// [BOT_606] Kaboom Bot - COST:3 [ATK:2/HP:2]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Deal 4_damage to a random enemy minion.
@@ -3224,7 +3224,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_700] SN1P-SN4P - COST:3 [ATK:2/HP:3] 
+			// [BOT_700] SN1P-SN4P - COST:3 [ATK:2/HP:3]
 			// - Race: mechanical, Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Magnetic</b>, <b>Echo</b>
@@ -3242,23 +3242,8 @@ namespace SabberStoneCore.CardSets.Standard
 				DeathrattleTask = new SummonTask("BOT_312t", 2)
 			}));
 
-			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_700e] SN1P-SN4P (*) - COST:0 
-			// - Set: boomsday, 
-			// --------------------------------------------------------
-			// Text: <b>Deathrattle:</b> Summon two 1/1 Microbots.
-			// --------------------------------------------------------
-			// GameTag:
-			// - MODULAR = 1
-			// --------------------------------------------------------
-			cards.Add("BOT_700e", new CardDef(new Power
-			{
-				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_700e"),
-				DeathrattleTask = new SummonTask("BOT_312t", 3, SummonSide.DEATHRATTLE)
-			}));
-
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_907] Galvanizer - COST:2 [ATK:1/HP:2] 
+			// [BOT_907] Galvanizer - COST:2 [ATK:1/HP:2]
 			// - Race: mechanical, Set: boomsday, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Reduce the
@@ -3277,7 +3262,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_914] Whizbang the Wonderful - COST:4 [ATK:4/HP:5] 
+			// [BOT_914] Whizbang the Wonderful - COST:4 [ATK:4/HP:5]
 			// - Set: boomsday, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: You start the game with one of Whizbang's Wonderful Decks!
@@ -3298,8 +3283,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_020e] Skaterbot (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_020e] Skaterbot (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>.
 			// --------------------------------------------------------
@@ -3313,8 +3298,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_021e] Bronze Gatekeeper (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_021e] Bronze Gatekeeper (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -3328,8 +3313,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_035e] Venomizer (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_035e] Venomizer (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>.
 			// --------------------------------------------------------
@@ -3343,8 +3328,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_039e] Necromechanical (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_039e] Necromechanical (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Your <b>Deathrattles</b> trigger twice.
 			// --------------------------------------------------------
@@ -3354,8 +3339,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_079e] Illuminated (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_079e] Illuminated (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -3365,8 +3350,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_083e] Toxic (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_083e] Toxic (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
@@ -3376,8 +3361,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_107e] Missile Launcher (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_107e] Missile Launcher (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: When your turn ends, deal 1 damage to other characters.
 			// --------------------------------------------------------
@@ -3391,8 +3376,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_234e] Shrink Ray (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_234e] Shrink Ray (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: 1/1.
 			// --------------------------------------------------------
@@ -3402,8 +3387,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_237e] Beryllium Nullifier (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_237e] Beryllium Nullifier (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Can't be targeted by spells or Hero Powers.
 			// --------------------------------------------------------
@@ -3425,8 +3410,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_238e] Boomtastic (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_238e] Boomtastic (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Your Mechs have <b>Rush</b>.
 			// --------------------------------------------------------
@@ -3442,8 +3427,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_238e2] Boomtastic (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_238e2] Boomtastic (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Dr. Boom is granting your Mechs <b>Rush</b>.
 			// --------------------------------------------------------
@@ -3456,8 +3441,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_280e] Hologram (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_280e] Hologram (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: 1/1.
 			// --------------------------------------------------------
@@ -3467,8 +3452,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_296e] Omega Surge (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_296e] Omega Surge (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: +10 Attack.
 			// --------------------------------------------------------
@@ -3478,8 +3463,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_312e] Replicating Menace (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_312e] Replicating Menace (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon three 1/1 Microbots.
 			// --------------------------------------------------------
@@ -3494,8 +3479,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_413e] Brain Power (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_413e] Brain Power (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
@@ -3505,8 +3490,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_422ae] Old Growth (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_422ae] Old Growth (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -3516,8 +3501,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_437e] Slimed (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_437e] Slimed (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: +3/+3 and <b>Rush</b>. Dies a slimy death at the end of the turn.
 			// --------------------------------------------------------
@@ -3532,8 +3517,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_517e] Downside Up (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_517e] Downside Up (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Attack and Health have been swapped by Topsy Turvy.
 			// --------------------------------------------------------
@@ -3543,8 +3528,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_543e] Mind Meld (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_543e] Mind Meld (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Your spells have <b>Lifesteal</b> this turn.
 			// --------------------------------------------------------
@@ -3559,8 +3544,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_548e] Zilliax (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_548e] Zilliax (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b><b>Divine Shield</b>, <b>Taunt</b>, Lifesteal, Rush</b>.
 			// --------------------------------------------------------
@@ -3583,8 +3568,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_550e] Electrified (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_550e] Electrified (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -3594,8 +3579,11 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_559e] Dealing (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_559e] Dealing (*) - COST:0
+			// - Set: boomsday,
+			// --------------------------------------------------------
+			// GameTag:
+			// - ENCHANTMENT_INVISIBLE = 1
 			// --------------------------------------------------------
 			cards.Add("BOT_559e", new CardDef(new Power
 			{
@@ -3605,16 +3593,16 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_562e] Disguised (*) - COST:0 
-			// - Fac: horde, Set: boomsday, 
+			// [BOT_562e] Disguised (*) - COST:0
+			// - Fac: horde, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Stealthed</b> until your next turn.
 			// --------------------------------------------------------
 			cards.Add("BOT_562e", new CardDef(Power.OneTurnStealthEnchantmentPower));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_563e] Wargear (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_563e] Wargear (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -3628,8 +3616,23 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_906e] Glow-Tron (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_700e] SN1P-SN4P (*) - COST:0
+			// - Set: boomsday,
+			// --------------------------------------------------------
+			// Text: <b>Deathrattle:</b> Summon two 1/1 Microbots.
+			// --------------------------------------------------------
+			// GameTag:
+			// - MODULAR = 1
+			// --------------------------------------------------------
+			cards.Add("BOT_700e", new CardDef(new Power
+			{
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("BOT_700e"),
+				DeathrattleTask = new SummonTask("BOT_312t", 3, SummonSide.DEATHRATTLE)
+			}));
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [BOT_906e] Glow-Tron (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -3643,8 +3646,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [BOT_907e] Galvanized (*) - COST:0 
-			// - Set: boomsday, 
+			// [BOT_907e] Galvanized (*) - COST:0
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: Costs (1) less.
 			// --------------------------------------------------------
@@ -3654,14 +3657,14 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_066t] Mechanical Dragon (*) - COST:7 [ATK:7/HP:7] 
-			// - Race: mechanical, Fac: neutral, Set: boomsday, 
+			// [BOT_066t] Mechanical Dragon (*) - COST:7 [ATK:7/HP:7]
+			// - Race: mechanical, Fac: neutral, Set: boomsday,
 			// --------------------------------------------------------
 			cards.Add("BOT_066t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_102t] Spark (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: elemental, Fac: neutral, Set: boomsday, 
+			// [BOT_102t] Spark (*) - COST:1 [ATK:1/HP:1]
+			// - Race: elemental, Fac: neutral, Set: boomsday,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			// --------------------------------------------------------
@@ -3671,7 +3674,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_102t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_270t] Annoy-o-Tron (*) - COST:2 [ATK:1/HP:2] 
+			// [BOT_270t] Annoy-o-Tron (*) - COST:2 [ATK:1/HP:2]
 			// - Race: mechanical, Set: boomsday, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -3684,20 +3687,20 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("BOT_270t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_312t] Microbot (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: mechanical, Set: boomsday, 
+			// [BOT_312t] Microbot (*) - COST:1 [ATK:1/HP:1]
+			// - Race: mechanical, Set: boomsday,
 			// --------------------------------------------------------
 			cards.Add("BOT_312t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [BOT_445t] Jo-E Bot (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: mechanical, Fac: neutral, Set: boomsday, 
+			// [BOT_445t] Jo-E Bot (*) - COST:1 [ATK:1/HP:1]
+			// - Race: mechanical, Fac: neutral, Set: boomsday,
 			// --------------------------------------------------------
 			cards.Add("BOT_445t", new CardDef());
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [BOT_511t] Bomb (*) - COST:5 
-			// - Set: boomsday, 
+			// [BOT_511t] Bomb (*) - COST:5
+			// - Set: boomsday,
 			// --------------------------------------------------------
 			// Text: [x]You take 5 damage.
 			//       Draw a card. This

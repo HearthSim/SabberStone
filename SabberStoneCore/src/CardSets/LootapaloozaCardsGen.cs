@@ -31,10 +31,10 @@ namespace SabberStoneCore.CardSets
 {
 	public static class LootapaloozaCardsGen
 	{
-		private static void Druid(Dictionary<string, CardDef> cards)
+		private static void Druid(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [LOOT_048] Ironwood Golem - COST:4 [ATK:3/HP:6] 
+			// [LOOT_048] Ironwood Golem - COST:4 [ATK:3/HP:6]
 			// - Fac: neutral, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -50,7 +50,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [LOOT_056] Astral Tiger - COST:4 [ATK:3/HP:5] 
+			// [LOOT_056] Astral Tiger - COST:4 [ATK:3/HP:5]
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Shuffle a
@@ -65,7 +65,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [LOOT_314] Grizzled Guardian - COST:8 [ATK:3/HP:5] 
+			// [LOOT_314] Grizzled Guardian - COST:8 [ATK:3/HP:5]
 			// - Race: beast, Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -84,7 +84,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [LOOT_329] Ixlid, Fungal Lord - COST:5 [ATK:2/HP:4] 
+			// [LOOT_329] Ixlid, Fungal Lord - COST:5 [ATK:2/HP:4]
 			// - Race: elemental, Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: After you play a minion, summon a copy of it.
@@ -103,7 +103,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [LOOT_351] Greedy Sprite - COST:3 [ATK:3/HP:1] 
+			// [LOOT_351] Greedy Sprite - COST:3 [ATK:3/HP:1]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Gain an empty Mana Crystal.
@@ -117,7 +117,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [LOOT_047] Barkskin - COST:1 
+			// [LOOT_047] Barkskin - COST:1
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give a minion +3 Health. Gain 3 Armor.
@@ -126,7 +126,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_047", new CardDef(new Power
+			cards.Add("LOOT_047", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("LOOT_047e", EntityType.TARGET),
@@ -134,7 +134,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [LOOT_051] Lesser Jasper Spellstone - COST:1 
+			// [LOOT_051] Lesser Jasper Spellstone - COST:1
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to a minion. @<i>(Gain 3 Armor to upgrade.)</i> @spelldmg
@@ -149,7 +149,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - ARMOR = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_051", new CardDef(new Power
+			cards.Add("LOOT_051", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET),
 				Trigger = new Trigger(TriggerType.ARMOR)
@@ -162,11 +162,11 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [LOOT_054] Branching Paths - COST:4 
+			// [LOOT_054] Branching Paths - COST:4
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Choose Twice -</b> Draw a
-			//       card; Give your minions 
+			//       card; Give your minions
 			//       +1 Attack; Gain 6 Armor.
 			// --------------------------------------------------------
 			// Entourage: LOOT_054d, LOOT_054b, LOOT_054c
@@ -177,7 +177,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [LOOT_309] Oaken Summons - COST:4 
+			// [LOOT_309] Oaken Summons - COST:4
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Gain 6 Armor.
@@ -194,7 +194,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- WEAPON - DRUID
-			// [LOOT_392] Twig of the World Tree - COST:4 [ATK:1/HP:0] 
+			// [LOOT_392] Twig of the World Tree - COST:4 [ATK:1/HP:0]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Gain 10 Mana Crystals.
@@ -214,7 +214,7 @@ namespace SabberStoneCore.CardSets
 		private static void DruidNonCollect(Dictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ SPELL - DRUID
-			// [LOOT_051t1] Jasper Spellstone (*) - COST:1 
+			// [LOOT_051t1] Jasper Spellstone (*) - COST:1
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $4 damage to a minion. @ @spelldmg
@@ -229,7 +229,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - ARMOR = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_051t1", new CardDef(new Power
+			cards.Add("LOOT_051t1", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(4, EntityType.TARGET),
 				Trigger = new Trigger(TriggerType.ARMOR)
@@ -242,7 +242,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [LOOT_051t2] Greater Jasper Spellstone (*) - COST:1 
+			// [LOOT_051t2] Greater Jasper Spellstone (*) - COST:1
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $6 damage to a minion. @spelldmg
@@ -251,14 +251,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_051t2", new CardDef(new Power
+			cards.Add("LOOT_051t2", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(6, EntityType.TARGET, true)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [LOOT_054b] Explore the Darkness (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_054b] Explore the Darkness (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Give your minions +1 Attack.
 			// --------------------------------------------------------
@@ -268,8 +268,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [LOOT_054c] Loot the Chest (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_054c] Loot the Chest (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Gain 6 Armor.
 			// --------------------------------------------------------
@@ -279,8 +279,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [LOOT_054d] Eat the Mushroom (*) - COST:0 
-			// - Fac: neutral, Set: lootapalooza, 
+			// [LOOT_054d] Eat the Mushroom (*) - COST:0
+			// - Fac: neutral, Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Draw a card.
 			// --------------------------------------------------------
@@ -294,7 +294,7 @@ namespace SabberStoneCore.CardSets
 		private static void Hunter(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
-			// [LOOT_078] Cave Hydra - COST:3 [ATK:2/HP:4] 
+			// [LOOT_078] Cave Hydra - COST:3 [ATK:2/HP:4]
 			// - Race: beast, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Also damages the minions next to whomever
@@ -320,7 +320,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [LOOT_511] Kathrena Winterwisp - COST:8 [ATK:6/HP:6] 
+			// [LOOT_511] Kathrena Winterwisp - COST:8 [ATK:6/HP:6]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry and Deathrattle:</b> <b>Recruit</b> a Beast.
@@ -340,7 +340,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [LOOT_520] Seeping Oozeling - COST:6 [ATK:5/HP:4] 
+			// [LOOT_520] Seeping Oozeling - COST:6 [ATK:5/HP:4]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Gain the <b>Deathrattle</b> of a random minion in your deck.
@@ -363,7 +363,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [LOOT_077] Flanking Strike - COST:4 
+			// [LOOT_077] Flanking Strike - COST:4
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to a minion. Summon a 3/3 Wolf. @spelldmg
@@ -372,7 +372,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_077", new CardDef(new Power
+			cards.Add("LOOT_077", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(3, EntityType.TARGET, true),
@@ -380,7 +380,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [LOOT_079] Wandering Monster - COST:2 
+			// [LOOT_079] Wandering Monster - COST:2
 			// - Fac: neutral, Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When an enemy attacks your hero, summon a 3-Cost minion as the new target.
@@ -403,7 +403,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [LOOT_080] Lesser Emerald Spellstone - COST:5 
+			// [LOOT_080] Lesser Emerald Spellstone - COST:5
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon two 3/3_Wolves. <i>(Play a <b>Secret</b> to upgrade.)</i>
@@ -411,7 +411,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_080", new CardDef(new Power
+			cards.Add("LOOT_080", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new SummonTask("LOOT_077t", 2),
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
@@ -425,7 +425,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [LOOT_217] To My Side! - COST:6 
+			// [LOOT_217] To My Side! - COST:6
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]Summon an Animal
@@ -438,7 +438,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_217", new CardDef(new Power
+			cards.Add("LOOT_217", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoMinionInDeck),
@@ -451,7 +451,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [LOOT_522] Crushing Walls - COST:7 
+			// [LOOT_522] Crushing Walls - COST:7
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Destroy your opponent's left and right-most minions.
@@ -480,7 +480,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- WEAPON - HUNTER
-			// [LOOT_085] Rhok'delar - COST:7 [ATK:4/HP:0] 
+			// [LOOT_085] Rhok'delar - COST:7 [ATK:4/HP:0]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If your deck has no minions, fill your_hand with Hunter_spells.
@@ -506,7 +506,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- WEAPON - HUNTER
-			// [LOOT_222] Candleshot - COST:1 [ATK:1/HP:0] 
+			// [LOOT_222] Candleshot - COST:1 [ATK:1/HP:0]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Immune</b> while attacking.
@@ -528,13 +528,13 @@ namespace SabberStoneCore.CardSets
 		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
-			// [LOOT_077t] Wolf (*) - COST:3 [ATK:3/HP:3] 
-			// - Race: beast, Set: lootapalooza, 
+			// [LOOT_077t] Wolf (*) - COST:3 [ATK:3/HP:3]
+			// - Race: beast, Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_077t", new CardDef());
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [LOOT_080t2] Emerald Spellstone (*) - COST:5 
+			// [LOOT_080t2] Emerald Spellstone (*) - COST:5
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon three 3/3_Wolves. <i>(Play a <b>Secret</b> to upgrade.)</i>
@@ -542,7 +542,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_080t2", new CardDef(new Power
+			cards.Add("LOOT_080t2", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new SummonTask("LOOT_077t", 3),
 				Trigger = new Trigger(TriggerType.AFTER_CAST)
@@ -556,7 +556,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [LOOT_080t3] Greater Emerald Spellstone (*) - COST:5 
+			// [LOOT_080t3] Greater Emerald Spellstone (*) - COST:5
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon four 3/3_Wolves.
@@ -571,7 +571,7 @@ namespace SabberStoneCore.CardSets
 		private static void Mage(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
-			// [LOOT_170] Raven Familiar - COST:2 [ATK:2/HP:2] 
+			// [LOOT_170] Raven Familiar - COST:2 [ATK:2/HP:2]
 			// - Race: beast, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Reveal a spell in each deck. If yours costs more, draw it.
@@ -585,7 +585,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [LOOT_231] Arcane Artificer - COST:1 [ATK:1/HP:2] 
+			// [LOOT_231] Arcane Artificer - COST:1 [ATK:1/HP:2]
 			// - Race: elemental, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, gain Armor equal to its_Cost.
@@ -602,7 +602,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [LOOT_535] Dragoncaller Alanna - COST:9 [ATK:3/HP:3] 
+			// [LOOT_535] Dragoncaller Alanna - COST:9 [ATK:3/HP:3]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a 5/5 Dragon for each spell you cast this game that costs (5) or more.
@@ -626,7 +626,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [LOOT_537] Leyline Manipulator - COST:4 [ATK:4/HP:5] 
+			// [LOOT_537] Leyline Manipulator - COST:4 [ATK:4/HP:5]
 			// - Race: elemental, Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you're holding any cards that didn't start in your deck, reduce their Cost by (2).
@@ -643,7 +643,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [LOOT_101] Explosive Runes - COST:3 
+			// [LOOT_101] Explosive Runes - COST:3
 			// - Fac: neutral, Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> After your opponent plays a minion, deal $6 damage to it and any excess to their hero. @spelldmg
@@ -661,7 +661,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [LOOT_103] Lesser Ruby Spellstone - COST:2 
+			// [LOOT_103] Lesser Ruby Spellstone - COST:2
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Add 1 random Mage spell to your hand. @<i>(Play 2 Elementals to_upgrade.)</i>
@@ -683,7 +683,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [LOOT_104] Shifting Scroll - COST:0 
+			// [LOOT_104] Shifting Scroll - COST:0
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Each turn this is in your hand, transform it into a random Mage spell.
@@ -694,7 +694,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - 73 = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_104", new CardDef(new Power
+			cards.Add("LOOT_104", new CardDef(new[] {PlayReq.REQ_CANNOT_PLAY_THIS}, new Power
 			{
 				// TODO Test: Shifting Scroll_LOOT_104
 				Trigger = new Trigger(TriggerType.TURN_START)
@@ -707,7 +707,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [LOOT_106] Deck of Wonders - COST:5 
+			// [LOOT_106] Deck of Wonders - COST:5
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Shuffle 5 Scrolls into your deck. When drawn, cast a random spell.
@@ -718,7 +718,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [LOOT_172] Dragon's Fury - COST:5 
+			// [LOOT_172] Dragon's Fury - COST:5
 			// - Fac: neutral, Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Reveal a spell from your deck. Deal damage equal to its Cost to all_minions. @spelldmg
@@ -738,7 +738,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ WEAPON - MAGE
-			// [LOOT_108] Aluneth - COST:6 
+			// [LOOT_108] Aluneth - COST:6
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: At the end of your turn, draw 3 cards.
@@ -761,8 +761,8 @@ namespace SabberStoneCore.CardSets
 		private static void MageNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------- ENCHANTMENT - MAGE
-			// [LOOT_104e] Shifting (*) - COST:0 
-			// - Set: lootapalooza,  
+			// [LOOT_104e] Shifting (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Transforming into random Mage spells.
 			// --------------------------------------------------------
@@ -781,13 +781,13 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [LOOT_535t] Fire Dragon (*) - COST:5 [ATK:5/HP:5] 
-			// - Race: dragon, Set: lootapalooza, 
+			// [LOOT_535t] Fire Dragon (*) - COST:5 [ATK:5/HP:5]
+			// - Race: dragon, Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_535t", new CardDef());
 
 			// ------------------------------------------- SPELL - MAGE
-			// [LOOT_103t1] Ruby Spellstone (*) - COST:2 
+			// [LOOT_103t1] Ruby Spellstone (*) - COST:2
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Add 2 random Mage spells to your hand.
@@ -817,7 +817,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [LOOT_103t2] Greater Ruby Spellstone (*) - COST:2 
+			// [LOOT_103t2] Greater Ruby Spellstone (*) - COST:2
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Add 3 random Mage spells to your hand.
@@ -830,8 +830,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [LOOT_106t] Scroll of Wonder (*) - COST:5 
-			// - Set: lootapalooza, 
+			// [LOOT_106t] Scroll of Wonder (*) - COST:5
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Cast a random spell. Draw a card.
 			//       Cast this when drawn.
@@ -854,7 +854,7 @@ namespace SabberStoneCore.CardSets
 		private static void Paladin(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
-			// [LOOT_216] Lynessa Sunsorrow - COST:7 [ATK:1/HP:1] 
+			// [LOOT_216] Lynessa Sunsorrow - COST:7 [ATK:1/HP:1]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Cast each spell
@@ -875,7 +875,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [LOOT_313] Crystal Lion - COST:6 [ATK:5/HP:5] 
+			// [LOOT_313] Crystal Lion - COST:6 [ATK:5/HP:5]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Divine Shield</b>
@@ -891,7 +891,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [LOOT_363] Drygulch Jailor - COST:2 [ATK:1/HP:1] 
+			// [LOOT_363] Drygulch Jailor - COST:2 [ATK:1/HP:1]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Add 3 Silver_Hand Recruits to_your_hand.
@@ -905,7 +905,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [LOOT_398] Benevolent Djinn - COST:3 [ATK:2/HP:4] 
+			// [LOOT_398] Benevolent Djinn - COST:3 [ATK:2/HP:4]
 			// - Race: elemental, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: At the end of your turn, restore 3 Health to your_hero.
@@ -919,7 +919,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [LOOT_088] Potion of Heroism - COST:2 
+			// [LOOT_088] Potion of Heroism - COST:2
 			// - Fac: neutral, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give a minion <b>Divine_Shield</b>.
@@ -929,7 +929,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_088", new CardDef(new Power
+			cards.Add("LOOT_088", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					ComplexTask.DivineShield(EntityType.TARGET),
@@ -937,7 +937,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [LOOT_091] Lesser Pearl Spellstone - COST:2 
+			// [LOOT_091] Lesser Pearl Spellstone - COST:2
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon a 2/2 Spirit with <b>Taunt</b>. @<i>(Restore 3 Health to upgrade.)</i>
@@ -951,7 +951,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - HEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_091", new CardDef(new Power
+			cards.Add("LOOT_091", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new SummonTask("LOOT_091t"),
 				Trigger = new Trigger(TriggerType.HEAL)
@@ -972,7 +972,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [LOOT_093] Call to Arms - COST:5 
+			// [LOOT_093] Call to Arms - COST:5
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Recruit</b> 3 minions that
@@ -981,13 +981,13 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - RECRUIT = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_093", new CardDef(new Power
+			cards.Add("LOOT_093", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new RecruitTask(3, SelfCondition.IsTagValue(GameTag.COST, 2, RelaSign.LEQ))
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [LOOT_333] Level Up! - COST:5 
+			// [LOOT_333] Level Up! - COST:5
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Give your Silver Hand Recruits +2/+2 and_<b>Taunt</b>.
@@ -1007,7 +1007,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- WEAPON - PALADIN
-			// [LOOT_286] Unidentified Maul - COST:3 [ATK:2/HP:0] 
+			// [LOOT_286] Unidentified Maul - COST:3 [ATK:2/HP:0]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Gains a bonus effect in_your hand.
@@ -1025,7 +1025,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- WEAPON - PALADIN
-			// [LOOT_500] Val'anyr - COST:6 [ATK:4/HP:0] 
+			// [LOOT_500] Val'anyr - COST:6 [ATK:4/HP:0]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Give a minion in your hand +4/+2. When it dies, reequip this.
@@ -1045,8 +1045,8 @@ namespace SabberStoneCore.CardSets
 		private static void PaladinNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
-			// [LOOT_091t] Guardian Spirit (*) - COST:2 [ATK:2/HP:2] 
-			// - Set: lootapalooza, 
+			// [LOOT_091t] Guardian Spirit (*) - COST:2 [ATK:2/HP:2]
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -1056,8 +1056,8 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOOT_091t", new CardDef());
 
 			// --------------------------------------- MINION - PALADIN
-			// [LOOT_091t1t] Guardian Spirit (*) - COST:4 [ATK:4/HP:4] 
-			// - Set: lootapalooza, 
+			// [LOOT_091t1t] Guardian Spirit (*) - COST:4 [ATK:4/HP:4]
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -1067,8 +1067,8 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOOT_091t1t", new CardDef());
 
 			// --------------------------------------- MINION - PALADIN
-			// [LOOT_091t2t] Guardian Spirit (*) - COST:6 [ATK:6/HP:6] 
-			// - Set: lootapalooza, 
+			// [LOOT_091t2t] Guardian Spirit (*) - COST:6 [ATK:6/HP:6]
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -1078,7 +1078,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOOT_091t2t", new CardDef());
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [LOOT_091t1] Pearl Spellstone (*) - COST:2 
+			// [LOOT_091t1] Pearl Spellstone (*) - COST:2
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon a 4/4 Spirit with <b>Taunt</b>. @
@@ -1092,7 +1092,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - HEALTH = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_091t1", new CardDef(new Power
+			cards.Add("LOOT_091t1", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new SummonTask("LOOT_091t1t"),
 				Trigger = new Trigger(TriggerType.HEAL)
@@ -1113,7 +1113,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [LOOT_091t2] Greater Pearl Spellstone (*) - COST:2 
+			// [LOOT_091t2] Greater Pearl Spellstone (*) - COST:2
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon a 6/6 Spirit with <b>Taunt</b>.
@@ -1121,13 +1121,13 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_091t2", new CardDef(new Power
+			cards.Add("LOOT_091t2", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new SummonTask("LOOT_091t2t")
 			}));
 
 			// --------------------------------------- WEAPON - PALADIN
-			// [LOOT_286t1] Champion's Maul (*) - COST:3 [ATK:2/HP:0] 
+			// [LOOT_286t1] Champion's Maul (*) - COST:3 [ATK:2/HP:0]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon two 1/1 Silver Hand Recruits.
@@ -1142,7 +1142,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- WEAPON - PALADIN
-			// [LOOT_286t2] Sacred Maul (*) - COST:3 [ATK:2/HP:0] 
+			// [LOOT_286t2] Sacred Maul (*) - COST:3 [ATK:2/HP:0]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give your minions <b>Taunt</b>.
@@ -1157,7 +1157,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- WEAPON - PALADIN
-			// [LOOT_286t3] Blessed Maul (*) - COST:3 [ATK:2/HP:0] 
+			// [LOOT_286t3] Blessed Maul (*) - COST:3 [ATK:2/HP:0]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give your minions +1 Attack.
@@ -1172,7 +1172,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- WEAPON - PALADIN
-			// [LOOT_286t4] Purifier's Maul (*) - COST:3 [ATK:2/HP:0] 
+			// [LOOT_286t4] Purifier's Maul (*) - COST:3 [ATK:2/HP:0]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give your minions <b>Divine Shield</b>.
@@ -1187,8 +1187,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- WEAPON - PALADIN
-			// [LOOT_500d] Val'anyr Reequip Effect Dummy (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_500d] Val'anyr Reequip Effect Dummy (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: It is a dummy card for holding a effect to play when reequipping Val'anyr (LOOT_500)
 			// --------------------------------------------------------
@@ -1204,7 +1204,7 @@ namespace SabberStoneCore.CardSets
 		private static void Priest(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
-			// [LOOT_410] Duskbreaker - COST:4 [ATK:3/HP:3] 
+			// [LOOT_410] Duskbreaker - COST:4 [ATK:3/HP:3]
 			// - Race: dragon, Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you're holding
@@ -1217,7 +1217,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_410", new CardDef(new Power
+			cards.Add("LOOT_410", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsDragonInHand),
@@ -1226,7 +1226,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [LOOT_528] Twilight Acolyte - COST:3 [ATK:2/HP:4] 
+			// [LOOT_528] Twilight Acolyte - COST:3 [ATK:2/HP:4]
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you're holding
@@ -1239,7 +1239,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_528", new CardDef(new Power
+			cards.Add("LOOT_528", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 						new GetGameTagTask(GameTag.ATK, EntityType.SOURCE),
@@ -1251,7 +1251,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [LOOT_534] Gilded Gargoyle - COST:3 [ATK:2/HP:2] 
+			// [LOOT_534] Gilded Gargoyle - COST:3 [ATK:2/HP:2]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Add a Coin to your hand.
@@ -1265,7 +1265,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [LOOT_538] Temporus - COST:7 [ATK:6/HP:6] 
+			// [LOOT_538] Temporus - COST:7 [ATK:6/HP:6]
 			// - Race: dragon, Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Your opponent takes two turns. Then you take two turns.
@@ -1285,7 +1285,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [LOOT_008] Psychic Scream - COST:7 
+			// [LOOT_008] Psychic Scream - COST:7
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Shuffle all minions into your opponent's deck.
@@ -1294,7 +1294,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_008", new CardDef(new Power
+			cards.Add("LOOT_008", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.ALLMINIONS),
@@ -1302,7 +1302,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [LOOT_187] Twilight's Call - COST:3 
+			// [LOOT_187] Twilight's Call - COST:3
 			// - Fac: neutral, Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon 1/1 copies of 2 friendly <b>Deathrattle</b> minions
@@ -1311,7 +1311,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_187", new CardDef(new Power
+			cards.Add("LOOT_187", new CardDef(new[] {PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.GRAVEYARD),
@@ -1322,7 +1322,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [LOOT_278] Unidentified Elixir - COST:3 
+			// [LOOT_278] Unidentified Elixir - COST:3
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give a minion +2/+2. Gains a bonus effect in_your hand.
@@ -1333,14 +1333,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_278", new CardDef(new Power
+			cards.Add("LOOT_278", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("LOOT_278e", EntityType.TARGET),
 				Trigger = TriggerLibrary.RevealUnidentifiedItem
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [LOOT_353] Psionic Probe - COST:1 
+			// [LOOT_353] Psionic Probe - COST:1
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Copy a spell in your opponent's deck and add it to your hand.
@@ -1356,7 +1356,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [LOOT_507] Lesser Diamond Spellstone - COST:7 
+			// [LOOT_507] Lesser Diamond Spellstone - COST:7
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Resurrect 2 different friendly minions. @<i>(Cast 4 spells to upgrade.)</i>
@@ -1377,7 +1377,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- WEAPON - PRIEST
-			// [LOOT_209] Dragon Soul - COST:3 
+			// [LOOT_209] Dragon Soul - COST:3
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: After you cast 3 spells in a turn, summon a 5/5 Dragon.
@@ -1416,8 +1416,8 @@ namespace SabberStoneCore.CardSets
 		private static void PriestNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [LOOT_538e] Time Spiraling (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_538e] Time Spiraling (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Take an extra turn.
 			// --------------------------------------------------------
@@ -1430,8 +1430,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [LOOT_538e2] Revenge (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_538e2] Revenge (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Take an extra turn.
 			// --------------------------------------------------------
@@ -1443,13 +1443,13 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [LOOT_209t] Dragon Spirit (*) - COST:5 [ATK:5/HP:5] 
-			// - Race: dragon, Set: lootapalooza, 
+			// [LOOT_209t] Dragon Spirit (*) - COST:5 [ATK:5/HP:5]
+			// - Race: dragon, Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_209t", new CardDef());
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [LOOT_278t1] Elixir of Life (*) - COST:3 
+			// [LOOT_278t1] Elixir of Life (*) - COST:3
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give a minion +2/+2 and <b>Lifesteal</b>.
@@ -1458,13 +1458,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_278t1", new CardDef(new Power
+			cards.Add("LOOT_278t1", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("LOOT_278t1e", EntityType.TARGET)
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [LOOT_278t2] Elixir of Purity (*) - COST:3 
+			// [LOOT_278t2] Elixir of Purity (*) - COST:3
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give a minion +2/+2 and <b>Divine Shield</b>.
@@ -1473,13 +1473,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_278t2", new CardDef(new Power
+			cards.Add("LOOT_278t2", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("LOOT_278t2e", EntityType.TARGET)
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [LOOT_278t3] Elixir of Shadows (*) - COST:3 
+			// [LOOT_278t3] Elixir of Shadows (*) - COST:3
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give a minion +2/+2. Summon a 1/1 copy of_it.
@@ -1488,7 +1488,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_278t3", new CardDef(new Power
+			cards.Add("LOOT_278t3", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("LOOT_278t3e", EntityType.TARGET),
@@ -1497,7 +1497,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [LOOT_278t4] Elixir of Hope (*) - COST:3 
+			// [LOOT_278t4] Elixir of Hope (*) - COST:3
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]Give a minion +2/+2
@@ -1508,13 +1508,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_278t4", new CardDef(new Power
+			cards.Add("LOOT_278t4", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("LOOT_278t4e", EntityType.TARGET)
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [LOOT_507t] Diamond Spellstone (*) - COST:7 
+			// [LOOT_507t] Diamond Spellstone (*) - COST:7
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Resurrect 3 different friendly minions. @
@@ -1534,7 +1534,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [LOOT_507t2] Greater Diamond Spellstone (*) - COST:7 
+			// [LOOT_507t2] Greater Diamond Spellstone (*) - COST:7
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Resurrect 4 different friendly minions.
@@ -1549,7 +1549,7 @@ namespace SabberStoneCore.CardSets
 		private static void Rogue(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
-			// [LOOT_026] Fal'dorei Strider - COST:4 [ATK:4/HP:4] 
+			// [LOOT_026] Fal'dorei Strider - COST:4 [ATK:4/HP:4]
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Shuffle 3
@@ -1567,7 +1567,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [LOOT_033] Cavern Shinyfinder - COST:2 [ATK:3/HP:1] 
+			// [LOOT_033] Cavern Shinyfinder - COST:2 [ATK:3/HP:1]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Draw a weapon from your deck.
@@ -1582,7 +1582,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [LOOT_165] Sonya Shadowdancer - COST:3 [ATK:2/HP:2] 
+			// [LOOT_165] Sonya Shadowdancer - COST:3 [ATK:2/HP:2]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: After a friendly minion dies, add a 1/1 copy of it to your hand. It costs (1).
@@ -1603,7 +1603,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [LOOT_211] Elven Minstrel - COST:4 [ATK:3/HP:2] 
+			// [LOOT_211] Elven Minstrel - COST:4 [ATK:3/HP:2]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Combo:</b> Draw 2 minions from your deck.
@@ -1615,14 +1615,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_211", new CardDef(new Power
+			cards.Add("LOOT_211", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				// TODO Test: Elven Minstrel_LOOT_211
 				ComboTask = ComplexTask.DrawFromDeck(2, SelfCondition.IsMinion)
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [LOOT_412] Kobold Illusionist - COST:4 [ATK:3/HP:3] 
+			// [LOOT_412] Kobold Illusionist - COST:4 [ATK:3/HP:3]
 			// - Fac: alliance, Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a 1/1 copy of a minion from your hand.
@@ -1641,7 +1641,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [LOOT_204] Cheat Death - COST:2 
+			// [LOOT_204] Cheat Death - COST:2
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When a friendly minion dies, return it to your hand.
@@ -1662,7 +1662,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [LOOT_210] Sudden Betrayal - COST:2 
+			// [LOOT_210] Sudden Betrayal - COST:2
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When a minion attacks your hero, instead it attacks one of_its neighbors.
@@ -1685,7 +1685,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [LOOT_214] Evasion - COST:2 
+			// [LOOT_214] Evasion - COST:2
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> After your hero takes damage, become <b>Immune</b> this turn.
@@ -1704,7 +1704,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [LOOT_503] Lesser Onyx Spellstone - COST:5 
+			// [LOOT_503] Lesser Onyx Spellstone - COST:5
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Destroy 1 random enemy minion.
@@ -1719,7 +1719,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_503", new CardDef(new Power
+			cards.Add("LOOT_503", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
 			{
 				// TODO Test: Lesser Onyx Spellstone_LOOT_503
 				PowerTask = ComplexTask.DestroyRandomTargets(1, EntityType.OP_MINIONS),
@@ -1733,7 +1733,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- WEAPON - ROGUE
-			// [LOOT_542] Kingsbane - COST:1 [ATK:1/HP:3] 
+			// [LOOT_542] Kingsbane - COST:1 [ATK:1/HP:3]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Deathrattle:</b> Shuffle
@@ -1757,8 +1757,8 @@ namespace SabberStoneCore.CardSets
 		private static void RogueNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [LOOT_542e] Kingsbane Shuffle (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_542e] Kingsbane Shuffle (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Getting ready to shuffle in.
 			// --------------------------------------------------------
@@ -1768,14 +1768,14 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [LOOT_026t] Leyline Spider (*) - COST:4 [ATK:4/HP:4] 
-			// - Race: beast, Set: lootapalooza, 
+			// [LOOT_026t] Leyline Spider (*) - COST:4 [ATK:4/HP:4]
+			// - Race: beast, Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_026t", new CardDef());
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [LOOT_026e] Spider Ambush! (*) - COST:4 
-			// - Set: lootapalooza, 
+			// [LOOT_026e] Spider Ambush! (*) - COST:4
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Summon a 4/4 Spider. Draw a card.
 			//       Cast this when drawn.
@@ -1794,7 +1794,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [LOOT_503t] Onyx Spellstone (*) - COST:5 
+			// [LOOT_503t] Onyx Spellstone (*) - COST:5
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Destroy up to 2 random enemy minions.
@@ -1809,7 +1809,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_503t", new CardDef(new Power
+			cards.Add("LOOT_503t", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
 			{
 				PowerTask = ComplexTask.DestroyRandomTargets(2, EntityType.OP_MINIONS),
 				Trigger = new Trigger(TriggerType.AFTER_PLAY_CARD)
@@ -1822,7 +1822,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [LOOT_503t2] Greater Onyx Spellstone (*) - COST:5 
+			// [LOOT_503t2] Greater Onyx Spellstone (*) - COST:5
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Destroy up to 3 random enemy minions.
@@ -1830,7 +1830,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINIMUM_ENEMY_MINIONS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_503t2", new CardDef(new Power
+			cards.Add("LOOT_503t2", new CardDef(new[] {PlayReq.REQ_MINIMUM_ENEMY_MINIONS}, new Power
 			{
 				PowerTask = ComplexTask.DestroyRandomTargets(3, EntityType.OP_MINIONS)
 			}));
@@ -1840,7 +1840,7 @@ namespace SabberStoneCore.CardSets
 		private static void Shaman(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
-			// [LOOT_062] Kobold Hermit - COST:2 [ATK:1/HP:1] 
+			// [LOOT_062] Kobold Hermit - COST:2 [ATK:1/HP:1]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Choose a basic Totem. Summon it.
@@ -1856,7 +1856,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [LOOT_358] Grumble, Worldshaker - COST:6 [ATK:7/HP:7] 
+			// [LOOT_358] Grumble, Worldshaker - COST:6 [ATK:7/HP:7]
 			// - Race: elemental, Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Return your other minions to your hand. They cost (1).
@@ -1875,7 +1875,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [LOOT_517] Murmuring Elemental - COST:2 [ATK:1/HP:1] 
+			// [LOOT_517] Murmuring Elemental - COST:2 [ATK:1/HP:1]
 			// - Race: elemental, Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Your next <b>Battlecry</b> this turn triggers_twice.
@@ -1891,7 +1891,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [LOOT_518] Windshear Stormcaller - COST:5 [ATK:5/HP:5] 
+			// [LOOT_518] Windshear Stormcaller - COST:5 [ATK:5/HP:5]
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you control all 4 basic Totems, summon Al'Akir_the_Windlord.
@@ -1916,7 +1916,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [LOOT_060] Crushing Hand - COST:2 
+			// [LOOT_060] Crushing Hand - COST:2
 			// - Fac: neutral, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $8 damage to a minion. <b><b>Overload</b>:</b> (3) @spelldmg
@@ -1929,13 +1929,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_060", new CardDef(new Power
+			cards.Add("LOOT_060", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DamageTask(8, EntityType.TARGET)
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [LOOT_064] Lesser Sapphire Spellstone - COST:7 
+			// [LOOT_064] Lesser Sapphire Spellstone - COST:7
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon 1 copy of a friendly minion. @<i>(<b>Overload</b> 3 Mana Crystals to upgrade.)</i>
@@ -1951,7 +1951,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_064", new CardDef(new Power
+			cards.Add("LOOT_064", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new SummonCopyTask(EntityType.TARGET),
 				//Trigger = new Trigger(TriggerType.PLAY_CARD)
@@ -1969,7 +1969,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [LOOT_344] Primal Talismans - COST:3 
+			// [LOOT_344] Primal Talismans - COST:3
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Give your minions "<b>Deathrattle:</b> Summon a random basic Totem."
@@ -1983,7 +1983,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [LOOT_373] Healing Rain - COST:3 
+			// [LOOT_373] Healing Rain - COST:3
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Restore #12 Health randomly split among all friendly characters.
@@ -2003,7 +2003,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [LOOT_504] Unstable Evolution - COST:1 
+			// [LOOT_504] Unstable Evolution - COST:1
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Transform a friendly minion into
@@ -2014,7 +2014,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_504", new CardDef(new Power
+			cards.Add("LOOT_504", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new TransformMinionTask(EntityType.TARGET, 1),
@@ -2022,7 +2022,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- WEAPON - SHAMAN
-			// [LOOT_506] The Runespear - COST:8 [ATK:3/HP:0] 
+			// [LOOT_506] The Runespear - COST:8 [ATK:3/HP:0]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: After your hero attacks, <b>Discover</b> a spell
@@ -2047,8 +2047,8 @@ namespace SabberStoneCore.CardSets
 		private static void ShamanNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - SHAMAN
-			// [LOOT_344e] Primal Talisman (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_344e] Primal Talisman (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a random basic Totem.
 			// --------------------------------------------------------
@@ -2058,7 +2058,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [LOOT_064t1] Sapphire Spellstone (*) - COST:7 
+			// [LOOT_064t1] Sapphire Spellstone (*) - COST:7
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon 2 copies of a friendly minion. @
@@ -2074,7 +2074,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - OVERLOAD = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_064t1", new CardDef(new Power
+			cards.Add("LOOT_064t1", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new EnqueueTask(2, new SummonCopyTask(EntityType.TARGET)),
 				//Trigger = new Trigger(TriggerType.PLAY_CARD)
@@ -2092,7 +2092,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [LOOT_064t2] Greater Sapphire Spellstone (*) - COST:7 
+			// [LOOT_064t2] Greater Sapphire Spellstone (*) - COST:7
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon 3 copies of a friendly minion.
@@ -2101,14 +2101,14 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_064t2", new CardDef(new Power
+			cards.Add("LOOT_064t2", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = new EnqueueTask(3, new SummonCopyTask(EntityType.TARGET))
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [LOOT_504t] Unstable Evolution (*) - COST:1 
-			// - Set: lootapalooza, 
+			// [LOOT_504t] Unstable Evolution (*) - COST:1
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Transform a friendly minion into
 			//       one that costs (1) more. Repeatable this turn.
@@ -2117,7 +2117,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_504t", new CardDef(new Power
+			cards.Add("LOOT_504t", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new TransformMinionTask(EntityType.TARGET, 1),
@@ -2136,7 +2136,7 @@ namespace SabberStoneCore.CardSets
 		private static void Warlock(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
-			// [LOOT_013] Vulgar Homunculus - COST:2 [ATK:2/HP:4] 
+			// [LOOT_013] Vulgar Homunculus - COST:2 [ATK:2/HP:4]
 			// - Race: demon, Fac: neutral, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2152,7 +2152,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [LOOT_014] Kobold Librarian - COST:1 [ATK:2/HP:1] 
+			// [LOOT_014] Kobold Librarian - COST:1 [ATK:2/HP:1]
 			// - Fac: neutral, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Draw a card. Deal 2 damage to your_hero.
@@ -2168,7 +2168,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [LOOT_018] Hooked Reaver - COST:4 [ATK:4/HP:4] 
+			// [LOOT_018] Hooked Reaver - COST:4 [ATK:4/HP:4]
 			// - Race: demon, Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you have 15 or_less Health, gain +3/+3_and <b>Taunt</b>.
@@ -2187,7 +2187,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [LOOT_306] Possessed Lackey - COST:6 [ATK:2/HP:2] 
+			// [LOOT_306] Possessed Lackey - COST:6 [ATK:2/HP:2]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> <b>Recruit</b> a_Demon.
@@ -2204,7 +2204,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [LOOT_368] Voidlord - COST:9 [ATK:3/HP:9] 
+			// [LOOT_368] Voidlord - COST:9 [ATK:3/HP:9]
 			// - Race: demon, Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Taunt</b>
@@ -2221,7 +2221,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [LOOT_415] Rin, the First Disciple - COST:6 [ATK:3/HP:6] 
+			// [LOOT_415] Rin, the First Disciple - COST:6 [ATK:3/HP:6]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2238,7 +2238,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [LOOT_017] Dark Pact - COST:1 
+			// [LOOT_017] Dark Pact - COST:1
 			// - Fac: alliance, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Destroy a friendly minion. Restore #4 Health to your hero.
@@ -2251,7 +2251,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_017", new CardDef(new Power
+			cards.Add("LOOT_017", new CardDef(new[] {PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
@@ -2259,7 +2259,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [LOOT_043] Lesser Amethyst Spellstone - COST:4 
+			// [LOOT_043] Lesser Amethyst Spellstone - COST:4
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal.</b> Deal $3 damage to a minion. <i>(Take damage from your cards to upgrade.)</i> @spelldmg
@@ -2271,7 +2271,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_043", new CardDef(new Power
+			cards.Add("LOOT_043", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DamageTask(3, EntityType.TARGET, true),
 				Trigger = new Trigger(TriggerType.DEAL_DAMAGE)
@@ -2284,7 +2284,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [LOOT_417] Cataclysm - COST:4 
+			// [LOOT_417] Cataclysm - COST:4
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Destroy all minions. Discard your hand.
@@ -2300,7 +2300,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- WEAPON - WARLOCK
-			// [LOOT_420] Skull of the Man'ari - COST:5 
+			// [LOOT_420] Skull of the Man'ari - COST:5
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: At the start of your turn, summon a Demon from your hand.
@@ -2328,38 +2328,38 @@ namespace SabberStoneCore.CardSets
 		private static void WarlockNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
-			// [LOOT_415t1t] Felhunter (*) - COST:2 [ATK:2/HP:2] 
-			// - Race: demon, Set: lootapalooza, 
+			// [LOOT_415t1t] Felhunter (*) - COST:2 [ATK:2/HP:2]
+			// - Race: demon, Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_415t1t", new CardDef());
 
 			// --------------------------------------- MINION - WARLOCK
-			// [LOOT_415t2t] Felhunter (*) - COST:3 [ATK:3/HP:3] 
-			// - Race: demon, Set: lootapalooza, 
+			// [LOOT_415t2t] Felhunter (*) - COST:3 [ATK:3/HP:3]
+			// - Race: demon, Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_415t2t", new CardDef());
 
 			// --------------------------------------- MINION - WARLOCK
-			// [LOOT_415t3t] Felhunter (*) - COST:4 [ATK:4/HP:4] 
-			// - Race: demon, Set: lootapalooza, 
+			// [LOOT_415t3t] Felhunter (*) - COST:4 [ATK:4/HP:4]
+			// - Race: demon, Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_415t3t", new CardDef());
 
 			// --------------------------------------- MINION - WARLOCK
-			// [LOOT_415t4t] Felhunter (*) - COST:5 [ATK:5/HP:5] 
-			// - Race: demon, Set: lootapalooza, 
+			// [LOOT_415t4t] Felhunter (*) - COST:5 [ATK:5/HP:5]
+			// - Race: demon, Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_415t4t", new CardDef());
 
 			// --------------------------------------- MINION - WARLOCK
-			// [LOOT_415t5t] Felhunter (*) - COST:6 [ATK:6/HP:6] 
-			// - Race: demon, Set: lootapalooza, 
+			// [LOOT_415t5t] Felhunter (*) - COST:6 [ATK:6/HP:6]
+			// - Race: demon, Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_415t5t", new CardDef());
 
 			// --------------------------------------- MINION - WARLOCK
-			// [LOOT_415t6] Azari, the Devourer (*) - COST:10 [ATK:10/HP:10] 
-			// - Race: demon, Set: lootapalooza, 
+			// [LOOT_415t6] Azari, the Devourer (*) - COST:10 [ATK:10/HP:10]
+			// - Race: demon, Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy your opponent's deck.
 			// --------------------------------------------------------
@@ -2374,7 +2374,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [LOOT_043t2] Amethyst Spellstone (*) - COST:4 
+			// [LOOT_043t2] Amethyst Spellstone (*) - COST:4
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal.</b> Deal $5 damage to a minion. <i>(Take damage from your cards to upgrade.)</i> @spelldmg
@@ -2386,7 +2386,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_043t2", new CardDef(new Power
+			cards.Add("LOOT_043t2", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DamageTask(5, EntityType.TARGET, true),
 				Trigger = new Trigger(TriggerType.DEAL_DAMAGE)
@@ -2399,7 +2399,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [LOOT_043t3] Greater Amethyst Spellstone (*) - COST:4 
+			// [LOOT_043t3] Greater Amethyst Spellstone (*) - COST:4
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal.</b> Deal $7 damage to a minion. @spelldmg
@@ -2411,21 +2411,21 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_043t3", new CardDef(new Power
+			cards.Add("LOOT_043t3", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DamageTask(7, EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [LOOT_415t1] The First Seal (*) - COST:5 
-			// - Set: lootapalooza, 
+			// [LOOT_415t1] The First Seal (*) - COST:5
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Summon a 2/2 Demon. Add 'The Second Seal' to your hand.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_415t1", new CardDef(new Power
+			cards.Add("LOOT_415t1", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new SummonTask("LOOT_415t1t"),
@@ -2433,8 +2433,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [LOOT_415t2] The Second Seal (*) - COST:5 
-			// - Set: lootapalooza, 
+			// [LOOT_415t2] The Second Seal (*) - COST:5
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Summon a 3/3 Demon. Add 'The Third Seal'
 			//       to your hand.
@@ -2442,7 +2442,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_415t2", new CardDef(new Power
+			cards.Add("LOOT_415t2", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new SummonTask("LOOT_415t2t"),
@@ -2450,15 +2450,15 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [LOOT_415t3] The Third Seal (*) - COST:5 
-			// - Set: lootapalooza, 
+			// [LOOT_415t3] The Third Seal (*) - COST:5
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Summon a 4/4 Demon. Add 'The Fourth Seal' to your hand.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_415t3", new CardDef(new Power
+			cards.Add("LOOT_415t3", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new SummonTask("LOOT_415t3t"),
@@ -2466,8 +2466,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [LOOT_415t4] The Fourth Seal (*) - COST:5 
-			// - Set: lootapalooza, 
+			// [LOOT_415t4] The Fourth Seal (*) - COST:5
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Summon a 5/5 Demon. Add 'The Final Seal'
 			//       to your hand.
@@ -2475,7 +2475,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_415t4", new CardDef(new Power
+			cards.Add("LOOT_415t4", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new SummonTask("LOOT_415t4t"),
@@ -2483,8 +2483,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [LOOT_415t5] The Final Seal (*) - COST:5 
-			// - Set: lootapalooza, 
+			// [LOOT_415t5] The Final Seal (*) - COST:5
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: [x]Summon a 6/6 Demon.
 			//       Add 'Azari, the Devourer'
@@ -2493,7 +2493,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_415t5", new CardDef(new Power
+			cards.Add("LOOT_415t5", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new SummonTask("LOOT_415t5t"),
@@ -2505,7 +2505,7 @@ namespace SabberStoneCore.CardSets
 		private static void Warrior(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
-			// [LOOT_041] Kobold Barbarian - COST:3 [ATK:4/HP:4] 
+			// [LOOT_041] Kobold Barbarian - COST:3 [ATK:4/HP:4]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the start of your turn, attack a random enemy.
@@ -2522,7 +2522,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [LOOT_365] Gemstudded Golem - COST:6 [ATK:5/HP:9] 
+			// [LOOT_365] Gemstudded Golem - COST:6 [ATK:5/HP:9]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2541,7 +2541,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [LOOT_367] Drywhisker Armorer - COST:2 [ATK:2/HP:2] 
+			// [LOOT_367] Drywhisker Armorer - COST:2 [ATK:2/HP:2]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> For each enemy minion, gain 2 Armor.
@@ -2559,7 +2559,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [LOOT_519] Geosculptor Yip - COST:8 [ATK:4/HP:8] 
+			// [LOOT_519] Geosculptor Yip - COST:8 [ATK:4/HP:8]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: At the end of your turn, summon a random minion with_Cost_equal_to_your Armor <i>(up to 10)</i>.
@@ -2579,7 +2579,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [LOOT_203] Lesser Mithril Spellstone - COST:7 
+			// [LOOT_203] Lesser Mithril Spellstone - COST:7
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon one 5/5 Mithril Golem. <i>(Equip a weapon to upgrade.)</i>
@@ -2597,7 +2597,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [LOOT_285] Unidentified Shield - COST:6 
+			// [LOOT_285] Unidentified Shield - COST:6
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Gain 5 Armor.
@@ -2613,7 +2613,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [LOOT_364] Reckless Flurry - COST:3 
+			// [LOOT_364] Reckless Flurry - COST:3
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Spend all your Armor. Deal that much damage to all minions.
@@ -2628,7 +2628,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [LOOT_370] Gather Your Party - COST:6 
+			// [LOOT_370] Gather Your Party - COST:6
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Recruit</b> a minion.
@@ -2636,13 +2636,13 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - RECRUIT = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_370", new CardDef(new Power
+			cards.Add("LOOT_370", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new RecruitTask(1)
 			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
-			// [LOOT_044] Bladed Gauntlet - COST:2 
+			// [LOOT_044] Bladed Gauntlet - COST:2
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Has Attack equal to your Armor. Can't attack heroes.
@@ -2660,7 +2660,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
-			// [LOOT_380] Woecleaver - COST:8 [ATK:3/HP:0] 
+			// [LOOT_380] Woecleaver - COST:8 [ATK:3/HP:0]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: After your hero attacks, <b>Recruit</b> a minion.
@@ -2687,8 +2687,8 @@ namespace SabberStoneCore.CardSets
 		private static void WarriorNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [LOOT_528e] Twilight Curse (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_528e] Twilight Curse (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Attack was swapped.
 			// --------------------------------------------------------
@@ -2698,19 +2698,19 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [LOOT_203t4] Mithril Golem (*) - COST:5 [ATK:5/HP:5] 
-			// - Set: lootapalooza, 
+			// [LOOT_203t4] Mithril Golem (*) - COST:5 [ATK:5/HP:5]
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_203t4", new CardDef());
 
 			// --------------------------------------- MINION - WARRIOR
-			// [LOOT_285t3t] Iron Golem (*) - COST:5 [ATK:5/HP:5] 
-			// - Set: lootapalooza, 
+			// [LOOT_285t3t] Iron Golem (*) - COST:5 [ATK:5/HP:5]
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_285t3t", new CardDef());
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [LOOT_203t2] Mithril Spellstone (*) - COST:7 
+			// [LOOT_203t2] Mithril Spellstone (*) - COST:7
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon two 5/5 Mithril Golems. <i>(Equip a weapon to upgrade.)</i>
@@ -2728,7 +2728,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [LOOT_203t3] Greater Mithril Spellstone (*) - COST:7 
+			// [LOOT_203t3] Greater Mithril Spellstone (*) - COST:7
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon three 5/5 Mithril Golems.
@@ -2739,7 +2739,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [LOOT_285t] Tower Shield +10 (*) - COST:6 
+			// [LOOT_285t] Tower Shield +10 (*) - COST:6
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Gain 5 Armor.
@@ -2751,7 +2751,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [LOOT_285t2] Serrated Shield (*) - COST:6 
+			// [LOOT_285t2] Serrated Shield (*) - COST:6
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Gain 5 Armor.
@@ -2760,7 +2760,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_285t2", new CardDef(new Power
+			cards.Add("LOOT_285t2", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ArmorTask(5),
@@ -2768,7 +2768,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [LOOT_285t3] Runed Shield (*) - COST:6 
+			// [LOOT_285t3] Runed Shield (*) - COST:6
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Gain 5 Armor.
@@ -2782,7 +2782,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [LOOT_285t4] Spiked Shield (*) - COST:6 
+			// [LOOT_285t4] Spiked Shield (*) - COST:6
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: Gain 5 Armor.
@@ -2796,8 +2796,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
-			// [LOOT_285t4t] Spiked Shield (*) - COST:5 [ATK:5/HP:0] 
-			// - Set: lootapalooza, 
+			// [LOOT_285t4t] Spiked Shield (*) - COST:5 [ATK:5/HP:0]
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// GameTag:
 			// - DURABILITY = 2
@@ -2809,7 +2809,7 @@ namespace SabberStoneCore.CardSets
 		private static void Neutral(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_069] Sewer Crawler - COST:3 [ATK:1/HP:1] 
+			// [LOOT_069] Sewer Crawler - COST:3 [ATK:1/HP:1]
 			// - Fac: neutral, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a 2/3_Giant Rat.
@@ -2820,13 +2820,13 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_069", new CardDef(new Power
+			cards.Add("LOOT_069", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new SummonTask("LOOT_069t", SummonSide.RIGHT)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_111] Scorp-o-matic - COST:2 [ATK:1/HP:2] 
+			// [LOOT_111] Scorp-o-matic - COST:2 [ATK:1/HP:2]
 			// - Race: mechanical, Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy a minion with 1 or less Attack.
@@ -2839,13 +2839,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_MAX_ATTACK = 1
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_111", new CardDef(new Power
+			cards.Add("LOOT_111", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_MAX_ATTACK,PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
 			{
 				PowerTask = new DestroyTask(EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_117] Wax Elemental - COST:1 [ATK:0/HP:2] 
+			// [LOOT_117] Wax Elemental - COST:1 [ATK:0/HP:2]
 			// - Race: elemental, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2858,7 +2858,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOOT_117", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_118] Ebon Dragonsmith - COST:4 [ATK:3/HP:4] 
+			// [LOOT_118] Ebon Dragonsmith - COST:4 [ATK:3/HP:4]
 			// - Race: dragon, Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Reduce the Cost of a random weapon in your hand by (2).
@@ -2876,7 +2876,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_122] Corrosive Sludge - COST:5 [ATK:5/HP:5] 
+			// [LOOT_122] Corrosive Sludge - COST:5 [ATK:5/HP:5]
 			// - Fac: alliance, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy your opponent's weapon.
@@ -2890,7 +2890,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_124] Lone Champion - COST:3 [ATK:2/HP:4] 
+			// [LOOT_124] Lone Champion - COST:3 [ATK:2/HP:4]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you control no other minions, gain <b>Taunt</b> and <b>Divine Shield</b>.
@@ -2910,7 +2910,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_125] Stoneskin Basilisk - COST:3 [ATK:1/HP:1] 
+			// [LOOT_125] Stoneskin Basilisk - COST:3 [ATK:1/HP:1]
 			// - Race: beast, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>
@@ -2923,7 +2923,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOOT_125", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_130] Arcane Tyrant - COST:5 [ATK:4/HP:4] 
+			// [LOOT_130] Arcane Tyrant - COST:5 [ATK:4/HP:4]
 			// - Race: elemental, Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Costs (0) if you've cast a spell that costs (5) or more this turn.
@@ -2935,7 +2935,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_131] Green Jelly - COST:5 [ATK:3/HP:3] 
+			// [LOOT_131] Green Jelly - COST:5 [ATK:3/HP:3]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: At the end of your turn, summon a 1/2 Ooze with_<b>Taunt</b>.
@@ -2952,7 +2952,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_132] Dragonslayer - COST:3 [ATK:4/HP:3] 
+			// [LOOT_132] Dragonslayer - COST:3 [ATK:4/HP:3]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 6 damage to a Dragon.
@@ -2964,13 +2964,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_TARGET_WITH_RACE = 24
 			// --------------------------------------------------------
-			cards.Add("LOOT_132", new CardDef(new Power
+			cards.Add("LOOT_132", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_TARGET_WITH_RACE}, new Power
 			{
 				PowerTask = new DamageTask(6, EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_134] Toothy Chest - COST:3 [ATK:0/HP:4] 
+			// [LOOT_134] Toothy Chest - COST:3 [ATK:0/HP:4]
 			// - Fac: neutral, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: At the start of your turn, set this minion's Attack to 4.
@@ -2985,7 +2985,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_136] Sneaky Devil - COST:4 [ATK:2/HP:2] 
+			// [LOOT_136] Sneaky Devil - COST:4 [ATK:2/HP:2]
 			// - Race: demon, Fac: alliance, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
@@ -3000,7 +3000,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_137] Sleepy Dragon - COST:9 [ATK:4/HP:12] 
+			// [LOOT_137] Sleepy Dragon - COST:9 [ATK:4/HP:12]
 			// - Race: dragon, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -3011,7 +3011,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOOT_137", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_144] Hoarding Dragon - COST:4 [ATK:5/HP:6] 
+			// [LOOT_144] Hoarding Dragon - COST:4 [ATK:5/HP:6]
 			// - Race: dragon, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Give your opponent two Coins.
@@ -3025,7 +3025,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_149] Corridor Creeper - COST:7 [ATK:5/HP:5] 
+			// [LOOT_149] Corridor Creeper - COST:7 [ATK:5/HP:5]
 			// - Race: beast, Fac: neutral, Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Costs (1) less whenever a minion dies while this is_in_your hand.
@@ -3041,7 +3041,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_150] Furbolg Mossbinder - COST:5 [ATK:1/HP:1] 
+			// [LOOT_150] Furbolg Mossbinder - COST:5 [ATK:1/HP:1]
 			// - Fac: alliance, Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Transform a friendly minion into a 6/6_Elemental.
@@ -3054,13 +3054,13 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_150", new CardDef(new Power
+			cards.Add("LOOT_150", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = new TransformTask("LOOT_150t1", EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_152] Boisterous Bard - COST:3 [ATK:3/HP:2] 
+			// [LOOT_152] Boisterous Bard - COST:3 [ATK:3/HP:2]
 			// - Fac: alliance, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give your other minions +1 Health.
@@ -3074,7 +3074,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_153] Violet Wurm - COST:8 [ATK:7/HP:7] 
+			// [LOOT_153] Violet Wurm - COST:8 [ATK:7/HP:7]
 			// - Race: beast, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon seven 1/1 Grubs.
@@ -3088,7 +3088,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_154] Gravelsnout Knight - COST:1 [ATK:2/HP:3] 
+			// [LOOT_154] Gravelsnout Knight - COST:1 [ATK:2/HP:3]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a random 1-Cost minion for_your opponent.
@@ -3104,7 +3104,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_161] Carnivorous Cube - COST:5 [ATK:4/HP:6] 
+			// [LOOT_161] Carnivorous Cube - COST:5 [ATK:4/HP:6]
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy
@@ -3120,7 +3120,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_161", new CardDef(new Power
+			cards.Add("LOOT_161", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
@@ -3129,7 +3129,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_167] Fungalmancer - COST:5 [ATK:2/HP:2] 
+			// [LOOT_167] Fungalmancer - COST:5 [ATK:2/HP:2]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give adjacent minions +2/+2.
@@ -3145,7 +3145,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_184] Silver Vanguard - COST:7 [ATK:3/HP:3] 
+			// [LOOT_184] Silver Vanguard - COST:7 [ATK:3/HP:3]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> <b>Recruit</b> an
@@ -3163,7 +3163,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_193] Shimmering Courser - COST:4 [ATK:3/HP:3] 
+			// [LOOT_193] Shimmering Courser - COST:4 [ATK:3/HP:3]
 			// - Race: beast, Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Only you can target
@@ -3180,7 +3180,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_218] Feral Gibberer - COST:1 [ATK:1/HP:1] 
+			// [LOOT_218] Feral Gibberer - COST:1 [ATK:1/HP:1]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: After this minion attacks a hero, add a copy of it to_your hand.
@@ -3196,7 +3196,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_233] Cursed Disciple - COST:4 [ATK:5/HP:1] 
+			// [LOOT_233] Cursed Disciple - COST:4 [ATK:5/HP:1]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a 5/1 Revenant.
@@ -3210,13 +3210,13 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_258] Dire Mole - COST:1 [ATK:1/HP:3] 
+			// [LOOT_258] Dire Mole - COST:1 [ATK:1/HP:3]
 			// - Race: beast, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("LOOT_258", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_291] Shroom Brewer - COST:4 [ATK:4/HP:4] 
+			// [LOOT_291] Shroom Brewer - COST:4 [ATK:4/HP:4]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Restore 4_Health.
@@ -3227,13 +3227,13 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_291", new CardDef(new Power
+			cards.Add("LOOT_291", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
 			{
 				PowerTask = new HealTask(4, EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_315] Trogg Gloomeater - COST:5 [ATK:1/HP:5] 
+			// [LOOT_315] Trogg Gloomeater - COST:5 [ATK:1/HP:5]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -3246,7 +3246,7 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOOT_315", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_347] Kobold Apprentice - COST:3 [ATK:2/HP:1] 
+			// [LOOT_347] Kobold Apprentice - COST:3 [ATK:2/HP:1]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 3 damage randomly split among all_enemies.
@@ -3260,7 +3260,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_357] Marin the Fox - COST:8 [ATK:6/HP:6] 
+			// [LOOT_357] Marin the Fox - COST:8 [ATK:6/HP:6]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a 0/8 Treasure Chest for your opponent. <i>(Break it for awesome loot!)</i>
@@ -3275,7 +3275,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_375] Guild Recruiter - COST:5 [ATK:2/HP:4] 
+			// [LOOT_375] Guild Recruiter - COST:5 [ATK:2/HP:4]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Recruit</b> a minion that costs (4) or less.
@@ -3292,7 +3292,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_382] Kobold Monk - COST:4 [ATK:3/HP:6] 
+			// [LOOT_382] Kobold Monk - COST:4 [ATK:3/HP:6]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Your hero can't be targeted by spells or Hero_Powers.
@@ -3303,7 +3303,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_383] Hungry Ettin - COST:6 [ATK:4/HP:10] 
+			// [LOOT_383] Hungry Ettin - COST:6 [ATK:4/HP:10]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -3321,7 +3321,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_388] Fungal Enchanter - COST:3 [ATK:3/HP:3] 
+			// [LOOT_388] Fungal Enchanter - COST:3 [ATK:3/HP:3]
 			// - Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Restore 2 Health to all friendly characters.
@@ -3335,7 +3335,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_389] Rummaging Kobold - COST:3 [ATK:1/HP:3] 
+			// [LOOT_389] Rummaging Kobold - COST:3 [ATK:1/HP:3]
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Return one of your destroyed weapons to your hand.
@@ -3353,7 +3353,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_394] Shrieking Shroom - COST:3 [ATK:1/HP:2] 
+			// [LOOT_394] Shrieking Shroom - COST:3 [ATK:1/HP:2]
 			// - Set: lootapalooza, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the end of your turn, summon a random
@@ -3370,7 +3370,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_413] Plated Beetle - COST:2 [ATK:2/HP:3] 
+			// [LOOT_413] Plated Beetle - COST:2 [ATK:2/HP:3]
 			// - Race: beast, Set: lootapalooza, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Gain 3 Armor.
@@ -3384,7 +3384,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_414] Grand Archivist - COST:8 [ATK:4/HP:7] 
+			// [LOOT_414] Grand Archivist - COST:8 [ATK:4/HP:7]
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: At the end of your turn, cast a spell from your deck <i>(targets chosen randomly)</i>.
@@ -3403,7 +3403,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_516] Zola the Gorgon - COST:3 [ATK:2/HP:2] 
+			// [LOOT_516] Zola the Gorgon - COST:3 [ATK:2/HP:2]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Choose a friendly minion. Add a Golden copy of it to your hand.
@@ -3417,7 +3417,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_516", new CardDef(new Power
+			cards.Add("LOOT_516", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO Test: Zola the Gorgon_LOOT_516
 				PowerTask = ComplexTask.Create(
@@ -3426,7 +3426,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_521] Master Oakheart - COST:9 [ATK:5/HP:5] 
+			// [LOOT_521] Master Oakheart - COST:9 [ATK:5/HP:5]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Recruit</b> a 1, 2, and 3-Attack minion.
@@ -3447,7 +3447,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_526] The Darkness - COST:4 [ATK:20/HP:20] 
+			// [LOOT_526] The Darkness - COST:4 [ATK:20/HP:20]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]Starts dormant.
@@ -3473,7 +3473,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_529] Void Ripper - COST:3 [ATK:3/HP:3] 
+			// [LOOT_529] Void Ripper - COST:3 [ATK:3/HP:3]
 			// - Race: demon, Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Swap the
@@ -3489,7 +3489,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_539] Spiteful Summoner - COST:7 [ATK:4/HP:4] 
+			// [LOOT_539] Spiteful Summoner - COST:7 [ATK:4/HP:4]
 			// - Fac: neutral, Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Reveal a spell
@@ -3515,7 +3515,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_540] Dragonhatcher - COST:9 [ATK:2/HP:4] 
+			// [LOOT_540] Dragonhatcher - COST:9 [ATK:2/HP:4]
 			// - Set: lootapalooza, Rarity: epic
 			// --------------------------------------------------------
 			// Text: At the end of your turn, <b>Recruit</b> a Dragon.
@@ -3532,7 +3532,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_541] King Togwaggle - COST:8 [ATK:5/HP:5] 
+			// [LOOT_541] King Togwaggle - COST:8 [ATK:5/HP:5]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Swap decks
@@ -3556,8 +3556,8 @@ namespace SabberStoneCore.CardSets
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_018e] Hooked Horror (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_018e] Hooked Horror (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			//       <b>Taunt</b>
@@ -3568,8 +3568,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_047e] Barkskin (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_047e] Barkskin (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: +3 Health.
 			// --------------------------------------------------------
@@ -3579,8 +3579,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_054be] Fearless (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_054be] Fearless (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
@@ -3590,8 +3590,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_118e] Smithing (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_118e] Smithing (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Cost reduced.
 			// --------------------------------------------------------
@@ -3601,8 +3601,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_124e] Lonely (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_124e] Lonely (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b> and <b>Divine Shield</b>.
 			// --------------------------------------------------------
@@ -3612,8 +3612,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_134e] Toothy (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_134e] Toothy (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Attack set to 4.
 			// --------------------------------------------------------
@@ -3623,8 +3623,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_136e] Devilish Power (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_136e] Devilish Power (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Sneaky Devil is granting this minion +1 Attack.
 			// --------------------------------------------------------
@@ -3634,8 +3634,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_149e] Creepier (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_149e] Creepier (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Costs (1) less.
 			// --------------------------------------------------------
@@ -3645,8 +3645,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_152e] Inspired (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_152e] Inspired (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: +1 Health.
 			// --------------------------------------------------------
@@ -3656,8 +3656,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_161e] Carnivorous Cube (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_161e] Carnivorous Cube (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Destroyed {0}.
 			// --------------------------------------------------------
@@ -3671,8 +3671,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_165e] Sonya's Shadow (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_165e] Sonya's Shadow (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Sonya Shadowdancer made this 1/1.
 			// --------------------------------------------------------
@@ -3682,8 +3682,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_167e] Magic Mushroom (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_167e] Magic Mushroom (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -3693,8 +3693,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_187e] Shadowy (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_187e] Shadowy (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: 1/1.
 			// --------------------------------------------------------
@@ -3704,8 +3704,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_204e] Close Call (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_204e] Close Call (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Costs (2) less.
 			// --------------------------------------------------------
@@ -3715,8 +3715,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_214e] Evasive (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_214e] Evasive (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: <b>Immune</b> until end of turn.
 			// --------------------------------------------------------
@@ -3732,8 +3732,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_216e] Light of the Exarch (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_216e] Light of the Exarch (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Spell cast on minion.
 			// --------------------------------------------------------
@@ -3745,8 +3745,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_278e] Tastes Like ???? (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_278e] Tastes Like ???? (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -3756,8 +3756,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_278t1e] Sanguine (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_278t1e] Sanguine (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: +2/+2 and <b>Lifesteal</b>.
 			// --------------------------------------------------------
@@ -3770,8 +3770,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// -------------------------z--------- ENCHANTMENT - NEUTRAL
-			// [LOOT_278t2e] Pure (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_278t2e] Pure (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: +2/+2 and <b>Divine Shield</b>.
 			// --------------------------------------------------------
@@ -3781,8 +3781,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_278t3e] Shadowtouched (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_278t3e] Shadowtouched (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -3792,8 +3792,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_278t3e2] Shadowy (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_278t3e2] Shadowy (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: 1/1.
 			// --------------------------------------------------------
@@ -3803,8 +3803,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_278t4e] Hopeful (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_278t4e] Hopeful (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: +2/+2. <b>Deathrattle:</b> Return this minion to your hand.
 			// --------------------------------------------------------
@@ -3815,8 +3815,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_286t3e] Holy Blessings (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_286t3e] Holy Blessings (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
@@ -3826,8 +3826,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_333e] +1 Level! (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_333e] +1 Level! (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: +2/+2 and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -3837,8 +3837,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_358e] Grumbly Tumbly (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_358e] Grumbly Tumbly (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Costs (1).
 			// --------------------------------------------------------
@@ -3848,8 +3848,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_412e] Shadowy (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_412e] Shadowy (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: 1/1.
 			// --------------------------------------------------------
@@ -3859,8 +3859,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_500e] Wielding Val'anyr (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_500e] Wielding Val'anyr (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: +4/+2.
 			//       <b>Deathrattle:</b> Equip a 4/2 Val'anyr.
@@ -3872,8 +3872,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_517e] Murmurs (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_517e] Murmurs (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Your next <b>Battlecry</b> this turn triggers twice.
 			// --------------------------------------------------------
@@ -3892,8 +3892,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_517e2] Murmuring (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_517e2] Murmuring (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Your next <b>Battlecry</b> this turn triggers twice.
 			// --------------------------------------------------------
@@ -3911,8 +3911,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_520e] Albino Chameleon (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_520e] Albino Chameleon (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Copied Deathrattle from {0}.
 			// --------------------------------------------------------
@@ -3930,8 +3930,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_526et] Darkness Candle Detect (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_526et] Darkness Candle Detect (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_526et", new CardDef(new Power
 			{
@@ -3939,8 +3939,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_529e] Void Shift (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_529e] Void Shift (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Attack and Health have been swapped.
 			// --------------------------------------------------------
@@ -3950,8 +3950,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [LOOT_998le] Wand's Wonder (*) - COST:0 
-			// - Set: lootapalooza, 
+			// [LOOT_998le] Wand's Wonder (*) - COST:0
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Costs (0).
 			// --------------------------------------------------------
@@ -3961,14 +3961,14 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_069t] Giant Rat (*) - COST:3 [ATK:2/HP:3] 
-			// - Race: beast, Set: lootapalooza, 
+			// [LOOT_069t] Giant Rat (*) - COST:3 [ATK:2/HP:3]
+			// - Race: beast, Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_069t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_131t1] Green Ooze (*) - COST:2 [ATK:1/HP:2] 
-			// - Set: lootapalooza, 
+			// [LOOT_131t1] Green Ooze (*) - COST:2 [ATK:1/HP:2]
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -3978,26 +3978,26 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOOT_131t1", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_150t1] Moss Elemental (*) - COST:6 [ATK:6/HP:6] 
-			// - Race: elemental, Set: lootapalooza, 
+			// [LOOT_150t1] Moss Elemental (*) - COST:6 [ATK:6/HP:6]
+			// - Race: elemental, Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_150t1", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_153t1] Grub (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: beast, Set: lootapalooza, 
+			// [LOOT_153t1] Grub (*) - COST:1 [ATK:1/HP:1]
+			// - Race: beast, Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_153t1", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_233t] Cursed Revenant (*) - COST:4 [ATK:5/HP:1] 
-			// - Set: lootapalooza, 
+			// [LOOT_233t] Cursed Revenant (*) - COST:4 [ATK:5/HP:1]
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			cards.Add("LOOT_233t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_357l] Master Chest (*) - COST:3 [ATK:0/HP:8] 
-			// - Set: lootapalooza, 
+			// [LOOT_357l] Master Chest (*) - COST:3 [ATK:0/HP:8]
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Give your opponent a fantastic treasure!
 			// --------------------------------------------------------
@@ -4016,7 +4016,7 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_526d] The Darkness (*) - COST:4 [ATK:20/HP:20] 
+			// [LOOT_526d] The Darkness (*) - COST:4 [ATK:20/HP:20]
 			// - Set: lootapalooza, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: @
@@ -4032,8 +4032,8 @@ namespace SabberStoneCore.CardSets
 			cards.Add("LOOT_526d", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [LOOT_998k] Golden Kobold (*) - COST:3 [ATK:6/HP:6] 
-			// - Set: lootapalooza, 
+			// [LOOT_998k] Golden Kobold (*) - COST:3 [ATK:6/HP:6]
+			// - Set: lootapalooza,
 			// ---------------------s-----------------------------------
 			// Text: <b>Taunt</b>
 			//       <b>Battlecry:</b> Replace your hand with <b>Legendary</b> minions.
@@ -4049,8 +4049,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOOT_526t] Darkness Candle (*) - COST:4 
-			// - Set: lootapalooza, 
+			// [LOOT_526t] Darkness Candle (*) - COST:4
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Snuff out a candle. Draw a card.
 			//       Cast this when drawn.
@@ -4065,8 +4065,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOOT_541t] King's Ransom (*) - COST:5 
-			// - Set: lootapalooza, 
+			// [LOOT_541t] King's Ransom (*) - COST:5
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Swap decks with your_opponent.
 			// --------------------------------------------------------
@@ -4076,15 +4076,15 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOOT_998h] Tolin's Goblet (*) - COST:3 
-			// - Set: lootapalooza, 
+			// [LOOT_998h] Tolin's Goblet (*) - COST:3
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Draw a card. Fill your hand with copies of it.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_998h", new CardDef(new Power
+			cards.Add("LOOT_998h", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DrawTask(true),
@@ -4107,8 +4107,8 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOOT_998j] Zarog's Crown (*) - COST:3 
-			// - Fac: neutral, Set: lootapalooza, 
+			// [LOOT_998j] Zarog's Crown (*) - COST:3
+			// - Fac: neutral, Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a <b>Legendary</b> minion. Summon two copies of it.
 			// --------------------------------------------------------
@@ -4118,15 +4118,15 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_998j", new CardDef(new Power
+			cards.Add("LOOT_998j", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.LEGENDARY_MINIONS,
 					new CopyTask(EntityType.TARGET, Zone.PLAY))
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [LOOT_998l] Wondrous Wand (*) - COST:3 
-			// - Set: lootapalooza, 
+			// [LOOT_998l] Wondrous Wand (*) - COST:3
+			// - Set: lootapalooza,
 			// --------------------------------------------------------
 			// Text: Draw 3 cards. Reduce their Costs to (0).
 			// --------------------------------------------------------

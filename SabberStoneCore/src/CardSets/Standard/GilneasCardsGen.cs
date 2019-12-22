@@ -37,7 +37,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Heroes(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ HERO - SHAMAN
-			// [GIL_504] Hagatha the Witch - COST:8 [ATK:0/HP:30] 
+			// [GIL_504] Hagatha the Witch - COST:8 [ATK:0/HP:30]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 3 damage to all minions.
@@ -58,8 +58,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void HeroPowers(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- HERO_POWER - NEUTRAL
-			// [GIL_504h] Bewitch (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_504h] Bewitch (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: [x]<b>Passive Hero Power</b>
 			//       After you play a minion,
@@ -80,7 +80,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Druid(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [GIL_188] Druid of the Scythe - COST:3 [ATK:2/HP:2] 
+			// [GIL_188] Druid of the Scythe - COST:3 [ATK:2/HP:2]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Choose One -</b> Transform
@@ -100,7 +100,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [GIL_507] Bewitched Guardian - COST:5 [ATK:4/HP:1] 
+			// [GIL_507] Bewitched Guardian - COST:5 [ATK:4/HP:1]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Taunt</b>
@@ -119,7 +119,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [GIL_658] Splintergraft - COST:8 [ATK:8/HP:8] 
+			// [GIL_658] Splintergraft - COST:8 [ATK:8/HP:8]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Choose a friendly
@@ -135,7 +135,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_658", new CardDef(new Power
+			cards.Add("GIL_658", new CardDef(new[] { PlayReq.REQ_TARGET_IF_AVAILABLE, PlayReq.REQ_FRIENDLY_TARGET, PlayReq.REQ_MINION_TARGET }, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new CopyTask(EntityType.TARGET, Zone.HAND, addToStack: true),
@@ -143,7 +143,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [GIL_800] Duskfallen Aviana - COST:5 [ATK:3/HP:7] 
+			// [GIL_800] Duskfallen Aviana - COST:5 [ATK:3/HP:7]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: On each player's turn, the first card played costs (0).
@@ -163,7 +163,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [GIL_833] Forest Guide - COST:4 [ATK:1/HP:6] 
+			// [GIL_833] Forest Guide - COST:4 [ATK:1/HP:6]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the end of your turn, both players draw a card.
@@ -179,7 +179,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GIL_553] Wispering Woods - COST:4 
+			// [GIL_553] Wispering Woods - COST:4
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]Summon a 1/1 Wisp for
@@ -193,7 +193,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GIL_571] Witching Hour - COST:3 
+			// [GIL_571] Witching Hour - COST:3
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon a random friendly Beast that died this game.
@@ -202,14 +202,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// - REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME = 20
 			// --------------------------------------------------------
-			cards.Add("GIL_571", new CardDef(new Power
+			cards.Add("GIL_571", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS,PlayReq.REQ_FRIENDLY_MINIONS_OF_RACE_DIED_THIS_GAME}, new Power
 			{
 				// TODO Test: Witching Hour_GIL_571
 				PowerTask = ComplexTask.SummonRandomMinionThatDied(SelfCondition.IsRace(Race.BEAST))
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GIL_637] Ferocious Howl - COST:3 
+			// [GIL_637] Ferocious Howl - COST:3
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: Draw a card.
@@ -218,7 +218,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_637", new CardDef(new Power
+			cards.Add("GIL_637", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO Test: Ferocious Howl_GIL_637
 				PowerTask = ComplexTask.Create(
@@ -228,7 +228,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GIL_663] Witchwood Apple - COST:2 
+			// [GIL_663] Witchwood Apple - COST:2
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: Add three 2/2 Treants to your hand.
@@ -243,7 +243,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void DruidNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [GIL_188t] Druid of the Scythe (*) - COST:3 [ATK:4/HP:2] 
+			// [GIL_188t] Druid of the Scythe (*) - COST:3 [ATK:4/HP:2]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -254,7 +254,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_188t", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [GIL_188t2] Druid of the Scythe (*) - COST:3 [ATK:2/HP:4] 
+			// [GIL_188t2] Druid of the Scythe (*) - COST:3 [ATK:2/HP:4]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -265,7 +265,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_188t2", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [GIL_188t3] Druid of the Scythe (*) - COST:3 [ATK:4/HP:4] 
+			// [GIL_188t3] Druid of the Scythe (*) - COST:3 [ATK:4/HP:4]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -278,20 +278,20 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_188t3", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [GIL_553t] Wisp (*) - COST:0 [ATK:1/HP:1] 
-			// - Set: gilneas, 
+			// [GIL_553t] Wisp (*) - COST:0 [ATK:1/HP:1]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GIL_553t", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [GIL_663t] Treant (*) - COST:2 [ATK:2/HP:2] 
-			// - Set: gilneas, 
+			// [GIL_663t] Treant (*) - COST:2 [ATK:2/HP:2]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GIL_663t", new CardDef());
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GIL_188a] Dire Panther Form (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_188a] Dire Panther Form (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +2 Attack and <b>Rush</b>
 			// --------------------------------------------------------
@@ -301,8 +301,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [GIL_188b] Dire Wolf Form (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_188b] Dire Wolf Form (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +2 Health and <b>Taunt</b>
 			// --------------------------------------------------------
@@ -316,7 +316,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Hunter(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
-			// [GIL_128] Emeriss - COST:10 [ATK:8/HP:8] 
+			// [GIL_128] Emeriss - COST:10 [ATK:8/HP:8]
 			// - Race: dragon, Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Double the Attack and Health of all minions in_your hand.
@@ -334,7 +334,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [GIL_200] Duskhaven Hunter - COST:3 [ATK:2/HP:5] 
+			// [GIL_200] Duskhaven Hunter - COST:3 [ATK:2/HP:5]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Stealth</b>
@@ -350,7 +350,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [GIL_562] Vilebrood Skitterer - COST:5 [ATK:1/HP:3] 
+			// [GIL_562] Vilebrood Skitterer - COST:5 [ATK:1/HP:3]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
@@ -363,7 +363,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_562", new CardDef());
 
 			// ---------------------------------------- MINION - HUNTER
-			// [GIL_607] Toxmonger - COST:4 [ATK:2/HP:4] 
+			// [GIL_607] Toxmonger - COST:4 [ATK:2/HP:4]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]Whenever you play a 1-Cost
@@ -383,7 +383,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [GIL_607t] Hunting Mastiff - COST:2 [ATK:2/HP:1] 
+			// [GIL_607t] Hunting Mastiff - COST:2 [ATK:2/HP:1]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>
@@ -396,7 +396,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_607t", new CardDef());
 
 			// ---------------------------------------- MINION - HUNTER
-			// [GIL_650] Houndmaster Shaw - COST:4 [ATK:3/HP:6] 
+			// [GIL_650] Houndmaster Shaw - COST:4 [ATK:3/HP:6]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Your other minions have
@@ -415,7 +415,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [GIL_905] Carrion Drake - COST:5 [ATK:3/HP:7] 
+			// [GIL_905] Carrion Drake - COST:5 [ATK:3/HP:7]
 			// - Race: dragon, Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If a minion died this turn, gain <b>Poisonous</b>.
@@ -435,7 +435,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [GIL_518] Wing Blast - COST:4 
+			// [GIL_518] Wing Blast - COST:4
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $4 damage to a minion. If a minion died this turn, this costs (1). @spelldmg
@@ -444,7 +444,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_518", new CardDef(new Power
+			cards.Add("GIL_518", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO Test: Wing Blast_GIL_518
 				PowerTask = new DamageTask(4, EntityType.TARGET, true),
@@ -452,7 +452,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [GIL_577] Rat Trap - COST:2 
+			// [GIL_577] Rat Trap - COST:2
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Secret:</b> After your
@@ -473,7 +473,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [GIL_828] Dire Frenzy - COST:4 
+			// [GIL_828] Dire Frenzy - COST:4
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give a Beast +3/+3. Shuffle 3 copies into your deck with +3/+3.
@@ -483,7 +483,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_WITH_RACE = 20
 			// --------------------------------------------------------
-			cards.Add("GIL_828", new CardDef(new Power
+			cards.Add("GIL_828", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_WITH_RACE}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("GIL_828e", EntityType.TARGET),
@@ -496,7 +496,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
-			// [GIL_200t] Duskhaven Hunter (*) - COST:3 [ATK:5/HP:2] 
+			// [GIL_200t] Duskhaven Hunter (*) - COST:3 [ATK:5/HP:2]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Stealth</b>
@@ -512,13 +512,13 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [GIL_577t] Doom Rat (*) - COST:6 [ATK:6/HP:6] 
-			// - Race: beast, Set: gilneas, 
+			// [GIL_577t] Doom Rat (*) - COST:6 [ATK:6/HP:6]
+			// - Race: beast, Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GIL_577t", new CardDef());
 
 			// ---------------------------------------- MINION - HUNTER
-			// [ICC_828t5] Hunting Mastiff (*) - COST:2 [ATK:2/HP:1] 
+			// [ICC_828t5] Hunting Mastiff (*) - COST:2 [ATK:2/HP:1]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>
@@ -531,7 +531,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("ICC_828t5", new CardDef());
 
 			// ---------------------------------------- MINION - HUNTER
-			// [ICC_828t6] Vilebrood Skitterer (*) - COST:5 [ATK:1/HP:3] 
+			// [ICC_828t6] Vilebrood Skitterer (*) - COST:5 [ATK:1/HP:3]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
@@ -548,7 +548,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Mage(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
-			// [GIL_116] Arcane Keysmith - COST:4 [ATK:2/HP:2] 
+			// [GIL_116] Arcane Keysmith - COST:4 [ATK:2/HP:2]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Discover</b> a <b>Secret</b>. Put it into the battlefield.
@@ -566,7 +566,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [GIL_549] Toki, Time-Tinker - COST:6 [ATK:5/HP:5] 
+			// [GIL_549] Toki, Time-Tinker - COST:6 [ATK:5/HP:5]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Add a random
@@ -583,7 +583,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [GIL_640] Curio Collector - COST:5 [ATK:4/HP:4] 
+			// [GIL_640] Curio Collector - COST:5 [ATK:4/HP:4]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you draw a card, gain +1/+1.
@@ -598,7 +598,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [GIL_645] Bonfire Elemental - COST:5 [ATK:5/HP:5] 
+			// [GIL_645] Bonfire Elemental - COST:5 [ATK:5/HP:5]
 			// - Race: elemental, Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you played an_Elemental last turn, draw a card.
@@ -614,7 +614,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [GIL_664] Vex Crow - COST:4 [ATK:3/HP:3] 
+			// [GIL_664] Vex Crow - COST:4 [ATK:3/HP:3]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, summon a random
@@ -632,7 +632,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [GIL_691] Archmage Arugal - COST:2 [ATK:2/HP:2] 
+			// [GIL_691] Archmage Arugal - COST:2 [ATK:2/HP:2]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Whenever you draw a minion, add a copy of it to_your hand.
@@ -651,7 +651,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GIL_147] Cinderstorm - COST:3 
+			// [GIL_147] Cinderstorm - COST:3
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $5 damage randomly split among all enemies. @spelldmg
@@ -665,7 +665,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GIL_548] Book of Specters - COST:2 
+			// [GIL_548] Book of Specters - COST:2
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Draw 3 cards. Discard any spells drawn.
@@ -683,7 +683,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [GIL_801] Snap Freeze - COST:2 
+			// [GIL_801] Snap Freeze - COST:2
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Freeze</b> a minion.
@@ -696,7 +696,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("GIL_801", new CardDef(new Power
+			cards.Add("GIL_801", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
@@ -709,7 +709,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Paladin(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
-			// [GIL_545] Ghostly Charger - COST:5 [ATK:3/HP:4] 
+			// [GIL_545] Ghostly Charger - COST:5 [ATK:3/HP:4]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>
@@ -722,7 +722,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_545", new CardDef());
 
 			// --------------------------------------- MINION - PALADIN
-			// [GIL_634] Bellringer Sentry - COST:4 [ATK:3/HP:4] 
+			// [GIL_634] Bellringer Sentry - COST:4 [ATK:3/HP:4]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry and Deathrattle:</b> Put a <b>Secret</b> from your deck into the battlefield.
@@ -741,7 +741,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [GIL_635] Cathedral Gargoyle - COST:2 [ATK:2/HP:2] 
+			// [GIL_635] Cathedral Gargoyle - COST:2 [ATK:2/HP:2]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you're holding a Dragon, gain <b>Taunt</b> and <b>Divine Shield</b>.
@@ -763,7 +763,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [GIL_685] Paragon of Light - COST:3 [ATK:2/HP:5] 
+			// [GIL_685] Paragon of Light - COST:3 [ATK:2/HP:5]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: While this minion has 3 or more Attack, it has <b>Taunt</b> and <b>Lifesteal</b>.
@@ -781,7 +781,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [GIL_694] Prince Liam - COST:5 [ATK:5/HP:5] 
+			// [GIL_694] Prince Liam - COST:5 [ATK:5/HP:5]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Transform all
@@ -811,7 +811,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [GIL_817] The Glass Knight - COST:4 [ATK:4/HP:3] 
+			// [GIL_817] The Glass Knight - COST:4 [ATK:4/HP:3]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Divine Shield</b>
@@ -832,7 +832,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [GIL_145] Sound the Bells! - COST:2 
+			// [GIL_145] Sound the Bells! - COST:2
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>
@@ -845,13 +845,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_145", new CardDef(new Power
+			cards.Add("GIL_145", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("GIL_145e", EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [GIL_203] Rebuke - COST:2 
+			// [GIL_203] Rebuke - COST:2
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: Enemy spells cost (5) more next turn.
@@ -862,7 +862,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [GIL_903] Hidden Wisdom - COST:1 
+			// [GIL_903] Hidden Wisdom - COST:1
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Secret:</b> After your
@@ -883,7 +883,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- WEAPON - PALADIN
-			// [GIL_596] Silver Sword - COST:8 [ATK:3/HP:0] 
+			// [GIL_596] Silver Sword - COST:8 [ATK:3/HP:0]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: After your hero attacks, give your minions +1/+1.
@@ -906,8 +906,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void PaladinNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [GIL_145e] DING DONG! (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_145e] DING DONG! (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +1/+2.
 			// --------------------------------------------------------
@@ -921,7 +921,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Priest(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
-			// [GIL_142] Chameleos - COST:1 [ATK:1/HP:1] 
+			// [GIL_142] Chameleos - COST:1 [ATK:1/HP:1]
 			// - Race: beast, Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Each turn this is in your hand, transform it into a card your opponent is holding.
@@ -950,7 +950,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [GIL_156] Quartz Elemental - COST:5 [ATK:5/HP:8] 
+			// [GIL_156] Quartz Elemental - COST:5 [ATK:5/HP:8]
 			// - Race: elemental, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: Can't attack while damaged.
@@ -961,7 +961,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [GIL_190] Nightscale Matriarch - COST:7 [ATK:4/HP:9] 
+			// [GIL_190] Nightscale Matriarch - COST:7 [ATK:4/HP:9]
 			// - Race: dragon, Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever a friendly minion is healed, summon a 3/3_Whelp.
@@ -976,7 +976,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [GIL_805] Coffin Crasher - COST:6 [ATK:6/HP:5] 
+			// [GIL_805] Coffin Crasher - COST:6 [ATK:6/HP:5]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a <b>Deathrattle</b> minion from your hand.
@@ -995,7 +995,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [GIL_835] Squashling - COST:2 [ATK:2/HP:1] 
+			// [GIL_835] Squashling - COST:2 [ATK:2/HP:1]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Echo</b>
@@ -1008,13 +1008,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_835", new CardDef(new Power
+			cards.Add("GIL_835", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new HealTask(2, EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [GIL_840] Lady in White - COST:6 [ATK:5/HP:5] 
+			// [GIL_840] Lady in White - COST:6 [ATK:5/HP:5]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Cast 'Inner Fire'
@@ -1043,7 +1043,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [GIL_134] Holy Water - COST:5 
+			// [GIL_134] Holy Water - COST:5
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $4 damage to a minion. If that kills it, add a copy of it to your_hand. @spelldmg
@@ -1052,7 +1052,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_134", new CardDef(new Power
+			cards.Add("GIL_134", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(4, EntityType.TARGET, true),
@@ -1061,7 +1061,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [GIL_661] Divine Hymn - COST:2 
+			// [GIL_661] Divine Hymn - COST:2
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: Restore #6 Health to all friendly characters.
@@ -1070,13 +1070,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_661", new CardDef(new Power
+			cards.Add("GIL_661", new CardDef(new[] {PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new HealTask(6, EntityType.FRIENDS)
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [GIL_813] Vivid Nightmare - COST:3 
+			// [GIL_813] Vivid Nightmare - COST:3
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]Choose a friendly minion.
@@ -1089,7 +1089,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_813", new CardDef(new Power
+			cards.Add("GIL_813", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_NUM_MINION_SLOTS,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new SummonCopyTask(EntityType.TARGET, false, true),
@@ -1103,8 +1103,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void PriestNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [GIL_840e] Angelic Fortitude (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_840e] Angelic Fortitude (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Has Attack equal to its Health.
 			// --------------------------------------------------------
@@ -1114,8 +1114,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [GIL_190t] Nightscale Whelp (*) - COST:3 [ATK:3/HP:3] 
-			// - Race: dragon, Set: gilneas, 
+			// [GIL_190t] Nightscale Whelp (*) - COST:3 [ATK:3/HP:3]
+			// - Race: dragon, Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GIL_190t", new CardDef());
 
@@ -1124,7 +1124,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Rogue(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
-			// [GIL_510] Mistwraith - COST:4 [ATK:3/HP:5] 
+			// [GIL_510] Mistwraith - COST:4 [ATK:3/HP:5]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you play an <b>Echo</b>_card, gain +1/+1.
@@ -1143,7 +1143,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [GIL_557] Cursed Castaway - COST:6 [ATK:5/HP:3] 
+			// [GIL_557] Cursed Castaway - COST:6 [ATK:5/HP:3]
 			// - Race: pirate, Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -1162,7 +1162,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [GIL_598] Tess Greymane - COST:8 [ATK:6/HP:6] 
+			// [GIL_598] Tess Greymane - COST:8 [ATK:6/HP:6]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Replay every card
@@ -1182,7 +1182,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [GIL_677] Face Collector - COST:3 [ATK:2/HP:2] 
+			// [GIL_677] Face Collector - COST:3 [ATK:2/HP:2]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>
@@ -1201,7 +1201,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [GIL_827] Blink Fox - COST:3 [ATK:3/HP:3] 
+			// [GIL_827] Blink Fox - COST:3 [ATK:3/HP:3]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Add a random card to your hand <i>(from your opponent's class).</i>
@@ -1215,7 +1215,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [GIL_902] Cutthroat Buccaneer - COST:3 [ATK:2/HP:4] 
+			// [GIL_902] Cutthroat Buccaneer - COST:3 [ATK:2/HP:4]
 			// - Race: pirate, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Combo:</b> Give your weapon +1 Attack.
@@ -1229,7 +1229,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [GIL_506] Cheap Shot - COST:2 
+			// [GIL_506] Cheap Shot - COST:2
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>
@@ -1242,13 +1242,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_506", new CardDef(new Power
+			cards.Add("GIL_506", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET, true)
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [GIL_687] WANTED! - COST:4 
+			// [GIL_687] WANTED! - COST:4
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Deal $3 damage to a minion. If that kills it, add a Coin to your hand. @spelldmg
@@ -1257,7 +1257,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_687", new CardDef(new Power
+			cards.Add("GIL_687", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(3, EntityType.TARGET, true),
@@ -1266,7 +1266,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [GIL_696] Pick Pocket - COST:2 
+			// [GIL_696] Pick Pocket - COST:2
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>
@@ -1281,7 +1281,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- WEAPON - ROGUE
-			// [GIL_672] Spectral Cutlass - COST:4 [ATK:2/HP:0] 
+			// [GIL_672] Spectral Cutlass - COST:4 [ATK:2/HP:0]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Lifesteal</b>
@@ -1305,66 +1305,10 @@ namespace SabberStoneCore.CardSets.Standard
 
 		}
 
-		private static void RogueNonCollect(IDictionary<string, CardDef> cards)
-		{
-			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [GIL_827e1] Pounce (*) - COST:0 
-			// - Set: gilneas, 
-			// --------------------------------------------------------
-			// Text: <b>Rush</b>
-			// --------------------------------------------------------
-			cards.Add("GIL_827e1", new CardDef(new Power
-			{
-				// TODO [GIL_827e1] Pounce && Test: Pounce_GIL_827e1
-				//PowerTask = null,
-				//Trigger = null,
-			}));
-
-			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [GIL_827e2] Bite (*) - COST:0 
-			// - Set: gilneas, 
-			// --------------------------------------------------------
-			// Text: <b>Lifesteal</b>
-			// --------------------------------------------------------
-			cards.Add("GIL_827e2", new CardDef(new Power
-			{
-				// TODO [GIL_827e2] Bite && Test: Bite_GIL_827e2
-				//PowerTask = null,
-				//Trigger = null,
-			}));
-
-			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [GIL_827e3] Rabid (*) - COST:0 
-			// - Set: gilneas, 
-			// --------------------------------------------------------
-			// Text: <b>Poisonous</b>
-			// --------------------------------------------------------
-			cards.Add("GIL_827e3", new CardDef(new Power
-			{
-				// TODO [GIL_827e3] Rabid && Test: Rabid_GIL_827e3
-				//PowerTask = null,
-				//Trigger = null,
-			}));
-
-			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [GIL_827e4] Flurry (*) - COST:0 
-			// - Set: gilneas, 
-			// --------------------------------------------------------
-			// Text: <b>Windfury</b>
-			// --------------------------------------------------------
-			cards.Add("GIL_827e4", new CardDef(new Power
-			{
-				// TODO [GIL_827e4] Flurry && Test: Flurry_GIL_827e4
-				//PowerTask = null,
-				//Trigger = null,
-			}));
-
-		}
-
 		private static void Shaman(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
-			// [GIL_531] Witch's Apprentice - COST:1 [ATK:0/HP:1] 
+			// [GIL_531] Witch's Apprentice - COST:1 [ATK:0/HP:1]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -1380,7 +1324,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [GIL_583] Totem Cruncher - COST:4 [ATK:2/HP:3] 
+			// [GIL_583] Totem Cruncher - COST:4 [ATK:2/HP:3]
 			// - Race: beast, Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -1403,7 +1347,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [GIL_678] Ghost Light Angler - COST:2 [ATK:2/HP:2] 
+			// [GIL_678] Ghost Light Angler - COST:2 [ATK:2/HP:2]
 			// - Race: murloc, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>
@@ -1414,7 +1358,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_678", new CardDef());
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [GIL_807] Bogshaper - COST:7 [ATK:4/HP:8] 
+			// [GIL_807] Bogshaper - COST:7 [ATK:4/HP:8]
 			// - Race: elemental, Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, draw a minion from your_deck.
@@ -1429,7 +1373,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [GIL_820] Shudderwock - COST:9 [ATK:6/HP:6] 
+			// [GIL_820] Shudderwock - COST:9 [ATK:6/HP:6]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Repeat all other
@@ -1449,7 +1393,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [GIL_586] Earthen Might - COST:2 
+			// [GIL_586] Earthen Might - COST:2
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]Give a minion +2/+2.
@@ -1461,7 +1405,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_586", new CardDef(new Power
+			cards.Add("GIL_586", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new AddEnchantmentTask("GIL_586e", EntityType.TARGET),
@@ -1472,7 +1416,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [GIL_600] Zap! - COST:0 
+			// [GIL_600] Zap! - COST:0
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to a minion. <b>Overload:</b> (1) @spelldmg
@@ -1486,13 +1430,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_600", new CardDef(new Power
+			cards.Add("GIL_600", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET, true)
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [GIL_836] Blazing Invocation - COST:1 
+			// [GIL_836] Blazing Invocation - COST:1
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a <b>Battlecry</b> minion.
@@ -1511,7 +1455,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Warlock(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
-			// [GIL_508] Duskbat - COST:3 [ATK:2/HP:4] 
+			// [GIL_508] Duskbat - COST:3 [ATK:2/HP:4]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If your hero took damage this turn, summon two 1/1 Bats.
@@ -1527,7 +1471,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [GIL_515] Ratcatcher - COST:3 [ATK:2/HP:2] 
+			// [GIL_515] Ratcatcher - COST:3 [ATK:2/HP:2]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -1542,7 +1486,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_515", new CardDef(new Power
+			cards.Add("GIL_515", new CardDef(new[] {PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.TARGET),
@@ -1552,7 +1496,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [GIL_565] Deathweb Spider - COST:5 [ATK:4/HP:6] 
+			// [GIL_565] Deathweb Spider - COST:5 [ATK:4/HP:6]
 			// - Race: beast, Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If your hero
@@ -1572,7 +1516,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [GIL_608] Witchwood Imp - COST:1 [ATK:1/HP:1] 
+			// [GIL_608] Witchwood Imp - COST:1 [ATK:1/HP:1]
 			// - Race: demon, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Stealth</b>
@@ -1591,7 +1535,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [GIL_618] Glinda Crowskin - COST:6 [ATK:3/HP:7] 
+			// [GIL_618] Glinda Crowskin - COST:6 [ATK:3/HP:7]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Minions in your hand have_<b>Echo</b>.
@@ -1612,7 +1556,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [GIL_693] Blood Witch - COST:4 [ATK:3/HP:6] 
+			// [GIL_693] Blood Witch - COST:4 [ATK:3/HP:6]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: At the start of your turn, deal 1 damage to your_hero.
@@ -1626,7 +1570,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [GIL_825] Lord Godfrey - COST:7 [ATK:4/HP:4] 
+			// [GIL_825] Lord Godfrey - COST:7 [ATK:4/HP:4]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Deal 2 damage to
@@ -1651,7 +1595,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [GIL_191] Fiendish Circle - COST:4 
+			// [GIL_191] Fiendish Circle - COST:4
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]Summon four 1/1 Imps.
@@ -1662,7 +1606,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [GIL_543] Dark Possession - COST:1 
+			// [GIL_543] Dark Possession - COST:1
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to a friendly character. <b>Discover</b> a Demon. @spelldmg
@@ -1674,10 +1618,9 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("GIL_543", new CardDef(new Power
+			cards.Add("GIL_543", new CardDef(new[] { PlayReq.REQ_TARGET_TO_PLAY, PlayReq.REQ_FRIENDLY_TARGET }, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(2, EntityType.TARGET, true),
@@ -1685,7 +1628,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [GIL_665] Curse of Weakness - COST:2 
+			// [GIL_665] Curse of Weakness - COST:2
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>
@@ -1704,8 +1647,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void WarlockNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [GIL_608e] Infusion (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_608e] Infusion (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
@@ -1715,14 +1658,14 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [GIL_191t] Imp (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: demon, Set: gilneas, 
+			// [GIL_191t] Imp (*) - COST:1 [ATK:1/HP:1]
+			// - Race: demon, Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GIL_191t", new CardDef());
 
 			// --------------------------------------- MINION - WARLOCK
-			// [GIL_508t] Bat (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: beast, Set: gilneas, 
+			// [GIL_508t] Bat (*) - COST:1 [ATK:1/HP:1]
+			// - Race: beast, Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GIL_508t", new CardDef());
 
@@ -1731,7 +1674,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Warrior(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
-			// [GIL_113] Rabid Worgen - COST:3 [ATK:3/HP:3] 
+			// [GIL_113] Rabid Worgen - COST:3 [ATK:3/HP:3]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -1742,7 +1685,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_113", new CardDef());
 
 			// --------------------------------------- MINION - WARRIOR
-			// [GIL_152] Blackhowl Gunspire - COST:7 [ATK:3/HP:8] 
+			// [GIL_152] Blackhowl Gunspire - COST:7 [ATK:3/HP:8]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]Can't attack. Whenever
@@ -1764,7 +1707,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [GIL_155] Redband Wasp - COST:2 [ATK:1/HP:3] 
+			// [GIL_155] Redband Wasp - COST:2 [ATK:1/HP:3]
 			// - Race: beast, Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -1781,7 +1724,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [GIL_547] Darius Crowley - COST:5 [ATK:4/HP:4] 
+			// [GIL_547] Darius Crowley - COST:5 [ATK:4/HP:4]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Rush</b>
@@ -1803,7 +1746,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [GIL_580] Town Crier - COST:1 [ATK:1/HP:2] 
+			// [GIL_580] Town Crier - COST:1 [ATK:1/HP:2]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Draw a <b>Rush</b> minion from your deck.
@@ -1820,7 +1763,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [GIL_655] Festeroot Hulk - COST:5 [ATK:2/HP:7] 
+			// [GIL_655] Festeroot Hulk - COST:5 [ATK:2/HP:7]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: After a friendly minion attacks, gain +1 Attack.
@@ -1836,7 +1779,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [GIL_803] Militia Commander - COST:4 [ATK:2/HP:5] 
+			// [GIL_803] Militia Commander - COST:4 [ATK:2/HP:5]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -1852,7 +1795,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GIL_537] Deadly Arsenal - COST:6 
+			// [GIL_537] Deadly Arsenal - COST:6
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Reveal a weapon from your deck. Deal its Attack to all minions. @spelldmg
@@ -1873,7 +1816,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [GIL_654] Warpath - COST:2 
+			// [GIL_654] Warpath - COST:2
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>
@@ -1885,13 +1828,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_654", new CardDef(new Power
+			cards.Add("GIL_654", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DamageTask(1, EntityType.ALLMINIONS, true)
 			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
-			// [GIL_653] Woodcutter's Axe - COST:2 [ATK:2/HP:0] 
+			// [GIL_653] Woodcutter's Axe - COST:2 [ATK:2/HP:0]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Give +2/+1 to a random friendly <b>Rush</b> minion.
@@ -1917,8 +1860,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void WarriorNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [GIL_803e] Reckless (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_803e] Reckless (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +3 Attack this turn.
 			// --------------------------------------------------------
@@ -1935,7 +1878,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Neutral(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_117] Worgen Abomination - COST:7 [ATK:6/HP:6] 
+			// [GIL_117] Worgen Abomination - COST:7 [ATK:6/HP:6]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: At the end of your turn, deal 2 damage to all other damaged minions.
@@ -1952,7 +1895,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_118] Deranged Doctor - COST:8 [ATK:8/HP:8] 
+			// [GIL_118] Deranged Doctor - COST:8 [ATK:8/HP:8]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Restore 8 Health to your hero.
@@ -1966,7 +1909,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_119] Cauldron Elemental - COST:8 [ATK:7/HP:7] 
+			// [GIL_119] Cauldron Elemental - COST:8 [ATK:7/HP:7]
 			// - Race: elemental, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: Your other Elementals have +2 Attack.
@@ -1983,7 +1926,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_120] Furious Ettin - COST:7 [ATK:5/HP:9] 
+			// [GIL_120] Furious Ettin - COST:7 [ATK:5/HP:9]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -1994,7 +1937,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_120", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_121] Darkmire Moonkin - COST:7 [ATK:2/HP:8] 
+			// [GIL_121] Darkmire Moonkin - COST:7 [ATK:2/HP:8]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +2</b>
@@ -2005,7 +1948,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_121", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_124] Mossy Horror - COST:6 [ATK:2/HP:7] 
+			// [GIL_124] Mossy Horror - COST:6 [ATK:2/HP:7]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy all other_minions with 2_or_less_Attack.
@@ -2022,7 +1965,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_125] Mad Hatter - COST:4 [ATK:3/HP:2] 
+			// [GIL_125] Mad Hatter - COST:4 [ATK:3/HP:2]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Randomly toss
@@ -2036,7 +1979,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_WITH_RACE = 11
 			// --------------------------------------------------------
-			cards.Add("GIL_125", new CardDef(new Power
+			cards.Add("GIL_125", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_WITH_RACE}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomTask(3, EntityType.ALLMINIONS_NOSOURCE),
@@ -2044,7 +1987,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_143] Vicious Scalehide - COST:2 [ATK:1/HP:3] 
+			// [GIL_143] Vicious Scalehide - COST:2 [ATK:1/HP:3]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
@@ -2057,7 +2000,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_143", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_198] Azalina Soulthief - COST:7 [ATK:3/HP:3] 
+			// [GIL_198] Azalina Soulthief - COST:7 [ATK:3/HP:3]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Replace your hand with a copy of your_opponent's.
@@ -2072,7 +2015,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_201] Pumpkin Peasant - COST:3 [ATK:2/HP:4] 
+			// [GIL_201] Pumpkin Peasant - COST:3 [ATK:2/HP:4]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Lifesteal</b>
@@ -2088,7 +2031,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_202] Gilnean Royal Guard - COST:8 [ATK:3/HP:8] 
+			// [GIL_202] Gilnean Royal Guard - COST:8 [ATK:3/HP:8]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Divine Shield</b>, <b>Rush</b>
@@ -2105,7 +2048,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_207] Phantom Militia - COST:3 [ATK:2/HP:4] 
+			// [GIL_207] Phantom Militia - COST:3 [ATK:2/HP:4]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>
@@ -2118,7 +2061,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_207", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_212] Ravencaller - COST:3 [ATK:2/HP:1] 
+			// [GIL_212] Ravencaller - COST:3 [ATK:2/HP:1]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Add two
@@ -2136,7 +2079,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_213] Tanglefur Mystic - COST:3 [ATK:3/HP:4] 
+			// [GIL_213] Tanglefur Mystic - COST:3 [ATK:3/HP:4]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Add a random
@@ -2155,7 +2098,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_513] Lost Spirit - COST:2 [ATK:1/HP:1] 
+			// [GIL_513] Lost Spirit - COST:2 [ATK:1/HP:1]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Give your minions +1 Attack.
@@ -2169,7 +2112,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_526] Wyrmguard - COST:7 [ATK:3/HP:11] 
+			// [GIL_526] Wyrmguard - COST:7 [ATK:3/HP:11]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you're holding a Dragon, gain +1 Attack and <b>Taunt</b>.
@@ -2188,7 +2131,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_527] Felsoul Inquisitor - COST:4 [ATK:1/HP:6] 
+			// [GIL_527] Felsoul Inquisitor - COST:4 [ATK:1/HP:6]
 			// - Race: demon, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
@@ -2201,7 +2144,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_527", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_528] Swift Messenger - COST:4 [ATK:2/HP:6] 
+			// [GIL_528] Swift Messenger - COST:4 [ATK:2/HP:6]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Rush</b>
@@ -2217,7 +2160,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_529] Spellshifter - COST:2 [ATK:1/HP:4] 
+			// [GIL_529] Spellshifter - COST:2 [ATK:1/HP:4]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Spell Damage +1</b>
@@ -2233,7 +2176,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_534] Hench-Clan Thug - COST:3 [ATK:3/HP:3] 
+			// [GIL_534] Hench-Clan Thug - COST:3 [ATK:3/HP:3]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: After your hero attacks, give this minion +1/+1.
@@ -2248,7 +2191,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_558] Swamp Leech - COST:1 [ATK:2/HP:1] 
+			// [GIL_558] Swamp Leech - COST:1 [ATK:2/HP:1]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
@@ -2259,7 +2202,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_558", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_561] Blackwald Pixie - COST:3 [ATK:3/HP:4] 
+			// [GIL_561] Blackwald Pixie - COST:3 [ATK:3/HP:4]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Refresh your Hero Power.
@@ -2273,7 +2216,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_578] Countess Ashmore - COST:7 [ATK:6/HP:6] 
+			// [GIL_578] Countess Ashmore - COST:7 [ATK:6/HP:6]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Draw a <b>Rush</b>,
@@ -2298,7 +2241,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_581] Sandbinder - COST:4 [ATK:2/HP:4] 
+			// [GIL_581] Sandbinder - COST:4 [ATK:2/HP:4]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Draw an Elemental from your deck.
@@ -2312,7 +2255,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_584] Witchwood Piper - COST:4 [ATK:3/HP:3] 
+			// [GIL_584] Witchwood Piper - COST:4 [ATK:3/HP:3]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Draw the lowest
@@ -2337,7 +2280,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_601] Scaleworm - COST:4 [ATK:4/HP:4] 
+			// [GIL_601] Scaleworm - COST:4 [ATK:4/HP:4]
 			// - Race: beast, Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you're holding a Dragon, gain +1 Attack and <b>Rush</b>.
@@ -2356,7 +2299,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_614] Voodoo Doll - COST:3 [ATK:1/HP:1] 
+			// [GIL_614] Voodoo Doll - COST:3 [ATK:1/HP:1]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Choose a minion. <b>Deathrattle:</b> Destroy the chosen minion.
@@ -2369,7 +2312,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_614", new CardDef(new Power
+			cards.Add("GIL_614", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.ENTITY_ID, EntityType.TARGET),
@@ -2378,7 +2321,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_616] Splitting Festeroot - COST:8 [ATK:4/HP:4] 
+			// [GIL_616] Splitting Festeroot - COST:8 [ATK:4/HP:4]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon two 2/2 Splitting Saplings.
@@ -2392,7 +2335,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_620] Dollmaster Dorian - COST:5 [ATK:2/HP:6] 
+			// [GIL_620] Dollmaster Dorian - COST:5 [ATK:2/HP:6]
 			// - Set: gilneas, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Whenever you draw a minion, summon a 1/1 copy of it.
@@ -2412,7 +2355,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_622] Lifedrinker - COST:4 [ATK:3/HP:3] 
+			// [GIL_622] Lifedrinker - COST:4 [ATK:3/HP:3]
 			// - Race: beast, Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Deal 3 damage to
@@ -2430,7 +2373,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_623] Witchwood Grizzly - COST:5 [ATK:3/HP:12] 
+			// [GIL_623] Witchwood Grizzly - COST:5 [ATK:3/HP:12]
 			// - Race: beast, Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Taunt</b>
@@ -2450,7 +2393,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_624] Night Prowler - COST:4 [ATK:3/HP:3] 
+			// [GIL_624] Night Prowler - COST:4 [ATK:3/HP:3]
 			// - Race: beast, Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If this is the only minion in the battlefield, gain +3/+3.
@@ -2466,7 +2409,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_646] Clockwork Automaton - COST:5 [ATK:4/HP:4] 
+			// [GIL_646] Clockwork Automaton - COST:5 [ATK:4/HP:4]
 			// - Race: mechanical, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: Double the damage and_healing of your Hero_Power.
@@ -2477,7 +2420,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_648] Chief Inspector - COST:5 [ATK:4/HP:6] 
+			// [GIL_648] Chief Inspector - COST:5 [ATK:4/HP:6]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy all enemy <b>Secrets</b>.
@@ -2494,7 +2437,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_667] Rotten Applebaum - COST:5 [ATK:4/HP:5] 
+			// [GIL_667] Rotten Applebaum - COST:5 [ATK:4/HP:5]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2510,7 +2453,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_680] Walnut Sprite - COST:3 [ATK:3/HP:3] 
+			// [GIL_680] Walnut Sprite - COST:3 [ATK:3/HP:3]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Echo</b>
@@ -2521,7 +2464,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_680", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_681] Nightmare Amalgam - COST:3 [ATK:3/HP:4] 
+			// [GIL_681] Nightmare Amalgam - COST:3 [ATK:3/HP:4]
 			// - Race: all, Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<i>This is an Elemental, Mech,
@@ -2531,7 +2474,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_681", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_682] Muck Hunter - COST:5 [ATK:5/HP:8] 
+			// [GIL_682] Muck Hunter - COST:5 [ATK:5/HP:8]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -2547,7 +2490,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_683] Marsh Drake - COST:3 [ATK:5/HP:4] 
+			// [GIL_683] Marsh Drake - COST:3 [ATK:5/HP:4]
 			// - Race: dragon, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a 2/1 <b>Poisonous</b> Drakeslayer for your opponent.
@@ -2564,7 +2507,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_809] Unpowered Steambot - COST:4 [ATK:0/HP:9] 
+			// [GIL_809] Unpowered Steambot - COST:4 [ATK:0/HP:9]
 			// - Race: mechanical, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2575,7 +2518,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_809", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_815] Baleful Banker - COST:2 [ATK:2/HP:2] 
+			// [GIL_815] Baleful Banker - COST:2 [ATK:2/HP:2]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Choose a friendly minion. Shuffle a copy of it into your deck.
@@ -2588,13 +2531,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("GIL_815", new CardDef(new Power
+			cards.Add("GIL_815", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new CopyTask(EntityType.TARGET, Zone.DECK)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_816] Swamp Dragon Egg - COST:1 [ATK:0/HP:3] 
+			// [GIL_816] Swamp Dragon Egg - COST:1 [ATK:0/HP:3]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Add a random Dragon to your hand.
@@ -2610,7 +2553,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_819] Witch's Cauldron - COST:3 [ATK:0/HP:4] 
+			// [GIL_819] Witch's Cauldron - COST:3 [ATK:0/HP:4]
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: After a friendly minion dies, add a random Shaman spell to your hand.
@@ -2629,8 +2572,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_000] Echo Enchant (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_000] Echo Enchant (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Destroy card if in hand at the end of turn.
 			// --------------------------------------------------------
@@ -2645,8 +2588,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_119e] Toil and Trouble (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_119e] Toil and Trouble (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Cauldron Elemental is granting this +2 Attack.
 			// --------------------------------------------------------
@@ -2656,8 +2599,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_125e] Hat (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_125e] Hat (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -2667,8 +2610,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_128e] Mark of Emeriss (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_128e] Mark of Emeriss (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Doubled Attack and Health.
 			// --------------------------------------------------------
@@ -2680,8 +2623,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_130e] Fable (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_130e] Fable (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -2691,8 +2634,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_142e] Shifting (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_142e] Shifting (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Transforming into random card from your opponent's hand.
 			// --------------------------------------------------------
@@ -2725,8 +2668,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_155e] Enraged (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_155e] Enraged (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +3 Attack.
 			// --------------------------------------------------------
@@ -2740,8 +2683,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_200e] Swapped Stats (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_200e] Swapped Stats (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// GameTag:
 			// - ENCHANTMENT_INVISIBLE = 1
@@ -2752,8 +2695,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_203e] Rebuked (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_203e] Rebuked (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Your spells cost (5) more this turn.
 			// --------------------------------------------------------
@@ -2767,8 +2710,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_507e] Bewitched (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_507e] Bewitched (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased Health.
 			// --------------------------------------------------------
@@ -2778,8 +2721,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_510e] Misty (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_510e] Misty (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -2789,8 +2732,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_513e] Spooky Sacrifice (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_513e] Spooky Sacrifice (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
@@ -2800,8 +2743,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_515e] Engorged (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_515e] Engorged (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -2811,8 +2754,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_526e] For the Dragonhoard! (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_526e] For the Dragonhoard! (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +1 Attack and <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -2822,8 +2765,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_534t] Reinforced (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_534t] Reinforced (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -2833,8 +2776,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_547e] Bloodfang (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_547e] Bloodfang (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -2844,8 +2787,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_583e] Crunched (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_583e] Crunched (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -2855,8 +2798,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_586e] Storm Hardened (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_586e] Storm Hardened (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -2866,8 +2809,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_596e] Sterling (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_596e] Sterling (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -2877,8 +2820,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_601e] Bold Worm (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_601e] Bold Worm (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +1 Attack and <b>Rush</b>.
 			// --------------------------------------------------------
@@ -2888,8 +2831,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_607e] Viletoxin (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_607e] Viletoxin (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
 			// --------------------------------------------------------
@@ -2899,7 +2842,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_614e1] Voodoo Doll Cursed (*) - COST:0 
+			// [GIL_614e1] Voodoo Doll Cursed (*) - COST:0
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Destroyed when Voodoo Doll is destroyed.
@@ -2912,7 +2855,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_614e2] Voodoo Doll Cursing (*) - COST:0 
+			// [GIL_614e2] Voodoo Doll Cursing (*) - COST:0
 			// - Set: gilneas, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Destroy {0}.
@@ -2936,8 +2879,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_620e] Creepy Doll (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_620e] Creepy Doll (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Dollmaster Dorian made a 1/1 copy.
 			// --------------------------------------------------------
@@ -2947,8 +2890,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_623e] Grizzled (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_623e] Grizzled (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Decreased Health.
 			// --------------------------------------------------------
@@ -2961,8 +2904,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_624e] Stalking (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_624e] Stalking (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
@@ -2972,8 +2915,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_640e] Rare Find! (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_640e] Rare Find! (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -2983,8 +2926,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_650e] Hounded! (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_650e] Hounded! (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Houndmaster Shaw grants <b>Rush</b>.
 			// --------------------------------------------------------
@@ -2994,8 +2937,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_653e] Woodcutter (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_653e] Woodcutter (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +2/+1.
 			// --------------------------------------------------------
@@ -3005,8 +2948,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_655e] Grown (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_655e] Grown (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -3016,8 +2959,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_658e] Splintergrafted (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_658e] Splintergrafted (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Splintergraft made this 10/10.
 			// --------------------------------------------------------
@@ -3030,8 +2973,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_665e] Curse of Weakness (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_665e] Curse of Weakness (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: -2 Attack until next turn.
 			// --------------------------------------------------------
@@ -3041,8 +2984,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_672e] Spooky (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_672e] Spooky (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Increased Durability.
 			// --------------------------------------------------------
@@ -3052,8 +2995,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_692e] Curse of Ur (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_692e] Curse of Ur (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Your <b>Hero Power</b> costs (1).
 			// --------------------------------------------------------
@@ -3063,8 +3006,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_800e2] Badsong (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_800e2] Badsong (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Costs (0).
 			// --------------------------------------------------------
@@ -3074,8 +3017,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_828e] Dire Frenzy (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_828e] Dire Frenzy (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
@@ -3085,8 +3028,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_837e] Moth Dust (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_837e] Moth Dust (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: Doubled Health.
 			// --------------------------------------------------------
@@ -3096,8 +3039,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_902e] Sharpened (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_902e] Sharpened (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
@@ -3107,8 +3050,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [GIL_905e] Corrosive Breath (*) - COST:0 
-			// - Set: gilneas, 
+			// [GIL_905e] Corrosive Breath (*) - COST:0
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
 			// --------------------------------------------------------
@@ -3118,7 +3061,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_201t] Pumpkin Peasant (*) - COST:3 [ATK:4/HP:2] 
+			// [GIL_201t] Pumpkin Peasant (*) - COST:3 [ATK:4/HP:2]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Lifesteal</b>
@@ -3134,7 +3077,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_202t] Gilnean Royal Guard (*) - COST:8 [ATK:8/HP:3] 
+			// [GIL_202t] Gilnean Royal Guard (*) - COST:8 [ATK:8/HP:3]
 			// - Set: gilneas, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Divine Shield</b>, <b>Rush</b>
@@ -3151,7 +3094,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_528t] Swift Messenger (*) - COST:4 [ATK:6/HP:2] 
+			// [GIL_528t] Swift Messenger (*) - COST:4 [ATK:6/HP:2]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Rush</b>
@@ -3167,7 +3110,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_529t] Spellshifter (*) - COST:2 [ATK:4/HP:1] 
+			// [GIL_529t] Spellshifter (*) - COST:2 [ATK:4/HP:1]
 			// - Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Spell Damage +1</b>
@@ -3183,8 +3126,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_616t] Splitting Sapling (*) - COST:3 [ATK:2/HP:2] 
-			// - Set: gilneas, 
+			// [GIL_616t] Splitting Sapling (*) - COST:3 [ATK:2/HP:2]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon two 1/1 Woodchips.
 			// --------------------------------------------------------
@@ -3197,20 +3140,20 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_616t2] Woodchip (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: gilneas, 
+			// [GIL_616t2] Woodchip (*) - COST:1 [ATK:1/HP:1]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GIL_616t2", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_682t] Muckling (*) - COST:1 [ATK:2/HP:1] 
-			// - Set: gilneas, 
+			// [GIL_682t] Muckling (*) - COST:1 [ATK:2/HP:1]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			cards.Add("GIL_682t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [GIL_683t] Drakeslayer (*) - COST:1 [ATK:2/HP:1] 
-			// - Set: gilneas, 
+			// [GIL_683t] Drakeslayer (*) - COST:1 [ATK:2/HP:1]
+			// - Set: gilneas,
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
 			// --------------------------------------------------------
@@ -3220,7 +3163,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("GIL_683t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [ICC_828t7] Vicious Scalehide (*) - COST:2 [ATK:1/HP:3] 
+			// [ICC_828t7] Vicious Scalehide (*) - COST:2 [ATK:1/HP:3]
 			// - Race: beast, Set: gilneas, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
@@ -3248,7 +3191,6 @@ namespace SabberStoneCore.CardSets.Standard
 			Priest(cards);
 			PriestNonCollect(cards);
 			Rogue(cards);
-			RogueNonCollect(cards);
 			Shaman(cards);
 			Warlock(cards);
 			WarlockNonCollect(cards);

@@ -20,7 +20,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Druid(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [DAL_354] Acornbearer - COST:1 [ATK:2/HP:1] 
+			// [DAL_354] Acornbearer - COST:1 [ATK:2/HP:1]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Add two 1/1 Squirrels to your hand.
@@ -34,7 +34,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [DAL_355] Lifeweaver - COST:3 [ATK:2/HP:5] 
+			// [DAL_355] Lifeweaver - COST:3 [ATK:2/HP:5]
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you restore Health, add a random Druid spell to your hand.
@@ -50,7 +50,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [DAL_357] Lucentbark - COST:8 [ATK:4/HP:8] 
+			// [DAL_357] Lucentbark - COST:8 [ATK:4/HP:8]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -67,7 +67,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [DAL_732] Keeper Stalladris - COST:2 [ATK:2/HP:3] 
+			// [DAL_732] Keeper Stalladris - COST:2 [ATK:2/HP:3]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: After you cast a <b>Choose One</b> spell, add copies of both choices_to_your_hand.
@@ -93,7 +93,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [DAL_799] Crystal Stag - COST:5 [ATK:4/HP:4] 
+			// [DAL_799] Crystal Stag - COST:5 [ATK:4/HP:4]
 			// - Race: beast, Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>. <b>Battlecry:</b> If you've restored 5 Health this game, summon a copy of this.@ <i>({0} left!)</i>@ <i>(Ready!)</i>
@@ -111,7 +111,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [DAL_256] The Forest's Aid - COST:8 
+			// [DAL_256] The Forest's Aid - COST:8
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Twinspell</b>
@@ -121,13 +121,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - TWINSPELL_COPY = 52821
 			// - TWINSPELL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_256", new CardDef(new Power
+			cards.Add("DAL_256", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new SummonTask("DAL_256t2", 5)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [DAL_350] Crystal Power - COST:1 
+			// [DAL_350] Crystal Power - COST:1
 			// - Fac: neutral, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Choose One -</b> Deal $2 damage to a minion; or_Restore #5 Health. @spelldmg
@@ -138,10 +138,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_350", new CardDef());
+			cards.Add("DAL_350", new CardDef(new[] { PlayReq.REQ_TARGET_TO_PLAY }));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [DAL_351] Blessing of the Ancients - COST:3 
+			// [DAL_351] Blessing of the Ancients - COST:3
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Twinspell</b>
@@ -154,13 +154,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_351", new CardDef(new Power
+			cards.Add("DAL_351", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("DAL_351e", EntityType.MINIONS)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [DAL_352] Crystalsong Portal - COST:2 
+			// [DAL_352] Crystalsong Portal - COST:2
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a Druid minion. If your hand has no minions, keep all 3.
@@ -176,7 +176,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [DAL_733] Dreamway Guardians - COST:2 
+			// [DAL_733] Dreamway Guardians - COST:2
 			// - Fac: neutral, Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon two 1/2 Dryads with <b>Lifesteal</b>.
@@ -187,7 +187,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_733", new CardDef(new Power
+			cards.Add("DAL_733", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new SummonTask("DAL_733t", 2)
 			}));
@@ -197,20 +197,20 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void DruidNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - DRUID
-			// [DAL_256t2] Treant (*) - COST:2 [ATK:2/HP:2] 
-			// - Set: dalaran, 
+			// [DAL_256t2] Treant (*) - COST:2 [ATK:2/HP:2]
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			cards.Add("DAL_256t2", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [DAL_354t] Squirrel (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: beast, Set: dalaran, 
+			// [DAL_354t] Squirrel (*) - COST:1 [ATK:1/HP:1]
+			// - Race: beast, Set: dalaran,
 			// --------------------------------------------------------
 			cards.Add("DAL_354t", new CardDef());
 
 			// ----------------------------------------- MINION - DRUID
-			// [DAL_357t] Spirit of Lucentbark (*) - COST:11 [ATK:0/HP:1] 
-			// - Set: dalaran, 
+			// [DAL_357t] Spirit of Lucentbark (*) - COST:11 [ATK:0/HP:1]
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: When you restore 5 Health, awaken this minion.
 			//       <i>(@ left!)</i>
@@ -236,8 +236,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [DAL_733t] Crystal Dryad (*) - COST:1 [ATK:1/HP:2] 
-			// - Set: dalaran, 
+			// [DAL_733t] Crystal Dryad (*) - COST:1 [ATK:1/HP:2]
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
 			// --------------------------------------------------------
@@ -247,19 +247,19 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_733t", new CardDef());
 
 			// ------------------------------------------ SPELL - DRUID
-			// [DAL_256ts] The Forest's Aid (*) - COST:8 
+			// [DAL_256ts] The Forest's Aid (*) - COST:8
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon five 2/2 Treants.
 			// --------------------------------------------------------
-			cards.Add("DAL_256ts", new CardDef(new Power
+			cards.Add("DAL_256ts", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new SummonTask("DAL_256t2", 5)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [DAL_350a] Piercing Thorns (*) - COST:1 
-			// - Fac: neutral, Set: dalaran, 
+			// [DAL_350a] Piercing Thorns (*) - COST:1
+			// - Fac: neutral, Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Deal $2 damage to a minion. @spelldmg
 			// --------------------------------------------------------
@@ -267,27 +267,27 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_350a", new CardDef(new Power
+			cards.Add("DAL_350a", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET, true)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [DAL_350b] Healing Blossom (*) - COST:1 
-			// - Fac: neutral, Set: dalaran, 
+			// [DAL_350b] Healing Blossom (*) - COST:1
+			// - Fac: neutral, Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Restore #5 Health.
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_350b", new CardDef(new Power
+			cards.Add("DAL_350b", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new HealTask(5, EntityType.TARGET)
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [DAL_351ts] Blessing of the Ancients (*) - COST:3 
+			// [DAL_351ts] Blessing of the Ancients (*) - COST:3
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give your minions +1/+1.
@@ -295,7 +295,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_351ts", new CardDef(new Power
+			cards.Add("DAL_351ts", new CardDef(new[] {PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("DAL_351e", EntityType.MINIONS)
 			}));
@@ -305,7 +305,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Hunter(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - HUNTER
-			// [DAL_372] Arcane Fletcher - COST:4 [ATK:3/HP:3] 
+			// [DAL_372] Arcane Fletcher - COST:4 [ATK:3/HP:3]
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]Whenever you play a
@@ -326,7 +326,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [DAL_376] Oblivitron - COST:6 [ATK:3/HP:4] 
+			// [DAL_376] Oblivitron - COST:6 [ATK:3/HP:4]
 			// - Race: mechanical, Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Deathrattle:</b> Summon a
@@ -348,7 +348,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [DAL_379] Vereesa Windrunner - COST:7 [ATK:5/HP:6] 
+			// [DAL_379] Vereesa Windrunner - COST:7 [ATK:5/HP:6]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Equip Thori'dal, the Stars' Fury.
@@ -363,7 +363,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [DAL_587] Shimmerfly - COST:1 [ATK:1/HP:1] 
+			// [DAL_587] Shimmerfly - COST:1 [ATK:1/HP:1]
 			// - Race: beast, Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Add a random Hunter spell to your hand.
@@ -381,7 +381,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [DAL_604] Ursatron - COST:3 [ATK:3/HP:3] 
+			// [DAL_604] Ursatron - COST:3 [ATK:3/HP:3]
 			// - Race: mechanical, Fac: neutral, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Draw a Mech from your deck.
@@ -399,10 +399,14 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [DAL_371] Marked Shot - COST:4 
+			// [DAL_371] Marked Shot - COST:4
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $4 damage to_a_minion. <b>Discover</b>_a_spell. @spelldmg
+			// --------------------------------------------------------
+			// GameTag:
+			// - DISCOVER = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
@@ -411,7 +415,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_371", new CardDef(new Power
+			cards.Add("DAL_371", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(4, EntityType.TARGET),
@@ -419,7 +423,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [DAL_373] Rapid Fire - COST:1 
+			// [DAL_373] Rapid Fire - COST:1
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Twinspell</b>
@@ -432,13 +436,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_373", new CardDef(new Power
+			cards.Add("DAL_373", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(1, EntityType.TARGET, true)
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [DAL_377] Nine Lives - COST:3 
+			// [DAL_377] Nine Lives - COST:3
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a friendly <b>Deathrattle</b> minion that died this game. Also trigger its <b>Deathrattle</b>.
@@ -450,7 +454,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DEATHRATTLE = 1
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_377", new CardDef(new Power
+			cards.Add("DAL_377", new CardDef(new[] {PlayReq.REQ_FRIENDLY_DEATHRATTLE_MINION_DIED_THIS_GAME}, new Power
 			{
 				// TODO [DAL_377] Nine Lives && Test: Nine Lives_DAL_377
 				//PowerTask = null,
@@ -458,7 +462,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [DAL_378] Unleash the Beast - COST:6 
+			// [DAL_378] Unleash the Beast - COST:6
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Twinspell</b>
@@ -474,13 +478,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_378", new CardDef(new Power
+			cards.Add("DAL_378", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new SummonTask("DAL_378t1")
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [DAL_589] Hunting Party - COST:5 
+			// [DAL_589] Hunting Party - COST:5
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Copy all Beasts in your_hand.
@@ -498,8 +502,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [DAL_379e] Stars' Fury (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_379e] Stars' Fury (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: You have <b>Spell Damage +2</b> this turn.
 			// --------------------------------------------------------
@@ -515,8 +519,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [DAL_378t1] Wyvern (*) - COST:5 [ATK:5/HP:5] 
-			// - Race: beast, Set: dalaran, 
+			// [DAL_378t1] Wyvern (*) - COST:5 [ATK:5/HP:5]
+			// - Race: beast, Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			// --------------------------------------------------------
@@ -526,7 +530,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_378t1", new CardDef());
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [DAL_373ts] Rapid Fire (*) - COST:1 
+			// [DAL_373ts] Rapid Fire (*) - COST:1
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: Deal $1 damage. @spelldmg
@@ -534,13 +538,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_373ts", new CardDef(new Power
+			cards.Add("DAL_373ts", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(1, EntityType.TARGET, true)
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [DAL_378ts] Unleash the Beast (*) - COST:6 
+			// [DAL_378ts] Unleash the Beast (*) - COST:6
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon a 5/5 Wyvern with <b>Rush</b>.
@@ -554,14 +558,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_378ts", new CardDef(new Power
+			cards.Add("DAL_378ts", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new SummonTask("DAL_378t1")
 			}));
 
 			// ---------------------------------------- WEAPON - HUNTER
-			// [DAL_379t] Thori'dal, the Stars' Fury (*) - COST:3 [ATK:2/HP:0] 
-			// - Set: dalaran, 
+			// [DAL_379t] Thori'dal, the Stars' Fury (*) - COST:3 [ATK:2/HP:0]
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: After your hero attacks, gain <b>Spell Damage +2</b> this turn.
 			// --------------------------------------------------------
@@ -584,7 +588,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Mage(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
-			// [DAL_163] Messenger Raven - COST:3 [ATK:3/HP:2] 
+			// [DAL_163] Messenger Raven - COST:3 [ATK:3/HP:2]
 			// - Race: beast, Fac: neutral, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Discover</b> a
@@ -602,7 +606,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [DAL_182] Magic Dart Frog - COST:2 [ATK:1/HP:3] 
+			// [DAL_182] Magic Dart Frog - COST:2 [ATK:1/HP:3]
 			// - Race: beast, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: After you cast a spell, deal 1 damage to a random enemy minion.
@@ -615,7 +619,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [DAL_575] Khadgar - COST:2 [ATK:2/HP:2] 
+			// [DAL_575] Khadgar - COST:2 [ATK:2/HP:2]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Your cards that summon minions summon twice_as_many.
@@ -640,7 +644,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [DAL_576] Kirin Tor Tricaster - COST:4 [ATK:3/HP:3] 
+			// [DAL_576] Kirin Tor Tricaster - COST:4 [ATK:3/HP:3]
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +3</b>
@@ -659,7 +663,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [DAL_603] Mana Cyclone - COST:2 [ATK:2/HP:2] 
+			// [DAL_603] Mana Cyclone - COST:2 [ATK:2/HP:2]
 			// - Race: elemental, Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> For each spell
@@ -685,7 +689,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [DAL_609] Kalecgos - COST:10 [ATK:4/HP:12] 
+			// [DAL_609] Kalecgos - COST:10 [ATK:4/HP:12]
 			// - Race: dragon, Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Your first spell each
@@ -710,7 +714,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [DAL_177] Conjurer's Calling - COST:3 
+			// [DAL_177] Conjurer's Calling - COST:3
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Twinspell</b>
@@ -724,7 +728,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_177", new CardDef(new Power
+			cards.Add("DAL_177", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				// TODO Position
 				PowerTask = ComplexTask.Create(
@@ -736,7 +740,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [DAL_577] Ray of Frost - COST:1 
+			// [DAL_577] Ray of Frost - COST:1
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Twinspell</b>
@@ -755,7 +759,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_577", new CardDef(new Power
+			cards.Add("DAL_577", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
@@ -764,7 +768,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [DAL_578] Power of Creation - COST:8 
+			// [DAL_578] Power of Creation - COST:8
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a 6-Cost minion. Summon two copies of it.
@@ -775,14 +779,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DISCOVER = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_578", new CardDef(new Power
+			cards.Add("DAL_578", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.SIX_COST_SUMMON,
 					new CopyTask(EntityType.TARGET, Zone.PLAY))
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [DAL_608] Magic Trick - COST:1 
+			// [DAL_608] Magic Trick - COST:1
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a spell that costs (3) or less.
@@ -800,7 +804,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void MageNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------- SPELL - MAGE
-			// [DAL_177ts] Conjurer's Calling (*) - COST:3 
+			// [DAL_177ts] Conjurer's Calling (*) - COST:3
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Destroy a minion. Summon 2 minions of the same Cost to replace it.
@@ -809,7 +813,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_177ts", new CardDef(new Power
+			cards.Add("DAL_177ts", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.COST, EntityType.TARGET),
@@ -820,7 +824,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [DAL_577ts] Ray of Frost (*) - COST:1 
+			// [DAL_577ts] Ray of Frost (*) - COST:1
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Freeze</b> a minion.
@@ -834,7 +838,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - FREEZE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_577ts", new CardDef(new Power
+			cards.Add("DAL_577ts", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.TARGET, SelfCondition.IsFrozen),
@@ -847,7 +851,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Paladin(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
-			// [DAL_146] Bronze Herald - COST:3 [ATK:3/HP:2] 
+			// [DAL_146] Bronze Herald - COST:3 [ATK:3/HP:2]
 			// - Race: dragon, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Add two 4/4 Dragons to your hand.
@@ -861,7 +865,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [DAL_147] Dragon Speaker - COST:5 [ATK:3/HP:5] 
+			// [DAL_147] Dragon Speaker - COST:5 [ATK:3/HP:5]
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give all Dragons in your hand +3/+3.
@@ -878,7 +882,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [DAL_573] Commander Rhyssa - COST:3 [ATK:4/HP:3] 
+			// [DAL_573] Commander Rhyssa - COST:3 [ATK:4/HP:3]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Your <b>Secrets</b> trigger twice.
@@ -898,7 +902,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [DAL_581] Nozari - COST:10 [ATK:4/HP:12] 
+			// [DAL_581] Nozari - COST:10 [ATK:4/HP:12]
 			// - Race: dragon, Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Restore both heroes to full Health.
@@ -916,7 +920,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [DAL_141] Desperate Measures - COST:1 
+			// [DAL_141] Desperate Measures - COST:1
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Twinspell</b>
@@ -932,13 +936,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_141", new CardDef(new Power
+			cards.Add("DAL_141", new CardDef(new[] {PlayReq.REQ_SECRET_ZONE_CAP_FOR_NON_SECRET}, new Power
 			{
 				PowerTask = SpecificTask.CastRandomSecret(CardClass.PALADIN)
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [DAL_568] Lightforged Blessing - COST:2 
+			// [DAL_568] Lightforged Blessing - COST:2
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Twinspell</b>
@@ -956,13 +960,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_568", new CardDef(new Power
+			cards.Add("DAL_568", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("DAL_568e", EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [DAL_570] Never Surrender! - COST:1 
+			// [DAL_570] Never Surrender! - COST:1
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Secret:</b> When your opponent casts a spell, give your minions +2_Health.
@@ -977,7 +981,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [DAL_727] Call to Adventure - COST:3 
+			// [DAL_727] Call to Adventure - COST:3
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Draw the lowest Cost minion from your deck. Give it +2/+2.
@@ -990,13 +994,13 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [DAL_731] Duel! - COST:5 
+			// [DAL_731] Duel! - COST:5
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Summon a minion from each player's deck.
 			//       They fight!
 			// --------------------------------------------------------
-			cards.Add("DAL_731", new CardDef(new Power
+			cards.Add("DAL_731", new CardDef(new[] {PlayReq.REQ_BOARD_NOT_COMPLETELY_FULL}, new Power
 			{
 				// TODO [DAL_731] Duel! && Test: Duel!_DAL_731
 				//PowerTask = null,
@@ -1005,7 +1009,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- WEAPON - PALADIN
-			// [DAL_571] Mysterious Blade - COST:2 [ATK:2/HP:0] 
+			// [DAL_571] Mysterious Blade - COST:2 [ATK:2/HP:0]
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you control a
@@ -1029,8 +1033,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void PaladinNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [DAL_568e] Lightforged Blessing (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_568e] Lightforged Blessing (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
 			// --------------------------------------------------------
@@ -1040,8 +1044,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - PALADIN
-			// [DAL_571e] Mysterious (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_571e] Mysterious (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: +1 Attack.
 			// --------------------------------------------------------
@@ -1051,13 +1055,13 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [DAL_146t] Bronze Dragon (*) - COST:4 [ATK:4/HP:4] 
-			// - Race: dragon, Set: dalaran, 
+			// [DAL_146t] Bronze Dragon (*) - COST:4 [ATK:4/HP:4]
+			// - Race: dragon, Set: dalaran,
 			// --------------------------------------------------------
 			cards.Add("DAL_146t", new CardDef());
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [DAL_141ts] Desperate Measures (*) - COST:1 
+			// [DAL_141ts] Desperate Measures (*) - COST:1
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Cast a random Paladin <b>Secret</b>.
@@ -1068,13 +1072,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SECRET = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_141ts", new CardDef(new Power
+			cards.Add("DAL_141ts", new CardDef(new[] {PlayReq.REQ_SECRET_ZONE_CAP_FOR_NON_SECRET}, new Power
 			{
 				PowerTask = SpecificTask.CastRandomSecret(CardClass.PALADIN)
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [DAL_568ts] Lightforged Blessing (*) - COST:2 
+			// [DAL_568ts] Lightforged Blessing (*) - COST:2
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give a friendly minion <b>Lifesteal</b>.
@@ -1087,7 +1091,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - LIFESTEAL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_568ts", new CardDef(new Power
+			cards.Add("DAL_568ts", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("DAL_568e", EntityType.TARGET)
 			}));
@@ -1097,7 +1101,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Priest(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - PRIEST
-			// [DAL_030] Shadowy Figure - COST:2 [ATK:2/HP:2] 
+			// [DAL_030] Shadowy Figure - COST:2 [ATK:2/HP:2]
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Transform into a_2/2 copy of a friendly <b>Deathrattle</b> minion.
@@ -1114,7 +1118,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_030", new CardDef(new Power
+			cards.Add("DAL_030", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_TARGET_WITH_DEATHRATTLE}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new TransformCopyTask(true),
@@ -1122,7 +1126,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [DAL_039] Convincing Infiltrator - COST:5 [ATK:2/HP:6] 
+			// [DAL_039] Convincing Infiltrator - COST:5 [ATK:2/HP:6]
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b><b>Taunt</b></b>
@@ -1139,7 +1143,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [DAL_040] Hench-Clan Shadequill - COST:4 [ATK:4/HP:7] 
+			// [DAL_040] Hench-Clan Shadequill - COST:4 [ATK:4/HP:7]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Restore 5 Health to the enemy hero.
@@ -1154,7 +1158,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [DAL_413] EVIL Conscripter - COST:2 [ATK:2/HP:2] 
+			// [DAL_413] EVIL Conscripter - COST:2 [ATK:2/HP:2]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Add a <b>Lackey</b> to your hand.
@@ -1171,7 +1175,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [DAL_721] Catrina Muerte - COST:8 [ATK:6/HP:8] 
+			// [DAL_721] Catrina Muerte - COST:8 [ATK:6/HP:8]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]At the end of your turn,
@@ -1188,7 +1192,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [DAL_729] Madame Lazul - COST:3 [ATK:3/HP:2] 
+			// [DAL_729] Madame Lazul - COST:3 [ATK:3/HP:2]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> <b>Discover</b> a
@@ -1210,7 +1214,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [DAL_011] Lazul's Scheme - COST:0 
+			// [DAL_011] Lazul's Scheme - COST:0
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Reduce the Attack of an enemy minion by
@@ -1224,7 +1228,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_ENEMY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_011", new CardDef(new Power
+			cards.Add("DAL_011", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_ENEMY_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Scheme(
 					new AddEnchantmentTask("DAL_011e", EntityType.TARGET, true)),
@@ -1232,7 +1236,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [DAL_065] Unsleeping Soul - COST:4 
+			// [DAL_065] Unsleeping Soul - COST:4
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Silence</b> a friendly minion, then summon a copy of it.
@@ -1245,7 +1249,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - SILENCE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_065", new CardDef(new Power
+			cards.Add("DAL_065", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				// TODO SummonSide
 				PowerTask = ComplexTask.Create(
@@ -1254,7 +1258,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [DAL_723] Forbidden Words - COST:0 
+			// [DAL_723] Forbidden Words - COST:0
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]Spend all your Mana.
@@ -1263,10 +1267,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
-			// - 85 = 0
+			// - REQ85 = 0
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_723", new CardDef(new Power
+			cards.Add("DAL_723", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ85,PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.SpendAllManaTask(ComplexTask.Create(
 					new GetGameTagTask(GameTag.ATK, EntityType.TARGET, 0, 1),
@@ -1275,7 +1279,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [DAL_724] Mass Resurrection - COST:9 
+			// [DAL_724] Mass Resurrection - COST:9
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon 3 friendly minions that died
@@ -1285,7 +1289,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_NUM_MINION_SLOTS = 1
 			// - REQ_FRIENDLY_MINION_DIED_THIS_GAME = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_724", new CardDef(new Power
+			cards.Add("DAL_724", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS,PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME}, new Power
 			{
 				PowerTask = ComplexTask.SummonRandomMinionThatDied(amount: 3)
 			}));
@@ -1295,8 +1299,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void PriestNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [DAL_030e] Shade (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_030e] Shade (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: 2/2.
 			// --------------------------------------------------------
@@ -1310,7 +1314,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Rogue(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- MINION - ROGUE
-			// [DAL_415] EVIL Miscreant - COST:3 [ATK:1/HP:5] 
+			// [DAL_415] EVIL Miscreant - COST:3 [ATK:1/HP:5]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Combo:</b> Add two random <b>Lackeys</b> to your hand.
@@ -1327,7 +1331,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [DAL_416] Hench-Clan Burglar - COST:4 [ATK:4/HP:3] 
+			// [DAL_416] Hench-Clan Burglar - COST:4 [ATK:4/HP:3]
 			// - Race: pirate, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Discover</b> a spell from another class.
@@ -1344,7 +1348,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [DAL_417] Heistbaron Togwaggle - COST:6 [ATK:5/HP:5] 
+			// [DAL_417] Heistbaron Togwaggle - COST:6 [ATK:5/HP:5]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you control a_<b>Lackey</b>, choose a fantastic treasure.
@@ -1368,7 +1372,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [DAL_714] Underbelly Fence - COST:2 [ATK:2/HP:3] 
+			// [DAL_714] Underbelly Fence - COST:2 [ATK:2/HP:3]
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> If you're holding
@@ -1388,7 +1392,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [DAL_719] Tak Nozwhisker - COST:7 [ATK:6/HP:6] 
+			// [DAL_719] Tak Nozwhisker - COST:7 [ATK:6/HP:6]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]Whenever you shuffle a
@@ -1405,7 +1409,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [DAL_010] Togwaggle's Scheme - COST:1 
+			// [DAL_010] Togwaggle's Scheme - COST:1
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Choose a minion. Shuffle @ |4(copy, copies) of it into your deck.
@@ -1418,7 +1422,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_010", new CardDef(new Power
+			cards.Add("DAL_010", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Scheme(
 					new EnqueueNumberTask(new CopyTask(EntityType.TARGET, Zone.DECK))),
@@ -1426,7 +1430,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [DAL_366] Unidentified Contract - COST:6 
+			// [DAL_366] Unidentified Contract - COST:6
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Destroy a minion. Gains a bonus effect in_your hand.
@@ -1437,14 +1441,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_366", new CardDef(new Power
+			cards.Add("DAL_366", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DestroyTask(EntityType.TARGET),
 				Trigger = TriggerLibrary.RevealUnidentifiedItem
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [DAL_716] Vendetta - COST:4 
+			// [DAL_716] Vendetta - COST:4
 			// - Fac: neutral, Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $4 damage to a minion. Costs (0) if you're holding a card from another class. @spelldmg
@@ -1453,7 +1457,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_716", new CardDef(new Power
+			cards.Add("DAL_716", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new DamageTask(4, EntityType.TARGET),
 				Aura = new AdaptiveCostEffect(
@@ -1463,7 +1467,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [DAL_728] Daring Escape - COST:1 
+			// [DAL_728] Daring Escape - COST:1
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: Return all friendly minions to your hand.
@@ -1474,7 +1478,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- WEAPON - ROGUE
-			// [DAL_720] Waggle Pick - COST:4 [ATK:4/HP:0] 
+			// [DAL_720] Waggle Pick - COST:4 [ATK:4/HP:0]
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Deathrattle:</b> Return
@@ -1499,7 +1503,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void RogueNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ SPELL - ROGUE
-			// [DAL_366t1] Assassin's Contract (*) - COST:6 
+			// [DAL_366t1] Assassin's Contract (*) - COST:6
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Destroy a minion. Summon a 1/1 Patient Assassin.
@@ -1508,7 +1512,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_366t1", new CardDef(new Power
+			cards.Add("DAL_366t1", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
@@ -1516,7 +1520,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [DAL_366t2] Recruitment Contract (*) - COST:6 
+			// [DAL_366t2] Recruitment Contract (*) - COST:6
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Destroy a minion. Add_a copy of it to your hand.
@@ -1525,7 +1529,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_366t2", new CardDef(new Power
+			cards.Add("DAL_366t2", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
@@ -1533,7 +1537,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [DAL_366t3] Lucrative Contract (*) - COST:6 
+			// [DAL_366t3] Lucrative Contract (*) - COST:6
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Destroy a minion. Add 2 Coins to your hand.
@@ -1542,7 +1546,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_366t3", new CardDef(new Power
+			cards.Add("DAL_366t3", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
@@ -1550,7 +1554,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [DAL_366t4] Turncoat Contract (*) - COST:6 
+			// [DAL_366t4] Turncoat Contract (*) - COST:6
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Destroy a minion. It_deals its damage to adjacent minions.
@@ -1559,7 +1563,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_366t4", new CardDef(new Power
+			cards.Add("DAL_366t4", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
@@ -1571,7 +1575,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Shaman(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------------- MINION - SHAMAN
-			// [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8] 
+			// [DAL_047] Walking Fountain - COST:8 [ATK:4/HP:8]
 			// - Race: elemental, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>, <b>Rush</b>, <b>Windfury</b>
@@ -1584,7 +1588,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_047", new CardDef());
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [DAL_049] Underbelly Angler - COST:2 [ATK:2/HP:3] 
+			// [DAL_049] Underbelly Angler - COST:2 [ATK:2/HP:3]
 			// - Race: murloc, Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: After you play a Murloc, add a random Murloc to your hand.
@@ -1599,7 +1603,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [DAL_052] Muckmorpher - COST:5 [ATK:4/HP:4] 
+			// [DAL_052] Muckmorpher - COST:5 [ATK:4/HP:4]
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Transform into
@@ -1620,7 +1624,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [DAL_431] Swampqueen Hagatha - COST:7 [ATK:5/HP:5] 
+			// [DAL_431] Swampqueen Hagatha - COST:7 [ATK:5/HP:5]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Add a 5/5
@@ -1641,7 +1645,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [DAL_433] Sludge Slurper - COST:1 [ATK:2/HP:1] 
+			// [DAL_433] Sludge Slurper - COST:1 [ATK:2/HP:1]
 			// - Race: murloc, Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Add a <b>Lackey</b> to your hand. <b>Overload:</b> (1)
@@ -1659,7 +1663,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [DAL_726] Scargil - COST:4 [ATK:4/HP:4] 
+			// [DAL_726] Scargil - COST:4 [ATK:4/HP:4]
 			// - Race: murloc, Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: Your Murlocs cost (1).
@@ -1677,7 +1681,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [DAL_009] Hagatha's Scheme - COST:5 
+			// [DAL_009] Hagatha's Scheme - COST:5
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Deal $@ damage
@@ -1694,7 +1698,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [DAL_071] Mutate - COST:0 
+			// [DAL_071] Mutate - COST:0
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: Transform a friendly minion into a random one that costs (1) more.
@@ -1704,13 +1708,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_FRIENDLY_TARGET = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_071", new CardDef(new Power
+			cards.Add("DAL_071", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new TransformMinionTask(EntityType.TARGET, 1)
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [DAL_432] Witch's Brew - COST:2 
+			// [DAL_432] Witch's Brew - COST:2
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Restore #4 Health. Repeatable this turn.
@@ -1721,7 +1725,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_432", new CardDef(new Power
+			cards.Add("DAL_432", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new HealTask(4, EntityType.TARGET),
@@ -1739,7 +1743,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [DAL_710] Soul of the Murloc - COST:2 
+			// [DAL_710] Soul of the Murloc - COST:2
 			// - Fac: neutral, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: Give your minions "<b>Deathrattle:</b> Summon a 1/1 Murloc."
@@ -1757,8 +1761,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void ShamanNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - SHAMAN
-			// [DAL_710e] Soul of the Murloc (*) - COST:0 
-			// - Fac: neutral, Set: dalaran, 
+			// [DAL_710e] Soul of the Murloc (*) - COST:0
+			// - Fac: neutral, Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon a 1/1 Murloc.
 			// --------------------------------------------------------
@@ -1768,8 +1772,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [DAL_431t] Drustvar Horror (*) - COST:5 [ATK:5/HP:5] 
-			// - Set: dalaran, 
+			// [DAL_431t] Drustvar Horror (*) - COST:5 [ATK:5/HP:5]
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Cast {0} and {1}.
 			// --------------------------------------------------------
@@ -1788,7 +1792,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Warlock(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARLOCK
-			// [DAL_185] Aranasi Broodmother - COST:6 [ATK:4/HP:6] 
+			// [DAL_185] Aranasi Broodmother - COST:6 [ATK:4/HP:6]
 			// - Race: demon, Fac: neutral, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Taunt</b>
@@ -1805,7 +1809,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [DAL_422] Arch-Villain Rafaam - COST:7 [ATK:7/HP:8] 
+			// [DAL_422] Arch-Villain Rafaam - COST:7 [ATK:7/HP:8]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b><b>Taunt</b>
@@ -1825,7 +1829,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [DAL_561] Jumbo Imp - COST:10 [ATK:8/HP:8] 
+			// [DAL_561] Jumbo Imp - COST:10 [ATK:8/HP:8]
 			// - Race: demon, Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Costs (1) less whenever a friendly Demon dies while this is in your hand.
@@ -1840,7 +1844,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [DAL_563] Eager Underling - COST:4 [ATK:2/HP:2] 
+			// [DAL_563] Eager Underling - COST:4 [ATK:2/HP:2]
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Give two random friendly minions +2/+2.
@@ -1856,7 +1860,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [DAL_606] EVIL Genius - COST:2 [ATK:2/HP:2] 
+			// [DAL_606] EVIL Genius - COST:2 [ATK:2/HP:2]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy a friendly minion to add 2 random <b>Lackeys</b>_to_your_hand.
@@ -1872,7 +1876,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_606", new CardDef(new Power
+			cards.Add("DAL_606", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.HasTarget, ComplexTask.Create(
 					new DestroyTask(EntityType.TARGET),
@@ -1881,7 +1885,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [DAL_607] Fel Lord Betrug - COST:8 [ATK:5/HP:7] 
+			// [DAL_607] Fel Lord Betrug - COST:8 [ATK:5/HP:7]
 			// - Race: demon, Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]Whenever you draw a
@@ -1905,7 +1909,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [DAL_007] Rafaam's Scheme - COST:3 
+			// [DAL_007] Rafaam's Scheme - COST:3
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: Summon @ 1/1 |4(Imp, Imps). <i>(Upgrades each turn!)</i>
@@ -1913,14 +1917,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_1 = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_007", new CardDef(new Power
+			cards.Add("DAL_007", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Scheme(new SummonNumberTask("DAL_751t", false)),
 				Trigger = TriggerLibrary.UpgradeEachTurn
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [DAL_173] Darkest Hour - COST:6 
+			// [DAL_173] Darkest Hour - COST:6
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Destroy all friendly minions. For each one, summon a random minion from your deck.
@@ -1939,7 +1943,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [DAL_602] Plot Twist - COST:2 
+			// [DAL_602] Plot Twist - COST:2
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Shuffle your hand
@@ -1956,7 +1960,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [DAL_605] Impferno - COST:3 
+			// [DAL_605] Impferno - COST:3
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Give your Demons +1 Attack. Deal $1 damage to all enemy minions. @spelldmg
@@ -1965,7 +1969,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_TARGET_WITH_RACE = 15
 			// --------------------------------------------------------
-			cards.Add("DAL_605", new CardDef(new Power
+			cards.Add("DAL_605", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_WITH_RACE}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.MINIONS),
@@ -1979,7 +1983,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void WarlockNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [DAL_605e] Imptastic (*) - COST:2 
+			// [DAL_605e] Imptastic (*) - COST:2
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: +1 Attack.
@@ -1994,7 +1998,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Warrior(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - WARRIOR
-			// [DAL_060] Clockwork Goblin - COST:3 [ATK:3/HP:3] 
+			// [DAL_060] Clockwork Goblin - COST:3 [ATK:3/HP:3]
 			// - Race: mechanical, Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Shuffle a Bomb
@@ -2011,7 +2015,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [DAL_064] Blastmaster Boom - COST:7 [ATK:7/HP:7] 
+			// [DAL_064] Blastmaster Boom - COST:7 [ATK:7/HP:7]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Summon two 1/1
@@ -2034,7 +2038,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [DAL_070] The Boom Reaver - COST:10 [ATK:7/HP:9] 
+			// [DAL_070] The Boom Reaver - COST:10 [ATK:7/HP:9]
 			// - Race: mechanical, Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a copy of a minion in your deck. Give it <b>Rush</b>.
@@ -2057,7 +2061,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [DAL_759] Vicious Scraphound - COST:2 [ATK:2/HP:2] 
+			// [DAL_759] Vicious Scraphound - COST:2 [ATK:2/HP:2]
 			// - Race: mechanical, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever this minion
@@ -2073,7 +2077,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [DAL_770] Omega Devastator - COST:4 [ATK:4/HP:5] 
+			// [DAL_770] Omega Devastator - COST:4 [ATK:4/HP:5]
 			// - Race: mechanical, Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> If you have 10
@@ -2085,15 +2089,15 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// PlayReq:
 			// - REQ_MINION_TARGET = 0
-			// - 84 = 10
+			// - REQ_MANA_CRYSTAL = 10
 			// --------------------------------------------------------
-			cards.Add("DAL_770", new CardDef(new Power
+			cards.Add("DAL_770", new CardDef(new[] {PlayReq.REQ_MINION_TARGET, PlayReq.REQ_MANA_CRYSTAL }, new Power
 			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.IsManaCrystalFull, new DamageTask(10, EntityType.TARGET))
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [DAL_008] Dr. Boom's Scheme - COST:4 
+			// [DAL_008] Dr. Boom's Scheme - COST:4
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: Gain @ Armor.
@@ -2109,12 +2113,12 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [DAL_059] Dimensional Ripper - COST:10 
+			// [DAL_059] Dimensional Ripper - COST:10
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Summon 2 copies of a minion in your deck.
 			// --------------------------------------------------------
-			cards.Add("DAL_059", new CardDef(new Power
+			cards.Add("DAL_059", new CardDef(new[] {PlayReq.REQ_NUM_MINION_SLOTS}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new IncludeTask(EntityType.DECK),
@@ -2124,7 +2128,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [DAL_062] Sweeping Strikes - COST:2 
+			// [DAL_062] Sweeping Strikes - COST:2
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Give a minion "Also damages minions next to whomever this attacks."
@@ -2133,13 +2137,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_062", new CardDef(new Power
+			cards.Add("DAL_062", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("DAL_062e", EntityType.TARGET)
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [DAL_769] Improve Morale - COST:1 
+			// [DAL_769] Improve Morale - COST:1
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]Deal $1 damage
@@ -2154,7 +2158,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_769", new CardDef(new Power
+			cards.Add("DAL_769", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY,PlayReq.REQ_MINION_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new DamageTask(1, EntityType.TARGET, true),
@@ -2163,7 +2167,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- WEAPON - WARRIOR
-			// [DAL_063] Wrenchcalibur - COST:4 [ATK:3/HP:0] 
+			// [DAL_063] Wrenchcalibur - COST:4 [ATK:3/HP:0]
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: After your hero attacks, shuffle a Bomb into your [x]opponent's deck.
@@ -2183,8 +2187,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void WarriorNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [DAL_062e] Sweeping Strikes (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_062e] Sweeping Strikes (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Damages minions adjacent to defender.
 			// --------------------------------------------------------
@@ -2200,8 +2204,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [DAL_070e] Reaving (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_070e] Reaving (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Has <b>Rush</b>.
 			// --------------------------------------------------------
@@ -2211,8 +2215,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [DAL_742e] Whirling (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_742e] Whirling (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Mega-Windfury</b>
 			// --------------------------------------------------------
@@ -2227,7 +2231,7 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void Neutral(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_058] Hecklebot - COST:4 [ATK:3/HP:8] 
+			// [DAL_058] Hecklebot - COST:4 [ATK:3/HP:8]
 			// - Race: mechanical, Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2247,7 +2251,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_077] Toxfin - COST:1 [ATK:1/HP:2] 
+			// [DAL_077] Toxfin - COST:1 [ATK:1/HP:2]
 			// - Race: murloc, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a friendly Murloc <b>Poisonous</b>.
@@ -2264,13 +2268,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - POISONOUS = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_077", new CardDef(new Power
+			cards.Add("DAL_077", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET,PlayReq.REQ_TARGET_WITH_RACE}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("DAL_077e", EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_078] Travelling Healer - COST:4 [ATK:3/HP:2] 
+			// [DAL_078] Travelling Healer - COST:4 [ATK:3/HP:2]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Divine Shield</b>
@@ -2283,13 +2287,13 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_078", new CardDef(new Power
+			cards.Add("DAL_078", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE}, new Power
 			{
 				PowerTask = new HealTask(3, EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_081] Spellward Jeweler - COST:3 [ATK:3/HP:4] 
+			// [DAL_081] Spellward Jeweler - COST:3 [ATK:3/HP:4]
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Your hero can't
@@ -2306,7 +2310,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_085] Dalaran Crusader - COST:5 [ATK:5/HP:4] 
+			// [DAL_085] Dalaran Crusader - COST:5 [ATK:5/HP:4]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Divine Shield</b>
@@ -2317,7 +2321,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_085", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_086] Sunreaver Spy - COST:2 [ATK:2/HP:3] 
+			// [DAL_086] Sunreaver Spy - COST:2 [ATK:2/HP:3]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you control a <b>Secret</b>, gain +1/+1.
@@ -2335,7 +2339,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_087] Hench-Clan Hag - COST:4 [ATK:3/HP:3] 
+			// [DAL_087] Hench-Clan Hag - COST:4 [ATK:3/HP:3]
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon two 1/1 Amalgams with all minion types.
@@ -2349,7 +2353,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_088] Safeguard - COST:6 [ATK:4/HP:5] 
+			// [DAL_088] Safeguard - COST:6 [ATK:4/HP:5]
 			// - Race: mechanical, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Taunt</b>
@@ -2366,7 +2370,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_089] Spellbook Binder - COST:2 [ATK:3/HP:2] 
+			// [DAL_089] Spellbook Binder - COST:2 [ATK:3/HP:2]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you have <b>Spell Damage</b>, draw a card.
@@ -2383,7 +2387,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_090] Hench-Clan Sneak - COST:3 [ATK:3/HP:3] 
+			// [DAL_090] Hench-Clan Sneak - COST:3 [ATK:3/HP:3]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
@@ -2394,13 +2398,13 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_090", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_092] Arcane Servant - COST:2 [ATK:2/HP:3] 
+			// [DAL_092] Arcane Servant - COST:2 [ATK:2/HP:3]
 			// - Race: elemental, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			cards.Add("DAL_092", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_095] Violet Spellsword - COST:4 [ATK:1/HP:6] 
+			// [DAL_095] Violet Spellsword - COST:4 [ATK:1/HP:6]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Gain +1 Attack
@@ -2419,7 +2423,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_096] Violet Warden - COST:6 [ATK:4/HP:7] 
+			// [DAL_096] Violet Warden - COST:6 [ATK:4/HP:7]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2432,7 +2436,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_096", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_400] EVIL Cable Rat - COST:2 [ATK:1/HP:1] 
+			// [DAL_400] EVIL Cable Rat - COST:2 [ATK:1/HP:1]
 			// - Race: beast, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Add a <b>Lackey</b> to_your hand.
@@ -2449,7 +2453,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_434] Arcane Watcher - COST:3 [ATK:5/HP:6] 
+			// [DAL_434] Arcane Watcher - COST:3 [ATK:5/HP:6]
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Can't attack unless you have <b>Spell Damage</b>.
@@ -2463,7 +2467,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_538] Unseen Saboteur - COST:6 [ATK:5/HP:6] 
+			// [DAL_538] Unseen Saboteur - COST:6 [ATK:5/HP:6]
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Your opponent casts a random spell from their hand <i>(targets chosen randomly)</i>.
@@ -2481,7 +2485,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_539] Sunreaver Warmage - COST:5 [ATK:4/HP:4] 
+			// [DAL_539] Sunreaver Warmage - COST:5 [ATK:4/HP:4]
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you're holding a spell that costs (5) or more, deal 4 damage.
@@ -2492,14 +2496,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_DRAG_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_539", new CardDef(new Power
+			cards.Add("DAL_539", new CardDef(new[] {PlayReq.REQ_DRAG_TO_PLAY_PRE31761}, new Power
 			{
 				PowerTask = ComplexTask.Conditional(SelfCondition.Has5PlusCostSpellInHand,
 					new DamageTask(4, EntityType.TARGET))
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_544] Potion Vendor - COST:1 [ATK:1/HP:1] 
+			// [DAL_544] Potion Vendor - COST:1 [ATK:1/HP:1]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Restore #2 Health to all friendly characters.
@@ -2513,7 +2517,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_546] Barista Lynchen - COST:5 [ATK:4/HP:5] 
+			// [DAL_546] Barista Lynchen - COST:5 [ATK:4/HP:5]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Add a copy of each of your other <b>Battlecry</b> minions_to_your_hand.
@@ -2531,7 +2535,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_548] Azerite Elemental - COST:5 [ATK:2/HP:7] 
+			// [DAL_548] Azerite Elemental - COST:5 [ATK:2/HP:7]
 			// - Race: elemental, Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: At the start of your turn, gain <b>Spell Damage +2</b>.
@@ -2546,7 +2550,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_550] Underbelly Ooze - COST:7 [ATK:3/HP:5] 
+			// [DAL_550] Underbelly Ooze - COST:7 [ATK:3/HP:5]
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: After this minion survives damage, summon a copy_of it.
@@ -2560,7 +2564,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_551] Proud Defender - COST:4 [ATK:2/HP:6] 
+			// [DAL_551] Proud Defender - COST:4 [ATK:2/HP:6]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
@@ -2576,7 +2580,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_553] Big Bad Archmage - COST:10 [ATK:6/HP:6] 
+			// [DAL_553] Big Bad Archmage - COST:10 [ATK:6/HP:6]
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: At the end of your turn, summon a random
@@ -2589,7 +2593,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_554] Chef Nomi - COST:7 [ATK:6/HP:6] 
+			// [DAL_554] Chef Nomi - COST:7 [ATK:6/HP:6]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If your deck is empty, summon six 6/6 Greasefire_Elementals.
@@ -2605,7 +2609,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_558] Archmage Vargoth - COST:4 [ATK:2/HP:6] 
+			// [DAL_558] Archmage Vargoth - COST:4 [ATK:2/HP:6]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: [x]At the end of your turn, cast
@@ -2622,7 +2626,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_560] Heroic Innkeeper - COST:8 [ATK:4/HP:4] 
+			// [DAL_560] Heroic Innkeeper - COST:8 [ATK:4/HP:4]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Taunt.</b> <b>Battlecry:</b> Gain +2/+2 for each other friendly minion.
@@ -2639,7 +2643,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_565] Portal Overfiend - COST:6 [ATK:5/HP:6] 
+			// [DAL_565] Portal Overfiend - COST:6 [ATK:5/HP:6]
 			// - Race: demon, Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Shuffle 3 Portals
@@ -2659,7 +2663,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_566] Eccentric Scribe - COST:6 [ATK:6/HP:4] 
+			// [DAL_566] Eccentric Scribe - COST:6 [ATK:6/HP:4]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon
@@ -2674,7 +2678,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_582] Portal Keeper - COST:4 [ATK:5/HP:2] 
+			// [DAL_582] Portal Keeper - COST:4 [ATK:5/HP:2]
 			// - Race: demon, Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Shuffle 3 Portals
@@ -2694,7 +2698,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_592] Batterhead - COST:8 [ATK:3/HP:12] 
+			// [DAL_592] Batterhead - COST:8 [ATK:3/HP:12]
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>. After this attacks and kills a minion, it may_attack again.
@@ -2712,7 +2716,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_735] Dalaran Librarian - COST:2 [ATK:2/HP:3] 
+			// [DAL_735] Dalaran Librarian - COST:2 [ATK:2/HP:3]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Silence</b>
@@ -2732,7 +2736,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_736] Archivist Elysiana - COST:8 [ATK:7/HP:7] 
+			// [DAL_736] Archivist Elysiana - COST:8 [ATK:7/HP:7]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Discover</b> 5 cards. Replace your deck with 2_copies of each.
@@ -2754,7 +2758,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_742] Whirlwind Tempest - COST:8 [ATK:6/HP:6] 
+			// [DAL_742] Whirlwind Tempest - COST:8 [ATK:6/HP:6]
 			// - Race: elemental, Fac: neutral, Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: Your minions with <b>Windfury</b> have <b>Mega-Windfury</b>.
@@ -2775,7 +2779,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_743] Hench-Clan Hogsteed - COST:2 [ATK:2/HP:1] 
+			// [DAL_743] Hench-Clan Hogsteed - COST:2 [ATK:2/HP:1]
 			// - Race: beast, Fac: neutral, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -2791,7 +2795,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_744] Faceless Rager - COST:3 [ATK:5/HP:1] 
+			// [DAL_744] Faceless Rager - COST:3 [ATK:5/HP:1]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Copy a friendly minion's Health.
@@ -2804,7 +2808,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_MINION_TARGET = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_744", new CardDef(new Power
+			cards.Add("DAL_744", new CardDef(new[] {PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_MINION_TARGET,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new GetGameTagTask(GameTag.HEALTH, EntityType.TARGET),
@@ -2814,7 +2818,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_747] Flight Master - COST:3 [ATK:3/HP:4] 
+			// [DAL_747] Flight Master - COST:3 [ATK:3/HP:4]
 			// - Fac: alliance, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a 2/2 Gryphon for each player.
@@ -2830,7 +2834,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6] 
+			// [DAL_748] Mana Reservoir - COST:2 [ATK:0/HP:6]
 			// - Race: elemental, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Spell Damage +1</b>
@@ -2841,7 +2845,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_748", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_749] Recurring Villain - COST:5 [ATK:3/HP:6] 
+			// [DAL_749] Recurring Villain - COST:5 [ATK:3/HP:6]
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> If this minion has 4 or more Attack, resummon it.
@@ -2857,7 +2861,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_751] Mad Summoner - COST:6 [ATK:4/HP:4] 
+			// [DAL_751] Mad Summoner - COST:6 [ATK:4/HP:4]
 			// - Race: demon, Fac: alliance, Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Fill each player's
@@ -2876,7 +2880,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_752] Jepetto Joybuzz - COST:8 [ATK:6/HP:6] 
+			// [DAL_752] Jepetto Joybuzz - COST:8 [ATK:6/HP:6]
 			// - Set: dalaran, Rarity: legendary
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Draw 2 minions from your deck. Set their Attack, Health, and Cost to 1.
@@ -2894,7 +2898,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_760] Burly Shovelfist - COST:9 [ATK:9/HP:9] 
+			// [DAL_760] Burly Shovelfist - COST:9 [ATK:9/HP:9]
 			// - Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
@@ -2905,7 +2909,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_760", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_771] Soldier of Fortune - COST:4 [ATK:5/HP:6] 
+			// [DAL_771] Soldier of Fortune - COST:4 [ATK:5/HP:6]
 			// - Race: elemental, Set: dalaran, Rarity: common
 			// --------------------------------------------------------
 			// Text: Whenever this minion attacks, give your opponent a Coin.
@@ -2918,7 +2922,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_773] Magic Carpet - COST:3 [ATK:1/HP:6] 
+			// [DAL_773] Magic Carpet - COST:3 [ATK:1/HP:6]
 			// - Set: dalaran, Rarity: epic
 			// --------------------------------------------------------
 			// Text: After you play a 1-Cost minion, give it +1 Attack and <b>Rush</b>.
@@ -2935,7 +2939,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_774] Exotic Mountseller - COST:7 [ATK:5/HP:8] 
+			// [DAL_774] Exotic Mountseller - COST:7 [ATK:5/HP:8]
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: Whenever you cast a spell, summon a random
@@ -2949,7 +2953,7 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_775] Tunnel Blaster - COST:7 [ATK:3/HP:7] 
+			// [DAL_775] Tunnel Blaster - COST:7 [ATK:3/HP:7]
 			// - Set: dalaran, Rarity: rare
 			// --------------------------------------------------------
 			// Text: [x]<b>Taunt</b>
@@ -2970,8 +2974,8 @@ namespace SabberStoneCore.CardSets.Standard
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_011e] Lazul's Curse (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_011e] Lazul's Curse (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Reduced Attack.
 			// --------------------------------------------------------
@@ -2986,8 +2990,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_052e] Muckmorphing (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_052e] Muckmorphing (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: 4/4.
 			// --------------------------------------------------------
@@ -2997,8 +3001,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_077e] Toxic Fin (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_077e] Toxic Fin (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
 			// --------------------------------------------------------
@@ -3008,8 +3012,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_081e] Sparkly (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_081e] Sparkly (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Can't be targeted by spells or Hero Powers.
 			// --------------------------------------------------------
@@ -3025,8 +3029,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_086e] Stolen Secrets (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_086e] Stolen Secrets (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: +1/+1
 			// --------------------------------------------------------
@@ -3036,8 +3040,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_095e] Pizzazz (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_095e] Pizzazz (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -3047,8 +3051,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_147e] Dragon Shout (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_147e] Dragon Shout (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
@@ -3058,8 +3062,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_351e] Ancient Blessings (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_351e] Ancient Blessings (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -3069,8 +3073,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_548e] Arcane Expansion (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_548e] Arcane Expansion (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Increased <b>Spell Damage</b>.
 			// --------------------------------------------------------
@@ -3080,8 +3084,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_560e2] Protect the Brews! (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_560e2] Protect the Brews! (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Increased stats.
 			// --------------------------------------------------------
@@ -3091,8 +3095,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_561e] Imp-onomical (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_561e] Imp-onomical (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Costs (1) less.
 			// --------------------------------------------------------
@@ -3102,8 +3106,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_563e] Power of EVIL (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_563e] Power of EVIL (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -3113,8 +3117,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_570e] Never Surrender! (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_570e] Never Surrender! (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: +2 Health.
 			// --------------------------------------------------------
@@ -3124,8 +3128,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_576e] Kirin Tor's Curse (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_576e] Kirin Tor's Curse (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Costs (1) more.
 			// --------------------------------------------------------
@@ -3135,8 +3139,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_589e] Hunting Party (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_589e] Hunting Party (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: +3/+3.
 			// --------------------------------------------------------
@@ -3146,8 +3150,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_607e] Fleeting Fel (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_607e] Fleeting Fel (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>. Dies at end of turn.
 			// --------------------------------------------------------
@@ -3159,8 +3163,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_714e] Street Smarts (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_714e] Street Smarts (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -3173,8 +3177,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_726e] Scargil's Blessing (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_726e] Scargil's Blessing (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Costs (1).
 			// --------------------------------------------------------
@@ -3184,8 +3188,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_727e] Heroic (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_727e] Heroic (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: +2/+2.
 			// --------------------------------------------------------
@@ -3195,8 +3199,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_739e] Short Fuse (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_739e] Short Fuse (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: +1 Attack and <b>Rush</b>.
 			// --------------------------------------------------------
@@ -3206,8 +3210,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_744e] Familiar Faces (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_744e] Familiar Faces (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Copied health.
 			// --------------------------------------------------------
@@ -3217,8 +3221,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_752e] Toy-sized (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_752e] Toy-sized (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Jepetto Joybuzz made this 1/1.
 			// --------------------------------------------------------
@@ -3228,8 +3232,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_752e2] On Sale (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_752e2] On Sale (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: Costs (1).
 			// --------------------------------------------------------
@@ -3239,8 +3243,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [DAL_773e] Flying High (*) - COST:0 
-			// - Set: dalaran, 
+			// [DAL_773e] Flying High (*) - COST:0
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: +1 Attack and <b>Rush</b>.
 			// --------------------------------------------------------
@@ -3250,8 +3254,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_087t] Amalgam (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: all, Set: dalaran, 
+			// [DAL_087t] Amalgam (*) - COST:1 [ATK:1/HP:1]
+			// - Race: all, Set: dalaran,
 			// --------------------------------------------------------
 			// Text: [x]<i>This is an Elemental, Mech,
 			//       Demon, Murloc, Dragon,
@@ -3260,8 +3264,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_087t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_088t2] Vault Safe (*) - COST:2 [ATK:0/HP:5] 
-			// - Race: mechanical, Set: dalaran, 
+			// [DAL_088t2] Vault Safe (*) - COST:2 [ATK:0/HP:5]
+			// - Race: mechanical, Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			// --------------------------------------------------------
@@ -3271,20 +3275,20 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_088t2", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_554t] Greasefire Elemental (*) - COST:6 [ATK:6/HP:6] 
-			// - Race: elemental, Fac: neutral, Set: dalaran, 
+			// [DAL_554t] Greasefire Elemental (*) - COST:6 [ATK:6/HP:6]
+			// - Race: elemental, Fac: neutral, Set: dalaran,
 			// --------------------------------------------------------
 			cards.Add("DAL_554t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_566t] Vengeful Scroll (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: dalaran, 
+			// [DAL_566t] Vengeful Scroll (*) - COST:1 [ATK:1/HP:1]
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			cards.Add("DAL_566t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_582t2] Felhound (*) - COST:2 [ATK:2/HP:2] 
-			// - Race: demon, Set: dalaran, 
+			// [DAL_582t2] Felhound (*) - COST:2 [ATK:2/HP:2]
+			// - Race: demon, Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			// --------------------------------------------------------
@@ -3294,8 +3298,8 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DAL_582t2", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_613] Faceless Lackey (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: dalaran, 
+			// [DAL_613] Faceless Lackey (*) - COST:1 [ATK:1/HP:1]
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Summon a random 2-Cost minion.
 			// --------------------------------------------------------
@@ -3309,8 +3313,8 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_614] Kobold Lackey (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: dalaran, 
+			// [DAL_614] Kobold Lackey (*) - COST:1 [ATK:1/HP:1]
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Deal 2 damage.
 			// --------------------------------------------------------
@@ -3321,14 +3325,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_614", new CardDef(new Power
+			cards.Add("DAL_614", new CardDef(new[] {PlayReq.REQ_TARGET_TO_PLAY}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_615] Witchy Lackey (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: dalaran, 
+			// [DAL_615] Witchy Lackey (*) - COST:1 [ATK:1/HP:1]
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Transform a friendly minion into one that costs (1) more.
 			// --------------------------------------------------------
@@ -3341,14 +3345,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_IF_AVAILABLE = 0
 			// - REQ_FRIENDLY_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_615", new CardDef(new Power
+			cards.Add("DAL_615", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = new TransformMinionTask(EntityType.TARGET, 1)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_739] Goblin Lackey (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: dalaran, 
+			// [DAL_739] Goblin Lackey (*) - COST:1 [ATK:1/HP:1]
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Give a friendly minion +1 Attack and_<b>Rush</b>.
 			// --------------------------------------------------------
@@ -3364,14 +3368,14 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_739", new CardDef(new Power
+			cards.Add("DAL_739", new CardDef(new[] {PlayReq.REQ_MINION_TARGET,PlayReq.REQ_TARGET_IF_AVAILABLE,PlayReq.REQ_FRIENDLY_TARGET}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("DAL_739e", EntityType.TARGET)
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_741] Ethereal Lackey (*) - COST:1 [ATK:1/HP:1] 
-			// - Set: dalaran, 
+			// [DAL_741] Ethereal Lackey (*) - COST:1 [ATK:1/HP:1]
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Discover</b> a spell.
 			// --------------------------------------------------------
@@ -3388,26 +3392,26 @@ namespace SabberStoneCore.CardSets.Standard
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_743t] Hench-Clan Squire (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: murloc, Set: dalaran, 
+			// [DAL_743t] Hench-Clan Squire (*) - COST:1 [ATK:1/HP:1]
+			// - Race: murloc, Set: dalaran,
 			// --------------------------------------------------------
 			cards.Add("DAL_743t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_747t] Gryphon (*) - COST:2 [ATK:2/HP:2] 
-			// - Race: beast, Fac: alliance, Set: dalaran, 
+			// [DAL_747t] Gryphon (*) - COST:2 [ATK:2/HP:2]
+			// - Race: beast, Fac: alliance, Set: dalaran,
 			// --------------------------------------------------------
 			cards.Add("DAL_747t", new CardDef());
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [DAL_751t] Imp (*) - COST:1 [ATK:1/HP:1] 
-			// - Race: demon, Fac: neutral, Set: dalaran, 
+			// [DAL_751t] Imp (*) - COST:1 [ATK:1/HP:1]
+			// - Race: demon, Fac: neutral, Set: dalaran,
 			// --------------------------------------------------------
 			cards.Add("DAL_751t", new CardDef());
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [DAL_582t] Felhound Portal (*) - COST:2 
-			// - Set: dalaran, 
+			// [DAL_582t] Felhound Portal (*) - COST:2
+			// - Set: dalaran,
 			// --------------------------------------------------------
 			// Text: <b>Casts When Drawn</b>
 			//       Summon a 2/2 Felhound with <b>Rush</b>.

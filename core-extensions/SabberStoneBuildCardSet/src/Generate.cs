@@ -29,32 +29,34 @@ namespace SabberStoneBuildCardSet
 
 		private static bool Adventure;
 
-		private static string MapCardSetAdventureString(CardSet cardSet)
+		private static string[] MapCardSetAdventureString(CardSet cardSet)
 		{
 			switch(cardSet)
 			{
 				case CardSet.BRM:
-					return "BRMA";
+					return new[] { "BRMA" };
 				case CardSet.NAXX:
-					return "NAX";
+					return new[] { "NAX" };
 				case CardSet.LOE:
-					return "LOEA";
+					return new[] { "LOEA" };
 				case CardSet.KARA:
-					return "KARA";
+					return new[] { "KARA", "KAR_A", "KAR_a" };
 				case CardSet.ICECROWN:
-					return "ICCA";
+					return new[] { "ICCA" };
 				case CardSet.LOOTAPALOOZA:
-					return "LOOTA";
+					return new[] { "LOOTA" };
 				case CardSet.GILNEAS:
-					return "GILA";
+					return new[] { "GILA" };
 				case CardSet.BOOMSDAY:
-					return "BOTA";
+					return new[] { "BOTA" };
 				case CardSet.TROLL:
-					return "TRLA";
+					return new[] { "TRLA" };
+				case CardSet.DALARAN:
+					return new[] { "DALA" };
 				case CardSet.ULDUM:
-					return "ULDA";
+					return new[] { "ULDA" };
 				default:
-					return String.Empty;
+					return new[] { String.Empty};
 			}
 		}
 
@@ -79,8 +81,8 @@ namespace SabberStoneBuildCardSet
 			//{ CardSet.GVG};
 			//CardSet[] cardSets = new[] { CardSet.NAXX, CardSet.KARA, CardSet.BRM, CardSet.LOE, CardSet.ICECROWN  };
 			//CardSet[] cardSets = new[] { CardSet.CORE, CardSet.EXPERT1, CardSet.UNGORO, CardSet.LOOTAPALOOZA, CardSet.ICECROWN, CardSet.GILNEAS, CardSet.BOOMSDAY, CardSet.TROLL, CardSet.HOF };
-			CardSet[] cardSets = new[] { CardSet.ULDUM };
-			//var cardSets = Enum.GetValues(typeof(CardSet));
+			//CardSet[] cardSets = new[] { CardSet.ULDUM };
+			var cardSets = Enum.GetValues(typeof(CardSet));
 			foreach (CardSet cardSet in cardSets)
 			{
 				string className = UpperCaseFirst(cardSet.ToString()) + "CardsGen" + (adventure?"Adv":"");
@@ -174,7 +176,7 @@ namespace SabberStoneBuildCardSet
 				str.AppendLine();
 			}
 
-			str.AppendLine("\t\tpublic static void AddAll(Dictionary<string, Power> cards)");
+			str.AppendLine("\t\tpublic static void AddAll(Dictionary<string, CardDef> cards)");
 			str.AppendLine("\t\t{");
 			methods.ForEach(p => str.AppendLine($"\t\t\t{p}(cards);"));
 			str.AppendLine("\t\t}");
@@ -193,25 +195,21 @@ namespace SabberStoneBuildCardSet
 			IEnumerable<Card> values, bool? collect, CardSet set, CardType type,
 			CardClass cardClass)
 		{
-			string idString = MapCardSetAdventureString(set);
+			string[] idString = MapCardSetAdventureString(set);
 			IOrderedEnumerable<Card> valuesOrdered = values
 				.Where(p => p.Set == set
 							&& (collect == null || p.Collectible == collect)
 							&& (type == CardType.INVALID && p.Type != CardType.HERO && p.Type != CardType.HERO_POWER || p.Type == type)
 							&& (cardClass == CardClass.INVALID || p.Class == cardClass)
-							&& (idString == String.Empty || Adventure && p.Id.StartsWith(idString) || !Adventure && !p.Id.StartsWith(idString)))
+							&& (idString[0] == String.Empty || Adventure && idString.Any(t => p.Id.StartsWith(t)) || !Adventure && !idString.Any(t => p.Id.StartsWith(t))))
 							.OrderBy(p => p.Type.ToString());
-
-
-
-
 
 			if (!valuesOrdered.Any())
 			{
 				return null;
 			}
 			var str = new StringBuilder();
-			str.AppendLine($"\t\tprivate static void {name}(IDictionary<string, Power> cards)");
+			str.AppendLine($"\t\tprivate static void {name}(IDictionary<string, CardDef> cards)");
 			str.AppendLine("\t\t{");
 			foreach (Card card in valuesOrdered)
 			{
@@ -346,8 +344,9 @@ namespace SabberStoneBuildCardSet
 				.Where(p => p.Id.Contains(card.Id) && p.Id.Length > card.Id.Length && p.Type == CardType.ENCHANTMENT)
 				.Select(p => p.Id).FirstOrDefault();
 
-			str.AppendLine($"\t\t\tcards.Add(\"{card.Id}\", new Power {{");
-
+			string playReqs = String.Join(',', card.PlayRequirements.Keys.Select(p => $"PlayReq.{p}"));
+			str.AppendLine($"\t\t\tcards.Add(\"{card.Id}\", new CardDef({(playReqs.Length == 0? "" : $"new[] {{{playReqs}}}, ")}new Power");
+			str.AppendLine($"\t\t\t{{");
 			str.AppendLine($"\t\t\t\t// TODO [{card.Id}] {card.Name} && Test: {card.Name}_{card.Id}");
 			if (enchantId != null)
 				str.AppendLine($"\t\t\t\tInfoCardId = \"{enchantId}\",");
@@ -359,7 +358,7 @@ namespace SabberStoneBuildCardSet
 				str.AppendLine($"\t\t\t\t//Trigger = null,");
 			}
 
-			str.AppendLine($"\t\t\t}});\n");
+			str.AppendLine($"\t\t\t}}));\n");
 			return str.ToString();
 		}
 
@@ -431,12 +430,12 @@ namespace SabberStoneBuildCardSet
 			IEnumerable<Card> values, bool? collect, CardSet set, CardType type,
 			CardClass cardClass)
 		{
-			string idString = MapCardSetAdventureString(set);
+			string[] idString = MapCardSetAdventureString(set);
 			IOrderedEnumerable<Card> valuesOrdered = values.Where(p => p.Set == set
 							&& (collect == null || p.Collectible == collect)
 							&& (type == CardType.INVALID && p.Type != CardType.HERO && p.Type != CardType.HERO_POWER || p.Type == type)
 							&& (cardClass == CardClass.INVALID || p.Class == cardClass)
-							&& (idString == String.Empty || Adventure && p.Id.StartsWith(idString) || !Adventure && !p.Id.StartsWith(idString)))
+							&& (idString[0] == String.Empty || Adventure && idString.Any(t => p.Id.StartsWith(t)) || !Adventure && !idString.Any(t => p.Id.StartsWith(t))))
 							.OrderBy(p => p.Type.ToString());
 			if (!valuesOrdered.Any())
 			{

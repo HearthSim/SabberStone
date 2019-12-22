@@ -11,11 +11,11 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 //using Newtonsoft.Json;
-using SabberStoneCore.Enchants;
 using SabberStoneCore.Model;
 using SabberStoneCore.src.Loader;
 //using SabberStoneCore.Properties;
@@ -45,6 +45,22 @@ namespace SabberStoneCore.Loader
 			{
 				if (CardDefs.Instance.Get.TryGetValue(c.Id, out CardDef cardDef))
 				{
+					// test current PlayReq against last cardDef with playreq CardDefs-36393.xml
+					if (c.PlayRequirements != null)
+					{
+						foreach (KeyValuePair<Enums.PlayReq, int> keyValuePair in c.PlayRequirements)
+						{
+							if (cardDef.PlayReqs == null)
+							{
+								Console.WriteLine($"{c.Id} missing {keyValuePair.Key}!!!");
+							}
+							else if (!cardDef.PlayReqs.Any(p => p == keyValuePair.Key))
+							{
+								Console.WriteLine($"{c.Id} missing {keyValuePair.Key}!!!");
+							}
+						}
+					}
+
 					c.Power = cardDef.Power;
 					c.Implemented = cardDef.Power == null ||
 									cardDef.Power.PowerTask != null ||
@@ -55,6 +71,13 @@ namespace SabberStoneCore.Loader
 									cardDef.Power.Aura != null ||
 									cardDef.Power.Trigger != null ||
 									cardDef.Power.Enchant != null;
+				}
+				else
+				{
+					//if (c.PlayRequirements != null && c.PlayRequirements.Count > 0)
+					//{
+					//	Console.WriteLine($"{c.Id} missing {c.PlayRequirements}!!!");
+					//}
 				}
 			}
 		}
