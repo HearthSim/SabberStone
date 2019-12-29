@@ -1,7 +1,7 @@
 ﻿language: csharp # Comes with Mono automatically.
 mono: none # ..speeds up builds by not installing Mono.
 dist: trusty
-dotnet: 2.1.4
+dotnet: 2.1.500
 
 notifications:
   email:
