@@ -373,7 +373,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_587", new CardDef(new Power
+			cards.Add("DAL_587", new CardDef(new[] {"NEW1_032","NEW1_033","NEW1_034"}, new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new RandomCardTask(CardType.SPELL, CardClass.HUNTER),
@@ -1363,7 +1363,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// RefTag:
 			// - MARK_OF_EVIL = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_417", new CardDef(new Power
+			cards.Add("DAL_417", new CardDef(new[] {"LOOT_998h","LOOT_998j","LOOT_998l","LOOT_998k"}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE,
@@ -1441,7 +1441,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("DAL_366", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
+			cards.Add("DAL_366", new CardDef(new[] {"DAL_366t1","DAL_366t2","DAL_366t3","DAL_366t4"}, new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new DestroyTask(EntityType.TARGET),
 				Trigger = TriggerLibrary.RevealUnidentifiedItem
@@ -1637,7 +1637,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("DAL_431", new CardDef(new Power
+			cards.Add("DAL_431", new CardDef(new[] {"DAL_431t"}, new Power
 			{
 				// TODO [DAL_431] Swampqueen Hagatha && Test: Swampqueen Hagatha_DAL_431
 				//PowerTask = null,

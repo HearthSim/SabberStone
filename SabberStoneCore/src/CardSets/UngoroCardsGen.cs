@@ -150,7 +150,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - ADAPT = 1
 			// --------------------------------------------------------
-			cards.Add("UNG_109", new CardDef(new Power
+			cards.Add("UNG_109", new CardDef(new[] {"UNG_999t10","UNG_999t2","UNG_999t3","UNG_999t4","UNG_999t5","UNG_999t6","UNG_999t7","UNG_999t8","UNG_999t13","UNG_999t14"}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.Is5PlusAtkInHand),
@@ -2124,7 +2124,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Entourage: UNG_999t10, UNG_999t2, UNG_999t3, UNG_999t4, UNG_999t5, UNG_999t6, UNG_999t7, UNG_999t8, UNG_999t13, UNG_999t14
 			// --------------------------------------------------------
-			cards.Add("UNG_832", new CardDef(new Power
+			cards.Add("UNG_832", new CardDef(new[] {"UNG_999t10","UNG_999t2","UNG_999t3","UNG_999t4","UNG_999t5","UNG_999t6","UNG_999t7","UNG_999t8","UNG_999t13","UNG_999t14"}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("UNG_832e", EntityType.CONTROLLER)
 			}));

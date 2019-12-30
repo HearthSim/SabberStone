@@ -1029,7 +1029,7 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("OG_080", new CardDef(new Power
+			cards.Add("OG_080", new CardDef(new[] {"OG_080d","OG_080e","OG_080f","OG_080c","OG_080b"}, new Power
 			{
 				PowerTask = ComplexTask.GetRandomEntourageCardToHand(),
 				DeathrattleTask = ComplexTask.GetRandomEntourageCardToHand()

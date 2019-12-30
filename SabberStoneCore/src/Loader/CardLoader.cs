@@ -30,57 +30,6 @@ namespace SabberStoneCore.Loader
 	{
 		private static Assembly Assembly => typeof(CardLoader).GetTypeInfo().Assembly;
 
-		public List<int> LoadPlayReqOrder()
-		{
-			var playErr =
-				XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Resources.PlayErrors.xml"));
-			var playReqOrder = (from r in playErr.Descendants("PlayErrors")
-								select new
-								{
-									DefaultReqOrder = (from req in r.Descendants("DefaultRequirementOrder")
-													   select new
-													   {
-														   PlayReqOrder = (from reqDesc in r.Descendants("RequirementID")
-																		   select new
-																		   {
-																			   ReqId = reqDesc.Attribute("value").Value
-																		   }).ToList()
-													   }).ToList()
-								}).ToList();
-			var result = new List<int>();
-			playReqOrder[0].DefaultReqOrder[0].PlayReqOrder.ForEach(p => result.Add(Int32.Parse(p.ReqId)));
-			return result;
-		}
-
-		public Dictionary<int, PlayerReqDesc> LoadPlayReqDesc()
-		{
-			var playErr =
-				XDocument.Load(Assembly.GetManifestResourceStream("SabberStoneCore.Resources.PlayErrors.xml"));
-
-			var playReqDesc = (from r in playErr.Descendants("PlayErrors")
-							   select new
-							   {
-								   Requirements = (from req in r.Descendants("PlayRequirements")
-												   select new
-												   {
-													   PlayReqDesc = (from reqDesc in r.Descendants("PlayRequirement")
-																	  select new PlayerReqDesc()
-																	  {
-																		  ReqId = Int32.Parse(reqDesc.Attribute("reqID").Value),
-																		  Name = reqDesc.Attribute("name").Value,
-																		  Description = reqDesc.Attribute("description").Value,
-																		  AlwaysReq = Boolean.Parse(reqDesc.Attribute("alwaysRequired").Value),
-																		  HasParam = Boolean.Parse(reqDesc.Attribute("hasParam").Value),
-																		  IsTargetDetail = Boolean.Parse(reqDesc.Attribute("isTargetDetail").Value)
-																	  }
-													   ).ToDictionary(x => x.ReqId, x => x)
-												   }).ToList()
-							   }).ToList();
-			var dict = new Dictionary<int, PlayerReqDesc>();
-			playReqDesc[0].Requirements[0].PlayReqDesc.Values.ToList().ForEach(p => dict.Add(p.ReqId, p));
-			return dict;
-		}
-
 		public Card[] Load()
 		{
 			// Get XML definitions from assembly embedded resource

@@ -1968,7 +1968,7 @@ namespace SabberStoneCore.CardSets
 			// - MULTI_CLASS_GROUP = 3
 			// - KABAL = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_619", new CardDef(new Power
+			cards.Add("CFM_619", new CardDef(new[] {"CFM_065","CFM_021","CFM_603","CFM_604","CFM_611","CFM_620","CFM_094","CFM_661","CFM_662","CFM_608"}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new RandomEntourageTask(),
@@ -1992,7 +1992,7 @@ namespace SabberStoneCore.CardSets
 			// - MULTI_CLASS_GROUP = 3
 			// - KABAL = 1
 			// --------------------------------------------------------
-			cards.Add("CFM_621", new CardDef(new Power
+			cards.Add("CFM_621", new CardDef(new[] {"CFM_621t11","CFM_621t12","CFM_621t13"}, new Power
 			{
 				// TODO [CFM_621] Kazakus && Test: Kazakus_CFM_621
 				PowerTask = ComplexTask.Create(

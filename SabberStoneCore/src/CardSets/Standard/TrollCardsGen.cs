@@ -1675,7 +1675,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// PlayReq:
 			// - REQ_TARGET_TO_PLAY = 0
 			// --------------------------------------------------------
-			cards.Add("TRL_012", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
+			cards.Add("TRL_012", new CardDef(new[] {"CS2_052","CS2_050","NEW1_009","CS2_051"}, new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0}}, new Power
 			{
 				PowerTask = new DamageTask(2, EntityType.TARGET, true),
 				OverkillTask = ComplexTask.SummonRandomBasicTotem

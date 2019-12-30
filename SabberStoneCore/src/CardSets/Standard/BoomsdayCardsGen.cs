@@ -86,7 +86,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Entourage: BOT_238p1, BOT_238p2, BOT_238p3, BOT_238p4, BOT_238p6
 			// --------------------------------------------------------
-			cards.Add("BOT_238p", new CardDef(new Power
+			cards.Add("BOT_238p", new CardDef(new[] {"BOT_238p1","BOT_238p2","BOT_238p3","BOT_238p4","BOT_238p6"}, new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{

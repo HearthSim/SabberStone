@@ -282,7 +282,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_829p", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
+			cards.Add("ICC_829p", new CardDef(new[] {"ICC_829t2","ICC_829t3","ICC_829t4","ICC_829t5"}, new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				PowerTask = SpecificTask.TotemicCall,
 				Trigger = new Trigger(TriggerType.AFTER_SUMMON)
@@ -2974,7 +2974,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - TAUNT = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_314", new CardDef(new Power
+			cards.Add("ICC_314", new CardDef(new[] {"ICC_314t3","ICC_314t2","ICC_314t7","ICC_314t4","ICC_314t5","ICC_314t6","ICC_314t8","ICC_314t1"}, new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{
@@ -3258,7 +3258,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - DEATHRATTLE = 1
 			// --------------------------------------------------------
-			cards.Add("ICC_854", new CardDef(new Power
+			cards.Add("ICC_854", new CardDef(new[] {"ICC_314t2","ICC_314t3","ICC_314t4","ICC_314t5","ICC_314t7","ICC_314t8","ICC_314t6","ICC_314t1"}, new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new RandomEntourageTask(),

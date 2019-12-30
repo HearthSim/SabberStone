@@ -1079,7 +1079,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DISCOVER = 1
 			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_500", new CardDef(new Power
+			cards.Add("ULD_500", new CardDef(new[] {"AT_132_DRUID","AT_132_HUNTER","AT_132_MAGE","AT_132_PALADIN","AT_132_PRIEST","AT_132_SHAMAN","AT_132_ROGUE","AT_132_WARLOCK","AT_132_WARRIOR"}, new Power
 			{
 				// TODO [ULD_500] Sir Finley of the Sands && Test: Sir Finley of the Sands_ULD_500
 				//PowerTask = null,
@@ -2543,7 +2543,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// - DIVINE_SHIELD = 1
 			// - RUSH = 1
 			// --------------------------------------------------------
-			cards.Add("ULD_178", new CardDef(new Power
+			cards.Add("ULD_178", new CardDef(new[] {"ULD_178a2","ULD_178a","ULD_178a3","ULD_178a4"}, new Power
 			{
 				// TODO [ULD_178] Siamat && Test: Siamat_ULD_178
 				//PowerTask = null,

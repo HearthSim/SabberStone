@@ -528,7 +528,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 40563
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_13_06", new CardDef(new Power
+			cards.Add("KARA_13_06", new CardDef(new[] {"KAR_073","KAR_075","KAR_076","KAR_077","KAR_091"}, new Power
 			{
 				// TODO [KARA_13_06] Prince Malchezaar && Test: Prince Malchezaar_KARA_13_06
 				//PowerTask = null,
@@ -545,7 +545,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 40763
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_13_06H", new CardDef(new Power
+			cards.Add("KARA_13_06H", new CardDef(new[] {"KAR_073","KAR_075","KAR_076","KAR_077","KAR_091"}, new Power
 			{
 				// TODO [KARA_13_06H] Prince Malchezaar && Test: Prince Malchezaar_KARA_13_06H
 				//PowerTask = null,
@@ -651,7 +651,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
-			cards.Add("KAR_A10_22", new CardDef(new Power
+			cards.Add("KAR_A10_22", new CardDef(new[] {"KAR_A10_09","KAR_A10_02","KAR_A10_08","KAR_A10_04","KAR_A10_05"}, new Power
 			{
 				// TODO [KAR_A10_22] Castle && Test: Castle_KAR_A10_22
 				//PowerTask = null,
@@ -835,7 +835,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_06_03hp", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY,0},{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
+			cards.Add("KARA_06_03hp", new CardDef(new[] {"KARA_06_01"}, new Dictionary<PlayReq, int>() {{PlayReq.REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY,0},{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [KARA_06_03hp] True Love && Test: True Love_KARA_06_03hp
 				//PowerTask = null,
@@ -858,7 +858,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_06_03hpheroic", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY,0},{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
+			cards.Add("KARA_06_03hpheroic", new CardDef(new[] {"KARA_06_01"}, new Dictionary<PlayReq, int>() {{PlayReq.REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY,0},{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [KARA_06_03hpheroic] True Love && Test: True Love_KARA_06_03hpheroic
 				//PowerTask = null,
@@ -897,7 +897,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_08_02", new CardDef(new Power
+			cards.Add("KARA_08_02", new CardDef(new[] {"KARA_08_06","KARA_08_08"}, new Power
 			{
 				// TODO [KARA_08_02] Nether Rage && Test: Nether Rage_KARA_08_02
 				InfoCardId = "KARA_08_02e",
@@ -918,7 +918,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("KARA_08_02H", new CardDef(new Power
+			cards.Add("KARA_08_02H", new CardDef(new[] {"KARA_08_06","KARA_08_08"}, new Power
 			{
 				// TODO [KARA_08_02H] Nether Rage && Test: Nether Rage_KARA_08_02H
 				//PowerTask = null,

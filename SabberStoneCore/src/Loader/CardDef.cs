@@ -11,6 +11,8 @@ namespace SabberStoneCore.src.Loader
 	{
 		public Dictionary<PlayReq, int> PlayReqs { get; private set; }
 
+		public string[] Entourage { get; private set; }
+
 		public Power Power { get; private set; }
 
 		public CardDef()
@@ -26,8 +28,22 @@ namespace SabberStoneCore.src.Loader
 			Power = power;
 		}
 
+		public CardDef(string[] entourage, Power power)
+		{
+			Entourage = entourage;
+			Power = power;
+		}
+
 		public CardDef(Dictionary<PlayReq, int> playReq, Power power)
 		{
+			Entourage = null;
+			PlayReqs = playReq;
+			Power = power;
+		}
+
+		public CardDef(string[] entourage, Dictionary<PlayReq, int> playReq, Power power)
+		{
+			Entourage = entourage;
 			PlayReqs = playReq;
 			Power = power;
 		}

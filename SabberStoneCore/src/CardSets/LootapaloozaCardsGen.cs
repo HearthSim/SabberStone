@@ -171,7 +171,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Entourage: LOOT_054d, LOOT_054b, LOOT_054c
 			// --------------------------------------------------------
-			cards.Add("LOOT_054", new CardDef(new Power
+			cards.Add("LOOT_054", new CardDef(new[] {"LOOT_054d","LOOT_054b","LOOT_054c"}, new Power
 			{
 				PowerTask = new EnqueueTask(2, new DiscoverTask(DiscoverType.BRANCHING_PATHS))
 			}));
@@ -438,7 +438,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_MINION_TARGET = 0
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_217", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
+			cards.Add("LOOT_217", new CardDef(new[] {"NEW1_032","NEW1_033","NEW1_034"}, new Dictionary<PlayReq, int>() {{PlayReq.REQ_MINION_TARGET,0},{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.HasNoMinionInDeck),
@@ -1017,7 +1017,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - DURABILITY = 2
 			// --------------------------------------------------------
-			cards.Add("LOOT_286", new CardDef(new Power
+			cards.Add("LOOT_286", new CardDef(new[] {"LOOT_286t2","LOOT_286t3","LOOT_286t1","LOOT_286t4"}, new Power
 			{
 				// TODO Test: Unidentified Maul_LOOT_286
 				InfoCardId = "LOOT_286t3e",
@@ -1333,7 +1333,7 @@ namespace SabberStoneCore.CardSets
 			// - REQ_TARGET_TO_PLAY = 0
 			// - REQ_MINION_TARGET = 0
 			// --------------------------------------------------------
-			cards.Add("LOOT_278", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
+			cards.Add("LOOT_278", new CardDef(new[] {"LOOT_278t1","LOOT_278t2","LOOT_278t3","LOOT_278t4"}, new Dictionary<PlayReq, int>() {{PlayReq.REQ_TARGET_TO_PLAY,0},{PlayReq.REQ_MINION_TARGET,0}}, new Power
 			{
 				PowerTask = new AddEnchantmentTask("LOOT_278e", EntityType.TARGET),
 				Trigger = TriggerLibrary.RevealUnidentifiedItem
@@ -1850,7 +1850,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_062", new CardDef(new Power
+			cards.Add("LOOT_062", new CardDef(new[] {"CS2_052","CS2_050","NEW1_009","CS2_051"}, new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.BASIC_TOTEM, 4)
 			}));
@@ -2605,7 +2605,7 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Entourage: LOOT_285t, LOOT_285t2, LOOT_285t3, LOOT_285t4
 			// --------------------------------------------------------
-			cards.Add("LOOT_285", new CardDef(new Power
+			cards.Add("LOOT_285", new CardDef(new[] {"LOOT_285t","LOOT_285t2","LOOT_285t3","LOOT_285t4"}, new Power
 			{
 				// TODO Test: Unidentified Shield_LOOT_285
 				PowerTask = new ArmorTask(5),
@@ -4008,7 +4008,7 @@ namespace SabberStoneCore.CardSets
 			// - DEATHRATTLE = 1
 			// - MULTIPLY_BUFF_VALUE = 1
 			// --------------------------------------------------------
-			cards.Add("LOOT_357l", new CardDef(new Power
+			cards.Add("LOOT_357l", new CardDef(new[] {"LOOT_998h","LOOT_998j","LOOT_998l","LOOT_998k"}, new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					new RandomEntourageTask(1, true),

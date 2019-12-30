@@ -47,7 +47,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("ICCA01_013", new CardDef(new Power
+			cards.Add("ICCA01_013", new CardDef(new[] {"ICC_314t2","ICC_314t3","ICC_314t4","ICC_314t1","ICC_314t6","ICC_314t5","ICC_314t7","ICC_314t8"}, new Power
 			{
 				// TODO [ICCA01_013] Tirion Fordring && Test: Tirion Fordring_ICCA01_013
 				//PowerTask = null,

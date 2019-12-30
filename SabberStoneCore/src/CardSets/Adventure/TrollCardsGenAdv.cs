@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.src.Loader;
+// ReSharper disable RedundantEmptyObjectOrCollectionInitializer
 
 namespace SabberStoneCore.CardSets.Adventure
 {
@@ -23,8 +24,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void Heroes(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------------- HERO - WARRIOR
-			// [TRLA_200h] War Master Voone (*) - COST:0 [ATK:0/HP:10]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_200h] War Master Voone (*) - COST:0 [ATK:0/HP:10] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <i>The Warmaster is a triple threat:_He_rocks. He_rolls._He_trolls!</i>
 			// --------------------------------------------------------
@@ -40,8 +41,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - SHAMAN
-			// [TRLA_201h] Zentimo (*) - COST:0 [ATK:0/HP:10]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_201h] Zentimo (*) - COST:0 [ATK:0/HP:10] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <i>This creepy swamp shaman is packing some_bad_voodoo.</i>
 			// --------------------------------------------------------
@@ -57,8 +58,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - ROGUE
-			// [TRLA_202h] Captain Hooktusk (*) - COST:0 [ATK:0/HP:10]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_202h] Captain Hooktusk (*) - COST:0 [ATK:0/HP:10] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <i>Those who say her cheating goes over[d]board_soon_follow_suit.</i>
 			// --------------------------------------------------------
@@ -74,8 +75,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - PALADIN
-			// [TRLA_203h] High Priest Thekal (*) - COST:0 [ATK:0/HP:10]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_203h] High Priest Thekal (*) - COST:0 [ATK:0/HP:10] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <i>Floats like a feather. Stings like a troll punching_your_face.</i>
 			// --------------------------------------------------------
@@ -91,8 +92,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - HUNTER
-			// [TRLA_204h] Zul'jin (*) - COST:0 [ATK:0/HP:10]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_204h] Zul'jin (*) - COST:0 [ATK:0/HP:10] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <i>Zul'jin's not ready to bury the hatchet. Unless it's in your shrine.</i>
 			// --------------------------------------------------------
@@ -108,8 +109,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - DRUID
-			// [TRLA_205h] Wardruid Loti (*) - COST:0 [ATK:0/HP:10]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_205h] Wardruid Loti (*) - COST:0 [ATK:0/HP:10] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <i>She and her raptors aim to prove the wild side is_the_winning_side.</i>
 			// --------------------------------------------------------
@@ -125,8 +126,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARLOCK
-			// [TRLA_206h] High Priestess Jeklik (*) - COST:0 [ATK:0/HP:10]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_206h] High Priestess Jeklik (*) - COST:0 [ATK:0/HP:10] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <i>Her blood magic brings on spells,_demons, and_hurt_feelings.</i>
 			// --------------------------------------------------------
@@ -142,8 +143,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// -------------------------------------------- HERO - MAGE
-			// [TRLA_207h] Hex Lord Malacrass (*) - COST:0 [ATK:0/HP:10]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_207h] Hex Lord Malacrass (*) - COST:0 [ATK:0/HP:10] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <i>Malacrass is on fire this year! And sometimes frost.</I>
 			// --------------------------------------------------------
@@ -159,8 +160,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - PRIEST
-			// [TRLA_208h] Princess Talanji (*) - COST:0 [ATK:0/HP:10]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_208h] Princess Talanji (*) - COST:0 [ATK:0/HP:10] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <i>Her family bargained with the loa of death. That's_bad._For_you.</i>
 			// --------------------------------------------------------
@@ -176,8 +177,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - NEUTRAL
-			// [TRLA_209h] Rikkar (*) - COST:0 [ATK:0/HP:20]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_209h] Rikkar (*) - COST:0 [ATK:0/HP:20] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 479
@@ -191,8 +192,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - DRUID
-			// [TRLA_209h_Druid] Rikkar (*) - COST:0 [ATK:0/HP:20]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_209h_Druid] Rikkar (*) - COST:0 [ATK:0/HP:20] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 1123
@@ -206,8 +207,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - HUNTER
-			// [TRLA_209h_Hunter] Rikkar (*) - COST:0 [ATK:0/HP:20]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_209h_Hunter] Rikkar (*) - COST:0 [ATK:0/HP:20] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 229
@@ -221,8 +222,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// -------------------------------------------- HERO - MAGE
-			// [TRLA_209h_Mage] Rikkar (*) - COST:0 [ATK:0/HP:20]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_209h_Mage] Rikkar (*) - COST:0 [ATK:0/HP:20] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 807
@@ -236,8 +237,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - PALADIN
-			// [TRLA_209h_Paladin] Rikkar (*) - COST:0 [ATK:0/HP:20]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_209h_Paladin] Rikkar (*) - COST:0 [ATK:0/HP:20] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 472
@@ -251,8 +252,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - PRIEST
-			// [TRLA_209h_Priest] Rikkar (*) - COST:0 [ATK:0/HP:20]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_209h_Priest] Rikkar (*) - COST:0 [ATK:0/HP:20] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 479
@@ -266,8 +267,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- HERO - ROGUE
-			// [TRLA_209h_Rogue] Rikkar (*) - COST:0 [ATK:0/HP:20]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_209h_Rogue] Rikkar (*) - COST:0 [ATK:0/HP:20] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 730
@@ -281,8 +282,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ HERO - SHAMAN
-			// [TRLA_209h_Shaman] Rikkar (*) - COST:0 [ATK:0/HP:20]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_209h_Shaman] Rikkar (*) - COST:0 [ATK:0/HP:20] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 687
@@ -296,8 +297,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARLOCK
-			// [TRLA_209h_Warlock] Rikkar (*) - COST:0 [ATK:0/HP:20]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_209h_Warlock] Rikkar (*) - COST:0 [ATK:0/HP:20] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 300
@@ -311,8 +312,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- HERO - WARRIOR
-			// [TRLA_209h_Warrior] Rikkar (*) - COST:0 [ATK:0/HP:20]
-			// - Fac: neutral, Set: troll,
+			// [TRLA_209h_Warrior] Rikkar (*) - COST:0 [ATK:0/HP:20] 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HERO_POWER = 725
@@ -330,8 +331,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void HeroPowers(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ HERO_POWER - HUNTER
-			// [TRLA_065p] Steady Throw (*) - COST:2
-			// - Fac: neutral, Set: troll,
+			// [TRLA_065p] Steady Throw (*) - COST:2 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Hero Power</b>
 			//       Deal $2 damage to the enemy hero.@<b>Hero Power</b>
@@ -357,8 +358,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void DruidNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [TRLA_115e] Gonk's Mark (*) - COST:0
-			// - Set: troll,
+			// [TRLA_115e] Gonk's Mark (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -368,13 +369,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_115e", new CardDef(new Power
 			{
 				// TODO [TRLA_115e] Gonk's Mark && Test: Gonk's Mark_TRLA_115e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_115e")
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [TRLA_124e] Empowered (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_124e] Empowered (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -384,13 +384,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_124e", new CardDef(new Power
 			{
 				// TODO [TRLA_124e] Empowered && Test: Empowered_TRLA_124e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_124e")
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
-			// [TRLA_125e] The Fan Favorite (*) - COST:0
-			// - Set: troll,
+			// [TRLA_125e] The Fan Favorite (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: +10 Attack this turn.
 			// --------------------------------------------------------
@@ -401,13 +400,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_125e", new CardDef(new Power
 			{
 				// TODO [TRLA_125e] The Fan Favorite && Test: The Fan Favorite_TRLA_125e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_125e")
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [TRLA_112] Gonk's Armament (*) - COST:0 [ATK:0/HP:5]
-			// - Set: troll,
+			// [TRLA_112] Gonk's Armament (*) - COST:0 [ATK:0/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Whenever you gain Armor,
@@ -432,8 +430,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [TRLA_112t] Gonk's Armament (*) - COST:0
-			// - Set: troll,
+			// [TRLA_112t] Gonk's Armament (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -455,8 +453,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [TRLA_115] Gonk's Mark (*) - COST:0 [ATK:0/HP:3]
-			// - Set: troll,
+			// [TRLA_115] Gonk's Mark (*) - COST:0 [ATK:0/HP:3] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       After you summon a
@@ -481,8 +479,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [TRLA_115t] Gonk's Mark (*) - COST:0
-			// - Set: troll,
+			// [TRLA_115t] Gonk's Mark (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -504,8 +502,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [TRLA_116] Bonds of Balance (*) - COST:0 [ATK:0/HP:7]
-			// - Set: troll,
+			// [TRLA_116] Bonds of Balance (*) - COST:0 [ATK:0/HP:7] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       At the end of your turn,
@@ -521,6 +519,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2212
 			// --------------------------------------------------------
 			cards.Add("TRLA_116", new CardDef(new Power
 			{
@@ -531,8 +530,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [TRLA_116t] Bonds of Balance (*) - COST:0
-			// - Set: troll,
+			// [TRLA_116t] Bonds of Balance (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -554,8 +553,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [TRLA_121] Water Spirit (*) - COST:0 [ATK:2/HP:1]
-			// - Race: elemental, Set: troll,
+			// [TRLA_121] Water Spirit (*) - COST:0 [ATK:2/HP:1] 
+			// - Race: elemental, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Start of Game:</b> Draw this.
 			//       <b>Deathrattle:</b> Gain 2 Mana Crystals.
@@ -574,8 +573,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [TRLA_122] Direhorn Stomper (*) - COST:5 [ATK:4/HP:6]
-			// - Race: beast, Set: troll,
+			// [TRLA_122] Direhorn Stomper (*) - COST:5 [ATK:4/HP:6] 
+			// - Race: beast, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			//       <b>Overkill</b>: Summon a minion from your deck with the highest Attack.
@@ -594,8 +593,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [TRLA_123] Succoring Skyscreamer (*) - COST:3 [ATK:3/HP:4]
-			// - Race: beast, Set: troll,
+			// [TRLA_123] Succoring Skyscreamer (*) - COST:3 [ATK:3/HP:4] 
+			// - Race: beast, Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]Whenever you gain
 			//       Armor, draw a card.
@@ -613,8 +612,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [TRLA_124] Zandalari Striker (*) - COST:5 [ATK:2/HP:5]
-			// - Set: troll,
+			// [TRLA_124] Zandalari Striker (*) - COST:5 [ATK:2/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: After your hero attacks, give your minions
 			//       +2 Attack.
@@ -632,8 +631,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [TRLA_125] The Fan Favorite (*) - COST:6 [ATK:10/HP:10]
-			// - Race: beast, Set: troll,
+			// [TRLA_125] The Fan Favorite (*) - COST:6 [ATK:10/HP:10] 
+			// - Race: beast, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Overkill:</b> Give your hero +10 Attack this turn.
 			// --------------------------------------------------------
@@ -651,8 +650,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - DRUID
-			// [TRLA_127] Astral Raptor (*) - COST:3 [ATK:3/HP:3]
-			// - Set: troll,
+			// [TRLA_127] Astral Raptor (*) - COST:3 [ATK:3/HP:3] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			//       <b>Overkill:</b> Summon another Astral Raptor.
@@ -671,15 +670,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [TRLA_Druid_01] Natural Defense (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Druid_01] Natural Defense (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: BOT_447, UNG_108, LOOT_051, CS2_005, OG_047, ICC_079, GIL_637, LOOT_054, LOOT_309, TRL_010
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_01", new CardDef(new Power
+			cards.Add("TRLA_Druid_01", new CardDef(new[] {"BOT_447","UNG_108","LOOT_051","CS2_005","OG_047","ICC_079","GIL_637","LOOT_054","LOOT_309","TRL_010"}, new Power
 			{
 				// TODO [TRLA_Druid_01] Natural Defense && Test: Natural Defense_TRLA_Druid_01
 				//PowerTask = null,
@@ -687,15 +686,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [TRLA_Druid_02] Feral (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Druid_02] Feral (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_243, CS2_005, TRL_223, TRL_240, TRL_507, OG_047, CS2_011, ICC_079, TRL_241, AT_039, EX1_570
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_02", new CardDef(new Power
+			cards.Add("TRLA_Druid_02", new CardDef(new[] {"TRL_243","CS2_005","TRL_223","TRL_240","TRL_507","OG_047","CS2_011","ICC_079","TRL_241","AT_039","EX1_570"}, new Power
 			{
 				// TODO [TRLA_Druid_02] Feral && Test: Feral_TRLA_Druid_02
 				//PowerTask = null,
@@ -703,15 +702,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [TRLA_Druid_03] Nature's Blessing (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Druid_03] Nature's Blessing (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CFM_614, CS2_009, EX1_160, OG_048, EX1_155, TRL_254, GVG_041, OG_195
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_03", new CardDef(new Power
+			cards.Add("TRLA_Druid_03", new CardDef(new[] {"CFM_614","CS2_009","EX1_160","OG_048","EX1_155","TRL_254","GVG_041","OG_195"}, new Power
 			{
 				// TODO [TRLA_Druid_03] Nature's Blessing && Test: Nature's Blessing_TRLA_Druid_03
 				//PowerTask = null,
@@ -719,15 +718,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [TRLA_Druid_04] Saplings (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Druid_04] Saplings (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: BOT_419, GIL_663, BOT_420, FP1_019, EX1_158, EX1_571, UNG_111, TRL_341, BOT_422, EX1_573, BOT_523
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_04", new CardDef(new Power
+			cards.Add("TRLA_Druid_04", new CardDef(new[] {"BOT_419","GIL_663","BOT_420","FP1_019","EX1_158","EX1_571","UNG_111","TRL_341","BOT_422","EX1_573","BOT_523"}, new Power
 			{
 				// TODO [TRLA_Druid_04] Saplings && Test: Saplings_TRLA_Druid_04
 				//PowerTask = null,
@@ -735,15 +734,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [TRLA_Druid_05] Big Draws (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Druid_05] Big Draws (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_223, GIL_637, GVG_032, GIL_833, TRL_015, LOOT_054, GIL_584, EX1_164, CFM_328, BRM_031, ICC_085
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_05", new CardDef(new Power
+			cards.Add("TRLA_Druid_05", new CardDef(new[] {"TRL_223","GIL_637","GVG_032","GIL_833","TRL_015","LOOT_054","GIL_584","EX1_164","CFM_328","BRM_031","ICC_085"}, new Power
 			{
 				// TODO [TRLA_Druid_05] Big Draws && Test: Big Draws_TRLA_Druid_05
 				//PowerTask = null,
@@ -751,15 +750,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [TRLA_Druid_06] Wise Decisions (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Druid_06] Wise Decisions (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: AT_037, LOE_115, EX1_154, EX1_166, OG_044, ICC_047, EX1_164, BOT_422, NEW1_008, EX1_573, TRL_343
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_06", new CardDef(new Power
+			cards.Add("TRLA_Druid_06", new CardDef(new[] {"AT_037","LOE_115","EX1_154","EX1_166","OG_044","ICC_047","EX1_164","BOT_422","NEW1_008","EX1_573","TRL_343"}, new Power
 			{
 				// TODO [TRLA_Druid_06] Wise Decisions && Test: Wise Decisions_TRLA_Druid_06
 				//PowerTask = null,
@@ -767,15 +766,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [TRLA_Druid_07] Beasts (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Druid_07] Beasts (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: KAR_300, LOOT_413, LOE_050, UNG_075, LOE_047, TRL_241, AT_039, NEW1_041, AT_090, TRL_232, LOOT_314, TRL_542, TRL_343
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_07", new CardDef(new Power
+			cards.Add("TRLA_Druid_07", new CardDef(new[] {"KAR_300","LOOT_413","LOE_050","UNG_075","LOE_047","TRL_241","AT_039","NEW1_041","AT_090","TRL_232","LOOT_314","TRL_542","TRL_343"}, new Power
 			{
 				// TODO [TRLA_Druid_07] Beasts && Test: Beasts_TRLA_Druid_07
 				//PowerTask = null,
@@ -783,15 +782,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [TRLA_Druid_10] Nature's Wrath (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Druid_10] Nature's Wrath (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_161, AT_037, EX1_154, EX1_012, FP1_019, CS2_012, EX1_284, ICC_054, EX1_095, EX1_563, ICC_085
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_10", new CardDef(new Power
+			cards.Add("TRLA_Druid_10", new CardDef(new[] {"EX1_161","AT_037","EX1_154","EX1_012","FP1_019","CS2_012","EX1_284","ICC_054","EX1_095","EX1_563","ICC_085"}, new Power
 			{
 				// TODO [TRLA_Druid_10] Nature's Wrath && Test: Nature's Wrath_TRLA_Druid_10
 				//PowerTask = null,
@@ -799,15 +798,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [TRLA_Druid_13] Rumble Kings (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Druid_13] Rumble Kings (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: BOT_552, EX1_298, ICC_314, GVG_114, UNG_099, AT_045, TRL_542, UNG_852, OG_042, CFM_308
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_13", new CardDef(new Power
+			cards.Add("TRLA_Druid_13", new CardDef(new[] {"BOT_552","EX1_298","ICC_314","GVG_114","UNG_099","AT_045","TRL_542","UNG_852","OG_042","CFM_308"}, new Power
 			{
 				// TODO [TRLA_Druid_13] Rumble Kings && Test: Rumble Kings_TRLA_Druid_13
 				//PowerTask = null,
@@ -815,15 +814,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [TRLA_Druid_14] Going Wild (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Druid_14] Going Wild (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_223, TRL_407, TRL_507, AT_080, GIL_561, GIL_534, AT_085, AT_039, TRL_241, AT_099, AT_127, AT_132
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Druid_14", new CardDef(new Power
+			cards.Add("TRLA_Druid_14", new CardDef(new[] {"TRL_223","TRL_407","TRL_507","AT_080","GIL_561","GIL_534","AT_085","AT_039","TRL_241","AT_099","AT_127","AT_132"}, new Power
 			{
 				// TODO [TRLA_Druid_14] Going Wild && Test: Going Wild_TRLA_Druid_14
 				//PowerTask = null,
@@ -835,8 +834,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void HunterNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [TRLA_162e] Halazzi's Hunt (*) - COST:0
-			// - Set: troll,
+			// [TRLA_162e] Halazzi's Hunt (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Overkill:</b> Reduce the cost of cards in your hand by (1).
 			// --------------------------------------------------------
@@ -850,13 +849,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			{
 				// TODO [TRLA_162e] Halazzi's Hunt && Test: Halazzi's Hunt_TRLA_162e
 				InfoCardId = "TRLA_162e2",
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_162e")
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [TRLA_162e2] Halazzi's Hunt Enchantment (*) - COST:0
-			// - Set: troll,
+			// [TRLA_162e2] Halazzi's Hunt Enchantment (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -864,13 +862,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_162e2", new CardDef(new Power
 			{
 				// TODO [TRLA_162e2] Halazzi's Hunt Enchantment && Test: Halazzi's Hunt Enchantment_TRLA_162e2
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_162e2")
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [TRLA_163e] Halazzi's Haste (*) - COST:0
-			// - Set: troll,
+			// [TRLA_163e] Halazzi's Haste (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>.
 			// --------------------------------------------------------
@@ -881,13 +878,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			{
 				// TODO [TRLA_163e] Halazzi's Haste && Test: Halazzi's Haste_TRLA_163e
 				InfoCardId = "TRLA_163e3",
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_163e")
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [TRLA_163e3] Halazzi's Protector (*) - COST:0
-			// - Set: troll,
+			// [TRLA_163e3] Halazzi's Protector (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -897,13 +893,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_163e3", new CardDef(new Power
 			{
 				// TODO [TRLA_163e3] Halazzi's Protector && Test: Halazzi's Protector_TRLA_163e3
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_163e3")
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [TRLA_163e4] Halazzi's Wrath (*) - COST:0
-			// - Set: troll,
+			// [TRLA_163e4] Halazzi's Wrath (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>.
 			// --------------------------------------------------------
@@ -914,13 +909,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_163e4", new CardDef(new Power
 			{
 				// TODO [TRLA_163e4] Halazzi's Wrath && Test: Halazzi's Wrath_TRLA_163e4
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_163e4")
 			}));
 
 			// ----------------------------------- ENCHANTMENT - HUNTER
-			// [TRLA_169e] Slamm'd N Jamm'd (*) - COST:0
-			// - Set: troll,
+			// [TRLA_169e] Slamm'd N Jamm'd (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: This minion's Attack has been doubled.
 			// --------------------------------------------------------
@@ -930,13 +924,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_169e", new CardDef(new Power
 			{
 				// TODO [TRLA_169e] Slamm'd N Jamm'd && Test: Slamm'd N Jamm'd_TRLA_169e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_169e")
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [TRLA_110] Halazzi's Trap (*) - COST:0 [ATK:0/HP:8]
-			// - Set: troll,
+			// [TRLA_110] Halazzi's Trap (*) - COST:0 [ATK:0/HP:8] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       After you cast a spell, put
@@ -961,8 +954,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [TRLA_110t] Halazzi's Trap (*) - COST:0
-			// - Set: troll,
+			// [TRLA_110t] Halazzi's Trap (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -984,8 +977,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [TRLA_162] Halazzi's Hunt (*) - COST:0 [ATK:0/HP:5]
-			// - Set: troll,
+			// [TRLA_162] Halazzi's Hunt (*) - COST:0 [ATK:0/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Your minions have
@@ -1001,6 +994,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2199
 			// --------------------------------------------------------
 			// RefTag:
 			// - OVERKILL = 1
@@ -1014,8 +1008,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [TRLA_162t] Halazzi's Hunt (*) - COST:0
-			// - Set: troll,
+			// [TRLA_162t] Halazzi's Hunt (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -1037,8 +1031,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [TRLA_163] Halazzi's Guise (*) - COST:0 [ATK:0/HP:6]
-			// - Set: troll,
+			// [TRLA_163] Halazzi's Guise (*) - COST:0 [ATK:0/HP:6] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Whenever you summon a
@@ -1054,6 +1048,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2209
 			// --------------------------------------------------------
 			// RefTag:
 			// - TAUNT = 1
@@ -1069,8 +1064,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [TRLA_163t] Halazzi's Guise (*) - COST:0
-			// - Set: troll,
+			// [TRLA_163t] Halazzi's Guise (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -1092,8 +1087,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [TRLA_164] Shadowmaw Panther (*) - COST:3 [ATK:3/HP:3]
-			// - Race: beast, Set: troll,
+			// [TRLA_164] Shadowmaw Panther (*) - COST:3 [ATK:3/HP:3] 
+			// - Race: beast, Set: troll, 
 			// --------------------------------------------------------
 			// Text: Your Beasts have <b>Rush</b>.
 			//       <b>Start of Game:</b> Draw this.
@@ -1115,8 +1110,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [TRLA_165] Battlestarved Lynx (*) - COST:4 [ATK:3/HP:4]
-			// - Race: beast, Set: troll,
+			// [TRLA_165] Battlestarved Lynx (*) - COST:4 [ATK:3/HP:4] 
+			// - Race: beast, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Draw Beasts until your hand is full.
 			// --------------------------------------------------------
@@ -1133,8 +1128,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [TRLA_166] Troll Harbinger (*) - COST:5 [ATK:8/HP:8]
-			// - Set: troll,
+			// [TRLA_166] Troll Harbinger (*) - COST:5 [ATK:8/HP:8] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			//       After a minion dies, add a random Hunter spell to your hand.
@@ -1152,8 +1147,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [TRLA_167] Rabid Saurolisk (*) - COST:3 [ATK:4/HP:1]
-			// - Race: beast, Set: troll,
+			// [TRLA_167] Rabid Saurolisk (*) - COST:3 [ATK:4/HP:1] 
+			// - Race: beast, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Poisonous</b>
 			//       <b>Deathrattle:</b> Deal 1 damage to all enemies.
@@ -1172,8 +1167,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [TRLA_168] Streetsmuggler (*) - COST:4 [ATK:3/HP:5]
-			// - Set: troll,
+			// [TRLA_168] Streetsmuggler (*) - COST:4 [ATK:3/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: After a friendly Secret is revealed, put a random Hunter Secret into the battlefield.
 			// --------------------------------------------------------
@@ -1189,8 +1184,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - HUNTER
-			// [TRLA_169] Slamma Jamma (*) - COST:5 [ATK:5/HP:5]
-			// - Set: troll,
+			// [TRLA_169] Slamma Jamma (*) - COST:5 [ATK:5/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Double the Attack of all your other_minions.
 			// --------------------------------------------------------
@@ -1208,8 +1203,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [TRLA_Hunter_01] Fresh Meat (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Hunter_01] Fresh Meat (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: DS1_175, EX1_162, FP1_002, OG_179, LOE_046, UNG_075, UNG_915, ICC_419, LOOT_078, CFM_316, GIL_607t, TRL_348, TRL_901, FP1_011, TRL_505, CFM_315
 			// --------------------------------------------------------
@@ -1217,7 +1212,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_01", new CardDef(new Power
+			cards.Add("TRLA_Hunter_01", new CardDef(new[] {"DS1_175","EX1_162","FP1_002","OG_179","LOE_046","UNG_075","UNG_915","ICC_419","LOOT_078","CFM_316","GIL_607t","TRL_348","TRL_901","FP1_011","TRL_505","CFM_315"}, new Power
 			{
 				// TODO [TRLA_Hunter_01] Fresh Meat && Test: Fresh Meat_TRLA_Hunter_01
 				//PowerTask = null,
@@ -1225,8 +1220,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [TRLA_Hunter_02] Big Beasts (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Hunter_02] Big Beasts (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_028, DS1_178, EX1_534, NEW1_041, OG_308, UNG_087, UNG_099, UNG_801, ICC_905, LOOT_511, TRL_900, TRL_542, TRL_550
 			// --------------------------------------------------------
@@ -1234,7 +1229,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_02", new CardDef(new Power
+			cards.Add("TRLA_Hunter_02", new CardDef(new[] {"EX1_028","DS1_178","EX1_534","NEW1_041","OG_308","UNG_087","UNG_099","UNG_801","ICC_905","LOOT_511","TRL_900","TRL_542","TRL_550"}, new Power
 			{
 				// TODO [TRLA_Hunter_02] Big Beasts && Test: Big Beasts_TRLA_Hunter_02
 				//PowerTask = null,
@@ -1242,8 +1237,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [TRLA_Hunter_03] Trick Shots (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Hunter_03] Trick Shots (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CS2_084, DS1_183, EX1_537, EX1_609, DS1_185, EX1_617, GVG_073, AT_056, ICC_049, LOOT_077, TRL_347, GIL_518, BRM_013
 			// --------------------------------------------------------
@@ -1251,7 +1246,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_03", new CardDef(new Power
+			cards.Add("TRLA_Hunter_03", new CardDef(new[] {"CS2_084","DS1_183","EX1_537","EX1_609","DS1_185","EX1_617","GVG_073","AT_056","ICC_049","LOOT_077","TRL_347","GIL_518","BRM_013"}, new Power
 			{
 				// TODO [TRLA_Hunter_03] Trick Shots && Test: Trick Shots_TRLA_Hunter_03
 				//PowerTask = null,
@@ -1259,8 +1254,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [TRLA_Hunter_04] Beast Caller (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Hunter_04] Beast Caller (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: NEW1_031, EX1_595, EX1_538, EX1_531, FP1_002, OG_211, LOOT_511, TRL_348, TRL_347, TRL_566, TRL_405, TRL_542, TRL_901, TRL_900, KAR_004, AT_060, EX1_554, OG_216, NEW1_019
 			// --------------------------------------------------------
@@ -1268,7 +1263,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_04", new CardDef(new Power
+			cards.Add("TRLA_Hunter_04", new CardDef(new[] {"NEW1_031","EX1_595","EX1_538","EX1_531","FP1_002","OG_211","LOOT_511","TRL_348","TRL_347","TRL_566","TRL_405","TRL_542","TRL_901","TRL_900","KAR_004","AT_060","EX1_554","OG_216","NEW1_019"}, new Power
 			{
 				// TODO [TRLA_Hunter_04] Beast Caller && Test: Beast Caller_TRLA_Hunter_04
 				//PowerTask = null,
@@ -1276,8 +1271,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [TRLA_Hunter_05] Secrets (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Hunter_05] Secrets (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_554, EX1_611, EX1_610, AT_060, EX1_609, EX1_533, EX1_536, ICC_200, ICC_204, LOOT_079, LOOT_080, FP1_004, KAR_006, BOT_402, CFM_026, TRL_530, BOT_573, DS1_184
 			// --------------------------------------------------------
@@ -1285,7 +1280,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_05", new CardDef(new Power
+			cards.Add("TRLA_Hunter_05", new CardDef(new[] {"EX1_554","EX1_611","EX1_610","AT_060","EX1_609","EX1_533","EX1_536","ICC_200","ICC_204","LOOT_079","LOOT_080","FP1_004","KAR_006","BOT_402","CFM_026","TRL_530","BOT_573","DS1_184"}, new Power
 			{
 				// TODO [TRLA_Hunter_05] Secrets && Test: Secrets_TRLA_Hunter_05
 				//PowerTask = null,
@@ -1293,8 +1288,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [TRLA_Hunter_06] Beast Training (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Hunter_06] Beast Training (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_539, DS1_178, DS1_070, AT_010, CFM_316, UNG_915, UNG_916, UNG_917, GIL_650, TRL_119, TRL_405, TRL_339, GVG_017, EX1_549, DS1_184
 			// --------------------------------------------------------
@@ -1302,7 +1297,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_06", new CardDef(new Power
+			cards.Add("TRLA_Hunter_06", new CardDef(new[] {"EX1_539","DS1_178","DS1_070","AT_010","CFM_316","UNG_915","UNG_916","UNG_917","GIL_650","TRL_119","TRL_405","TRL_339","GVG_017","EX1_549","DS1_184"}, new Power
 			{
 				// TODO [TRLA_Hunter_06] Beast Training && Test: Beast Training_TRLA_Hunter_06
 				//PowerTask = null,
@@ -1310,8 +1305,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [TRLA_Hunter_09] Deathrattle (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Hunter_09] Deathrattle (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_534, GVG_026, OG_133, OG_292, OG_309, KAR_005, UNG_800, ICC_021, ICC_052, ICC_243, ICC_825, LOOT_520, LOOT_161, LOOT_511, BOT_039, FP1_011, KAR_005, CFM_316, OG_216
 			// --------------------------------------------------------
@@ -1319,7 +1314,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_09", new CardDef(new Power
+			cards.Add("TRLA_Hunter_09", new CardDef(new[] {"EX1_534","GVG_026","OG_133","OG_292","OG_309","KAR_005","UNG_800","ICC_021","ICC_052","ICC_243","ICC_825","LOOT_520","LOOT_161","LOOT_511","BOT_039","FP1_011","KAR_005","CFM_316","OG_216"}, new Power
 			{
 				// TODO [TRLA_Hunter_09] Deathrattle && Test: Deathrattle_TRLA_Hunter_09
 				//PowerTask = null,
@@ -1327,8 +1322,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [TRLA_Hunter_10] Legendary (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Hunter_10] Legendary (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: GIL_650, ICC_204, TRL_900, CFM_333, OG_309, GVG_049, UNG_919, LOOT_511, EX1_543, EX1_116, BOT_548, BOT_573, GVG_110, GVG_114, ICC_314, TRL_542
 			// --------------------------------------------------------
@@ -1336,7 +1331,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_10", new CardDef(new Power
+			cards.Add("TRLA_Hunter_10", new CardDef(new[] {"GIL_650","ICC_204","TRL_900","CFM_333","OG_309","GVG_049","UNG_919","LOOT_511","EX1_543","EX1_116","BOT_548","BOT_573","GVG_110","GVG_114","ICC_314","TRL_542"}, new Power
 			{
 				// TODO [TRLA_Hunter_10] Legendary && Test: Legendary_TRLA_Hunter_10
 				//PowerTask = null,
@@ -1344,8 +1339,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [TRLA_Hunter_11] Survival Tactics (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Hunter_11] Survival Tactics (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_611, EX1_610, EX1_093, EX1_538, FP1_012, GVG_069, AT_060, LOOT_522, GIL_905, BOT_548, GIL_623, TRL_550, DS1_184
 			// --------------------------------------------------------
@@ -1353,7 +1348,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_11", new CardDef(new Power
+			cards.Add("TRLA_Hunter_11", new CardDef(new[] {"EX1_611","EX1_610","EX1_093","EX1_538","FP1_012","GVG_069","AT_060","LOOT_522","GIL_905","BOT_548","GIL_623","TRL_550","DS1_184"}, new Power
 			{
 				// TODO [TRLA_Hunter_11] Survival Tactics && Test: Survival Tactics_TRLA_Hunter_11
 				//PowerTask = null,
@@ -1361,8 +1356,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - HUNTER
-			// [TRLA_Hunter_12] Scrapyard (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Hunter_12] Scrapyard (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: BOT_035, GVG_048, BOT_251, GVG_082, GVG_006, GVG_085, LOOT_111, GIL_681, GVG_078, GVG_096, BOT_548, BOT_066, GVG_114
 			// --------------------------------------------------------
@@ -1370,7 +1365,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Hunter_12", new CardDef(new Power
+			cards.Add("TRLA_Hunter_12", new CardDef(new[] {"BOT_035","GVG_048","BOT_251","GVG_082","GVG_006","GVG_085","LOOT_111","GIL_681","GVG_078","GVG_096","BOT_548","BOT_066","GVG_114"}, new Power
 			{
 				// TODO [TRLA_Hunter_12] Scrapyard && Test: Scrapyard_TRLA_Hunter_12
 				//PowerTask = null,
@@ -1382,8 +1377,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void MageNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ MINION - MAGE
-			// [TRLA_108] Jan'alai's Mantle (*) - COST:0 [ATK:0/HP:5]
-			// - Set: troll,
+			// [TRLA_108] Jan'alai's Mantle (*) - COST:0 [ATK:0/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Has <b>Spell Damage +1</b> for
@@ -1399,6 +1394,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2207
 			// --------------------------------------------------------
 			cards.Add("TRLA_108", new CardDef(new Power
 			{
@@ -1408,8 +1404,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [TRLA_108t] Jan'alai's Mantle (*) - COST:0 [ATK:0/HP:10]
-			// - Set: troll,
+			// [TRLA_108t] Jan'alai's Mantle (*) - COST:0 [ATK:0/HP:10] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -1430,8 +1426,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [TRLA_128] Jan'alai's Flame (*) - COST:0 [ATK:0/HP:8]
-			// - Set: troll,
+			// [TRLA_128] Jan'alai's Flame (*) - COST:0 [ATK:0/HP:8] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Your Hero Power costs (0).
@@ -1458,8 +1454,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [TRLA_128t] Jan'alai's Flame (*) - COST:0
-			// - Set: troll,
+			// [TRLA_128t] Jan'alai's Flame (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -1481,8 +1477,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [TRLA_129] Jan'alai's Progeny (*) - COST:0 [ATK:0/HP:7]
-			// - Set: troll,
+			// [TRLA_129] Jan'alai's Progeny (*) - COST:0 [ATK:0/HP:7] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Whenever you <b>Freeze</b> a
@@ -1498,6 +1494,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2200
 			// --------------------------------------------------------
 			cards.Add("TRLA_129", new CardDef(new Power
 			{
@@ -1507,8 +1504,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [TRLA_129t] Jan'alai's Progeny (*) - COST:0
-			// - Set: troll,
+			// [TRLA_129t] Jan'alai's Progeny (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -1530,8 +1527,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [TRLA_130] Razzle Dazzler (*) - COST:4 [ATK:2/HP:5]
-			// - Set: troll,
+			// [TRLA_130] Razzle Dazzler (*) - COST:4 [ATK:2/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			//       <b>Battlecry</b>: Fill your hand with Arcane Missiles.
@@ -1550,8 +1547,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [TRLA_131] Glyph Guardian (*) - COST:4 [ATK:4/HP:6]
-			// - Race: dragon, Set: troll,
+			// [TRLA_131] Glyph Guardian (*) - COST:4 [ATK:4/HP:6] 
+			// - Race: dragon, Set: troll, 
 			// --------------------------------------------------------
 			// Text: Whenever a character is <b>Frozen</b>, gain <b>Spell Damage +1</b>.
 			// --------------------------------------------------------
@@ -1572,8 +1569,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [TRLA_132] Frostweaver (*) - COST:2 [ATK:2/HP:5]
-			// - Set: troll,
+			// [TRLA_132] Frostweaver (*) - COST:2 [ATK:2/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Your Hero Power also <b><b>Freeze</b>s</b> the target.
 			//       If the target is a <b>Frozen</b> minion, destroy it.
@@ -1593,8 +1590,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [TRLA_133] Fireslinger (*) - COST:5 [ATK:3/HP:3]
-			// - Set: troll,
+			// [TRLA_133] Fireslinger (*) - COST:5 [ATK:3/HP:3] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: After you cast a spell,
 			//       cast a Fireball at a random_enemy.
@@ -1611,8 +1608,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [TRLA_134] Showstopping Conjurer (*) - COST:3 [ATK:3/HP:5]
-			// - Set: troll,
+			// [TRLA_134] Showstopping Conjurer (*) - COST:3 [ATK:3/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			//       <b>Overkill</b>: Draw a spell from your deck.
@@ -1631,8 +1628,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ MINION - MAGE
-			// [TRLA_135] Fan of Flames (*) - COST:1 [ATK:2/HP:2]
-			// - Race: elemental, Set: troll,
+			// [TRLA_135] Fan of Flames (*) - COST:1 [ATK:2/HP:2] 
+			// - Race: elemental, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Start of Game</b>: Draw this.
 			//       <b>Battlecry:</b> Upgrade your Hero Power.
@@ -1651,8 +1648,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [TRLA_129s] Frostfire (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_129s] Frostfire (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: Deal $1 damage. @spelldmg
 			// --------------------------------------------------------
@@ -1670,15 +1667,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [TRLA_Mage_01] Heroic Power (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Mage_01] Heroic Power (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_390, AT_003, ICC_068, TRL_319, TRL_315, TRL_316, GIL_646, AT_099, AT_090, AT_006, AT_127, AT_132
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_01", new CardDef(new Power
+			cards.Add("TRLA_Mage_01", new CardDef(new[] {"TRL_390","AT_003","ICC_068","TRL_319","TRL_315","TRL_316","GIL_646","AT_099","AT_090","AT_006","AT_127","AT_132"}, new Power
 			{
 				// TODO [TRLA_Mage_01] Heroic Power && Test: Heroic Power_TRLA_Mage_01
 				//PowerTask = null,
@@ -1686,15 +1683,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [TRLA_Mage_02] Elementals (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Mage_02] Elementals (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: UNG_018, TRL_313, LOOT_103, UNG_021, GIL_645, CS2_033, TRL_311, UNG_205, UNG_816, UNG_847, UNG_846, LOOT_231, UNG_027, EX1_298
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_02", new CardDef(new Power
+			cards.Add("TRLA_Mage_02", new CardDef(new[] {"UNG_018","TRL_313","LOOT_103","UNG_021","GIL_645","CS2_033","TRL_311","UNG_205","UNG_816","UNG_847","UNG_846","LOOT_231","UNG_027","EX1_298"}, new Power
 			{
 				// TODO [TRLA_Mage_02] Elementals && Test: Elementals_TRLA_Mage_02
 				//PowerTask = null,
@@ -1702,15 +1699,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [TRLA_Mage_03] Big Spells (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Mage_03] Big Spells (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_317, CS2_032, KAR_076, CFM_623, UNG_955, LOOT_535, CS2_028, OG_090, LOOT_130
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_03", new CardDef(new Power
+			cards.Add("TRLA_Mage_03", new CardDef(new[] {"TRL_317","CS2_032","KAR_076","CFM_623","UNG_955","LOOT_535","CS2_028","OG_090","LOOT_130"}, new Power
 			{
 				// TODO [TRLA_Mage_03] Big Spells && Test: Big Spells_TRLA_Mage_03
 				//PowerTask = null,
@@ -1718,15 +1715,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [TRLA_Mage_04] Fire (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Mage_04] Fire (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_315, TRL_316, TRL_390, UNG_018, GIL_147, BRM_002, LOE_002, CFM_065, CS2_029, TRL_317, EX1_298, GIL_645, UNG_809, UNG_027
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_04", new CardDef(new Power
+			cards.Add("TRLA_Mage_04", new CardDef(new[] {"TRL_315","TRL_316","TRL_390","UNG_018","GIL_147","BRM_002","LOE_002","CFM_065","CS2_029","TRL_317","EX1_298","GIL_645","UNG_809","UNG_027"}, new Power
 			{
 				// TODO [TRLA_Mage_04] Fire && Test: Fire_TRLA_Mage_04
 				//PowerTask = null,
@@ -1734,15 +1731,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [TRLA_Mage_05] Frost (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Mage_05] Frost (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: ICC_068, CS2_024, GVG_002, CS2_026, EX1_275, CS2_033, CS2_028, UNG_205, GIL_801, ICC_252
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_05", new CardDef(new Power
+			cards.Add("TRLA_Mage_05", new CardDef(new[] {"ICC_068","CS2_024","GVG_002","CS2_026","EX1_275","CS2_033","CS2_028","UNG_205","GIL_801","ICC_252"}, new Power
 			{
 				// TODO [TRLA_Mage_05] Frost && Test: Frost_TRLA_Mage_05
 				//PowerTask = null,
@@ -1750,15 +1747,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [TRLA_Mage_06] Magical Friends (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Mage_06] Magical Friends (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CFM_807, BRM_002, EX1_559, EX1_608, NEW1_012, GIL_664, LOOT_231, EX1_095, EX1_055, LOOT_231
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_06", new CardDef(new Power
+			cards.Add("TRLA_Mage_06", new CardDef(new[] {"CFM_807","BRM_002","EX1_559","EX1_608","NEW1_012","GIL_664","LOOT_231","EX1_095","EX1_055","LOOT_231"}, new Power
 			{
 				// TODO [TRLA_Mage_06] Magical Friends && Test: Magical Friends_TRLA_Mage_06
 				//PowerTask = null,
@@ -1766,15 +1763,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [TRLA_Mage_07] Spell Power (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Mage_07] Spell Power (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: AT_004, BOT_531, BOT_604, AT_006, BOT_254, EX1_012, EX1_284, EX1_563, TRL_312
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_07", new CardDef(new Power
+			cards.Add("TRLA_Mage_07", new CardDef(new[] {"AT_004","BOT_531","BOT_604","AT_006","BOT_254","EX1_012","EX1_284","EX1_563","TRL_312"}, new Power
 			{
 				// TODO [TRLA_Mage_07] Spell Power && Test: Spell Power_TRLA_Mage_07
 				//PowerTask = null,
@@ -1782,15 +1779,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [TRLA_Mage_08] Hand Power (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Mage_08] Hand Power (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_315, OG_090, GIL_645, GIL_691, BOT_101, BOT_103, TRL_317, BOT_601, TRL_318, BOT_256, AT_009, TRL_509
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_08", new CardDef(new Power
+			cards.Add("TRLA_Mage_08", new CardDef(new[] {"TRL_315","OG_090","GIL_645","GIL_691","BOT_101","BOT_103","TRL_317","BOT_601","TRL_318","BOT_256","AT_009","TRL_509"}, new Power
 			{
 				// TODO [TRLA_Mage_08] Hand Power && Test: Hand Power_TRLA_Mage_08
 				//PowerTask = null,
@@ -1798,15 +1795,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [TRLA_Mage_09] Gurubashi Legends (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Mage_09] Gurubashi Legends (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_316, OG_122, ICC_314, EX1_572, BOT_257, EX1_559, AT_132, KAR_097, EX1_563, AT_009, OG_134, AT_127
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_09", new CardDef(new Power
+			cards.Add("TRLA_Mage_09", new CardDef(new[] {"TRL_316","OG_122","ICC_314","EX1_572","BOT_257","EX1_559","AT_132","KAR_097","EX1_563","AT_009","OG_134","AT_127"}, new Power
 			{
 				// TODO [TRLA_Mage_09] Gurubashi Legends && Test: Gurubashi Legends_TRLA_Mage_09
 				//PowerTask = null,
@@ -1814,15 +1811,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------- SPELL - MAGE
-			// [TRLA_Mage_10] Chaos (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Mage_10] Chaos (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: LOOT_104, KAR_009, BOT_101, UNG_846, GVG_003, UNG_941, AT_007, OG_090, LOOT_106, TRL_317
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Mage_10", new CardDef(new Power
+			cards.Add("TRLA_Mage_10", new CardDef(new[] {"LOOT_104","KAR_009","BOT_101","UNG_846","GVG_003","UNG_941","AT_007","OG_090","LOOT_106","TRL_317"}, new Power
 			{
 				// TODO [TRLA_Mage_10] Chaos && Test: Chaos_TRLA_Mage_10
 				//PowerTask = null,
@@ -1834,8 +1831,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void PaladinNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// --------------------------------------- MINION - PALADIN
-			// [TRLA_105] Shirvallah's Protection (*) - COST:0 [ATK:0/HP:4]
-			// - Set: troll,
+			// [TRLA_105] Shirvallah's Protection (*) - COST:0 [ATK:0/HP:4] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       After a friendly minion
@@ -1851,6 +1848,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2206
 			// --------------------------------------------------------
 			// RefTag:
 			// - DIVINE_SHIELD = 1
@@ -1863,8 +1861,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [TRLA_105t] Shirvallah's Protection (*) - COST:0
-			// - Set: troll,
+			// [TRLA_105t] Shirvallah's Protection (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -1886,8 +1884,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [TRLA_137] Shirvallah's Vengeance (*) - COST:0 [ATK:0/HP:5]
-			// - Set: troll,
+			// [TRLA_137] Shirvallah's Vengeance (*) - COST:0 [ATK:0/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       After your hero takes
@@ -1904,6 +1902,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1176 = 1
 			// - 1179 = 1
+			// - 1249 = 2211
 			// --------------------------------------------------------
 			cards.Add("TRLA_137", new CardDef(new Power
 			{
@@ -1913,8 +1912,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [TRLA_137t] Shirvallah's Vengeance (*) - COST:0
-			// - Set: troll,
+			// [TRLA_137t] Shirvallah's Vengeance (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -1936,8 +1935,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [TRLA_138] Shirvallah's Grace (*) - COST:0 [ATK:0/HP:5]
-			// - Set: troll,
+			// [TRLA_138] Shirvallah's Grace (*) - COST:0 [ATK:0/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       After you cast a spell
@@ -1963,8 +1962,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [TRLA_138t] Shirvallah's Grace (*) - COST:0
-			// - Set: troll,
+			// [TRLA_138t] Shirvallah's Grace (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -1986,8 +1985,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [TRLA_139] Parading Marshal (*) - COST:3 [ATK:3/HP:3]
-			// - Set: troll,
+			// [TRLA_139] Parading Marshal (*) - COST:3 [ATK:3/HP:3] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Start of Game:</b> Draw this.
 			//       <b>Battlecry:</b> Equip a Truesilver Champion.
@@ -2006,8 +2005,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [TRLA_140] Blessed One (*) - COST:4 [ATK:4/HP:5]
-			// - Set: troll,
+			// [TRLA_140] Blessed One (*) - COST:4 [ATK:4/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Draw spells until your hand is full.
 			// --------------------------------------------------------
@@ -2024,8 +2023,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [TRLA_141] Lightchucker (*) - COST:3 [ATK:4/HP:6]
-			// - Set: troll,
+			// [TRLA_141] Lightchucker (*) - COST:3 [ATK:4/HP:6] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: After a character is healed, destroy a random
 			//       enemy minion.
@@ -2042,8 +2041,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [TRLA_142] The Walking Fort (*) - COST:6 [ATK:2/HP:5]
-			// - Set: troll,
+			// [TRLA_142] The Walking Fort (*) - COST:6 [ATK:2/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>
 			//       This minion can only take
@@ -2062,8 +2061,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [TRLA_143] Gloryseeker (*) - COST:4 [ATK:3/HP:1]
-			// - Set: troll,
+			// [TRLA_143] Gloryseeker (*) - COST:4 [ATK:3/HP:1] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Whenever this minion takes damage, your hero takes it instead.
 			// --------------------------------------------------------
@@ -2079,8 +2078,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - PALADIN
-			// [TRLA_144] Exactor of Justice (*) - COST:5 [ATK:5/HP:7]
-			// - Set: troll,
+			// [TRLA_144] Exactor of Justice (*) - COST:5 [ATK:5/HP:7] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Divine Shield</b>
 			//       <b>Overkill:</b> Gain <b>Divine Shield</b>.
@@ -2099,15 +2098,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [TRLA_Paladin_01] Magnetic (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Paladin_01] Magnetic (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: BOT_906, GVG_058, GVG_006, BOT_021, BOT_911, BOT_312, GVG_096, BOT_563, BOT_548, BOT_537, BOT_912
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_01", new CardDef(new Power
+			cards.Add("TRLA_Paladin_01", new CardDef(new[] {"BOT_906","GVG_058","GVG_006","BOT_021","BOT_911","BOT_312","GVG_096","BOT_563","BOT_548","BOT_537","BOT_912"}, new Power
 			{
 				// TODO [TRLA_Paladin_01] Magnetic && Test: Magnetic_TRLA_Paladin_01
 				//PowerTask = null,
@@ -2115,15 +2114,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [TRLA_Paladin_02] Healing (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Paladin_02] Healing (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: OG_198, BOT_236, TRL_570, TRL_307, LOOT_398, TRL_308, CFM_815, GIL_817, TRL_545, BOT_548, OG_229, TRL_300, GVG_069
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_02", new CardDef(new Power
+			cards.Add("TRLA_Paladin_02", new CardDef(new[] {"OG_198","BOT_236","TRL_570","TRL_307","LOOT_398","TRL_308","CFM_815","GIL_817","TRL_545","BOT_548","OG_229","TRL_300","GVG_069"}, new Power
 			{
 				// TODO [TRLA_Paladin_02] Healing && Test: Healing_TRLA_Paladin_02
 				//PowerTask = null,
@@ -2131,15 +2130,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [TRLA_Paladin_03] Recruits (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Paladin_03] Recruits (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: UNG_960, LOOT_363, GVG_061, UNG_962, OG_273, GVG_060, LOOT_333, LOOT_313, UNG_015, UNG_950
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_03", new CardDef(new Power
+			cards.Add("TRLA_Paladin_03", new CardDef(new[] {"UNG_960","LOOT_363","GVG_061","UNG_962","OG_273","GVG_060","LOOT_333","LOOT_313","UNG_015","UNG_950"}, new Power
 			{
 				// TODO [TRLA_Paladin_03] Recruits && Test: Recruits_TRLA_Paladin_03
 				//PowerTask = null,
@@ -2147,15 +2146,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [TRLA_Paladin_04] Self-Sacrifice (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Paladin_04] Self-Sacrifice (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_543, BOT_447, AT_105, EX1_082, TRL_546, CS2_181, EX1_097, GVG_090, BOT_448, BOT_107
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_04", new CardDef(new Power
+			cards.Add("TRLA_Paladin_04", new CardDef(new[] {"TRL_543","BOT_447","AT_105","EX1_082","TRL_546","CS2_181","EX1_097","GVG_090","BOT_448","BOT_107"}, new Power
 			{
 				// TODO [TRLA_Paladin_04] Self-Sacrifice && Test: Self-Sacrifice_TRLA_Paladin_04
 				//PowerTask = null,
@@ -2163,15 +2162,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [TRLA_Paladin_05] Teambuilding (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Paladin_05] Teambuilding (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CFM_305, CFM_759, CFM_753, FP1_003, LOOT_363, TRL_517, LOE_077, ICC_466, CFM_639, TRL_304, CFM_668, BOT_910
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_05", new CardDef(new Power
+			cards.Add("TRLA_Paladin_05", new CardDef(new[] {"CFM_305","CFM_759","CFM_753","FP1_003","LOOT_363","TRL_517","LOE_077","ICC_466","CFM_639","TRL_304","CFM_668","BOT_910"}, new Power
 			{
 				// TODO [TRLA_Paladin_05] Teambuilding && Test: Teambuilding_TRLA_Paladin_05
 				//PowerTask = null,
@@ -2179,15 +2178,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [TRLA_Paladin_06] Reinforce (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Paladin_06] Reinforce (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: ICC_092, CS2_087, TRL_306, GIL_145, AT_074, CS2_092, KAR_077, EX1_093, UNG_952, LOOT_500, LOOT_216
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_06", new CardDef(new Power
+			cards.Add("TRLA_Paladin_06", new CardDef(new[] {"ICC_092","CS2_087","TRL_306","GIL_145","AT_074","CS2_092","KAR_077","EX1_093","UNG_952","LOOT_500","LOOT_216"}, new Power
 			{
 				// TODO [TRLA_Paladin_06] Reinforce && Test: Reinforce_TRLA_Paladin_06
 				//PowerTask = null,
@@ -2195,15 +2194,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [TRLA_Paladin_07] Holy Arsenal (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Paladin_07] Holy Arsenal (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_543, CS2_091, EX1_366, LOOT_286, CS2_097, TRL_304, LOOT_500, UNG_950, GIL_596
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_07", new CardDef(new Power
+			cards.Add("TRLA_Paladin_07", new CardDef(new[] {"TRL_543","CS2_091","EX1_366","LOOT_286","CS2_097","TRL_304","LOOT_500","UNG_950","GIL_596"}, new Power
 			{
 				// TODO [TRLA_Paladin_07] Holy Arsenal && Test: Holy Arsenal_TRLA_Paladin_07
 				//PowerTask = null,
@@ -2211,15 +2210,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [TRLA_Paladin_08] Secrets (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Paladin_08] Secrets (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_130, FP1_020, EX1_136, EX1_379, AT_073, CFM_800, BOT_908, GIL_903, EX1_080, UNG_011, TRL_530, GIL_634, AT_079
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_08", new CardDef(new Power
+			cards.Add("TRLA_Paladin_08", new CardDef(new[] {"EX1_130","FP1_020","EX1_136","EX1_379","AT_073","CFM_800","BOT_908","GIL_903","EX1_080","UNG_011","TRL_530","GIL_634","AT_079"}, new Power
 			{
 				// TODO [TRLA_Paladin_08] Secrets && Test: Secrets_TRLA_Paladin_08
 				//PowerTask = null,
@@ -2227,15 +2226,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [TRLA_Paladin_09] Dragons (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Paladin_09] Dragons (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: GIL_635, TRL_523, GIL_681, KAR_010, GIL_601, TRL_526, BRM_018, TRL_569, UNG_848, EX1_572, LOOT_137, NEW1_030
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_09", new CardDef(new Power
+			cards.Add("TRLA_Paladin_09", new CardDef(new[] {"GIL_635","TRL_523","GIL_681","KAR_010","GIL_601","TRL_526","BRM_018","TRL_569","UNG_848","EX1_572","LOOT_137","NEW1_030"}, new Power
 			{
 				// TODO [TRLA_Paladin_09] Dragons && Test: Dragons_TRLA_Paladin_09
 				//PowerTask = null,
@@ -2243,15 +2242,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - PALADIN
-			// [TRLA_Paladin_10] Divine Legends (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Paladin_10] Divine Legends (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: BOT_236, TRL_308, GIL_817, TRL_096, ICC_858, LOOT_500, UNG_015, TRL_564, GIL_578, EX1_383, TRL_541, TRL_300
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Paladin_10", new CardDef(new Power
+			cards.Add("TRLA_Paladin_10", new CardDef(new[] {"BOT_236","TRL_308","GIL_817","TRL_096","ICC_858","LOOT_500","UNG_015","TRL_564","GIL_578","EX1_383","TRL_541","TRL_300"}, new Power
 			{
 				// TODO [TRLA_Paladin_10] Divine Legends && Test: Divine Legends_TRLA_Paladin_10
 				//PowerTask = null,
@@ -2263,8 +2262,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void PriestNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [TRLA_114e] Bwonsamdi's Sanctum Player Enchant (*) - COST:0
-			// - Set: troll,
+			// [TRLA_114e] Bwonsamdi's Sanctum Player Enchant (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
@@ -2272,13 +2271,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_114e", new CardDef(new Power
 			{
 				// TODO [TRLA_114e] Bwonsamdi's Sanctum Player Enchant && Test: Bwonsamdi's Sanctum Player Enchant_TRLA_114e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_114e")
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [TRLA_148e] Repurposed Steel (*) - COST:0
-			// - Set: troll,
+			// [TRLA_148e] Repurposed Steel (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -2288,13 +2286,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_148e", new CardDef(new Power
 			{
 				// TODO [TRLA_148e] Repurposed Steel && Test: Repurposed Steel_TRLA_148e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_148e")
 			}));
 
 			// ----------------------------------- ENCHANTMENT - PRIEST
-			// [TRLA_153e] Attentive Conjuring (*) - COST:0
-			// - Set: troll,
+			// [TRLA_153e] Attentive Conjuring (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Costs (2) less.
 			// --------------------------------------------------------
@@ -2304,13 +2301,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_153e", new CardDef(new Power
 			{
 				// TODO [TRLA_153e] Attentive Conjuring && Test: Attentive Conjuring_TRLA_153e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_153e")
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [TRLA_114] Bwonsamdi's Sanctum (*) - COST:0 [ATK:0/HP:3]
-			// - Set: troll,
+			// [TRLA_114] Bwonsamdi's Sanctum (*) - COST:0 [ATK:0/HP:3] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Your <b>Deathrattles</b> trigger
@@ -2325,6 +2321,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2203
 			// --------------------------------------------------------
 			// RefTag:
 			// - DEATHRATTLE = 1
@@ -2338,8 +2335,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [TRLA_114t] Bwonsamdi's Sanctum (*) - COST:0
-			// - Set: troll,
+			// [TRLA_114t] Bwonsamdi's Sanctum (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -2361,8 +2358,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [TRLA_146] Bwonsamdi's Tome (*) - COST:0 [ATK:0/HP:5]
-			// - Set: troll,
+			// [TRLA_146] Bwonsamdi's Tome (*) - COST:0 [ATK:0/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       After you cast a spell,
@@ -2378,6 +2375,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2213
 			// --------------------------------------------------------
 			cards.Add("TRLA_146", new CardDef(new Power
 			{
@@ -2387,8 +2385,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [TRLA_146t] Bwonsamdi's Tome (*) - COST:0
-			// - Set: troll,
+			// [TRLA_146t] Bwonsamdi's Tome (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -2410,8 +2408,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [TRLA_147] Bwonsamdi's Covenant (*) - COST:0 [ATK:0/HP:8]
-			// - Set: troll,
+			// [TRLA_147] Bwonsamdi's Covenant (*) - COST:0 [ATK:0/HP:8] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Healing enemies
@@ -2426,17 +2424,19 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2215
 			// --------------------------------------------------------
 			cards.Add("TRLA_147", new CardDef(new Power
 			{
 				// TODO [TRLA_147] Bwonsamdi's Covenant && Test: Bwonsamdi's Covenant_TRLA_147
+				InfoCardId = "TRLA_147e",
 				//PowerTask = null,
 				//Trigger = null,
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [TRLA_147t] Bwonsamdi's Covenant (*) - COST:0
-			// - Set: troll,
+			// [TRLA_147t] Bwonsamdi's Covenant (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -2458,8 +2458,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [TRLA_148] Weaponized Zombie (*) - COST:1 [ATK:2/HP:3]
-			// - Set: troll,
+			// [TRLA_148] Weaponized Zombie (*) - COST:1 [ATK:2/HP:3] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Start of Game:</b> Draw this.
 			//       <b>Deathrattle:</b> Give a random friendly_minion_+1/+1.
@@ -2479,8 +2479,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [TRLA_149] Ghastcoiler (*) - COST:6 [ATK:7/HP:7]
-			// - Race: beast, Set: troll,
+			// [TRLA_149] Ghastcoiler (*) - COST:6 [ATK:7/HP:7] 
+			// - Race: beast, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Summon
 			//       2 random <b>Deathrattle</b> minions.
@@ -2489,6 +2489,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DEATHRATTLE = 1
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
+			// - 1429 = 58424
+			// - TECH_LEVEL = 6
 			// --------------------------------------------------------
 			cards.Add("TRLA_149", new CardDef(new Power
 			{
@@ -2498,8 +2500,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [TRLA_150] Bloodwash Medic (*) - COST:3 [ATK:3/HP:5]
-			// - Set: troll,
+			// [TRLA_150] Bloodwash Medic (*) - COST:3 [ATK:3/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			//       <b>Overkill</b>: Add 3 healing spells to your hand.
@@ -2512,7 +2514,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_150", new CardDef(new Power
+			cards.Add("TRLA_150", new CardDef(new[] {"EX1_621","TRL_128","UNG_030","AT_055","GVG_012","AT_013","GIL_661","CFM_604","CS1_112","EX1_624"}, new Power
 			{
 				// TODO [TRLA_150] Bloodwash Medic && Test: Bloodwash Medic_TRLA_150
 				//PowerTask = null,
@@ -2520,8 +2522,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [TRLA_151] Bwonsamdi's Keeper (*) - COST:4 [ATK:4/HP:5]
-			// - Set: troll,
+			// [TRLA_151] Bwonsamdi's Keeper (*) - COST:4 [ATK:4/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Restore all minions to full Health.
 			// --------------------------------------------------------
@@ -2538,8 +2540,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [TRLA_152] Soulsapper (*) - COST:5 [ATK:6/HP:6]
-			// - Set: troll,
+			// [TRLA_152] Soulsapper (*) - COST:5 [ATK:6/HP:6] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Steal 2 spells from your opponent's deck.
 			// --------------------------------------------------------
@@ -2556,8 +2558,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - PRIEST
-			// [TRLA_153] Conjuring Attendant (*) - COST:3 [ATK:2/HP:5]
-			// - Set: troll,
+			// [TRLA_153] Conjuring Attendant (*) - COST:3 [ATK:2/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Your spells cost (2) less.
 			// --------------------------------------------------------
@@ -2575,15 +2577,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [TRLA_Priest_01] Dying Words (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Priest_01] Dying Words (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: UNG_032, BOT_558, TRL_502, TRL_537, GIL_805, LOOT_161, BOT_509, BOT_566, BOT_258, OG_256, LOE_006, LOOT_187, UNG_037, ICC_214, OG_335, FP1_028
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_01", new CardDef(new Power
+			cards.Add("TRLA_Priest_01", new CardDef(new[] {"UNG_032","BOT_558","TRL_502","TRL_537","GIL_805","LOOT_161","BOT_509","BOT_566","BOT_258","OG_256","LOE_006","LOOT_187","UNG_037","ICC_214","OG_335","FP1_028"}, new Power
 			{
 				// TODO [TRLA_Priest_01] Dying Words && Test: Dying Words_TRLA_Priest_01
 				//PowerTask = null,
@@ -2591,15 +2593,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [TRLA_Priest_02] Healing (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Priest_02] Healing (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: UNG_030, GVG_012, CS2_235, GIL_835, EX1_621, TRL_128, OG_234, CFM_067, GIL_190
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_02", new CardDef(new Power
+			cards.Add("TRLA_Priest_02", new CardDef(new[] {"UNG_030","GVG_012","CS2_235","GIL_835","EX1_621","TRL_128","OG_234","CFM_067","GIL_190"}, new Power
 			{
 				// TODO [TRLA_Priest_02] Healing && Test: Healing_TRLA_Priest_02
 				//PowerTask = null,
@@ -2607,15 +2609,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [TRLA_Priest_03] Inspired by the Light (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Priest_03] Inspired by the Light (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_350, AT_080, AT_085, AT_132, GIL_646, AT_018, AT_127, AT_090, AT_099, AT_119
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_03", new CardDef(new Power
+			cards.Add("TRLA_Priest_03", new CardDef(new[] {"EX1_350","AT_080","AT_085","AT_132","GIL_646","AT_018","AT_127","AT_090","AT_099","AT_119"}, new Power
 			{
 				// TODO [TRLA_Priest_03] Inspired by the Light && Test: Inspired by the Light_TRLA_Priest_03
 				//PowerTask = null,
@@ -2623,15 +2625,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [TRLA_Priest_04] Double Down (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Priest_04] Double Down (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: GIL_142, UNG_032, BOT_435, GIL_813, BOT_529, BOT_567, TRL_097, ICC_215, UNG_029, UNG_022, OG_335, GIL_134, BOT_258, TRL_259
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_04", new CardDef(new Power
+			cards.Add("TRLA_Priest_04", new CardDef(new[] {"GIL_142","UNG_032","BOT_435","GIL_813","BOT_529","BOT_567","TRL_097","ICC_215","UNG_029","UNG_022","OG_335","GIL_134","BOT_258","TRL_259"}, new Power
 			{
 				// TODO [TRLA_Priest_04] Double Down && Test: Double Down_TRLA_Priest_04
 				//PowerTask = null,
@@ -2639,15 +2641,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [TRLA_Priest_05] Elementals (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Priest_05] Elementals (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: UNG_032, GIL_156, UNG_034, EX1_335, UNG_963, KAR_036, UNG_928, EX1_298, UNG_816, UNG_847, GIL_119
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_05", new CardDef(new Power
+			cards.Add("TRLA_Priest_05", new CardDef(new[] {"UNG_032","GIL_156","UNG_034","EX1_335","UNG_963","KAR_036","UNG_928","EX1_298","UNG_816","UNG_847","GIL_119"}, new Power
 			{
 				// TODO [TRLA_Priest_05] Elementals && Test: Elementals_TRLA_Priest_05
 				//PowerTask = null,
@@ -2655,15 +2657,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [TRLA_Priest_06] Inner Strength (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Priest_06] Inner Strength (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CS1_129, CS2_004, GIL_840, CS2_236, GVG_010, LOE_053, AT_131
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_06", new CardDef(new Power
+			cards.Add("TRLA_Priest_06", new CardDef(new[] {"CS1_129","CS2_004","GIL_840","CS2_236","GVG_010","LOE_053","AT_131"}, new Power
 			{
 				// TODO [TRLA_Priest_06] Inner Strength && Test: Inner Strength_TRLA_Priest_06
 				//PowerTask = null,
@@ -2671,15 +2673,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [TRLA_Priest_07] Resilient (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Priest_07] Resilient (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: BOT_219, TRL_500, ICC_210, FP1_023, CFM_626, LOOT_278, OG_094, EX1_623, OG_256, LOE_061, KAR_035, ICC_212
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_07", new CardDef(new Power
+			cards.Add("TRLA_Priest_07", new CardDef(new[] {"BOT_219","TRL_500","ICC_210","FP1_023","CFM_626","LOOT_278","OG_094","EX1_623","OG_256","LOE_061","KAR_035","ICC_212"}, new Power
 			{
 				// TODO [TRLA_Priest_07] Resilient && Test: Resilient_TRLA_Priest_07
 				//PowerTask = null,
@@ -2687,15 +2689,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [TRLA_Priest_08] Army of the Dead (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Priest_08] Army of the Dead (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_260, TRL_502, BRM_017, LOOT_187, ICC_213, KAR_204, LOOT_507, ICC_257, ICC_098, OG_133
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_08", new CardDef(new Power
+			cards.Add("TRLA_Priest_08", new CardDef(new[] {"TRL_260","TRL_502","BRM_017","LOOT_187","ICC_213","KAR_204","LOOT_507","ICC_257","ICC_098","OG_133"}, new Power
 			{
 				// TODO [TRLA_Priest_08] Army of the Dead && Test: Army of the Dead_TRLA_Priest_08
 				//PowerTask = null,
@@ -2703,15 +2705,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [TRLA_Priest_09] Wrath (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Priest_09] Wrath (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CS2_234, EX1_622, OG_100, LOE_104, ICC_802, TRL_258, GVG_008, LOOT_008, EX1_626
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_09", new CardDef(new Power
+			cards.Add("TRLA_Priest_09", new CardDef(new[] {"CS2_234","EX1_622","OG_100","LOE_104","ICC_802","TRL_258","GVG_008","LOOT_008","EX1_626"}, new Power
 			{
 				// TODO [TRLA_Priest_09] Wrath && Test: Wrath_TRLA_Priest_09
 				//PowerTask = null,
@@ -2719,15 +2721,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - PRIEST
-			// [TRLA_Priest_10] Legends of the Light (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Priest_10] Legends of the Light (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: AT_018, TRL_260, TRL_259, OG_133, UNG_963, BOT_258, TRL_537, EX1_012, GVG_014, EX1_350
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Priest_10", new CardDef(new Power
+			cards.Add("TRLA_Priest_10", new CardDef(new[] {"AT_018","TRL_260","TRL_259","OG_133","UNG_963","BOT_258","TRL_537","EX1_012","GVG_014","EX1_350"}, new Power
 			{
 				// TODO [TRLA_Priest_10] Legends of the Light && Test: Legends of the Light_TRLA_Priest_10
 				//PowerTask = null,
@@ -2739,8 +2741,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void RogueNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------ ENCHANTMENT - ROGUE
-			// [TRLA_106e] Bottled Terror (*) - COST:0
-			// - Set: troll,
+			// [TRLA_106e] Bottled Terror (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: +2 Attack.
 			// --------------------------------------------------------
@@ -2750,13 +2752,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_106e", new CardDef(new Power
 			{
 				// TODO [TRLA_106e] Bottled Terror && Test: Bottled Terror_TRLA_106e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_106e")
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [TRLA_106] Bottled Terror (*) - COST:0 [ATK:0/HP:2]
-			// - Set: troll,
+			// [TRLA_106] Bottled Terror (*) - COST:0 [ATK:0/HP:2] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Your other minions have <b>Stealth</b>.
@@ -2773,6 +2774,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2202
 			// --------------------------------------------------------
 			// RefTag:
 			// - STEALTH = 1
@@ -2786,8 +2788,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [TRLA_106t] Bottled Terror (*) - COST:0
-			// - Set: troll,
+			// [TRLA_106t] Bottled Terror (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -2809,8 +2811,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [TRLA_186] Treasure from Below (*) - COST:0 [ATK:0/HP:2]
-			// - Set: troll,
+			// [TRLA_186] Treasure from Below (*) - COST:0 [ATK:0/HP:2] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       At the start of your turn, steal
@@ -2835,8 +2837,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [TRLA_186t] Treasure from Below (*) - COST:0
-			// - Set: troll,
+			// [TRLA_186t] Treasure from Below (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -2858,8 +2860,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [TRLA_187] Pirate's Mark (*) - COST:0 [ATK:0/HP:5]
-			// - Set: troll,
+			// [TRLA_187] Pirate's Mark (*) - COST:0 [ATK:0/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       After you cast a spell,
@@ -2875,6 +2877,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2201
 			// --------------------------------------------------------
 			cards.Add("TRLA_187", new CardDef(new Power
 			{
@@ -2884,8 +2887,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [TRLA_187t] Pirate's Mark (*) - COST:0
-			// - Set: troll,
+			// [TRLA_187t] Pirate's Mark (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -2907,8 +2910,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [TRLA_188] Pesky Rascal (*) - COST:3 [ATK:1/HP:1]
-			// - Set: troll,
+			// [TRLA_188] Pesky Rascal (*) - COST:3 [ATK:1/HP:1] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Immune</b>
 			//       <b>Start of Game:</b> Draw this.
@@ -2930,8 +2933,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [TRLA_189] Parrot Mascot (*) - COST:3 [ATK:2/HP:2]
-			// - Race: beast, Set: troll,
+			// [TRLA_189] Parrot Mascot (*) - COST:3 [ATK:2/HP:2] 
+			// - Race: beast, Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Combo:</b> Add a copy of
 			//       each card you've played
@@ -2950,8 +2953,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [TRLA_190] Salty Looter (*) - COST:6 [ATK:6/HP:6]
-			// - Race: pirate, Set: troll,
+			// [TRLA_190] Salty Looter (*) - COST:6 [ATK:6/HP:6] 
+			// - Race: pirate, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Battlecry</b> and <b>Deathrattle:</b> Steal a card from your opponent's hand.
 			// --------------------------------------------------------
@@ -2969,8 +2972,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [TRLA_191] Sharktoothed Harpooner (*) - COST:2 [ATK:4/HP:3]
-			// - Race: pirate, Set: troll,
+			// [TRLA_191] Sharktoothed Harpooner (*) - COST:2 [ATK:4/HP:3] 
+			// - Race: pirate, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> If you're holding any cards that didn't start in your deck, reduce their Cost by (4).
 			// --------------------------------------------------------
@@ -2987,8 +2990,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [TRLA_192] Lobstrok Tastetester (*) - COST:4 [ATK:3/HP:3]
-			// - Race: beast, Set: troll,
+			// [TRLA_192] Lobstrok Tastetester (*) - COST:4 [ATK:3/HP:3] 
+			// - Race: beast, Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]After you cast a spell, draw
 			//       a spell from your deck.
@@ -3006,8 +3009,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
-			// [TRLA_193] Raging Contender (*) - COST:6 [ATK:8/HP:4]
-			// - Race: pirate, Set: troll,
+			// [TRLA_193] Raging Contender (*) - COST:6 [ATK:8/HP:4] 
+			// - Race: pirate, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			//       <b>Deathrattle:</b> Fill your board with random Pirates.
@@ -3026,15 +3029,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [TRLA_Rogue_01] Burgle (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Rogue_01] Burgle (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: UNG_856, KAR_069, OG_330, GIL_827, AT_033, CFM_781, ICC_811, UNG_061, GIL_672, KAR_070, GIL_598
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_01", new CardDef(new Power
+			cards.Add("TRLA_Rogue_01", new CardDef(new[] {"UNG_856","KAR_069","OG_330","GIL_827","AT_033","CFM_781","ICC_811","UNG_061","GIL_672","KAR_070","GIL_598"}, new Power
 			{
 				// TODO [TRLA_Rogue_01] Burgle && Test: Burgle_TRLA_Rogue_01
 				//PowerTask = null,
@@ -3042,15 +3045,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [TRLA_Rogue_02] Pirates (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Rogue_02] Pirates (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: AT_029, CFM_637, CS2_146, KAR_069, TRL_071, NEW1_018, TRL_507, GVG_075, TRL_124, NEW1_027, CFM_651, TRL_015, NEW1_024, TRL_127, TRL_126
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_02", new CardDef(new Power
+			cards.Add("TRLA_Rogue_02", new CardDef(new[] {"AT_029","CFM_637","CS2_146","KAR_069","TRL_071","NEW1_018","TRL_507","GVG_075","TRL_124","NEW1_027","CFM_651","TRL_015","NEW1_024","TRL_127","TRL_126"}, new Power
 			{
 				// TODO [TRLA_Rogue_02] Pirates && Test: Pirates_TRLA_Rogue_02
 				//PowerTask = null,
@@ -3058,15 +3061,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [TRLA_Rogue_03] Battlecry (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Rogue_03] Battlecry (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_144, EX1_050, EX1_613, EX1_134, LOOT_516, LOOT_211, LOOT_026, GVG_069, EX1_284, TRL_409, TRL_092, UNG_064, NEW1_004
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_03", new CardDef(new Power
+			cards.Add("TRLA_Rogue_03", new CardDef(new[] {"EX1_144","EX1_050","EX1_613","EX1_134","LOOT_516","LOOT_211","LOOT_026","GVG_069","EX1_284","TRL_409","TRL_092","UNG_064","NEW1_004"}, new Power
 			{
 				// TODO [TRLA_Rogue_03] Battlecry && Test: Battlecry_TRLA_Rogue_03
 				//PowerTask = null,
@@ -3074,15 +3077,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [TRLA_Rogue_04] Aggressive Tactics (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Rogue_04] Aggressive Tactics (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CS2_072, GIL_506, EX1_124, UNG_057, EX1_278, EX1_129, OG_176, TRL_127, GIL_687, EX1_012, EX1_284, EX1_095
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_04", new CardDef(new Power
+			cards.Add("TRLA_Rogue_04", new CardDef(new[] {"CS2_072","GIL_506","EX1_124","UNG_057","EX1_278","EX1_129","OG_176","TRL_127","GIL_687","EX1_012","EX1_284","EX1_095"}, new Power
 			{
 				// TODO [TRLA_Rogue_04] Aggressive Tactics && Test: Aggressive Tactics_TRLA_Rogue_04
 				//PowerTask = null,
@@ -3090,15 +3093,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [TRLA_Rogue_05] Tricks of the Trade (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Rogue_05] Tricks of the Trade (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CFM_630, EX1_145, CS2_073, CS2_074, UNG_856, EX1_581, UNG_060, TRL_157, OG_073, NEW1_004, CS2_077, EX1_095
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_05", new CardDef(new Power
+			cards.Add("TRLA_Rogue_05", new CardDef(new[] {"CFM_630","EX1_145","CS2_073","CS2_074","UNG_856","EX1_581","UNG_060","TRL_157","OG_073","NEW1_004","CS2_077","EX1_095"}, new Power
 			{
 				// TODO [TRLA_Rogue_05] Tricks of the Trade && Test: Tricks of the Trade_TRLA_Rogue_05
 				//PowerTask = null,
@@ -3106,15 +3109,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [TRLA_Rogue_06] Weapons (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Rogue_06] Weapons (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CS2_074, BOT_083, UNG_823, BOT_286, CFM_651, OG_267, NEW1_024, ICC_850, GVG_022, CS2_080, TRL_074
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_06", new CardDef(new Power
+			cards.Add("TRLA_Rogue_06", new CardDef(new[] {"CS2_074","BOT_083","UNG_823","BOT_286","CFM_651","OG_267","NEW1_024","ICC_850","GVG_022","CS2_080","TRL_074"}, new Power
 			{
 				// TODO [TRLA_Rogue_06] Weapons && Test: Weapons_TRLA_Rogue_06
 				//PowerTask = null,
@@ -3122,15 +3125,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [TRLA_Rogue_07] Deathrattle (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Rogue_07] Deathrattle (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: FP1_007, OG_330, UNG_083, BOT_286, LOE_019, LOE_012, OG_272, TRL_409, BOT_243, LOOT_161, EX1_110, BOT_066
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_07", new CardDef(new Power
+			cards.Add("TRLA_Rogue_07", new CardDef(new[] {"FP1_007","OG_330","UNG_083","BOT_286","LOE_019","LOE_012","OG_272","TRL_409","BOT_243","LOOT_161","EX1_110","BOT_066"}, new Power
 			{
 				// TODO [TRLA_Rogue_07] Deathrattle && Test: Deathrattle_TRLA_Rogue_07
 				//PowerTask = null,
@@ -3138,15 +3141,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [TRLA_Rogue_08] For the Money (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Rogue_08] For the Money (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CFM_630, AT_031, LOE_012, GIL_687, GVG_028, CFM_669, EX1_095, CFM_060, NEW1_026, KAR_711
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_08", new CardDef(new Power
+			cards.Add("TRLA_Rogue_08", new CardDef(new[] {"CFM_630","AT_031","LOE_012","GIL_687","GVG_028","CFM_669","EX1_095","CFM_060","NEW1_026","KAR_711"}, new Power
 			{
 				// TODO [TRLA_Rogue_08] For the Money && Test: For the Money_TRLA_Rogue_08
 				//PowerTask = null,
@@ -3154,15 +3157,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [TRLA_Rogue_09] Bounce (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Rogue_09] Bounce (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_144, LOOT_204, CFM_693, BOT_288, LOE_077, EX1_050, EX1_613, LOOT_165, LOOT_211, LOOT_026, TRL_092, NEW1_004
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_09", new CardDef(new Power
+			cards.Add("TRLA_Rogue_09", new CardDef(new[] {"EX1_144","LOOT_204","CFM_693","BOT_288","LOE_077","EX1_050","EX1_613","LOOT_165","LOOT_211","LOOT_026","TRL_092","NEW1_004"}, new Power
 			{
 				// TODO [TRLA_Rogue_09] Bounce && Test: Bounce_TRLA_Rogue_09
 				//PowerTask = null,
@@ -3170,15 +3173,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ------------------------------------------ SPELL - ROGUE
-			// [TRLA_Rogue_10] Misfits (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Rogue_10] Misfits (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: UNG_809, KAR_069, FP1_002, OG_330, GIL_534, LOOT_165, UNG_075, LOOT_026, LOE_012, BOT_576, OG_291, UNG_064
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Rogue_10", new CardDef(new Power
+			cards.Add("TRLA_Rogue_10", new CardDef(new[] {"UNG_809","KAR_069","FP1_002","OG_330","GIL_534","LOOT_165","UNG_075","LOOT_026","LOE_012","BOT_576","OG_291","UNG_064"}, new Power
 			{
 				// TODO [TRLA_Rogue_10] Misfits && Test: Misfits_TRLA_Rogue_10
 				//PowerTask = null,
@@ -3190,8 +3193,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void ShamanNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ----------------------------------- ENCHANTMENT - SHAMAN
-			// [TRLA_109e] Overcharged (*) - COST:0 [ATK:0/HP:9]
-			// - Set: troll,
+			// [TRLA_109e] Overcharged (*) - COST:0 [ATK:0/HP:9] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: +1 Attack for each Mana Crystal you've Overloaded.
 			// --------------------------------------------------------
@@ -3203,13 +3206,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_109e", new CardDef(new Power
 			{
 				// TODO [TRLA_109e] Overcharged && Test: Overcharged_TRLA_109e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_109e")
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [TRLA_109] Krag'wa's Lure (*) - COST:0 [ATK:0/HP:2]
-			// - Set: troll,
+			// [TRLA_109] Krag'wa's Lure (*) - COST:0 [ATK:0/HP:2] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       After you <b>Overload</b>,
@@ -3225,6 +3227,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2208
 			// --------------------------------------------------------
 			// RefTag:
 			// - OVERLOAD = 1
@@ -3238,8 +3241,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [TRLA_109t] Krag'wa's Lure (*) - COST:0
-			// - Set: troll,
+			// [TRLA_109t] Krag'wa's Lure (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -3261,8 +3264,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [TRLA_154] Tribute from the Tides (*) - COST:0 [ATK:0/HP:3]
-			// - Set: troll,
+			// [TRLA_154] Tribute from the Tides (*) - COST:0 [ATK:0/HP:3] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Your <b>Battlecries</b> trigger
@@ -3277,6 +3280,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2216
 			// --------------------------------------------------------
 			// RefTag:
 			// - BATTLECRY = 1
@@ -3289,8 +3293,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [TRLA_154t] Tribute from the Tides (*) - COST:0
-			// - Set: troll,
+			// [TRLA_154t] Tribute from the Tides (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -3312,8 +3316,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [TRLA_155] Krag'wa's Grace (*) - COST:0 [ATK:0/HP:10]
-			// - Set: troll,
+			// [TRLA_155] Krag'wa's Grace (*) - COST:0 [ATK:0/HP:10] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Your spells cost (2) less.
@@ -3327,6 +3331,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2214
 			// --------------------------------------------------------
 			cards.Add("TRLA_155", new CardDef(new Power
 			{
@@ -3336,8 +3341,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [TRLA_155t] Krag'wa's Grace (*) - COST:0
-			// - Set: troll,
+			// [TRLA_155t] Krag'wa's Grace (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -3359,8 +3364,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [TRLA_156] Deepsea Diver (*) - COST:1 [ATK:2/HP:2]
-			// - Race: murloc, Set: troll,
+			// [TRLA_156] Deepsea Diver (*) - COST:1 [ATK:2/HP:2] 
+			// - Race: murloc, Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Start of Game:</b> Draw this.
 			//       <b>Battlecry:</b> Unlock your
@@ -3383,8 +3388,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [TRLA_157] Leap Frog (*) - COST:4 [ATK:3/HP:6]
-			// - Race: beast, Set: troll,
+			// [TRLA_157] Leap Frog (*) - COST:4 [ATK:3/HP:6] 
+			// - Race: beast, Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry:</b> Deal 3 damage
 			//       to a random enemy minion.
@@ -3403,8 +3408,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [TRLA_158] Overcharged Totem (*) - COST:0 [ATK:0/HP:4]
-			// - Race: totem, Set: troll,
+			// [TRLA_158] Overcharged Totem (*) - COST:0 [ATK:0/HP:4] 
+			// - Race: totem, Set: troll, 
 			// --------------------------------------------------------
 			// Text: After you <b>Overload</b>,
 			//       deal 2 damage to all enemy minions.
@@ -3424,8 +3429,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [TRLA_159] Croak Jouster (*) - COST:3 [ATK:4/HP:5]
-			// - Set: troll,
+			// [TRLA_159] Croak Jouster (*) - COST:3 [ATK:4/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Battlecry</b>: <b>Discover</b> a spell.
 			//       If you're <b>Overloaded</b>,
@@ -3433,12 +3438,13 @@ namespace SabberStoneCore.CardSets.Adventure
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
+			// - DISCOVER = 1
 			// - HIDE_WATERMARK = 1
 			// - 1175 = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - OVERLOAD = 1
-			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("TRLA_159", new CardDef(new Power
 			{
@@ -3448,8 +3454,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [TRLA_160] Naga Tonguelasher (*) - COST:1 [ATK:4/HP:4]
-			// - Set: troll,
+			// [TRLA_160] Naga Tonguelasher (*) - COST:1 [ATK:4/HP:4] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> <b>Overload</b> 3 of your opponent's Mana_Crystals.
 			// --------------------------------------------------------
@@ -3469,8 +3475,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
-			// [TRLA_161] War Heralder (*) - COST:3 [ATK:3/HP:5]
-			// - Set: troll,
+			// [TRLA_161] War Heralder (*) - COST:3 [ATK:3/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			//       <b>Overkill</b>: Add 3 random Shaman spells to your hand.
@@ -3489,15 +3495,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [TRLA_Shaman_01] Elemental Fury (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Shaman_01] Elemental Fury (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: UNG_025, KAR_073, OG_206, EX1_259, AT_051, GVG_038, LOOT_060, BRM_011, EX1_238, EX1_241, BOT_411, TRL_060, TRL_345
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_01", new CardDef(new Power
+			cards.Add("TRLA_Shaman_01", new CardDef(new[] {"UNG_025","KAR_073","OG_206","EX1_259","AT_051","GVG_038","LOOT_060","BRM_011","EX1_238","EX1_241","BOT_411","TRL_060","TRL_345"}, new Power
 			{
 				// TODO [TRLA_Shaman_01] Elemental Fury && Test: Elemental Fury_TRLA_Shaman_01
 				//PowerTask = null,
@@ -3505,15 +3511,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [TRLA_Shaman_02] Spellchasers (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Shaman_02] Spellchasers (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_522, GIL_531, BOT_411, TRL_060, TRL_085, BOT_291, KAR_021, OG_209, GIL_807, TRL_345, EX1_012, EX1_284
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_02", new CardDef(new Power
+			cards.Add("TRLA_Shaman_02", new CardDef(new[] {"TRL_522","GIL_531","BOT_411","TRL_060","TRL_085","BOT_291","KAR_021","OG_209","GIL_807","TRL_345","EX1_012","EX1_284"}, new Power
 			{
 				// TODO [TRLA_Shaman_02] Spellchasers && Test: Spellchasers_TRLA_Shaman_02
 				//PowerTask = null,
@@ -3521,15 +3527,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [TRLA_Shaman_03] Blessings (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Shaman_03] Blessings (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: LOOT_373, CS2_041, GVG_069, CFM_061, CFM_120, GVG_039, UNG_817, UNG_938, OG_209, AT_048
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_03", new CardDef(new Power
+			cards.Add("TRLA_Shaman_03", new CardDef(new[] {"LOOT_373","CS2_041","GVG_069","CFM_061","CFM_120","GVG_039","UNG_817","UNG_938","OG_209","AT_048"}, new Power
 			{
 				// TODO [TRLA_Shaman_03] Blessings && Test: Blessings_TRLA_Shaman_03
 				//PowerTask = null,
@@ -3537,15 +3543,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [TRLA_Shaman_04] Mutations (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Shaman_04] Mutations (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: LOOT_504, CFM_696, EX1_246, OG_328, OG_174, LOOT_150, CFM_697, BOT_099, BOT_245, TRL_082, CS2_046
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_04", new CardDef(new Power
+			cards.Add("TRLA_Shaman_04", new CardDef(new[] {"LOOT_504","CFM_696","EX1_246","OG_328","OG_174","LOOT_150","CFM_697","BOT_099","BOT_245","TRL_082","CS2_046"}, new Power
 			{
 				// TODO [TRLA_Shaman_04] Mutations && Test: Mutations_TRLA_Shaman_04
 				//PowerTask = null,
@@ -3553,15 +3559,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [TRLA_Shaman_05] Battlecrier (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Shaman_05] Battlecrier (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: AT_054, CS2_042, UNG_202, LOOT_358, LOOT_517, UNG_072, ICC_466, CFM_668, FP1_030, CFM_852, ICC_705, BRM_012, GIL_836, GIL_820, TRL_345, GIL_622, CFM_853
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_05", new CardDef(new Power
+			cards.Add("TRLA_Shaman_05", new CardDef(new[] {"AT_054","CS2_042","UNG_202","LOOT_358","LOOT_517","UNG_072","ICC_466","CFM_668","FP1_030","CFM_852","ICC_705","BRM_012","GIL_836","GIL_820","TRL_345","GIL_622","CFM_853"}, new Power
 			{
 				// TODO [TRLA_Shaman_05] Battlecrier && Test: Battlecrier_TRLA_Shaman_05
 				//PowerTask = null,
@@ -3569,15 +3575,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [TRLA_Shaman_06] Elementals (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Shaman_06] Elementals (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: UNG_211, UNG_816, UNG_928, UNG_070, UNG_907, UNG_809, UNG_202, UNG_847, UNG_845, LOOT_517, NEW1_010, EX1_298, UNG_208, GIL_807, BOT_093, BOT_533, TRL_059, UNG_082, UNG_938, EX1_250
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_06", new CardDef(new Power
+			cards.Add("TRLA_Shaman_06", new CardDef(new[] {"UNG_211","UNG_816","UNG_928","UNG_070","UNG_907","UNG_809","UNG_202","UNG_847","UNG_845","LOOT_517","NEW1_010","EX1_298","UNG_208","GIL_807","BOT_093","BOT_533","TRL_059","UNG_082","UNG_938","EX1_250"}, new Power
 			{
 				// TODO [TRLA_Shaman_06] Elementals && Test: Elementals_TRLA_Shaman_06
 				//PowerTask = null,
@@ -3585,15 +3591,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [TRLA_Shaman_07] Murlocs (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Shaman_07] Murlocs (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: UNG_942, CFM_310, LOE_113, EX1_509, EX1_506, EX1_506, UNG_073, EX1_050, EX1_103, UNG_937, UNG_089, EX1_062, CFM_344, EX1_507, GIL_678
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_07", new CardDef(new Power
+			cards.Add("TRLA_Shaman_07", new CardDef(new[] {"UNG_942","CFM_310","LOE_113","EX1_509","EX1_506","EX1_506","UNG_073","EX1_050","EX1_103","UNG_937","UNG_089","EX1_062","CFM_344","EX1_507","GIL_678"}, new Power
 			{
 				// TODO [TRLA_Shaman_07] Murlocs && Test: Murlocs_TRLA_Shaman_07
 				//PowerTask = null,
@@ -3601,15 +3607,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [TRLA_Shaman_08] Overload (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Shaman_08] Overload (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CFM_313, LOE_018, AT_053, OG_026, ICC_081, EX1_248, EX1_258, OG_024, EX1_250, LOOT_064, ICC_090, AT_052, LOE_018, BRM_011, OG_026, EX1_567, GIL_600, BOT_246, BOT_407, TRL_352, TRL_351
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_08", new CardDef(new Power
+			cards.Add("TRLA_Shaman_08", new CardDef(new[] {"CFM_313","LOE_018","AT_053","OG_026","ICC_081","EX1_248","EX1_258","OG_024","EX1_250","LOOT_064","ICC_090","AT_052","LOE_018","BRM_011","OG_026","EX1_567","GIL_600","BOT_246","BOT_407","TRL_352","TRL_351"}, new Power
 			{
 				// TODO [TRLA_Shaman_08] Overload && Test: Overload_TRLA_Shaman_08
 				//PowerTask = null,
@@ -3617,15 +3623,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [TRLA_Shaman_09] Totems (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Shaman_09] Totems (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: OG_023, LOOT_062, LOOT_518, LOOT_344, EX1_575, AT_046, KAR_021, AT_049, OG_028, AT_052, EX1_565, GIL_583, TRL_012
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_09", new CardDef(new Power
+			cards.Add("TRLA_Shaman_09", new CardDef(new[] {"OG_023","LOOT_062","LOOT_518","LOOT_344","EX1_575","AT_046","KAR_021","AT_049","OG_028","AT_052","EX1_565","GIL_583","TRL_012"}, new Power
 			{
 				// TODO [TRLA_Shaman_09] Totems && Test: Totems_TRLA_Shaman_09
 				//PowerTask = null,
@@ -3633,15 +3639,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [TRLA_Shaman_11] Jade Lotus (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Shaman_11] Jade Lotus (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CFM_717, CFM_707, CFM_312, CFM_715, CFM_902
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_11", new CardDef(new Power
+			cards.Add("TRLA_Shaman_11", new CardDef(new[] {"CFM_717","CFM_707","CFM_312","CFM_715","CFM_902"}, new Power
 			{
 				// TODO [TRLA_Shaman_11] Jade Lotus && Test: Jade Lotus_TRLA_Shaman_11
 				//PowerTask = null,
@@ -3649,8 +3655,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [TRLA_Shaman_12] Farseer (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Shaman_12] Farseer (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: AT_053, CS2_038, CS2_053, UNG_956, GVG_029, LOOT_506, EX1_110, FP1_025, CFM_324, FP1_013, ICC_257, LOOT_161, TRL_345, TRL_060, TRL_522, TRL_058
 			// --------------------------------------------------------
@@ -3658,7 +3664,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_12", new CardDef(new Power
+			cards.Add("TRLA_Shaman_12", new CardDef(new[] {"AT_053","CS2_038","CS2_053","UNG_956","GVG_029","LOOT_506","EX1_110","FP1_025","CFM_324","FP1_013","ICC_257","LOOT_161","TRL_345","TRL_060","TRL_522","TRL_058"}, new Power
 			{
 				// TODO [TRLA_Shaman_12] Farseer && Test: Farseer_TRLA_Shaman_12
 				//PowerTask = null,
@@ -3666,15 +3672,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ----------------------------------------- SPELL - SHAMAN
-			// [TRLA_Shaman_13] Mechanized (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Shaman_13] Mechanized (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: GVG_036, GVG_085, EX1_556, GVG_096, GVG_105, GVG_107, OG_145, GVG_105, GVG_114, GVG_006, GVG_006, GVG_103, LOE_039, GVG_037
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Shaman_13", new CardDef(new Power
+			cards.Add("TRLA_Shaman_13", new CardDef(new[] {"GVG_036","GVG_085","EX1_556","GVG_096","GVG_105","GVG_107","OG_145","GVG_105","GVG_114","GVG_006","GVG_006","GVG_103","LOE_039","GVG_037"}, new Power
 			{
 				// TODO [TRLA_Shaman_13] Mechanized && Test: Mechanized_TRLA_Shaman_13
 				//PowerTask = null,
@@ -3686,8 +3692,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void WarlockNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARLOCK
-			// [TRLA_113e] Blood Pact Player Enchantment (*) - COST:0
-			// - Set: troll,
+			// [TRLA_113e] Blood Pact Player Enchantment (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Spells cost Health instead of Mana.
 			// --------------------------------------------------------
@@ -3697,13 +3703,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_113e", new CardDef(new Power
 			{
 				// TODO [TRLA_113e] Blood Pact Player Enchantment && Test: Blood Pact Player Enchantment_TRLA_113e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_113e")
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [TRLA_113] Blood Pact (*) - COST:0 [ATK:0/HP:10]
-			// - Set: troll,
+			// [TRLA_113] Blood Pact (*) - COST:0 [ATK:0/HP:10] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Your spells cost Health
@@ -3719,6 +3724,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2204
 			// --------------------------------------------------------
 			cards.Add("TRLA_113", new CardDef(new Power
 			{
@@ -3729,8 +3735,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [TRLA_113t] Blood Pact (*) - COST:0
-			// - Set: troll,
+			// [TRLA_113t] Blood Pact (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -3752,8 +3758,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [TRLA_178] Dark Reliquary (*) - COST:0 [ATK:0/HP:4]
-			// - Set: troll,
+			// [TRLA_178] Dark Reliquary (*) - COST:0 [ATK:0/HP:4] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Whenever you discard a
@@ -3778,8 +3784,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [TRLA_178t] Dark Reliquary (*) - COST:0
-			// - Set: troll,
+			// [TRLA_178t] Dark Reliquary (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -3801,8 +3807,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [TRLA_179] Hir'eek's Hunger (*) - COST:0 [ATK:0/HP:8]
-			// - Set: troll,
+			// [TRLA_179] Hir'eek's Hunger (*) - COST:0 [ATK:0/HP:8] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Whenever your hero takes
@@ -3818,6 +3824,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2210
 			// --------------------------------------------------------
 			cards.Add("TRLA_179", new CardDef(new Power
 			{
@@ -3827,8 +3834,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [TRLA_179t] Hir'eek's Hunger (*) - COST:0
-			// - Set: troll,
+			// [TRLA_179t] Hir'eek's Hunger (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -3850,8 +3857,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [TRLA_180] Leering Bat (*) - COST:2 [ATK:3/HP:3]
-			// - Race: beast, Set: troll,
+			// [TRLA_180] Leering Bat (*) - COST:2 [ATK:3/HP:3] 
+			// - Race: beast, Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]Your hero is <b>Immune</b>
 			//       on your turn.
@@ -3874,8 +3881,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [TRLA_181] Ravenous Familiar (*) - COST:2 [ATK:3/HP:4]
-			// - Race: beast, Set: troll,
+			// [TRLA_181] Ravenous Familiar (*) - COST:2 [ATK:3/HP:4] 
+			// - Race: beast, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Rush</b>
 			//       <b>Overkill</b>: Discard your
@@ -3897,8 +3904,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [TRLA_182] Vile Necrodoctor (*) - COST:5 [ATK:3/HP:6]
-			// - Set: troll,
+			// [TRLA_182] Vile Necrodoctor (*) - COST:5 [ATK:3/HP:6] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Lifesteal</b>
 			//       <b>Battlecry:</b> Deal 3 damage to all enemy minions.
@@ -3917,8 +3924,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [TRLA_183] Warp Stalker (*) - COST:3 [ATK:3/HP:5]
-			// - Race: beast, Set: troll,
+			// [TRLA_183] Warp Stalker (*) - COST:3 [ATK:3/HP:5] 
+			// - Race: beast, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Stealth</b>
 			//       You can use your Hero Power
@@ -3937,8 +3944,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [TRLA_184] Dark Diviner (*) - COST:4 [ATK:4/HP:5]
-			// - Set: troll,
+			// [TRLA_184] Dark Diviner (*) - COST:4 [ATK:4/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Fill your hand with random spells.
 			// --------------------------------------------------------
@@ -3955,8 +3962,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
-			// [TRLA_185] Blood Portal (*) - COST:2 [ATK:0/HP:6]
-			// - Set: troll,
+			// [TRLA_185] Blood Portal (*) - COST:2 [ATK:0/HP:6] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Whenever your hero takes damage, add a random Warlock spell to
 			//       your hand.
@@ -3973,8 +3980,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [TRLA_Warlock_01] Hir'eek's Legion (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Warlock_01] Hir'eek's Legion (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CS2_065, EX1_319, GVG_018, CFM_611, LOOT_013, BRM_006, AT_019, GVG_019, BRM_005, GVG_045, BOT_913, BOT_224, EX1_181, NEW1_019
 			// --------------------------------------------------------
@@ -3982,7 +3989,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_01", new CardDef(new Power
+			cards.Add("TRLA_Warlock_01", new CardDef(new[] {"CS2_065","EX1_319","GVG_018","CFM_611","LOOT_013","BRM_006","AT_019","GVG_019","BRM_005","GVG_045","BOT_913","BOT_224","EX1_181","NEW1_019"}, new Power
 			{
 				// TODO [TRLA_Warlock_01] Hir'eek's Legion && Test: Hir'eek's Legion_TRLA_Warlock_01
 				//PowerTask = null,
@@ -3990,8 +3997,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [TRLA_Warlock_02] Discard (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Warlock_02] Discard (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_310, OG_109, AT_021, KAR_089, UNG_829, UNG_833, ICC_841, EX1_308, UNG_836, LOOT_417, TRL_247, TRL_551, TRL_252, TRL_245, AT_025, BOT_568
 			// --------------------------------------------------------
@@ -3999,7 +4006,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_02", new CardDef(new Power
+			cards.Add("TRLA_Warlock_02", new CardDef(new[] {"EX1_310","OG_109","AT_021","KAR_089","UNG_829","UNG_833","ICC_841","EX1_308","UNG_836","LOOT_417","TRL_247","TRL_551","TRL_252","TRL_245","AT_025","BOT_568"}, new Power
 			{
 				// TODO [TRLA_Warlock_02] Discard && Test: Discard_TRLA_Warlock_02
 				//PowerTask = null,
@@ -4007,8 +4014,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [TRLA_Warlock_03] Life Takers (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Warlock_03] Life Takers (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CS2_061, EX1_309, GVG_018, ICC_055, ICC_810, LOOT_043, ICC_905, GIL_565, GIL_527, TRL_252, GIL_143
 			// --------------------------------------------------------
@@ -4016,7 +4023,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_03", new CardDef(new Power
+			cards.Add("TRLA_Warlock_03", new CardDef(new[] {"CS2_061","EX1_309","GVG_018","ICC_055","ICC_810","LOOT_043","ICC_905","GIL_565","GIL_527","TRL_252","GIL_143"}, new Power
 			{
 				// TODO [TRLA_Warlock_03] Life Takers && Test: Life Takers_TRLA_Warlock_03
 				//PowerTask = null,
@@ -4024,8 +4031,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [TRLA_Warlock_04] Taunt (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Warlock_04] Taunt (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: CS2_065, EX1_058, FP1_012, UNG_049, ICC_466, LOOT_131, ICC_314, LOOT_013, UNG_928, EX1_093, TRL_252, TRL_551, UNG_833
 			// --------------------------------------------------------
@@ -4033,7 +4040,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_04", new CardDef(new Power
+			cards.Add("TRLA_Warlock_04", new CardDef(new[] {"CS2_065","EX1_058","FP1_012","UNG_049","ICC_466","LOOT_131","ICC_314","LOOT_013","UNG_928","EX1_093","TRL_252","TRL_551","UNG_833"}, new Power
 			{
 				// TODO [TRLA_Warlock_04] Taunt && Test: Taunt_TRLA_Warlock_04
 				//PowerTask = null,
@@ -4041,8 +4048,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [TRLA_Warlock_06] Wrath (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Warlock_06] Wrath (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: NEW1_021, EX1_312, OG_239, CFM_094, ICC_041, LOOT_417, GIL_825, CS2_062
 			// --------------------------------------------------------
@@ -4050,7 +4057,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_06", new CardDef(new Power
+			cards.Add("TRLA_Warlock_06", new CardDef(new[] {"NEW1_021","EX1_312","OG_239","CFM_094","ICC_041","LOOT_417","GIL_825","CS2_062"}, new Power
 			{
 				// TODO [TRLA_Warlock_06] Wrath && Test: Wrath_TRLA_Warlock_06
 				//PowerTask = null,
@@ -4058,8 +4065,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [TRLA_Warlock_07] Sacrifice (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Warlock_07] Sacrifice (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_303, EX1_316, EX1_304, AT_025, ICC_469, ICC_903, UNG_831, OG_239, LOOT_161, TRL_249, TRL_257
 			// --------------------------------------------------------
@@ -4067,7 +4074,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_07", new CardDef(new Power
+			cards.Add("TRLA_Warlock_07", new CardDef(new[] {"EX1_303","EX1_316","EX1_304","AT_025","ICC_469","ICC_903","UNG_831","OG_239","LOOT_161","TRL_249","TRL_257"}, new Power
 			{
 				// TODO [TRLA_Warlock_07] Sacrifice && Test: Sacrifice_TRLA_Warlock_07
 				//PowerTask = null,
@@ -4075,8 +4082,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [TRLA_Warlock_08] Blood (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Warlock_08] Blood (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: UNG_835, CS2_062, CFM_094, EX1_620, LOOT_013, LOOT_043, GIL_693, BOT_226, TRL_251, GIL_508, BOT_222
 			// --------------------------------------------------------
@@ -4084,7 +4091,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_08", new CardDef(new Power
+			cards.Add("TRLA_Warlock_08", new CardDef(new[] {"UNG_835","CS2_062","CFM_094","EX1_620","LOOT_013","LOOT_043","GIL_693","BOT_226","TRL_251","GIL_508","BOT_222"}, new Power
 			{
 				// TODO [TRLA_Warlock_08] Blood && Test: Blood_TRLA_Warlock_08
 				//PowerTask = null,
@@ -4092,8 +4099,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [TRLA_Warlock_09] Dire Demons (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Warlock_09] Dire Demons (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: FP1_022, LOOT_420, EX1_310, CS2_064, CFM_663, CFM_751, GVG_021, LOOT_018, EX1_317, ICC_075, GVG_019, LOOT_306
 			// --------------------------------------------------------
@@ -4101,7 +4108,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_09", new CardDef(new Power
+			cards.Add("TRLA_Warlock_09", new CardDef(new[] {"FP1_022","LOOT_420","EX1_310","CS2_064","CFM_663","CFM_751","GVG_021","LOOT_018","EX1_317","ICC_075","GVG_019","LOOT_306"}, new Power
 			{
 				// TODO [TRLA_Warlock_09] Dire Demons && Test: Dire Demons_TRLA_Warlock_09
 				//PowerTask = null,
@@ -4109,8 +4116,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [TRLA_Warlock_10] A Dark Hand (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Warlock_10] A Dark Hand (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_043, EX1_105, EX1_620, AT_127, AT_027, BRM_028, BRM_031, EX1_095, TRL_253, TRL_251, BOT_443, LOOT_014
 			// --------------------------------------------------------
@@ -4118,7 +4125,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_10", new CardDef(new Power
+			cards.Add("TRLA_Warlock_10", new CardDef(new[] {"EX1_043","EX1_105","EX1_620","AT_127","AT_027","BRM_028","BRM_031","EX1_095","TRL_253","TRL_251","BOT_443","LOOT_014"}, new Power
 			{
 				// TODO [TRLA_Warlock_10] A Dark Hand && Test: A Dark Hand_TRLA_Warlock_10
 				//PowerTask = null,
@@ -4126,8 +4133,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARLOCK
-			// [TRLA_Warlock_11] Jinx (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_Warlock_11] Jinx (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: GIL_191, BOT_913, GIL_543, CS2_062, LOOT_043, KAR_711, AT_127, EX1_320, BOT_521, EX1_303
 			// --------------------------------------------------------
@@ -4135,7 +4142,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 229
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warlock_11", new CardDef(new Power
+			cards.Add("TRLA_Warlock_11", new CardDef(new[] {"GIL_191","BOT_913","GIL_543","CS2_062","LOOT_043","KAR_711","AT_127","EX1_320","BOT_521","EX1_303"}, new Power
 			{
 				// TODO [TRLA_Warlock_11] Jinx && Test: Jinx_TRLA_Warlock_11
 				//PowerTask = null,
@@ -4147,8 +4154,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void WarriorNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [TRLA_171e] Fury of the Rhino (*) - COST:0
-			// - Set: troll,
+			// [TRLA_171e] Fury of the Rhino (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Overkill:</b> This minion can attack again.
 			// --------------------------------------------------------
@@ -4159,13 +4166,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_171e", new CardDef(new Power
 			{
 				// TODO [TRLA_171e] Fury of the Rhino && Test: Fury of the Rhino_TRLA_171e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_171e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [TRLA_172e] Quilboar Rally (*) - COST:0
-			// - Set: troll,
+			// [TRLA_172e] Quilboar Rally (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -4175,13 +4181,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_172e", new CardDef(new Power
 			{
 				// TODO [TRLA_172e] Quilboar Rally && Test: Quilboar Rally_TRLA_172e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_172e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [TRLA_174e] Rocking Out (*) - COST:0
-			// - Set: troll,
+			// [TRLA_174e] Rocking Out (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Can't be reduced below 1 Health.
 			// --------------------------------------------------------
@@ -4191,13 +4196,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_174e", new CardDef(new Power
 			{
 				// TODO [TRLA_174e] Rocking Out && Test: Rocking Out_TRLA_174e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_174e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - WARRIOR
-			// [TRLA_176e] Flamed (*) - COST:0
-			// - Set: troll,
+			// [TRLA_176e] Flamed (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Has <b>Rush</b>.
 			// --------------------------------------------------------
@@ -4207,13 +4211,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_176e", new CardDef(new Power
 			{
 				// TODO [TRLA_176e] Flamed && Test: Flamed_TRLA_176e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_176e")
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [TRLA_104] Akali's Champion (*) - COST:0 [ATK:0/HP:8]
-			// - Set: troll,
+			// [TRLA_104] Akali's Champion (*) - COST:0 [ATK:0/HP:8] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       This minion's Attack
@@ -4238,8 +4241,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [TRLA_104t] Akali's Champion (*) - COST:0
-			// - Set: troll,
+			// [TRLA_104t] Akali's Champion (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -4261,8 +4264,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [TRLA_170] Akali's War Drum (*) - COST:0 [ATK:0/HP:8]
-			// - Set: troll,
+			// [TRLA_170] Akali's War Drum (*) - COST:0 [ATK:0/HP:8] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       After you summon a Dragon,
@@ -4278,6 +4281,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2205
 			// --------------------------------------------------------
 			cards.Add("TRLA_170", new CardDef(new Power
 			{
@@ -4287,8 +4291,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [TRLA_170t] Akali's War Drum (*) - COST:0
-			// - Set: troll,
+			// [TRLA_170t] Akali's War Drum (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -4310,8 +4314,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [TRLA_171] Akali's Horn (*) - COST:0 [ATK:0/HP:5]
-			// - Set: troll,
+			// [TRLA_171] Akali's Horn (*) - COST:0 [ATK:0/HP:5] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Shrine</b>
 			//       Your minions have
@@ -4327,6 +4331,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 50
 			// - 1179 = 1
+			// - 1249 = 2198
 			// --------------------------------------------------------
 			// RefTag:
 			// - OVERKILL = 1
@@ -4340,8 +4345,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [TRLA_171t] Akali's Horn (*) - COST:0
-			// - Set: troll,
+			// [TRLA_171t] Akali's Horn (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -4363,8 +4368,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [TRLA_172] Rallying Quilboar (*) - COST:1 [ATK:2/HP:4]
-			// - Set: troll,
+			// [TRLA_172] Rallying Quilboar (*) - COST:1 [ATK:2/HP:4] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]Adjacent minions have <b>Taunt</b>.
 			//       <b>Start of Game:</b> Draw this.
@@ -4386,8 +4391,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [TRLA_173] Redcrest Rocker (*) - COST:1 [ATK:3/HP:4]
-			// - Set: troll,
+			// [TRLA_173] Redcrest Rocker (*) - COST:1 [ATK:3/HP:4] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Rush</b>
 			//       <b>Overkill:</b> <b>Discover</b> a Dragon.
@@ -4395,12 +4400,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			//       keep all 3.
 			// --------------------------------------------------------
 			// GameTag:
+			// - DISCOVER = 1
 			// - RUSH = 1
 			// - OVERKILL = 1
 			// - HIDE_WATERMARK = 1
-			// --------------------------------------------------------
-			// RefTag:
-			// - DISCOVER = 1
+			// - 1175 = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
 			cards.Add("TRLA_173", new CardDef(new Power
 			{
@@ -4410,13 +4415,14 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [TRLA_174] Ironhorn Drummer (*) - COST:5 [ATK:4/HP:4]
-			// - Set: troll,
+			// [TRLA_174] Ironhorn Drummer (*) - COST:5 [ATK:4/HP:4] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Your minions can't be reduced below 1 Health on your turn.
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
+			// - 1175 = 1
 			// --------------------------------------------------------
 			cards.Add("TRLA_174", new CardDef(new Power
 			{
@@ -4427,13 +4433,14 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [TRLA_175] Seasoned Pitbrawler (*) - COST:4 [ATK:3/HP:6]
-			// - Race: dragon, Set: troll,
+			// [TRLA_175] Seasoned Pitbrawler (*) - COST:4 [ATK:3/HP:6] 
+			// - Race: dragon, Set: troll, 
 			// --------------------------------------------------------
 			// Text: Whenever you gain Armor, gain twice as much.
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
+			// - 1175 = 1
 			// --------------------------------------------------------
 			cards.Add("TRLA_175", new CardDef(new Power
 			{
@@ -4443,13 +4450,14 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [TRLA_176] Herald of Flame (*) - COST:4 [ATK:7/HP:7]
-			// - Race: dragon, Set: troll,
+			// [TRLA_176] Herald of Flame (*) - COST:4 [ATK:7/HP:7] 
+			// - Race: dragon, Set: troll, 
 			// --------------------------------------------------------
 			// Text: Whenever you play a Dragon, give it <b>Rush</b> and draw a Dragon.
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
+			// - 1175 = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - RUSH = 1
@@ -4463,8 +4471,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - WARRIOR
-			// [TRLA_177] Unbound Punisher (*) - COST:8 [ATK:4/HP:10]
-			// - Set: troll,
+			// [TRLA_177] Unbound Punisher (*) - COST:8 [ATK:4/HP:10] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Battlecry:</b> Destroy all
 			//       enemy minions.
@@ -4487,15 +4495,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [TRLA_Warrior_01] Tank Up! (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Warrior_01] Tank Up! (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: BOT_059, UNG_923, EX1_410, EX1_402, LOOT_044, ICC_837, LOOT_367, BOT_042, AT_064, ICC_062, EX1_606, CFM_756, TRL_323, KAR_091, GVG_053, TRL_324, LOOT_285, LOOT_519, LOOT_413, TRL_010
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_01", new CardDef(new Power
+			cards.Add("TRLA_Warrior_01", new CardDef(new[] {"BOT_059","UNG_923","EX1_410","EX1_402","LOOT_044","ICC_837","LOOT_367","BOT_042","AT_064","ICC_062","EX1_606","CFM_756","TRL_323","KAR_091","GVG_053","TRL_324","LOOT_285","LOOT_519","LOOT_413","TRL_010"}, new Power
 			{
 				// TODO [TRLA_Warrior_01] Tank Up! && Test: Tank Up!_TRLA_Warrior_01
 				//PowerTask = null,
@@ -4503,15 +4511,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [TRLA_Warrior_02] Berserker (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Warrior_02] Berserker (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: EX1_607, CS2_104, EX1_414, EX1_392, EX1_603, NEW1_036, OG_149, FP1_021, ICC_064, EX1_604, TRL_010, TRL_528, NEW1_011, GIL_654
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_02", new CardDef(new Power
+			cards.Add("TRLA_Warrior_02", new CardDef(new[] {"EX1_607","CS2_104","EX1_414","EX1_392","EX1_603","NEW1_036","OG_149","FP1_021","ICC_064","EX1_604","TRL_010","TRL_528","NEW1_011","GIL_654"}, new Power
 			{
 				// TODO [TRLA_Warrior_02] Berserker && Test: Berserker_TRLA_Warrior_02
 				//PowerTask = null,
@@ -4519,15 +4527,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [TRLA_Warrior_03] Legendary (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Warrior_03] Legendary (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: AT_132, GIL_547, TRL_328, TRL_329, LOOT_519, EX1_414, ICC_405, LOOT_516, NEW1_024, EX1_116, GVG_110, ICC_314, BRM_030, EX1_562, EX1_572, NEW1_030, OG_317, TRL_542, BOT_548, GVG_114
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_03", new CardDef(new Power
+			cards.Add("TRLA_Warrior_03", new CardDef(new[] {"AT_132","GIL_547","TRL_328","TRL_329","LOOT_519","EX1_414","ICC_405","LOOT_516","NEW1_024","EX1_116","GVG_110","ICC_314","BRM_030","EX1_562","EX1_572","NEW1_030","OG_317","TRL_542","BOT_548","GVG_114"}, new Power
 			{
 				// TODO [TRLA_Warrior_03] Legendary && Test: Legendary_TRLA_Warrior_03
 				//PowerTask = null,
@@ -4535,15 +4543,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [TRLA_Warrior_04] Smash (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Warrior_04] Smash (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_321, CS2_108, EX1_391, AT_064, GVG_052, OG_314, CS2_105, EX1_408, EX1_410, CS2_114, TRL_325
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_04", new CardDef(new Power
+			cards.Add("TRLA_Warrior_04", new CardDef(new[] {"TRL_321","CS2_108","EX1_391","AT_064","GVG_052","OG_314","CS2_105","EX1_408","EX1_410","CS2_114","TRL_325"}, new Power
 			{
 				// TODO [TRLA_Warrior_04] Smash && Test: Smash_TRLA_Warrior_04
 				//PowerTask = null,
@@ -4551,15 +4559,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [TRLA_Warrior_05] Metalhead (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Warrior_05] Metalhead (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: BOT_059, GVG_006, BOT_299, GVG_055, BOT_218, LOOT_111, BOT_021, GIL_681, GVG_096, GVG_107, BOT_401, BOT_563, BOT_548, GVG_114
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_05", new CardDef(new Power
+			cards.Add("TRLA_Warrior_05", new CardDef(new[] {"BOT_059","GVG_006","BOT_299","GVG_055","BOT_218","LOOT_111","BOT_021","GIL_681","GVG_096","GVG_107","BOT_401","BOT_563","BOT_548","GVG_114"}, new Power
 			{
 				// TODO [TRLA_Warrior_05] Metalhead && Test: Metalhead_TRLA_Warrior_05
 				//PowerTask = null,
@@ -4567,15 +4575,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [TRLA_Warrior_06] Rush (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Warrior_06] Rush (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: GIL_547, GIL_113, TRL_329, TRL_327, GIL_580, TRL_550, TRL_542, TRL_020, GIL_601, GIL_803, GIL_653
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_06", new CardDef(new Power
+			cards.Add("TRLA_Warrior_06", new CardDef(new[] {"GIL_547","GIL_113","TRL_329","TRL_327","GIL_580","TRL_550","TRL_542","TRL_020","GIL_601","GIL_803","GIL_653"}, new Power
 			{
 				// TODO [TRLA_Warrior_06] Rush && Test: Rush_TRLA_Warrior_06
 				//PowerTask = null,
@@ -4583,15 +4591,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [TRLA_Warrior_07] Fervent Fans (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Warrior_07] Fervent Fans (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: NEW1_023, EX1_402, EX1_007, EX1_603, LOOT_367, NEW1_011, EX1_043, GIL_681, BOT_059, UNG_072, TRL_010, CFM_754, ICC_062, GIL_113, GIL_803, EX1_604, GIL_155, TRL_363, TRL_523
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_07", new CardDef(new Power
+			cards.Add("TRLA_Warrior_07", new CardDef(new[] {"NEW1_023","EX1_402","EX1_007","EX1_603","LOOT_367","NEW1_011","EX1_043","GIL_681","BOT_059","UNG_072","TRL_010","CFM_754","ICC_062","GIL_113","GIL_803","EX1_604","GIL_155","TRL_363","TRL_523"}, new Power
 			{
 				// TODO [TRLA_Warrior_07] Fervent Fans && Test: Fervent Fans_TRLA_Warrior_07
 				//PowerTask = null,
@@ -4599,15 +4607,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [TRLA_Warrior_08] Protection (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Warrior_08] Protection (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: BOT_059, EX1_402, LOOT_367, AT_069, LOE_022, OG_218, CFM_756, TRL_535, TRL_550, TRL_515, TRL_513, TRL_514, UNG_926, TRL_323, BOT_218
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_08", new CardDef(new Power
+			cards.Add("TRLA_Warrior_08", new CardDef(new[] {"BOT_059","EX1_402","LOOT_367","AT_069","LOE_022","OG_218","CFM_756","TRL_535","TRL_550","TRL_515","TRL_513","TRL_514","UNG_926","TRL_323","BOT_218"}, new Power
 			{
 				// TODO [TRLA_Warrior_08] Protection && Test: Protection_TRLA_Warrior_08
 				//PowerTask = null,
@@ -4615,15 +4623,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [TRLA_Warrior_09] Dragon Heart (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Warrior_09] Dragon Heart (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: AT_071, TRL_362, TRL_326, TRL_323, TRL_328, NEW1_023, TRL_523, KAR_062, BRM_033, GIL_681, LOOT_118, GIL_601, EX1_043, AT_017, EX1_284, BRM_034, ICC_029, TRL_526, ICC_027, BRM_024, TRL_569, UNG_848, BRM_030, LOOT_137, EX1_572, TRL_328
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_09", new CardDef(new Power
+			cards.Add("TRLA_Warrior_09", new CardDef(new[] {"AT_071","TRL_362","TRL_326","TRL_323","TRL_328","NEW1_023","TRL_523","KAR_062","BRM_033","GIL_681","LOOT_118","GIL_601","EX1_043","AT_017","EX1_284","BRM_034","ICC_029","TRL_526","ICC_027","BRM_024","TRL_569","UNG_848","BRM_030","LOOT_137","EX1_572","TRL_328"}, new Power
 			{
 				// TODO [TRLA_Warrior_09] Dragon Heart && Test: Dragon Heart_TRLA_Warrior_09
 				//PowerTask = null,
@@ -4631,15 +4639,15 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - WARRIOR
-			// [TRLA_Warrior_10] Overkill (*) - COST:0
-			// - Set: troll,
+			// [TRLA_Warrior_10] Overkill (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Entourage: TRL_542, TRL_528, TRL_020, TRL_521, TRL_015, TRL_010, TRL_329, TRL_325
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("TRLA_Warrior_10", new CardDef(new Power
+			cards.Add("TRLA_Warrior_10", new CardDef(new[] {"TRL_542","TRL_528","TRL_020","TRL_521","TRL_015","TRL_010","TRL_329","TRL_325"}, new Power
 			{
 				// TODO [TRLA_Warrior_10] Overkill && Test: Overkill_TRLA_Warrior_10
 				//PowerTask = null,
@@ -4651,8 +4659,8 @@ namespace SabberStoneCore.CardSets.Adventure
 		private static void NeutralNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_116e] Gonk's Bond (*) - COST:0
-			// - Set: troll,
+			// [TRLA_116e] Gonk's Bond (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Increased Attack.
 			// --------------------------------------------------------
@@ -4662,13 +4670,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_116e", new CardDef(new Power
 			{
 				// TODO [TRLA_116e] Gonk's Bond && Test: Gonk's Bond_TRLA_116e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_116e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_128e] Jan'alai's Flame Player Enchant (*) - COST:0
-			// - Set: troll,
+			// [TRLA_128e] Jan'alai's Flame Player Enchant (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Your Hero Power costs (0) this turn.
 			// --------------------------------------------------------
@@ -4678,13 +4685,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_128e", new CardDef(new Power
 			{
 				// TODO [TRLA_128e] Jan'alai's Flame Player Enchant && Test: Jan'alai's Flame Player Enchant_TRLA_128e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_128e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_131e] Empowered Glyph (*) - COST:0
-			// - Set: troll,
+			// [TRLA_131e] Empowered Glyph (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Increased Spell Damage.
 			// --------------------------------------------------------
@@ -4694,13 +4700,24 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_131e", new CardDef(new Power
 			{
 				// TODO [TRLA_131e] Empowered Glyph && Test: Empowered Glyph_TRLA_131e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_131e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_164e] Panther's Lead (*) - COST:0
-			// - Set: troll,
+			// [TRLA_147e] Bwonsamdi's Covenant (*) - COST:0 
+			// - Set: troll, 
+			// --------------------------------------------------------
+			// Text: Healing enemies damages them instead.
+			// --------------------------------------------------------
+			cards.Add("TRLA_147e", new CardDef(new Power
+			{
+				// TODO [TRLA_147e] Bwonsamdi's Covenant && Test: Bwonsamdi's Covenant_TRLA_147e
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_147e")
+			}));
+
+			// ---------------------------------- ENCHANTMENT - NEUTRAL
+			// [TRLA_164e] Panther's Lead (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Has <b>Rush</b>.
 			// --------------------------------------------------------
@@ -4710,13 +4727,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_164e", new CardDef(new Power
 			{
 				// TODO [TRLA_164e] Panther's Lead && Test: Panther's Lead_TRLA_164e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_164e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_180e] Leering (*) - COST:0
-			// - Set: troll,
+			// [TRLA_180e] Leering (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: Player Enchant
 			// --------------------------------------------------------
@@ -4726,13 +4742,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_180e", new CardDef(new Power
 			{
 				// TODO [TRLA_180e] Leering && Test: Leering_TRLA_180e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_180e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_801e] Sacred (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_801e] Sacred (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: Your spells cost (1) less.
 			// --------------------------------------------------------
@@ -4743,13 +4758,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			{
 				// TODO [TRLA_801e] Sacred && Test: Sacred_TRLA_801e
 				InfoCardId = "TRLA_801e2",
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_801e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_801e2] Sacred Ritual Player Enchant (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_801e2] Sacred Ritual Player Enchant (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - AURA = 1
@@ -4760,13 +4774,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_801e2", new CardDef(new Power
 			{
 				// TODO [TRLA_801e2] Sacred Ritual Player Enchant && Test: Sacred Ritual Player Enchant_TRLA_801e2
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_801e2")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_802e] Favored (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_802e] Favored (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: Adjacent minions gain <b>Taunt</b>.
 			// --------------------------------------------------------
@@ -4777,13 +4790,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			{
 				// TODO [TRLA_802e] Favored && Test: Favored_TRLA_802e
 				InfoCardId = "TRLA_802e2",
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_802e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_802e2] Favor of the Gods Player Enchant (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_802e2] Favor of the Gods Player Enchant (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_STATS = 1
@@ -4793,13 +4805,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_802e2", new CardDef(new Power
 			{
 				// TODO [TRLA_802e2] Favor of the Gods Player Enchant && Test: Favor of the Gods Player Enchant_TRLA_802e2
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_802e2")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_803e] Fortified (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_803e] Fortified (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: Restores to full Health each turn.
 			// --------------------------------------------------------
@@ -4810,13 +4821,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			{
 				// TODO [TRLA_803e] Fortified && Test: Fortified_TRLA_803e
 				InfoCardId = "TRLA_803e2",
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_803e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_803e2] Fortified Spirit Player Enchant (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_803e2] Fortified Spirit Player Enchant (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_STATS = 1
@@ -4826,13 +4836,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_803e2", new CardDef(new Power
 			{
 				// TODO [TRLA_803e2] Fortified Spirit Player Enchant && Test: Fortified Spirit Player Enchant_TRLA_803e2
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_803e2")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_805e] Pact with the Loa Player Enchant (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_805e] Pact with the Loa Player Enchant (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_STATS = 1
@@ -4842,13 +4851,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_805e", new CardDef(new Power
 			{
 				// TODO [TRLA_805e] Pact with the Loa Player Enchant && Test: Pact with the Loa Player Enchant_TRLA_805e
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_805e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_806e] Wrath of the Loa Player Enchant (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_806e] Wrath of the Loa Player Enchant (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_STATS = 1
@@ -4859,13 +4867,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			{
 				// TODO [TRLA_806e] Wrath of the Loa Player Enchant && Test: Wrath of the Loa Player Enchant_TRLA_806e
 				InfoCardId = "TRLA_806e2",
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_806e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_806e2] Wrath of the Loas (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_806e2] Wrath of the Loas (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle</b>: Destroy all enemy <b>Shrines</b>.
 			// --------------------------------------------------------
@@ -4877,13 +4884,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_806e2", new CardDef(new Power
 			{
 				// TODO [TRLA_806e2] Wrath of the Loas && Test: Wrath of the Loas_TRLA_806e2
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_806e2")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_807e] Boon Reaper Player Enchant (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_807e] Boon Reaper Player Enchant (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_STATS = 1
@@ -4894,13 +4900,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			{
 				// TODO [TRLA_807e] Boon Reaper Player Enchant && Test: Boon Reaper Player Enchant_TRLA_807e
 				InfoCardId = "TRLA_807e2",
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_807e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_807e2] Boon Reaper (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_807e2] Boon Reaper (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Draw cards until your hand is full.
 			// --------------------------------------------------------
@@ -4912,13 +4917,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_807e2", new CardDef(new Power
 			{
 				// TODO [TRLA_807e2] Boon Reaper && Test: Boon Reaper_TRLA_807e2
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_807e2")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_808e] Roaring Edifice Player Enchant (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_808e] Roaring Edifice Player Enchant (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_STATS = 1
@@ -4929,13 +4933,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			{
 				// TODO [TRLA_808e] Roaring Edifice Player Enchant && Test: Roaring Edifice Player Enchant_TRLA_808e
 				InfoCardId = "TRLA_808e2",
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_808e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_808e2] Roaring Edifice (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_808e2] Roaring Edifice (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle:</b> Reduce the cost of cards in your hand by (2).
 			// --------------------------------------------------------
@@ -4947,13 +4950,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_808e2", new CardDef(new Power
 			{
 				// TODO [TRLA_808e2] Roaring Edifice && Test: Roaring Edifice_TRLA_808e2
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_808e2")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_809e] Windfall Blessing Player Enchant (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_809e] Windfall Blessing Player Enchant (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - HIDE_STATS = 1
@@ -4964,13 +4966,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			{
 				// TODO [TRLA_809e] Windfall Blessing Player Enchant && Test: Windfall Blessing Player Enchant_TRLA_809e
 				InfoCardId = "TRLA_809e2",
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_809e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_809e2] Windfall Glyph (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_809e2] Windfall Glyph (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Deathrattle</b>: Give all minions in your deck +1/+1."
 			// --------------------------------------------------------
@@ -4982,13 +4983,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_809e2", new CardDef(new Power
 			{
 				// TODO [TRLA_809e2] Windfall Glyph && Test: Windfall Glyph_TRLA_809e2
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_809e2")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
-			// [TRLA_809e3] Windfall Blessing (*) - COST:0
-			// - Set: troll,
+			// [TRLA_809e3] Windfall Blessing (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: +1/+1.
 			// --------------------------------------------------------
@@ -4998,13 +4998,12 @@ namespace SabberStoneCore.CardSets.Adventure
 			cards.Add("TRLA_809e3", new CardDef(new Power
 			{
 				// TODO [TRLA_809e3] Windfall Blessing && Test: Windfall Blessing_TRLA_809e3
-				//PowerTask = null,
-				//Trigger = null,
+				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("TRLA_809e3")
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [TRLA_107] Tribal Shrine (*) - COST:0 [ATK:0/HP:1]
-			// - Set: troll,
+			// [TRLA_107] Tribal Shrine (*) - COST:0 [ATK:0/HP:1] 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Shrine</b>
 			//       <b>Taunt</b>
@@ -5027,8 +5026,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
-			// [TRLA_107t] Tribal Shrine (*) - COST:0
-			// - Set: troll,
+			// [TRLA_107t] Tribal Shrine (*) - COST:0 
+			// - Set: troll, 
 			// --------------------------------------------------------
 			// GameTag:
 			// - TAG_SCRIPT_DATA_NUM_2 = 3
@@ -5050,8 +5049,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [TRLA_801] Sacred Ritual (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_801] Sacred Ritual (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       Your <b>Shrines</b> have "Your spells cost (1) less."
@@ -5061,6 +5060,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 100
+			// - 1200 = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - SHRINE = 1
@@ -5074,8 +5074,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [TRLA_802] Favor of the Gods (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_802] Favor of the Gods (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       Minions adjacent to your <b>Shrines</b> have <b>Taunt</b>.
@@ -5085,6 +5085,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 100
+			// - 1200 = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - TAUNT = 1
@@ -5099,8 +5100,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [TRLA_803] Fortified Spirit (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_803] Fortified Spirit (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       At the start of each turn, restore your <b>Shrines</b> to
@@ -5111,6 +5112,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 100
+			// - 1200 = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - SHRINE = 1
@@ -5124,8 +5126,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [TRLA_804] Everlasting Devotion (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_804] Everlasting Devotion (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       Start the game with a copy of your <b>Shrine</b>.
@@ -5135,6 +5137,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 100
+			// - 1200 = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - SHRINE = 1
@@ -5147,8 +5150,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [TRLA_805] Pact with the Loa (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_805] Pact with the Loa (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       Your <b>Shrines</b> revive in
@@ -5159,6 +5162,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 100
+			// - 1200 = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - SHRINE = 1
@@ -5172,8 +5176,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [TRLA_806] Wrath of the Loas (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_806] Wrath of the Loas (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       Your <b>Shrines</b> have "<b>Deathrattle</b>: Destroy
@@ -5184,6 +5188,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 100
+			// - 1200 = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - DEATHRATTLE = 1
@@ -5198,8 +5203,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [TRLA_807] Boon Reaper (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_807] Boon Reaper (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       Your <b>Shrines</b> have "<b>Deathrattle</b>: Draw cards until your hand is full."
@@ -5209,6 +5214,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 100
+			// - 1200 = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - DEATHRATTLE = 1
@@ -5223,8 +5229,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [TRLA_808] Roaring Edifice (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_808] Roaring Edifice (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: [x]<b>Passive</b>
 			//       Your <b>Shrines</b> have
@@ -5236,6 +5242,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 100
+			// - 1200 = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - DEATHRATTLE = 1
@@ -5250,8 +5257,8 @@ namespace SabberStoneCore.CardSets.Adventure
 			}));
 
 			// ---------------------------------------- SPELL - NEUTRAL
-			// [TRLA_809] Windfall Blessing (*) - COST:0
-			// - Fac: neutral, Set: troll,
+			// [TRLA_809] Windfall Blessing (*) - COST:0 
+			// - Fac: neutral, Set: troll, 
 			// --------------------------------------------------------
 			// Text: <b>Passive</b>
 			//       Your <b>Shrines</b> have "<b>Deathrattle</b>: Give minions in your deck +1/+1."
@@ -5261,6 +5268,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - DUNGEON_PASSIVE_BUFF = 1
 			// - HIDE_WATERMARK = 1
 			// - DECK_LIST_SORT_ORDER = 100
+			// - 1200 = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - DEATHRATTLE = 1

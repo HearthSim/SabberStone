@@ -403,7 +403,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_112", new CardDef(new Power
+			cards.Add("EX1_112", new CardDef(new[] {"Mekka1","Mekka2","Mekka3","Mekka4"}, new Power
 			{
 				// TODO [EX1_112] Gelbin Mekkatorque && Test: Gelbin Mekkatorque_EX1_112
 				//PowerTask = null,
@@ -534,7 +534,7 @@ namespace SabberStoneCore.CardSets
 			// - ELITE = 1
 			// - BATTLECRY = 1
 			// --------------------------------------------------------
-			cards.Add("PRO_001", new CardDef(new Power
+			cards.Add("PRO_001", new CardDef(new[] {"PRO_001a","PRO_001b","PRO_001c"}, new Power
 			{
 				// TODO [PRO_001] Elite Tauren Chieftain && Test: Elite Tauren Chieftain_PRO_001
 				//PowerTask = null,
@@ -719,7 +719,7 @@ namespace SabberStoneCore.CardSets
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("PRO_001c", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
+			cards.Add("PRO_001c", new CardDef(new[] {"CS2_121","EX1_021","EX1_023","EX1_110","EX1_390","CS2_179"}, new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [PRO_001c] Power of the Horde && Test: Power of the Horde_PRO_001c
 				//PowerTask = null,

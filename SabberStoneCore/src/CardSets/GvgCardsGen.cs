@@ -68,7 +68,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_034", new CardDef(new Power
+			cards.Add("GVG_034", new CardDef(new[] {"PART_007","PART_006","PART_005","PART_001","PART_003","PART_002","PART_004"}, new Power
 			{
 				Trigger = new Trigger(TriggerType.TAKE_DAMAGE)
 				{
@@ -1831,7 +1831,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_078", new CardDef(new Power
+			cards.Add("GVG_078", new CardDef(new[] {"PART_007","PART_006","PART_005","PART_001","PART_003","PART_002","PART_004"}, new Power
 			{
 				DeathrattleTask = ComplexTask.Create(
 					ComplexTask.GetRandomEntourageCardToHand(),
@@ -1874,7 +1874,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_082", new CardDef(new Power
+			cards.Add("GVG_082", new CardDef(new[] {"PART_007","PART_006","PART_005","PART_001","PART_003","PART_002","PART_004"}, new Power
 			{
 				DeathrattleTask = ComplexTask.GetRandomEntourageCardToHand()
 			}));
@@ -2093,7 +2093,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_102", new CardDef(new Power
+			cards.Add("GVG_102", new CardDef(new[] {"PART_007","PART_006","PART_005","PART_001","PART_003","PART_002","PART_004"}, new Power
 			{
 				PowerTask = ComplexTask.Create(
 					new ConditionTask(EntityType.SOURCE, SelfCondition.IsControllingRace(Race.MECHANICAL)),
@@ -2319,7 +2319,7 @@ namespace SabberStoneCore.CardSets
 			// RefTag:
 			// - SPARE_PART = 1
 			// --------------------------------------------------------
-			cards.Add("GVG_115", new CardDef(new Power
+			cards.Add("GVG_115", new CardDef(new[] {"PART_007","PART_006","PART_005","PART_003","PART_002","PART_001","PART_004"}, new Power
 			{
 				PowerTask = ComplexTask.GetRandomEntourageCardToHand(),
 				DeathrattleTask = ComplexTask.GetRandomEntourageCardToHand()

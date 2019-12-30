@@ -469,7 +469,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 2381
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA13_3", new CardDef(new Power
+			cards.Add("BRMA13_3", new CardDef(new[] {"BRMA13_8","BRMA13_7","BRMA13_5","BRMA13_6"}, new Power
 			{
 				// TODO [BRMA13_3] Nefarian && Test: Nefarian_BRMA13_3
 				//PowerTask = null,
@@ -486,7 +486,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 2467
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA13_3H", new CardDef(new Power
+			cards.Add("BRMA13_3H", new CardDef(new[] {"BRMA13_8","BRMA13_7","BRMA13_6","BRMA13_5"}, new Power
 			{
 				// TODO [BRMA13_3H] Nefarian && Test: Nefarian_BRMA13_3H
 				//PowerTask = null,
@@ -930,7 +930,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA09_2", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
+			cards.Add("BRMA09_2", new CardDef(new[] {"BRMA09_3","BRMA09_4"}, new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA09_2] Open the Gates && Test: Open the Gates_BRMA09_2
 				//PowerTask = null,
@@ -949,7 +949,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA09_2H", new CardDef(new Power
+			cards.Add("BRMA09_2H", new CardDef(new[] {"BRMA09_3H","BRMA09_4H"}, new Power
 			{
 				// TODO [BRMA09_2H] Open the Gates && Test: Open the Gates_BRMA09_2H
 				//PowerTask = null,
@@ -990,7 +990,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA09_3H", new CardDef(new Power
+			cards.Add("BRMA09_3H", new CardDef(new[] {"BRMA09_2H","BRMA09_4H","BRMA09_5H"}, new Power
 			{
 				// TODO [BRMA09_3H] Old Horde && Test: Old Horde_BRMA09_3H
 				//PowerTask = null,
@@ -1012,7 +1012,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA09_4", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
+			cards.Add("BRMA09_4", new CardDef(new[] {"BRMA09_2","BRMA09_3","BRMA09_5"}, new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA09_4] Blackwing && Test: Blackwing_BRMA09_4
 				//PowerTask = null,
@@ -1031,7 +1031,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA09_4H", new CardDef(new Power
+			cards.Add("BRMA09_4H", new CardDef(new[] {"BRMA09_2H","BRMA09_3H","BRMA09_5H"}, new Power
 			{
 				// TODO [BRMA09_4H] Blackwing && Test: Blackwing_BRMA09_4H
 				//PowerTask = null,
@@ -1053,7 +1053,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// PlayReq:
 			// - REQ_NUM_MINION_SLOTS = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA09_5", new CardDef(new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
+			cards.Add("BRMA09_5", new CardDef(new[] {"BRMA09_2","BRMA09_3","BRMA09_4"}, new Dictionary<PlayReq, int>() {{PlayReq.REQ_NUM_MINION_SLOTS,1}}, new Power
 			{
 				// TODO [BRMA09_5] Dismount && Test: Dismount_BRMA09_5
 				//PowerTask = null,
@@ -1072,7 +1072,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA09_5H", new CardDef(new Power
+			cards.Add("BRMA09_5H", new CardDef(new[] {"BRMA09_2H","BRMA09_3H","BRMA09_4H"}, new Power
 			{
 				// TODO [BRMA09_5H] Dismount && Test: Dismount_BRMA09_5H
 				//PowerTask = null,
@@ -1183,7 +1183,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA12_2", new CardDef(new Power
+			cards.Add("BRMA12_2", new CardDef(new[] {"BRMA12_6","BRMA12_5","BRMA12_7","BRMA12_4","BRMA12_3"}, new Power
 			{
 				// TODO [BRMA12_2] Brood Affliction && Test: Brood Affliction_BRMA12_2
 				//PowerTask = null,
@@ -1203,7 +1203,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA12_2H", new CardDef(new Power
+			cards.Add("BRMA12_2H", new CardDef(new[] {"BRMA12_3H","BRMA12_4H","BRMA12_5H","BRMA12_6H","BRMA12_7H"}, new Power
 			{
 				// TODO [BRMA12_2H] Brood Affliction && Test: Brood Affliction_BRMA12_2H
 				//PowerTask = null,
@@ -1223,7 +1223,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA13_2", new CardDef(new Power
+			cards.Add("BRMA13_2", new CardDef(new[] {"BRMA13_6","BRMA13_8","BRMA13_7","BRMA13_5"}, new Power
 			{
 				// TODO [BRMA13_2] True Form && Test: True Form_BRMA13_2
 				//PowerTask = null,
@@ -1243,7 +1243,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - AI_MUST_PLAY = 1
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA13_2H", new CardDef(new Power
+			cards.Add("BRMA13_2H", new CardDef(new[] {"BRMA13_6","BRMA13_8","BRMA13_7","BRMA13_5"}, new Power
 			{
 				// TODO [BRMA13_2H] True Form && Test: True Form_BRMA13_2H
 				//PowerTask = null,
@@ -1298,7 +1298,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA14_10", new CardDef(new Power
+			cards.Add("BRMA14_10", new CardDef(new[] {"BRMA14_3","BRMA14_5","BRMA14_7","BRMA14_9"}, new Power
 			{
 				// TODO [BRMA14_10] Activate! && Test: Activate!_BRMA14_10
 				//PowerTask = null,
@@ -1317,7 +1317,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("BRMA14_10H", new CardDef(new Power
+			cards.Add("BRMA14_10H", new CardDef(new[] {"BRMA14_3","BRMA14_5H","BRMA14_7H","BRMA14_9H"}, new Power
 			{
 				// TODO [BRMA14_10H] Activate! && Test: Activate!_BRMA14_10H
 				//PowerTask = null,

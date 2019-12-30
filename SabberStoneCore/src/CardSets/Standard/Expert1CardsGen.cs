@@ -4932,7 +4932,7 @@ namespace SabberStoneCore.CardSets.Standard
 			// GameTag:
 			// - ELITE = 1
 			// --------------------------------------------------------
-			cards.Add("EX1_572", new CardDef(new Power
+			cards.Add("EX1_572", new CardDef(new[] {"DREAM_01","DREAM_02","DREAM_03","DREAM_04","DREAM_05"}, new Power
 			{
 				Trigger = new Trigger(TriggerType.TURN_END)
 				{

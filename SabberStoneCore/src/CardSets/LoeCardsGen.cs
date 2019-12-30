@@ -66,10 +66,9 @@ namespace SabberStoneCore.CardSets
 			//       <b>Discover</b> a minion; or <b>Discover</b> a spell.
 			// --------------------------------------------------------
 			// GameTag:
-			// - CHOOSE_ONE = 1
-			// --------------------------------------------------------
-			// RefTag:
 			// - DISCOVER = 1
+			// - CHOOSE_ONE = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_115",
 				//CHOOSE_ONE
@@ -77,13 +76,17 @@ namespace SabberStoneCore.CardSets
 
 		}
 
-		private static void DruidNonCollect(Dictionary<string, CardDef> cards)
+		private static void DruidNonCollect(IDictionary<string, CardDef> cards)
 		{
 			// ------------------------------------------ SPELL - DRUID
-			// [LOE_115a] Raven Idol (*) - COST:0
+			// [LOE_115a] Break Free (*) - COST:1
 			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a minion.
+			// --------------------------------------------------------
+			// GameTag:
+			// - DISCOVER = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_115a", new CardDef(new Power
 			{
@@ -91,10 +94,14 @@ namespace SabberStoneCore.CardSets
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
-			// [LOE_115b] Raven Idol (*) - COST:0
+			// [LOE_115b] Awakened (*) - COST:1
 			// - Set: loe,
 			// --------------------------------------------------------
 			// Text: <b>Discover</b> a spell.
+			// --------------------------------------------------------
+			// GameTag:
+			// - DISCOVER = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_115b", new CardDef(new Power
 			{
@@ -197,9 +204,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// RefTag:
 			// - DISCOVER = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_003", new CardDef(new Power
 			{
@@ -337,10 +343,11 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
+			// - DISCOVER = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - DEATHRATTLE = 1
-			// - DISCOVER = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_006", new CardDef(new Power
 			{
@@ -539,9 +546,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// RefTag:
 			// - DISCOVER = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_023", new CardDef(new Power
 			{
@@ -712,6 +718,7 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// - BATTLECRY = 1
+			// - AFFECTED_BY_HEALING_DOES_DAMAGE = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_011", new CardDef(new Power
 			{
@@ -729,9 +736,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// RefTag:
 			// - DISCOVER = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_029", new CardDef(new Power
 			{
@@ -762,9 +768,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// RefTag:
 			// - DISCOVER = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_039", new CardDef(new Power
 			{
@@ -797,9 +802,8 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// GameTag:
 			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// RefTag:
 			// - DISCOVER = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_047", new CardDef(new Power
 			{
@@ -813,6 +817,9 @@ namespace SabberStoneCore.CardSets
 			// - Race: elemental, Set: loe, Rarity: epic
 			// --------------------------------------------------------
 			// Text: After you cast a spell on another friendly minion, cast a copy of it on this one.
+			// --------------------------------------------------------
+			// GameTag:
+			// - 1059 = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_053", new CardDef(new Power
 			{
@@ -864,14 +871,15 @@ namespace SabberStoneCore.CardSets
 			// --------------------------------------------------------
 			// Text: <b>Battlecry: Discover</b> a new basic Hero Power.
 			// --------------------------------------------------------
+			// Entourage: DS1h_292, CS2_056, CS2_101, CS1h_001, CS2_049, CS2_102, CS2_083b, CS2_034, CS2_017
+			// --------------------------------------------------------
 			// GameTag:
 			// - ELITE = 1
 			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// RefTag:
 			// - DISCOVER = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
-			cards.Add("LOE_076", new CardDef(new Power
+			cards.Add("LOE_076", new CardDef(new[] {"DS1h_292","CS2_056","CS2_101","CS1h_001","CS2_049","CS2_102","CS2_083b","CS2_034","CS2_017"}, new Power
 			{
 				PowerTask = new DiscoverTask(DiscoverType.BASIC_HEROPOWERS)
 			}));
@@ -885,6 +893,9 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// - AURA = 1
+			// - 1429 = 58400
+			// - TECH_LEVEL = 5
+			// - IS_BACON_POOL_MINION = 1
 			// --------------------------------------------------------
 			// RefTag:
 			// - BATTLECRY = 1
@@ -957,9 +968,8 @@ namespace SabberStoneCore.CardSets
 			// GameTag:
 			// - ELITE = 1
 			// - BATTLECRY = 1
-			// --------------------------------------------------------
-			// RefTag:
 			// - DISCOVER = 1
+			// - USE_DISCOVER_VISUALS = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_092", new CardDef(new Power
 			{
@@ -1175,13 +1185,15 @@ namespace SabberStoneCore.CardSets
 			// [LOE_110t] Ancient Curse (*) - COST:4
 			// - Set: loe,
 			// --------------------------------------------------------
-			// Text: [x]You take 7 damage.
-			//       Draw a card.
-			//       Cast this when drawn.
+			// Text: <b>Casts When Drawn</b>
+			//       You take 7 damage.
 			// --------------------------------------------------------
 			// GameTag:
 			// - ImmuneToSpellpower = 1
 			// - TOPDECK = 1
+			// --------------------------------------------------------
+			// RefTag:
+			// - CASTSWHENDRAWN = 1
 			// --------------------------------------------------------
 			cards.Add("LOE_110t", new CardDef(new Power
 			{

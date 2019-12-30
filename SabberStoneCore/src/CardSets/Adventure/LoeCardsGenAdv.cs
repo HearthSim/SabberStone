@@ -409,7 +409,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 19613
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("LOEA16_1", new CardDef(new Power
+			cards.Add("LOEA16_1", new CardDef(new[] {"LOEA16_18","LOEA16_23","LOEA16_19","LOEA16_22","LOEA16_21","LOEA16_24","LOEA16_25","LOEA16_26","LOEA16_27"}, new Power
 			{
 				// TODO [LOEA16_1] Rafaam && Test: Rafaam_LOEA16_1
 				//PowerTask = null,
@@ -426,7 +426,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// - HERO_POWER = 38712
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("LOEA16_1H", new CardDef(new Power
+			cards.Add("LOEA16_1H", new CardDef(new[] {"LOEA16_18H","LOEA16_19H","LOEA16_21H","LOEA16_22H","LOEA16_23H","LOEA16_24H","LOEA16_25H","LOEA16_26H","LOEA16_27H"}, new Power
 			{
 				// TODO [LOEA16_1H] Rafaam && Test: Rafaam_LOEA16_1H
 				//PowerTask = null,
@@ -1037,7 +1037,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("LOEA16_16", new CardDef(new Power
+			cards.Add("LOEA16_16", new CardDef(new[] {"LOEA16_10","LOEA16_11","LOEA16_14","LOEA16_15","LOEA16_6","LOEA16_7","LOEA16_9","LOEA16_12","LOEA16_13","LOEA16_8"}, new Power
 			{
 				// TODO [LOEA16_16] Rummage && Test: Rummage_LOEA16_16
 				//PowerTask = null,
@@ -1055,7 +1055,7 @@ namespace SabberStoneCore.CardSets.Adventure
 			// GameTag:
 			// - HIDE_WATERMARK = 1
 			// --------------------------------------------------------
-			cards.Add("LOEA16_16H", new CardDef(new Power
+			cards.Add("LOEA16_16H", new CardDef(new[] {"LOEA16_10","LOEA16_11","LOEA16_14","LOEA16_15","LOEA16_6","LOEA16_7","LOEA16_9","LOEA16_12","LOEA16_13","LOEA16_8"}, new Power
 			{
 				// TODO [LOEA16_16H] Rummage && Test: Rummage_LOEA16_16H
 				//PowerTask = null,
