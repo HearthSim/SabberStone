@@ -64,10 +64,7 @@ namespace SabberStoneCore.Loader
 					// fill missing playrequirements
 					if (cardDef.PlayReqs != null)
 					{
-						foreach (KeyValuePair<Enums.PlayReq, int> keyValue in cardDef.PlayReqs)
-						{
-							c.PlayRequirements.Add(keyValue.Key, keyValue.Value);
-						}
+						c.SetPlayRequirements(cardDef.PlayReqs);
 					}
 
 					c.Power = cardDef.Power;

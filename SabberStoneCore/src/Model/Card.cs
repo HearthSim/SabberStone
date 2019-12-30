@@ -36,12 +36,12 @@ namespace SabberStoneCore.Model
 		/// The result of this predicate is independent of <see cref="TargetingType"/> of this card.
 		/// null if there is no such a condtion for this card.
 		/// </summary>
-		public readonly TargetingPredicate TargetingPredicate;
+		public TargetingPredicate TargetingPredicate { get; private set; }
 		/// <summary>
 		/// Returns true if playing this card requires targeting, based on the given state of a <see cref="Controller"/>.
 		/// Can be null.
 		/// </summary>
-		public readonly AvailabilityPredicate TargetingAvailabilityPredicate;
+		public AvailabilityPredicate TargetingAvailabilityPredicate { get; private set; }
 		/// <summary>
 		/// Returns false if this card cannot be played with respect to the given state of a <see cref="Controller"/>.
 		/// </summary>
@@ -393,6 +393,143 @@ namespace SabberStoneCore.Model
 			{
 				Text += " @spelldmg";
 				IsAffectedBySpellDamage = true;
+			}
+		}
+
+		internal void SetPlayRequirements(Dictionary<PlayReq, int> playReqs)
+		{
+			PlayRequirements = playReqs;
+			bool needsTarget = false;
+			TargetingType type = TargetingType.All;
+			foreach (KeyValuePair<PlayReq, int> requirement in playReqs)
+			{
+				switch (requirement.Key)
+			{
+				case PlayReq.REQ_TARGET_TO_PLAY:
+					MustHaveTargetToPlay = true;
+					needsTarget = true;
+					break;
+				case PlayReq.REQ_DRAG_TO_PLAY:  // TODO
+				case PlayReq.REQ_NONSELF_TARGET:
+				case PlayReq.REQ_TARGET_IF_AVAILABLE:
+					needsTarget = true;
+					break;
+				case PlayReq.REQ_MINION_TARGET:
+					type &= ~TargetingType.Hero;
+					break;
+				case PlayReq.REQ_FRIENDLY_TARGET:
+					type &= ~TargetingType.Enemy;
+					break;
+				case PlayReq.REQ_ENEMY_TARGET:
+					type &= ~TargetingType.Friendly;
+					break;
+				case PlayReq.REQ_HERO_TARGET:
+					type &= ~TargetingType.Minion;
+					break;
+				case PlayReq.REQ_TARGET_WITH_RACE:
+					TargetingPredicate += TargetingPredicates.ReqTargetWithRace(requirement.Value);
+					break;
+				case PlayReq.REQ_FROZEN_TARGET:
+					TargetingPredicate += TargetingPredicates.ReqFrozenTarget;
+					break;
+				case PlayReq.REQ_DAMAGED_TARGET:
+					TargetingPredicate += TargetingPredicates.ReqDamagedTarget;
+					break;
+				case PlayReq.REQ_UNDAMAGED_TARGET:
+					TargetingPredicate += TargetingPredicates.ReqUndamagedTarget;
+					break;
+				case PlayReq.REQ_TARGET_MAX_ATTACK:
+					TargetingPredicate += TargetingPredicates.ReqTargetMaxAttack(requirement.Value);
+					break;
+				case PlayReq.REQ_TARGET_MIN_ATTACK:
+					TargetingPredicate += TargetingPredicates.ReqTargetMinAttack(requirement.Value);
+					break;
+				case PlayReq.REQ_MUST_TARGET_TAUNTER:
+					TargetingPredicate += TargetingPredicates.ReqMustTargetTaunter;
+					break;
+				case PlayReq.REQ_STEALTHED_TARGET:
+					TargetingPredicate += TargetingPredicates.ReqStealthedTarget;
+					break;
+				case PlayReq.REQ_TARGET_WITH_DEATHRATTLE:
+					TargetingPredicate += TargetingPredicates.ReqTargetWithDeathrattle;
+					break;
+				case PlayReq.REQ_LEGENDARY_TARGET:
+					TargetingPredicate += TargetingPredicates.ReqLegendaryTarget;
+					break;
+				case PlayReq.REQ_TARGET_FOR_COMBO:
+					needsTarget = true;
+					TargetingAvailabilityPredicate += TargetingPredicates.ReqTargetForCombo;
+					break;
+				case PlayReq.REQ_TARGET_IF_AVAILABE_AND_ELEMENTAL_PLAYED_LAST_TURN:
+					needsTarget = true;
+					TargetingAvailabilityPredicate += TargetingPredicates.ElementalPlayedLastTurn;
+					break;
+				case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_DRAGON_IN_HAND:
+					needsTarget = true;
+					TargetingAvailabilityPredicate += TargetingPredicates.DragonInHand;
+					break;
+				case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_MINIONS:
+					needsTarget = true;
+					TargetingAvailabilityPredicate += TargetingPredicates.MinimumFriendlyMinions(requirement.Value);
+					break;
+				case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_MINIMUM_FRIENDLY_SECRETS:
+					needsTarget = true;
+					TargetingAvailabilityPredicate += TargetingPredicates.MinimumFriendlySecrets(requirement.Value);
+					break;
+				case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_NO_3_COST_CARD_IN_DECK:
+					// TODO
+					TargetingType = TargetingType.AllMinions;
+					break;
+				case PlayReq.REQ_TARGET_IF_AVAILABLE_AND_HERO_HAS_ATTACK:
+					needsTarget = true;
+					TargetingAvailabilityPredicate += TargetingPredicates.ReqHeroHasAttack;
+					break;
+				case PlayReq.REQ_NUM_MINION_SLOTS:
+					PlayAvailabilityPredicate += TargetingPredicates.ReqNumMinionSlots;
+					break;
+				case PlayReq.REQ_MINIMUM_ENEMY_MINIONS:
+					PlayAvailabilityPredicate += TargetingPredicates.ReqMinimumEnemyMinions(requirement.Value);
+					break;
+				case PlayReq.REQ_MINIMUM_TOTAL_MINIONS:
+					PlayAvailabilityPredicate += TargetingPredicates.ReqMinimumTotalMinions(requirement.Value);
+					break;
+				case PlayReq.REQ_HAND_NOT_FULL:
+					PlayAvailabilityPredicate += TargetingPredicates.ReqHandNotFull;
+					break;
+				case PlayReq.REQ_WEAPON_EQUIPPED:
+					PlayAvailabilityPredicate += TargetingPredicates.ReqWeaponEquipped;
+					break;
+				case PlayReq.REQ_ENTIRE_ENTOURAGE_NOT_IN_PLAY:
+					PlayAvailabilityPredicate += TargetingPredicates.ReqEntireEntourageNotInPlay(AssetId);
+					break;
+				case PlayReq.REQ_FRIENDLY_MINION_DIED_THIS_GAME:
+					PlayAvailabilityPredicate += TargetingPredicates.ReqFriendlyMinionDiedThisGame;
+					break;
+				case PlayReq.REQ_FRIENDLY_MINION_OF_RACE_DIED_THIS_TURN:
+					PlayAvailabilityPredicate +=
+						TargetingPredicates.ReqFriendlyMinionOfRaceDiedThisTurn((Race) requirement.Value);
+					break;
+				case PlayReq.REQ_MUST_PLAY_OTHER_CARD_FIRST:
+					PlayAvailabilityPredicate += (c, card) => false;
+					break;
+				//	REQ_STEADY_SHOT
+				//	REQ_MINION_OR_ENEMY_HERO	//	Steady Shot
+				//	REQ_MINION_SLOT_OR_MANA_CRYSTAL_SLOT	//	Jade Blossom
+				case PlayReq.REQ_SECRET_ZONE_CAP_FOR_NON_SECRET:
+					PlayAvailabilityPredicate += TargetingPredicates.ReqSecretZoneCapForNonSecret;
+					break;
+			}
+			}
+
+			if (needsTarget)
+			{
+				//if ((type & TargetingType.Enemy) != TargetingType.Enemy &&
+				//    (type & TargetingType.Friendly) != TargetingType.Friendly)
+				//{
+				//	type |= TargetingType.Enemy;
+				//	type |= TargetingType.Friendly;
+				//}
+				TargetingType = type;
 			}
 		}
 
