@@ -46,18 +46,27 @@ namespace SabberStoneCore.Loader
 				if (CardDefs.Instance.Get.TryGetValue(c.Id, out CardDef cardDef))
 				{
 					// test current PlayReq against last cardDef with playreq CardDefs-36393.xml
-					if (c.PlayRequirements != null)
+					//if (c.PlayRequirements != null)
+					//{
+					//	foreach (KeyValuePair<Enums.PlayReq, int> keyValuePair in c.PlayRequirements)
+					//	{
+					//		if (cardDef.PlayReqs == null)
+					//		{
+					//			Console.WriteLine($"{c.Id} missing {keyValuePair.Key} = {keyValuePair.Value}!!!");
+					//		}
+					//		else if (!cardDef.PlayReqs.Any(p => p.Key == keyValuePair.Key && p.Value == keyValuePair.Value))
+					//		{
+					//			Console.WriteLine($"{c.Id} missing {keyValuePair.Key} = {keyValuePair.Value}!!!");
+					//		}
+					//	}
+					//}
+					
+					// fill missing playrequirements
+					if (cardDef.PlayReqs != null)
 					{
-						foreach (KeyValuePair<Enums.PlayReq, int> keyValuePair in c.PlayRequirements)
+						foreach (KeyValuePair<Enums.PlayReq, int> keyValue in cardDef.PlayReqs)
 						{
-							if (cardDef.PlayReqs == null)
-							{
-								Console.WriteLine($"{c.Id} missing {keyValuePair.Key} = {keyValuePair.Value}!!!");
-							}
-							else if (!cardDef.PlayReqs.Any(p => p.Key == keyValuePair.Key && p.Value == keyValuePair.Value))
-							{
-								Console.WriteLine($"{c.Id} missing {keyValuePair.Key} = {keyValuePair.Value}!!!");
-							}
+							c.PlayRequirements.Add(keyValue.Key, keyValue.Value);
 						}
 					}
 
