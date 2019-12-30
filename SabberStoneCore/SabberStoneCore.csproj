@@ -7,7 +7,7 @@
     <Authors>SabberStone Team, darkfriend77 and rnilva</Authors>
     <Description>Hearthstone Simulator</Description>
     <Copyright>GNU AGPL v3</Copyright>
-    <PackageLicenseUrl>https://www.gnu.org/licenses/gpl-3.0.en.html</PackageLicenseUrl>
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <Configurations>Debug;Release;NoSpan</Configurations>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <NoWarn>NU1605</NoWarn>
