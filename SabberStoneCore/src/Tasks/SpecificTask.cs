@@ -783,6 +783,7 @@ namespace SabberStoneCore.Tasks
 		public static ISimpleTask GetRandomDrBoomHeroPower =>
 			new FuncNumberTask(source =>
 			{
+				string[] drBoomHeroPowerIds = DrBoomHeroPowerCard.Entourage;
 				string nextId;
 				Controller c = source.Controller;
 				Util.DeepCloneableRandom rnd = source.Game.Random;
@@ -791,12 +792,12 @@ namespace SabberStoneCore.Tasks
 				{
 					do
 					{
-						nextId = DrBoomHeroPowerIds.Choose(rnd);
+						nextId = drBoomHeroPowerIds.Choose(rnd);
 					} while (nextId == currentPower.Card.Id);
 				}
 				else
 				{
-					nextId = DrBoomHeroPowerIds.Choose(rnd);
+					nextId = drBoomHeroPowerIds.Choose(rnd);
 					currentPower = c.Hero.HeroPower;
 				}
 				c.SetasideZone.Add(currentPower);
@@ -806,7 +807,7 @@ namespace SabberStoneCore.Tasks
 
 				return 0;
 			});
-		private static readonly IReadOnlyList<string> DrBoomHeroPowerIds = Cards.FromId("BOT_238p").Entourage;
+		private static readonly Card DrBoomHeroPowerCard = Cards.FromId("BOT_238p");
 
 		public static readonly ISimpleTask Zuljin = new FuncNumberTask(ZuljinInternal);
 		private static int ZuljinInternal(IPlayable source)
