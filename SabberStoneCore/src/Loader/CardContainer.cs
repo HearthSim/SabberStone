@@ -45,26 +45,16 @@ namespace SabberStoneCore.Loader
 			{
 				if (CardDefs.Instance.Get.TryGetValue(c.Id, out CardDef cardDef))
 				{
-					// test current PlayReq against last cardDef with playreq CardDefs-36393.xml
-					//if (c.PlayRequirements != null)
-					//{
-					//	foreach (KeyValuePair<Enums.PlayReq, int> keyValuePair in c.PlayRequirements)
-					//	{
-					//		if (cardDef.PlayReqs == null)
-					//		{
-					//			Console.WriteLine($"{c.Id} missing {keyValuePair.Key} = {keyValuePair.Value}!!!");
-					//		}
-					//		else if (!cardDef.PlayReqs.Any(p => p.Key == keyValuePair.Key && p.Value == keyValuePair.Value))
-					//		{
-					//			Console.WriteLine($"{c.Id} missing {keyValuePair.Key} = {keyValuePair.Value}!!!");
-					//		}
-					//	}
-					//}
-					
-					// fill missing playrequirements
+					// fill missing playrequirements, last card def with info is CardDefs-36393.xml
 					if (cardDef.PlayReqs != null)
 					{
 						c.SetPlayRequirements(cardDef.PlayReqs);
+					}
+
+					// fill missing entourage, last card def with info is CardDefs-36393.xml
+					if (cardDef.Entourage != null)
+					{
+						c.Entourage = cardDef.Entourage;
 					}
 
 					c.Power = cardDef.Power;
@@ -77,13 +67,6 @@ namespace SabberStoneCore.Loader
 									cardDef.Power.Aura != null ||
 									cardDef.Power.Trigger != null ||
 									cardDef.Power.Enchant != null;
-				}
-				else
-				{
-					//if (c.PlayRequirements != null && c.PlayRequirements.Count > 0)
-					//{
-					//	Console.WriteLine($"{c.Id} missing {c.PlayRequirements}!!!");
-					//}
 				}
 			}
 		}

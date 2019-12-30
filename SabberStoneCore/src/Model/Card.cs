@@ -559,7 +559,7 @@ namespace SabberStoneCore.Model
 		/// For example Ysera, the dragon which produces on DREAM card after your turn,
 		/// has entourage: DREAM_01, DREAM_02, DREAM_03, DREAM_04, DREAM_05
 		/// </summary>
-		public string[] Entourage { get; }
+		public string[] Entourage { get; internal set; }
 
 		/// <summary>
 		/// Properties set on this instance.
