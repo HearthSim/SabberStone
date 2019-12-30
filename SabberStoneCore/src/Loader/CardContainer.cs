@@ -46,26 +46,25 @@ namespace SabberStoneCore.Loader
 				if (CardDefs.Instance.Get.TryGetValue(c.Id, out CardDef cardDef))
 				{
 					// test current PlayReq against last cardDef with playreq CardDefs-36393.xml
-					if (c.PlayRequirements != null)
+					//if (c.PlayRequirements != null)
+					//{
+					//	foreach (KeyValuePair<Enums.PlayReq, int> keyValuePair in c.PlayRequirements)
+					//	{
+					//		if (cardDef.PlayReqs == null)
+					//		{
+					//			Console.WriteLine($"{c.Id} missing {keyValuePair.Key} = {keyValuePair.Value}!!!");
+					//		}
+					//		else if (!cardDef.PlayReqs.Any(p => p.Key == keyValuePair.Key && p.Value == keyValuePair.Value))
+					//		{
+					//			Console.WriteLine($"{c.Id} missing {keyValuePair.Key} = {keyValuePair.Value}!!!");
+					//		}
+					//	}
+					//}
+					
+					// fill missing playrequirements
+					if (cardDef.PlayReqs != null)
 					{
-						foreach (KeyValuePair<Enums.PlayReq, int> keyValuePair in c.PlayRequirements)
-						{
-							if (cardDef.PlayReqs == null || !cardDef.PlayReqs.Any(p => p.Key == keyValuePair.Key && p.Value == keyValuePair.Value))
-							{
-								Console.WriteLine($"{c.Id} missing {keyValuePair.Key} = {keyValuePair.Value}!!!");
-							}
-						}
-					}
-					// test current Entourage against last cardDef with entourage CardDefs-36393.xml
-					if (c.Entourage != null)
-					{
-						foreach (string entourageCard in c.Entourage)
-						{
-							if (cardDef.Entourage == null || !cardDef.Entourage.Any(p => p == entourageCard))
-							{
-								Console.WriteLine($"{c.Id} missing {entourageCard} entourage card!!!");
-							}
-						}
+						c.SetPlayRequirements(cardDef.PlayReqs);
 					}
 
 					c.Power = cardDef.Power;
