@@ -1,7 +1,7 @@
 ﻿language: csharp # Comes with Mono automatically.
 mono: none # ..speeds up builds by not installing Mono.
 dist: trusty
-dotnet: 2.1.4
+dotnet: 2.1.500
 
 notifications:
   email:
@@ -31,4 +31,4 @@ before_script: "unset _JAVA_OPTIONS"
 # `script` DOES NOT immediately fail when one command returns != 0
 # so the one-liner trick is used.
 script:
-- dotnet build -c Release /p:TravisBuild=True && pushd ./SabberStoneCoreTest && dotnet xunit -fxversion 2.0.5
+- dotnet build -c Release /p:TravisBuild=True && pushd ./SabberStoneCoreTest && dotnet xunit -fxversion 2.1.11
