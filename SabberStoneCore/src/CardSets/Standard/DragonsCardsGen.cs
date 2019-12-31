@@ -599,9 +599,11 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_315", new CardDef(new Power
 			{
 				// TODO [DRG_315] Embiggen && Test: Embiggen_DRG_315
-				InfoCardId = "DRG_315e",
-				//PowerTask = null,
-				//Trigger = null,
+				//PowerTask = ComplexTask.Create(
+				//	new FlagTask(true, ComplexTask.Create(
+				//		new IncludeTask(EntityType.DECK),
+				//		new FilterStackTask(SelfCondition.IsMinion),
+				//		new AddEnchantmentTask("DRG_315e", EntityType.STACK))))
 			}));
 
 			// ------------------------------------------ SPELL - DRUID
@@ -647,8 +649,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_315e", new CardDef(new Power
 			{
 				// TODO [DRG_315e] Embiggened && Test: Embiggened_DRG_315e
-				InfoCardId = "DRG_315e2",
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_315e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_315e")
 			}));
 
 			// ------------------------------------ ENCHANTMENT - DRUID
@@ -660,7 +661,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_315e2", new CardDef(new Power
 			{
 				// TODO [DRG_315e2] Costly Embiggening && Test: Costly Embiggening_DRG_315e2
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_315e2")
+				Enchant = new Enchant(Effects.AddCost(1))
 			}));
 
 			// ----------------------------------------- MINION - DRUID
@@ -1141,7 +1142,10 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_322e", new CardDef(new Power
 			{
 				// TODO [DRG_322e] Draconic Magic && Test: Draconic Magic_DRG_322e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_322e")
+				Aura = new Aura(AuraType.HAND, Effects.SetCost(0))
+				{
+					RemoveTrigger = (TriggerType.CAST_SPELL, null)
+				}
 			}));
 
 			// ------------------------------------------ MINION - MAGE
@@ -1762,7 +1766,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_300e", new CardDef(new Power
 			{
 				// TODO [DRG_300e] Draconic Fate && Test: Draconic Fate_DRG_300e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_300e")
+				Enchant = new Enchant(Effects.ReduceCost(1))
 			}));
 
 		}
@@ -1963,7 +1967,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_030e", new CardDef(new Power
 			{
 				// TODO [DRG_030e] Praise Galakrond! && Test: Praise Galakrond!_DRG_030e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_030e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_030e")
 			}));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
@@ -1972,11 +1976,10 @@ namespace SabberStoneCore.CardSets.Standard
 			// --------------------------------------------------------
 			// Text: Stealthed until your next turn.
 			// --------------------------------------------------------
-			cards.Add("DRG_074e", new CardDef(new Power
-			{
+			cards.Add("DRG_074e", new CardDef(
 				// TODO [DRG_074e] Camouflaged && Test: Camouflaged_DRG_074e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_074e")
-			}));
+				Power.OneTurnStealthEnchantmentPower
+			));
 
 			// ------------------------------------ ENCHANTMENT - ROGUE
 			// [DRG_610e] Galakrond's Wonder (*) - COST:0
@@ -1987,7 +1990,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_610e", new CardDef(new Power
 			{
 				// TODO [DRG_610e] Galakrond's Wonder && Test: Galakrond's Wonder_DRG_610e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_610e")
+				Enchant = new Enchant(Effects.SetCost(0))
 			}));
 
 			// ----------------------------------------- MINION - ROGUE
@@ -2241,7 +2244,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_096e2", new CardDef(new Power
 			{
 				// TODO [DRG_096e2] Smoshing && Test: Smoshing_DRG_096e2
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_096e2")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_096e2")
 			}));
 
 			// ----------------------------------- ENCHANTMENT - SHAMAN
@@ -2253,7 +2256,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_216e", new CardDef(new Power
 			{
 				// TODO [DRG_216e] Surging && Test: Surging_DRG_216e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_216e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_216e")
 			}));
 
 			// ---------------------------------------- MINION - SHAMAN
@@ -2564,7 +2567,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_202e", new CardDef(new Power
 			{
 				// TODO [DRG_202e] Power of the Cult && Test: Power of the Cult_DRG_202e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_202e")
+				Enchant = Enchants.Enchants.AddAttackScriptTag
 			}));
 
 			// --------------------------------------- MINION - WARLOCK
@@ -2795,7 +2798,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_238t10e", new CardDef(new Power
 			{
 				// TODO [DRG_238t10e] Galakrond's Might && Test: Galakrond's Might_DRG_238t10e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_238t10e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_238t10e")
 			}));
 
 		}
@@ -3597,7 +3600,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_008e", new CardDef(new Power
 			{
 				// TODO [DRG_008e] Righteous Cause && Test: Righteous Cause_DRG_008e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_008e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_008e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3609,7 +3612,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_049e", new CardDef(new Power
 			{
 				// TODO [DRG_049e] Well Fed && Test: Well Fed_DRG_049e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_049e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_049e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3621,7 +3624,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_058e", new CardDef(new Power
 			{
 				// TODO [DRG_058e] Commanding && Test: Commanding_DRG_058e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_058e")
+				Enchant = Enchants.Enchants.AddAttackScriptTag
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3633,7 +3636,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_059e", new CardDef(new Power
 			{
 				// TODO [DRG_059e] Gobogliding && Test: Gobogliding_DRG_059e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_059e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_059e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3645,7 +3648,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_063e", new CardDef(new Power
 			{
 				// TODO [DRG_063e] Poaching && Test: Poaching_DRG_063e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_063e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_063e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3693,7 +3696,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_089e", new CardDef(new Power
 			{
 				// TODO [DRG_089e] A Queen's Discount && Test: A Queen's Discount_DRG_089e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_089e")
+				Enchant = new Enchant(Effects.SetCost(0))
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3718,7 +3721,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_099t3e", new CardDef(new Power
 			{
 				// TODO [DRG_099t3e] Dominating && Test: Dominating_DRG_099t3e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_099t3e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_099t3e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3730,7 +3733,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_215e", new CardDef(new Power
 			{
 				// TODO [DRG_215e] Storm's Wrath && Test: Storm's Wrath_DRG_215e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_215e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_215e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3757,7 +3760,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_225e", new CardDef(new Power
 			{
 				// TODO [DRG_225e] Mechanical Might && Test: Mechanical Might_DRG_225e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_225e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_225e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3769,7 +3772,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_233e", new CardDef(new Power
 			{
 				// TODO [DRG_233e] Sand Breath && Test: Sand Breath_DRG_233e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_233e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_233e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3793,7 +3796,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_250e", new CardDef(new Power
 			{
 				// TODO [DRG_250e] Fiendish Rites && Test: Fiendish Rites_DRG_250e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_250e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_250e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3829,7 +3832,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_311e", new CardDef(new Power
 			{
 				// TODO [DRG_311e] Spore Hardened && Test: Spore Hardened_DRG_311e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_311e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_311e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3865,7 +3868,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_403e", new CardDef(new Power
 			{
 				// TODO [DRG_403e] Hot Hot Hot! && Test: Hot Hot Hot!_DRG_403e
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_403e")
+				Enchant = new Enchant(Effects.SetCost(3))
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3878,7 +3881,7 @@ namespace SabberStoneCore.CardSets.Standard
 			{
 				// TODO [DRG_650e] Galakrond's Strength && Test: Galakrond's Strength_DRG_650e
 				InfoCardId = "DRG_650e2",
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_650e")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_650e")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3890,7 +3893,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_650e2", new CardDef(new Power
 			{
 				// TODO [DRG_650e2] Galakrond's Strength && Test: Galakrond's Strength_DRG_650e2
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_650e2")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_650e2")
 			}));
 
 			// ---------------------------------- ENCHANTMENT - NEUTRAL
@@ -3902,7 +3905,7 @@ namespace SabberStoneCore.CardSets.Standard
 			cards.Add("DRG_650e3", new CardDef(new Power
 			{
 				// TODO [DRG_650e3] Galakrond's Strength && Test: Galakrond's Strength_DRG_650e3
-				//Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_650e3")
+				Enchant = Enchants.Enchants.GetAutoEnchantFromText("DRG_650e3")
 			}));
 
 			// --------------------------------------- MINION - NEUTRAL
