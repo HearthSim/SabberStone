@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using System.Collections.Generic;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Auras;
@@ -22,6 +24,7 @@ using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class TransformCopyTask : SimpleTask
 	{
 		private readonly bool _addToStack;

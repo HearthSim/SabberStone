@@ -1,4 +1,5 @@
-﻿using SabberStoneCore.Model;
+﻿using System;
+using SabberStoneCore.Model;
 #region copyright
 // SabberStone, Hearthstone Simulator in C# .NET Core
 // Copyright (C) 2017-2019 SabberStone Team, darkfriend77 & rnilva
@@ -17,6 +18,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class EnqueueNumberTask : SimpleTask
 	{
 		private readonly bool _spellDmg;

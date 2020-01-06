@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -19,6 +21,7 @@ using SabberStoneCore.Triggers;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class MagneticTask : SimpleTask
 	{
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,

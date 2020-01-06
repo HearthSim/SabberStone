@@ -20,9 +20,11 @@ namespace SabberStoneCore.Conditions
 	/// Container for all conditions about the relation between 2 <see cref="IPlayable"/>
 	/// instances.
 	/// </summary>
+	[Serializable]
 	public class RelaCondition
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 	{
+		[NonSerialized]
 		private readonly Func<IPlayable, IPlayable, bool> _function;
 
 		public static RelaCondition IsMyWeapon => new RelaCondition((me, other) => me.Controller.Hero.Weapon != null && me.Controller.Hero.Weapon == other);

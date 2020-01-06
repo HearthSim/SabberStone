@@ -93,6 +93,7 @@ namespace SabberStoneCore.Model.Entities
 	/// <seealso cref="Spell"/>
 	/// </summary>
 	/// <seealso cref="IEntity" />
+	[Serializable]
 	public partial class Entity : IEntity
 	{
 		/// <summary>

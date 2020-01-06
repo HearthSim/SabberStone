@@ -19,6 +19,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class GetGameTagTask : SimpleTask
 	{
 		public GetGameTagTask(GameTag tag, EntityType entityType, int entityIndex = 0, int numberIndex = 0)
@@ -97,6 +98,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	///     Gets number of the current event and stores it to the stack.
 	///     (e.g. the amount damage dealt or heal taken)
 	/// </summary>
+	[Serializable]
 	public class GetEventNumberTask : SimpleTask
 	{
 		private readonly int _numberIndex;
@@ -135,6 +137,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 	}
 
+	[Serializable]
 	public class SetEventNumberTask : SimpleTask
 	{
 		private readonly int _num;

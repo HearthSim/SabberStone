@@ -20,6 +20,7 @@ using System.Collections.Generic;
 
 namespace SabberStoneCore.Model.Zones
 {
+	[Serializable]
 	public class SecretZone : LimitedZone<Spell>
 	{
 		public const int SecretZoneMaxSize = 5;

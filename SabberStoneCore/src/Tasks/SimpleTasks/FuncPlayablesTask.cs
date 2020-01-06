@@ -18,6 +18,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class FuncPlayablesTask : SimpleTask
 	{
 		public FuncPlayablesTask(Func<IList<IPlayable>, IList<IPlayable>> function)
@@ -40,6 +41,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 	}
 
+	[Serializable]
 	public class CustomTask : SimpleTask
 	{
 		private readonly Action<Game, Controller, IEntity, IPlayable, TaskStack> _func;

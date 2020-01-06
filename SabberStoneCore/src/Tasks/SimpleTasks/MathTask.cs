@@ -26,6 +26,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		DIV
 	}
 
+	[Serializable]
 	public class MathNumberIndexTask : SimpleTask
 	{
 		private readonly int _indexA;
@@ -110,6 +111,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 	}
 
+	[Serializable]
 	public class MathRandTask : SimpleTask
 	{
 		public MathRandTask(int min, int max)
@@ -130,6 +132,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 	}
 
+	[Serializable]
 	public class MathMultiplyTask : SimpleTask
 	{
 		public MathMultiplyTask(int amount)
@@ -148,6 +151,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 	}
 
+	[Serializable]
 	public class MathAddTask : SimpleTask
 	{
 		public MathAddTask(int amount)
@@ -166,6 +170,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 	}
 
+	[Serializable]
 	public class MathSubstractionTask : SimpleTask
 	{
 		public MathSubstractionTask(int amount)

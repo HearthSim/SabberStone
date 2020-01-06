@@ -28,6 +28,7 @@ namespace SabberStoneCore.Model.Entities
 	/// Instance that represents a player in SabberStone game instances.
 	/// <seealso cref="Entity"/>
 	/// </summary>
+	[Serializable]
 	public partial class Controller : Entity
 	{
 		private readonly int _playerId;

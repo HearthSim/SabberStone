@@ -219,6 +219,7 @@ namespace SabberStoneCore.Model.Entities
 	/// </summary>
 	/// <seealso cref="IPlayable" />
 	/// <seealso cref="Entity"/>
+	[Serializable]
 	public abstract partial class Playable : Entity, IPlayable
 	{
 		/// <summary>Initializes a new instance of the <see cref="Playable"/> class.</summary>

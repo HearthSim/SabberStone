@@ -12,12 +12,14 @@
 // GNU Affero General Public License for more details.
 #endregion
 
+using System;
 using System.Collections.Generic;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model.Zones
 {
+	[Serializable]
 	public class GraveyardZone : UnlimitedZone
 	{
 		public GraveyardZone(Controller controller) : base(controller, Zone.GRAVEYARD)

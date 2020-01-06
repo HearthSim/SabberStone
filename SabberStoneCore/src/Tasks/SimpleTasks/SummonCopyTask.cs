@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using System.Collections.Generic;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enums;
@@ -25,6 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	/// Summon a copy of one (or more) existing entity.
 	/// </summary>
 	/// <seealso cref="SimpleTask" />
+	[Serializable]
 	public class SummonCopyTask : SimpleTask
 	{
 		private readonly bool _addToStack;

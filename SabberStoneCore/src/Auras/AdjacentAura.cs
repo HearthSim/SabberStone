@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SabberStoneCore.Enchants;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Kettle;
@@ -9,6 +10,7 @@ using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Auras
 {
+	[Serializable]
 	public class AdjacentAura : IAura
 	{
 		private Minion _left;

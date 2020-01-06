@@ -21,6 +21,7 @@ using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class CopyTask : SimpleTask
 	{
 		private readonly EntityType _entityType;

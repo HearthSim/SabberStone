@@ -26,6 +26,7 @@ namespace SabberStoneCore.Model.Entities
 	/// Implements <see cref="IDictionary{TKey, TValue}"/>.
 	/// This only contains modified/added tags during runtime, rather than card's original tags.
 	/// </summary>
+	[Serializable]
 	internal class EntityData : IDictionary<GameTag, int>
 	{
 		private const int _initSize = 16;

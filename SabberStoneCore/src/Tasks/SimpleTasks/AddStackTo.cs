@@ -19,6 +19,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class AddStackTo : SimpleTask
 	{
 		public AddStackTo(EntityType type)

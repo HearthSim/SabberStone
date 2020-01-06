@@ -52,6 +52,7 @@ namespace SabberStoneCore.Model
 	/// game data.
 	/// </summary>
 	/// <seealso cref="Entity" />
+	[Serializable]
 	public partial class Game : Entity
 	{
 		/// <summary>

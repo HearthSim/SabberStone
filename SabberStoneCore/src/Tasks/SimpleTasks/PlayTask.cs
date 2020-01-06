@@ -27,6 +27,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	/// <summary>
 	///     Allows to have a playable played out in a task
 	/// </summary>
+	[Serializable]
 	public class PlayTask : SimpleTask
 	{
 		private readonly PlayType _playType;

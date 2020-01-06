@@ -19,6 +19,7 @@ using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class CountTask : SimpleTask
 	{
 		private readonly int _numberIndex;

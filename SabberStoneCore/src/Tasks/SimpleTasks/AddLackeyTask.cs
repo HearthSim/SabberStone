@@ -12,6 +12,7 @@
 // GNU Affero General Public License for more details.
 #endregion
 
+using System;
 using System.Linq;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
@@ -19,6 +20,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class AddLackeyTask : SimpleTask
 	{
 		public static readonly Card[]

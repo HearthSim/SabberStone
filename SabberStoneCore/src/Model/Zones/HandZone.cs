@@ -15,12 +15,14 @@
 using SabberStoneCore.Auras;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
+using System;
 
 namespace SabberStoneCore.Model.Zones
 {
 	/// <summary>
 	/// Zone for all entities which are held 'in hand'.
 	/// </summary>
+	[Serializable]
 	public class HandZone : PositioningZone<IPlayable>
 	{
 		public HandZone(Controller controller) : base(Zone.HAND, Controller.MaxHandSize)

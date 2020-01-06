@@ -17,6 +17,7 @@ using SabberStoneCore.Enums;
 
 namespace SabberStoneCore.Model.Entities
 {
+	[Serializable]
 	public class Unknown : Playable
 	{
 		public static readonly Card UnknownCard = new Card("", -1,

@@ -7,6 +7,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	/// <summary>
 	/// Creates new entity instance from the captured Card of an Enchantment.
 	/// </summary>
+	[Serializable]
 	public class GetCapturedCardTask : SimpleTask
 	{
 		private GetCapturedCardTask() { }
@@ -42,6 +43,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	/// <summary>
 	/// Activates the captured card's Deathrattle Task.
 	/// </summary>
+	[Serializable]
 	public class ActivateCapturedDeathrattleTask : SimpleTask
 	{
 		private ActivateCapturedDeathrattleTask() { }

@@ -75,6 +75,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		HEISTBARON_TOGWAGGLE,
 	}
 
+	[Serializable]
 	public class DiscoverTask : SimpleTask
 	{
 		private static readonly ConcurrentDictionary<DiscoverType, (Card[][], ChoiceAction)>
@@ -874,6 +875,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 			return result;
 		}
 
+		[Serializable]
 		private readonly struct DiscoverCriteria : IEquatable<DiscoverCriteria>
 		{
 			public readonly CardType CardType;

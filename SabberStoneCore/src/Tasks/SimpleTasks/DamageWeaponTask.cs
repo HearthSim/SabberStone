@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -19,6 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	/// <summary>
 	///     A task that deals specific amount of damage to one of the equipped weapons.
 	/// </summary>
+	[Serializable]
 	public class DamageWeaponTask : SimpleTask
 	{
 		private readonly bool _opponent;

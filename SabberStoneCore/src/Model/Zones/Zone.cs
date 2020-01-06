@@ -31,6 +31,7 @@ namespace SabberStoneCore.Model.Zones
 	/// <typeparam name="T"></typeparam>
 	/// <seealso cref="T:SabberStoneCore.Model.Zones.IZone" />
 	/// <seealso cref="T:System.Collections.Generic.IEnumerable`1" />
+	[Serializable]
 	public abstract class Zone<T> : IZone, IEnumerable<T> where T : IPlayable
 	{
 		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
@@ -339,6 +340,7 @@ namespace SabberStoneCore.Model.Zones
 	/// Base implementation of <see cref="GraveyardZone"/> and <see cref="SetasideZone"/>.
 	/// This kind of zones never be full.
 	/// </summary>
+	[Serializable]
 	public abstract class UnlimitedZone : Zone<IPlayable>
 	{
 		protected UnlimitedZone(Controller controller, Zone type) : base(type)
@@ -433,6 +435,7 @@ namespace SabberStoneCore.Model.Zones
 	/// Base implementation of zones which have a maximum size.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
+	[Serializable]
 	public abstract class LimitedZone<T> : Zone<T> where T: IPlayable
 	{
 		/// <summary>
@@ -557,6 +560,7 @@ namespace SabberStoneCore.Model.Zones
 	/// Base implementation of zones performing strict recalculation of its containing entities' ZonePosition when any member comes and goes.
 	/// </summary>
 	/// <typeparam name="T"></typeparam>
+	[Serializable]
 	public abstract class PositioningZone<T> : LimitedZone<T> where T : IPlayable
 	{
 		public readonly List<Aura> Auras = new List<Aura>();

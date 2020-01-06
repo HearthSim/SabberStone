@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -20,6 +22,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	/// <summary>
 	///     Removing the Weapon from the hero. Without triggering deathrattle event.
 	/// </summary>
+	[Serializable]
 	public class MoveWeaponToSetaside : SimpleTask
 	{
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,

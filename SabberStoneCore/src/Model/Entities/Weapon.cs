@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using SabberStoneCore.Enums;
 using System.Collections.Generic;
 
@@ -22,6 +24,7 @@ namespace SabberStoneCore.Model.Entities
 	/// controller's hero for a limited use.
 	/// </summary>
 	/// <seealso cref="Playable" />
+	[Serializable]
 	public partial class Weapon : Playable
 	{
 		/// <summary>Initializes a new instance of the <see cref="Weapon"/> class.</summary>

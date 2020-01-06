@@ -13,9 +13,11 @@
 #endregion
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
+using System;
 
 namespace SabberStoneCore.Model
 {
+	[Serializable]
     public class TriggerManager
     {
 	    public delegate void TriggerHandler(IEntity sender);

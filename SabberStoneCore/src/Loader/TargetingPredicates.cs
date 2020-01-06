@@ -8,6 +8,7 @@ namespace SabberStoneCore.Loader
 	public delegate bool AvailabilityPredicate(Controller controller, Card card);
 	public delegate bool TargetingPredicate(ICharacter target);
 
+	[Serializable]
 	public static class TargetingPredicates
 	{
 		private static readonly TargetingPredicate ReqMurlocTarget

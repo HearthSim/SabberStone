@@ -13,9 +13,11 @@
 #endregion
 using SabberStoneCore.Enums;
 using SabberStoneCore.Model.Entities;
+using System;
 
 namespace SabberStoneCore.Model.Zones
 {
+	[Serializable]
 	public class SetasideZone : UnlimitedZone
 	{
 		public SetasideZone(Controller controller) : base(controller, Zone.SETASIDE)

@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using System.Collections.Generic;
 using SabberStoneCore.Enums;
 
@@ -20,6 +22,7 @@ namespace SabberStoneCore.Model.Entities
 	/// Entity which produces a single effect when played.
 	/// </summary>
 	/// <seealso cref="Playable" />
+	[Serializable]
 	public partial class Spell : Playable
 	{
 		/// <summary>Initializes a new instance of the <see cref="Spell"/> class.</summary>

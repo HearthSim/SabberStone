@@ -25,6 +25,7 @@ namespace SabberStoneCore.Model.Entities
 	/// certain actions (provided through <see cref="Character"/>.
 	/// </summary>
 	/// <seealso cref="Character" />
+	[Serializable]
 	public partial class Minion : Character
 	{
 		/// <summary>Initializes a new instance of the <see cref="Minion"/> class.</summary>

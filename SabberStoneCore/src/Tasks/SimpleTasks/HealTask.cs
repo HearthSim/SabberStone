@@ -11,11 +11,14 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class HealTask : SimpleTask
 	{
 		public HealTask(int amount, EntityType entityType)

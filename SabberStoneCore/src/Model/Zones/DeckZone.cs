@@ -21,6 +21,7 @@ using SabberStoneCore.Exceptions;
 
 namespace SabberStoneCore.Model.Zones
 {
+	[Serializable]
 	public class DeckZone : LimitedZone<IPlayable>
 	{
 		public const int StartingCards = 30;

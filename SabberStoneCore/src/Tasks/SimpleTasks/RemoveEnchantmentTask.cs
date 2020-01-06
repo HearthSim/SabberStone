@@ -19,6 +19,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	// Remove applied effects of this enchantment
 	public class RemoveEnchantmentTask : SimpleTask
 	{

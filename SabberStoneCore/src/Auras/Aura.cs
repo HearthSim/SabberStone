@@ -18,12 +18,15 @@ namespace SabberStoneCore.Auras
 	/// Aura must be activated first to affect entities. 
 	/// The effect of an aura is applied or removed during <see cref="SabberStoneCore.Model.Game.AuraUpdate"/>.
 	/// </summary>
+	[Serializable]
 	public class Aura : IAura
 	{
 		private protected enum Instruction
 		{
 			Invalid, RemoveAll, AddAll, Add, Remove, /*CheckAdjacency*/
 		}
+
+		[Serializable]
 		private protected readonly struct AuraUpdateInstruction : IEquatable<AuraUpdateInstruction>
 		{
 			public readonly IPlayable Src;

@@ -9,6 +9,7 @@ namespace SabberStoneCore.Model.Entities
 {
 	public partial class Playable
 	{
+		[Serializable]
 		internal class CostManager
 		{
 			private readonly List<(EffectOperator Operator, int Value)> _costEffects =

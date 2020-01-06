@@ -25,6 +25,7 @@ namespace SabberStoneCore.Enchants
 	/// <summary>
 	/// A simple container for saving tag value perturbations from external Auras. Call indexer to get value for a particular Tag.
 	/// </summary>
+	[Serializable]
 	public class AuraEffects : IEquatable<AuraEffects>
 	{
 		private const int PlayableLength = 2;
@@ -354,6 +355,7 @@ namespace SabberStoneCore.Enchants
 	/// A collecton of controller Tag increments from Auras.
 	/// These tags tends to be checked when a player plays any cards.
 	/// </summary>
+	[Serializable]
 	public class ControllerAuraEffects : IEquatable<ControllerAuraEffects>
 	{
 		private Action<IPowerHistoryEntry> _sendHistory;

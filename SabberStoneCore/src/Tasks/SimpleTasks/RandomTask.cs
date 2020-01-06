@@ -11,12 +11,15 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using System.Collections.Generic;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class SplitTask : SimpleTask
 	{
 		public SplitTask(int amount, EntityType type)
@@ -83,6 +86,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 	}
 
+	[Serializable]
 	public class RandomTask : SimpleTask
 	{
 		private readonly int _amount;

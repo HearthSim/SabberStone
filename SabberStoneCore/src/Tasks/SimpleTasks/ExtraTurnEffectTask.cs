@@ -17,6 +17,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class ExtraTurnEffectTask : SimpleTask
 	{
 		//private readonly bool _opposite;

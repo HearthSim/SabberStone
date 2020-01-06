@@ -200,6 +200,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		DISCARDED
 	}
 
+	[Serializable]
 	public class IncludeTask : SimpleTask
 	{
 		private const int SingleTypesRange = 9;
@@ -427,6 +428,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 	}
 
+	[Serializable]
 	public class IncludeAdjacentTask : SimpleTask
 	{
 		private readonly EntityType _type;
