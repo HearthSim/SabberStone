@@ -47,6 +47,16 @@ Join us on [Discord](https://discord.gg/my9WTwK)!
 
   A test project that shows off a visual implementation of the SimpleAi project. This is probably where beginners should start looking at. There is a simple GUI which allows different decks to play against each other with different strategys. Check out the Wiki [Link](https://github.com/HearthSim/SabberStone/wiki/SabberStoneGui) for informations about the use of SimpleUi.
 
+### Extension Projects ###
+
+* Client-Server with gRPC
+	
+	https://github.com/darkfriend77/SabberStone-gRPC
+
+* Unity implementation for Sabberstone
+	
+	https://github.com/darkfriend77/SabberStoneUnityClient
+
 ### Cards Implementation
 **Basic & Classic**
 * **100% Basic (142 Cards)**
