@@ -20,6 +20,8 @@ SabberStone is just another Hearthstone simulator and implementation, written in
 
 By now this is a one man show, but there is still a lot of work to do, so any help is appreciated. The base code of Brimstone was a great inspiration for this project. Big thanks to **@Pattux**, **@Patashu** for helping on hearthstone super science problems ^^ thx **@Katy** for inspiration. And thx a lot to **@Citiral**, **@BertP** for working out on the stove implementation. And thx to **@Milva** who did a refactoring on the aura & enchantment system, with great value and is working hard for this project! You're welcome!
 
+If you enjoy using SabberStone consider supporting us at [buymeacoffee.com/darkfriend77](https://www.buymeacoffee.com/darkfriend77)
+
 Join us on [Discord](https://discord.gg/my9WTwK)!
 
 **Sabberstone Simulator has an own visualisation and client/server architecture for AI research!**
