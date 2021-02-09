@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using System.Diagnostics;
 using System.Text;
 using SabberStoneCore.Model;
@@ -25,6 +27,7 @@ namespace SabberStoneCore.Tasks
 
 
 	[DebuggerDisplay("{DebuggerDisplay, nq}")]
+	[Serializable]
 	public class StateTaskList : ISimpleTask
 	{
 		private readonly ISimpleTask[] _tasks;

@@ -21,6 +21,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class RandomCardTask : SimpleTask
 	{
 		private static readonly ConcurrentDictionary<(int, CardClass), Card[]> CachedCardLists =

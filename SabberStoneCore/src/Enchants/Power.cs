@@ -12,6 +12,7 @@
 // GNU Affero General Public License for more details.
 #endregion
 
+using System;
 using SabberStoneCore.Auras;
 using SabberStoneCore.Enums;
 using SabberStoneCore.Tasks;
@@ -20,6 +21,7 @@ using SabberStoneCore.Triggers;
 
 namespace SabberStoneCore.Enchants
 {
+	[Serializable]
 	public class Power
 	{
 		public string InfoCardId { get; set; } = null;

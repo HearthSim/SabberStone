@@ -96,6 +96,7 @@ namespace SabberStoneCore.Model.Entities
 	/// <seealso cref="ICharacter"/>
 	/// <seealso cref="Playable"/>
 	/// </summary>
+	[Serializable]
 	public abstract partial class Character : Playable, ICharacter
 	{
 		public event TriggerManager.TriggerHandler PreDamageTrigger;

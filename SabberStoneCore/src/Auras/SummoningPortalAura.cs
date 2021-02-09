@@ -1,7 +1,9 @@
-﻿using SabberStoneCore.Model.Entities;
+﻿using System;
+using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Auras
 {
+	[Serializable]
 	public class SummoningPortalAura : Aura
 	{
 		public SummoningPortalAura() : base(AuraType.HAND) { }

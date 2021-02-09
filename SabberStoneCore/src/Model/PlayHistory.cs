@@ -11,11 +11,14 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using SabberStoneCore.Model.Entities;
 using System.Text;
 
 namespace SabberStoneCore.Model
 {
+	[Serializable]
 	public readonly struct PlayHistoryEntry
 	{
 		public readonly int SourceController;

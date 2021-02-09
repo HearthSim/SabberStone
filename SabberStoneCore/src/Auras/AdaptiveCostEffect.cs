@@ -28,6 +28,7 @@ namespace SabberStoneCore.Auras
 	/// <summary>
 	/// Implementation of the specific effects of varying cost. e.g. Giants
 	/// </summary>
+	[Serializable]
 	public class AdaptiveCostEffect : IAura
 	{
 		// Consider make these subclasses

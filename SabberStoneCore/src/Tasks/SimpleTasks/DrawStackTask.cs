@@ -12,12 +12,14 @@
 // GNU Affero General Public License for more details.
 #endregion
 
+using System;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class DrawStackTask : SimpleTask
 	{
 		public override TaskState Process(in Game game, in Controller controller, in IEntity source,

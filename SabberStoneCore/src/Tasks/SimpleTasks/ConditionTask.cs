@@ -20,6 +20,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class ConditionTask : SimpleTask
 	{
 		private ConditionTask(EntityType entityType,

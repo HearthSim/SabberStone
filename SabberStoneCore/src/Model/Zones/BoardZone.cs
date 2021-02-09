@@ -19,6 +19,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Model.Zones
 {
+	[Serializable]
 	public class BoardZone : PositioningZone<Minion>
 	{
 		private int _untouchableCount;

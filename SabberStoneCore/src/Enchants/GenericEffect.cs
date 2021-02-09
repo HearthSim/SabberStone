@@ -4,6 +4,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Enchants
 {
+	[Serializable]
 	internal readonly struct GenericEffect<TAttr, T> : IEffect where TAttr : Attr<T> where T : Playable
 	{
 		private readonly TAttr _attr;
@@ -87,6 +88,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
+	[Serializable]
 	internal abstract class Attr<T> where T : Playable
 	{
 		public abstract void Apply(T entity, EffectOperator @operator, int value);
@@ -98,6 +100,7 @@ namespace SabberStoneCore.Enchants
 		protected abstract ref int GetAuraRef(AuraEffects auraEffects);
 	}
 
+	[Serializable]
 	internal abstract class IntAttr<T> : Attr<T> where T : Playable
 	{
 		protected abstract ref int? GetRef(T entity);
@@ -204,6 +207,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
+	[Serializable]
 	internal abstract class BoolAttr<T> : Attr<T> where T : Playable
 	{
 		protected abstract ref bool? GetRef(T entity);
@@ -243,6 +247,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
+	[Serializable]
 	internal abstract class SelfContainedIntAttr<TSelf, TTarget> : IntAttr<TTarget>
 		where TSelf : SelfContainedIntAttr<TSelf, TTarget>, new() where TTarget : Playable
 	{
@@ -254,6 +259,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
+	[Serializable]
 	internal abstract class SelfContainedBoolAttr<TSelf, TTarget> : BoolAttr<TTarget>
 		where TSelf : SelfContainedBoolAttr<TSelf, TTarget>, new() where TTarget : Playable
 	{
@@ -265,6 +271,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
+	[Serializable]
 	internal class Cost : SelfContainedIntAttr<Cost, Playable>
 	{
 		public override GameTag Tag => GameTag.COST;
@@ -309,6 +316,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
+	[Serializable]
 	internal class ATK : SelfContainedIntAttr<ATK, Playable>
 	{
 		public override GameTag Tag => GameTag.ATK;
@@ -365,6 +373,7 @@ namespace SabberStoneCore.Enchants
 		//}
 	}
 
+	[Serializable]
 	internal class Health : SelfContainedIntAttr<Health, Character>
 	{
 		public override GameTag Tag => GameTag.HEALTH;
@@ -417,6 +426,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
+	[Serializable]
 	internal class Stealth : SelfContainedBoolAttr<Stealth, Character>
 	{
 		public override GameTag Tag => GameTag.STEALTH;
@@ -432,6 +442,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
+	[Serializable]
 	internal class Taunt : SelfContainedBoolAttr<Taunt, Minion>
 	{
 		public override GameTag Tag => GameTag.TAUNT;
@@ -447,6 +458,7 @@ namespace SabberStoneCore.Enchants
 		}
 	}
 
+	[Serializable]
 	internal class CantBeTargetedBySpells : SelfContainedBoolAttr<CantBeTargetedBySpells, Character>
 	{
 		public override GameTag Tag => GameTag.CANT_BE_TARGETED_BY_SPELLS;

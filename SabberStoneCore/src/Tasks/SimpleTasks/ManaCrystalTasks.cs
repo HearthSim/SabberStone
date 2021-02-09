@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Kettle;
 using SabberStoneCore.Model;
@@ -18,6 +20,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class ManaCrystalFullTask : SimpleTask
 	{
 		private readonly bool _both;
@@ -42,6 +45,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 	}
 
+	[Serializable]
 	public class ManaCrystalEmptyTask : SimpleTask
 	{
 		private readonly int _amount;
@@ -67,6 +71,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 	}
 
+	[Serializable]
 	public class ManaCrystalSetTask : SimpleTask
 	{
 		private readonly int _amount;

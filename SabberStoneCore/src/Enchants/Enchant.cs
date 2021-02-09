@@ -27,6 +27,7 @@ namespace SabberStoneCore.Enchants
 	/// <summary>
 	/// Class to store attributes of the <see cref="Power"/> of an Enchantment Card.
 	/// </summary>
+	[Serializable]
 	public class Enchant
 	{
 		public static readonly Trigger RemoveWhenPlayedTrigger =
@@ -134,6 +135,7 @@ namespace SabberStoneCore.Enchants
 	/// OngoingEnchant is narrowly used when the source of the trigger and 
 	/// the target of the Enchantment is identical. (e.g. Mana Wyrm)
 	/// </summary>
+	[Serializable]
 	public class OngoingEnchant : Enchant, IAura
 	{
 		public Game Game;

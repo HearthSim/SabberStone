@@ -22,6 +22,7 @@ namespace SabberStoneCore.Config
 	/// <summary>
 	/// Holds all configuration values to create a new <see cref="Game"/> instance.
 	/// </summary>
+	[Serializable]
 	public class GameConfig
 	{
 		/// <summary>

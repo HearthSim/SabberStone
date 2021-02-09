@@ -12,6 +12,7 @@
 // GNU Affero General Public License for more details.
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using SabberStoneCore.Actions;
@@ -22,6 +23,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class RemoveFromDeck : SimpleTask
 	{
 		private readonly EntityType _type;

@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using System.Collections.Generic;
 using SabberStoneCore.Enums;
 
@@ -20,6 +22,7 @@ namespace SabberStoneCore.Model.Entities
 	/// Entity representing the special ability for a hero.
 	/// </summary>
 	/// <seealso cref="Playable" />
+	[Serializable]
 	public class HeroPower : Playable
 	{
 		/// <summary>Initializes a new instance of the <see cref="HeroPower"/> class.</summary>

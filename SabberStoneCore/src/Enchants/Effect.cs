@@ -48,6 +48,7 @@ namespace SabberStoneCore.Enchants
 	/// <summary>
 	///	A structure for tag value variation.
 	/// </summary>
+	[Serializable]
 	public readonly struct Effect : IEffect, IEquatable<Effect>
 	{
 		public readonly GameTag Tag;

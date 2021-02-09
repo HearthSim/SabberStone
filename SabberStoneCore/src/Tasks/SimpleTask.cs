@@ -27,6 +27,7 @@ namespace SabberStoneCore.Tasks
 		bool IsTrigger { get; set; }
 	}
 
+	[Serializable]
 	public abstract class SimpleTask : ISimpleTask
 	{
 		public TaskState State { get; set; } = TaskState.READY;

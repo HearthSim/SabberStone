@@ -19,6 +19,7 @@ using SabberStoneCore.Model;
 
 namespace SabberStoneCore.Enchants
 {
+	[Serializable]
     internal static class Enchants
     {
 	    private static Regex AttackHealth = new Regex(@"[+](\d)[/][+](\d)");
@@ -162,6 +163,7 @@ namespace SabberStoneCore.Enchants
 
     }
 
+	[Serializable]
 	internal static class Effects
 	{
 		internal static IEffect Attack_N(int n)

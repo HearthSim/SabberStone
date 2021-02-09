@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Text;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Enchants;
@@ -10,6 +11,7 @@ namespace SabberStoneCore.Auras
 	/// <summary>
 	/// Implementation of the Enrage effect.
 	/// </summary>
+	[Serializable]
 	public class EnrageEffect : Aura
 	{
 		private bool _enraged;

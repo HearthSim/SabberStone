@@ -23,6 +23,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Auras
 {
+	[Serializable]
 	public class SwitchingAura : Aura
 	{
 		private readonly SelfCondition _initialisationCondtion;

@@ -178,6 +178,7 @@ namespace SabberStoneCore.Kettle
 	//    }
 	//    repeated PowerHistoryData list = 1;
 	//}
+	[Serializable]
 	public class PowerHistory
 	{
 		public List<IPowerHistoryEntry> Full { get; } = new List<IPowerHistoryEntry>();

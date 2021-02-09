@@ -18,6 +18,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	public class RandomEntourageTask : SimpleTask
 	{
 		private readonly int _count;

@@ -21,6 +21,7 @@ using SabberStoneCore.Tasks;
 
 namespace SabberStoneCore.Triggers
 {
+	[Serializable]
     public class Trigger
 	{ 
 		private readonly TriggerManager.TriggerHandler _processHandler;

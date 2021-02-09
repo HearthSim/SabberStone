@@ -12,6 +12,7 @@ namespace SabberStoneCore.Auras
 	/// <summary>
 	/// Effects of this kind of Auras are influenced by other factors in game, in real time. e.g. Lightspawn, Southsea Deckhand.
 	/// </summary>
+	[Serializable]
 	public class AdaptiveEffect : IAura
 	{
 		private readonly bool _isSwitching;

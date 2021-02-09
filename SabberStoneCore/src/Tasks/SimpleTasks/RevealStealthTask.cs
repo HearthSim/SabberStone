@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
 
@@ -19,6 +21,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	/// <summary>
 	///     Reveals the target(s), effectively removing their stealth attribute.
 	/// </summary>
+	[Serializable]
 	public class RevealStealthTask : SimpleTask
 	{
 		public RevealStealthTask(EntityType type)

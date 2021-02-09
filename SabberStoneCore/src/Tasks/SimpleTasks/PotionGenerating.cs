@@ -22,6 +22,7 @@ using SabberStoneCore.Model.Entities;
 
 namespace SabberStoneCore.Tasks.SimpleTasks
 {
+	[Serializable]
 	internal static class KazakusPower
 	{
 		private static readonly Card[][] PotionCards;

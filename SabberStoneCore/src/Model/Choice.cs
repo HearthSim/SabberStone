@@ -34,6 +34,7 @@ namespace SabberStoneCore.Model
 	/// <summary>
 	/// 
 	/// </summary>
+	[Serializable]
 	public class Choice
 	{
 		/// <summary>Initializes a new instance of the <see cref="Choice"/> class.</summary>

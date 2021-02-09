@@ -24,6 +24,7 @@ using SabberStoneCore.Triggers;
 
 namespace SabberStoneCore.Model.Entities
 {
+	[Serializable]
 	public partial class Enchantment : IPlayable
 	{
 		private readonly EntityData _tags;

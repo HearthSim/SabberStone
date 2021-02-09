@@ -43,6 +43,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		ALTERNATE
 	}
 
+	[Serializable]
 	public class SummonTask : SimpleTask
 	{
 		private readonly bool _addToStack;
@@ -196,6 +197,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 		}
 	}
 
+	[Serializable]
 	public class SummonNumberTask : SimpleTask
 	{
 		private readonly Card _card;

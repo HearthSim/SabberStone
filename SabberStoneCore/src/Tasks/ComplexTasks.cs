@@ -24,6 +24,7 @@ using SabberStoneCore.Model.Zones;
 
 namespace SabberStoneCore.Tasks
 {
+	[Serializable]
 	internal static class ComplexTask
 	{
 		public static ISimpleTask Repeat(ISimpleTask task, int times)

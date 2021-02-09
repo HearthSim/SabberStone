@@ -10,6 +10,7 @@ namespace SabberStoneCore.Model.Entities
 	/// Implements <see cref="IDictionary"/>.
 	/// </summary>
 	[DebuggerDisplay("Count = {_count}")]
+	[Serializable]
 	public class EntityList : IDictionary<int, IPlayable>
 	{
 		private IPlayable[] _list;

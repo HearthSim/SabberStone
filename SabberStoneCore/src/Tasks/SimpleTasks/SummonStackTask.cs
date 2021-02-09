@@ -11,6 +11,8 @@
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU Affero General Public License for more details.
 #endregion
+
+using System;
 using SabberStoneCore.Actions;
 using SabberStoneCore.Model;
 using SabberStoneCore.Model.Entities;
@@ -21,6 +23,7 @@ namespace SabberStoneCore.Tasks.SimpleTasks
 	///     Summon minions included in the stack.
 	/// </summary>
 	/// <seealso cref="SimpleTask" />
+	[Serializable]
 	public class SummonStackTask : SimpleTask
 	{
 		public SummonStackTask(bool removeFromZone = false, bool removeFromStack = false)
