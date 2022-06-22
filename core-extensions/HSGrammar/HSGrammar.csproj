@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Antlr4" Version="4.6.5-beta001" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
     <ItemGroup>
     <Antlr4 Include="HSGrammar.g4">
